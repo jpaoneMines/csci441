@@ -48,14 +48,15 @@ namespace CSCI441 {
 			*      memory itself. If the function fails (returns false), imageData
 			*      will be set to NULL and any allocated memory will be automatically deallocated.
 			*
-			*	@param[in] const char *filename	- filename of the image to load
+			*	@param[in] const char* filename	- filename of the image to load
 			* @param[out] int &imageWidth			-	will contain the image width upon successful completion
 			* @param[out] int &imageHeight		- will contain the image height upon successful completion
 			* @param[out] unsigned char* &imageData - will contain the RGB data upon successful completion
+			* @param[in] const char* path 		- path to where file is stored.  defaults to current directory
 			* @pre imageData is unallocated
 			* @return bool - true if loading succeeded, false otherwise
 			*/
-		bool loadBMP( char* filename, int &imageWidth, int &imageHeight, int &imageChannels, unsigned char* imageData );
+		bool loadBMP( const char* filename, int &imageWidth, int &imageHeight, int &imageChannels, unsigned char* imageData, const char* path = "./" );
 
 		/**	@brief loads a PPM into memory
 			*
@@ -141,18 +142,17 @@ namespace CSCI441 {
 ////////////////////////////////////////////////////////////////////////////////////
 // Outward facing function implementations
 
-inline bool CSCI441::TextureUtils::loadBMP( char* filename, int &imageWidth, int &imageHeight, int &imageChannels, unsigned char* imageData ) {
+inline bool CSCI441::TextureUtils::loadBMP( const char* filename, int &imageWidth, int &imageHeight, int &imageChannels, unsigned char* imageData, const char* path ) {
 	FILE *file;
 	unsigned long size;                 // size of the image in bytes.
 	size_t i;							// standard counter.
 	unsigned short int planes;          // number of planes in image (must be 1)
 	unsigned short int bpp;             // number of bits per pixel (must be 24)
 	char temp;                          // used to convert bgr to rgb color.
-	unsigned char *data;
-
+	
 	// make sure the file is there.
 	if ((file = fopen(filename, "rb"))==NULL) {
-		string folderName = path + filename;
+		string folderName = string(path) + string(filename);
 		if ((file = fopen(folderName.c_str(), "rb")) == NULL ) {
 			printf("[.bmp]: [ERROR]: File Not Found: %s\n",filename);
 			return false;

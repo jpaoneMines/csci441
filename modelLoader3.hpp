@@ -18,6 +18,7 @@
 #include <GL/glew.h>
 
 #include <glm/glm.hpp>
+#include <SOIL/SOIL.h>
 
 #include <fstream>
 #include <map>
@@ -29,6 +30,9 @@ using namespace std;
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
+#include <CSCI441/modelMaterial.hpp>
+#include <CSCI441/TextureUtils.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -93,6 +97,7 @@ namespace CSCI441 {
 
 	private:
 		void _init();
+		bool _loadMTLFile( const char *mtlFilename, bool INFO, bool ERRORS );
 		bool _loadOBJFile( bool INFO, bool ERRORS );
 		bool _loadOFFFile( bool INFO, bool ERRORS );
 		bool _loadPLYFile( bool INFO, bool ERRORS );
@@ -111,6 +116,8 @@ namespace CSCI441 {
 		unsigned int _uniqueIndex;
 		unsigned int _numIndices;
 
+		map< string, CSCI441_INTERNAL::ModelMaterial* > _materials;
+
 		bool _hasVertexTexCoords;
 		bool _hasVertexNormals;
 
@@ -120,6 +127,10 @@ namespace CSCI441 {
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace CSCI441_INTERNAL {
+	unsigned char* createTransparentTexture( unsigned char *imageData, unsigned char *imageMask, int texWidth, int texHeight, int texChannels, int maskChannels );
+}
 
 bool CSCI441::ModelLoader::AUTO_GEN_NORMALS = false;
 
@@ -240,6 +251,8 @@ bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			numObjects++;
 		} else if( !tokens[0].compare( "g" ) ) {						// polygon group name ignore
 			numGroups++;
+		} else if( !tokens[0].compare( "mtllib" ) ) {					// material library
+			_loadMTLFile( tokens[1].c_str(), INFO, ERRORS );
 		} else if( !tokens[0].compare( "v" ) ) {						//vertex
 			numVertices++;
 
@@ -371,8 +384,6 @@ bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		} else if( !tokens[0].compare( "o" ) ) {						// object name ignore
 
 		} else if( !tokens[0].compare( "g" ) ) {						// polygon group name ignore
-
-		} else if( !tokens[0].compare( "mtllib" ) ) {					// material library
 
 		} else if( !tokens[0].compare( "usemtl" ) ) {					// use material library
 
@@ -622,6 +633,279 @@ bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	if (INFO) {
 		printf( "[.obj]: Completed in %.3fs\n", seconds );
 		printf( "[.obj]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=- \n\n", _filename );
+	}
+
+	return result;
+}
+
+bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool INFO, bool ERRORS ) {
+	bool result = true;
+
+	if (INFO) printf( "[.mtl]: -*-*-*-*-*-*-*- BEGIN %s Info -*-*-*-*-*-*-*-\n", mtlFilename );
+
+	string line;
+	string path;
+	if( strstr( _filename, "/" ) != NULL ) {
+	 	path = string( _filename ).substr( 0, string(_filename).find_last_of("/")+1 );
+	} else {
+		path = "./";
+	}
+
+	ifstream in;
+	in.open( mtlFilename );
+	if( !in.is_open() ) {
+		string folderMtlFile = path + mtlFilename;
+		in.open( folderMtlFile.c_str() );
+		if( !in.is_open() ) {
+			if (ERRORS) fprintf( stderr, "[.mtl]: [ERROR]: could not open material file: %s\n", mtlFilename );
+			if ( INFO ) printf( "[.mtl]: -*-*-*-*-*-*-*-  END %s Info  -*-*-*-*-*-*-*-\n", mtlFilename );
+			return false;
+		}
+	}
+
+	CSCI441_INTERNAL::ModelMaterial* currentMaterial = NULL;
+	string materialName;
+
+	unsigned char *textureData = NULL;
+	unsigned char *maskData = NULL;
+	unsigned char *fullData;
+	int texWidth, texHeight, textureChannels = 1, maskChannels = 1;
+	GLuint textureHandle = 0;
+
+	map< string, GLuint > imageHandles;
+
+	int numMaterials = 0;
+
+	while( getline( in, line ) ) {
+		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
+
+		vector< string > tokens = _tokenizeString( line, " /" );
+		if( tokens.size() < 1 ) continue;
+
+		//the line should have a single character that lets us know if it's a...
+		if( !tokens[0].compare( "#" ) ) {							// comment
+		} else if( !tokens[0].compare( "newmtl" ) ) {				//new material
+			currentMaterial = new CSCI441_INTERNAL::ModelMaterial();
+			materialName = tokens[1];
+			_materials.insert( pair<string, CSCI441_INTERNAL::ModelMaterial*>( materialName, currentMaterial ) );
+
+			textureHandle = 0;
+			textureData = NULL;
+			maskData = NULL;
+			textureChannels = 1;
+			maskChannels = 1;
+
+			numMaterials++;
+		} else if( !tokens[0].compare( "Ka" ) ) {					// ambient component
+			currentMaterial->ambient[0] = atof( tokens[1].c_str() );
+			currentMaterial->ambient[1] = atof( tokens[2].c_str() );
+			currentMaterial->ambient[2] = atof( tokens[3].c_str() );
+			currentMaterial->ambient[3] = 1;
+		} else if( !tokens[0].compare( "Kd" ) ) {					// diffuse component
+			currentMaterial->diffuse[0] = atof( tokens[1].c_str() );
+			currentMaterial->diffuse[1] = atof( tokens[2].c_str() );
+			currentMaterial->diffuse[2] = atof( tokens[3].c_str() );
+			currentMaterial->diffuse[3] = 1;
+		} else if( !tokens[0].compare( "Ks" ) ) {					// specular component
+			currentMaterial->specular[0] = atof( tokens[1].c_str() );
+			currentMaterial->specular[1] = atof( tokens[2].c_str() );
+			currentMaterial->specular[2] = atof( tokens[3].c_str() );
+			currentMaterial->specular[3] = 1;
+		} else if( !tokens[0].compare( "Ke" ) ) {					// emissive component
+			currentMaterial->emissive[0] = atof( tokens[1].c_str() );
+			currentMaterial->emissive[1] = atof( tokens[2].c_str() );
+			currentMaterial->emissive[2] = atof( tokens[3].c_str() );
+		} else if( !tokens[0].compare( "Ns" ) ) {					// shininess component
+			currentMaterial->shininess = atof( tokens[1].c_str() );
+		} else if( !tokens[0].compare( "Tr" )
+					|| !tokens[0].compare( "d" ) ) {					// transparency component - Tr or d can be used depending on the format
+			currentMaterial->ambient[3] = atof( tokens[1].c_str() );
+			currentMaterial->diffuse[3] = atof( tokens[1].c_str() );
+			currentMaterial->specular[3] = atof( tokens[1].c_str() );
+		} else if( !tokens[0].compare( "illum" ) ) {				// illumination type component
+			// TODO ?
+		} else if( !tokens[0].compare( "map_Kd" ) ) {				// diffuse color texture map
+			if( imageHandles.find( tokens[1] ) != imageHandles.end() ) {
+				// _textureHandles->insert( pair< string, GLuint >( materialName, imageHandles.find( tokens[1] )->second ) );
+				currentMaterial->map_Kd = imageHandles.find( tokens[1] )->second;
+			} else {
+				if( tokens[1].find( ".bmp" ) != string::npos || tokens[1].find( ".BMP" ) != string::npos ) {
+					printf("trying to open with soil %s\n", tokens[1].c_str());
+					textureData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+					if( !textureData ) {
+						string folderName = path + tokens[1];
+						printf("trying to open %s\n", folderName.c_str());
+						textureData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+					}
+				}/* else if( tokens[1].find( ".ppm" ) != string::npos || tokens[1].find( ".PPM" ) != string::npos ) {
+					bool success = false;
+					textureData = loadPPM( (char*)tokens[1].c_str(), texWidth, texHeight, textureChannels, success, ERRORS, path );
+					if( !success ) {
+						textureData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+						if( !textureData ) {
+							string folderName = path + tokens[1];
+							textureData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+						}
+					} else {
+
+					}
+				} else if( tokens[1].find( ".tga" ) != string::npos || tokens[1].find( ".TGA" ) != string::npos ) {
+					bool success = false;
+					textureData = loadTGA( (char*)tokens[1].c_str(), texWidth, texHeight, textureChannels, success, ERRORS, path );
+					if( !success ) {
+						textureData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+						if( !textureData ) {
+							string folderName = path + tokens[1];
+							textureData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+						}
+					}
+				} */else {
+					textureData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+					if( !textureData ) {
+						string folderName = path + tokens[1];
+						textureData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+					}
+				}
+
+				if( !textureData ) {
+					if (ERRORS) fprintf( stderr, "[.mtl]: [ERROR]: File Not Found: %s\n", tokens[1].c_str() );
+				} else {
+					if (INFO) printf( "[.mtl]: TextureMap:\t%s\tSize: %dx%d\tColors: %d\n", tokens[1].c_str(), texWidth, texHeight, textureChannels );
+
+					if( maskData == NULL ) {
+						if( textureHandle == 0 ) {
+							glGenTextures( 1, &textureHandle );
+							imageHandles.insert( pair<string, GLuint>( tokens[1], textureHandle ) );
+						}
+
+						glBindTexture( GL_TEXTURE_2D, textureHandle );
+
+						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+						GLenum colorSpace = GL_RGB;
+						if( textureChannels == 4 )
+							colorSpace = GL_RGBA;
+						glTexImage2D( GL_TEXTURE_2D, 0, colorSpace, texWidth, texHeight, 0, colorSpace, GL_UNSIGNED_BYTE, textureData );
+
+						currentMaterial->map_Kd = textureHandle;
+					} else {
+						fullData = CSCI441_INTERNAL::createTransparentTexture( textureData, maskData, texWidth, texHeight, textureChannels, maskChannels );
+
+						if( textureHandle == 0 ) {
+							glGenTextures( 1, &textureHandle );
+							imageHandles.insert( pair<string, GLuint>( tokens[1], textureHandle ) );
+						}
+
+						glBindTexture( GL_TEXTURE_2D, textureHandle );
+
+						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+						glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, texWidth, texHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, fullData );
+
+						delete fullData;
+
+						currentMaterial->map_Kd = textureHandle;
+					}
+				}
+			}
+		} else if( !tokens[0].compare( "map_d" ) ) {				// alpha texture map
+			// if( imageHandles.find( tokens[1] ) != imageHandles.end() ) {
+			// 	_textureHandles->insert( pair< string, GLuint >( materialName, imageHandles.find( tokens[1] )->second ) );
+			// } else {
+			// 	if( tokens[1].find( ".bmp" ) != string::npos || tokens[1].find( ".BMP" ) != string::npos ) {
+			// 		bool success = false;
+			// 		maskData = loadBMP( (char*)tokens[1].c_str(), texWidth, texHeight, maskChannels, success, ERRORS, path );
+			// 		if( !success ) {
+			// 			maskData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &maskChannels, SOIL_LOAD_AUTO );
+			// 			if( !maskData ) {
+			// 				string folderName = path + tokens[1];
+			// 				maskData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &maskChannels, SOIL_LOAD_AUTO );
+			// 			}
+			// 		} else {
+      //
+			// 		}
+			// 	} else if( tokens[1].find( ".ppm" ) != string::npos || tokens[1].find( ".PPM" ) != string::npos ) {
+			// 		bool success = false;
+			// 		maskData = loadPPM( (char*)tokens[1].c_str(), texWidth, texHeight, maskChannels, success, ERRORS, path );
+			// 		if( !success ) {
+			// 			maskData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &maskChannels, SOIL_LOAD_AUTO );
+			// 			if( !maskData ) {
+			// 				string folderName = path + tokens[1];
+			// 				maskData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &maskChannels, SOIL_LOAD_AUTO );
+			// 			}
+			// 		} else {
+      //
+			// 		}
+			// 	} else {
+			// 		maskData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &maskChannels, SOIL_LOAD_AUTO );
+			// 		if( !maskData ) {
+			// 			string folderName = path + tokens[1];
+			// 			maskData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &maskChannels, SOIL_LOAD_AUTO );
+			// 		}
+			// 	}
+      //
+			// 	if( !maskData ) {
+			// 		cout << "[.mtl]: [ERROR]: File Not Found: " << tokens[1] << endl;
+			// 	} else {
+			// 		if (INFO) cout << "[.mtl]: AlphaMap:  \t" << tokens[1] << "\tSize: " << texWidth << "x"
+			// 						<< texHeight << "\tColors: " << maskChannels << endl;
+      //
+			// 		if( textureData != NULL ) {
+			// 			fullData = createTransparentTexture( textureData, maskData, texWidth, texHeight, textureChannels, maskChannels );
+      //
+			// 			if (INFO) cout << "[.mtl]: " << tokens[1] << " alpha texture map of size " << texWidth << "x"
+			// 							<< texHeight << " with " << textureChannels << " colors read in" << endl;
+      //
+			// 			if( textureHandle == 0 )
+			// 				glGenTextures( 1, &textureHandle );
+      //
+			// 			glBindTexture( GL_TEXTURE_2D, textureHandle );
+      //
+			// 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+      //
+			// 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			// 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+      //
+			// 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			// 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+      //
+			// 			gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA, texWidth, texHeight, GL_RGBA, GL_UNSIGNED_BYTE, fullData );
+      //
+			// 			delete fullData;
+			// 		}
+			// 	}
+			// }
+		} else if( !tokens[0].compare( "map_Ka" ) ) {				// ambient color texture map
+
+		} else if( !tokens[0].compare( "map_Ks" ) ) {				// specular color texture map
+
+		} else if( !tokens[0].compare( "map_Ns" ) ) {				// specular highlight map (shininess map)
+
+		} else if( !tokens[0].compare( "Ni" ) ) {					// optical density / index of refraction
+
+		} else if( !tokens[0].compare( "Tf" ) ) {					// transmission filter
+
+		} else if( !tokens[0].compare( "bump" )
+					|| !tokens[0].compare( "map_bump" ) ) {			// bump map
+
+		} else {
+			if (INFO) printf( "[.mtl]: ignoring line: %s\n", line.c_str() );
+		}
+	}
+
+	in.close();
+
+	if ( INFO ) {
+		printf( "[.mtl]: Materials:\t%d\n", numMaterials );
+		printf( "[.mtl]: -*-*-*-*-*-*-*-  END %s Info  -*-*-*-*-*-*-*-\n", mtlFilename );
 	}
 
 	return result;
@@ -1484,4 +1768,30 @@ vector<string> CSCI441::ModelLoader::_tokenizeString(string input, string delimi
 		retVec.push_back(strippedInput.substr(oldR, r-oldR));
 
 	return retVec;
+}
+
+unsigned char* CSCI441_INTERNAL::createTransparentTexture( unsigned char *imageData, unsigned char *imageMask, int texWidth, int texHeight, int texChannels, int maskChannels ) {
+	//combine the 'mask' array with the image data array into an RGBA array.
+	unsigned char *fullData = new unsigned char[texWidth*texHeight*4];
+
+	for(int j = 0; j < texHeight; j++) {
+		for(int i = 0; i < texWidth; i++) {
+			if( imageData ) {
+				fullData[(j*texWidth+i)*4+0] = imageData[(j*texWidth+i)*texChannels+0];	// R
+				fullData[(j*texWidth+i)*4+1] = imageData[(j*texWidth+i)*texChannels+1];	// G
+				fullData[(j*texWidth+i)*4+2] = imageData[(j*texWidth+i)*texChannels+2];	// B
+			} else {
+				fullData[(j*texWidth+i)*4+0] = 1;	// R
+				fullData[(j*texWidth+i)*4+1] = 1;	// G
+				fullData[(j*texWidth+i)*4+2] = 1;	// B
+			}
+
+			if( imageMask ) {
+				fullData[(j*texWidth+i)*4+3] = imageMask[(j*texWidth+i)*maskChannels+0];	// A
+			} else {
+				fullData[(j*texWidth+i)*4+3] = 1;	// A
+			}
+		}
+	}
+	return fullData;
 }
