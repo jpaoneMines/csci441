@@ -75,7 +75,8 @@ namespace CSCI441 {
 			* @return true if draw succeeded, false otherwise
 			*/
 		bool draw( GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1,
-							 GLint matDiffLocation = -1, GLint matSpecLocation = -1, GLint matShinLocation = -1, GLint matAmbLocation = -1 );
+							 GLint matDiffLocation = -1, GLint matSpecLocation = -1, GLint matShinLocation = -1, GLint matAmbLocation = -1,
+						   GLenum diffuseTexture = GL_TEXTURE0 );
 
 		/** @brief Enable autogeneration of vertex normals
 		  *
@@ -105,6 +106,7 @@ namespace CSCI441 {
 		vector<string> _tokenizeString( string input, string delimiters );
 
 		char* _filename;
+		CSCI441_INTERNAL::MODEL_TYPE _modelType;
 
 		GLuint _vaod;
 		GLuint _vbods[2];
@@ -117,6 +119,7 @@ namespace CSCI441 {
 		unsigned int _numIndices;
 
 		map< string, CSCI441_INTERNAL::ModelMaterial* > _materials;
+		map< string, vector< pair< unsigned int, unsigned int > > > _materialIndexStartStop;
 
 		bool _hasVertexTexCoords;
 		bool _hasVertexNormals;
@@ -172,15 +175,19 @@ bool CSCI441::ModelLoader::loadModelFile( const char* filename, bool INFO, bool 
 	strcpy( _filename, filename );
 	if( strstr( _filename, ".obj" ) != NULL ) {
 		result = _loadOBJFile( INFO, ERRORS );
+		_modelType = CSCI441_INTERNAL::OBJ;
 	}
 	else if( strstr( _filename, ".off" ) != NULL ) {
 		result = _loadOFFFile( INFO, ERRORS );
+		_modelType = CSCI441_INTERNAL::OFF;
 	}
 	else if( strstr( _filename, ".ply" ) != NULL ) {
 		result = _loadPLYFile( INFO, ERRORS );
+		_modelType = CSCI441_INTERNAL::PLY;
 	}
 	else if( strstr( _filename, ".stl" ) != NULL ) {
 		result = _loadSTLFile( INFO, ERRORS );
+		_modelType = CSCI441_INTERNAL::STL;
 	}
 	else {
 		result = false;
@@ -191,7 +198,8 @@ bool CSCI441::ModelLoader::loadModelFile( const char* filename, bool INFO, bool 
 }
 
 bool CSCI441::ModelLoader::draw( GLint positionLocation, GLint normalLocation, GLint texCoordLocation,
-						 										 GLint matDiffLocation, GLint matSpecLocation, GLint matShinLocation, GLint matAmbLocation ) {
+						 										 GLint matDiffLocation, GLint matSpecLocation, GLint matShinLocation, GLint matAmbLocation,
+															   GLenum diffuseTexture ) {
   bool result = true;
 
 	glBindVertexArray( _vaod );
@@ -206,7 +214,42 @@ bool CSCI441::ModelLoader::draw( GLint positionLocation, GLint normalLocation, G
 	glEnableVertexAttribArray( texCoordLocation );
 	glVertexAttribPointer( texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * _uniqueIndex * 6) );
 
-	glDrawElements( GL_TRIANGLES, _numIndices, GL_UNSIGNED_INT, (void*)0 );
+	if( _modelType == CSCI441_INTERNAL::OBJ ) {
+		for( map< string, vector< pair< unsigned int, unsigned int > > >::iterator materialIter = _materialIndexStartStop.begin();
+						materialIter != _materialIndexStartStop.end();
+						materialIter++ ) {
+
+			string materialName = materialIter->first;
+			vector< pair< unsigned int, unsigned int > > indexStartStop = materialIter->second;
+
+			CSCI441_INTERNAL::ModelMaterial* material = _materials.find( materialName )->second;
+
+			for( vector< pair< unsigned int, unsigned int > >::iterator idxIter = indexStartStop.begin();
+							idxIter != indexStartStop.end();
+							idxIter++ ) {
+
+				unsigned int start = idxIter->first;
+				unsigned int end = idxIter->second;
+				unsigned int length = end - start + 1;
+
+				//printf( "rendering material %s (%u, %u) = %u\n", materialName.c_str(), start, end, length );
+
+				glUniform4fv( matAmbLocation, 1, material->ambient );
+				glUniform4fv( matDiffLocation, 1, material->diffuse );
+				glUniform4fv( matSpecLocation, 1, material->specular );
+				glUniform1f( matShinLocation, material->shininess );
+
+				if( material->map_Kd != -1 ) {
+					glActiveTexture( diffuseTexture );
+					glBindTexture( GL_TEXTURE_2D, material->map_Kd );
+				}
+
+				glDrawElements( GL_TRIANGLES, length, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int)*start) );
+			}
+		}
+	} else {
+		glDrawElements( GL_TRIANGLES, _numIndices, GL_UNSIGNED_INT, (void*)0 );
+	}
 
 	return result;
 }
@@ -373,6 +416,10 @@ bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	unsigned int vSeen = 0, vtSeen = 0, vnSeen = 0, indicesSeen = 0;
 	unsigned int uniqueV = 0;
 
+	string currentMaterial = "default";
+	_materialIndexStartStop.insert( pair< string, vector< pair< unsigned int, unsigned int > > >( currentMaterial, vector< pair< unsigned int, unsigned int > >(1) ) );
+	_materialIndexStartStop.find( currentMaterial )->second.back().first = indicesSeen;
+
 	while( getline( in, line ) ) {
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
@@ -386,7 +433,18 @@ bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		} else if( !tokens[0].compare( "g" ) ) {						// polygon group name ignore
 
 		} else if( !tokens[0].compare( "usemtl" ) ) {					// use material library
-
+			if( currentMaterial == "default" && indicesSeen == 0 ) {
+				_materialIndexStartStop.clear();
+			} else {
+				_materialIndexStartStop.find( currentMaterial )->second.back().second = indicesSeen - 1;
+			}
+			currentMaterial = tokens[1];
+			if( _materialIndexStartStop.find( currentMaterial ) == _materialIndexStartStop.end() ) {
+				_materialIndexStartStop.insert( pair< string, vector< pair< unsigned int, unsigned int > > >( currentMaterial, vector< pair< unsigned int, unsigned int > >(1) ) );
+				_materialIndexStartStop.find( currentMaterial )->second.back().first = indicesSeen;
+			} else {
+				_materialIndexStartStop.find( currentMaterial )->second.push_back( pair< unsigned int, unsigned int >( indicesSeen, -1 ) );
+			}
 		} else if( !tokens[0].compare( "s" ) ) {						// smooth shading
 
 		} else if( !tokens[0].compare( "v" ) ) {						//vertex
@@ -617,6 +675,8 @@ bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		printf( "[.obj]: parsing %s...done!\n", _filename );
 	}
 
+	_materialIndexStartStop.find( currentMaterial )->second.back().second = indicesSeen - 1;
+
 	glBindVertexArray( _vaod );
 	glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
 	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, NULL, GL_STATIC_DRAW );
@@ -677,6 +737,8 @@ bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool INFO, boo
 	int numMaterials = 0;
 
 	while( getline( in, line ) ) {
+		if( line.length() > 1 && line.at(0) == '\t' )
+			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		vector< string > tokens = _tokenizeString( line, " /" );
