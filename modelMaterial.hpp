@@ -13,12 +13,16 @@ namespace CSCI441_INTERNAL {
       GLuint map_Kd;
 
       ModelMaterial() {
-        for( int i = 0; i < 4; i++ ) {
+        for( int i = 0; i < 3; i++ ) {
           ambient[i] = 0;
           diffuse[i] = 0;
           specular[i] = 0;
           emissive[i] = 0;
         }
+        ambient[3] = 1;
+        diffuse[3] = 1;
+        specular[3] = 1;
+        emissive[3] = 1;
         shininess = 0;
         map_Kd = 0;
       }

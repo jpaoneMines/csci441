@@ -222,7 +222,9 @@ bool CSCI441::ModelLoader::draw( GLint positionLocation, GLint normalLocation, G
 			string materialName = materialIter->first;
 			vector< pair< unsigned int, unsigned int > > indexStartStop = materialIter->second;
 
-			CSCI441_INTERNAL::ModelMaterial* material = _materials.find( materialName )->second;
+			CSCI441_INTERNAL::ModelMaterial* material = NULL;
+			if( _materials.find( materialName ) != _materials.end() )
+				material = _materials.find( materialName )->second;
 
 			for( vector< pair< unsigned int, unsigned int > >::iterator idxIter = indexStartStop.begin();
 							idxIter != indexStartStop.end();
@@ -234,14 +236,16 @@ bool CSCI441::ModelLoader::draw( GLint positionLocation, GLint normalLocation, G
 
 				//printf( "rendering material %s (%u, %u) = %u\n", materialName.c_str(), start, end, length );
 
-				glUniform4fv( matAmbLocation, 1, material->ambient );
-				glUniform4fv( matDiffLocation, 1, material->diffuse );
-				glUniform4fv( matSpecLocation, 1, material->specular );
-				glUniform1f( matShinLocation, material->shininess );
+				if( material != NULL ) {
+					glUniform4fv( matAmbLocation, 1, material->ambient );
+					glUniform4fv( matDiffLocation, 1, material->diffuse );
+					glUniform4fv( matSpecLocation, 1, material->specular );
+					glUniform1f( matShinLocation, material->shininess );
 
-				if( material->map_Kd != -1 ) {
-					glActiveTexture( diffuseTexture );
-					glBindTexture( GL_TEXTURE_2D, material->map_Kd );
+					if( material->map_Kd != -1 ) {
+						glActiveTexture( diffuseTexture );
+						glBindTexture( GL_TEXTURE_2D, material->map_Kd );
+					}
 				}
 
 				glDrawElements( GL_TRIANGLES, length, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int)*start) );
@@ -283,6 +287,8 @@ bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	int progressCounter = 0;
 
 	while( getline( in, line ) ) {
+		if( line.length() > 1 && line.at(0) == '\t' )
+			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		vector< string > tokens = _tokenizeString( line, " \t" );
@@ -421,6 +427,8 @@ bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	_materialIndexStartStop.find( currentMaterial )->second.back().first = indicesSeen;
 
 	while( getline( in, line ) ) {
+		if( line.length() > 1 && line.at(0) == '\t' )
+			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		vector< string > tokens = _tokenizeString( line, " \t" );
@@ -431,6 +439,8 @@ bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		} else if( !tokens[0].compare( "o" ) ) {						// object name ignore
 
 		} else if( !tokens[0].compare( "g" ) ) {						// polygon group name ignore
+
+		} else if( !tokens[0].compare( "mtllib" ) ) {					// material library
 
 		} else if( !tokens[0].compare( "usemtl" ) ) {					// use material library
 			if( currentMaterial == "default" && indicesSeen == 0 ) {
@@ -747,6 +757,7 @@ bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool INFO, boo
 		//the line should have a single character that lets us know if it's a...
 		if( !tokens[0].compare( "#" ) ) {							// comment
 		} else if( !tokens[0].compare( "newmtl" ) ) {				//new material
+			if (INFO) printf( "[.mtl]: Parsing material %s properties\n", tokens[1].c_str() );
 			currentMaterial = new CSCI441_INTERNAL::ModelMaterial();
 			materialName = tokens[1];
 			_materials.insert( pair<string, CSCI441_INTERNAL::ModelMaterial*>( materialName, currentMaterial ) );
@@ -762,17 +773,14 @@ bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool INFO, boo
 			currentMaterial->ambient[0] = atof( tokens[1].c_str() );
 			currentMaterial->ambient[1] = atof( tokens[2].c_str() );
 			currentMaterial->ambient[2] = atof( tokens[3].c_str() );
-			currentMaterial->ambient[3] = 1;
 		} else if( !tokens[0].compare( "Kd" ) ) {					// diffuse component
 			currentMaterial->diffuse[0] = atof( tokens[1].c_str() );
 			currentMaterial->diffuse[1] = atof( tokens[2].c_str() );
 			currentMaterial->diffuse[2] = atof( tokens[3].c_str() );
-			currentMaterial->diffuse[3] = 1;
 		} else if( !tokens[0].compare( "Ks" ) ) {					// specular component
 			currentMaterial->specular[0] = atof( tokens[1].c_str() );
 			currentMaterial->specular[1] = atof( tokens[2].c_str() );
 			currentMaterial->specular[2] = atof( tokens[3].c_str() );
-			currentMaterial->specular[3] = 1;
 		} else if( !tokens[0].compare( "Ke" ) ) {					// emissive component
 			currentMaterial->emissive[0] = atof( tokens[1].c_str() );
 			currentMaterial->emissive[1] = atof( tokens[2].c_str() );
@@ -791,42 +799,10 @@ bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool INFO, boo
 				// _textureHandles->insert( pair< string, GLuint >( materialName, imageHandles.find( tokens[1] )->second ) );
 				currentMaterial->map_Kd = imageHandles.find( tokens[1] )->second;
 			} else {
-				if( tokens[1].find( ".bmp" ) != string::npos || tokens[1].find( ".BMP" ) != string::npos ) {
-					printf("trying to open with soil %s\n", tokens[1].c_str());
-					textureData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
-					if( !textureData ) {
-						string folderName = path + tokens[1];
-						printf("trying to open %s\n", folderName.c_str());
-						textureData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
-					}
-				}/* else if( tokens[1].find( ".ppm" ) != string::npos || tokens[1].find( ".PPM" ) != string::npos ) {
-					bool success = false;
-					textureData = loadPPM( (char*)tokens[1].c_str(), texWidth, texHeight, textureChannels, success, ERRORS, path );
-					if( !success ) {
-						textureData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
-						if( !textureData ) {
-							string folderName = path + tokens[1];
-							textureData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
-						}
-					} else {
-
-					}
-				} else if( tokens[1].find( ".tga" ) != string::npos || tokens[1].find( ".TGA" ) != string::npos ) {
-					bool success = false;
-					textureData = loadTGA( (char*)tokens[1].c_str(), texWidth, texHeight, textureChannels, success, ERRORS, path );
-					if( !success ) {
-						textureData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
-						if( !textureData ) {
-							string folderName = path + tokens[1];
-							textureData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
-						}
-					}
-				} */else {
-					textureData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
-					if( !textureData ) {
-						string folderName = path + tokens[1];
-						textureData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
-					}
+				textureData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+				if( !textureData ) {
+					string folderName = path + tokens[1];
+					textureData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
 				}
 
 				if( !textureData ) {
@@ -951,12 +927,12 @@ bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool INFO, boo
 
 		} else if( !tokens[0].compare( "map_Ns" ) ) {				// specular highlight map (shininess map)
 
-		} else if( !tokens[0].compare( "Ni" ) ) {					// optical density / index of refraction
+		} else if( !tokens[0].compare( "Ni" ) ) {						// optical density / index of refraction
 
-		} else if( !tokens[0].compare( "Tf" ) ) {					// transmission filter
+		} else if( !tokens[0].compare( "Tf" ) ) {						// transmission filter
 
 		} else if( !tokens[0].compare( "bump" )
-					|| !tokens[0].compare( "map_bump" ) ) {			// bump map
+					|| !tokens[0].compare( "map_bump" ) ) {				// bump map
 
 		} else {
 			if (INFO) printf( "[.mtl]: ignoring line: %s\n", line.c_str() );
@@ -999,6 +975,8 @@ bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 	unsigned int vSeen = 0, fSeen = 0;
 
 	while( getline( in, line ) ) {
+		if( line.length() > 1 && line.at(0) == '\t' )
+			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		vector< string > tokens = _tokenizeString( line, " \t" );
@@ -1093,6 +1071,8 @@ bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 	int progressCounter = 0;
 
 	while( getline( in, line ) ) {
+		if( line.length() > 1 && line.at(0) == '\t' )
+			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		vector< string > tokens = _tokenizeString( line, " \t" );
@@ -1301,6 +1281,8 @@ bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 	unsigned int vSeen = 0;
 
 	while( getline( in, line ) ) {
+		if( line.length() > 1 && line.at(0) == '\t' )
+			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		vector< string > tokens = _tokenizeString( line, " \t" );
@@ -1427,6 +1409,8 @@ bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 	vSeen = 0;
 
 	while( getline( in, line ) ) {
+		if( line.length() > 1 && line.at(0) == '\t' )
+			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		vector< string > tokens = _tokenizeString( line, " \t" );
@@ -1615,6 +1599,8 @@ bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 	GLfloat normalVector[3] = {0,0,0};
 
 	while( getline( in, line ) ) {
+		if( line.length() > 1 && line.at(0) == '\t' )
+			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		vector< string > tokens = _tokenizeString( line, " \t" );
@@ -1701,6 +1687,8 @@ bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 	_numIndices = 0;
 
 	while( getline( in, line ) ) {
+		if( line.length() > 1 && line.at(0) == '\t' )
+			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		vector< string > tokens = _tokenizeString( line, " \t" );
