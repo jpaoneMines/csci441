@@ -68,10 +68,11 @@ namespace CSCI441 {
 			* @param GLint positionLocation	- attribute location of vertex position
 			* @param GLint normalLocation		- attribute location of vertex normal
 			* @param GLint texCoordLocation	- attribute location of vertex texture coordinate
-			* @param GLint matDiffLocation	- attribute location of material diffuse component (currently not used but in place for forward compatibility)
-			* @param GLint matSpecLocation	- attribute location of material specular component (currently not used but in place for forward compatibility)
-			* @param GLint matShinLocation	- attribute location of material shininess component (currently not used but in place for forward compatibility)
-			* @param GLint matAmbLocation		- attribute location of material ambient component (currently not used but in place for forward compatibility)
+			* @param GLint matDiffLocation	- attribute location of material diffuse component
+			* @param GLint matSpecLocation	- attribute location of material specular component
+			* @param GLint matShinLocation	- attribute location of material shininess component
+			* @param GLint matAmbLocation		- attribute location of material ambient component
+			* @param GLenum diffuseTexture	- texture number to bind diffuse texture map to
 			* @return true if draw succeeded, false otherwise
 			*/
 		bool draw( GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1,
@@ -133,6 +134,7 @@ namespace CSCI441 {
 
 namespace CSCI441_INTERNAL {
 	unsigned char* createTransparentTexture( unsigned char *imageData, unsigned char *imageMask, int texWidth, int texHeight, int texChannels, int maskChannels );
+	void flipImageY( int texWidth, int texHeight, int textureChannels, unsigned char *textureData );
 }
 
 bool CSCI441::ModelLoader::AUTO_GEN_NORMALS = false;
@@ -803,6 +805,11 @@ bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool INFO, boo
 				if( !textureData ) {
 					string folderName = path + tokens[1];
 					textureData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+					if( textureData) {
+						CSCI441_INTERNAL::flipImageY( texWidth, texHeight, textureChannels, textureData );
+					}
+				} else {
+					CSCI441_INTERNAL::flipImageY( texWidth, texHeight, textureChannels, textureData );
 				}
 
 				if( !textureData ) {
@@ -855,72 +862,44 @@ bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool INFO, boo
 				}
 			}
 		} else if( !tokens[0].compare( "map_d" ) ) {				// alpha texture map
-			// if( imageHandles.find( tokens[1] ) != imageHandles.end() ) {
-			// 	_textureHandles->insert( pair< string, GLuint >( materialName, imageHandles.find( tokens[1] )->second ) );
-			// } else {
-			// 	if( tokens[1].find( ".bmp" ) != string::npos || tokens[1].find( ".BMP" ) != string::npos ) {
-			// 		bool success = false;
-			// 		maskData = loadBMP( (char*)tokens[1].c_str(), texWidth, texHeight, maskChannels, success, ERRORS, path );
-			// 		if( !success ) {
-			// 			maskData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &maskChannels, SOIL_LOAD_AUTO );
-			// 			if( !maskData ) {
-			// 				string folderName = path + tokens[1];
-			// 				maskData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &maskChannels, SOIL_LOAD_AUTO );
-			// 			}
-			// 		} else {
-      //
-			// 		}
-			// 	} else if( tokens[1].find( ".ppm" ) != string::npos || tokens[1].find( ".PPM" ) != string::npos ) {
-			// 		bool success = false;
-			// 		maskData = loadPPM( (char*)tokens[1].c_str(), texWidth, texHeight, maskChannels, success, ERRORS, path );
-			// 		if( !success ) {
-			// 			maskData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &maskChannels, SOIL_LOAD_AUTO );
-			// 			if( !maskData ) {
-			// 				string folderName = path + tokens[1];
-			// 				maskData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &maskChannels, SOIL_LOAD_AUTO );
-			// 			}
-			// 		} else {
-      //
-			// 		}
-			// 	} else {
-			// 		maskData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &maskChannels, SOIL_LOAD_AUTO );
-			// 		if( !maskData ) {
-			// 			string folderName = path + tokens[1];
-			// 			maskData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &maskChannels, SOIL_LOAD_AUTO );
-			// 		}
-			// 	}
-      //
-			// 	if( !maskData ) {
-			// 		cout << "[.mtl]: [ERROR]: File Not Found: " << tokens[1] << endl;
-			// 	} else {
-			// 		if (INFO) cout << "[.mtl]: AlphaMap:  \t" << tokens[1] << "\tSize: " << texWidth << "x"
-			// 						<< texHeight << "\tColors: " << maskChannels << endl;
-      //
-			// 		if( textureData != NULL ) {
-			// 			fullData = createTransparentTexture( textureData, maskData, texWidth, texHeight, textureChannels, maskChannels );
-      //
-			// 			if (INFO) cout << "[.mtl]: " << tokens[1] << " alpha texture map of size " << texWidth << "x"
-			// 							<< texHeight << " with " << textureChannels << " colors read in" << endl;
-      //
-			// 			if( textureHandle == 0 )
-			// 				glGenTextures( 1, &textureHandle );
-      //
-			// 			glBindTexture( GL_TEXTURE_2D, textureHandle );
-      //
-			// 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-      //
-			// 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-			// 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-      //
-			// 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			// 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-      //
-			// 			gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA, texWidth, texHeight, GL_RGBA, GL_UNSIGNED_BYTE, fullData );
-      //
-			// 			delete fullData;
-			// 		}
-			// 	}
-			// }
+			if( imageHandles.find( tokens[1] ) != imageHandles.end() ) {
+				// _textureHandles->insert( pair< string, GLuint >( materialName, imageHandles.find( tokens[1] )->second ) );
+				currentMaterial->map_d = imageHandles.find( tokens[1] )->second;
+			} else {
+				maskData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+				if( !textureData ) {
+					string folderName = path + tokens[1];
+					maskData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+					if( maskData ) {
+						CSCI441_INTERNAL::flipImageY( texWidth, texHeight, textureChannels, maskData );
+					}
+				} else {
+					CSCI441_INTERNAL::flipImageY( texWidth, texHeight, textureChannels, maskData );
+				}
+
+				if( !maskData ) {
+					if (ERRORS) fprintf( stderr, "[.mtl]: [ERROR]: File Not Found: %s\n", tokens[1].c_str() );
+				} else {
+					if (INFO) printf( "[.mtl]: AlphaMap:  \t%s\tSize: %dx%d\tColors: %d\n", tokens[1].c_str(), texWidth, texHeight, maskChannels );
+
+					if( textureData != NULL ) {
+						fullData = CSCI441_INTERNAL::createTransparentTexture( textureData, maskData, texWidth, texHeight, textureChannels, maskChannels );
+
+						if( textureHandle == 0 )
+							glGenTextures( 1, &textureHandle );
+
+						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+						glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, texWidth, texHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, fullData );
+
+						delete fullData;
+					}
+				}
+			}
 		} else if( !tokens[0].compare( "map_Ka" ) ) {				// ambient color texture map
 
 		} else if( !tokens[0].compare( "map_Ks" ) ) {				// specular color texture map
@@ -1844,4 +1823,20 @@ unsigned char* CSCI441_INTERNAL::createTransparentTexture( unsigned char *imageD
 		}
 	}
 	return fullData;
+}
+
+void CSCI441_INTERNAL::flipImageY( int texWidth, int texHeight, int textureChannels, unsigned char *textureData ) {
+	for( int j = 0; j < texHeight / 2; j++ ) {
+		for( int i = 0; i < texWidth; i++ ) {
+			for( int k = 0; k < textureChannels; k++ ) {
+				int top = (j*texWidth + i)*textureChannels + k;
+				int bot = ((texHeight-j-1)*texWidth + i)*textureChannels + k;
+
+				unsigned char t = textureData[top];
+				textureData[top] = textureData[bot];
+				textureData[bot] = t;
+
+			}
+		}
+	}
 }

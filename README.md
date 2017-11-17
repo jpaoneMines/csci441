@@ -26,10 +26,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 TODO Items
-  > Load MTL files\n
   > Handle vertex and face colors in OFF files
 
 Revision History
+
+v1.8	- 16 Nov 2017
+  > Added support for MTL files for Phong Shading and diffuse maps
 
 v1.7	- 16 Nov 2017
   > Added loadBMP() support to TextureUtils.hpp\n

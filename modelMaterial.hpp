@@ -11,6 +11,7 @@ namespace CSCI441_INTERNAL {
       GLfloat emissive[4];
 
       GLuint map_Kd;
+      GLuint map_d;
 
       ModelMaterial() {
         for( int i = 0; i < 3; i++ ) {
@@ -25,6 +26,7 @@ namespace CSCI441_INTERNAL {
         emissive[3] = 1;
         shininess = 0;
         map_Kd = 0;
+        map_d = 0;
       }
   };
 
