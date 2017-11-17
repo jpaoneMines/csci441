@@ -1,0 +1,73 @@
+\hypertarget{objects_8hpp}{}\section{C\+S\+C\+I441/objects.hpp File Reference}
+\label{objects_8hpp}\index{C\+S\+C\+I441/objects.\+hpp@{C\+S\+C\+I441/objects.\+hpp}}
+
+
+Helper functions to draw 3D Open\+GL 2.\+1 objects.  
+
+
+{\ttfamily \#include $<$G\+L/gl.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$C\+S\+C\+I441/teapot.\+hpp$>$}\newline
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_c_s_c_i441}{C\+S\+C\+I441}
+\begin{DoxyCompactList}\small\item\em \hyperlink{namespace_c_s_c_i441}{C\+S\+C\+I441} Helper Functions for Open\+GL. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespace_c_s_c_i441_a484e60eb6fb39efef552b7838ca35164}{C\+S\+C\+I441\+::draw\+Solid\+Cone} (G\+Ldouble base, G\+Ldouble height, G\+Lint stacks, G\+Lint slices)
+\begin{DoxyCompactList}\small\item\em Draws a solid cone. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_a2727745ad139fd358f53514fe358683e}{C\+S\+C\+I441\+::draw\+Wire\+Cone} (G\+Ldouble base, G\+Ldouble height, G\+Lint stacks, G\+Lint slices)
+\begin{DoxyCompactList}\small\item\em Draws a wireframe cone. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_a6ae4602d63b3a3313b6156a12ef4d066}{C\+S\+C\+I441\+::draw\+Solid\+Cube} (G\+Ldouble side\+Length)
+\begin{DoxyCompactList}\small\item\em Draws a solid cube. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_a6259740595e9b9607caa5209f73bf3cf}{C\+S\+C\+I441\+::draw\+Wire\+Cube} (G\+Ldouble side\+Length)
+\begin{DoxyCompactList}\small\item\em Draws a wireframe cube. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_ae5fbc355c04fd762dcdda56a1954e2c6}{C\+S\+C\+I441\+::draw\+Solid\+Cylinder} (G\+Ldouble base, G\+Ldouble top, G\+Ldouble height, G\+Lint stacks, G\+Lint slices)
+\begin{DoxyCompactList}\small\item\em Draws a solid open ended cylinder. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_a54ad17945aa0a173ba8b888b33f80839}{C\+S\+C\+I441\+::draw\+Wire\+Cylinder} (G\+Ldouble base, G\+Ldouble top, G\+Ldouble height, G\+Lint stacks, G\+Lint slices)
+\begin{DoxyCompactList}\small\item\em Draws a wireframe open ended cylinder. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_a9bc98669fe2b67ecb45d7b18c61f74d9}{C\+S\+C\+I441\+::draw\+Solid\+Disk} (G\+Ldouble inner, G\+Ldouble outer, G\+Lint slices, G\+Lint rings)
+\begin{DoxyCompactList}\small\item\em Draws a solid disk. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_aef50f552e509fea9c7a76ca35d177e83}{C\+S\+C\+I441\+::draw\+Wire\+Disk} (G\+Ldouble inner, G\+Ldouble outer, G\+Lint slices, G\+Lint rings)
+\begin{DoxyCompactList}\small\item\em Draws a wireframe disk. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_ac5294402a29a9a5628544e40eacabf67}{C\+S\+C\+I441\+::draw\+Solid\+Partial\+Disk} (G\+Ldouble inner, G\+Ldouble outer, G\+Lint slices, G\+Lint rings, G\+Ldouble start, G\+Ldouble sweep)
+\begin{DoxyCompactList}\small\item\em Draws part of a solid disk. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_aeacfcb84e2c6b2e8a2dcb9e15ba59bd1}{C\+S\+C\+I441\+::draw\+Wire\+Partial\+Disk} (G\+Ldouble inner, G\+Ldouble outer, G\+Lint slices, G\+Lint rings, G\+Ldouble start, G\+Ldouble sweep)
+\begin{DoxyCompactList}\small\item\em Draws part of a wireframe disk. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_a4b017bdc6d956d3f4f3dffefa30411a7}{C\+S\+C\+I441\+::draw\+Solid\+Sphere} (G\+Ldouble radius, G\+Lint stacks, G\+Lint slices)
+\begin{DoxyCompactList}\small\item\em Draws a solid sphere. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_aa9a493af03829b36099728f10cb0fdb4}{C\+S\+C\+I441\+::draw\+Wire\+Sphere} (G\+Ldouble radius, G\+Lint stacks, G\+Lint slices)
+\begin{DoxyCompactList}\small\item\em Draws a wireframe sphere. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_a89b924cd4a8bab98cb115988dacadfe7}{C\+S\+C\+I441\+::draw\+Solid\+Teapot} (G\+Ldouble size)
+\begin{DoxyCompactList}\small\item\em Draws a solid teapot. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_a01d46d279b92690808b4bc5b8cbf9035}{C\+S\+C\+I441\+::draw\+Wire\+Teapot} (G\+Ldouble size)
+\begin{DoxyCompactList}\small\item\em Draws a wireframe teapot. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_ad17893017873d6e4777e299f25341657}{C\+S\+C\+I441\+::draw\+Solid\+Torus} (G\+Ldouble inner\+Radius, G\+Ldouble outer\+Radius, G\+Lint sides, G\+Lint rings)
+\begin{DoxyCompactList}\small\item\em Draws a solid torus. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_c_s_c_i441_a8b40c06c875203f1e3d5f6bd0331a0b7}{C\+S\+C\+I441\+::draw\+Wire\+Torus} (G\+Ldouble inner\+Radius, G\+Ldouble outer\+Radius, G\+Lint sides, G\+Lint rings)
+\begin{DoxyCompactList}\small\item\em Draws a wireframe torus. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Helper functions to draw 3D Open\+GL 2.\+1 objects. 
+
+\begin{DoxyAuthor}{Author}
+Dr. Jeffrey Paone 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Last Edit\+: 25 Oct 2017 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+3
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License Copyright (c) 2017 Dr. Jeffrey Paone
+\end{DoxyCopyright}
+These functions draw solid (or wireframe) 3D closed Open\+GL objects. All objects are constructed using triangles that have normals and texture coordinates properly set.
+
+\begin{DoxyWarning}{Warning}
+N\+O\+TE\+: This header file will only work with Open\+GL 2.\+1 
+\end{DoxyWarning}

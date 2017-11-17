@@ -1,0 +1,419 @@
+\hypertarget{class_c_s_c_i441_1_1_shader_program}{}\section{C\+S\+C\+I441\+:\+:Shader\+Program Class Reference}
+\label{class_c_s_c_i441_1_1_shader_program}\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+
+
+Handles registration and compilation of Shaders.  
+
+
+
+
+{\ttfamily \#include $<$Shader\+Program3.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_s_c_i441_1_1_shader_program_a0f51bed7fb1b24075b96be6c7a490f8d}{Shader\+Program} (const char $\ast$vertex\+Shader\+Filename, const char $\ast$fragment\+Shader\+Filename)
+\begin{DoxyCompactList}\small\item\em Creates a Shader Program using a Vertex Shader and Fragment Shader. \end{DoxyCompactList}\item 
+\hyperlink{class_c_s_c_i441_1_1_shader_program_af561da1984872a47dba91e30a5aec14d}{Shader\+Program} (const char $\ast$vertex\+Shader\+Filename, const char $\ast$tesselation\+Control\+Shader\+Filename, const char $\ast$tesselation\+Evaluation\+Shader\+Filename, const char $\ast$geometry\+Shader\+Filename, const char $\ast$fragment\+Shader\+Filename)
+\begin{DoxyCompactList}\small\item\em Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader. \end{DoxyCompactList}\item 
+\hyperlink{class_c_s_c_i441_1_1_shader_program_afd18599e84cde305494daa39dc751fd1}{Shader\+Program} (const char $\ast$vertex\+Shader\+Filename, const char $\ast$tesselation\+Control\+Shader\+Filename, const char $\ast$tesselation\+Evaluation\+Shader\+Filename, const char $\ast$fragment\+Shader\+Filename)
+\begin{DoxyCompactList}\small\item\em Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader. \end{DoxyCompactList}\item 
+\hyperlink{class_c_s_c_i441_1_1_shader_program_a1d1750c87ea740caf05dac2816a6b800}{Shader\+Program} (const char $\ast$vertex\+Shader\+Filename, const char $\ast$geometry\+Shader\+Filename, const char $\ast$fragment\+Shader\+Filename)
+\begin{DoxyCompactList}\small\item\em Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a64b295be7ca8f309dfc085f8c0cf631a}\label{class_c_s_c_i441_1_1_shader_program_a64b295be7ca8f309dfc085f8c0cf631a}} 
+\hyperlink{class_c_s_c_i441_1_1_shader_program_a64b295be7ca8f309dfc085f8c0cf631a}{$\sim$\+Shader\+Program} ()
+\begin{DoxyCompactList}\small\item\em Clean up memory associated with the Shader Program. \end{DoxyCompactList}\item 
+G\+Lint \hyperlink{class_c_s_c_i441_1_1_shader_program_a196a95f51d3f85a32074ca7b0aba428f}{get\+Uniform\+Location} (const char $\ast$uniform\+Name)
+\begin{DoxyCompactList}\small\item\em Returns the location of the given uniform in this shader program. \end{DoxyCompactList}\item 
+G\+Lint \hyperlink{class_c_s_c_i441_1_1_shader_program_ab7e22eaa60f7ee098c8b9efc87de6397}{get\+Uniform\+Block\+Index} (const char $\ast$uniform\+Block\+Name)
+\begin{DoxyCompactList}\small\item\em Returns the index of the given uniform block in this shader program. \end{DoxyCompactList}\item 
+G\+Lint \hyperlink{class_c_s_c_i441_1_1_shader_program_a73f10d773f7ac81c92b899a8bd6826d8}{get\+Uniform\+Block\+Size} (const char $\ast$uniform\+Block\+Name)
+\begin{DoxyCompactList}\small\item\em Returns the size of the given uniform block in this shader program. \end{DoxyCompactList}\item 
+G\+Lubyte $\ast$ \hyperlink{class_c_s_c_i441_1_1_shader_program_a7a3246df6f87b0b4c7cfbce0a39e8330}{get\+Uniform\+Block\+Buffer} (const char $\ast$uniform\+Block\+Name)
+\begin{DoxyCompactList}\small\item\em Returns an allocated buffer for the given uniform block in this shader program. \end{DoxyCompactList}\item 
+G\+Lint $\ast$ \hyperlink{class_c_s_c_i441_1_1_shader_program_a86f97ca91c4a86a59749d7470b7e20d9}{get\+Uniform\+Block\+Offsets} (const char $\ast$uniform\+Block\+Name)
+\begin{DoxyCompactList}\small\item\em Returns an array of offsets into the buffer for the given uniform block in this shader program. \end{DoxyCompactList}\item 
+G\+Lint $\ast$ \hyperlink{class_c_s_c_i441_1_1_shader_program_aeebfe8124ca9d60896e1443e9eded2b6}{get\+Uniform\+Block\+Offsets} (const char $\ast$uniform\+Block\+Name, const char $\ast$names\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Returns an array of offsets into the buffer for the given uniform block and names in this shader program. \end{DoxyCompactList}\item 
+void \hyperlink{class_c_s_c_i441_1_1_shader_program_ae1200c6f7a7afd36ed1090eb47a7d3ac}{set\+Uniform\+Block\+Binding} (const char $\ast$uniform\+Block\+Name, G\+Luint binding)
+\begin{DoxyCompactList}\small\item\em Set the binding point for the given uniform block in this shader program. \end{DoxyCompactList}\item 
+G\+Lint \hyperlink{class_c_s_c_i441_1_1_shader_program_a6b3373c96832a3dd4e6ba60d965748f5}{get\+Attribute\+Location} (const char $\ast$attribute\+Name)
+\begin{DoxyCompactList}\small\item\em Returns the location of the given attribute in this shader program. \end{DoxyCompactList}\item 
+G\+Luint \hyperlink{class_c_s_c_i441_1_1_shader_program_a6a8732a9fb89b0870c40ed5d8b8b7c09}{get\+Subroutine\+Index} (G\+Lenum shader\+Stage, const char $\ast$subroutine\+Name)
+\begin{DoxyCompactList}\small\item\em Returns the index of the given subroutine for a shader stage in this shader program. \end{DoxyCompactList}\item 
+G\+Luint \hyperlink{class_c_s_c_i441_1_1_shader_program_aa47d813096eba4588d0641e247144376}{get\+Num\+Uniforms} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of active uniforms in this shader program. \end{DoxyCompactList}\item 
+G\+Luint \hyperlink{class_c_s_c_i441_1_1_shader_program_a1bc6aedd8b3dc76439717a070aeb4586}{get\+Num\+Uniform\+Blocks} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of active uniform blocks in this shader program. \end{DoxyCompactList}\item 
+G\+Luint \hyperlink{class_c_s_c_i441_1_1_shader_program_a4b76efbf04fb2ce32f85ba5a7333eb62}{get\+Num\+Attributes} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of active attributes in this shader program. \end{DoxyCompactList}\item 
+G\+Luint \hyperlink{class_c_s_c_i441_1_1_shader_program_aa1003cd55af666853561d97fac94b92b}{get\+Shader\+Program\+Handle} ()
+\begin{DoxyCompactList}\small\item\em Returns the handle for this shader program. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a860673d457ffcc7495d573289a3dc557}\label{class_c_s_c_i441_1_1_shader_program_a860673d457ffcc7495d573289a3dc557}} 
+void \hyperlink{class_c_s_c_i441_1_1_shader_program_a860673d457ffcc7495d573289a3dc557}{use\+Program} ()
+\begin{DoxyCompactList}\small\item\em Sets the Shader Program to be active. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_c_s_c_i441_1_1_shader_program_aa7cf75ce6605ac1f6ca660f98b88ebba}{enable\+Debug\+Messages} ()
+\begin{DoxyCompactList}\small\item\em Enables debug messages from Shader Program functions. \end{DoxyCompactList}\item 
+static void \hyperlink{class_c_s_c_i441_1_1_shader_program_a9358a3f05e8432707d8ec89d1cd9d248}{disable\+Debug\+Messages} ()
+\begin{DoxyCompactList}\small\item\em Disables debug messages from Shader Program functions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Handles registration and compilation of Shaders. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a0f51bed7fb1b24075b96be6c7a490f8d}\label{class_c_s_c_i441_1_1_shader_program_a0f51bed7fb1b24075b96be6c7a490f8d}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!Shader\+Program@{Shader\+Program}}
+\index{Shader\+Program@{Shader\+Program}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{Shader\+Program()}{ShaderProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily C\+S\+C\+I441\+::\+Shader\+Program\+::\+Shader\+Program (\begin{DoxyParamCaption}\item[{const char $\ast$}]{vertex\+Shader\+Filename,  }\item[{const char $\ast$}]{fragment\+Shader\+Filename }\end{DoxyParamCaption})}
+
+
+
+Creates a Shader Program using a Vertex Shader and Fragment Shader. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ vertex\+Shader\+Filename -\/ name of the file corresponding to the vertex shader \\
+\hline
+{\em const} & char$\ast$ fragment\+Shader\+Filename -\/ name of the file corresponding to the fragment shader \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_af561da1984872a47dba91e30a5aec14d}\label{class_c_s_c_i441_1_1_shader_program_af561da1984872a47dba91e30a5aec14d}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!Shader\+Program@{Shader\+Program}}
+\index{Shader\+Program@{Shader\+Program}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{Shader\+Program()}{ShaderProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily C\+S\+C\+I441\+::\+Shader\+Program\+::\+Shader\+Program (\begin{DoxyParamCaption}\item[{const char $\ast$}]{vertex\+Shader\+Filename,  }\item[{const char $\ast$}]{tesselation\+Control\+Shader\+Filename,  }\item[{const char $\ast$}]{tesselation\+Evaluation\+Shader\+Filename,  }\item[{const char $\ast$}]{geometry\+Shader\+Filename,  }\item[{const char $\ast$}]{fragment\+Shader\+Filename }\end{DoxyParamCaption})}
+
+
+
+Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ vertex\+Shader\+Filename -\/ name of the file corresponding to the vertex shader \\
+\hline
+{\em const} & char$\ast$ tesselation\+Control\+Shader\+Filename -\/ name of the file corresponding to the tesselation control shader \\
+\hline
+{\em const} & char$\ast$ tesselation\+Evaluation\+Shader\+Filename -\/ name of the file corresponding to the tesselation evaluation shader \\
+\hline
+{\em const} & char$\ast$ geometry\+Shader\+Filename -\/ name of the file corresponding to the geometry shader \\
+\hline
+{\em const} & char$\ast$ fragment\+Shader\+Filename -\/ name of the file corresponding to the fragment shader \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_afd18599e84cde305494daa39dc751fd1}\label{class_c_s_c_i441_1_1_shader_program_afd18599e84cde305494daa39dc751fd1}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!Shader\+Program@{Shader\+Program}}
+\index{Shader\+Program@{Shader\+Program}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{Shader\+Program()}{ShaderProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily C\+S\+C\+I441\+::\+Shader\+Program\+::\+Shader\+Program (\begin{DoxyParamCaption}\item[{const char $\ast$}]{vertex\+Shader\+Filename,  }\item[{const char $\ast$}]{tesselation\+Control\+Shader\+Filename,  }\item[{const char $\ast$}]{tesselation\+Evaluation\+Shader\+Filename,  }\item[{const char $\ast$}]{fragment\+Shader\+Filename }\end{DoxyParamCaption})}
+
+
+
+Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ vertex\+Shader\+Filename -\/ name of the file corresponding to the vertex shader \\
+\hline
+{\em const} & char$\ast$ tesselation\+Control\+Shader\+Filename -\/ name of the file corresponding to the tesselation control shader \\
+\hline
+{\em const} & char$\ast$ tesselation\+Evaluation\+Shader\+Filename -\/ name of the file corresponding to the tesselation evaluation shader \\
+\hline
+{\em const} & char$\ast$ fragment\+Shader\+Filename -\/ name of the file corresponding to the fragment shader \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a1d1750c87ea740caf05dac2816a6b800}\label{class_c_s_c_i441_1_1_shader_program_a1d1750c87ea740caf05dac2816a6b800}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!Shader\+Program@{Shader\+Program}}
+\index{Shader\+Program@{Shader\+Program}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{Shader\+Program()}{ShaderProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily C\+S\+C\+I441\+::\+Shader\+Program\+::\+Shader\+Program (\begin{DoxyParamCaption}\item[{const char $\ast$}]{vertex\+Shader\+Filename,  }\item[{const char $\ast$}]{geometry\+Shader\+Filename,  }\item[{const char $\ast$}]{fragment\+Shader\+Filename }\end{DoxyParamCaption})}
+
+
+
+Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ vertex\+Shader\+Filename -\/ name of the file corresponding to the vertex shader \\
+\hline
+{\em const} & char$\ast$ geometry\+Shader\+Filename -\/ name of the file corresponding to the geometry shader \\
+\hline
+{\em const} & char$\ast$ fragment\+Shader\+Filename -\/ name of the file corresponding to the fragment shader \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a9358a3f05e8432707d8ec89d1cd9d248}\label{class_c_s_c_i441_1_1_shader_program_a9358a3f05e8432707d8ec89d1cd9d248}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!disable\+Debug\+Messages@{disable\+Debug\+Messages}}
+\index{disable\+Debug\+Messages@{disable\+Debug\+Messages}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{disable\+Debug\+Messages()}{disableDebugMessages()}}
+{\footnotesize\ttfamily void C\+S\+C\+I441\+::\+Shader\+Program\+::disable\+Debug\+Messages (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Disables debug messages from Shader Program functions. 
+
+Disables debug messages from Shader Program functions. Debug messages are on by default. \mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_aa7cf75ce6605ac1f6ca660f98b88ebba}\label{class_c_s_c_i441_1_1_shader_program_aa7cf75ce6605ac1f6ca660f98b88ebba}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!enable\+Debug\+Messages@{enable\+Debug\+Messages}}
+\index{enable\+Debug\+Messages@{enable\+Debug\+Messages}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{enable\+Debug\+Messages()}{enableDebugMessages()}}
+{\footnotesize\ttfamily void C\+S\+C\+I441\+::\+Shader\+Program\+::enable\+Debug\+Messages (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Enables debug messages from Shader Program functions. 
+
+Enables debug messages from Shader Program functions. Debug messages are on by default. \mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a6b3373c96832a3dd4e6ba60d965748f5}\label{class_c_s_c_i441_1_1_shader_program_a6b3373c96832a3dd4e6ba60d965748f5}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!get\+Attribute\+Location@{get\+Attribute\+Location}}
+\index{get\+Attribute\+Location@{get\+Attribute\+Location}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{get\+Attribute\+Location()}{getAttributeLocation()}}
+{\footnotesize\ttfamily G\+Lint C\+S\+C\+I441\+::\+Shader\+Program\+::get\+Attribute\+Location (\begin{DoxyParamCaption}\item[{const char $\ast$}]{attribute\+Name }\end{DoxyParamCaption})}
+
+
+
+Returns the location of the given attribute in this shader program. 
+
+\begin{DoxyNote}{Note}
+Prints an error message to standard error stream if the attribute is not found 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ attribute\+Name -\/ name of the attribute to get the location for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+Lint -\/ location of the given attribute in this shader program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a4b76efbf04fb2ce32f85ba5a7333eb62}\label{class_c_s_c_i441_1_1_shader_program_a4b76efbf04fb2ce32f85ba5a7333eb62}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!get\+Num\+Attributes@{get\+Num\+Attributes}}
+\index{get\+Num\+Attributes@{get\+Num\+Attributes}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{get\+Num\+Attributes()}{getNumAttributes()}}
+{\footnotesize\ttfamily G\+Luint C\+S\+C\+I441\+::\+Shader\+Program\+::get\+Num\+Attributes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the number of active attributes in this shader program. 
+
+\begin{DoxyReturn}{Returns}
+G\+Luint -\/ number of active attributes in this shader program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a1bc6aedd8b3dc76439717a070aeb4586}\label{class_c_s_c_i441_1_1_shader_program_a1bc6aedd8b3dc76439717a070aeb4586}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!get\+Num\+Uniform\+Blocks@{get\+Num\+Uniform\+Blocks}}
+\index{get\+Num\+Uniform\+Blocks@{get\+Num\+Uniform\+Blocks}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{get\+Num\+Uniform\+Blocks()}{getNumUniformBlocks()}}
+{\footnotesize\ttfamily G\+Luint C\+S\+C\+I441\+::\+Shader\+Program\+::get\+Num\+Uniform\+Blocks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the number of active uniform blocks in this shader program. 
+
+\begin{DoxyReturn}{Returns}
+G\+Luint -\/ number of active uniform blocks in this shader program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_aa47d813096eba4588d0641e247144376}\label{class_c_s_c_i441_1_1_shader_program_aa47d813096eba4588d0641e247144376}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!get\+Num\+Uniforms@{get\+Num\+Uniforms}}
+\index{get\+Num\+Uniforms@{get\+Num\+Uniforms}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{get\+Num\+Uniforms()}{getNumUniforms()}}
+{\footnotesize\ttfamily G\+Luint C\+S\+C\+I441\+::\+Shader\+Program\+::get\+Num\+Uniforms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the number of active uniforms in this shader program. 
+
+\begin{DoxyReturn}{Returns}
+G\+Luint -\/ number of active uniforms in this shader program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_aa1003cd55af666853561d97fac94b92b}\label{class_c_s_c_i441_1_1_shader_program_aa1003cd55af666853561d97fac94b92b}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!get\+Shader\+Program\+Handle@{get\+Shader\+Program\+Handle}}
+\index{get\+Shader\+Program\+Handle@{get\+Shader\+Program\+Handle}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{get\+Shader\+Program\+Handle()}{getShaderProgramHandle()}}
+{\footnotesize\ttfamily G\+Luint C\+S\+C\+I441\+::\+Shader\+Program\+::get\+Shader\+Program\+Handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the handle for this shader program. 
+
+\begin{DoxyReturn}{Returns}
+G\+Luint -\/ handle for this shader program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a6a8732a9fb89b0870c40ed5d8b8b7c09}\label{class_c_s_c_i441_1_1_shader_program_a6a8732a9fb89b0870c40ed5d8b8b7c09}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!get\+Subroutine\+Index@{get\+Subroutine\+Index}}
+\index{get\+Subroutine\+Index@{get\+Subroutine\+Index}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{get\+Subroutine\+Index()}{getSubroutineIndex()}}
+{\footnotesize\ttfamily G\+Luint C\+S\+C\+I441\+::\+Shader\+Program\+::get\+Subroutine\+Index (\begin{DoxyParamCaption}\item[{G\+Lenum}]{shader\+Stage,  }\item[{const char $\ast$}]{subroutine\+Name }\end{DoxyParamCaption})}
+
+
+
+Returns the index of the given subroutine for a shader stage in this shader program. 
+
+\begin{DoxyNote}{Note}
+Prints an error message to standard error stream if the subroutine is not found 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em G\+Lenum} & shader\+Stage -\/ stage of the shader program to get the subroutine for. Allowable values\+: G\+L\+\_\+\+V\+E\+R\+T\+E\+X\+\_\+\+S\+H\+A\+D\+ER, G\+L\+\_\+\+T\+E\+S\+S\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+S\+H\+A\+D\+ER, G\+L\+\_\+\+T\+E\+S\+S\+\_\+\+E\+V\+A\+L\+U\+A\+T\+I\+O\+N\+\_\+\+S\+H\+A\+D\+ER, G\+L\+\_\+\+G\+E\+O\+M\+E\+T\+R\+Y\+\_\+\+S\+H\+A\+D\+ER, G\+L\+\_\+\+F\+R\+A\+G\+M\+E\+N\+T\+\_\+\+S\+H\+A\+D\+ER \\
+\hline
+{\em const} & char$\ast$ subroutine\+Name -\/ name of the subroutine to get the location for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+Luint -\/ index of the given subroutine for the shader stage in this shader program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a7a3246df6f87b0b4c7cfbce0a39e8330}\label{class_c_s_c_i441_1_1_shader_program_a7a3246df6f87b0b4c7cfbce0a39e8330}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!get\+Uniform\+Block\+Buffer@{get\+Uniform\+Block\+Buffer}}
+\index{get\+Uniform\+Block\+Buffer@{get\+Uniform\+Block\+Buffer}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{get\+Uniform\+Block\+Buffer()}{getUniformBlockBuffer()}}
+{\footnotesize\ttfamily G\+Lubyte $\ast$ C\+S\+C\+I441\+::\+Shader\+Program\+::get\+Uniform\+Block\+Buffer (\begin{DoxyParamCaption}\item[{const char $\ast$}]{uniform\+Block\+Name }\end{DoxyParamCaption})}
+
+
+
+Returns an allocated buffer for the given uniform block in this shader program. 
+
+\begin{DoxyNote}{Note}
+Prints an error message to standard error stream if the uniform block is not found 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ uniform\+Block\+Name -\/ name of the uniform block to allocate a buffer for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+Lubyte$\ast$ -\/ allocated buffer for the given uniform block in this shader program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_ab7e22eaa60f7ee098c8b9efc87de6397}\label{class_c_s_c_i441_1_1_shader_program_ab7e22eaa60f7ee098c8b9efc87de6397}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!get\+Uniform\+Block\+Index@{get\+Uniform\+Block\+Index}}
+\index{get\+Uniform\+Block\+Index@{get\+Uniform\+Block\+Index}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{get\+Uniform\+Block\+Index()}{getUniformBlockIndex()}}
+{\footnotesize\ttfamily G\+Lint C\+S\+C\+I441\+::\+Shader\+Program\+::get\+Uniform\+Block\+Index (\begin{DoxyParamCaption}\item[{const char $\ast$}]{uniform\+Block\+Name }\end{DoxyParamCaption})}
+
+
+
+Returns the index of the given uniform block in this shader program. 
+
+\begin{DoxyNote}{Note}
+Prints an error message to standard error stream if the uniform block is not found 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ uniform\+Block\+Name -\/ name of the uniform block to get the index for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+Lint -\/ index of the given uniform block in this shader program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a86f97ca91c4a86a59749d7470b7e20d9}\label{class_c_s_c_i441_1_1_shader_program_a86f97ca91c4a86a59749d7470b7e20d9}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!get\+Uniform\+Block\+Offsets@{get\+Uniform\+Block\+Offsets}}
+\index{get\+Uniform\+Block\+Offsets@{get\+Uniform\+Block\+Offsets}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{get\+Uniform\+Block\+Offsets()}{getUniformBlockOffsets()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily G\+Lint $\ast$ C\+S\+C\+I441\+::\+Shader\+Program\+::get\+Uniform\+Block\+Offsets (\begin{DoxyParamCaption}\item[{const char $\ast$}]{uniform\+Block\+Name }\end{DoxyParamCaption})}
+
+
+
+Returns an array of offsets into the buffer for the given uniform block in this shader program. 
+
+\begin{DoxyNote}{Note}
+Prints an error message to standard error stream if the uniform block is not found 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ uniform\+Block\+Name -\/ name of the uniform block to return offsets for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+Lint$\ast$ -\/ array of offsets for the given uniform block in this shader program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_aeebfe8124ca9d60896e1443e9eded2b6}\label{class_c_s_c_i441_1_1_shader_program_aeebfe8124ca9d60896e1443e9eded2b6}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!get\+Uniform\+Block\+Offsets@{get\+Uniform\+Block\+Offsets}}
+\index{get\+Uniform\+Block\+Offsets@{get\+Uniform\+Block\+Offsets}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{get\+Uniform\+Block\+Offsets()}{getUniformBlockOffsets()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily G\+Lint $\ast$ C\+S\+C\+I441\+::\+Shader\+Program\+::get\+Uniform\+Block\+Offsets (\begin{DoxyParamCaption}\item[{const char $\ast$}]{uniform\+Block\+Name,  }\item[{const char $\ast$}]{names\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Returns an array of offsets into the buffer for the given uniform block and names in this shader program. 
+
+\begin{DoxyNote}{Note}
+Prints an error message to standard error stream if the uniform block is not found 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ uniform\+Block\+Name -\/ name of the uniform block to return offsets for \\
+\hline
+{\em const} & char$\ast$ names\mbox{[}\mbox{]} -\/ names of the uniform block components to get offsets for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+Lint$\ast$ -\/ array of offsets for the given uniform block in this shader program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a73f10d773f7ac81c92b899a8bd6826d8}\label{class_c_s_c_i441_1_1_shader_program_a73f10d773f7ac81c92b899a8bd6826d8}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!get\+Uniform\+Block\+Size@{get\+Uniform\+Block\+Size}}
+\index{get\+Uniform\+Block\+Size@{get\+Uniform\+Block\+Size}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{get\+Uniform\+Block\+Size()}{getUniformBlockSize()}}
+{\footnotesize\ttfamily G\+Lint C\+S\+C\+I441\+::\+Shader\+Program\+::get\+Uniform\+Block\+Size (\begin{DoxyParamCaption}\item[{const char $\ast$}]{uniform\+Block\+Name }\end{DoxyParamCaption})}
+
+
+
+Returns the size of the given uniform block in this shader program. 
+
+\begin{DoxyNote}{Note}
+Prints an error message to standard error stream if the uniform block is not found 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ uniform\+Block\+Name -\/ name of the uniform block to get the size for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+Lint -\/ size of the given uniform block in this shader program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_a196a95f51d3f85a32074ca7b0aba428f}\label{class_c_s_c_i441_1_1_shader_program_a196a95f51d3f85a32074ca7b0aba428f}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!get\+Uniform\+Location@{get\+Uniform\+Location}}
+\index{get\+Uniform\+Location@{get\+Uniform\+Location}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{get\+Uniform\+Location()}{getUniformLocation()}}
+{\footnotesize\ttfamily G\+Lint C\+S\+C\+I441\+::\+Shader\+Program\+::get\+Uniform\+Location (\begin{DoxyParamCaption}\item[{const char $\ast$}]{uniform\+Name }\end{DoxyParamCaption})}
+
+
+
+Returns the location of the given uniform in this shader program. 
+
+\begin{DoxyNote}{Note}
+Prints an error message to standard error stream if the uniform is not found 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ uniform\+Name -\/ name of the uniform to get the location for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+Lint -\/ location of the given uniform in this shader program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_shader_program_ae1200c6f7a7afd36ed1090eb47a7d3ac}\label{class_c_s_c_i441_1_1_shader_program_ae1200c6f7a7afd36ed1090eb47a7d3ac}} 
+\index{C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}!set\+Uniform\+Block\+Binding@{set\+Uniform\+Block\+Binding}}
+\index{set\+Uniform\+Block\+Binding@{set\+Uniform\+Block\+Binding}!C\+S\+C\+I441\+::\+Shader\+Program@{C\+S\+C\+I441\+::\+Shader\+Program}}
+\subsubsection{\texorpdfstring{set\+Uniform\+Block\+Binding()}{setUniformBlockBinding()}}
+{\footnotesize\ttfamily void C\+S\+C\+I441\+::\+Shader\+Program\+::set\+Uniform\+Block\+Binding (\begin{DoxyParamCaption}\item[{const char $\ast$}]{uniform\+Block\+Name,  }\item[{G\+Luint}]{binding }\end{DoxyParamCaption})}
+
+
+
+Set the binding point for the given uniform block in this shader program. 
+
+\begin{DoxyNote}{Note}
+Prints an error message to standard error stream if the uniform block is not found 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ uniform\+Block\+Name -\/ name of the uniform block to bind \\
+\hline
+{\em G\+Luint} & binding -\/ binding point for this uniform block \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+S\+C\+I441/\hyperlink{_shader_program3_8hpp}{Shader\+Program3.\+hpp}\end{DoxyCompactItemize}

@@ -1,0 +1,97 @@
+This library is intended to be used with Open\+GL for \hyperlink{namespace_c_s_c_i441}{C\+S\+C\+I441} at the Colorado School of Mines.
+
+When building, the library must be compiled and linked against Open\+GL and glm. Headers thatend in $\ast$3.hpp are built for Open\+GL 3.\+0+ and additionally depend upon G\+L\+EW.
+
+Copyright (c) 2017 Dr. Jeffrey Paone
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \char`\"{}\+Software\char`\"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+T\+HE S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED \char`\"{}\+A\+S I\+S\char`\"{}, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+TY OF A\+NY K\+I\+ND, E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED, I\+N\+C\+L\+U\+D\+I\+NG B\+UT N\+OT L\+I\+M\+I\+T\+ED TO T\+HE W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY, F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+ND N\+O\+N\+I\+N\+F\+R\+I\+N\+G\+E\+M\+E\+NT. IN NO E\+V\+E\+NT S\+H\+A\+LL T\+HE A\+U\+T\+H\+O\+RS OR C\+O\+P\+Y\+R\+I\+G\+HT H\+O\+L\+D\+E\+RS BE L\+I\+A\+B\+LE F\+OR A\+NY C\+L\+A\+IM, D\+A\+M\+A\+G\+ES OR O\+T\+H\+ER L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN AN A\+C\+T\+I\+ON OF C\+O\+N\+T\+R\+A\+CT, T\+O\+RT OR O\+T\+H\+E\+R\+W\+I\+SE, A\+R\+I\+S\+I\+NG F\+R\+OM, O\+UT OF OR IN C\+O\+N\+N\+E\+C\+T\+I\+ON W\+I\+TH T\+HE S\+O\+F\+T\+W\+A\+RE OR T\+HE U\+SE OR O\+T\+H\+ER D\+E\+A\+L\+I\+N\+GS IN T\+HE S\+O\+F\+T\+W\+A\+RE.
+
+T\+O\+DO Items \begin{quote}
+Handle vertex and face colors in O\+FF files \end{quote}
+
+
+Revision History
+
+v1.\+8 -\/ 16 Nov 2017 \begin{quote}
+Added support for M\+TL files for Phong Shading and diffuse maps \end{quote}
+
+
+v1.\+7 -\/ 16 Nov 2017 \begin{quote}
+Added \hyperlink{_texture_utils_8hpp_a7f58e6db7faf86181d593d3afb1a55d7}{load\+B\+M\+P()} support to \hyperlink{_texture_utils_8hpp}{Texture\+Utils.\+hpp}~\newline
+Added support for A\+S\+C\+II S\+TL files to \hyperlink{model_loader3_8hpp}{model\+Loader3.\+hpp}~\newline
+Added support for O\+FF files to \hyperlink{model_loader3_8hpp}{model\+Loader3.\+hpp}~\newline
+Fixed reallocation error if model did not load properly~\newline
+Added support for A\+S\+C\+II P\+LY files to \hyperlink{model_loader3_8hpp}{model\+Loader3.\+hpp} (as long as first three vertex properties are x/y/z location)~\newline
+If P\+LY file does not contain normal information (we\textquotesingle{}re currently not checking for it), can autogenerate vertex normals~\newline
+If O\+FF file does not contain normal information, can autogenerate vertex normals~\newline
+If O\+BJ file does not contain normal information, can autogenerate vertex normals \end{quote}
+
+
+v1.\+6 -\/ 15 Nov 2017 \begin{quote}
+Added \hyperlink{_framebuffer_utils3_8hpp}{Framebuffer\+Utils3.\+hpp} to print Framebuffer info~\newline
+Fixed off by 1 error for normals/texcoords in \hyperlink{model_loader3_8hpp}{model\+Loader3.\+hpp}~\newline
+Fixed overflow error for \hyperlink{model_loader3_8hpp}{model\+Loader3.\+hpp} when reading in models with more than 65535 vertices \end{quote}
+
+
+v1.\+5.\+1 -\/ 10 Nov 2017 \begin{quote}
+Fixed redefinition errors in \hyperlink{teapot3_8hpp}{teapot3.\+hpp} and \hyperlink{objects3_8hpp}{objects3.\+hpp}~\newline
+Fixed bug in \hyperlink{_shader_utils3_8hpp}{Shader\+Utils3.\+hpp} to check if Open\+GL is version 4.\+0+ before querying subroutine uniforms \end{quote}
+
+
+v1.\+5 -\/ 06 Nov 2017 \begin{quote}
+Added load\+T\+GA method to \hyperlink{_texture_utils_8hpp}{Texture\+Utils.\+hpp}~\newline
+Commenting added to \hyperlink{_texture_utils_8hpp}{Texture\+Utils.\+hpp}~\newline
+Converted \hyperlink{namespace_open_g_l_utils}{Open\+G\+L\+Utils} from static non-\/implementable class to namespace~\newline
+Added commenting to \hyperlink{_shader_program3_8hpp}{Shader\+Program3.\+hpp} \end{quote}
+
+
+v1.\+4.\+1 -\/ 05 Nov 2017 \begin{quote}
+Fixed bug in \hyperlink{objects3_8hpp}{objects3.\+hpp} of internally passing torus parameters in incorrect order \end{quote}
+
+
+v1.\+4 -\/ 03 Nov 2017 \begin{quote}
+Created \hyperlink{_shader_utils3_8hpp}{Shader\+Utils3.\+hpp} and \hyperlink{_shader_program3_8hpp}{Shader\+Program3.\+hpp} to make working with Shaders easier \end{quote}
+
+
+v.\+1.\+3.\+1 -\/ 28 Oct 2017 \begin{quote}
+Matched internal data types to prevent c++11 narrowing warnings on lab machines \end{quote}
+
+
+v1.\+3 -\/ 26 Oct 2017 \begin{quote}
+Modified texture coordinates for cylinder to linear step from 0 to 1 in s instead of following cosine~\newline
+Modified texture coordinates for sphere to linear step form 0 to 1 in s \& t instead of following sine and cosine~\newline
+Fixed bug when disk was not being displayed if consisting of 1 ring~\newline
+Fixed bug with Partial Disk not starting at current angle~\newline
+Fixed bug with normals on Sphere stacks~\newline
+Added \hyperlink{model_loader3_8hpp}{model\+Loader3.\+hpp} to handle loading and drawing O\+BJ files~\newline
+Added \hyperlink{objects3_8hpp}{objects3.\+hpp} that allow for solid primitives to be drawn with Open\+GL 3.\+0~\newline
+Notes for teapot -\/ the teapot cannot be textured and it is a pure teapot with no bottom~\newline
+For a textured teapot, look into using an object model \end{quote}
+
+
+v1.\+2 -\/ 25 Sep 2017 \begin{quote}
+Fixed error in draw$\ast$\+Disk not completing final slice step~\newline
+Added \hyperlink{namespace_texture_utils}{Texture\+Utils} to load in a P\+PM~\newline
+Added Material\+Struct structure to group together Phong properties~\newline
+Fixed error in \hyperlink{namespace_c_s_c_i441_a9bc98669fe2b67ecb45d7b18c61f74d9}{draw\+Solid\+Disk()} not allowing inner radius to be zero \end{quote}
+
+
+v1.\+1.\+1 -\/ 22 Sep 2017 \begin{quote}
+Removed G\+L\+\_\+\+M\+A\+X\+\_\+\+C\+O\+L\+O\+R\+\_\+\+A\+T\+T\+A\+C\+H\+M\+E\+N\+TS to comply with lab machines \end{quote}
+
+
+v1.\+1 -\/ 21 Sep 2017 \begin{quote}
+Added \hyperlink{namespace_open_g_l_utils}{Open\+G\+L\+Utils} class to store commonly used helper functions \end{quote}
+
+
+v1.\+0.\+1 -\/ 19 Sep 2017 \begin{quote}
+Added documentation~\newline
+Added inline definition to functions to prevent duplicate linking errors \end{quote}
+
+
+v1.\+0 -\/ 01 Sep 2017 \begin{quote}
+Initial release of all Open\+GL 3D objects\end{quote}
