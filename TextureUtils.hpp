@@ -23,6 +23,9 @@
 
 #include <stdio.h>
 
+#include <string>
+using namespace std;
+
 ////////////////////////////////////////////////////////////////////////////////////
 
 /** @namespace CSCI441
@@ -149,7 +152,7 @@ inline bool CSCI441::TextureUtils::loadBMP( const char* filename, int &imageWidt
 	unsigned short int planes;          // number of planes in image (must be 1)
 	unsigned short int bpp;             // number of bits per pixel (must be 24)
 	char temp;                          // used to convert bgr to rgb color.
-	
+
 	// make sure the file is there.
 	if ((file = fopen(filename, "rb"))==NULL) {
 		string folderName = string(path) + string(filename);
