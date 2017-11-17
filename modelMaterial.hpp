@@ -10,8 +10,8 @@ namespace CSCI441_INTERNAL {
       GLfloat shininess;
       GLfloat emissive[4];
 
-      GLuint map_Kd;
-      GLuint map_d;
+      GLint map_Kd;
+      GLint map_d;
 
       ModelMaterial() {
         for( int i = 0; i < 3; i++ ) {
