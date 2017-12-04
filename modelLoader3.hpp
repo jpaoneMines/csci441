@@ -139,16 +139,16 @@ namespace CSCI441_INTERNAL {
 
 bool CSCI441::ModelLoader::AUTO_GEN_NORMALS = false;
 
-CSCI441::ModelLoader::ModelLoader() {
+inline CSCI441::ModelLoader::ModelLoader() {
 	_init();
 }
 
-CSCI441::ModelLoader::ModelLoader( const char* filename ) {
+inline CSCI441::ModelLoader::ModelLoader( const char* filename ) {
 	_init();
 	loadModelFile( filename );
 }
 
-CSCI441::ModelLoader::~ModelLoader() {
+inline CSCI441::ModelLoader::~ModelLoader() {
 	if( _vertices ) 			free( _vertices );
 	if( _texCoords ) 			free( _texCoords );
 	if( _normals ) 				free( _normals );
@@ -158,7 +158,7 @@ CSCI441::ModelLoader::~ModelLoader() {
 	glDeleteBuffers( 2, _vbods );
 }
 
-void CSCI441::ModelLoader::_init() {
+inline void CSCI441::ModelLoader::_init() {
 	_hasVertexTexCoords = false;
 	_hasVertexNormals = false;
 
@@ -171,7 +171,7 @@ void CSCI441::ModelLoader::_init() {
 	glGenBuffers( 2, _vbods );
 }
 
-bool CSCI441::ModelLoader::loadModelFile( const char* filename, bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::loadModelFile( const char* filename, bool INFO, bool ERRORS ) {
 	bool result = true;
 	_filename = (char*)malloc(sizeof(char)*strlen(filename));
 	strcpy( _filename, filename );
@@ -199,7 +199,7 @@ bool CSCI441::ModelLoader::loadModelFile( const char* filename, bool INFO, bool 
 	return result;
 }
 
-bool CSCI441::ModelLoader::draw( GLint positionLocation, GLint normalLocation, GLint texCoordLocation,
+inline bool CSCI441::ModelLoader::draw( GLint positionLocation, GLint normalLocation, GLint texCoordLocation,
 						 										 GLint matDiffLocation, GLint matSpecLocation, GLint matShinLocation, GLint matAmbLocation,
 															   GLenum diffuseTexture ) {
   bool result = true;
@@ -262,7 +262,7 @@ bool CSCI441::ModelLoader::draw( GLint positionLocation, GLint normalLocation, G
 
 // Read in a WaveFront *.obj File
 
-bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	bool result = true;
 
 	if (INFO ) printf( "[.obj]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=- \n", _filename );
@@ -710,7 +710,7 @@ bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	return result;
 }
 
-bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool INFO, bool ERRORS ) {
 	bool result = true;
 
 	if (INFO) printf( "[.mtl]: -*-*-*-*-*-*-*- BEGIN %s Info -*-*-*-*-*-*-*-\n", mtlFilename );
@@ -928,7 +928,7 @@ bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool INFO, boo
 	return result;
 }
 
-bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 	bool result = true;
 
 	if (INFO ) printf( "[.off]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename );
@@ -1231,7 +1231,7 @@ bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 }
 
 // notes on PLY format: http://paulbourke.net/dataformats/ply/
-bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 	bool result = true;
 
 	if (INFO ) printf( "[.ply]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename );
@@ -1555,7 +1555,7 @@ bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 	return result;
 }
 
-bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 	bool result = true;
 
 	if (INFO) printf( "[.stl]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename );
@@ -1748,11 +1748,11 @@ bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 	return result;
 }
 
-void CSCI441::ModelLoader::enableAutoGenerateNormals() {
+inline void CSCI441::ModelLoader::enableAutoGenerateNormals() {
 	AUTO_GEN_NORMALS = true;
 }
 
-void CSCI441::ModelLoader::disableAutoGenerateNormals() {
+inline void CSCI441::ModelLoader::disableAutoGenerateNormals() {
 	AUTO_GEN_NORMALS = false;
 }
 
@@ -1762,7 +1762,7 @@ void CSCI441::ModelLoader::disableAutoGenerateNormals() {
 //      This is a helper function to break a single string into std::vector
 //  of strings, based on a given set of delimiter characters.
 //
-vector<string> CSCI441::ModelLoader::_tokenizeString(string input, string delimiters) {
+inline vector<string> CSCI441::ModelLoader::_tokenizeString(string input, string delimiters) {
 	if(input.size() == 0)
 		return vector<string>();
 
@@ -1799,7 +1799,7 @@ vector<string> CSCI441::ModelLoader::_tokenizeString(string input, string delimi
 	return retVec;
 }
 
-unsigned char* CSCI441_INTERNAL::createTransparentTexture( unsigned char *imageData, unsigned char *imageMask, int texWidth, int texHeight, int texChannels, int maskChannels ) {
+inline unsigned char* CSCI441_INTERNAL::createTransparentTexture( unsigned char *imageData, unsigned char *imageMask, int texWidth, int texHeight, int texChannels, int maskChannels ) {
 	//combine the 'mask' array with the image data array into an RGBA array.
 	unsigned char *fullData = new unsigned char[texWidth*texHeight*4];
 
@@ -1825,7 +1825,7 @@ unsigned char* CSCI441_INTERNAL::createTransparentTexture( unsigned char *imageD
 	return fullData;
 }
 
-void CSCI441_INTERNAL::flipImageY( int texWidth, int texHeight, int textureChannels, unsigned char *textureData ) {
+inline void CSCI441_INTERNAL::flipImageY( int texWidth, int texHeight, int textureChannels, unsigned char *textureData ) {
 	for( int j = 0; j < texHeight / 2; j++ ) {
 		for( int i = 0; i < texWidth; i++ ) {
 			for( int k = 0; k < textureChannels; k++ ) {

@@ -30,6 +30,9 @@ TODO Items
 
 Revision History
 
+v1.8.1	- 04 Dec 2017
+  > Marked modelLoader3.hpp function implementations as inline to prevent redefinition errors
+
 v1.8	- 16 Nov 2017
   > Added support for MTL files for Phong Shading and diffuse maps
 

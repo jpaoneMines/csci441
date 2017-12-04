@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  17 NOV 2017 12:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  4 DEC 2017 14:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1225,12 +1225,12 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
 (Font)              scaled to size 18.66588pt on input line 141.
 (./index.tex
-LaTeX Font Info:    Try loading font information for TS1+phv on input line 29.
+LaTeX Font Info:    Try loading font information for TS1+phv on input line 33.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
 )
 LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 29.
+(Font)              scaled to size 8.99994pt on input line 33.
 
 [1
 
@@ -1927,10 +1927,10 @@ nts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/typ
 e1/urw/helvetic/uhvb8ac.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw
 /helvetic/uhvr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/helvet
 ic/uhvro8a.pfb>
-Output written on refman.pdf (62 pages, 214495 bytes).
+Output written on refman.pdf (62 pages, 214717 bytes).
 PDF statistics:
- 1384 PDF objects out of 1440 (max. 8388607)
- 1292 compressed objects within 13 object streams
+ 1385 PDF objects out of 1440 (max. 8388607)
+ 1293 compressed objects within 13 object streams
  313 named destinations out of 1000 (max. 500000)
  857 words of extra memory for PDF output out of 10000 (max. 10000000)
 
