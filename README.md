@@ -30,7 +30,7 @@ TODO Items
 
 Revision History
 
-v1.8.1	- 04 Dec 2017
+v1.8.3	- 04 Dec 2017
   > Marked modelLoader3.hpp function implementations as inline to prevent redefinition errors
 
 v1.8	- 16 Nov 2017
