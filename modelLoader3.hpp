@@ -15,6 +15,9 @@
 	*	@warning NOTE: This header file depends upon GLEW
   */
 
+#ifndef __CSCI441_MODELLOADER_3_HPP__
+#define __CSCI441_MODELLOADER_3_HPP__
+
 #include <GL/glew.h>
 
 #include <glm/glm.hpp>
@@ -1840,3 +1843,5 @@ inline void CSCI441_INTERNAL::flipImageY( int texWidth, int texHeight, int textu
 		}
 	}
 }
+
+#endif // __CSCI441_MODELLOADER_3_HPP__
