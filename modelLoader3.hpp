@@ -44,6 +44,8 @@ using namespace std;
 	*/
 namespace CSCI441 {
 
+	static bool AUTO_GEN_NORMALS = false;
+
 	/** @class ModelLoader
 		* @brief Loads object models from file and renders using VBOs/VAOs
 		*/
@@ -127,8 +129,6 @@ namespace CSCI441 {
 
 		bool _hasVertexTexCoords;
 		bool _hasVertexNormals;
-
-		static bool AUTO_GEN_NORMALS;
 	};
 }
 
@@ -139,8 +139,6 @@ namespace CSCI441_INTERNAL {
 	unsigned char* createTransparentTexture( unsigned char *imageData, unsigned char *imageMask, int texWidth, int texHeight, int texChannels, int maskChannels );
 	void flipImageY( int texWidth, int texHeight, int textureChannels, unsigned char *textureData );
 }
-
-bool CSCI441::ModelLoader::AUTO_GEN_NORMALS = false;
 
 inline CSCI441::ModelLoader::ModelLoader() {
 	_init();

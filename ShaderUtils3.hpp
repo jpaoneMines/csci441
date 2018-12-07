@@ -44,11 +44,11 @@ namespace CSCI441_INTERNAL {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void CSCI441_INTERNAL::ShaderUtils::enableDebugMessages() {
+inline void CSCI441_INTERNAL::ShaderUtils::enableDebugMessages() {
 	sDEBUG = true;
 }
 
-void CSCI441_INTERNAL::ShaderUtils::disableDebugMessages() {
+inline void CSCI441_INTERNAL::ShaderUtils::disableDebugMessages() {
 	sDEBUG = false;
 }
 
@@ -57,7 +57,7 @@ void CSCI441_INTERNAL::ShaderUtils::disableDebugMessages() {
 //  Reads in a text file as a single string. Used to aid in shader loading.
 //
 ////////////////////////////////////////////////////////////////////////////////
-void CSCI441_INTERNAL::ShaderUtils::readTextFromFile(const char *filename, char* &output){
+inline void CSCI441_INTERNAL::ShaderUtils::readTextFromFile(const char *filename, char* &output){
     std::string buf = std::string("");
     std::string line;
 
@@ -76,7 +76,7 @@ void CSCI441_INTERNAL::ShaderUtils::readTextFromFile(const char *filename, char*
     in.close();
 }
 
-const char* CSCI441_INTERNAL::ShaderUtils::GL_type_to_string(GLenum type) {
+inline const char* CSCI441_INTERNAL::ShaderUtils::GL_type_to_string(GLenum type) {
   switch(type) {
     case GL_BOOL: return "bool";
     case GL_INT: return "int";
@@ -96,7 +96,7 @@ const char* CSCI441_INTERNAL::ShaderUtils::GL_type_to_string(GLenum type) {
   return "other";
 }
 
-const char* CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(GLenum type) {
+inline const char* CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(GLenum type) {
   switch(type) {
     case GL_VERTEX_SHADER: return "Vertex Shader";
     case GL_TESS_CONTROL_SHADER: return "Tess Ctrl Shader";
@@ -114,7 +114,7 @@ const char* CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(GLenum type)
 //      Prints to terminal
 //
 ////////////////////////////////////////////////////////////////////////////////
-void CSCI441_INTERNAL::ShaderUtils::printLog( GLuint handle ) {
+inline void CSCI441_INTERNAL::ShaderUtils::printLog( GLuint handle ) {
 	int status;
     int infologLength = 0;
     int maxLength;
@@ -161,7 +161,7 @@ void CSCI441_INTERNAL::ShaderUtils::printLog( GLuint handle ) {
     }
 }
 
-void CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint handle, GLenum shaderStage ) {
+inline void CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint handle, GLenum shaderStage ) {
 	int params, params2;
 	int *params3 = NULL;
 
@@ -192,7 +192,7 @@ void CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint handle, GLenum s
 	}
 }
 
-void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle ) {
+inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle ) {
 	int params;
 	bool hasVertexShader = false;
 	bool hasTessControlShader = false;
@@ -380,7 +380,7 @@ void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle ) {
 //  Compile a given shader program
 //
 ////////////////////////////////////////////////////////////////////////////////
-GLuint CSCI441_INTERNAL::ShaderUtils::compileShader( const char *filename, GLenum shaderType ) {
+inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader( const char *filename, GLenum shaderType ) {
 	GLuint shaderHandle = 0;
 	char *shaderString;
 
