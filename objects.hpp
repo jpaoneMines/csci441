@@ -31,6 +31,10 @@
 
 #include <CSCI441/teapot.hpp> // for teapot()
 
+#ifndef M_PI
+#define M_PI 3.14159
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////////
 
 /** @namespace CSCI441
@@ -561,7 +565,7 @@ inline void CSCI441_INTERNAL::drawSphere( GLdouble radius, GLint stacks, GLint s
 				double theta = sliceStep * sliceNum;
 
 				glNormal3f( -cos( theta )*sin( phiNext ),        -cos( phiNext ),        sin( theta )*sin( phiNext )        );
-				glTexCoord2f( (stacks-1.0f) / stacks, sliceNum / slices );
+				glTexCoord2f( (stacks-1.0f) / (GLfloat)stacks, sliceNum / (GLfloat)slices );
 				glVertex3f( -cos( theta )*sin( phiNext )*radius, -cos( phiNext )*radius, sin( theta )*sin( phiNext )*radius );
 			}
 		}; glEnd();
@@ -576,11 +580,11 @@ inline void CSCI441_INTERNAL::drawSphere( GLdouble radius, GLint stacks, GLint s
 					double theta = sliceStep * sliceNum;
 
 					glNormal3f( -cos( theta )*sin( phi ),            -cos( phi ),     sin( theta )*sin( phi )            );
-					glTexCoord2f( stackNum / sphereData.st,     sliceNum / sphereData.sl );
+					glTexCoord2f( stackNum / (GLfloat)stacks,     sliceNum / (GLfloat)slices );
 					glVertex3f( -cos( theta )*sin( phi )*radius,     -cos( phi )*radius,     sin( theta )*sin( phi )*radius     );
 
 					glNormal3f( -cos( theta )*sin( phiNext ),        -cos( phiNext ), sin( theta )*sin( phiNext )        );
-					glTexCoord2f( (stackNum+1) / sphereData.st, sliceNum / sphereData.sl );
+					glTexCoord2f( (stackNum+1) / (GLfloat)stacks, sliceNum / (GLfloat)slices );
 					glVertex3f( -cos( theta )*sin( phiNext )*radius, -cos( phiNext )*radius, sin( theta )*sin( phiNext )*radius );
 				}
 			}; glEnd();
@@ -599,7 +603,7 @@ inline void CSCI441_INTERNAL::drawSphere( GLdouble radius, GLint stacks, GLint s
 				double theta = sliceStep * sliceNum;
 
 				glNormal3f( -cos( theta )*sin( phiNext ),        -cos( phiNext ),        sin( theta )*sin( phiNext )        );
-				glTexCoord2f( 1.0f / stacks, sliceNum / slices );
+				glTexCoord2f( 1.0f / (GLfloat)stacks, sliceNum / (GLfloat)slices );
 				glVertex3f( -cos( theta )*sin( phiNext )*radius, -cos( phiNext )*radius, sin( theta )*sin( phiNext )*radius );
 			}
 		}; glEnd();
