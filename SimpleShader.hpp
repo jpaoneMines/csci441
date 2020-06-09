@@ -32,10 +32,10 @@
  * @brief CSCI441 Helper Functions for OpenGL
  */
 namespace CSCI441 {
-    /** @namespace ShaderUtils
+    /** @namespace SimpleShader
      * @brief CSCI441 Helper Functions for OpenGL Shaders
      */
-    namespace ShaderUtils {
+    namespace SimpleShader {
         void enableFlatShading();
         void enableSmoothShading();
 
@@ -52,6 +52,10 @@ namespace CSCI441 {
          */
         void setProjectionMatrix(glm::mat4 projectionMatrix);
 
+        void pushTransformation(glm::mat4 transformationMatrix);
+
+        void popTransformation();
+
         void draw(GLint primitiveType, GLuint vaod, GLuint count);
     }
 }
@@ -61,12 +65,14 @@ namespace CSCI441 {
 // Internal implementations
 
 namespace CSCI441_INTERNAL {
-    namespace ShaderUtils {
+    namespace SimpleShader {
         void enableFlatShading();
         void enableSmoothShading();
         void setupSimpleShader2();
-        void setProjectionMatrix(glm::mat4 projectionMatrix);
         GLuint registerVertexArray2(std::vector<glm::vec2> points, std::vector<glm::vec3> colors);
+        void setProjectionMatrix(glm::mat4 projectionMatrix);
+        void pushTransformation(glm::mat4 transformationMatrix);
+        void popTransformation();
         void draw(GLint primitiveType, GLuint vaod, GLuint count);
 
         GLboolean smoothShading = true;
@@ -76,6 +82,9 @@ namespace CSCI441_INTERNAL {
         GLint projectionLocation = -1;
         GLint vertexLocation = -1;
         GLint colorLocation = -1;
+
+        std::vector<glm::mat4> transformationStack;
+        glm::mat4 modelMatrix(1.0);
     }
 }
 
@@ -83,41 +92,49 @@ namespace CSCI441_INTERNAL {
 ////////////////////////////////////////////////////////////////////////////////////
 // Outward facing function implementations
 
-inline void CSCI441::ShaderUtils::enableFlatShading() {
-    CSCI441_INTERNAL::ShaderUtils::enableFlatShading();
+inline void CSCI441::SimpleShader::enableFlatShading() {
+    CSCI441_INTERNAL::SimpleShader::enableFlatShading();
 }
-inline void CSCI441::ShaderUtils::enableSmoothShading() {
-    CSCI441_INTERNAL::ShaderUtils::enableSmoothShading();
-}
-
-inline void CSCI441::ShaderUtils::setupSimpleShader2() {
-    CSCI441_INTERNAL::ShaderUtils::setupSimpleShader2();
+inline void CSCI441::SimpleShader::enableSmoothShading() {
+    CSCI441_INTERNAL::SimpleShader::enableSmoothShading();
 }
 
-inline void CSCI441::ShaderUtils::setProjectionMatrix(glm::mat4 projectionMatrix) {
-    CSCI441_INTERNAL::ShaderUtils::setProjectionMatrix(projectionMatrix);
+inline void CSCI441::SimpleShader::setupSimpleShader2() {
+    CSCI441_INTERNAL::SimpleShader::setupSimpleShader2();
 }
 
-inline GLuint CSCI441::ShaderUtils::registerVertexArray2(std::vector<glm::vec2> points, std::vector<glm::vec3> colors) {
-    return CSCI441_INTERNAL::ShaderUtils::registerVertexArray2(points, colors);
+inline GLuint CSCI441::SimpleShader::registerVertexArray2(std::vector<glm::vec2> points, std::vector<glm::vec3> colors) {
+    return CSCI441_INTERNAL::SimpleShader::registerVertexArray2(points, colors);
 }
 
-inline void CSCI441::ShaderUtils::draw(GLint primitiveType, GLuint vaod, GLuint count) {
-    CSCI441_INTERNAL::ShaderUtils::draw(primitiveType, vaod, count);
+inline void CSCI441::SimpleShader::setProjectionMatrix(glm::mat4 projectionMatrix) {
+    CSCI441_INTERNAL::SimpleShader::setProjectionMatrix(projectionMatrix);
+}
+
+inline void CSCI441::SimpleShader::pushTransformation(glm::mat4 transformationMatrix) {
+    CSCI441_INTERNAL::SimpleShader::pushTransformation(transformationMatrix);
+}
+
+inline void CSCI441::SimpleShader::popTransformation() {
+    CSCI441_INTERNAL::SimpleShader::popTransformation();
+}
+
+inline void CSCI441::SimpleShader::draw(GLint primitiveType, GLuint vaod, GLuint count) {
+    CSCI441_INTERNAL::SimpleShader::draw(primitiveType, vaod, count);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 // Inward facing function implementations
 
-inline void CSCI441_INTERNAL::ShaderUtils::enableFlatShading() {
+inline void CSCI441_INTERNAL::SimpleShader::enableFlatShading() {
     smoothShading = false;
 }
-inline void CSCI441_INTERNAL::ShaderUtils::enableSmoothShading() {
+inline void CSCI441_INTERNAL::SimpleShader::enableSmoothShading() {
     smoothShading = true;
 }
 
-inline void CSCI441_INTERNAL::ShaderUtils::setupSimpleShader2() {
+inline void CSCI441_INTERNAL::SimpleShader::setupSimpleShader2() {
     std::string vertex_shader_src = "#version 410 core\n \
                                     \n \
                                     uniform mat4 model;\n \
@@ -189,7 +206,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::setupSimpleShader2() {
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &identity[0][0]);
 }
 
-inline GLuint CSCI441_INTERNAL::ShaderUtils::registerVertexArray2(std::vector<glm::vec2> points, std::vector<glm::vec3> colors) {
+inline GLuint CSCI441_INTERNAL::SimpleShader::registerVertexArray2(std::vector<glm::vec2> points, std::vector<glm::vec3> colors) {
     GLuint vaod;
     glGenVertexArrays(1, &vaod);
     glBindVertexArray(vaod);
@@ -210,11 +227,26 @@ inline GLuint CSCI441_INTERNAL::ShaderUtils::registerVertexArray2(std::vector<gl
     return vaod;
 }
 
-inline void CSCI441_INTERNAL::ShaderUtils::setProjectionMatrix(glm::mat4 projectionMatrix) {
+inline void CSCI441_INTERNAL::SimpleShader::setProjectionMatrix(glm::mat4 projectionMatrix) {
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
 }
 
-inline void CSCI441_INTERNAL::ShaderUtils::draw(GLint primitiveType, GLuint vaod, GLuint count) {
+inline void CSCI441_INTERNAL::SimpleShader::pushTransformation(glm::mat4 transformationMatrix) {
+    transformationStack.emplace_back(transformationMatrix);
+
+    modelMatrix *= transformationMatrix;
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+}
+
+inline void CSCI441_INTERNAL::SimpleShader::popTransformation() {
+    glm::mat4 lastTransformation = transformationStack.back();
+    transformationStack.pop_back();
+
+    modelMatrix *= glm::inverse( lastTransformation );
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+}
+
+inline void CSCI441_INTERNAL::SimpleShader::draw(GLint primitiveType, GLuint vaod, GLuint count) {
     glBindVertexArray(vaod);
     glDrawArrays(primitiveType, 0, count);
 }
