@@ -1,356 +1,517 @@
-/** @file teapot.hpp
-  * @brief Helper functions to draw teapot with OpenGL 2.1
-	* @date Last Edit: 19 Sep 2017
-	*	@warning NOTE: This header file will only work with OpenGL 2.1
-
+/** @file teapot3.hpp
+  * @brief Helper functions to draw teapot with OpenGL 3.0+
+	* @date Last Edit: 26 Oct 2017
+	*	@warning NOTE: This header file will only work with OpenGL 3.0+
+	*/
 // Modified by Dr. Jeffrey Paone to work in Colorado School of Mines CSCI441
 // course context.
 
-//
-// Copyright (c) Mark J. Kilgard, 1994.
-// Modifications by Philip Rideout.
-//
-// (c) Copyright 1993, Silicon Graphics, Inc.
-//
-// ALL RIGHTS RESERVED
-//
-// Permission to use, copy, modify, and distribute this software
-// for any purpose and without fee is hereby granted, provided
-// that the above copyright notice appear in all copies and that
-// both the copyright notice and this permission notice appear in
-// supporting documentation, and that the name of Silicon
-// Graphics, Inc. not be used in advertising or publicity
-// pertaining to distribution of the software without specific,
-// written prior permission.
-//
-// THE MATERIAL EMBODIED ON THIS SOFTWARE IS PROVIDED TO YOU
-// "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, EXPRESS, IMPLIED OR
-// OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
-// MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  IN NO
-// EVENT SHALL SILICON GRAPHICS, INC.  BE LIABLE TO YOU OR ANYONE
-// ELSE FOR ANY DIRECT, SPECIAL, INCIDENTAL, INDIRECT OR
-// CONSEQUENTIAL DAMAGES OF ANY KIND, OR ANY DAMAGES WHATSOEVER,
-// INCLUDING WITHOUT LIMITATION, LOSS OF PROFIT, LOSS OF USE,
-// SAVINGS OR REVENUE, OR THE CLAIMS OF THIRD PARTIES, WHETHER OR
-// NOT SILICON GRAPHICS, INC.  HAS BEEN ADVISED OF THE POSSIBILITY
-// OF SUCH LOSS, HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// ARISING OUT OF OR IN CONNECTION WITH THE POSSESSION, USE OR
-// PERFORMANCE OF THIS SOFTWARE.
-//
-// US Government Users Restricted Rights
-//
-// Use, duplication, or disclosure by the Government is subject to
-// restrictions set forth in FAR 52.227.19(c)(2) or subparagraph
-// (c)(1)(ii) of the Rights in Technical Data and Computer
-// Software clause at DFARS 252.227-7013 and/or in similar or
-// successor clauses in the FAR or the DOD or NASA FAR
-// Supplement.  Unpublished-- rights reserved under the copyright
-// laws of the United States.  Contractor/manufacturer is Silicon
-// Graphics, Inc., 2011 N.  Shoreline Blvd., Mountain View, CA
-// 94039-7311.
-//
-// OpenGL(TM) is a trademark of Silicon Graphics, Inc.
-//
-*/
+#ifndef __CSCI441_TEAPOT_3_HPP__
+#define __CSCI441_TEAPOT_3_HPP__
 
-//
-// Rim, body, lid, and bottom data must be reflected in x and y;
-// handle and spout data across the y axis only.
-//
+/*
+ * From the OpenGL Programming wikibook: http://en.wikibooks.org/wiki/OpenGL_Programming
+ * This file is in the public domain.
+ * https://gitlab.com/wikibooks-opengl/modern-tutorials/blob/master/bezier_teapot/teapot.cpp
+ * Contributors: Sylvain Beucler
+ */
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
-#ifndef __CSCI441_TEAPOT_HPP__
-#define __CSCI441_TEAPOT_HPP__
-
-#ifdef __APPLE__
-	#include <OpenGL/gl.h>
-#else
-	#include <GL/gl.h>
-#endif
-
-#define NumTeapotPoints 135
+/* Use glew.h instead of gl.h to get all the GL prototypes declared */
+#include <GL/glew.h>
 
 namespace CSCI441_INTERNAL {
 
-  static int patchdata[NumTeapotPoints][16] = {
-      // rim
-      {102, 103, 104, 105, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
+	static GLuint vao_teapot;
+	static GLuint vbo_teapot_vertices, ibo_teapot_elements;
 
-      // body
-      {12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27},
-      {24, 25, 26, 27, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40},
+	struct vertex { GLfloat x, y, z; };
+	static struct vertex teapot_cp_vertices[] = {
+	  // 1
+	  {  1.4   ,   0.0   ,  2.4     },
+	  {  1.4   ,  -0.784 ,  2.4     },
+	  {  0.784 ,  -1.4   ,  2.4     },
+	  {  0.0   ,  -1.4   ,  2.4     },
+	  {  1.3375,   0.0   ,  2.53125 },
+	  {  1.3375,  -0.749 ,  2.53125 },
+	  {  0.749 ,  -1.3375,  2.53125 },
+	  {  0.0   ,  -1.3375,  2.53125 },
+	  {  1.4375,    0.0  ,  2.53125 },
+	  {  1.4375,  -0.805 ,  2.53125 },
+	  // 11
+	  {  0.805 ,  -1.4375,  2.53125 },
+	  {  0.0   ,  -1.4375,  2.53125 },
+	  {  1.5   ,   0.0   ,  2.4     },
+	  {  1.5   ,  -0.84  ,  2.4     },
+	  {  0.84  ,  -1.5   ,  2.4     },
+	  {  0.0   ,  -1.5   ,  2.4     },
+	  { -0.784 ,  -1.4   ,  2.4     },
+	  { -1.4   ,  -0.784 ,  2.4     },
+	  { -1.4   ,   0.0   ,  2.4     },
+	  { -0.749 ,  -1.3375,  2.53125 },
+	  // 21
+	  { -1.3375,  -0.749 ,  2.53125 },
+	  { -1.3375,   0.0   ,  2.53125 },
+	  { -0.805 ,  -1.4375,  2.53125 },
+	  { -1.4375,  -0.805 ,  2.53125 },
+	  { -1.4375,   0.0   ,  2.53125 },
+	  { -0.84  ,  -1.5   ,  2.4     },
+	  { -1.5   ,  -0.84  ,  2.4     },
+	  { -1.5   ,   0.0   ,  2.4     },
+	  { -1.4   ,   0.784 ,  2.4     },
+	  { -0.784 ,   1.4   ,  2.4     },
+	  // 31
+	  {  0.0   ,   1.4   ,  2.4     },
+	  { -1.3375,   0.749 ,  2.53125 },
+	  { -0.749 ,   1.3375,  2.53125 },
+	  {  0.0   ,   1.3375,  2.53125 },
+	  { -1.4375,   0.805 ,  2.53125 },
+	  { -0.805 ,   1.4375,  2.53125 },
+	  {  0.0   ,   1.4375,  2.53125 },
+	  { -1.5   ,   0.84  ,  2.4     },
+	  { -0.84  ,   1.5   ,  2.4     },
+	  {  0.0   ,   1.5   ,  2.4     },
+	  // 41
+	  {  0.784 ,   1.4   ,  2.4     },
+	  {  1.4   ,   0.784 ,  2.4     },
+	  {  0.749 ,   1.3375,  2.53125 },
+	  {  1.3375,   0.749 ,  2.53125 },
+	  {  0.805 ,   1.4375,  2.53125 },
+	  {  1.4375,   0.805 ,  2.53125 },
+	  {  0.84  ,   1.5   ,  2.4     },
+	  {  1.5   ,   0.84  ,  2.4     },
+	  {  1.75  ,   0.0   ,  1.875   },
+	  {  1.75  ,  -0.98  ,  1.875   },
+	  // 51
+	  {  0.98  ,  -1.75  ,  1.875   },
+	  {  0.0   ,  -1.75  ,  1.875   },
+	  {  2.0   ,   0.0   ,  1.35    },
+	  {  2.0   ,  -1.12  ,  1.35    },
+	  {  1.12  ,  -2.0   ,  1.35    },
+	  {  0.0   ,  -2.0   ,  1.35    },
+	  {  2.0   ,   0.0   ,  0.9     },
+	  {  2.0   ,  -1.12  ,  0.9     },
+	  {  1.12  ,  -2.0   ,  0.9     },
+	  {  0.0   ,  -2.0   ,  0.9     },
+	  // 61
+	  { -0.98  ,  -1.75  ,  1.875   },
+	  { -1.75  ,  -0.98  ,  1.875   },
+	  { -1.75  ,   0.0   ,  1.875   },
+	  { -1.12  ,  -2.0   ,  1.35    },
+	  { -2.0   ,  -1.12  ,  1.35    },
+	  { -2.0   ,   0.0   ,  1.35    },
+	  { -1.12  ,  -2.0   ,  0.9     },
+	  { -2.0   ,  -1.12  ,  0.9     },
+	  { -2.0   ,   0.0   ,  0.9     },
+	  { -1.75  ,   0.98  ,  1.875   },
+	  // 71
+	  { -0.98  ,   1.75  ,  1.875   },
+	  {  0.0   ,   1.75  ,  1.875   },
+	  { -2.0   ,   1.12  ,  1.35    },
+	  { -1.12  ,   2.0   ,  1.35    },
+	  {  0.0   ,   2.0   ,  1.35    },
+	  { -2.0   ,   1.12  ,  0.9     },
+	  { -1.12  ,   2.0   ,  0.9     },
+	  {  0.0   ,   2.0   ,  0.9     },
+	  {  0.98  ,   1.75  ,  1.875   },
+	  {  1.75  ,   0.98  ,  1.875   },
+	  // 81
+	  {  1.12  ,   2.0   ,  1.35    },
+	  {  2.0   ,   1.12  ,  1.35    },
+	  {  1.12  ,   2.0   ,  0.9     },
+	  {  2.0   ,   1.12  ,  0.9     },
+	  {  2.0   ,   0.0   ,  0.45    },
+	  {  2.0   ,  -1.12  ,  0.45    },
+	  {  1.12  ,  -2.0   ,  0.45    },
+	  {  0.0   ,  -2.0   ,  0.45    },
+	  {  1.5   ,   0.0   ,  0.225   },
+	  {  1.5   ,  -0.84  ,  0.225   },
+	  // 91
+	  {  0.84  ,  -1.5   ,  0.225   },
+	  {  0.0   ,  -1.5   ,  0.225   },
+	  {  1.5   ,   0.0   ,  0.15    },
+	  {  1.5   ,  -0.84  ,  0.15    },
+	  {  0.84  ,  -1.5   ,  0.15    },
+	  {  0.0   ,  -1.5   ,  0.15    },
+	  { -1.12  ,  -2.0   ,  0.45    },
+	  { -2.0   ,  -1.12  ,  0.45    },
+	  { -2.0   ,   0.0   ,  0.45    },
+	  { -0.84  ,  -1.5   ,  0.225   },
+	  // 101
+	  { -1.5   ,  -0.84  ,  0.225   },
+	  { -1.5   ,   0.0   ,  0.225   },
+	  { -0.84  ,  -1.5   ,  0.15    },
+	  { -1.5   ,  -0.84  ,  0.15    },
+	  { -1.5   ,   0.0   ,  0.15    },
+	  { -2.0   ,   1.12  ,  0.45    },
+	  { -1.12  ,   2.0   ,  0.45    },
+	  {  0.0   ,   2.0   ,  0.45    },
+	  { -1.5   ,   0.84  ,  0.225   },
+	  { -0.84  ,   1.5   ,  0.225   },
+	  // 111
+	  {  0.0   ,   1.5   ,  0.225   },
+	  { -1.5   ,   0.84  ,  0.15    },
+	  { -0.84  ,   1.5   ,  0.15    },
+	  {  0.0   ,   1.5   ,  0.15    },
+	  {  1.12  ,   2.0   ,  0.45    },
+	  {  2.0   ,   1.12  ,  0.45    },
+	  {  0.84  ,   1.5   ,  0.225   },
+	  {  1.5   ,   0.84  ,  0.225   },
+	  {  0.84  ,   1.5   ,  0.15    },
+	  {  1.5   ,   0.84  ,  0.15    },
+	  // 121
+	  { -1.6   ,   0.0   ,  2.025   },
+	  { -1.6   ,  -0.3   ,  2.025   },
+	  { -1.5   ,  -0.3   ,  2.25    },
+	  { -1.5   ,   0.0   ,  2.25    },
+	  { -2.3   ,   0.0   ,  2.025   },
+	  { -2.3   ,  -0.3   ,  2.025   },
+	  { -2.5   ,  -0.3   ,  2.25    },
+	  { -2.5   ,   0.0   ,  2.25    },
+	  { -2.7   ,   0.0   ,  2.025   },
+	  { -2.7   ,  -0.3   ,  2.025   },
+	  // 131
+	  { -3.0   ,  -0.3   ,  2.25    },
+	  { -3.0   ,   0.0   ,  2.25    },
+	  { -2.7   ,   0.0   ,  1.8     },
+	  { -2.7   ,  -0.3   ,  1.8     },
+	  { -3.0   ,  -0.3   ,  1.8     },
+	  { -3.0   ,   0.0   ,  1.8     },
+	  { -1.5   ,   0.3   ,  2.25    },
+	  { -1.6   ,   0.3   ,  2.025   },
+	  { -2.5   ,   0.3   ,  2.25    },
+	  { -2.3   ,   0.3   ,  2.025   },
+	  // 141
+	  { -3.0   ,   0.3   ,  2.25    },
+	  { -2.7   ,   0.3   ,  2.025   },
+	  { -3.0   ,   0.3   ,  1.8     },
+	  { -2.7   ,   0.3   ,  1.8     },
+	  { -2.7   ,   0.0   ,  1.575   },
+	  { -2.7   ,  -0.3   ,  1.575   },
+	  { -3.0   ,  -0.3   ,  1.35    },
+	  { -3.0   ,   0.0   ,  1.35    },
+	  { -2.5   ,   0.0   ,  1.125   },
+	  { -2.5   ,  -0.3   ,  1.125   },
+	  // 151
+	  { -2.65  ,  -0.3   ,  0.9375  },
+	  { -2.65  ,   0.0   ,  0.9375  },
+	  { -2.0   ,  -0.3   ,  0.9     },
+	  { -1.9   ,  -0.3   ,  0.6     },
+	  { -1.9   ,   0.0   ,  0.6     },
+	  { -3.0   ,   0.3   ,  1.35    },
+	  { -2.7   ,   0.3   ,  1.575   },
+	  { -2.65  ,   0.3   ,  0.9375  },
+	  { -2.5   ,   0.3   ,  1.1255  },
+	  { -1.9   ,   0.3   ,  0.6     },
+	  // 161
+	  { -2.0   ,   0.3   ,  0.9     },
+	  {  1.7   ,   0.0   ,  1.425   },
+	  {  1.7   ,  -0.66  ,  1.425   },
+	  {  1.7   ,  -0.66  ,  0.6     },
+	  {  1.7   ,   0.0   ,  0.6     },
+	  {  2.6   ,   0.0   ,  1.425   },
+	  {  2.6   ,  -0.66  ,  1.425   },
+	  {  3.1   ,  -0.66  ,  0.825   },
+	  {  3.1   ,   0.0   ,  0.825   },
+	  {  2.3   ,   0.0   ,  2.1     },
+	  // 171
+	  {  2.3   ,  -0.25  ,  2.1     },
+	  {  2.4   ,  -0.25  ,  2.025   },
+	  {  2.4   ,   0.0   ,  2.025   },
+	  {  2.7   ,   0.0   ,  2.4     },
+	  {  2.7   ,  -0.25  ,  2.4     },
+	  {  3.3   ,  -0.25  ,  2.4     },
+	  {  3.3   ,   0.0   ,  2.4     },
+	  {  1.7   ,   0.66  ,  0.6     },
+	  {  1.7   ,   0.66  ,  1.425   },
+	  {  3.1   ,   0.66  ,  0.825   },
+	  // 181
+	  {  2.6   ,   0.66  ,  1.425   },
+	  {  2.4   ,   0.25  ,  2.025   },
+	  {  2.3   ,   0.25  ,  2.1     },
+	  {  3.3   ,   0.25  ,  2.4     },
+	  {  2.7   ,   0.25  ,  2.4     },
+	  {  2.8   ,   0.0   ,  2.475   },
+	  {  2.8   ,  -0.25  ,  2.475   },
+	  {  3.525 ,  -0.25  ,  2.49375 },
+	  {  3.525 ,   0.0   ,  2.49375 },
+	  {  2.9   ,   0.0   ,  2.475   },
+	  // 191
+	  {  2.9   ,  -0.15  ,  2.475   },
+	  {  3.45  ,  -0.15  ,  2.5125  },
+	  {  3.45  ,   0.0   ,  2.5125  },
+	  {  2.8   ,   0.0   ,  2.4     },
+	  {  2.8   ,  -0.15  ,  2.4     },
+	  {  3.2   ,  -0.15  ,  2.4     },
+	  {  3.2   ,   0.0   ,  2.4     },
+	  {  3.525 ,   0.25  ,  2.49375 },
+	  {  2.8   ,   0.25  ,  2.475   },
+	  {  3.45  ,   0.15  ,  2.5125  },
+	  // 201
+	  {  2.9   ,   0.15  ,  2.475   },
+	  {  3.2   ,   0.15  ,  2.4     },
+	  {  2.8   ,   0.15  ,  2.4     },
+	  {  0.0   ,   0.0   ,  3.15    },
+	  {  0.0   ,  -0.002 ,  3.15    },
+	  {  0.002 ,   0.0   ,  3.15    },
+	  {  0.8   ,   0.0   ,  3.15    },
+	  {  0.8   ,  -0.45  ,  3.15    },
+	  {  0.45  ,  -0.8   ,  3.15    },
+	  {  0.0   ,  -0.8   ,  3.15    },
+	  // 211
+	  {  0.0   ,   0.0   ,  2.85    },
+	  {  0.2   ,   0.0   ,  2.7     },
+	  {  0.2   ,  -0.112 ,  2.7     },
+	  {  0.112 ,  -0.2   ,  2.7     },
+	  {  0.0   ,  -0.2   ,  2.7     },
+	  { -0.002 ,   0.0   ,  3.15    },
+	  { -0.45  ,  -0.8   ,  3.15    },
+	  { -0.8   ,  -0.45  ,  3.15    },
+	  { -0.8   ,   0.0   ,  3.15    },
+	  { -0.112 ,  -0.2   ,  2.7     },
+	  // 221
+	  { -0.2   ,  -0.112 ,  2.7     },
+	  { -0.2   ,   0.0   ,  2.7     },
+	  {  0.0   ,   0.002 ,  3.15    },
+	  { -0.8   ,   0.45  ,  3.15    },
+	  { -0.45  ,   0.8   ,  3.15    },
+	  {  0.0   ,   0.8   ,  3.15    },
+	  { -0.2   ,   0.112 ,  2.7     },
+	  { -0.112 ,   0.2   ,  2.7     },
+	  {  0.0   ,   0.2   ,  2.7     },
+	  {  0.45  ,   0.8   ,  3.15    },
+	  // 231
+	  {  0.8   ,   0.45  ,  3.15    },
+	  {  0.112 ,   0.2   ,  2.7     },
+	  {  0.2   ,   0.112 ,  2.7     },
+	  {  0.4   ,   0.0   ,  2.55    },
+	  {  0.4   ,  -0.224 ,  2.55    },
+	  {  0.224 ,  -0.4   ,  2.55    },
+	  {  0.0   ,  -0.4   ,  2.55    },
+	  {  1.3   ,   0.0   ,  2.55    },
+	  {  1.3   ,  -0.728 ,  2.55    },
+	  {  0.728 ,  -1.3   ,  2.55    },
+	  // 241
+	  {  0.0   ,  -1.3   ,  2.55    },
+	  {  1.3   ,   0.0   ,  2.4     },
+	  {  1.3   ,  -0.728 ,  2.4     },
+	  {  0.728 ,  -1.3   ,  2.4     },
+	  {  0.0   ,  -1.3   ,  2.4     },
+	  { -0.224 ,  -0.4   ,  2.55    },
+	  { -0.4   ,  -0.224 ,  2.55    },
+	  { -0.4   ,   0.0   ,  2.55    },
+	  { -0.728 ,  -1.3   ,  2.55    },
+	  { -1.3   ,  -0.728 ,  2.55    },
+	  // 251
+	  { -1.3   ,   0.0   ,  2.55    },
+	  { -0.728 ,  -1.3   ,  2.4     },
+	  { -1.3   ,  -0.728 ,  2.4     },
+	  { -1.3   ,   0.0   ,  2.4     },
+	  { -0.4   ,   0.224 ,  2.55    },
+	  { -0.224 ,   0.4   ,  2.55    },
+	  {  0.0   ,   0.4   ,  2.55    },
+	  { -1.3   ,   0.728 ,  2.55    },
+	  { -0.728 ,   1.3   ,  2.55    },
+	  {  0.0   ,   1.3   ,  2.55    },
+	  // 261
+	  { -1.3   ,   0.728 ,  2.4     },
+	  { -0.728 ,   1.3   ,  2.4     },
+	  {  0.0   ,   1.3   ,  2.4     },
+	  {  0.224 ,   0.4   ,  2.55    },
+	  {  0.4   ,   0.224 ,  2.55    },
+	  {  0.728 ,   1.3   ,  2.55    },
+	  {  1.3   ,   0.728 ,  2.55    },
+	  {  0.728 ,   1.3   ,  2.4     },
+	  {  1.3   ,   0.728 ,  2.4     },
+	};
+	#define TEAPOT_NB_PATCHES 28
+	#define ORDER 3
+	static GLushort teapot_patches[][ORDER+1][ORDER+1] = {
+	  // rim
+	  { {   1,   2,   3,   4 }, {   5,   6,   7,   8 }, {   9,  10,  11,  12 }, {  13,  14,  15,  16, } },
+	  { {   4,  17,  18,  19 }, {   8,  20,  21,  22 }, {  12,  23,  24,  25 }, {  16,  26,  27,  28, } },
+	  { {  19,  29,  30,  31 }, {  22,  32,  33,  34 }, {  25,  35,  36,  37 }, {  28,  38,  39,  40, } },
+	  { {  31,  41,  42,   1 }, {  34,  43,  44,   5 }, {  37,  45,  46,   9 }, {  40,  47,  48,  13, } },
+	  // body
+	  { {  13,  14,  15,  16 }, {  49,  50,  51,  52 }, {  53,  54,  55,  56 }, {  57,  58,  59,  60, } },
+	  { {  16,  26,  27,  28 }, {  52,  61,  62,  63 }, {  56,  64,  65,  66 }, {  60,  67,  68,  69, } },
+	  { {  28,  38,  39,  40 }, {  63,  70,  71,  72 }, {  66,  73,  74,  75 }, {  69,  76,  77,  78, } },
+	  { {  40,  47,  48,  13 }, {  72,  79,  80,  49 }, {  75,  81,  82,  53 }, {  78,  83,  84,  57, } },
+	  { {  57,  58,  59,  60 }, {  85,  86,  87,  88 }, {  89,  90,  91,  92 }, {  93,  94,  95,  96, } },
+	  { {  60,  67,  68,  69 }, {  88,  97,  98,  99 }, {  92, 100, 101, 102 }, {  96, 103, 104, 105, } },
+	  { {  69,  76,  77,  78 }, {  99, 106, 107, 108 }, { 102, 109, 110, 111 }, { 105, 112, 113, 114, } },
+	  { {  78,  83,  84,  57 }, { 108, 115, 116,  85 }, { 111, 117, 118,  89 }, { 114, 119, 120,  93, } },
+	  // handle
+	  { { 121, 122, 123, 124 }, { 125, 126, 127, 128 }, { 129, 130, 131, 132 }, { 133, 134, 135, 136, } },
+	  { { 124, 137, 138, 121 }, { 128, 139, 140, 125 }, { 132, 141, 142, 129 }, { 136, 143, 144, 133, } },
+	  { { 133, 134, 135, 136 }, { 145, 146, 147, 148 }, { 149, 150, 151, 152 }, {  69, 153, 154, 155, } },
+	  { { 136, 143, 144, 133 }, { 148, 156, 157, 145 }, { 152, 158, 159, 149 }, { 155, 160, 161,  69, } },
+	  // spout
+	  { { 162, 163, 164, 165 }, { 166, 167, 168, 169 }, { 170, 171, 172, 173 }, { 174, 175, 176, 177, } },
+	  { { 165, 178, 179, 162 }, { 169, 180, 181, 166 }, { 173, 182, 183, 170 }, { 177, 184, 185, 174, } },
+	  { { 174, 175, 176, 177 }, { 186, 187, 188, 189 }, { 190, 191, 192, 193 }, { 194, 195, 196, 197, } },
+	  { { 177, 184, 185, 174 }, { 189, 198, 199, 186 }, { 193, 200, 201, 190 }, { 197, 202, 203, 194, } },
+	  // lid
+	  { { 204, 204, 204, 204 }, { 207, 208, 209, 210 }, { 211, 211, 211, 211 }, { 212, 213, 214, 215, } },
+	  { { 204, 204, 204, 204 }, { 210, 217, 218, 219 }, { 211, 211, 211, 211 }, { 215, 220, 221, 222, } },
+	  { { 204, 204, 204, 204 }, { 219, 224, 225, 226 }, { 211, 211, 211, 211 }, { 222, 227, 228, 229, } },
+	  { { 204, 204, 204, 204 }, { 226, 230, 231, 207 }, { 211, 211, 211, 211 }, { 229, 232, 233, 212, } },
+	  { { 212, 213, 214, 215 }, { 234, 235, 236, 237 }, { 238, 239, 240, 241 }, { 242, 243, 244, 245, } },
+	  { { 215, 220, 221, 222 }, { 237, 246, 247, 248 }, { 241, 249, 250, 251 }, { 245, 252, 253, 254, } },
+	  { { 222, 227, 228, 229 }, { 248, 255, 256, 257 }, { 251, 258, 259, 260 }, { 254, 261, 262, 263, } },
+	  { { 229, 232, 233, 212 }, { 257, 264, 265, 234 }, { 260, 266, 267, 238 }, { 263, 268, 269, 242, } },
+	  // no bottom!
+	};
+	#define RESU 10
+	#define RESV 10
+	static struct vertex teapot_vertices[TEAPOT_NB_PATCHES * RESU*RESV*2];
+	static GLushort teapot_elements[TEAPOT_NB_PATCHES * (RESU-1)*(RESV-1) * 2*3];
 
-      // lid
-      {127, 128, 129, 130, 97, 98, 99, 100, 101, 101, 101, 101, 0, 1, 2, 3},
-      {0, 1, 2, 3, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117},
+	static bool teapotBuilt = false;
 
-      // bottom
-      {131, 132, 133, 134, 124, 122, 119, 121, 123, 126, 125, 120, 40, 39, 38, 37},
+	void build_control_points_k(int p, struct vertex control_points_k[][ORDER+1]);
+	struct vertex compute_position(struct vertex control_points_k[][ORDER+1], float u, float v);
+	struct vertex compute_normal(struct vertex control_points_k[][ORDER+1], float u, float v);
+	float bernstein_polynomial(int i, int n, float u);
+	float binomial_coefficient(int i, int n);
+	int factorial(int n);
 
-      // handle
-      {41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56},
-      {53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 28, 65, 66, 67},
+	inline void build_teapot() {
+	  // Vertices
+	  for (int p = 0; p < TEAPOT_NB_PATCHES; p++) {
+	    struct vertex control_points_k[ORDER+1][ORDER+1];
+	    build_control_points_k(p, control_points_k);
+	    for (int ru = 0; ru <= RESU-1; ru++) {
+	      float u = 1.0 * ru / (RESU-1);
+	      for (int rv = 0; rv <= RESV-1; rv++) {
+		float v = 1.0 * rv / (RESV-1);
+		teapot_vertices[p*RESU*RESV + ru*RESV + rv] = compute_position(control_points_k, u, v);
+		teapot_vertices[TEAPOT_NB_PATCHES * RESU*RESV + p*RESU*RESV + ru*RESV + rv] = compute_normal(control_points_k, u, v);
+	      }
+	    }
+	  }
 
-      // spout
-      {68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83},
-      {80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95}
-  };
+	  // Elements
+	  int n = 0;
+	  for (int p = 0; p < TEAPOT_NB_PATCHES; p++)
+	    for (int ru = 0; ru < RESU-1; ru++)
+	      for (int rv = 0; rv < RESV-1; rv++) {
+		// 1 square ABCD = 2 triangles ABC + CDA
+		// ABC
+		teapot_elements[n] = p*RESU*RESV +  ru   *RESV +  rv   ; n++;
+		teapot_elements[n] = p*RESU*RESV +  ru   *RESV + (rv+1); n++;
+		teapot_elements[n] = p*RESU*RESV + (ru+1)*RESV + (rv+1); n++;
+		// CDA
+		teapot_elements[n] = p*RESU*RESV + (ru+1)*RESV + (rv+1); n++;
+		teapot_elements[n] = p*RESU*RESV + (ru+1)*RESV +  rv   ; n++;
+		teapot_elements[n] = p*RESU*RESV +  ru   *RESV +  rv   ; n++;
+	      }
 
-  static float cpdata[][3] = {
-      {0.2f, 0, 2.7f},
-      {0.2f, -0.112f, 2.7f},
-      {0.112f, -0.2f, 2.7f},
-      {0, -0.2f, 2.7f},
-      {1.3375f, 0, 2.53125f},
-      {1.3375f, -0.749f, 2.53125f},
-      {0.749f, -1.3375f, 2.53125f},
-      {0, -1.3375f, 2.53125f},
-      {1.4375f, 0, 2.53125f},
-      {1.4375f, -0.805f, 2.53125f},
-      {0.805f, -1.4375f, 2.53125f},
-      {0, -1.4375f, 2.53125f},
-      {1.5f, 0, 2.4f},
-      {1.5f, -0.84f, 2.4f},
-      {0.84f, -1.5f, 2.4f},
-      {0, -1.5f, 2.4f},
-      {1.75f, 0, 1.875f},
-      {1.75f, -0.98f, 1.875f},
-      {0.98f, -1.75f, 1.875f},
-      {0, -1.75f, 1.875f},
-      {2, 0, 1.35f},
-      {2, -1.12f, 1.35f},
-      {1.12f, -2, 1.35f},
-      {0, -2, 1.35f},
-      {2, 0, 0.9f},
-      {2, -1.12f, 0.9f},
-      {1.12f, -2, 0.9f},
-      {0, -2, 0.9f},
-      {-2, 0, 0.9f},
-      {2, 0, 0.45f},
-      {2, -1.12f, 0.45f},
-      {1.12f, -2, 0.45f},
-      {0, -2, 0.45f},
-      {1.5f, 0, 0.225f},
-      {1.5f, -0.84f, 0.225f},
-      {0.84f, -1.5f, 0.225f},
-      {0, -1.5f, 0.225f},
-      {1.5f, 0, 0.15f},
-      {1.5f, -0.84f, 0.15f},
-      {0.84f, -1.5f, 0.15f},
-      {0, -1.5f, 0.15f},
-      {-1.6f, 0, 2.025f},
-      {-1.6f, -0.3f, 2.025f},
-      {-1.5f, -0.3f, 2.25f},
-      {-1.5f, 0, 2.25f},
-      {-2.3f, 0, 2.025f},
-      {-2.3f, -0.3f, 2.025f},
-      {-2.5f, -0.3f, 2.25f},
-      {-2.5f, 0, 2.25f},
-      {-2.7f, 0, 2.025f},
-      {-2.7f, -0.3f, 2.025f},
-      {-3, -0.3f, 2.25f},
-      {-3, 0, 2.25f},
-      {-2.7f, 0, 1.8f},
-      {-2.7f, -0.3f, 1.8f},
-      {-3, -0.3f, 1.8f},
-      {-3, 0, 1.8f},
-      {-2.7f, 0, 1.575f},
-      {-2.7f, -0.3f, 1.575f},
-      {-3, -0.3f, 1.35f},
-      {-3, 0, 1.35f},
-      {-2.5f, 0, 1.125f},
-      {-2.5f, -0.3f, 1.125f},
-      {-2.65f, -0.3f, 0.9375f},
-      {-2.65f, 0, 0.9375f},
-      {-2, -0.3f, 0.9f},
-      {-1.9f, -0.3f, 0.6f},
-      {-1.9f, 0, 0.6f},
-      {1.7f, 0, 1.425f},
-      {1.7f, -0.66f, 1.425f},
-      {1.7f, -0.66f, 0.6f},
-      {1.7f, 0, 0.6f},
-      {2.6f, 0, 1.425f},
-      {2.6f, -0.66f, 1.425f},
-      {3.1f, -0.66f, 0.825f},
-      {3.1f, 0, 0.825f},
-      {2.3f, 0, 2.1f},
-      {2.3f, -0.25f, 2.1f},
-      {2.4f, -0.25f, 2.025f},
-      {2.4f, 0, 2.025f},
-      {2.7f, 0, 2.4f},
-      {2.7f, -0.25f, 2.4f},
-      {3.3f, -0.25f, 2.4f},
-      {3.3f, 0, 2.4f},
-      {2.8f, 0, 2.475f},
-      {2.8f, -0.25f, 2.475f},
-      {3.525f, -0.25f, 2.49375f},
-      {3.525f, 0, 2.49375f},
-      {2.9f, 0, 2.475f},
-      {2.9f, -0.15f, 2.475f},
-      {3.45f, -0.15f, 2.5125f},
-      {3.45f, 0, 2.5125f},
-      {2.8f, 0, 2.4f},
-      {2.8f, -0.15f, 2.4f},
-      {3.2f, -0.15f, 2.4f},
-      {3.2f, 0, 2.4f},
-      {0, 0, 3.15f}, // north pole
-      {0.8f, 0, 3.15f},
-      {0.8f, -0.45f, 3.15f},
-      {0.45f, -0.8f, 3.15f},
-      {0, -0.8f, 3.15f},
-      {0, 0, 2.85f},
-      {1.4f, 0, 2.4f},
-      {1.4f, -0.784f, 2.4f},
-      {0.784f, -1.4f, 2.4f},
-      {0, -1.4f, 2.4f},
-      {0.4f, 0, 2.55f},
-      {0.4f, -0.224f, 2.55f},
-      {0.224f, -0.4f, 2.55f},
-      {0, -0.4f, 2.55f},
-      {1.3f, 0, 2.55f},
-      {1.3f, -0.728f, 2.55f},
-      {0.728f, -1.3f, 2.55f},
-      {0, -1.3f, 2.55f},
+	}
 
-      // bottom edge of lid
-      {1.4f, 0, 2.4f},
-      {1.4f, -0.728f, 2.4f},
-      {0.728f, -1.4f, 2.4f},
-      {0, -1.4f, 2.4f},
+	inline void build_control_points_k(int p, struct vertex control_points_k[][ORDER+1]) {
+	  for (int i = 0; i <= ORDER; i++)
+	    for (int j = 0; j <= ORDER; j++)
+	      control_points_k[i][j] = teapot_cp_vertices[teapot_patches[p][i][j] - 1];
+	}
 
-      // bottom
-      {0, 0, 0},
-      {1.425f, -0.798f, 0},
-      {1.5f, 0, 0.075f},
-      {1.425f, 0, 0},
+	inline struct vertex compute_position(struct vertex control_points_k[][ORDER+1], float u, float v) {
+	  struct vertex result = { 0.0, 0.0, 0.0 };
+	  for (int i = 0; i <= ORDER; i++) {
+	    float poly_i = bernstein_polynomial(i, ORDER, u);
+	    for (int j = 0; j <= ORDER; j++) {
+	      float poly_j = bernstein_polynomial(j, ORDER, v);
+	      result.x += poly_i * poly_j * control_points_k[i][j].x;
+	      result.y += poly_i * poly_j * control_points_k[i][j].y;
+	      result.z += poly_i * poly_j * control_points_k[i][j].z;
+	    }
+	  }
+	  return result;
+	}
 
-      {0.798f, -1.425f, 0},
-      {0, -1.5f, 0.075f},
-      {0, -1.425f, 0},
-      {1.5f, -0.84f, 0.075f},
-      {0.84f, -1.5f, 0.075f},
+	// TODO compute normal based on partial derivatives of surface patch
+	inline struct vertex compute_normal(struct vertex control_points_k[][ORDER+1], float u, float v) {
+	  struct vertex result = { 0.0, 0.0, 0.0 };
+	  for (int i = 0; i <= ORDER; i++) {
+	    float poly_i = bernstein_polynomial(i, ORDER, u);
+	    for (int j = 0; j <= ORDER; j++) {
+	      float poly_j = bernstein_polynomial(j, ORDER, v);
+	      result.x += poly_i * poly_j * control_points_k[i][j].x;
+	      result.y += poly_i * poly_j * control_points_k[i][j].y;
+	      result.z += poly_i * poly_j * control_points_k[i][j].z;
+	    }
+	  }
+	  return result;
+	}
 
-      // Top cap
-      {.03f, 0, 3.15f},
-      {.02f, -.01f, 3.15f},
-      {.01f, -.02f, 3.15f},
-      {0, -.03f, 3.15f},
+	inline float bernstein_polynomial(int i, int n, float u) {
+	  return binomial_coefficient(i, n) * powf(u, i) * powf(1-u, n-i);
+	}
 
-      // Bottom cap
-      {0, -.03f, 0},
-      {.01f, -.02f, 0},
-      {.02f, -.01f, 0},
-      {.03f, 0, 0},
+	inline float binomial_coefficient(int i, int n) {
+	  assert(i >= 0); assert(n >= 0);
+	  return 1.0f * factorial(n) / (factorial(i) * factorial(n-i));
+	}
+	inline int factorial(int n) {
+	  assert(n >= 0);
+	  int result = 1;
+	  for (int i = n; i > 1; i--)
+	    result *= i;
+	  return result;
+	}
 
-      // Spout closure
-      {2.8f, 0, 2.4f},
-      {2.8f, 0.15f, 2.4f},
-      {3.2f, 0.15f, 2.4f},
-      {3.2f, 0, 2.4f},
+	inline int init_resources()
+	{
+	  build_teapot();
 
-      {3.2f, 0, 2.4f},
-      {3.2f, -0.15f, 2.4f},
-      {2.8f, -0.15f, 2.4f},
-      {2.8f, 0, 2.4f},
-  };
+		glGenVertexArrays(1, &vao_teapot);
+		glBindVertexArray(vao_teapot);
 
-  static float tex[2][2][2] = {
-    { {0, 0}, {1, 0}},
-    { {0, 1}, {1, 1}},
-  };
+	  glGenBuffers(1, &vbo_teapot_vertices);
+	  glBindBuffer(GL_ARRAY_BUFFER, vbo_teapot_vertices);
+	  glBufferData(GL_ARRAY_BUFFER, sizeof(teapot_vertices), teapot_vertices, GL_STATIC_DRAW);
 
-  // Returns the number of vertices sent to GL.
-  inline int teapot(GLint grid, GLdouble scale, GLenum type, bool closeSpout) {
-      float p[4][4][3], q[4][4][3], r[4][4][3], s[4][4][3];
-      long i, j, k, l;
-      int numVertices = 0;
+	  glGenBuffers(1, &ibo_teapot_elements);
+	  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_teapot_elements);
+	  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(teapot_elements), teapot_elements, GL_STATIC_DRAW);
 
-      // Make polygons wind CCW by scaling by -1.
-      scale *= -1;
+		teapotBuilt = true;
 
-      glPushAttrib(GL_ENABLE_BIT | GL_EVAL_BIT);
-      glEnable(GL_AUTO_NORMAL);
-      glEnable(GL_NORMALIZE);
-      glEnable(GL_MAP2_VERTEX_3);
-      glEnable(GL_MAP2_TEXTURE_COORD_2);
-      glPushMatrix();
-      glRotatef(90.0, 1.0, 0.0, 0.0);
-      glScalef(0.5 * scale, 0.5 * scale, 0.5 * scale);
-      glTranslatef(0.0, 0.0, -1.5);
+	  return 1;
+	}
 
-      for (i = 0; i < 10; i++)
-      {
-          for (j = 0; j < 4; j++)
-          {
-              for (k = 0; k < 4; k++)
-              {
-                  for (l = 0; l < 3; l++)
-                  {
-                      p[j][k][l] = cpdata[patchdata[i][j * 4 + k]][l];
-                      q[j][k][l] = cpdata[patchdata[i][j * 4 + (3 - k)]][l];
-                      if (l == 1)
-                          q[j][k][l] *= -1.0;
-                      if (i < 6)
-                      {
-                          r[j][k][l] = cpdata[patchdata[i][j * 4 + (3 - k)]][l];
-                          if (l == 0)
-                              r[j][k][l] *= -1.0;
-                          s[j][k][l] = cpdata[patchdata[i][j * 4 + k]][l];
-                          if (l == 0)
-                              s[j][k][l] *= -1.0;
-                          if (l == 1)
-                              s[j][k][l] *= -1.0;
-                      }
-                  }
-              }
-          }
-          glMap2f(GL_MAP2_TEXTURE_COORD_2, 0, 1, 2, 2, 1, 0, 4, 2, &tex[0][0][0]);
-          glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, &p[0][0][0]);
-          glMapGrid2f(grid, 0.0, 1.0, grid, 0.0, 1.0);
-          glEvalMesh2(type, 0, grid, 0, grid);
-          numVertices += grid * grid;
-          glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, &q[0][0][0]);
-          glEvalMesh2(type, 0, grid, 0, grid);
-          numVertices += grid * grid;
-          if (i < 6)
-          {
-              glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, &r[0][0][0]);
-              glEvalMesh2(type, 0, grid, 0, grid);
-              numVertices += grid * grid;
-              glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, &s[0][0][0]);
-              glEvalMesh2(type, 0, grid, 0, grid);
-              numVertices += grid * grid;
-          }
-      }
+	inline void teapot( GLdouble size, GLint positionLocation, GLint normalLocation ) {
+		if( !teapotBuilt ) {
+			init_resources();
+		}
 
-      // Draw the tiny quads at the top and bottom.
-      glBegin(GL_QUADS);
-      glTexCoord2f(.025f,.025f);
+		glBindVertexArray( vao_teapot );
+	  // Describe our vertices array to OpenGL (it can't guess its format automatically)
+	  glBindBuffer(GL_ARRAY_BUFFER, vbo_teapot_vertices);
+		glEnableVertexAttribArray(positionLocation);
+	  glVertexAttribPointer(
+	    positionLocation,  // attribute
+	    3,                 // number of elements per vertex, here (x,y,z)
+	    GL_FLOAT,          // the type of each element
+	    GL_FALSE,          // take our values as-is
+	    0,                 // no extra data between each position
+	    0                  // offset of first element
+	  );
+		glEnableVertexAttribArray(normalLocation);
+	  glVertexAttribPointer(
+	    normalLocation,  // attribute
+	    3,                 // number of elements per vertex, here (x,y,z)
+	    GL_FLOAT,          // the type of each element
+	    GL_FALSE,          // take our values as-is
+	    0,                 // no extra data between each position
+	    (void*)(TEAPOT_NB_PATCHES * RESU*RESV)                  // offset of first element
+	  );
 
-      glNormal3f(0, 0, 1);
-      glVertex3f(0,.03f,cpdata[127][2]);
-      glVertex3f(.03f,0,cpdata[127][2]);
-      glVertex3f(0,-.03f,cpdata[127][2]);
-      glVertex3f(-.03f,0,cpdata[127][2]);
-
-      glNormal3f(0, 0, -1);
-      glVertex3f(-.03f,0,cpdata[131][2]);
-      glVertex3f(0,-.03f,cpdata[131][2]);
-      glVertex3f(.03f,0,cpdata[131][2]);
-      glVertex3f(0,.03f,cpdata[131][2]);
-
-      if( closeSpout ) {
-        // Close off the spout.
-        glNormal3f(0, 0, 1);
-        for (int i = 135; i < 143; ++i)
-            glVertex3fv(cpdata[i]);
-      }
-
-      glEnd();
-
-      glPopMatrix();
-      glPopAttrib();
-      return numVertices;
-  }
+	  glDrawElements(GL_TRIANGLES, sizeof(teapot_elements)/sizeof(teapot_elements[0]), GL_UNSIGNED_SHORT, 0);
+	}
 }
 
-#endif // __CSCI441_TEAPOT_HPP__
+
+#endif // __CSCI441_TEAPOT_3_HPP__

@@ -1,17 +1,19 @@
 /** @file ShaderUtils3.hpp
-  * @brief Helper functions to work with OpenGL Shaders
-	* @author Dr. Jeffrey Paone
-	* @date Last Edit: 28 Oct 2017
-	* @version 1.4
-	*
-	* @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
-	*
-	*	These functions, classes, and constants help minimize common
-	*	code that needs to be written.
-  */
+ * @brief Helper functions to work with OpenGL Shaders
+ * @author Dr. Jeffrey Paone
+ * @date Last Edit: 09 Jun 2020
+ * @version 2.0
+ *
+ * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
+ *
+ *	These functions, classes, and constants help minimize common
+ *	code that needs to be written.
+ *
+ *	@warning NOTE: This header file depends upon GLEW
+ */
 
-#ifndef __CSCI441_SHADEREUTILS_3_H__
-#define __CSCI441_SHADEREUTILS_3_H__
+#ifndef __CSCI441_SHADEREUTILS_H__
+#define __CSCI441_SHADEREUTILS_H__
 
 #include <GL/glew.h>
 
@@ -406,4 +408,4 @@ inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader( const char *filename
     return shaderHandle;
 }
 
-#endif // __CSCI441_SHADEREUTILS_3_H__
+#endif // __CSCI441_SHADEREUTILS_H__
