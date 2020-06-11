@@ -45,6 +45,7 @@ namespace CSCI441 {
         void setupSimpleShader2();
 
         GLuint registerVertexArray2(std::vector<glm::vec2> points, std::vector<glm::vec3> colors);
+        void updateVertexArray2(GLuint vaod, std::vector<glm::vec2> points, std::vector<glm::vec3> colors);
 
         /** @brief Sets the Projection Matrix
          *
@@ -70,6 +71,7 @@ namespace CSCI441_INTERNAL {
         void enableSmoothShading();
         void setupSimpleShader2();
         GLuint registerVertexArray2(std::vector<glm::vec2> points, std::vector<glm::vec3> colors);
+        void updateVertexArray2(GLuint vaod, std::vector<glm::vec2> points, std::vector<glm::vec3> colors);
         void setProjectionMatrix(glm::mat4 projectionMatrix);
         void pushTransformation(glm::mat4 transformationMatrix);
         void popTransformation();
@@ -105,6 +107,10 @@ inline void CSCI441::SimpleShader::setupSimpleShader2() {
 
 inline GLuint CSCI441::SimpleShader::registerVertexArray2(std::vector<glm::vec2> points, std::vector<glm::vec3> colors) {
     return CSCI441_INTERNAL::SimpleShader::registerVertexArray2(points, colors);
+}
+
+inline void CSCI441::SimpleShader::updateVertexArray2(GLuint vaod, std::vector<glm::vec2> points, std::vector<glm::vec3> colors) {
+    CSCI441_INTERNAL::SimpleShader::updateVertexArray2(vaod, points, colors);
 }
 
 inline void CSCI441::SimpleShader::setProjectionMatrix(glm::mat4 projectionMatrix) {
@@ -225,6 +231,14 @@ inline GLuint CSCI441_INTERNAL::SimpleShader::registerVertexArray2(std::vector<g
     glVertexAttribPointer(colorLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*points.size()*2));
 
     return vaod;
+}
+
+
+
+void CSCI441_INTERNAL::SimpleShader::updateVertexArray2(GLuint vaod, std::vector<glm::vec2> points, std::vector<glm::vec3> colors) {
+    glBindVertexArray(vaod);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat)*points.size()*2, &points[0]);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat)*points.size()*2, sizeof(GLfloat)*colors.size()*3, &colors[0]);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader::setProjectionMatrix(glm::mat4 projectionMatrix) {
