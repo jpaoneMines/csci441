@@ -75,7 +75,7 @@ namespace CSCI441 {
 
         void popTransformation();
 
-        void draw(GLint primitiveType, GLuint vaod, GLuint count);
+        void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
     }
 }
 
@@ -93,7 +93,7 @@ namespace CSCI441_INTERNAL {
         void setProjectionMatrix(glm::mat4 projectionMatrix);
         void pushTransformation(glm::mat4 transformationMatrix);
         void popTransformation();
-        void draw(GLint primitiveType, GLuint vaod, GLuint count);
+        void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
 
         GLboolean smoothShading = true;
         GLint shaderProgramHandle = -1;
@@ -143,8 +143,8 @@ inline void CSCI441::SimpleShader::popTransformation() {
     CSCI441_INTERNAL::SimpleShader::popTransformation();
 }
 
-inline void CSCI441::SimpleShader::draw(GLint primitiveType, GLuint vaod, GLuint count) {
-    CSCI441_INTERNAL::SimpleShader::draw(primitiveType, vaod, count);
+inline void CSCI441::SimpleShader::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
+    CSCI441_INTERNAL::SimpleShader::draw(PRIMITIVE_TYPE, VAOD, VERTEX_COUNT);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -278,9 +278,9 @@ inline void CSCI441_INTERNAL::SimpleShader::popTransformation() {
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
 }
 
-inline void CSCI441_INTERNAL::SimpleShader::draw(GLint primitiveType, GLuint vaod, GLuint count) {
-    glBindVertexArray(vaod);
-    glDrawArrays(primitiveType, 0, count);
+inline void CSCI441_INTERNAL::SimpleShader::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
+    glBindVertexArray(VAOD);
+    glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);
 }
 
 #endif //__CSCI441_SIMPLESHADER_H__
