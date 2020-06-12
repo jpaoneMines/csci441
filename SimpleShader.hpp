@@ -75,11 +75,11 @@ namespace CSCI441 {
 
         /** @brief Sets the Projection Matrix
          *
-         * @param projectionMatrix
+         * @param PROJECTION_MATRIX
          */
-        void setProjectionMatrix(glm::mat4 projectionMatrix);
+        void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
 
-        void pushTransformation(glm::mat4 transformationMatrix);
+        void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
 
         void popTransformation();
 
@@ -98,8 +98,8 @@ namespace CSCI441_INTERNAL {
         void setupSimpleShader();
         GLuint registerVertexArray(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
         void updateVertexArray(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
-        void setProjectionMatrix(glm::mat4 projectionMatrix);
-        void pushTransformation(glm::mat4 transformationMatrix);
+        void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
+        void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
         void popTransformation();
         void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
 
@@ -139,12 +139,12 @@ inline void CSCI441::SimpleShader2::updateVertexArray(const GLuint VAOD, const s
     CSCI441_INTERNAL::SimpleShader2::updateVertexArray(VAOD, VERTEX_POINTS, VERTEX_COLORS);
 }
 
-inline void CSCI441::SimpleShader2::setProjectionMatrix(glm::mat4 projectionMatrix) {
-    CSCI441_INTERNAL::SimpleShader2::setProjectionMatrix(projectionMatrix);
+inline void CSCI441::SimpleShader2::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
+    CSCI441_INTERNAL::SimpleShader2::setProjectionMatrix(PROJECTION_MATRIX);
 }
 
-inline void CSCI441::SimpleShader2::pushTransformation(glm::mat4 transformationMatrix) {
-    CSCI441_INTERNAL::SimpleShader2::pushTransformation(transformationMatrix);
+inline void CSCI441::SimpleShader2::pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX) {
+    CSCI441_INTERNAL::SimpleShader2::pushTransformation(TRANSFORMATION_MATRIX);
 }
 
 inline void CSCI441::SimpleShader2::popTransformation() {
@@ -267,23 +267,26 @@ inline void CSCI441_INTERNAL::SimpleShader2::updateVertexArray(const GLuint VAOD
     glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat)*VERTEX_POINTS.size()*2, sizeof(GLfloat)*VERTEX_COLORS.size()*3, &VERTEX_COLORS[0]);
 }
 
-inline void CSCI441_INTERNAL::SimpleShader2::setProjectionMatrix(glm::mat4 projectionMatrix) {
-    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
+inline void CSCI441_INTERNAL::SimpleShader2::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
+    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &PROJECTION_MATRIX[0][0]);
 }
 
-inline void CSCI441_INTERNAL::SimpleShader2::pushTransformation(glm::mat4 transformationMatrix) {
-    transformationStack.emplace_back(transformationMatrix);
+inline void CSCI441_INTERNAL::SimpleShader2::pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX) {
+    transformationStack.emplace_back(TRANSFORMATION_MATRIX);
 
-    modelMatrix *= transformationMatrix;
+    modelMatrix *= TRANSFORMATION_MATRIX;
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::popTransformation() {
-    glm::mat4 lastTransformation = transformationStack.back();
-    transformationStack.pop_back();
+    // ensure there is a transformation stack to pop off
+    if( !transformationStack.empty() ) {
+        glm::mat4 lastTransformation = transformationStack.back();
+        transformationStack.pop_back();
 
-    modelMatrix *= glm::inverse( lastTransformation );
-    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+        modelMatrix *= glm::inverse( lastTransformation );
+        glUniformMatrix4fv( modelLocation, 1, GL_FALSE, &modelMatrix[0][0] );
+    }
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
