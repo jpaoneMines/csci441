@@ -1,4 +1,4 @@
-/** @file SimpleShader.hpp
+/** @file SimpleShader2.hpp
  * @brief Sets up a default Gourad Shader with vertex position and color inputs
  * @author Dr. Jeffrey Paone
  * @date Last Edit: 09 Jun 2020
@@ -32,17 +32,25 @@
  * @brief CSCI441 Helper Functions for OpenGL
  */
 namespace CSCI441 {
-    /** @namespace SimpleShader
+    /** @namespace SimpleShader2
      * @brief CSCI441 Helper Functions for OpenGL Shaders
      */
-    namespace SimpleShader {
+    namespace SimpleShader2 {
+        /** @brief turns on Flat Shading
+         * 
+         * @warning must call prior to setupSimpleShader2
+         */
         void enableFlatShading();
+        /** @brief turns on Smooth Shading
+         * 
+         * @warning must call prior to setupSimpleShader2
+         */
         void enableSmoothShading();
 
         /** @brief Registers a simple Gourad shader for 2-Dimensional drawing
          *
          */
-        void setupSimpleShader2();
+        void setupSimpleShader();
 
         /**
          *
@@ -50,7 +58,7 @@ namespace CSCI441 {
          * @param VERTEX_COLORS vector of vertex (r,g,b) colors
          * @return generated Vertex Array Object Descriptor (vaod)
          */
-        GLuint registerVertexArray2(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
+        GLuint registerVertexArray(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
         /** @brief Updates GL_ARRAY_BUFFER fo the corresponding VAO
          *
          * @desc Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
@@ -63,7 +71,7 @@ namespace CSCI441 {
          * @param VERTEX_POINTS vector of vertex (x,y) locations
          * @param VERTEX_COLORS vector of vertex (r,g,b) colors
          */
-        void updateVertexArray2(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
+        void updateVertexArray(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
 
         /** @brief Sets the Projection Matrix
          *
@@ -84,12 +92,12 @@ namespace CSCI441 {
 // Internal implementations
 
 namespace CSCI441_INTERNAL {
-    namespace SimpleShader {
+    namespace SimpleShader2 {
         void enableFlatShading();
         void enableSmoothShading();
-        void setupSimpleShader2();
-        GLuint registerVertexArray2(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
-        void updateVertexArray2(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
+        void setupSimpleShader();
+        GLuint registerVertexArray(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
+        void updateVertexArray(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
         void setProjectionMatrix(glm::mat4 projectionMatrix);
         void pushTransformation(glm::mat4 transformationMatrix);
         void popTransformation();
@@ -112,53 +120,53 @@ namespace CSCI441_INTERNAL {
 ////////////////////////////////////////////////////////////////////////////////////
 // Outward facing function implementations
 
-inline void CSCI441::SimpleShader::enableFlatShading() {
-    CSCI441_INTERNAL::SimpleShader::enableFlatShading();
+inline void CSCI441::SimpleShader2::enableFlatShading() {
+    CSCI441_INTERNAL::SimpleShader2::enableFlatShading();
 }
-inline void CSCI441::SimpleShader::enableSmoothShading() {
-    CSCI441_INTERNAL::SimpleShader::enableSmoothShading();
-}
-
-inline void CSCI441::SimpleShader::setupSimpleShader2() {
-    CSCI441_INTERNAL::SimpleShader::setupSimpleShader2();
+inline void CSCI441::SimpleShader2::enableSmoothShading() {
+    CSCI441_INTERNAL::SimpleShader2::enableSmoothShading();
 }
 
-inline GLuint CSCI441::SimpleShader::registerVertexArray2(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
-    return CSCI441_INTERNAL::SimpleShader::registerVertexArray2(VERTEX_POINTS, VERTEX_COLORS);
+inline void CSCI441::SimpleShader2::setupSimpleShader() {
+    CSCI441_INTERNAL::SimpleShader2::setupSimpleShader();
 }
 
-inline void CSCI441::SimpleShader::updateVertexArray2(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
-    CSCI441_INTERNAL::SimpleShader::updateVertexArray2(VAOD, VERTEX_POINTS, VERTEX_COLORS);
+inline GLuint CSCI441::SimpleShader2::registerVertexArray(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
+    return CSCI441_INTERNAL::SimpleShader2::registerVertexArray(VERTEX_POINTS, VERTEX_COLORS);
 }
 
-inline void CSCI441::SimpleShader::setProjectionMatrix(glm::mat4 projectionMatrix) {
-    CSCI441_INTERNAL::SimpleShader::setProjectionMatrix(projectionMatrix);
+inline void CSCI441::SimpleShader2::updateVertexArray(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
+    CSCI441_INTERNAL::SimpleShader2::updateVertexArray(VAOD, VERTEX_POINTS, VERTEX_COLORS);
 }
 
-inline void CSCI441::SimpleShader::pushTransformation(glm::mat4 transformationMatrix) {
-    CSCI441_INTERNAL::SimpleShader::pushTransformation(transformationMatrix);
+inline void CSCI441::SimpleShader2::setProjectionMatrix(glm::mat4 projectionMatrix) {
+    CSCI441_INTERNAL::SimpleShader2::setProjectionMatrix(projectionMatrix);
 }
 
-inline void CSCI441::SimpleShader::popTransformation() {
-    CSCI441_INTERNAL::SimpleShader::popTransformation();
+inline void CSCI441::SimpleShader2::pushTransformation(glm::mat4 transformationMatrix) {
+    CSCI441_INTERNAL::SimpleShader2::pushTransformation(transformationMatrix);
 }
 
-inline void CSCI441::SimpleShader::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
-    CSCI441_INTERNAL::SimpleShader::draw(PRIMITIVE_TYPE, VAOD, VERTEX_COUNT);
+inline void CSCI441::SimpleShader2::popTransformation() {
+    CSCI441_INTERNAL::SimpleShader2::popTransformation();
+}
+
+inline void CSCI441::SimpleShader2::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
+    CSCI441_INTERNAL::SimpleShader2::draw(PRIMITIVE_TYPE, VAOD, VERTEX_COUNT);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 // Inward facing function implementations
 
-inline void CSCI441_INTERNAL::SimpleShader::enableFlatShading() {
+inline void CSCI441_INTERNAL::SimpleShader2::enableFlatShading() {
     smoothShading = false;
 }
-inline void CSCI441_INTERNAL::SimpleShader::enableSmoothShading() {
+inline void CSCI441_INTERNAL::SimpleShader2::enableSmoothShading() {
     smoothShading = true;
 }
 
-inline void CSCI441_INTERNAL::SimpleShader::setupSimpleShader2() {
+inline void CSCI441_INTERNAL::SimpleShader2::setupSimpleShader() {
     std::string vertex_shader_src = "#version 410 core\n \
                                     \n \
                                     uniform mat4 model;\n \
@@ -230,7 +238,7 @@ inline void CSCI441_INTERNAL::SimpleShader::setupSimpleShader2() {
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &identity[0][0]);
 }
 
-inline GLuint CSCI441_INTERNAL::SimpleShader::registerVertexArray2(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
+inline GLuint CSCI441_INTERNAL::SimpleShader2::registerVertexArray(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
     GLuint vaod;
     glGenVertexArrays(1, &vaod);
     glBindVertexArray(vaod);
@@ -253,24 +261,24 @@ inline GLuint CSCI441_INTERNAL::SimpleShader::registerVertexArray2(const std::ve
 
 
 
-inline void CSCI441_INTERNAL::SimpleShader::updateVertexArray2(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
+inline void CSCI441_INTERNAL::SimpleShader2::updateVertexArray(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
     glBindVertexArray(VAOD);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat)*VERTEX_POINTS.size()*2, &VERTEX_POINTS[0]);
     glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat)*VERTEX_POINTS.size()*2, sizeof(GLfloat)*VERTEX_COLORS.size()*3, &VERTEX_COLORS[0]);
 }
 
-inline void CSCI441_INTERNAL::SimpleShader::setProjectionMatrix(glm::mat4 projectionMatrix) {
+inline void CSCI441_INTERNAL::SimpleShader2::setProjectionMatrix(glm::mat4 projectionMatrix) {
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
 }
 
-inline void CSCI441_INTERNAL::SimpleShader::pushTransformation(glm::mat4 transformationMatrix) {
+inline void CSCI441_INTERNAL::SimpleShader2::pushTransformation(glm::mat4 transformationMatrix) {
     transformationStack.emplace_back(transformationMatrix);
 
     modelMatrix *= transformationMatrix;
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
 }
 
-inline void CSCI441_INTERNAL::SimpleShader::popTransformation() {
+inline void CSCI441_INTERNAL::SimpleShader2::popTransformation() {
     glm::mat4 lastTransformation = transformationStack.back();
     transformationStack.pop_back();
 
@@ -278,7 +286,7 @@ inline void CSCI441_INTERNAL::SimpleShader::popTransformation() {
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
 }
 
-inline void CSCI441_INTERNAL::SimpleShader::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
+inline void CSCI441_INTERNAL::SimpleShader2::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
     glBindVertexArray(VAOD);
     glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);
 }
