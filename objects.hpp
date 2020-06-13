@@ -71,14 +71,36 @@ namespace CSCI441 {
 		  */
 		void drawWireCone( GLdouble base, GLdouble height, GLint stacks, GLint slices );
 
-		/** @brief Draws a solid cube
+		/** @brief Calls through to drawSolidCubeIndexed()
+			*
+			* @param GLdouble sideLength - length of the edge of the cube
+			* @pre sideLength must be greater than zero
+			*/
+			void drawSolidCube( GLdouble sideLength );
+    /** @brief Draws a solid cube with normals aligned with cube face
+  *
+    *	The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
+    *
+    * @param GLdouble sideLength - length of the edge of the cube
+    * @pre sideLength must be greater than zero
+    */
+    void drawSolidCubeFlat( GLdouble sideLength );
+    /** @brief Draws a solid cube
 		  *
 			*	The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
 			*
 			* @param GLdouble sideLength - length of the edge of the cube
 			* @pre sideLength must be greater than zero
 			*/
-			void drawSolidCube( GLdouble sideLength );
+    void drawSolidCubeIndexed( GLdouble sideLength );
+    /** @brief Draws a solid textured cube.  Calls through to drawSolidCubeFlat()
+		  *
+			*	The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
+			*
+			* @param GLdouble sideLength - length of the edge of the cube
+			* @pre sideLength must be greater than zero
+			*/
+    void drawSolidCubeTextured( GLdouble sideLength );
 		/** @brief Draws a wireframe cube
 		  *
 			*	The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
@@ -272,6 +294,8 @@ namespace CSCI441 {
 
 namespace CSCI441_INTERNAL {
 	void drawCube( GLdouble sideLength, GLenum renderMode );
+	void drawCubeIndexed( GLdouble sideLength, GLenum renderMode );
+	void drawCubeFlat( GLdouble sideLength, GLenum renderMode );
 	void drawCylinder( GLdouble base, GLdouble top, GLdouble height, GLint stacks, GLint slices, GLenum renderMode );
 	void drawPartialDisk( GLdouble inner, GLdouble outer, GLint slices, GLint rings, GLdouble start, GLdouble sweep, GLenum renderMode );
 	void drawSphere( GLdouble radius, GLint stacks, GLint slices, GLenum renderMode );
@@ -281,9 +305,12 @@ namespace CSCI441_INTERNAL {
 	static GLint _normalLocation = -1;
 	static GLint _texCoordLocation = -1;
 
-	void generateCubeVAO( GLdouble sideLength );
+	void generateCubeVAOFlat( GLdouble sideLength );
+	void generateCubeVAOIndexed( GLdouble sideLength );
 	static std::map< GLdouble, GLuint > _cubeVAO;
 	static std::map< GLdouble, GLuint > _cubeVBO;
+	static std::map< GLdouble, GLuint > _cubeVAOIndexed;
+	static std::map< GLdouble, GLuint > _cubeVBOIndexed;
 
 	struct CylinderData {
 		GLdouble b, t, h;
@@ -377,9 +404,23 @@ inline void CSCI441::drawWireCone( GLdouble base, GLdouble height, GLint stacks,
 }
 
 inline void CSCI441::drawSolidCube( GLdouble sideLength ) {
+    drawSolidCubeIndexed(sideLength);
+}
+
+inline void CSCI441::drawSolidCubeTextured( GLdouble sideLength ) {
+    drawSolidCubeFlat(sideLength);
+}
+
+inline void CSCI441::drawSolidCubeIndexed(GLdouble sideLength) {
   assert( sideLength > 0.0f );
 
   CSCI441_INTERNAL::drawCube( sideLength, GL_FILL );
+}
+
+inline void CSCI441::drawSolidCubeFlat(GLdouble sideLength) {
+    assert( sideLength > 0.0f );
+
+    CSCI441_INTERNAL::drawCubeFlat( sideLength, GL_FILL );
 }
 
 inline void CSCI441::drawWireCube( GLdouble sideLength ) {
@@ -503,8 +544,12 @@ inline void CSCI441::drawWireTorus( GLdouble innerRadius, GLdouble outerRadius, 
 // Internal function rendering implementations
 
 inline void CSCI441_INTERNAL::drawCube( GLdouble sideLength, GLenum renderMode ) {
+    drawCubeIndexed(sideLength, renderMode);
+}
+
+inline void CSCI441_INTERNAL::drawCubeFlat( GLdouble sideLength, GLenum renderMode ) {
 	if( CSCI441_INTERNAL::_cubeVAO.find( sideLength ) == CSCI441_INTERNAL::_cubeVAO.end() ) {
-		CSCI441_INTERNAL::generateCubeVAO( sideLength );
+		CSCI441_INTERNAL::generateCubeVAOFlat( sideLength );
 	}
 
 	glPolygonMode( GL_FRONT_AND_BACK, renderMode );
@@ -517,6 +562,23 @@ inline void CSCI441_INTERNAL::drawCube( GLdouble sideLength, GLenum renderMode )
 	glEnableVertexAttribArray( _texCoordLocation );
 	glVertexAttribPointer( _texCoordLocation, 2, GL_DOUBLE, GL_FALSE, 0, (void*)(sizeof(GLdouble)*36*6) );
 	glDrawArrays( GL_TRIANGLES, 0, 36 );
+
+	glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+}
+
+inline void CSCI441_INTERNAL::drawCubeIndexed( GLdouble sideLength, GLenum renderMode ) {
+	if( CSCI441_INTERNAL::_cubeVAOIndexed.find( sideLength ) == CSCI441_INTERNAL::_cubeVAOIndexed.end() ) {
+		CSCI441_INTERNAL::generateCubeVAOIndexed( sideLength );
+	}
+
+	glPolygonMode( GL_FRONT_AND_BACK, renderMode );
+	glBindVertexArray( CSCI441_INTERNAL::_cubeVAOIndexed.find( sideLength )->second );
+	glBindBuffer( GL_ARRAY_BUFFER, CSCI441_INTERNAL::_cubeVBOIndexed.find( sideLength )->second );
+	glEnableVertexAttribArray( _positionLocation );
+	glVertexAttribPointer( _positionLocation, 3, GL_DOUBLE, GL_FALSE, 0, (void*)0 );
+	glEnableVertexAttribArray( _normalLocation );
+	glVertexAttribPointer( _normalLocation, 3, GL_DOUBLE, GL_FALSE, 0, (void*)(sizeof(GLdouble)*8*3) );
+	glDrawElements( GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*)0 );
 
 	glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 }
@@ -617,7 +679,7 @@ inline void CSCI441_INTERNAL::drawTorus( GLdouble innerRadius, GLdouble outerRad
 	glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 }
 
-inline void CSCI441_INTERNAL::generateCubeVAO( GLdouble sideLength ) {
+inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLdouble sideLength ) {
 	GLuint vaod;
 	glGenVertexArrays( 1, &vaod );
 	glBindVertexArray( vaod );
@@ -696,6 +758,57 @@ inline void CSCI441_INTERNAL::generateCubeVAO( GLdouble sideLength ) {
 
 	CSCI441_INTERNAL::_cubeVAO.insert( std::pair<GLdouble, GLuint>( sideLength, vaod ) );
 	CSCI441_INTERNAL::_cubeVBO.insert( std::pair<GLdouble, GLuint>( sideLength, vbod ) );
+}
+
+inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLdouble sideLength ) {
+	const GLdouble CORNER_POINT = sideLength / 2.0f;
+
+	GLdouble vertices[8][3] = {
+        { -CORNER_POINT, -CORNER_POINT, -CORNER_POINT }, // 0 - bln
+        {  CORNER_POINT, -CORNER_POINT, -CORNER_POINT }, // 1 - brn
+        {  CORNER_POINT,  CORNER_POINT, -CORNER_POINT }, // 2 - trn
+        { -CORNER_POINT,  CORNER_POINT, -CORNER_POINT }, // 3 - tln
+        { -CORNER_POINT, -CORNER_POINT,  CORNER_POINT }, // 4 - blf
+        {  CORNER_POINT, -CORNER_POINT,  CORNER_POINT }, // 5 - brf
+        {  CORNER_POINT,  CORNER_POINT,  CORNER_POINT }, // 6 - trf
+        { -CORNER_POINT,  CORNER_POINT,  CORNER_POINT }  // 7 - tlf
+	};
+	GLdouble normals[8][3] = {
+        {-1, -1, -1}, // 0 LBF
+        {-1,  1, -1}, // 1 LTF
+        { 1, -1, -1}, // 2 RBF
+        { 1,  1, -1}, // 3 RTF
+        {-1, -1,  1}, // 4 LBN
+        {-1,  1,  1}, // 5 LTN
+        { 1, -1,  1}, // 6 RBN
+        { 1,  1,  1}  // 7 RTN
+	};
+	unsigned short indices[36] = {
+        0, 1, 2,   0, 2, 3, // near
+        1, 5, 2,   5, 6, 2, // right
+        2, 6, 7,   3, 2, 7, // top
+        0, 1, 4,   1, 5, 4, // bottom
+        4, 5, 6,   4, 6, 7, // back
+        0, 4, 3,   4, 7, 3  // left
+	};
+
+    GLuint vaod;
+    glGenVertexArrays( 1, &vaod );
+    glBindVertexArray( vaod );
+
+    GLuint vbods[2];
+    glGenBuffers( 2, vbods );
+
+    glBindBuffer( GL_ARRAY_BUFFER, vbods[0] );
+	glBufferData( GL_ARRAY_BUFFER, sizeof(GLdouble) * 8 * 6, nullptr, GL_STATIC_DRAW );
+	glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(GLdouble) * 8 * 3, vertices );
+	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLdouble) * 8 * 3, sizeof(GLdouble) * 8 * 3, normals );
+
+	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, vbods[1] );
+	glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW) ;
+
+	CSCI441_INTERNAL::_cubeVAOIndexed.insert( std::pair<GLdouble, GLuint>( sideLength, vaod ) );
+	CSCI441_INTERNAL::_cubeVBOIndexed.insert( std::pair<GLdouble, GLuint>( sideLength, vbods[0] ) );
 }
 
 inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
