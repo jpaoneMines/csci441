@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 
+#include "objects.hpp"
 #include "ShaderUtils.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -38,12 +39,12 @@ namespace CSCI441 {
     namespace SimpleShader2 {
         /** @brief turns on Flat Shading
          * 
-         * @warning must call prior to setupSimpleShader2
+         * @warning must call prior to setupSimpleShader
          */
         void enableFlatShading();
         /** @brief turns on Smooth Shading
          * 
-         * @warning must call prior to setupSimpleShader2
+         * @warning must call prior to setupSimpleShader
          */
         void enableSmoothShading();
 
@@ -85,6 +86,53 @@ namespace CSCI441 {
 
         void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
     }
+
+    namespace SimpleShader3 {
+        /** @brief turns on Flat Shading
+         *
+         * @warning must call prior to setupSimpleShader
+         */
+        void enableFlatShading();
+        /** @brief turns on Smooth Shading
+         *
+         * @warning must call prior to setupSimpleShader
+         */
+        void enableSmoothShading();
+
+        /** @brief Registers a simple Gourad Shader with Lambertian Illumination for 3-Dimensional drawing
+         *
+         */
+        void setupSimpleShader();
+
+        /**
+         *
+         * @param VERTEX_POINTS vector of vertex (x,y,z) locations
+         * @param VERTEX_NORMALS vector of vertex (x,y,z) normals
+         * @return generated Vertex Array Object Descriptor (vaod)
+         */
+        GLuint registerVertexArray(const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS);
+
+        /** @brief Sets the Projection Matrix
+         *
+         * @param PROJECTION_MATRIX
+         */
+        void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
+        /** @brief Sets the View Matrix
+         *
+         * @param VIEW_MATRIX
+         */
+        void setViewMatrix(const glm::mat4& VIEW_MATRIX);
+
+        void setLightPosition(const glm::vec3& LIGHT_POSITION);
+        void setLightColor(const glm::vec3& LIGHT_COLOR);
+        void setMaterialColor(const glm::vec3& MATERIAL_COLOR);
+
+        void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
+        void popTransformation();
+
+        void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
+        void drawLines(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -113,6 +161,40 @@ namespace CSCI441_INTERNAL {
 
         std::vector<glm::mat4> transformationStack;
         glm::mat4 modelMatrix(1.0);
+    }
+
+    namespace SimpleShader3 {
+        void enableFlatShading();
+        void enableSmoothShading();
+        void setupSimpleShader();
+        GLuint registerVertexArray(const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS);
+        void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
+        void setViewMatrix(const glm::mat4& VIEW_MATRIX);
+        void setLightPosition(const glm::vec3& LIGHT_POSITION);
+        void setLightColor(const glm::vec3& LIGHT_COLOR);
+        void setMaterialColor(const glm::vec3& MATERIAL_COLOR);
+        void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
+        void popTransformation();
+        void setNormalMatrix();
+        void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
+        void drawLines(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
+
+        GLboolean smoothShading = true;
+        GLint shaderProgramHandle = -1;
+        GLint modelLocation = -1;
+        GLint viewLocation = -1;
+        GLint projectionLocation = -1;
+        GLint normalMtxLocation = -1;
+        GLint lightPositionLocation = -1;
+        GLint lightColorLocation = -1;
+        GLint materialLocation = -1;
+        GLint vertexLocation = -1;
+        GLint normalLocation = -1;
+        GLint useLightingLocation = -1;
+
+        std::vector<glm::mat4> transformationStack;
+        glm::mat4 modelMatrix(1.0);
+        glm::mat4 viewMatrix(1.0);
     }
 }
 
@@ -153,6 +235,59 @@ inline void CSCI441::SimpleShader2::popTransformation() {
 
 inline void CSCI441::SimpleShader2::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
     CSCI441_INTERNAL::SimpleShader2::draw(PRIMITIVE_TYPE, VAOD, VERTEX_COUNT);
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+
+inline void CSCI441::SimpleShader3::enableFlatShading() {
+    CSCI441_INTERNAL::SimpleShader3::enableFlatShading();
+}
+inline void CSCI441::SimpleShader3::enableSmoothShading() {
+    CSCI441_INTERNAL::SimpleShader3::enableSmoothShading();
+}
+
+inline void CSCI441::SimpleShader3::setupSimpleShader() {
+    CSCI441_INTERNAL::SimpleShader3::setupSimpleShader();
+}
+
+inline GLuint CSCI441::SimpleShader3::registerVertexArray(const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS) {
+    return CSCI441_INTERNAL::SimpleShader3::registerVertexArray(VERTEX_POINTS, VERTEX_NORMALS);
+}
+
+inline void CSCI441::SimpleShader3::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
+    CSCI441_INTERNAL::SimpleShader3::setProjectionMatrix(PROJECTION_MATRIX);
+}
+
+inline void CSCI441::SimpleShader3::setViewMatrix(const glm::mat4& VIEW_MATRIX) {
+    CSCI441_INTERNAL::SimpleShader3::setViewMatrix(VIEW_MATRIX);
+}
+
+inline void CSCI441::SimpleShader3::setLightPosition(const glm::vec3& LIGHT_POSITION) {
+    CSCI441_INTERNAL::SimpleShader3::setLightPosition(LIGHT_POSITION);
+}
+
+inline void CSCI441::SimpleShader3::setLightColor(const glm::vec3& LIGHT_COLOR) {
+    CSCI441_INTERNAL::SimpleShader3::setLightColor(LIGHT_COLOR);
+}
+
+inline void CSCI441::SimpleShader3::setMaterialColor(const glm::vec3& MATERIAL_COLOR) {
+    CSCI441_INTERNAL::SimpleShader3::setMaterialColor(MATERIAL_COLOR);
+}
+
+inline void CSCI441::SimpleShader3::pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX) {
+    CSCI441_INTERNAL::SimpleShader3::pushTransformation(TRANSFORMATION_MATRIX);
+}
+
+inline void CSCI441::SimpleShader3::popTransformation() {
+    CSCI441_INTERNAL::SimpleShader3::popTransformation();
+}
+
+inline void CSCI441::SimpleShader3::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
+    CSCI441_INTERNAL::SimpleShader3::draw(PRIMITIVE_TYPE, VAOD, VERTEX_COUNT);
+}
+
+inline void CSCI441::SimpleShader3::drawLines(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
+    CSCI441_INTERNAL::SimpleShader3::drawLines(PRIMITIVE_TYPE, VAOD, VERTEX_COUNT);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -292,6 +427,204 @@ inline void CSCI441_INTERNAL::SimpleShader2::popTransformation() {
 inline void CSCI441_INTERNAL::SimpleShader2::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
     glBindVertexArray(VAOD);
     glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+
+inline void CSCI441_INTERNAL::SimpleShader3::enableFlatShading() {
+    smoothShading = false;
+}
+inline void CSCI441_INTERNAL::SimpleShader3::enableSmoothShading() {
+    smoothShading = true;
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {
+    std::string vertex_shader_src = "#version 410 core\n \
+                                    \n \
+                                    uniform mat4 model;\n \
+                                    uniform mat4 view;\n \
+                                    uniform mat4 projection;\n \
+                                    uniform mat3 normalMtx;\n \
+                                    uniform vec3 lightColor;\n \
+                                    uniform vec3 lightPosition;\n \
+                                    uniform vec3 materialColor;\n \
+                                    \n \
+                                    layout(location=0) in vec3 vPos;\n \
+                                    layout(location=2) in vec3 vNormal;\n \
+                                    \n \
+                                    layout(location=0) ";
+    vertex_shader_src += (smoothShading ? "" : "flat ");
+    vertex_shader_src += "out vec4 fragColor;\n \
+                                    \n \
+                                    void main() {\n \
+                                        gl_Position = projection * view * model * vec4(vPos, 1.0);\n \
+                                        \n \
+                                        vec3 vertexEye = (view * model * vec4(vPos, 1.0)).xyz;\n \
+                                        vec3 lightEye = (view * vec4(lightPosition, 1.0)).xyz;\n \
+                                        vec3 lightVec = normalize( lightEye - vertexEye );\n \
+                                        vec3 normalVec = normalize( normalMtx * vNormal );\n \
+                                        vec3 diffColor = lightColor * materialColor * max(dot(lightVec, normalVec), 0.0);\n \
+                                        vec3 ambColor = materialColor * 0.3;\
+                                        vec3 color = diffColor + ambColor;\n \
+                                        fragColor = vec4(color, 1.0);\n \
+                                    }";
+    const char* vertexShaders[1] = { vertex_shader_src.c_str() };
+
+    std::string fragment_shader_src = "#version 410 core\n \
+                                      \n \
+                                      uniform vec3 materialColor;\n \
+                                      uniform int useLighting;\n \
+                                      \n \
+                                      layout(location=0) ";
+    fragment_shader_src += (smoothShading ? "" : "flat ");
+    fragment_shader_src += " in vec4 fragColor;\n \
+                                      \n \
+                                      layout(location=0) out vec4 fragColorOut;\n \
+                                      \n \
+                                      void main() {\n \
+                                          if(useLighting == 1) {\n \
+                                              fragColorOut = fragColor;\n \
+                                          } else {\n \
+                                              fragColorOut = vec4(materialColor, 1.0f);\n \
+                                          }\n \
+                                      }";
+    const char* fragmentShaders[1] = { fragment_shader_src.c_str() };
+
+    GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );
+    glShaderSource(vertexShaderHandle, 1, vertexShaders, nullptr);
+    glCompileShader(vertexShaderHandle);
+    ShaderUtils::printLog(vertexShaderHandle);
+
+    GLuint fragmentShaderHandle = glCreateShader( GL_FRAGMENT_SHADER );
+    glShaderSource(fragmentShaderHandle, 1, fragmentShaders, nullptr);
+    glCompileShader(fragmentShaderHandle);
+    ShaderUtils::printLog(fragmentShaderHandle);
+
+    shaderProgramHandle = glCreateProgram();
+    glAttachShader(shaderProgramHandle, vertexShaderHandle);
+    glAttachShader(shaderProgramHandle, fragmentShaderHandle);
+    glLinkProgram(shaderProgramHandle);
+    ShaderUtils::printLog(shaderProgramHandle);
+
+    glDetachShader(shaderProgramHandle, vertexShaderHandle);
+    glDeleteShader(vertexShaderHandle);
+
+    glDetachShader(shaderProgramHandle, fragmentShaderHandle);
+    glDeleteShader(fragmentShaderHandle);
+
+    ShaderUtils::printShaderProgramInfo(shaderProgramHandle);
+
+    modelLocation       = glGetUniformLocation(shaderProgramHandle, "model");
+    viewLocation        = glGetUniformLocation(shaderProgramHandle, "view");
+    projectionLocation  = glGetUniformLocation(shaderProgramHandle, "projection");
+    normalMtxLocation   = glGetUniformLocation(shaderProgramHandle, "normalMtx");
+    lightPositionLocation=glGetUniformLocation(shaderProgramHandle, "lightPosition");
+    lightColorLocation  = glGetUniformLocation(shaderProgramHandle, "lightColor");
+    materialLocation    = glGetUniformLocation(shaderProgramHandle, "materialColor");
+    useLightingLocation = glGetUniformLocation(shaderProgramHandle, "useLighting");
+
+    vertexLocation      = glGetAttribLocation(shaderProgramHandle, "vPos");
+    normalLocation      = glGetAttribLocation(shaderProgramHandle, "vNormal");
+
+    glUseProgram(shaderProgramHandle);
+
+    glm::mat4 identity(1.0);
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &identity[0][0]);
+    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &identity[0][0]);
+    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &identity[0][0]);
+
+    glm::vec3 white(1.0, 1.0, 1.0);
+    glUniform3fv(lightColorLocation, 1, &white[0]);
+    glUniform3fv(materialLocation, 1, &white[0]);
+
+    glm::vec3 origin(0.0, 0.0, 0.0);
+    glUniform3fv(lightPositionLocation, 1, &origin[0]);
+
+    glUniform1i(useLightingLocation, 1);
+
+    CSCI441::setVertexAttributeLocations(vertexLocation, normalLocation);
+}
+
+inline GLuint CSCI441_INTERNAL::SimpleShader3::registerVertexArray(const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS) {
+    GLuint vaod;
+    glGenVertexArrays(1, &vaod);
+    glBindVertexArray(vaod);
+
+    GLuint vbod;
+    glGenBuffers(1, &vbod);
+    glBindBuffer(GL_ARRAY_BUFFER, vbod);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*VERTEX_POINTS.size()*3 + sizeof(GLfloat)*VERTEX_NORMALS.size()*3, nullptr, GL_STATIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat)*VERTEX_POINTS.size()*3, &VERTEX_POINTS[0]);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat)*VERTEX_POINTS.size()*3, sizeof(GLfloat)*VERTEX_NORMALS.size()*3, &VERTEX_NORMALS[0]);
+
+    glEnableVertexAttribArray(vertexLocation);
+    glVertexAttribPointer(vertexLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+    glEnableVertexAttribArray(normalLocation);
+    glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*VERTEX_POINTS.size()*2));
+
+    return vaod;
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
+    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &PROJECTION_MATRIX[0][0]);
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::setViewMatrix(const glm::mat4& VIEW_MATRIX) {
+    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &VIEW_MATRIX[0][0]);
+
+    viewMatrix = VIEW_MATRIX;
+    setNormalMatrix();
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::setLightPosition(const glm::vec3& LIGHT_POSITION) {
+    glUniform3fv(lightPositionLocation, 1, &LIGHT_POSITION[0]);
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::setLightColor(const glm::vec3& LIGHT_COLOR) {
+    glUniform3fv(lightColorLocation, 1, &LIGHT_COLOR[0]);
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::setMaterialColor(const glm::vec3& MATERIAL_COLOR) {
+    glUniform3fv(materialLocation, 1, &MATERIAL_COLOR[0]);
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX) {
+    transformationStack.emplace_back(TRANSFORMATION_MATRIX);
+
+    modelMatrix *= TRANSFORMATION_MATRIX;
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+
+    setNormalMatrix();
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::popTransformation() {
+    // ensure there is a transformation stack to pop off
+    if( !transformationStack.empty() ) {
+        glm::mat4 lastTransformation = transformationStack.back();
+        transformationStack.pop_back();
+
+        modelMatrix *= glm::inverse( lastTransformation );
+        glUniformMatrix4fv( modelLocation, 1, GL_FALSE, &modelMatrix[0][0] );
+    }
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::setNormalMatrix() {
+    glm::mat4 modelView = viewMatrix * modelMatrix;
+    glm::mat3 normalMatrix = glm::mat3( glm::transpose( glm::inverse( modelView ) ) );
+    glUniformMatrix3fv(normalMtxLocation, 1, GL_FALSE, &normalMatrix[0][0]);
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
+    glBindVertexArray(VAOD);
+    glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::drawLines(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
+    glUniform1i(useLightingLocation, 0);
+    glBindVertexArray(VAOD);
+    glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);
+    glUniform1i(useLightingLocation, 1);
 }
 
 #endif //__CSCI441_SIMPLESHADER_H__
