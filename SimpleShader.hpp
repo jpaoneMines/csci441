@@ -130,8 +130,18 @@ namespace CSCI441 {
         void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
         void popTransformation();
 
+        /** @brief turns on lighting and applies Phong Illumination to fragment
+         *
+         * @warning must call after to setupSimpleShader
+         */
+        void enableLighting();
+        /** @brief turns off lighting and applies material color to fragment
+         *
+         * @warning must call after to setupSimpleShader
+         */
+        void disableLighting();
+
         void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
-        void drawLines(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
     }
 }
 
@@ -176,8 +186,9 @@ namespace CSCI441_INTERNAL {
         void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
         void popTransformation();
         void setNormalMatrix();
+        void enableLighting();
+        void disableLighting();
         void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
-        void drawLines(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
 
         GLboolean smoothShading = true;
         GLint shaderProgramHandle = -1;
@@ -282,12 +293,16 @@ inline void CSCI441::SimpleShader3::popTransformation() {
     CSCI441_INTERNAL::SimpleShader3::popTransformation();
 }
 
-inline void CSCI441::SimpleShader3::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
-    CSCI441_INTERNAL::SimpleShader3::draw(PRIMITIVE_TYPE, VAOD, VERTEX_COUNT);
+inline void CSCI441::SimpleShader3::enableLighting() {
+    CSCI441_INTERNAL::SimpleShader3::enableLighting();
 }
 
-inline void CSCI441::SimpleShader3::drawLines(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
-    CSCI441_INTERNAL::SimpleShader3::drawLines(PRIMITIVE_TYPE, VAOD, VERTEX_COUNT);
+inline void CSCI441::SimpleShader3::disableLighting() {
+    CSCI441_INTERNAL::SimpleShader3::disableLighting();
+}
+
+inline void CSCI441::SimpleShader3::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
+    CSCI441_INTERNAL::SimpleShader3::draw(PRIMITIVE_TYPE, VAOD, VERTEX_COUNT);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -615,16 +630,17 @@ inline void CSCI441_INTERNAL::SimpleShader3::setNormalMatrix() {
     glUniformMatrix3fv(normalMtxLocation, 1, GL_FALSE, &normalMatrix[0][0]);
 }
 
+inline void CSCI441_INTERNAL::SimpleShader3::enableLighting() {
+    glUniform1i(useLightingLocation, 1);
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::disableLighting() {
+    glUniform1i(useLightingLocation, 0);
+}
+
 inline void CSCI441_INTERNAL::SimpleShader3::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
     glBindVertexArray(VAOD);
     glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);
-}
-
-inline void CSCI441_INTERNAL::SimpleShader3::drawLines(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
-    glUniform1i(useLightingLocation, 0);
-    glBindVertexArray(VAOD);
-    glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);
-    glUniform1i(useLightingLocation, 1);
 }
 
 #endif //__CSCI441_SIMPLESHADER_H__
