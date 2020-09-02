@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 
+#include "objects.hpp"
 #include "ShaderUtils.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -73,6 +74,29 @@ namespace CSCI441 {
          */
         void updateVertexArray(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
 
+        /**
+         *
+         * @param NUM_POINTS number of points in each array
+         * @param VERTEX_POINTS array of vertex (x,y) locations
+         * @param VERTEX_COLORS array of vertex (r,g,b) colors
+         * @return generated Vertex Array Object Descriptor (vaod)
+         */
+        GLuint registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
+        /** @brief Updates GL_ARRAY_BUFFER fo the corresponding VAO
+         *
+         * @desc Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
+         * VAO.  The data is copied in to the GL_ARRAY_BUFFER VBO for this VAO.  When function completes, the passed
+         * VAO is currently bound.
+         *
+         * @warning Requires that the same number of vertex points, or less, are passed as when the VAO was registered
+         *
+         * @param VAOD Vertex Array Object Descriptor
+         * @param NUM_POINTS number of points in each array
+         * @param VERTEX_POINTS vector of vertex (x,y) locations
+         * @param VERTEX_COLORS vector of vertex (r,g,b) colors
+         */
+        void updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
+
         /** @brief Sets the Projection Matrix
          *
          * @param PROJECTION_MATRIX
@@ -110,6 +134,14 @@ namespace CSCI441 {
          * @return generated Vertex Array Object Descriptor (vaod)
          */
         GLuint registerVertexArray(const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS);
+
+        /**
+         * @param NUM_POINTS number of points in each array
+         * @param VERTEX_POINTS array of vertex (x,y,z) locations
+         * @param VERTEX_NORMALS array of vertex (x,y,z) normals
+         * @return generated Vertex Array Object Descriptor (vaod)
+         */
+        GLuint registerVertexArray(const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
 
         /** @brief Sets the Projection Matrix
          *
@@ -153,8 +185,8 @@ namespace CSCI441_INTERNAL {
         void enableFlatShading();
         void enableSmoothShading();
         void setupSimpleShader();
-        GLuint registerVertexArray(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
-        void updateVertexArray(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
+        GLuint registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
+        void updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
         void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
         void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
         void popTransformation();
@@ -176,7 +208,7 @@ namespace CSCI441_INTERNAL {
         void enableFlatShading();
         void enableSmoothShading();
         void setupSimpleShader();
-        GLuint registerVertexArray(const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS);
+        GLuint registerVertexArray(const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
         void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
         void setViewMatrix(const glm::mat4& VIEW_MATRIX);
         void setLightPosition(const glm::vec3& LIGHT_POSITION);
@@ -224,11 +256,19 @@ inline void CSCI441::SimpleShader2::setupSimpleShader() {
 }
 
 inline GLuint CSCI441::SimpleShader2::registerVertexArray(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
-    return CSCI441_INTERNAL::SimpleShader2::registerVertexArray(VERTEX_POINTS, VERTEX_COLORS);
+    return CSCI441_INTERNAL::SimpleShader2::registerVertexArray(VERTEX_POINTS.size(), &VERTEX_POINTS[0], &VERTEX_COLORS[0]);
 }
 
 inline void CSCI441::SimpleShader2::updateVertexArray(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
-    CSCI441_INTERNAL::SimpleShader2::updateVertexArray(VAOD, VERTEX_POINTS, VERTEX_COLORS);
+    CSCI441_INTERNAL::SimpleShader2::updateVertexArray(VAOD, VERTEX_POINTS.size(), &VERTEX_POINTS[0], &VERTEX_COLORS[0]);
+}
+
+inline GLuint CSCI441::SimpleShader2::registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]) {
+    return CSCI441_INTERNAL::SimpleShader2::registerVertexArray(NUM_POINTS, VERTEX_POINTS, VERTEX_COLORS);
+}
+
+inline void CSCI441::SimpleShader2::updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]) {
+    CSCI441_INTERNAL::SimpleShader2::updateVertexArray(VAOD, NUM_POINTS, VERTEX_POINTS, VERTEX_COLORS);
 }
 
 inline void CSCI441::SimpleShader2::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
@@ -261,7 +301,11 @@ inline void CSCI441::SimpleShader3::setupSimpleShader() {
 }
 
 inline GLuint CSCI441::SimpleShader3::registerVertexArray(const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS) {
-    return CSCI441_INTERNAL::SimpleShader3::registerVertexArray(VERTEX_POINTS, VERTEX_NORMALS);
+    return CSCI441_INTERNAL::SimpleShader3::registerVertexArray(VERTEX_POINTS.size(), &VERTEX_POINTS[0], &VERTEX_NORMALS[0]);
+}
+
+inline GLuint CSCI441::SimpleShader3::registerVertexArray(const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]) {
+    return CSCI441_INTERNAL::SimpleShader3::registerVertexArray(NUM_POINTS, VERTEX_POINTS, VERTEX_NORMALS);
 }
 
 inline void CSCI441::SimpleShader3::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
@@ -387,7 +431,7 @@ inline void CSCI441_INTERNAL::SimpleShader2::setupSimpleShader() {
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &identity[0][0]);
 }
 
-inline GLuint CSCI441_INTERNAL::SimpleShader2::registerVertexArray(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
+inline GLuint CSCI441_INTERNAL::SimpleShader2::registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[0]) {
     GLuint vaod;
     glGenVertexArrays(1, &vaod);
     glBindVertexArray(vaod);
@@ -395,25 +439,25 @@ inline GLuint CSCI441_INTERNAL::SimpleShader2::registerVertexArray(const std::ve
     GLuint vbod;
     glGenBuffers(1, &vbod);
     glBindBuffer(GL_ARRAY_BUFFER, vbod);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*VERTEX_POINTS.size()*2 + sizeof(GLfloat)*VERTEX_COLORS.size()*3, nullptr, GL_STATIC_DRAW);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat)*VERTEX_POINTS.size()*2, &VERTEX_POINTS[0]);
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat)*VERTEX_POINTS.size()*2, sizeof(GLfloat)*VERTEX_COLORS.size()*3, &VERTEX_COLORS[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*NUM_POINTS*2 + sizeof(GLfloat)*NUM_POINTS*3, nullptr, GL_STATIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat)*NUM_POINTS*2, VERTEX_POINTS);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat)*NUM_POINTS*2, sizeof(GLfloat)*NUM_POINTS*3, VERTEX_COLORS);
 
     glEnableVertexAttribArray(vertexLocation);
     glVertexAttribPointer(vertexLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
     glEnableVertexAttribArray(colorLocation);
-    glVertexAttribPointer(colorLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*VERTEX_POINTS.size()*2));
+    glVertexAttribPointer(colorLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*NUM_POINTS*2));
 
     return vaod;
 }
 
 
 
-inline void CSCI441_INTERNAL::SimpleShader2::updateVertexArray(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
+inline void CSCI441_INTERNAL::SimpleShader2::updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]) {
     glBindVertexArray(VAOD);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat)*VERTEX_POINTS.size()*2, &VERTEX_POINTS[0]);
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat)*VERTEX_POINTS.size()*2, sizeof(GLfloat)*VERTEX_COLORS.size()*3, &VERTEX_COLORS[0]);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat)*NUM_POINTS*2, VERTEX_POINTS);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat)*NUM_POINTS*2, sizeof(GLfloat)*NUM_POINTS*3, VERTEX_COLORS);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
@@ -477,7 +521,8 @@ inline void CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {
                                         vec3 lightEye = (view * vec4(lightPosition, 1.0)).xyz;\n \
                                         vec3 lightVec = normalize( lightEye - vertexEye );\n \
                                         vec3 normalVec = normalize( normalMtx * vNormal );\n \
-                                        vec3 diffColor = lightColor * materialColor * max(dot(lightVec, normalVec), 0.0);\n \
+                                        float sDotN = max(dot(lightVec, normalVec), 0.0);\n \
+                                        vec3 diffColor = lightColor * materialColor * sDotN;\n \
                                         vec3 ambColor = materialColor * 0.3;\
                                         vec3 color = diffColor + ambColor;\n \
                                         fragColor = vec4(color, 1.0);\n \
@@ -559,7 +604,7 @@ inline void CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {
     CSCI441::setVertexAttributeLocations(vertexLocation, normalLocation);
 }
 
-inline GLuint CSCI441_INTERNAL::SimpleShader3::registerVertexArray(const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS) {
+inline GLuint CSCI441_INTERNAL::SimpleShader3::registerVertexArray(const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]) {
     GLuint vaod;
     glGenVertexArrays(1, &vaod);
     glBindVertexArray(vaod);
@@ -567,15 +612,15 @@ inline GLuint CSCI441_INTERNAL::SimpleShader3::registerVertexArray(const std::ve
     GLuint vbod;
     glGenBuffers(1, &vbod);
     glBindBuffer(GL_ARRAY_BUFFER, vbod);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*VERTEX_POINTS.size()*3 + sizeof(GLfloat)*VERTEX_NORMALS.size()*3, nullptr, GL_STATIC_DRAW);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat)*VERTEX_POINTS.size()*3, &VERTEX_POINTS[0]);
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat)*VERTEX_POINTS.size()*3, sizeof(GLfloat)*VERTEX_NORMALS.size()*3, &VERTEX_NORMALS[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*NUM_POINTS*3 + sizeof(GLfloat)*NUM_POINTS*3, nullptr, GL_STATIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat)*NUM_POINTS*3, VERTEX_POINTS);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat)*NUM_POINTS*3, sizeof(GLfloat)*NUM_POINTS*3, VERTEX_NORMALS);
 
     glEnableVertexAttribArray(vertexLocation);
     glVertexAttribPointer(vertexLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
     glEnableVertexAttribArray(normalLocation);
-    glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*VERTEX_POINTS.size()*2));
+    glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*NUM_POINTS*2));
 
     return vaod;
 }
