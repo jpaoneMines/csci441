@@ -192,16 +192,16 @@ namespace CSCI441_INTERNAL {
         void popTransformation();
         void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
 
-        GLboolean smoothShading = true;
-        GLint shaderProgramHandle = -1;
-        GLint modelLocation = -1;
-        GLint viewLocation = -1;
-        GLint projectionLocation = -1;
-        GLint vertexLocation = -1;
-        GLint colorLocation = -1;
+        static GLboolean smoothShading = true;
+        static GLint shaderProgramHandle = -1;
+        static GLint modelLocation = -1;
+        static GLint viewLocation = -1;
+        static GLint projectionLocation = -1;
+        static GLint vertexLocation = -1;
+        static GLint colorLocation = -1;
 
-        std::vector<glm::mat4> transformationStack;
-        glm::mat4 modelMatrix(1.0);
+        static std::vector<glm::mat4> transformationStack;
+        static glm::mat4 modelMatrix(1.0);
     }
 
     namespace SimpleShader3 {
@@ -221,22 +221,22 @@ namespace CSCI441_INTERNAL {
         void disableLighting();
         void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
 
-        GLboolean smoothShading = true;
-        GLint shaderProgramHandle = -1;
-        GLint modelLocation = -1;
-        GLint viewLocation = -1;
-        GLint projectionLocation = -1;
-        GLint normalMtxLocation = -1;
-        GLint lightPositionLocation = -1;
-        GLint lightColorLocation = -1;
-        GLint materialLocation = -1;
-        GLint vertexLocation = -1;
-        GLint normalLocation = -1;
-        GLint useLightingLocation = -1;
+        static GLboolean smoothShading = true;
+        static GLint shaderProgramHandle = -1;
+        static GLint modelLocation = -1;
+        static GLint viewLocation = -1;
+        static GLint projectionLocation = -1;
+        static GLint normalMtxLocation = -1;
+        static GLint lightPositionLocation = -1;
+        static GLint lightColorLocation = -1;
+        static GLint materialLocation = -1;
+        static GLint vertexLocation = -1;
+        static GLint normalLocation = -1;
+        static GLint useLightingLocation = -1;
 
-        std::vector<glm::mat4> transformationStack;
-        glm::mat4 modelMatrix(1.0);
-        glm::mat4 viewMatrix(1.0);
+        static std::vector<glm::mat4> transformationStack;
+        static glm::mat4 modelMatrix(1.0);
+        static glm::mat4 viewMatrix(1.0);
     }
 }
 
@@ -461,10 +461,12 @@ inline void CSCI441_INTERNAL::SimpleShader2::updateVertexArray(const GLuint VAOD
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
+    glUseProgram(shaderProgramHandle);
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &PROJECTION_MATRIX[0][0]);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX) {
+    glUseProgram(shaderProgramHandle);
     transformationStack.emplace_back(TRANSFORMATION_MATRIX);
 
     modelMatrix *= TRANSFORMATION_MATRIX;
@@ -474,6 +476,7 @@ inline void CSCI441_INTERNAL::SimpleShader2::pushTransformation(const glm::mat4&
 inline void CSCI441_INTERNAL::SimpleShader2::popTransformation() {
     // ensure there is a transformation stack to pop off
     if( !transformationStack.empty() ) {
+        glUseProgram(shaderProgramHandle);
         glm::mat4 lastTransformation = transformationStack.back();
         transformationStack.pop_back();
 
@@ -483,6 +486,7 @@ inline void CSCI441_INTERNAL::SimpleShader2::popTransformation() {
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
+    glUseProgram(shaderProgramHandle);
     glBindVertexArray(VAOD);
     glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);
 }
@@ -626,10 +630,12 @@ inline GLuint CSCI441_INTERNAL::SimpleShader3::registerVertexArray(const GLuint 
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
+    glUseProgram(shaderProgramHandle);
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &PROJECTION_MATRIX[0][0]);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setViewMatrix(const glm::mat4& VIEW_MATRIX) {
+    glUseProgram(shaderProgramHandle);
     glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &VIEW_MATRIX[0][0]);
 
     viewMatrix = VIEW_MATRIX;
@@ -637,18 +643,22 @@ inline void CSCI441_INTERNAL::SimpleShader3::setViewMatrix(const glm::mat4& VIEW
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setLightPosition(const glm::vec3& LIGHT_POSITION) {
+    glUseProgram(shaderProgramHandle);
     glUniform3fv(lightPositionLocation, 1, &LIGHT_POSITION[0]);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setLightColor(const glm::vec3& LIGHT_COLOR) {
+    glUseProgram(shaderProgramHandle);
     glUniform3fv(lightColorLocation, 1, &LIGHT_COLOR[0]);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setMaterialColor(const glm::vec3& MATERIAL_COLOR) {
+    glUseProgram(shaderProgramHandle);
     glUniform3fv(materialLocation, 1, &MATERIAL_COLOR[0]);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX) {
+    glUseProgram(shaderProgramHandle);
     transformationStack.emplace_back(TRANSFORMATION_MATRIX);
 
     modelMatrix *= TRANSFORMATION_MATRIX;
@@ -660,6 +670,7 @@ inline void CSCI441_INTERNAL::SimpleShader3::pushTransformation(const glm::mat4&
 inline void CSCI441_INTERNAL::SimpleShader3::popTransformation() {
     // ensure there is a transformation stack to pop off
     if( !transformationStack.empty() ) {
+        glUseProgram(shaderProgramHandle);
         glm::mat4 lastTransformation = transformationStack.back();
         transformationStack.pop_back();
 
@@ -669,20 +680,24 @@ inline void CSCI441_INTERNAL::SimpleShader3::popTransformation() {
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setNormalMatrix() {
+    glUseProgram(shaderProgramHandle);
     glm::mat4 modelView = viewMatrix * modelMatrix;
     glm::mat3 normalMatrix = glm::mat3( glm::transpose( glm::inverse( modelView ) ) );
     glUniformMatrix3fv(normalMtxLocation, 1, GL_FALSE, &normalMatrix[0][0]);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::enableLighting() {
+    glUseProgram(shaderProgramHandle);
     glUniform1i(useLightingLocation, 1);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::disableLighting() {
+    glUseProgram(shaderProgramHandle);
     glUniform1i(useLightingLocation, 0);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
+    glUseProgram(shaderProgramHandle);
     glBindVertexArray(VAOD);
     glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);
 }
