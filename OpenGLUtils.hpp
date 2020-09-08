@@ -27,7 +27,8 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
-#include <stdio.h>
+#include <stdio.h>      // for printf()
+#include <stdlib.h>     // for atoi()
 
 ////////////////////////////////////////////////////////////////////////////////////
 
