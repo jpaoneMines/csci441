@@ -166,10 +166,10 @@ namespace CSCI441 {
          *
          * @param VAOD Vertex Array Object Descriptor
          * @param NUM_POINTS number of points in each array
-         * @param VERTEX_POINTS vector of vertex (x,y) locations
+         * @param VERTEX_POINTS vector of vertex (x,y,z) locations
          * @param VERTEX_COLORS vector of vertex (r,g,b) colors
          */
-        void updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
+        void updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
 
         /** @brief Sets the Projection Matrix
          *
