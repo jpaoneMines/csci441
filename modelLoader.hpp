@@ -21,7 +21,8 @@
 #include <GL/glew.h>
 
 #include <glm/glm.hpp>
-#include <SOIL/SOIL.h>
+
+#include <stb_image.h>
 
 #include <fstream>
 #include <map>
@@ -802,15 +803,11 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 				// _textureHandles->insert( pair< string, GLuint >( materialName, imageHandles.find( tokens[1] )->second ) );
 				currentMaterial->map_Kd = imageHandles.find( tokens[1] )->second;
 			} else {
-				textureData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+                stbi_set_flip_vertically_on_load(true);
+				textureData = stbi_load( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, 0 );
 				if( !textureData ) {
 					string folderName = path + tokens[1];
-					textureData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
-					if( textureData) {
-						CSCI441_INTERNAL::flipImageY( texWidth, texHeight, textureChannels, textureData );
-					}
-				} else {
-					CSCI441_INTERNAL::flipImageY( texWidth, texHeight, textureChannels, textureData );
+					textureData = stbi_load( folderName.c_str(), &texWidth, &texHeight, &textureChannels, 0 );
 				}
 
 				if( !textureData ) {
@@ -867,15 +864,11 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 				// _textureHandles->insert( pair< string, GLuint >( materialName, imageHandles.find( tokens[1] )->second ) );
 				currentMaterial->map_d = imageHandles.find( tokens[1] )->second;
 			} else {
-				maskData = SOIL_load_image( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
+			    stbi_set_flip_vertically_on_load(true);
+				maskData = stbi_load( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, 0 );
 				if( !textureData ) {
 					string folderName = path + tokens[1];
-					maskData = SOIL_load_image( folderName.c_str(), &texWidth, &texHeight, &textureChannels, SOIL_LOAD_AUTO );
-					if( maskData ) {
-						CSCI441_INTERNAL::flipImageY( texWidth, texHeight, textureChannels, maskData );
-					}
-				} else {
-					CSCI441_INTERNAL::flipImageY( texWidth, texHeight, textureChannels, maskData );
+					maskData = stbi_load( folderName.c_str(), &texWidth, &texHeight, &textureChannels, 0 );
 				}
 
 				if( !maskData ) {
