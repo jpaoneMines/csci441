@@ -1,25 +1,21 @@
 /** @file TextureUtils.hpp
-  * @brief Helper functions to work with OpenGL Textures
-	* @author Dr. Jeffrey Paone
-	* @date Last Edit: 03 Nov 2017
-	* @version 1.5
-	*
-	* @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
-	*
-	*	These functions, classes, and constants help minimize common
-	*	code that needs to be written.
-  */
+ * @brief Helper functions to work with OpenGL Textures
+ * @author Dr. Jeffrey Paone
+ * @date Last Edit: 24 Sep 2020
+ * @version 2.0
+ *
+ * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
+ *
+ *	These functions, classes, and constants help minimize common
+ *	code that needs to be written.
+ */
 
 #ifndef __CSCI441_TEXTUREUTILS_H__
 #define __CSCI441_TEXTUREUTILS_H__
 
-#ifdef __APPLE__
-	#include <OpenGL/gl.h>
-#else
-	#include <GL/gl.h>
-#endif
+#include <GL/glew.h>
 
-#include <SOIL/SOIL.h>
+#include <stb_image.h>
 
 #include <stdio.h>
 
@@ -51,8 +47,8 @@ namespace CSCI441 {
 			*      memory itself. If the function fails (returns false), imageData
 			*      will be set to NULL and any allocated memory will be automatically deallocated.
 			*
-			*	@param[in] const char* filename	- filename of the image to load
-			* @param[out] int &imageWidth			-	will contain the image width upon successful completion
+			* @param[in] const char* filename	- filename of the image to load
+			* @param[out] int &imageWidth		-	will contain the image width upon successful completion
 			* @param[out] int &imageHeight		- will contain the image height upon successful completion
 			* @param[out] unsigned char* &imageData - will contain the RGB data upon successful completion
 			* @param[in] const char* path 		- path to where file is stored.  defaults to current directory
@@ -449,21 +445,25 @@ inline GLuint CSCI441::TextureUtils::loadAndRegisterTexture( const char *filenam
 //
 ////////////////////////////////////////////////////////////////////////////////
 inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filename, GLenum minFilter, GLenum magFilter, GLenum wrapS, GLenum wrapT ) {
-	GLuint texHandle = SOIL_load_OGL_texture( filename,
-																					 SOIL_LOAD_AUTO,
-																					 SOIL_CREATE_NEW_ID,
-																					 SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT );
+    int imageWidth, imageHeight, imageChannels;
+    GLuint textureHandle = 0;
+    stbi_set_flip_vertically_on_load(true);
+    unsigned char *data = stbi_load( filename, &imageWidth, &imageHeight, &imageChannels, 0);
 
-	if( texHandle == 0 ) {
-			printf( "[ERROR]: Could not load texture \"%s\"\n[SOIL]: %s\n", filename, SOIL_last_result() );
+	if( !data ) {
+        printf( "[ERROR]: Could not load texture \"%s\"\n", filename );
 	} else {
-			printf( "[INFO]: Successfully loaded texture \"%s\"\n[SOIL]: %s\n", filename, SOIL_last_result() );
-			glBindTexture(   GL_TEXTURE_2D,  texHandle );
-			glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_MIN_FILTER, minFilter );
-			glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_MAG_FILTER, magFilter );
-			glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_S,     wrapS );
-			glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_T,     wrapT );
-	}
+        glGenTextures(1, &texHandle );
+        glBindTexture(   GL_TEXTURE_2D,  texHandle );
+        glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_MIN_FILTER, minFilter );
+        glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_MAG_FILTER, magFilter );
+        glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_S,     wrapS );
+        glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_T,     wrapT );
+        const GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);
+        glTexImage2D( GL_TEXTURE_2D, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        printf( "[INFO]: Successfully loaded texture \"%s\" with handle %d\n", filename, texHandle );
+    }
 
 	return texHandle;
 }

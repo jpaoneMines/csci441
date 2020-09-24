@@ -12,7 +12,7 @@
 	*		.stl
 	*
 	*	@warning NOTE: This header file will only work with OpenGL 3.0+
-	*	@warning NOTE: This header file depends upon GLEW
+	*	@warning NOTE: This header file depends upon GLEW, glm, stb_image
   */
 
 #ifndef __CSCI441_MODELLOADER_3_HPP__
@@ -36,7 +36,6 @@ using namespace std;
 #include <time.h>
 
 #include <CSCI441/modelMaterial.hpp>
-#include <CSCI441/TextureUtils.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -796,7 +795,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 			currentMaterial->ambient[3] = atof( tokens[1].c_str() );
 			currentMaterial->diffuse[3] = atof( tokens[1].c_str() );
 			currentMaterial->specular[3] = atof( tokens[1].c_str() );
-		} else if( !tokens[0].compare( "illum" ) ) {				// illumination type component
+		} else if( !tokens[0].compare( "illum" ) ) {				    // illumination type component
 			// TODO ?
 		} else if( !tokens[0].compare( "map_Kd" ) ) {				// diffuse color texture map
 			if( imageHandles.find( tokens[1] ) != imageHandles.end() ) {
