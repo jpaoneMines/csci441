@@ -446,7 +446,7 @@ inline GLuint CSCI441::TextureUtils::loadAndRegisterTexture( const char *filenam
 ////////////////////////////////////////////////////////////////////////////////
 inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filename, GLenum minFilter, GLenum magFilter, GLenum wrapS, GLenum wrapT ) {
     int imageWidth, imageHeight, imageChannels;
-    GLuint textureHandle = 0;
+    GLuint texHandle = 0;
     stbi_set_flip_vertically_on_load(true);
     unsigned char *data = stbi_load( filename, &imageWidth, &imageHeight, &imageChannels, 0);
 
