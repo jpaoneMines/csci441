@@ -28,6 +28,9 @@ TODO Items
 
 Revision History
 
+v.2.0.2 - 25 Sep 2020
+  > Removed invalid enum error when querying max number of lights in OpenGL 3+
+
 v2.0.0  - 25 Sep 2020
   > Only single version of library files to work with OpenGL 4.1\n
   > Removed dependency upon SOIL and replaced with stb_image\n
