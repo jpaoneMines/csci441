@@ -1,17 +1,17 @@
-/** @file FramebufferUtils3.hpp
+/** @file FramebufferUtils.hpp
   * @brief Helper functions to work with OpenGL Framebuffers
 	* @author Dr. Jeffrey Paone
-	* @date Last Edit: 14 Nov 2017
-	* @version 1.6
+	* @date Last Edit: 25 Sep 2020
+	* @version 2.0
 	*
-	* @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
+	* @copyright MIT License Copyright (c) 2020 Dr. Jeffrey Paone
 	*
 	*	These functions, classes, and constants help minimize common
 	*	code that needs to be written.
   */
 
-#ifndef __CSCI441_FRAMEBUFFERUTILS_3_H_
-#define __CSCI441_FRAMEBUFFERUTILS_3_H_
+#ifndef __CSCI441_FRAMEBUFFERUTILS_H_
+#define __CSCI441_FRAMEBUFFERUTILS_H_
 
 #include <GL/glew.h>
 
@@ -45,21 +45,15 @@ inline void CSCI441::FramebufferUtils::printFramebufferInfo( GLenum target, GLui
 	glBindFramebuffer(target,fbo);
 
 	do {
-			glGetIntegerv(GL_DRAW_BUFFER0+i, &buffer);
-
-			if (buffer != GL_NONE) {
-					printf("[FBO]: Shader Output Location %d -> color attachment %d\n",
-											i, buffer - GL_COLOR_ATTACHMENT0);
-					glGetFramebufferAttachmentParameteriv(target, buffer,
-											GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE, &res);
-					printf("[FBO]:  \tAttachment Type: %s\n",
-											res == GL_TEXTURE ? "Texture" : "Render Buffer" );
-					glGetFramebufferAttachmentParameteriv(target, buffer,
-											GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME, &res);
-					printf("[FBO]:  \tAttachment object name: %d\n",res);
-			}
-			++i;
-
+        glGetIntegerv(GL_DRAW_BUFFER0+i, &buffer);
+        if (buffer != GL_NONE) {
+            printf("[FBO]: Shader Output Location %d -> color attachment %d\n", i, buffer - GL_COLOR_ATTACHMENT0);
+            glGetFramebufferAttachmentParameteriv(target, buffer, GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE, &res);
+            printf("[FBO]:  \tAttachment Type: %s\n", res == GL_TEXTURE ? "Texture" : "Render Buffer" );
+            glGetFramebufferAttachmentParameteriv(target, buffer, GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME, &res);
+            printf("[FBO]:  \tAttachment object name: %d\n",res);
+        }
+        ++i;
 	} while (buffer != GL_NONE);
 }
 
@@ -90,11 +84,11 @@ inline void CSCI441::FramebufferUtils::printFramebufferStatusMessage( GLenum tar
 		  break;
 
 		case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER:
-		  printf("A Draw buffer is incomplete or undefinied. All draw buffers must specify attachment points that have images attached.\n");
+		  printf("A Draw buffer is incomplete or undefined. All draw buffers must specify attachment points that have images attached.\n");
 		  break;
 
 		case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER:
-		  printf("A Read buffer is incomplete or undefinied. All read buffers must specify attachment points that have images attached.\n");
+		  printf("A Read buffer is incomplete or undefined. All read buffers must specify attachment points that have images attached.\n");
 		  break;
 
 		case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE:
@@ -106,7 +100,7 @@ inline void CSCI441::FramebufferUtils::printFramebufferStatusMessage( GLenum tar
 		  break;
 
 		case GL_FRAMEBUFFER_UNSUPPORTED:
-		  printf("Attempt to use an unsupported format combinaton!\n");
+		  printf("Attempt to use an unsupported format combination!\n");
 		  break;
 
 		default:
@@ -116,4 +110,4 @@ inline void CSCI441::FramebufferUtils::printFramebufferStatusMessage( GLenum tar
 	}
 }
 
-#endif // __CSCI441_FRAMEBUFFERUTILS_3_H_
+#endif // __CSCI441_FRAMEBUFFERUTILS_H_
