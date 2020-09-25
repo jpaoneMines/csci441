@@ -1,22 +1,23 @@
-/** @file modelLoader3.hpp
+/** @file modelLoader.hpp
   * @brief Helper functions to draw 3D OpenGL 3.0+ objects
 	* @author Dr. Jeffrey Paone
-	* @date Last Edit: 15 Nov 2017
-	* @version 1.7
+	* @date Last Edit: 25 Sep 2020
+	* @version 2.0
 	*
 	* @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
 	*
 	*	This class will load and render object files.  Currently supports:
-	*		.obj
+	*		.obj + .mtl
 	*		.off
+    *       .ply
 	*		.stl
 	*
 	*	@warning NOTE: This header file will only work with OpenGL 3.0+
 	*	@warning NOTE: This header file depends upon GLEW, glm, stb_image
   */
 
-#ifndef __CSCI441_MODELLOADER_3_HPP__
-#define __CSCI441_MODELLOADER_3_HPP__
+#ifndef __CSCI441_MODELLOADER_HPP__
+#define __CSCI441_MODELLOADER_HPP__
 
 #include <GL/glew.h>
 
@@ -1834,4 +1835,4 @@ inline void CSCI441_INTERNAL::flipImageY( int texWidth, int texHeight, int textu
 	}
 }
 
-#endif // __CSCI441_MODELLOADER_3_HPP__
+#endif // __CSCI441_MODELLOADER_HPP__

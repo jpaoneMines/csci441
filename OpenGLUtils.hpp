@@ -1,4 +1,4 @@
-/** @file OpenGLUtils3.hpp
+/** @file OpenGLUtils.hpp
  * @brief Helper functions to work with OpenGL 3.0+
  * @author Dr. Jeffrey Paone
  * @date Last Edit: 08 Jun 2020
