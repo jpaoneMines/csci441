@@ -85,13 +85,9 @@ namespace CSCI441_INTERNAL {
 // Outward facing function implementations
 
 inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
-	float version;
-	sscanf((char*)glGetString(GL_VERSION), "%f", &version);
-
-	char versionStr[3];
-	sprintf(versionStr, "%.1f", version);
-	int major = atoi( &versionStr[0] );
-	int minor = atoi( &versionStr[2] );
+    GLint major, minor;
+    glGetIntegerv(GL_MAJOR_VERSION, &major);
+    glGetIntegerv(GL_MINOR_VERSION, &minor);
 
 	fprintf( stdout, "\n[INFO]: /--------------------------------------------------------\\\n" );
 	fprintf( stdout, "[INFO]: | OpenGL Information                                     |\n" );
