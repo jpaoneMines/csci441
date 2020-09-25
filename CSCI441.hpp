@@ -16,8 +16,11 @@
 #ifndef CSCI441_CSCI441_H
 #define CSCI441_CSCI441_H
 
-#include "OpenGLUtils.hpp"
-#include "objects.hpp"     // include 3D objects (cube, cylinder, cone, torus, sphere, disk)
-#include "teapot.hpp"      // include our teapot object
+#include "FramebufferUtils.hpp"     // to query common FBO information
+#include "modelLoader.hpp"          // to load OBJ, OFF, PLY, STL files
+#include "OpenGLUtils.hpp"          // to query OpenGL features
+#include "objects.hpp"              // include 3D objects (cube, cylinder, cone, torus, sphere, disk, teapot)
+#include "ShaderProgram.hpp"        // helper class to compile and use shaders
+#include "TextureUtils.hpp"         // helper functions for registering textures
 
 #endif //CSCI441_CSCI441_H
