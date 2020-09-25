@@ -1,11 +1,9 @@
 This library is intended to be used with OpenGL for CSCI441 at the Colorado
 School of Mines.
 
-When building, the library must be compiled and linked against OpenGL and glm.  
-Headers thatend in *3.hpp are built for OpenGL 3.0+ and additionally depend 
-upon GLEW.
+When building, the library must be compiled and linked against OpenGL, GLEW, and glm.  
 
-Copyright (c) 2017 Dr. Jeffrey Paone
+Copyright (c) 2020 Dr. Jeffrey Paone
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +27,11 @@ TODO Items
   > Handle vertex and face colors in OFF files
 
 Revision History
+
+v2.0.0  - 25 Sep 2020
+  > Only single version of library files to work with OpenGL 4.1\n
+  > Removed dependency upon SOIL and replaced with stb_image\n
+  > Fixed bug of spheres not being spheres due to precision error
 
 v1.8.3	- 04 Dec 2017
   > Marked modelLoader3.hpp function implementations as inline to prevent redefinition errors
