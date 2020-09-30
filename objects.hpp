@@ -548,7 +548,7 @@ inline void CSCI441_INTERNAL::drawCube( GLfloat sideLength, GLenum renderMode ) 
 }
 
 inline void CSCI441_INTERNAL::drawCubeFlat( GLfloat sideLength, GLenum renderMode ) {
-    if( CSCI441_INTERNAL::_cubeVAO.find( sideLength ) == CSCI441_INTERNAL::_cubeVAO.end() ) {
+    if( CSCI441_INTERNAL::_cubeVAO.count( sideLength ) == 0 ) {
         CSCI441_INTERNAL::generateCubeVAOFlat( sideLength );
     }
 
@@ -567,7 +567,7 @@ inline void CSCI441_INTERNAL::drawCubeFlat( GLfloat sideLength, GLenum renderMod
 }
 
 inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum renderMode ) {
-    if( CSCI441_INTERNAL::_cubeVAOIndexed.find( sideLength ) == CSCI441_INTERNAL::_cubeVAOIndexed.end() ) {
+    if( CSCI441_INTERNAL::_cubeVAOIndexed.count( sideLength ) == 0 ) {
         CSCI441_INTERNAL::generateCubeVAOIndexed( sideLength );
     }
 
@@ -585,7 +585,7 @@ inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum render
 
 inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices, GLenum renderMode ) {
     CylinderData cylData = { base, top, height, stacks, slices };
-    if( CSCI441_INTERNAL::_cylinderVAO.find( cylData ) == CSCI441_INTERNAL::_cylinderVAO.end() ) {
+    if( CSCI441_INTERNAL::_cylinderVAO.count( cylData ) == 0 ) {
         CSCI441_INTERNAL::generateCylinderVAO( cylData );
     }
 
@@ -608,7 +608,7 @@ inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat h
 
 inline void CSCI441_INTERNAL::drawPartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep, GLenum renderMode ) {
     DiskData diskData = { inner, outer, start, sweep, slices, rings };
-    if( CSCI441_INTERNAL::_diskVAO.find( diskData ) == CSCI441_INTERNAL::_diskVAO.end() ) {
+    if( CSCI441_INTERNAL::_diskVAO.count( diskData ) == 0 ) {
         CSCI441_INTERNAL::generateDiskVAO( diskData );
     }
 
@@ -631,7 +631,7 @@ inline void CSCI441_INTERNAL::drawPartialDisk( GLfloat inner, GLfloat outer, GLi
 
 inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLint stacks, GLint slices, GLenum renderMode ) {
     SphereData sphereData = { radius, stacks, slices };
-    if( CSCI441_INTERNAL::_sphereVAO.find( sphereData ) == CSCI441_INTERNAL::_sphereVAO.end() ) {
+    if( CSCI441_INTERNAL::_sphereVAO.count( sphereData ) == 0 ) {
         CSCI441_INTERNAL::generateSphereVAO( sphereData );
     }
 
@@ -658,7 +658,7 @@ inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLint stacks, GLint sl
 
 inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings, GLenum renderMode ) {
     TorusData torusData = { innerRadius, outerRadius, sides, rings };
-    if( CSCI441_INTERNAL::_torusVAO.find( torusData ) == CSCI441_INTERNAL::_torusVAO.end() ) {
+    if( CSCI441_INTERNAL::_torusVAO.count( torusData ) == 0 ) {
         CSCI441_INTERNAL::generateTorusVAO( torusData );
     }
 
@@ -992,8 +992,8 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
 
     // sphere stacks
     for( int stackNum = 1; stackNum < sphereData.st-1; stackNum++ ) {
-        GLfloat phi = stackStep * stackNum;
-        GLfloat phiNext = stackStep * (stackNum + 1);
+        phi = stackStep * stackNum;
+        phiNext = stackStep * (stackNum + 1);
 
         for( int sliceNum = sphereData.sl; sliceNum >= 0; sliceNum-- ) {
             GLfloat theta = sliceStep * sliceNum;
