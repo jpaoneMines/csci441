@@ -1,7 +1,7 @@
 /** @file objects.hpp
  * @brief Helper functions to draw 3D OpenGL 3.0+ objects
  * @author Dr. Jeffrey Paone
- * @date Last Edit: 24 Sep 2020
+ * @date Last Edit: 02 Oct 2020
  * @version 2.0
  *
  * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
@@ -41,6 +41,16 @@ namespace CSCI441 {
         * @param GLint texCoordLocation	- location of the vertex texture coordinate attribute
         */
     void setVertexAttributeLocations( GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1 );
+
+    /** @brief deletes the VAOs stored for all object types
+     *
+     */
+    void deleteObjectVAOs();
+
+    /** @brief deletes the VBOs stored for all object types
+     *
+     */
+    void deleteObjectVBOs();
 
     /**	@brief Draws a solid cone
       *
@@ -293,6 +303,9 @@ namespace CSCI441 {
 // Disk is drawn with a partial disk
 
 namespace CSCI441_INTERNAL {
+    void deleteObjectVAOs();
+    void deleteObjectVBOs();
+
     void drawCube( GLfloat sideLength, GLenum renderMode );
     void drawCubeIndexed( GLfloat sideLength, GLenum renderMode );
     void drawCubeFlat( GLfloat sideLength, GLenum renderMode );
@@ -383,6 +396,14 @@ inline void CSCI441::setVertexAttributeLocations( GLint positionLocation, GLint 
     CSCI441_INTERNAL::_positionLocation = positionLocation;
     CSCI441_INTERNAL::_normalLocation = normalLocation;
     CSCI441_INTERNAL::_texCoordLocation = texCoordLocation;
+}
+
+inline void CSCI441::deleteObjectVAOs() {
+    CSCI441_INTERNAL::deleteObjectVAOs();
+}
+
+inline void CSCI441::deleteObjectVBOs() {
+    CSCI441_INTERNAL::deleteObjectVBOs();
 }
 
 inline void CSCI441::drawSolidCone( GLfloat base, GLfloat height, GLint stacks, GLint slices ) {
@@ -542,6 +563,50 @@ inline void CSCI441::drawWireTorus( GLfloat innerRadius, GLfloat outerRadius, GL
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 // Internal function rendering implementations
+
+
+
+inline void CSCI441_INTERNAL::deleteObjectVAOs() {
+    for(std::map<GLfloat, GLuint>::iterator iter = _cubeVAO.begin(); iter != _cubeVAO.end(); iter++) {
+        glDeleteBuffers(1, &(iter->second));
+    }
+    for(std::map<GLfloat, GLuint>::iterator iter = _cubeVAOIndexed.begin(); iter != _cubeVAOIndexed.end(); iter++) {
+        glDeleteBuffers(1, &(iter->second));
+    }
+    for(std::map<CylinderData, GLuint>::iterator iter = _cylinderVAO.begin(); iter != _cylinderVAO.end(); iter++) {
+        glDeleteBuffers(1, &(iter->second));
+    }
+    for(std::map<DiskData, GLuint>::iterator iter = _diskVAO.begin(); iter != _diskVAO.end(); iter++) {
+        glDeleteBuffers(1, &(iter->second));
+    }
+    for(std::map<SphereData, GLuint>::iterator iter = _sphereVAO.begin(); iter != _sphereVAO.end(); iter++) {
+        glDeleteBuffers(1, &(iter->second));
+    }
+    for(std::map<TorusData, GLuint>::iterator iter = _torusVAO.begin(); iter != _torusVAO.end(); iter++) {
+        glDeleteBuffers(1, &(iter->second));
+    }
+}
+
+inline void CSCI441_INTERNAL::deleteObjectVBOs() {
+    for(std::map<GLfloat, GLuint>::iterator iter = _cubeVBO.begin(); iter != _cubeVBO.end(); iter++) {
+        glDeleteBuffers(1, &(iter->second));
+    }
+    for(std::map<GLfloat, GLuint>::iterator iter = _cubeVBOIndexed.begin(); iter != _cubeVBOIndexed.end(); iter++) {
+        glDeleteBuffers(1, &(iter->second));
+    }
+    for(std::map<CylinderData, GLuint>::iterator iter = _cylinderVBO.begin(); iter != _cylinderVBO.end(); iter++) {
+        glDeleteBuffers(1, &(iter->second));
+    }
+    for(std::map<DiskData, GLuint>::iterator iter = _diskVBO.begin(); iter != _diskVBO.end(); iter++) {
+        glDeleteBuffers(1, &(iter->second));
+    }
+    for(std::map<SphereData, GLuint>::iterator iter = _sphereVBO.begin(); iter != _sphereVBO.end(); iter++) {
+        glDeleteBuffers(1, &(iter->second));
+    }
+    for(std::map<TorusData, GLuint>::iterator iter = _torusVBO.begin(); iter != _torusVBO.end(); iter++) {
+        glDeleteBuffers(1, &(iter->second));
+    }
+}
 
 inline void CSCI441_INTERNAL::drawCube( GLfloat sideLength, GLenum renderMode ) {
     drawCubeIndexed(sideLength, renderMode);
