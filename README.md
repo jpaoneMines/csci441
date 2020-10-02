@@ -28,6 +28,11 @@ TODO Items
 
 Revision History
 
+v 2.1.0 - 02 Oct 2020
+  > Fixed memory leak in objects.hpp cylinder, sphere, disk, torus caching\n
+  > Added method for objects.hpp to delete the used VAOs/VBOs from GPU memory\n
+  > Delete compiled shaders from GPU after Shader Program is linked to free up memory sooner
+
 v.2.0.2 - 25 Sep 2020
   > Removed invalid enum error when querying max number of lights in OpenGL 3+
 
