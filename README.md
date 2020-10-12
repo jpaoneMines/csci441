@@ -28,6 +28,9 @@ TODO Items
 
 Revision History
 
+v 2.3.0 - 12 Oct 2020
+  > Allow multicompilation for objects.hpp with shaders.  Now depends upon C++17
+
 v 2.2.0 - 12 Oct 2020
   > Allow multicompilation for ShaderProgram.hpp.  Now depends upon C++17
 
