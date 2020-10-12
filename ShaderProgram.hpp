@@ -266,48 +266,48 @@ namespace CSCI441 {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-bool CSCI441::ShaderProgram::sDEBUG = true;
+inline bool CSCI441::ShaderProgram::sDEBUG = true;
 
-void CSCI441::ShaderProgram::enableDebugMessages() {
+inline void CSCI441::ShaderProgram::enableDebugMessages() {
     sDEBUG = true;
 }
-void CSCI441::ShaderProgram::disableDebugMessages() {
+inline void CSCI441::ShaderProgram::disableDebugMessages() {
     sDEBUG = false;
 }
 
-CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *fragmentShaderFilename ) {
+inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *fragmentShaderFilename ) {
     registerShaderProgram( vertexShaderFilename, "", "", "", fragmentShaderFilename, false );
 }
 
-CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *fragmentShaderFilename, bool isSeparable ) {
+inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *fragmentShaderFilename, bool isSeparable ) {
     registerShaderProgram( vertexShaderFilename, "", "", "", fragmentShaderFilename, isSeparable );
 }
 
-CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename ) {
+inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename ) {
     registerShaderProgram( vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename, geometryShaderFilename, fragmentShaderFilename, false );
 }
 
-CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
+inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
     registerShaderProgram( vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename, geometryShaderFilename, fragmentShaderFilename, isSeparable );
 }
 
-CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename ) {
+inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename ) {
     registerShaderProgram( vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename, "", fragmentShaderFilename, false );
 }
 
-CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
+inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
     registerShaderProgram( vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename, "", fragmentShaderFilename, isSeparable );
 }
 
-CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename ) {
+inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename ) {
     registerShaderProgram( vertexShaderFilename, "", "", geometryShaderFilename, fragmentShaderFilename, false );
 }
 
-CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
+inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
     registerShaderProgram( vertexShaderFilename, "", "", geometryShaderFilename, fragmentShaderFilename, isSeparable );
 }
 
-CSCI441::ShaderProgram::ShaderProgram( const char **shaderFilenames,
+inline CSCI441::ShaderProgram::ShaderProgram( const char **shaderFilenames,
                                        const bool vertexPresent, const bool tessellationPresent, const bool geometryPresent, const bool fragmentPresent,
                                        const bool isSeparable ) {
     if( vertexPresent && !tessellationPresent && !geometryPresent && !fragmentPresent ) {
@@ -391,7 +391,7 @@ CSCI441::ShaderProgram::ShaderProgram( const char **shaderFilenames,
     }
 }
 
-bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, const bool isSeparable ) {
+inline bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, const bool isSeparable ) {
     GLint major, minor;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
@@ -516,27 +516,27 @@ bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexShaderFile
     return _shaderProgramHandle != 0;
 }
 
-GLint CSCI441::ShaderProgram::getUniformLocation( const char *uniformName ) {
+inline GLint CSCI441::ShaderProgram::getUniformLocation( const char *uniformName ) {
     GLint uniformLoc = glGetUniformLocation( _shaderProgramHandle, uniformName );
     if( uniformLoc == -1 )
         fprintf( stderr, "[ERROR]: Could not find uniform %s\n", uniformName );
     return uniformLoc;
 }
 
-GLint CSCI441::ShaderProgram::getUniformBlockIndex( const char *uniformBlockName ) {
+inline GLint CSCI441::ShaderProgram::getUniformBlockIndex( const char *uniformBlockName ) {
     GLint uniformBlockLoc = glGetUniformBlockIndex( _shaderProgramHandle, uniformBlockName );
     if( uniformBlockLoc == -1 )
         fprintf( stderr, "[ERROR]: Could not find uniform block %s\n", uniformBlockName );
     return uniformBlockLoc;
 }
 
-GLint CSCI441::ShaderProgram::getUniformBlockSize( const char *uniformBlockName ) {
+inline GLint CSCI441::ShaderProgram::getUniformBlockSize( const char *uniformBlockName ) {
     GLint blockSize;
     glGetActiveUniformBlockiv( _shaderProgramHandle, getUniformBlockIndex(uniformBlockName), GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize );
     return blockSize;
 }
 
-GLubyte* CSCI441::ShaderProgram::getUniformBlockBuffer( const char *uniformBlockName ) {
+inline GLubyte* CSCI441::ShaderProgram::getUniformBlockBuffer( const char *uniformBlockName ) {
     GLubyte *blockBuffer;
 
     GLint blockSize = getUniformBlockSize( uniformBlockName );
@@ -546,15 +546,15 @@ GLubyte* CSCI441::ShaderProgram::getUniformBlockBuffer( const char *uniformBlock
     return blockBuffer;
 }
 
-GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName ) {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName ) {
     return getUniformBlockOffsets( getUniformBlockIndex(uniformBlockName) );
 }
 
-GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) {
     return getUniformBlockOffsets( getUniformBlockIndex(uniformBlockName), names );
 }
 
-GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( GLint uniformBlockIndex ) {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( GLint uniformBlockIndex ) {
     GLint numUniforms;
     glGetActiveUniformBlockiv( _shaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
 
@@ -566,7 +566,7 @@ GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( GLint uniformBlockIndex )
     return offsets;
 }
 
-GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( GLint uniformBlockIndex, const char *names[] ) {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( GLint uniformBlockIndex, const char *names[] ) {
     GLint numUniforms;
     glGetActiveUniformBlockiv( _shaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
 
@@ -578,53 +578,53 @@ GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( GLint uniformBlockIndex, 
     return offsets;
 }
 
-void CSCI441::ShaderProgram::setUniformBlockBinding( const char *uniformBlockName, GLuint binding ) {
+inline void CSCI441::ShaderProgram::setUniformBlockBinding( const char *uniformBlockName, GLuint binding ) {
     glUniformBlockBinding( _shaderProgramHandle, getUniformBlockIndex(uniformBlockName), binding );
 }
 
-GLint CSCI441::ShaderProgram::getAttributeLocation( const char *attributeName ) {
+inline GLint CSCI441::ShaderProgram::getAttributeLocation( const char *attributeName ) {
     GLint attributeLoc = glGetAttribLocation( _shaderProgramHandle, attributeName );
     if( attributeLoc == -1 )
         fprintf( stderr, "[ERROR]: Could not find attribute %s\n", attributeName );
     return attributeLoc;
 }
 
-GLuint CSCI441::ShaderProgram::getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) {
+inline GLuint CSCI441::ShaderProgram::getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) {
     GLuint subroutineIndex = glGetSubroutineIndex( _shaderProgramHandle, shaderStage, subroutineName );
     if( subroutineIndex == GL_INVALID_INDEX )
         fprintf( stderr, "[ERROR]: Could not find subroutine %s for %s\n", subroutineName, CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage) );
     return subroutineIndex;
 }
 
-GLuint CSCI441::ShaderProgram::getNumUniforms() {
+inline GLuint CSCI441::ShaderProgram::getNumUniforms() {
     int numUniform = 0;
     glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_UNIFORMS, &numUniform );
     return numUniform;
 }
 
-GLuint CSCI441::ShaderProgram::getNumUniformBlocks() {
+inline GLuint CSCI441::ShaderProgram::getNumUniformBlocks() {
     int numUniformBlocks = 0;
     glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_UNIFORM_BLOCKS, &numUniformBlocks );
     return numUniformBlocks;
 }
 
-GLuint CSCI441::ShaderProgram::getNumAttributes() {
+inline GLuint CSCI441::ShaderProgram::getNumAttributes() {
     int numAttr = 0;
     glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_ATTRIBUTES, &numAttr );
     return numAttr;
 }
 
-GLuint CSCI441::ShaderProgram::getShaderProgramHandle() {
+inline GLuint CSCI441::ShaderProgram::getShaderProgramHandle() {
     return _shaderProgramHandle;
 }
 
-void CSCI441::ShaderProgram::useProgram() {
+inline void CSCI441::ShaderProgram::useProgram() {
     glUseProgram( _shaderProgramHandle );
 }
 
-CSCI441::ShaderProgram::ShaderProgram() {}
+inline CSCI441::ShaderProgram::ShaderProgram() {}
 
-CSCI441::ShaderProgram::~ShaderProgram() {
+inline CSCI441::ShaderProgram::~ShaderProgram() {
     glDeleteProgram( _shaderProgramHandle );
 }
 

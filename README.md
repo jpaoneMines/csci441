@@ -28,6 +28,9 @@ TODO Items
 
 Revision History
 
+v 2.2.0 - 12 Oct 2020
+  > Allow multicompilation for ShaderProgram.hpp.  Now depends upon C++17
+
 v 2.1.0 - 02 Oct 2020
   > Fixed memory leak in objects.hpp cylinder, sphere, disk, torus caching\n
   > Added method for objects.hpp to delete the used VAOs/VBOs from GPU memory\n
