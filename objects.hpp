@@ -331,12 +331,26 @@ namespace CSCI441_INTERNAL {
         GLfloat b, t, h;
         GLint st, sl;
         bool operator<( const CylinderData rhs ) const {
-            bool result = b < rhs.b;
-            if( !result ) result = t < rhs.t;
-            if( !result ) result = h < rhs.h;
-            if( !result ) result = st < rhs.st;
-            if( !result ) result = sl < rhs.sl;
-            return result;
+            if( b < rhs.b ) {
+                return true;
+            } else if( fabs(b - rhs.b) <= 0.000001 ) {
+                if( t < rhs.t ) {
+                    return true;
+                } else if( fabs(t - rhs.t) <= 0.000001 ) {
+                    if( h < rhs.h ) {
+                        return true;
+                    } else if( fabs(h - rhs.h) <= 0.000001 ) {
+                        if( st < rhs.st ) {
+                            return true;
+                        } else if( st == rhs.st ) {
+                            if( sl < rhs.sl ) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
     };
     void generateCylinderVAO( CylinderData cylData );
@@ -347,13 +361,30 @@ namespace CSCI441_INTERNAL {
         GLfloat i, o, st, sw;
         GLint sl, r;
         bool operator<( const DiskData rhs ) const {
-            bool result = i < rhs.i;
-            if( !result ) result = o < rhs.o;
-            if( !result ) result = sl < rhs.sl;
-            if( !result ) result = r < rhs.r;
-            if( !result ) result = st < rhs.st;
-            if( !result ) result = sw < rhs.sw;
-            return result;
+            if( i < rhs.i ) {
+                return true;
+            } else if( fabs(i - rhs.i) <= 0.000001 ) {
+                if( o < rhs.o ) {
+                    return true;
+                } else if( fabs(o - rhs.o) <= 0.000001 ) {
+                    if( st < rhs.st ) {
+                        return true;
+                    } else if( fabs(st - rhs.st) <= 0.000001 ) {
+                        if( sw < rhs.sw ) {
+                            return true;
+                        } else if( fabs(sw - rhs.sw) <= 0.000001 ) {
+                            if( sl < rhs.sl ) {
+                                return true;
+                            } else if( sl == rhs.sl ) {
+                                if( r < rhs.r ) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
     };
     void generateDiskVAO( DiskData diskData );
@@ -364,10 +395,18 @@ namespace CSCI441_INTERNAL {
         GLfloat r;
         GLint st, sl;
         bool operator<( const SphereData rhs ) const {
-            bool result = r < rhs.r;
-            if( !result ) result = st < rhs.st;
-            if( !result ) result = sl < rhs.sl;
-            return result;
+            if( r < rhs.r ) {
+                return true;
+            } else if( fabs(r - rhs.r) <= 0.000001 ) {
+                if( st < rhs.st ) {
+                    return true;
+                } else if( st == rhs.st ) {
+                    if( sl < rhs.sl ) {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     };
     void generateSphereVAO( SphereData sphereData );
@@ -378,11 +417,22 @@ namespace CSCI441_INTERNAL {
         GLfloat i, o;
         GLint s, r;
         bool operator<( const TorusData rhs ) const {
-            bool result = i < rhs.i;
-            if( !result ) result = o < rhs.o;
-            if( !result ) result = s < rhs.s;
-            if( !result ) result = r < rhs.r;
-            return result;
+            if( i < rhs.i ) {
+                return true;
+            } else if( fabs(i - rhs.i) <= 0.000001 ) {
+                if( o < rhs.o ) {
+                    return true;
+                } else if( fabs(o - rhs.o) <= 0.000001 ) {
+                    if( s < rhs.s ) {
+                        return true;
+                    } else if( s == rhs.s ) {
+                        if( r < rhs.r ) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
     };
     void generateTorusVAO( TorusData torusData );
@@ -660,15 +710,17 @@ inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat h
         CSCI441_INTERNAL::generateCylinderVAO( cylData );
     }
 
+    unsigned long int numVertices = cylData.st * (cylData.sl+1) * 2;
+
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_cylinderVAO.find( cylData )->second );
     glBindBuffer( GL_ARRAY_BUFFER, CSCI441_INTERNAL::_cylinderVBO.find( cylData )->second );
     glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_positionLocation );
     glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
     glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_normalLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*stacks * (slices+1) * 2*3) );
+    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * numVertices * 3) );
     glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*stacks * (slices+1) * 2*6) );
+    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * numVertices * 6) );
 
     for( int stackNum = 0; stackNum < stacks; stackNum++ ) {
         glDrawArrays( GL_TRIANGLE_STRIP, (slices+1)*2*stackNum, (slices+1)*2 );
@@ -894,7 +946,7 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
     unsigned long int numVertices = cylData.st * (cylData.sl+1) * 2;
 
     GLfloat sliceStep = 2.0 * M_PI / cylData.sl;
-    GLfloat stackStep = (GLfloat)cylData.h / cylData.st;
+    GLfloat stackStep = cylData.h / cylData.st;
 
     GLfloat* vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
     GLfloat* texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
@@ -936,7 +988,7 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
     }
 
     glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 8, NULL, GL_STATIC_DRAW );
-    glBufferSubData( GL_ARRAY_BUFFER, 0, 																  sizeof(GLfloat) * numVertices * 3, vertices );
+    glBufferSubData( GL_ARRAY_BUFFER, 0, 								 sizeof(GLfloat) * numVertices * 3, vertices );
     glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 3, sizeof(GLfloat) * numVertices * 3, normals );
     glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 6, sizeof(GLfloat) * numVertices * 2, texCoords );
 
