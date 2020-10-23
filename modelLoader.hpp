@@ -1,8 +1,8 @@
 /** @file modelLoader.hpp
   * @brief Helper functions to draw 3D OpenGL 3.0+ objects
 	* @author Dr. Jeffrey Paone
-	* @date Last Edit: 25 Sep 2020
-	* @version 2.0
+	* @date Last Edit: 22 Oct 2020
+	* @version 2.5.1
 	*
 	* @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
 	*
@@ -156,8 +156,8 @@ inline CSCI441::ModelLoader::~ModelLoader() {
 	if( _normals ) 				free( _normals );
 	if( _indices ) 				free( _indices );
 
-	glDeleteBuffers( 1, &_vaod );
 	glDeleteBuffers( 2, _vbods );
+    glDeleteVertexArrays( 1, &_vaod );
 }
 
 inline void CSCI441::ModelLoader::_init() {
