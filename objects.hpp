@@ -1,8 +1,8 @@
 /** @file objects.hpp
  * @brief Helper functions to draw 3D OpenGL 3.0+ objects
  * @author Dr. Jeffrey Paone
- * @date Last Edit: 12 Oct 2020
- * @version 2.3.0
+ * @date Last Edit: 22 Oct 2020
+ * @version 2.5.1
  *
  * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
  *
@@ -624,22 +624,22 @@ inline void CSCI441::drawWireTorus( GLfloat innerRadius, GLfloat outerRadius, GL
 
 inline void CSCI441_INTERNAL::deleteObjectVAOs() {
     for(std::map<GLfloat, GLuint>::iterator iter = _cubeVAO.begin(); iter != _cubeVAO.end(); iter++) {
-        glDeleteBuffers(1, &(iter->second));
+        glDeleteVertexArrays(1, &(iter->second));
     }
     for(std::map<GLfloat, GLuint>::iterator iter = _cubeVAOIndexed.begin(); iter != _cubeVAOIndexed.end(); iter++) {
-        glDeleteBuffers(1, &(iter->second));
+        glDeleteVertexArrays(1, &(iter->second));
     }
     for(std::map<CylinderData, GLuint>::iterator iter = _cylinderVAO.begin(); iter != _cylinderVAO.end(); iter++) {
-        glDeleteBuffers(1, &(iter->second));
+        glDeleteVertexArrays(1, &(iter->second));
     }
     for(std::map<DiskData, GLuint>::iterator iter = _diskVAO.begin(); iter != _diskVAO.end(); iter++) {
-        glDeleteBuffers(1, &(iter->second));
+        glDeleteVertexArrays(1, &(iter->second));
     }
     for(std::map<SphereData, GLuint>::iterator iter = _sphereVAO.begin(); iter != _sphereVAO.end(); iter++) {
-        glDeleteBuffers(1, &(iter->second));
+        glDeleteVertexArrays(1, &(iter->second));
     }
     for(std::map<TorusData, GLuint>::iterator iter = _torusVAO.begin(); iter != _torusVAO.end(); iter++) {
-        glDeleteBuffers(1, &(iter->second));
+        glDeleteVertexArrays(1, &(iter->second));
     }
 }
 
