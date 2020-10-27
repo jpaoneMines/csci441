@@ -28,6 +28,9 @@ TODO Items
 
 Revision History
 
+v 2.6.0 - 27 Oct 2020
+  > Added predefined Material properties for reuse
+
 v 2.3.0 - 12 Oct 2020
   > Allow multicompilation for objects.hpp with shaders.  Now depends upon C++17
 
