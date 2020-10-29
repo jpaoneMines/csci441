@@ -2,14 +2,14 @@
  * @brief Predefined material properties
  * @author Dr. Jeffrey Paone
  * @date Last Edit: 27 Oct 2020
- * @version 2.6
+ * @version 2.6.1
  *
  * @copyright MIT License Copyright (c) 2020 Dr. Jeffrey Paone
  *
  */
 
-#ifndef __CSCI441_OBJECTS_HPP__
-#define __CSCI441_OBJECTS_HPP__
+#ifndef __CSCI441_MATERIALS_HPP__
+#define __CSCI441_MATERIALS_HPP__
 
 /** @namespace CSCI441
  * @brief CSCI441 Helper Functions for OpenGL

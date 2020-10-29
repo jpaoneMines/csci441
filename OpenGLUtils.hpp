@@ -2,7 +2,7 @@
  * @brief Helper functions to work with OpenGL 3.0+
  * @author Dr. Jeffrey Paone
  * @date Last Edit: 08 Jun 2020
- * @version 2.0
+ * @version 2.6.1
  *
  * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
  *
@@ -51,19 +51,6 @@ namespace CSCI441 {
          *
          */
         void printOpenGLInfo();
-  	};
-
-		/** @struct MaterialStruct
-         * @var glm::vec4 diffuseColor
-         * @var glm::vec4 ambientColor
-         * @var glm::vec4 specularColor
-         * @var float shininess
-         */
-		struct MaterialStruct {
-    		glm::vec4 diffuseColor;
-            glm::vec4 ambientColor;
-            glm::vec4 specularColor;
-            float shininess;
   	};
 
 }
