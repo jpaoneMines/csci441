@@ -107,9 +107,16 @@ namespace CSCI441 {
 		bool loadTGA( const char *filename, int &imageWidth, int &imageHeight, unsigned char* &imageData, int &imageChannels );
 
 		/**	@brief loads and registers a texture into memory returning a texture handle
-			*
-			*  Equivalent to loadAndRegister2DTexture()
-			*/
+         *
+         *  Calls through to loadAndRegister2DTexture()
+         *
+         * @param const char* filename - name of texture to load
+         * @param GLenum minFilter     - minification filter to apply (default: GL_LINEAR)
+         * @param GLenum magFilter     - magnification filter to apply (default: GL_LINEAR)
+         * @param GLenum wrapS         - wrapping to apply to S coordinate (default: GL_REPEAT)
+         * @param GLenum wrapT         - wrapping to apply to T coordinate (default: GL_REPEAT)
+         * @return GLuint 			   - texture handle corresponding to the texture
+         */
 		GLuint loadAndRegisterTexture( const char *filename,
 																		GLenum minFilter = GL_LINEAR,
 																		GLenum magFilter = GL_LINEAR,
@@ -122,12 +129,12 @@ namespace CSCI441 {
 			* OpenGL.  The provided minification and magnification filters are set for
 			* the texture.  The texture coordinate wrapping parameters are also set.
 			*
-			*	@param const char* filename - name of texture to load
+			* @param const char* filename - name of texture to load
 			* @param GLenum minFilter     - minification filter to apply (default: GL_LINEAR)
 			* @param GLenum magFilter     - magnification filter to apply (default: GL_LINEAR)
 			* @param GLenum wrapS         - wrapping to apply to S coordinate (default: GL_REPEAT)
 			* @param GLenum wrapT         - wrapping to apply to T coordinate (default: GL_REPEAT)
-			* @return GLuint 						  - texture handle corresponding to the texture
+			* @return GLuint 			  - texture handle corresponding to the texture
 			*/
 		GLuint loadAndRegister2DTexture( const char *filename,
 														  				GLenum minFilter = GL_LINEAR,

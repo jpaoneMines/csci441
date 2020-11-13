@@ -1,6 +1,6 @@
 /** @file teapot.hpp
  * @brief Helper functions to draw teapot with OpenGL 3.0+
- * @date Last Edit: 24 Sep 2020
+ * @date Last Edit: 13 Nov 2020
  * @warning NOTE: This header file will only work with OpenGL 3.0+
  */
 // Modified by Dr. Jeffrey Paone to work in Colorado School of Mines CSCI441
@@ -28,7 +28,7 @@ namespace CSCI441_INTERNAL {
     static GLuint vbo_teapot_vertices, ibo_teapot_elements;
 
     struct vertex { GLfloat x, y, z; };
-    static struct vertex teapot_cp_vertices[] = {
+    static vertex teapot_cp_vertices[] = {
             // 1
             {  1.4   ,   0.0   ,  2.4     },
             {  1.4   ,  -0.784 ,  2.4     },
@@ -366,14 +366,15 @@ namespace CSCI441_INTERNAL {
     };
 #define RESU 10
 #define RESV 10
-    static struct vertex teapot_vertices[TEAPOT_NB_PATCHES * RESU*RESV*2];
-    static GLushort teapot_elements[TEAPOT_NB_PATCHES * (RESU-1)*(RESV-1) * 2*3];
+    static vertex teapot_vertices[TEAPOT_NB_PATCHES * RESU*RESV * 3];
+    static GLushort teapot_elements[TEAPOT_NB_PATCHES * (RESU-1)*(RESV-1) * 2 * 3];
 
     static bool teapotBuilt = false;
 
-    void build_control_points_k(int p, struct vertex control_points_k[][ORDER+1]);
-    struct vertex compute_position(struct vertex control_points_k[][ORDER+1], float u, float v);
-    struct vertex compute_normal(struct vertex control_points_k[][ORDER+1], float u, float v);
+    void build_control_points_k(int p, vertex control_points_k[][ORDER+1]);
+    vertex compute_position(vertex control_points_k[][ORDER+1], float u, float v);
+    vertex compute_normal(vertex control_points_k[][ORDER+1], float u, float v);
+    vertex compute_texture(vertex position);
     float bernstein_polynomial(int i, int n, float u);
     float binomial_coefficient(int i, int n);
     int factorial(int n);
@@ -381,14 +382,15 @@ namespace CSCI441_INTERNAL {
     inline void build_teapot() {
         // Vertices
         for (int p = 0; p < TEAPOT_NB_PATCHES; p++) {
-            struct vertex control_points_k[ORDER+1][ORDER+1];
+            vertex control_points_k[ORDER+1][ORDER+1];
             build_control_points_k(p, control_points_k);
             for (int ru = 0; ru <= RESU-1; ru++) {
                 float u = 1.0 * ru / (RESU-1);
                 for (int rv = 0; rv <= RESV-1; rv++) {
                     float v = 1.0 * rv / (RESV-1);
-                    teapot_vertices[p*RESU*RESV + ru*RESV + rv] = compute_position(control_points_k, u, v);
-                    teapot_vertices[TEAPOT_NB_PATCHES * RESU*RESV + p*RESU*RESV + ru*RESV + rv] = compute_normal(control_points_k, u, v);
+                    teapot_vertices[                                    p*RESU*RESV + ru*RESV + rv] = compute_position(control_points_k, u, v);
+                    teapot_vertices[TEAPOT_NB_PATCHES * RESU*RESV     + p*RESU*RESV + ru*RESV + rv] = compute_normal(  control_points_k, u, v);
+                    teapot_vertices[TEAPOT_NB_PATCHES * RESU*RESV * 2 + p*RESU*RESV + ru*RESV + rv] = compute_texture(teapot_vertices[p*RESU*RESV + ru*RESV + rv]);
                 }
             }
         }
@@ -411,14 +413,14 @@ namespace CSCI441_INTERNAL {
 
     }
 
-    inline void build_control_points_k(int p, struct vertex control_points_k[][ORDER+1]) {
+    inline void build_control_points_k(int p, vertex control_points_k[][ORDER+1]) {
         for (int i = 0; i <= ORDER; i++)
             for (int j = 0; j <= ORDER; j++)
                 control_points_k[i][j] = teapot_cp_vertices[teapot_patches[p][i][j] - 1];
     }
 
-    inline struct vertex compute_position(struct vertex control_points_k[][ORDER+1], float u, float v) {
-        struct vertex result = { 0.0, 0.0, 0.0 };
+    inline vertex compute_position(vertex control_points_k[][ORDER+1], float u, float v) {
+        vertex result = { 0.0, 0.0, 0.0 };
         for (int i = 0; i <= ORDER; i++) {
             float poly_i = bernstein_polynomial(i, ORDER, u);
             for (int j = 0; j <= ORDER; j++) {
@@ -432,8 +434,8 @@ namespace CSCI441_INTERNAL {
     }
 
     // TODO compute normal based on partial derivatives of surface patch
-    inline struct vertex compute_normal(struct vertex control_points_k[][ORDER+1], float u, float v) {
-        struct vertex result = { 0.0, 0.0, 0.0 };
+    inline vertex compute_normal(vertex control_points_k[][ORDER+1], float u, float v) {
+        vertex result = { 0.0, 0.0, 0.0 };
         for (int i = 0; i <= ORDER; i++) {
             float poly_i = bernstein_polynomial(i, ORDER, u);
             for (int j = 0; j <= ORDER; j++) {
@@ -443,6 +445,15 @@ namespace CSCI441_INTERNAL {
                 result.z += poly_i * poly_j * control_points_k[i][j].z;
             }
         }
+        return result;
+    }
+
+    inline vertex compute_texture(vertex position) {
+        vertex result = {0.0f, 0.0f, 0.0f};
+        const GLfloat PI = 3.14159265f;
+        GLfloat theta = atan2(position.y, position.x);
+        result.x = (theta+PI) / (2.0f*PI);
+        result.y = position.z / 3.15f;
         return result;
     }
 
@@ -481,14 +492,14 @@ namespace CSCI441_INTERNAL {
         return 1;
     }
 
-    inline void teapot( GLfloat size, GLint positionLocation, GLint normalLocation ) {
+    inline void teapot( GLfloat size, GLint positionLocation, GLint normalLocation, GLint texCoordLocation ) {
         if( !teapotBuilt ) {
             init_resources();
         }
 
         glBindVertexArray( vao_teapot );
-        // Describe our vertices array to OpenGL (it can't guess its format automatically)
         glBindBuffer(GL_ARRAY_BUFFER, vbo_teapot_vertices);
+        // Describe our vertices array to OpenGL (it can't guess its format automatically)
         glEnableVertexAttribArray(positionLocation);
         glVertexAttribPointer(
                 positionLocation,  // attribute
@@ -505,7 +516,16 @@ namespace CSCI441_INTERNAL {
                 GL_FLOAT,          // the type of each element
                 GL_FALSE,          // take our values as-is
                 0,                 // no extra data between each position
-                (void*)(TEAPOT_NB_PATCHES * RESU*RESV)                  // offset of first element
+                (void*)(TEAPOT_NB_PATCHES * RESU*RESV * sizeof(vertex))                  // offset of first element
+        );
+        glEnableVertexAttribArray(texCoordLocation);
+        glVertexAttribPointer(
+                texCoordLocation,  // attribute
+                2,                 // number of elements per vertex, here (s,t)
+                GL_FLOAT,          // the type of each element
+                GL_FALSE,          // take our values as-is
+                sizeof(vertex),                 // no extra data between each position
+                (void*)(TEAPOT_NB_PATCHES * RESU*RESV * 2 * sizeof(vertex))                  // offset of first element
         );
 
         glDrawElements(GL_TRIANGLES, sizeof(teapot_elements)/sizeof(teapot_elements[0]), GL_UNSIGNED_SHORT, 0);

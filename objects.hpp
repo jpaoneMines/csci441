@@ -587,14 +587,14 @@ inline void CSCI441::drawWireSphere( GLfloat radius, GLint stacks, GLint slices 
 inline void CSCI441::drawSolidTeapot( GLfloat size ) {
     assert( size > 0.0f );
 
-    CSCI441_INTERNAL::teapot( size, CSCI441_INTERNAL::AttributeLocations::_positionLocation, CSCI441_INTERNAL::AttributeLocations::_normalLocation );
+    CSCI441_INTERNAL::teapot( size, CSCI441_INTERNAL::AttributeLocations::_positionLocation, CSCI441_INTERNAL::AttributeLocations::_normalLocation, CSCI441_INTERNAL::AttributeLocations::_texCoordLocation );
 }
 
 inline void CSCI441::drawWireTeapot( GLfloat size ) {
     assert( size > 0.0f );
 
     glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-    CSCI441_INTERNAL::teapot( size, CSCI441_INTERNAL::AttributeLocations::_positionLocation, CSCI441_INTERNAL::AttributeLocations::_normalLocation );
+    CSCI441_INTERNAL::teapot( size, CSCI441_INTERNAL::AttributeLocations::_positionLocation, CSCI441_INTERNAL::AttributeLocations::_normalLocation, CSCI441_INTERNAL::AttributeLocations::_texCoordLocation );
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 }
 

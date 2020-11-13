@@ -28,6 +28,9 @@ TODO Items
 
 Revision History
 
+v 2.7.0 - 13 Nov 2020
+  > Added texture coordinates to Teapot
+
 v 2.6.0 - 27 Oct 2020
   > Added predefined Material properties for reuse
 
