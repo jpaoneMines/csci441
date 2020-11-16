@@ -1224,8 +1224,8 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
             normals[ idx*3 + 1 ] = cos( currPhi ) * sin( currTheta );
             normals[ idx*3 + 2 ] = sin( currPhi );
 
-            texCoords[ idx*2 + 0 ] = cos( currPhi ) * cos( currTheta );
-            texCoords[ idx*2 + 1 ] = cos( currPhi ) * sin( currTheta );
+            texCoords[ idx*2 + 0 ] = (GLfloat)sideNum / torusData.s;
+            texCoords[ idx*2 + 1 ] = (GLfloat)ringNum / torusData.r;
 
             vertices[ idx*3 + 0 ] = ( torusData.o + torusData.i * cos( currPhi ) ) * cos( currTheta );
             vertices[ idx*3 + 1 ] = ( torusData.o + torusData.i * cos( currPhi ) ) * sin( currTheta );
@@ -1237,8 +1237,8 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
             normals[ idx*3 + 1 ] = cos( currPhi ) * sin( nextTheta );
             normals[ idx*3 + 2 ] = sin( currPhi );
 
-            texCoords[ idx*2 + 0 ] = cos( currPhi ) * cos( nextTheta );
-            texCoords[ idx*2 + 1 ] = cos( currPhi ) * sin( nextTheta );
+            texCoords[ idx*2 + 0 ] = (GLfloat)sideNum / torusData.s;
+            texCoords[ idx*2 + 1 ] = (GLfloat)(ringNum+1) / torusData.r;
 
             vertices[ idx*3 + 0 ] = ( torusData.o + torusData.i * cos( currPhi ) ) * cos( nextTheta );
             vertices[ idx*3 + 1 ] = ( torusData.o + torusData.i * cos( currPhi ) ) * sin( nextTheta );
@@ -1250,8 +1250,8 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
             normals[ idx*3 + 1 ] = cos( nextPhi ) * sin( currTheta );
             normals[ idx*3 + 2 ] = sin( nextPhi );
 
-            texCoords[ idx*2 + 0 ] = cos( nextPhi ) * cos( currTheta );
-            texCoords[ idx*2 + 1 ] = cos( nextPhi ) * sin( currTheta );
+            texCoords[ idx*2 + 0 ] = (GLfloat)(sideNum+1) / torusData.s;
+            texCoords[ idx*2 + 1 ] = (GLfloat)ringNum / torusData.r;
 
             vertices[ idx*3 + 0 ] = ( torusData.o + torusData.i * cos( nextPhi ) ) * cos( currTheta );
             vertices[ idx*3 + 1 ] = ( torusData.o + torusData.i * cos( nextPhi ) ) * sin( currTheta );
@@ -1263,8 +1263,8 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
             normals[ idx*3 + 1 ] = cos( nextPhi ) * sin( nextTheta );
             normals[ idx*3 + 2 ] = sin( nextPhi );
 
-            texCoords[ idx*2 + 0 ] = cos( nextPhi ) * cos( nextTheta );
-            texCoords[ idx*2 + 1 ] = cos( nextPhi ) * sin( nextTheta );
+            texCoords[ idx*2 + 0 ] = (GLfloat)(sideNum+1) / torusData.s;
+            texCoords[ idx*2 + 1 ] = (GLfloat)(ringNum+1) / torusData.r;
 
             vertices[ idx*3 + 0 ] = ( torusData.o + torusData.i * cos( nextPhi ) ) * cos( nextTheta );
             vertices[ idx*3 + 1 ] = ( torusData.o + torusData.i * cos( nextPhi ) ) * sin( nextTheta );
