@@ -1103,8 +1103,8 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
         normals[ idx*3 + 1 ] = -cos( phiNext );
         normals[ idx*3 + 2 ] = sin( theta )*sin( phiNext );
 
-        texCoords[ idx*2 + 0 ] = (sphereData.st-1.0f) / sphereData.st;
-        texCoords[ idx*2 + 1 ] = sliceNum / sphereData.sl;
+        texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.sl;
+        texCoords[ idx*2 + 1 ] = 1.0f;
 
         vertices[ idx*3 + 0 ] = -cos( theta )*sin( phiNext )*sphereData.r;
         vertices[ idx*3 + 1 ] = -cos( phiNext )*sphereData.r;
@@ -1125,8 +1125,8 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
             normals[ idx*3 + 1 ] = -cos( phi );
             normals[ idx*3 + 2 ] =  sin( theta )*sin( phi );
 
-            texCoords[ idx*2 + 0 ] = theta / 6.28;
-            texCoords[ idx*2 + 1 ] = phi / 3.14;
+            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.sl;
+            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum-1) / (sphereData.st-2);
 
             vertices[ idx*3 + 0 ] = -cos( theta )*sin( phi )*sphereData.r;
             vertices[ idx*3 + 1 ] = -cos( phi )*sphereData.r;
@@ -1138,8 +1138,8 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
             normals[ idx*3 + 1 ] = -cos( phiNext );
             normals[ idx*3 + 2 ] =  sin( theta )*sin( phiNext );
 
-            texCoords[ idx*2 + 0 ] = theta / 6.28;
-            texCoords[ idx*2 + 1 ] = phiNext / 3.14;
+            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.sl;
+            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum) / (sphereData.st-2);
 
             vertices[ idx*3 + 0 ] = -cos( theta )*sin( phiNext )*sphereData.r;
             vertices[ idx*3 + 1 ] = -cos( phiNext )*sphereData.r;
@@ -1173,8 +1173,8 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
         normals[ idx*3 + 1 ] = -cos( phiNext );
         normals[ idx*3 + 2 ] = sin( theta )*sin( phiNext );
 
-        texCoords[ idx*2 + 0 ] = 1.0f / sphereData.st;
-        texCoords[ idx*2 + 1 ] = sliceNum / sphereData.sl;
+        texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.sl;
+        texCoords[ idx*2 + 1 ] = 0.0f;
 
         vertices[ idx*3 + 0 ] = -cos( theta )*sin( phiNext )*sphereData.r;
         vertices[ idx*3 + 1 ] = -cos( phiNext )*sphereData.r;
