@@ -68,19 +68,19 @@ inline void CSCI441::FramebufferUtils::printFramebufferStatusMessage( GLenum tar
 		  break;
 
 		case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
-		  printf("An attachment could not be bound to frame buffer object!\n");
+		  printf("An attachment could not be bound to framebuffer object!\n");
 		  break;
 
 		case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
-		  printf("Attachments are missing! At least one image (texture) must be bound to the frame buffer object!\n");
+		  printf("Attachments are missing! At least one image (texture) must be bound to the framebuffer object!\n");
 		  break;
 
 		case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT:
-		  printf("The dimensions of the buffers attached to the currently used frame buffer object do not match!\n");
+		  printf("The dimensions of the buffers attached to the currently used framebuffer object do not match!\n");
 		  break;
 
 		case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:
-		  printf("The formats of the currently used frame buffer object are not supported or do not fit together!\n");
+		  printf("The formats of the currently used framebuffer object are not supported or do not fit together!\n");
 		  break;
 
 		case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER:
@@ -104,7 +104,7 @@ inline void CSCI441::FramebufferUtils::printFramebufferStatusMessage( GLenum tar
 		  break;
 
 		default:
-		  printf("Unknown error while attempting to create frame buffer object!\n");
+		  printf("Unknown error while attempting to create framebuffer object!\n");
 		  break;
 		}
 	}
