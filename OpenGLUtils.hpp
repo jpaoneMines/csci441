@@ -51,7 +51,7 @@ namespace CSCI441 {
          *
          */
         void printOpenGLInfo();
-  	};
+  	}
 
 }
 
