@@ -1,5 +1,5 @@
 /** @file FramebufferUtils.hpp
-  * @brief Helper functions to work with OpenGL Framebuffers
+  * @brief Helper functions to work with OpenGL Framebuffer
 	* @author Dr. Jeffrey Paone
 	* @date Last Edit: 25 Sep 2020
 	* @version 2.0
@@ -10,8 +10,8 @@
 	*	code that needs to be written.
   */
 
-#ifndef __CSCI441_FRAMEBUFFERUTILS_H_
-#define __CSCI441_FRAMEBUFFERUTILS_H_
+#ifndef __CSCI441_FRAMEBUFFER_UTILS_H_
+#define __CSCI441_FRAMEBUFFER_UTILS_H_
 
 #include <GL/glew.h>
 
@@ -42,7 +42,7 @@ namespace CSCI441 {
 		 */
         void printFramebufferStatusMessage( GLenum target, GLuint fbo );
         /**
-         * Prints the framebuffer status for the FBO currently attached to the correspondign target
+         * Prints the framebuffer status for the FBO currently attached to the corresponding target
          * @param target
          */
 		void printFramebufferStatusMessage( GLenum target );
@@ -138,4 +138,4 @@ inline void CSCI441::FramebufferUtils::printFramebufferStatusMessage( GLenum tar
 	}
 }
 
-#endif // __CSCI441_FRAMEBUFFERUTILS_H_
+#endif // __CSCI441_FRAMEBUFFER_UTILS_H_
