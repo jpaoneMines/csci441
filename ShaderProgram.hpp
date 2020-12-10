@@ -10,8 +10,8 @@
  *	code that needs to be written.
  */
 
-#ifndef __CSCI441_SHADEREPROGRAM_H__
-#define __CSCI441_SHADEREPROGRAM_H__
+#ifndef __CSCI441_SHADERPROGRAM_H__
+#define __CSCI441_SHADERPROGRAM_H__
 
 #include "ShaderUtils.hpp"
 
@@ -628,4 +628,4 @@ inline CSCI441::ShaderProgram::~ShaderProgram() {
     glDeleteProgram( _shaderProgramHandle );
 }
 
-#endif //__CSCI441_SHADEREPROGRAM_H__
+#endif //__CSCI441_SHADERPROGRAM_H__
