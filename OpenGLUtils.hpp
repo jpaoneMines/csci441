@@ -47,7 +47,7 @@ namespace CSCI441 {
      * @brief contains OpenGL Utility functions
      */
     namespace OpenGLUtils {
-        /** @brief Prints information about our OpenGL context
+        /** @desc Prints information about our OpenGL context
          *
          */
         void printOpenGLInfo();

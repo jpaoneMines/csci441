@@ -25,22 +25,22 @@
 namespace CSCI441 {
 
     /** @class ShaderProgram
-        * @brief Handles registration and compilation of Shaders
+        * @desc Handles registration and compilation of Shaders
         */
     class ShaderProgram {
     public:
-        /** @brief Enables debug messages from Shader Program functions
+        /** @desc Enables debug messages from Shader Program functions
           *
             * Enables debug messages from Shader Program functions.  Debug messages are on by default.
           */
         static void enableDebugMessages();
-        /** @brief Disables debug messages from Shader Program functions
+        /** @desc Disables debug messages from Shader Program functions
           *
             * Disables debug messages from Shader Program functions.  Debug messages are on by default.
           */
         static void disableDebugMessages();
 
-        /** @brief Creates a Shader Program using a Vertex Shader and Fragment Shader
+        /** @desc Creates a Shader Program using a Vertex Shader and Fragment Shader
           *
             * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
             * @param const char* fragmentShaderFilename - name of the file corresponding to the fragment shader
@@ -48,7 +48,7 @@ namespace CSCI441 {
         ShaderProgram( const char *vertexShaderFilename,
                        const char *fragmentShaderFilename );
 
-        /** @brief Creates a Shader Program using a Vertex Shader and Fragment Shader
+        /** @desc Creates a Shader Program using a Vertex Shader and Fragment Shader
           *
             * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
             * @param const char* fragmentShaderFilename - name of the file corresponding to the fragment shader
@@ -58,7 +58,7 @@ namespace CSCI441 {
                        const char *fragmentShaderFilename,
                        const bool isSpearable);
 
-        /** @brief Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader
+        /** @desc Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader
               *
               * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
               * @param const char* tesselationControlShaderFilename - name of the file corresponding to the tesselation control shader
@@ -72,7 +72,7 @@ namespace CSCI441 {
                        const char *geometryShaderFilename,
                        const char *fragmentShaderFilename );
 
-        /** @brief Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader
+        /** @desc Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader
               *
               * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
               * @param const char* tesselationControlShaderFilename - name of the file corresponding to the tesselation control shader
@@ -88,7 +88,7 @@ namespace CSCI441 {
                        const char *fragmentShaderFilename,
                        const bool isSeparable );
 
-        /** @brief Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader
+        /** @desc Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader
              *
              * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
              * @param const char* tesselationControlShaderFilename - name of the file corresponding to the tesselation control shader
@@ -100,7 +100,7 @@ namespace CSCI441 {
                        const char *tesselationEvaluationShaderFilename,
                        const char *fragmentShaderFilename );
 
-        /** @brief Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader
+        /** @desc Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader
              *
              * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
              * @param const char* tesselationControlShaderFilename - name of the file corresponding to the tesselation control shader
@@ -114,7 +114,7 @@ namespace CSCI441 {
                        const char *fragmentShaderFilename,
                        const bool isSeparable);
 
-        /** @brief Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader
+        /** @desc Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader
           *
             * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
             * @param const char* geometryShaderFilename - name of the file corresponding to the geometry shader
@@ -124,7 +124,7 @@ namespace CSCI441 {
                        const char *geometryShaderFilename,
                        const char *fragmentShaderFilename );
 
-        /** @brief Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader
+        /** @desc Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader
           *
             * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
             * @param const char* geometryShaderFilename - name of the file corresponding to the geometry shader
@@ -136,7 +136,7 @@ namespace CSCI441 {
                        const char *fragmentShaderFilename,
                        const bool isSeparable );
 
-        /** @brief Creates a Shader Program using any combination of shaders.  Intended to be used to create separable programs
+        /** @desc Creates a Shader Program using any combination of shaders.  Intended to be used to create separable programs
          * but can be used as an alternative to the above overloaded constructors to explicitly state which shaders are present.
          *
          * @param const char **shaderFilenames - an array of filenames corresponding to all the shaders.  size must be equal to
@@ -152,63 +152,63 @@ namespace CSCI441 {
                        const bool vertexPresent, const bool tessellationPresent, const bool geometryPresent, const bool fragmentPresent,
                        const bool isSeparable );
 
-        /** @brief Clean up memory associated with the Shader Program
+        /** @desc Clean up memory associated with the Shader Program
              */
         ~ShaderProgram();
 
-        /** @brief Returns the location of the given uniform in this shader program
+        /** @desc Returns the location of the given uniform in this shader program
           * @note Prints an error message to standard error stream if the uniform is not found
             * @param const char* uniformName - name of the uniform to get the location for
           * @return GLint - location of the given uniform in this shader program
           */
         GLint getUniformLocation( const char *uniformName );
 
-        /** @brief Returns the index of the given uniform block in this shader program
+        /** @desc Returns the index of the given uniform block in this shader program
           * @note Prints an error message to standard error stream if the uniform block is not found
             * @param const char* uniformBlockName - name of the uniform block to get the index for
           * @return GLint - index of the given uniform block in this shader program
           */
         GLint getUniformBlockIndex( const char *uniformBlockName );
-        /** @brief Returns the size of the given uniform block in this shader program
+        /** @desc Returns the size of the given uniform block in this shader program
           * @note Prints an error message to standard error stream if the uniform block is not found
             * @param const char* uniformBlockName - name of the uniform block to get the size for
           * @return GLint - size of the given uniform block in this shader program
           */
         GLint getUniformBlockSize( const char *uniformBlockName );
-        /** @brief Returns an allocated buffer for the given uniform block in this shader program
+        /** @desc Returns an allocated buffer for the given uniform block in this shader program
           * @note Prints an error message to standard error stream if the uniform block is not found
             * @param const char* uniformBlockName - name of the uniform block to allocate a buffer for
           * @return GLubyte* - allocated buffer for the given uniform block in this shader program
           */
         GLubyte* getUniformBlockBuffer( const char *uniformBlockName );
-        /** @brief Returns an array of offsets into the buffer for the given uniform block in this shader program
+        /** @desc Returns an array of offsets into the buffer for the given uniform block in this shader program
           * @note Prints an error message to standard error stream if the uniform block is not found
             * @param const char* uniformBlockName - name of the uniform block to return offsets for
           * @return GLint* - array of offsets for the given uniform block in this shader program
           */
         GLint* getUniformBlockOffsets( const char *uniformBlockName );
-        /** @brief Returns an array of offsets into the buffer for the given uniform block and names in this shader program
+        /** @desc Returns an array of offsets into the buffer for the given uniform block and names in this shader program
           * @note Prints an error message to standard error stream if the uniform block is not found
             * @param const char* uniformBlockName - name of the uniform block to return offsets for
             * @param const char* names[] - names of the uniform block components to get offsets for
           * @return GLint* - array of offsets for the given uniform block in this shader program
           */
         GLint* getUniformBlockOffsets( const char *uniformBlockName, const char *names[] );
-        /** @brief Set the binding point for the given uniform block in this shader program
+        /** @desc Set the binding point for the given uniform block in this shader program
           * @note Prints an error message to standard error stream if the uniform block is not found
             * @param const char* uniformBlockName - name of the uniform block to bind
             * @param GLuint binding               - binding point for this uniform block
           */
         void setUniformBlockBinding( const char *uniformBlockName, GLuint binding );
 
-        /** @brief Returns the location of the given attribute in this shader program
+        /** @desc Returns the location of the given attribute in this shader program
           * @note Prints an error message to standard error stream if the attribute is not found
             * @param const char* attributeName - name of the attribute to get the location for
           * @return GLint - location of the given attribute in this shader program
           */
         GLint getAttributeLocation( const char *attributeName );
 
-        /** @brief Returns the index of the given subroutine for a shader stage in this shader program
+        /** @desc Returns the index of the given subroutine for a shader stage in this shader program
           * @note Prints an error message to standard error stream if the subroutine is not found
             * @param GLenum shaderStage         - stage of the shader program to get the subroutine for.
             *   Allowable values: GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, GL_FRAGMENT_SHADER
@@ -217,25 +217,25 @@ namespace CSCI441 {
           */
         GLuint getSubroutineIndex( GLenum shaderStage, const char *subroutineName );
 
-        /** @brief Returns the number of active uniforms in this shader program
+        /** @desc Returns the number of active uniforms in this shader program
           * @return GLuint - number of active uniforms in this shader program
           */
         GLuint getNumUniforms();
-        /** @brief Returns the number of active uniform blocks in this shader program
+        /** @desc Returns the number of active uniform blocks in this shader program
           * @return GLuint - number of active uniform blocks in this shader program
           */
         GLuint getNumUniformBlocks();
-        /** @brief Returns the number of active attributes in this shader program
+        /** @desc Returns the number of active attributes in this shader program
           * @return GLuint - number of active attributes in this shader program
           */
         GLuint getNumAttributes();
 
-        /** @brief Returns the handle for this shader program
+        /** @desc Returns the handle for this shader program
           * @return GLuint - handle for this shader program
           */
         GLuint getShaderProgramHandle();
 
-        /** @brief Sets the Shader Program to be active
+        /** @desc Sets the Shader Program to be active
           */
         void useProgram();
     private:

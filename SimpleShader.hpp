@@ -37,18 +37,18 @@ namespace CSCI441 {
      * @brief CSCI441 Helper Functions for OpenGL Shaders
      */
     namespace SimpleShader2 {
-        /** @brief turns on Flat Shading
+        /** @desc turns on Flat Shading
          * 
          * @warning must call prior to setupSimpleShader
          */
         void enableFlatShading();
-        /** @brief turns on Smooth Shading
+        /** @desc turns on Smooth Shading
          * 
          * @warning must call prior to setupSimpleShader
          */
         void enableSmoothShading();
 
-        /** @brief Registers a simple Gourad shader for 2-Dimensional drawing
+        /** @desc Registers a simple Gourad shader for 2-Dimensional drawing
          *
          */
         void setupSimpleShader();
@@ -60,7 +60,7 @@ namespace CSCI441 {
          * @return generated Vertex Array Object Descriptor (vaod)
          */
         GLuint registerVertexArray(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
-        /** @brief Updates GL_ARRAY_BUFFER for the corresponding VAO
+        /** @desc Updates GL_ARRAY_BUFFER for the corresponding VAO
          *
          * @desc Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
          * VAO.  The data is copied in to the GL_ARRAY_BUFFER VBO for this VAO.  When function completes, the passed
@@ -82,7 +82,7 @@ namespace CSCI441 {
          * @return generated Vertex Array Object Descriptor (vaod)
          */
         GLuint registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
-        /** @brief Updates GL_ARRAY_BUFFER for the corresponding VAO
+        /** @desc Updates GL_ARRAY_BUFFER for the corresponding VAO
          *
          * @desc Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
          * VAO.  The data is copied in to the GL_ARRAY_BUFFER VBO for this VAO.  When function completes, the passed
@@ -97,7 +97,7 @@ namespace CSCI441 {
          */
         void updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
 
-        /** @brief Sets the Projection Matrix
+        /** @desc Sets the Projection Matrix
          *
          * @param PROJECTION_MATRIX
          */
@@ -111,18 +111,18 @@ namespace CSCI441 {
     }
 
     namespace SimpleShader3 {
-        /** @brief turns on Flat Shading
+        /** @desc turns on Flat Shading
          *
          * @warning must call prior to setupSimpleShader
          */
         void enableFlatShading();
-        /** @brief turns on Smooth Shading
+        /** @desc turns on Smooth Shading
          *
          * @warning must call prior to setupSimpleShader
          */
         void enableSmoothShading();
 
-        /** @brief Registers a simple Gourad Shader with Lambertian Illumination for 3-Dimensional drawing
+        /** @desc Registers a simple Gourad Shader with Lambertian Illumination for 3-Dimensional drawing
          *
          */
         void setupSimpleShader();
@@ -135,7 +135,7 @@ namespace CSCI441 {
          */
         GLuint registerVertexArray(const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS);
 
-        /** @brief Updates GL_ARRAY_BUFFER for the corresponding VAO
+        /** @desc Updates GL_ARRAY_BUFFER for the corresponding VAO
          *
          * @desc Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
          * VAO.  The data is copied in to the GL_ARRAY_BUFFER VBO for this VAO.  When function completes, the passed
@@ -156,7 +156,7 @@ namespace CSCI441 {
          * @return generated Vertex Array Object Descriptor (vaod)
          */
         GLuint registerVertexArray(const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
-        /** @brief Updates GL_ARRAY_BUFFER for the corresponding VAO
+        /** @desc Updates GL_ARRAY_BUFFER for the corresponding VAO
          *
          * @desc Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
          * VAO.  The data is copied in to the GL_ARRAY_BUFFER VBO for this VAO.  When function completes, the passed
@@ -171,12 +171,12 @@ namespace CSCI441 {
          */
         void updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
 
-        /** @brief Sets the Projection Matrix
+        /** @desc Sets the Projection Matrix
          *
          * @param PROJECTION_MATRIX
          */
         void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
-        /** @brief Sets the View Matrix
+        /** @desc Sets the View Matrix
          *
          * @param VIEW_MATRIX
          */
@@ -189,12 +189,12 @@ namespace CSCI441 {
         void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
         void popTransformation();
 
-        /** @brief turns on lighting and applies Phong Illumination to fragment
+        /** @desc turns on lighting and applies Phong Illumination to fragment
          *
          * @warning must call after to setupSimpleShader
          */
         void enableLighting();
-        /** @brief turns off lighting and applies material color to fragment
+        /** @desc turns off lighting and applies material color to fragment
          *
          * @warning must call after to setupSimpleShader
          */

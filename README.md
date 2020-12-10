@@ -28,6 +28,9 @@ TODO Items
 
 Revision History
 
+v 2.7.2 - 10 Dec 2020
+  > Added getters to vertex data for ModelLoader class
+
 v 2.7.0 - 13 Nov 2020
   > Added texture coordinates to Teapot
 
