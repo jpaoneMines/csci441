@@ -41,6 +41,7 @@ namespace CSCI441_INTERNAL {
 		void printLog( GLuint handle );
 		void printSubroutineInfo( GLuint handle, GLenum shaderStage );
 		void printShaderProgramInfo( GLuint handle );
+        void printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader );
 	}
 }
 
@@ -176,6 +177,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint handle, G
 
 		glGetActiveSubroutineUniformName( handle, shaderStage, i, max_length, &actual_length, name );
 		glGetActiveSubroutineUniformiv( handle, shaderStage, i, GL_NUM_COMPATIBLE_SUBROUTINES, &params2 );
+		params3 = (int*)malloc(sizeof(int) * params2);
 		glGetActiveSubroutineUniformiv( handle, shaderStage, i, GL_COMPATIBLE_SUBROUTINES, params3 );
 		GLint loc = glGetSubroutineUniformLocation( handle, shaderStage, name );
 
@@ -191,16 +193,18 @@ inline void CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint handle, G
 
 			printf("[INFO]: |     %i) subroutine: %-25s index: %2i |\n", j, name2, idx );
 		}
+
+		free(params3);
 	}
 }
 
 inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle ) {
+    fprintf(stderr, "[WARN]: CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(GLuint) is deprecated.  Replace with printShaderProgramInfo(GLuint, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean)");
+    printShaderProgramInfo(handle, false, false, false, false, false);
+}
+
+inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader ) {
 	int params;
-	bool hasVertexShader = false;
-	bool hasTessControlShader = false;
-	bool hasTessEvalShader = false;
-	bool hasGeometryShader = false;
-	bool hasFragmentShader = false;
 
 	if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n");
 
@@ -213,12 +217,6 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
 		GLint shaderType;
 		glGetShaderiv( shaders[i], GL_SHADER_TYPE, &shaderType );
 		if( sDEBUG ) printf("[INFO]: |   %i) %-38s Handle: %2i |\n", i, GL_shader_type_to_string(shaderType), shaders[i]);
-
-		if( shaderType == GL_VERTEX_SHADER ) hasVertexShader = true;
-		else if( shaderType == GL_TESS_CONTROL_SHADER ) hasTessControlShader = true;
-		else if( shaderType == GL_TESS_EVALUATION_SHADER ) hasTessEvalShader = true;
-		else if( shaderType == GL_GEOMETRY_SHADER ) hasGeometryShader = true;
-		else if( shaderType == GL_FRAGMENT_SHADER ) hasFragmentShader = true;
 	}
 
 	if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n");

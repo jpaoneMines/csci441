@@ -510,7 +510,7 @@ inline bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexSha
     if( sDEBUG ) printf( "[INFO]: | Program Separable: %35s |\n", (separable ? "Yes" : "No"));
 
     /* print shader info for uniforms & attributes */
-    CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( _shaderProgramHandle );
+    CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( _shaderProgramHandle, _vertexShaderHandle != 0, _tesselationControlShaderHandle != 0, _tesselationEvaluationShaderHandle != 0, _geometryShaderHandle != 0, _fragmentShaderHandle != 0 );
 
     /* return handle */
     return _shaderProgramHandle != 0;
