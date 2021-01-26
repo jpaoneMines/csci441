@@ -245,7 +245,7 @@ inline bool CSCI441::ModelLoader::draw( GLint positionLocation, GLint normalLoca
 	glVertexAttribPointer( texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * _uniqueIndex * 6) );
 
 	if( _modelType == CSCI441_INTERNAL::OBJ ) {
-		for( map< string, vector< pair< unsigned int, unsigned int > > >::iterator materialIter = _materialIndexStartStop.begin();
+		for( auto materialIter = _materialIndexStartStop.begin();
 						materialIter != _materialIndexStartStop.end();
 						materialIter++ ) {
 
