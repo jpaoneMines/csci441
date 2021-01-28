@@ -27,6 +27,8 @@ TODO Items
   > Handle vertex and face colors in OFF files
 
 Revision History
+v 2.8.1 - 28 Jan 2021
+  > Added wrappers to ShaderProgram to set a uniform by name or location
 
 v 2.8.0 - 28 Jan 2021
   > Created Shader Program Pipeline class to wrap Pipeline Objects.  Interfaces with the ShaderProgram class.
