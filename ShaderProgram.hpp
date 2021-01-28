@@ -293,6 +293,56 @@ namespace CSCI441 {
         void setProgramUniform(const char* uniformName, glm::mat3x4 mtx);
         void setProgramUniform(const char* uniformName, glm::mat4x3 mtx);
 
+        void setUniform(GLint uniformLocation, GLfloat v0);
+        void setUniform(GLint uniformLocation, GLfloat v0, GLfloat v1);
+        void setUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2);
+        void setUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+        void setUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value);
+        void setUniform(GLint uniformLocation, GLint v0);
+        void setUniform(GLint uniformLocation, GLint v0, GLint v1);
+        void setUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2);
+        void setUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3);
+        void setUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value);
+        void setUniform(GLint uniformLocation, GLuint v0);
+        void setUniform(GLint uniformLocation, GLuint v0, GLuint v1);
+        void setUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2);
+        void setUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
+        void setUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value);
+        void setUniform(GLint uniformLocation, glm::mat2 mtx);
+        void setUniform(GLint uniformLocation, glm::mat3 mtx);
+        void setUniform(GLint uniformLocation, glm::mat4 mtx);
+        void setUniform(GLint uniformLocation, glm::mat2x3 mtx);
+        void setUniform(GLint uniformLocation, glm::mat3x2 mtx);
+        void setUniform(GLint uniformLocation, glm::mat2x4 mtx);
+        void setUniform(GLint uniformLocation, glm::mat4x2 mtx);
+        void setUniform(GLint uniformLocation, glm::mat3x4 mtx);
+        void setUniform(GLint uniformLocation, glm::mat4x3 mtx);
+
+        void setProgramUniform(GLint uniformLocation, GLfloat v0);
+        void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1);
+        void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2);
+        void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+        void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value);
+        void setProgramUniform(GLint uniformLocation, GLint v0);
+        void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1);
+        void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2);
+        void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3);
+        void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value);
+        void setProgramUniform(GLint uniformLocation, GLuint v0);
+        void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1);
+        void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2);
+        void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
+        void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value);
+        void setProgramUniform(GLint uniformLocation, glm::mat2 mtx);
+        void setProgramUniform(GLint uniformLocation, glm::mat3 mtx);
+        void setProgramUniform(GLint uniformLocation, glm::mat4 mtx);
+        void setProgramUniform(GLint uniformLocation, glm::mat2x3 mtx);
+        void setProgramUniform(GLint uniformLocation, glm::mat3x2 mtx);
+        void setProgramUniform(GLint uniformLocation, glm::mat2x4 mtx);
+        void setProgramUniform(GLint uniformLocation, glm::mat4x2 mtx);
+        void setProgramUniform(GLint uniformLocation, glm::mat3x4 mtx);
+        void setProgramUniform(GLint uniformLocation, glm::mat4x3 mtx);
+
     private:
         ShaderProgram();
 
@@ -1230,6 +1280,294 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     } else {
         fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
     }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLfloat v0 ) {
+    glUniform1f( uniformLocation, v0 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLfloat v0, GLfloat v1 ) {
+    glUniform2f( uniformLocation, v0, v1 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2 ) {
+    glUniform3f( uniformLocation, v0, v1, v2 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) {
+    glUniform4f( uniformLocation, v0, v1, v2, v3 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value) {
+    switch(dim) {
+        case 1:
+            glUniform1fv( uniformLocation, count, value );
+            break;
+        case 2:
+            glUniform2fv( uniformLocation, count, value );
+            break;
+        case 3:
+            glUniform3fv( uniformLocation, count, value );
+            break;
+        case 4:
+            glUniform4fv( uniformLocation, count, value );
+            break;
+        default:
+            fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %i in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformLocation, _shaderProgramHandle);
+            break;
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLint v0 ) {
+    glUniform1i( uniformLocation, v0 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLint v0, GLint v1 ) {
+    glUniform2i( uniformLocation, v0, v1 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2 ) {
+    glUniform3i( uniformLocation, v0, v1, v2 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3 ) {
+    glUniform4i( uniformLocation, v0, v1, v2, v3 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value) {
+    switch(dim) {
+        case 1:
+            glUniform1iv( uniformLocation, count, value );
+            break;
+        case 2:
+            glUniform2iv( uniformLocation, count, value );
+            break;
+        case 3:
+            glUniform3iv( uniformLocation, count, value );
+            break;
+        case 4:
+            glUniform4iv( uniformLocation, count, value );
+            break;
+        default:
+            fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %i in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformLocation, _shaderProgramHandle);
+            break;
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLuint v0 ) {
+    glUniform1ui( uniformLocation, v0 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLuint v0, GLuint v1 ) {
+    glUniform2ui( uniformLocation, v0, v1 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2 ) {
+    glUniform3ui( uniformLocation, v0, v1, v2 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) {
+    glUniform4ui( uniformLocation, v0, v1, v2, v3 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) {
+    switch(dim) {
+        case 1:
+            glUniform1uiv( uniformLocation, count, value );
+            break;
+        case 2:
+            glUniform2uiv( uniformLocation, count, value );
+            break;
+        case 3:
+            glUniform3uiv( uniformLocation, count, value );
+            break;
+        case 4:
+            glUniform4uiv( uniformLocation, count, value );
+            break;
+        default:
+            fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %i in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformLocation, _shaderProgramHandle);
+            break;
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat2 mtx ) {
+    glUniformMatrix2fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat3 mtx ) {
+    glUniformMatrix3fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat4 mtx ) {
+    glUniformMatrix4fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat2x3 mtx ) {
+    glUniformMatrix2x3fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat3x2 mtx ) {
+    glUniformMatrix3x2fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat2x4 mtx ) {
+    glUniformMatrix2x4fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat4x2 mtx ) {
+    glUniformMatrix4x2fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat3x4 mtx ) {
+    glUniformMatrix3x4fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat4x3 mtx ) {
+    glUniformMatrix4x3fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0 ) {
+    glProgramUniform1f( _shaderProgramHandle, uniformLocation, v0 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1 ) {
+    glProgramUniform2f( _shaderProgramHandle, uniformLocation, v0, v1 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2 ) {
+    glProgramUniform3f( _shaderProgramHandle, uniformLocation, v0, v1, v2 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) {
+    glProgramUniform4f( _shaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value) {
+    switch(dim) {
+        case 1:
+            glProgramUniform1fv( _shaderProgramHandle, uniformLocation, count, value );
+            break;
+        case 2:
+            glProgramUniform2fv( _shaderProgramHandle, uniformLocation, count, value );
+            break;
+        case 3:
+            glProgramUniform3fv( _shaderProgramHandle, uniformLocation, count, value );
+            break;
+        case 4:
+            glProgramUniform4fv( _shaderProgramHandle, uniformLocation, count, value );
+            break;
+        default:
+            fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %i in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformLocation, _shaderProgramHandle);
+            break;
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0 ) {
+    glProgramUniform1i( _shaderProgramHandle, uniformLocation, v0 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1 ) {
+    glProgramUniform2i( _shaderProgramHandle, uniformLocation, v0, v1 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2 ) {
+    glProgramUniform3i( _shaderProgramHandle, uniformLocation, v0, v1, v2 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3 ) {
+    glProgramUniform4i( _shaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value) {
+    switch(dim) {
+        case 1:
+            glProgramUniform1iv( _shaderProgramHandle, uniformLocation, count, value );
+            break;
+        case 2:
+            glProgramUniform2iv( _shaderProgramHandle, uniformLocation, count, value );
+            break;
+        case 3:
+            glProgramUniform3iv( _shaderProgramHandle, uniformLocation, count, value );
+            break;
+        case 4:
+            glProgramUniform4iv( _shaderProgramHandle, uniformLocation, count, value );
+            break;
+        default:
+            fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %i in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformLocation, _shaderProgramHandle);
+            break;
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0 ) {
+    glProgramUniform1ui( _shaderProgramHandle, uniformLocation, v0 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1 ) {
+    glProgramUniform2ui( _shaderProgramHandle, uniformLocation, v0, v1 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2 ) {
+    glProgramUniform3ui( _shaderProgramHandle, uniformLocation, v0, v1, v2 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) {
+    glProgramUniform4ui( _shaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) {
+    switch(dim) {
+        case 1:
+            glProgramUniform1uiv( _shaderProgramHandle, uniformLocation, count, value );
+            break;
+        case 2:
+            glProgramUniform2uiv( _shaderProgramHandle, uniformLocation, count, value );
+            break;
+        case 3:
+            glProgramUniform3uiv( _shaderProgramHandle, uniformLocation, count, value );
+            break;
+        case 4:
+            glProgramUniform4uiv( _shaderProgramHandle, uniformLocation, count, value );
+            break;
+        default:
+            fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %i in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformLocation, _shaderProgramHandle);
+            break;
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2 mtx ) {
+    glProgramUniformMatrix2fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3 mtx ) {
+    glProgramUniformMatrix3fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4 mtx ) {
+    glProgramUniformMatrix4fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2x3 mtx ) {
+    glProgramUniformMatrix2x3fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3x2 mtx ) {
+    glProgramUniformMatrix3x2fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2x4 mtx ) {
+    glProgramUniformMatrix2x4fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4x2 mtx ) {
+    glProgramUniformMatrix4x2fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3x4 mtx ) {
+    glProgramUniformMatrix3x4fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4x3 mtx ) {
+    glProgramUniformMatrix4x3fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram() {}
