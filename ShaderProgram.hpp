@@ -40,6 +40,7 @@ namespace CSCI441 {
           */
         static void disableDebugMessages();
 
+
         /** @desc Creates a Shader Program using a Vertex Shader and Fragment Shader
           *
             * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
