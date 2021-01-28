@@ -83,7 +83,7 @@ CSCI441::ShaderProgramPipeline::~ShaderProgramPipeline() {
 void CSCI441::ShaderProgramPipeline::useProgramStages( GLbitfield programStages, ShaderProgram *shaderProgram ) {
     glUseProgramStages( _pipelineHandle, programStages, shaderProgram->getShaderProgramHandle() );
 
-    _programs->insert( std::pair<GLuint, GLbitfield>( shaderProgram->getShaderProgramHandle(), programStages ) );
+    _programs->emplace( shaderProgram->getShaderProgramHandle(), programStages );
 }
 
 void CSCI441::ShaderProgramPipeline::bindPipeline() {
@@ -96,12 +96,10 @@ void CSCI441::ShaderProgramPipeline::printPipelineInfo() {
         printf( "[INFO]: | Program Pipeline:                                      |\n");
         printf( "[INFO]: |   Pipeline Handle: %4u %32c\n", _pipelineHandle, '|' );
 
-        for( std::map< GLuint, GLbitfield >::iterator progIter = _programs->begin();
-                progIter != _programs->end();
-                progIter++ ) {
+        for( const auto& program : *_programs ) {
             printf( "[INFO]: >========================================================<\n");
-            GLuint programHandle = progIter->first;
-            GLbitfield programStages = progIter->second;
+            GLuint programHandle = program.first;
+            GLbitfield programStages = program.second;
 
             GLboolean hasVertexShader       = ((programStages & GL_VERTEX_SHADER_BIT )           == GL_VERTEX_SHADER_BIT            );
             GLboolean hasTessControlShader  = ((programStages & GL_TESS_CONTROL_SHADER_BIT )     == GL_TESS_CONTROL_SHADER_BIT      );
