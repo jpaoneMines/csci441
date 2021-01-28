@@ -28,6 +28,9 @@ TODO Items
 
 Revision History
 
+v 2.8.0 - 28 Jan 2021
+  > Created Shader Program Pipeline class to wrap Pipeline Objects.  Interfaces with the ShaderProgram class.
+
 v 2.7.2 - 10 Dec 2020
   > Added getters to vertex data for ModelLoader class
 
