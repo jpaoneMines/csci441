@@ -87,6 +87,7 @@ void CSCI441::ShaderProgramPipeline::useProgramStages( GLbitfield programStages,
 }
 
 void CSCI441::ShaderProgramPipeline::bindPipeline() {
+    glUseProgram(0);    // unuse any existing program that may have previously been used.  programs override pipeline
     glBindProgramPipeline( _pipelineHandle );
 }
 
