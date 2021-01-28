@@ -15,7 +15,10 @@
 
 #include "ShaderUtils.hpp"
 
+#include <glm/glm.hpp>
 #include <stdlib.h>
+#include <map>
+#include <string>
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -239,6 +242,57 @@ namespace CSCI441 {
         /** @desc Sets the Shader Program to be active
           */
         void useProgram();
+
+        void setUniform(const char* uniformName, GLfloat v0);
+        void setUniform(const char* uniformName, GLfloat v0, GLfloat v1);
+        void setUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2);
+        void setUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+        void setUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value);
+        void setUniform(const char* uniformName, GLint v0);
+        void setUniform(const char* uniformName, GLint v0, GLint v1);
+        void setUniform(const char* uniformName, GLint v0, GLint v1, GLint v2);
+        void setUniform(const char* uniformName, GLint v0, GLint v1, GLint v2, GLint v3);
+        void setUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value);
+        void setUniform(const char* uniformName, GLuint v0);
+        void setUniform(const char* uniformName, GLuint v0, GLuint v1);
+        void setUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2);
+        void setUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
+        void setUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value);
+        void setUniform(const char* uniformName, glm::mat2 mtx);
+        void setUniform(const char* uniformName, glm::mat3 mtx);
+        void setUniform(const char* uniformName, glm::mat4 mtx);
+        void setUniform(const char* uniformName, glm::mat2x3 mtx);
+        void setUniform(const char* uniformName, glm::mat3x2 mtx);
+        void setUniform(const char* uniformName, glm::mat2x4 mtx);
+        void setUniform(const char* uniformName, glm::mat4x2 mtx);
+        void setUniform(const char* uniformName, glm::mat3x4 mtx);
+        void setUniform(const char* uniformName, glm::mat4x3 mtx);
+
+        void setProgramUniform(const char* uniformName, GLfloat v0);
+        void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1);
+        void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2);
+        void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+        void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value);
+        void setProgramUniform(const char* uniformName, GLint v0);
+        void setProgramUniform(const char* uniformName, GLint v0, GLint v1);
+        void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2);
+        void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2, GLint v3);
+        void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value);
+        void setProgramUniform(const char* uniformName, GLuint v0);
+        void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1);
+        void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2);
+        void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
+        void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value);
+        void setProgramUniform(const char* uniformName, glm::mat2 mtx);
+        void setProgramUniform(const char* uniformName, glm::mat3 mtx);
+        void setProgramUniform(const char* uniformName, glm::mat4 mtx);
+        void setProgramUniform(const char* uniformName, glm::mat2x3 mtx);
+        void setProgramUniform(const char* uniformName, glm::mat3x2 mtx);
+        void setProgramUniform(const char* uniformName, glm::mat2x4 mtx);
+        void setProgramUniform(const char* uniformName, glm::mat4x2 mtx);
+        void setProgramUniform(const char* uniformName, glm::mat3x4 mtx);
+        void setProgramUniform(const char* uniformName, glm::mat4x3 mtx);
+
     private:
         ShaderProgram();
 
@@ -251,6 +305,8 @@ namespace CSCI441 {
         GLuint _fragmentShaderHandle;
 
         GLuint _shaderProgramHandle;
+
+        std::map<std::string, GLint> *_uniformLocations;
 
         bool registerShaderProgram( const char *vertexShaderFilename,
                                     const char *tesselationControlShaderFilename,
@@ -504,6 +560,31 @@ inline bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexSha
         glDeleteShader( _fragmentShaderHandle );
     }
 
+    // map uniforms
+    _uniformLocations = new std::map<std::string, GLint>();
+    GLint numUniforms;
+    glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_UNIFORMS, &numUniforms);
+    if( numUniforms > 0 ) {
+        for(GLuint i = 0; i < numUniforms; i++) {
+            char name[64];
+            int max_length = 64;
+            int actual_length = 0;
+            int size = 0;
+            GLenum type;
+            glGetActiveUniform( _shaderProgramHandle, i, max_length, &actual_length, &size, &type, name );
+            GLint location = -1;
+            if(size > 1) {
+                for(int j = 0; j < size; j++) {
+                    char long_name[64];
+                    sprintf(long_name, "%s[%i]", name, j);
+                    location = glGetUniformLocation(_shaderProgramHandle, long_name);
+                }
+            } else {
+                location = glGetUniformLocation(_shaderProgramHandle, name);
+            }
+            _uniformLocations->emplace( name, location );
+        }
+    }
 
     GLint separable = GL_FALSE;
     glGetProgramiv( _shaderProgramHandle, GL_PROGRAM_SEPARABLE, &separable );
@@ -623,10 +704,539 @@ inline void CSCI441::ShaderProgram::useProgram() {
     glUseProgram( _shaderProgramHandle );
 }
 
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat v0 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniform1f( uniformIter->second, v0 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat v0, GLfloat v1 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniform2f( uniformIter->second, v0, v1 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniform3f( uniformIter->second, v0, v1, v2 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniform4f( uniformIter->second, v0, v1, v2, v3 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        switch(dim) {
+            case 1:
+                glUniform1fv( uniformIter->second, count, value );
+                break;
+            case 2:
+                glUniform2fv( uniformIter->second, count, value );
+                break;
+            case 3:
+                glUniform3fv( uniformIter->second, count, value );
+                break;
+            case 4:
+                glUniform4fv( uniformIter->second, count, value );
+                break;
+            default:
+                fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %s in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformName, _shaderProgramHandle);
+                break;
+        }
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLint v0 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniform1i( uniformIter->second, v0 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLint v0, GLint v1 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniform2i( uniformIter->second, v0, v1 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLint v0, GLint v1, GLint v2 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniform3i( uniformIter->second, v0, v1, v2 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLint v0, GLint v1, GLint v2, GLint v3 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniform4i( uniformIter->second, v0, v1, v2, v3 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        switch(dim) {
+            case 1:
+                glUniform1iv( uniformIter->second, count, value );
+                break;
+            case 2:
+                glUniform2iv( uniformIter->second, count, value );
+                break;
+            case 3:
+                glUniform3iv( uniformIter->second, count, value );
+                break;
+            case 4:
+                glUniform4iv( uniformIter->second, count, value );
+                break;
+            default:
+                fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %s in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformName, _shaderProgramHandle);
+                break;
+        }
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLuint v0 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniform1ui( uniformIter->second, v0 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLuint v0, GLuint v1 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniform2ui( uniformIter->second, v0, v1 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniform3ui( uniformIter->second, v0, v1, v2 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniform4ui( uniformIter->second, v0, v1, v2, v3 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        switch(dim) {
+            case 1:
+                glUniform1uiv( uniformIter->second, count, value );
+                break;
+            case 2:
+                glUniform2uiv( uniformIter->second, count, value );
+                break;
+            case 3:
+                glUniform3uiv( uniformIter->second, count, value );
+                break;
+            case 4:
+                glUniform4uiv( uniformIter->second, count, value );
+                break;
+            default:
+                fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %s in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformName, _shaderProgramHandle);
+                break;
+        }
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat2 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniformMatrix2fv( uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat3 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniformMatrix3fv( uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat4 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniformMatrix4fv( uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat2x3 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniformMatrix2x3fv( uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat3x2 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniformMatrix3x2fv( uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat2x4 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniformMatrix2x4fv( uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat4x2 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniformMatrix4x2fv( uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat3x4 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniformMatrix3x4fv( uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat4x3 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glUniformMatrix4x3fv( uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniform1f( _shaderProgramHandle, uniformIter->second, v0 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniform2f( _shaderProgramHandle, uniformIter->second, v0, v1 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniform3f( _shaderProgramHandle, uniformIter->second, v0, v1, v2 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniform4f( _shaderProgramHandle, uniformIter->second, v0, v1, v2, v3 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        switch(dim) {
+            case 1:
+                glProgramUniform1fv( _shaderProgramHandle, uniformIter->second, count, value );
+                break;
+            case 2:
+                glProgramUniform2fv( _shaderProgramHandle, uniformIter->second, count, value );
+                break;
+            case 3:
+                glProgramUniform3fv( _shaderProgramHandle, uniformIter->second, count, value );
+                break;
+            case 4:
+                glProgramUniform4fv( _shaderProgramHandle, uniformIter->second, count, value );
+                break;
+            default:
+                fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %s in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformName, _shaderProgramHandle);
+                break;
+        }
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniform1i( _shaderProgramHandle, uniformIter->second, v0 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniform2i( _shaderProgramHandle, uniformIter->second, v0, v1 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1, GLint v2 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniform3i( _shaderProgramHandle, uniformIter->second, v0, v1, v2 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1, GLint v2, GLint v3 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniform4i( _shaderProgramHandle, uniformIter->second, v0, v1, v2, v3 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        switch(dim) {
+            case 1:
+                glProgramUniform1iv( _shaderProgramHandle, uniformIter->second, count, value );
+                break;
+            case 2:
+                glProgramUniform2iv( _shaderProgramHandle, uniformIter->second, count, value );
+                break;
+            case 3:
+                glProgramUniform3iv( _shaderProgramHandle, uniformIter->second, count, value );
+                break;
+            case 4:
+                glProgramUniform4iv( _shaderProgramHandle, uniformIter->second, count, value );
+                break;
+            default:
+                fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %s in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformName, _shaderProgramHandle);
+                break;
+        }
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniform1ui( _shaderProgramHandle, uniformIter->second, v0 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniform2ui( _shaderProgramHandle, uniformIter->second, v0, v1 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniform3ui( _shaderProgramHandle, uniformIter->second, v0, v1, v2 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniform4ui( _shaderProgramHandle, uniformIter->second, v0, v1, v2, v3 );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        switch(dim) {
+            case 1:
+                glProgramUniform1uiv( _shaderProgramHandle, uniformIter->second, count, value );
+                break;
+            case 2:
+                glProgramUniform2uiv( _shaderProgramHandle, uniformIter->second, count, value );
+                break;
+            case 3:
+                glProgramUniform3uiv( _shaderProgramHandle, uniformIter->second, count, value );
+                break;
+            case 4:
+                glProgramUniform4uiv( _shaderProgramHandle, uniformIter->second, count, value );
+                break;
+            default:
+                fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %s in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformName, _shaderProgramHandle);
+                break;
+        }
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniformMatrix2fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniformMatrix3fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniformMatrix4fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2x3 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniformMatrix2x3fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3x2 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniformMatrix3x2fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2x4 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniformMatrix2x4fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4x2 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniformMatrix4x2fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3x4 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniformMatrix3x4fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4x3 mtx ) {
+    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+    if(uniformIter != _uniformLocations->end()) {
+        glProgramUniformMatrix4x3fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    } else {
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+    }
+}
+
 inline CSCI441::ShaderProgram::ShaderProgram() {}
 
 inline CSCI441::ShaderProgram::~ShaderProgram() {
     glDeleteProgram( _shaderProgramHandle );
+    delete _uniformLocations;
 }
 
 #endif //__CSCI441_SHADERPROGRAM_H__
