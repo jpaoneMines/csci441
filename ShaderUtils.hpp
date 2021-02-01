@@ -34,6 +34,7 @@ namespace CSCI441_INTERNAL {
 
 		const char* GL_type_to_string( GLenum type );
 		const char* GL_shader_type_to_string( GLenum type );
+		const char* GL_primitive_type_to_string( GLenum type );
 
 		void readTextFromFile( const char* filename, char* &output );
 		GLuint compileShader( const char *filename, GLenum shaderType );
@@ -109,6 +110,22 @@ inline const char* CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(GLenu
     default: break;
   }
   return "other";
+}
+
+inline const char* CSCI441_INTERNAL::ShaderUtils::GL_primitive_type_to_string(GLenum type) {
+    switch(type) {
+        case GL_POINTS: return "Points";
+        case GL_LINES: return "Lines";
+        case GL_LINE_STRIP: return "Line Strip";
+        case GL_LINE_LOOP: return "Line Loop";
+        case GL_LINES_ADJACENCY: return "Line Adjacency";
+        case GL_TRIANGLES: return "Triangles";
+        case GL_TRIANGLE_STRIP: return "Triangle Strip";
+        case GL_TRIANGLES_ADJACENCY: return "Triangle Adjacency";
+        case GL_PATCHES: return "Patches";
+        default: break;
+    }
+    return "other";
 }
 
 // printLog() //////////////////////////////////////////////////////////////////
@@ -210,7 +227,6 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
 inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean useLastNewLine = true ) {
 	int params;
 
-
     GLuint shaders[6];
     int max_count = 6;
     int actual_count;
@@ -285,7 +301,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
 
     glGetProgramiv(handle, GL_ACTIVE_UNIFORM_BLOCKS, &params);
     if( params > 0 ) {
-        if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<|>\n");
+        if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n");
         if( sDEBUG ) printf("[INFO]: | GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS: %20d |\n", params);
         for(int i = 0; i < params; i++ ) {
             int params2;
@@ -336,13 +352,13 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
                 GLint maxTessControlUniformBlocks = 0;
                 glGetIntegerv( GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS, &maxTessControlUniformBlocks );
 
-                if( sDEBUG ) printf( "[INFO]: |   Tess Ctrl Shader Uniform Blocks: %16d/%2d  |\n", tcsCount, maxTessControlUniformBlocks );
+                if( sDEBUG ) printf( "[INFO]: |   Tess Ctrl Shader Uniform Blocks: %15d/%2d  |\n", tcsCount, maxTessControlUniformBlocks );
             }
             if( hasTessEvalShader ) {
                 GLint maxTessEvalUniformBlocks = 0;
                 glGetIntegerv( GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS, &maxTessEvalUniformBlocks );
 
-                if( sDEBUG ) printf( "[INFO]: |   Tess Eval Shader Uniform Blocks: %16d/%2d  |\n", tesCount, maxTessEvalUniformBlocks );
+                if( sDEBUG ) printf( "[INFO]: |   Tess Eval Shader Uniform Blocks: %15d/%2d  |\n", tesCount, maxTessEvalUniformBlocks );
             }
             if( hasGeometryShader ) {
                 GLint maxGeometryUniformBlocks = 0;
@@ -363,6 +379,22 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
         GLint major, minor;
         glGetIntegerv(GL_MAJOR_VERSION, &major);
         glGetIntegerv(GL_MINOR_VERSION, &minor);
+
+        if(hasGeometryShader) {
+            if( major > 3 || (major >= 3 && minor >= 2)  ) {
+                GLint verticesOut, inputType, outputType;
+                glGetProgramiv(handle, GL_GEOMETRY_VERTICES_OUT, &verticesOut);
+                glGetProgramiv(handle, GL_GEOMETRY_INPUT_TYPE,   &inputType);
+                glGetProgramiv(handle, GL_GEOMETRY_OUTPUT_TYPE,  &outputType);
+
+                printf( "[INFO]: >--------------------------------------------------------<\n");
+                printf( "[INFO]: | GEOMETRY SHADER PRIMITIVE I/O                          |\n");
+                printf( "[INFO]: |   Input Type: %40s |\n", GL_primitive_type_to_string(inputType) );
+                printf( "[INFO]: |   Output Type: %39s |\n", GL_primitive_type_to_string(outputType) );
+                printf( "[INFO]: |   Max Vertices Out: %34d |\n", verticesOut );
+            }
+        }
+
         if( major >= 4 ) {
             GLboolean printHeader = GL_TRUE;
             if( hasVertexShader   )     printHeader = printSubroutineInfo( handle, GL_VERTEX_SHADER, printHeader );
