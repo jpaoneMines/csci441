@@ -245,8 +245,11 @@ namespace CSCI441 {
 
         void setUniform(const char* uniformName, GLfloat v0);
         void setUniform(const char* uniformName, GLfloat v0, GLfloat v1);
+        void setUniform(const char* uniformName, glm::vec2 value);
         void setUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2);
+        void setUniform(const char* uniformName, glm::vec3 value);
         void setUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+        void setUniform(const char* uniformName, glm::vec4 value);
         void setUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value);
         void setUniform(const char* uniformName, GLint v0);
         void setUniform(const char* uniformName, GLint v0, GLint v1);
@@ -270,8 +273,11 @@ namespace CSCI441 {
 
         void setProgramUniform(const char* uniformName, GLfloat v0);
         void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1);
+        void setProgramUniform(const char* uniformName, glm::vec2 value);
         void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2);
+        void setProgramUniform(const char* uniformName, glm::vec3 value);
         void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+        void setProgramUniform(const char* uniformName, glm::vec4 value);
         void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value);
         void setProgramUniform(const char* uniformName, GLint v0);
         void setProgramUniform(const char* uniformName, GLint v0, GLint v1);
@@ -295,8 +301,11 @@ namespace CSCI441 {
 
         void setUniform(GLint uniformLocation, GLfloat v0);
         void setUniform(GLint uniformLocation, GLfloat v0, GLfloat v1);
+        void setUniform(GLint uniformLocation, glm::vec2 value);
         void setUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2);
+        void setUniform(GLint uniformLocation, glm::vec3 value);
         void setUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+        void setUniform(GLint uniformLocation, glm::vec4 value);
         void setUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value);
         void setUniform(GLint uniformLocation, GLint v0);
         void setUniform(GLint uniformLocation, GLint v0, GLint v1);
@@ -320,8 +329,11 @@ namespace CSCI441 {
 
         void setProgramUniform(GLint uniformLocation, GLfloat v0);
         void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1);
+        void setProgramUniform(GLint uniformLocation, glm::vec2 value);
         void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2);
+        void setProgramUniform(GLint uniformLocation, glm::vec3 value);
         void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+        void setProgramUniform(GLint uniformLocation, glm::vec4 value);
         void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value);
         void setProgramUniform(GLint uniformLocation, GLint v0);
         void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1);
@@ -772,6 +784,10 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat
     }
 }
 
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::vec2 value ) {
+    setUniform( uniformName, 2, 1, &value[0] );
+}
+
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -781,6 +797,10 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat
     }
 }
 
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::vec3 value ) {
+    setUniform( uniformName, 3, 1, &value[0] );
+}
+
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -788,6 +808,10 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat
     } else {
         fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
     }
+}
+
+inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::vec4 value ) {
+    setUniform( uniformName, 4, 1, &value[0] );
 }
 
 inline void CSCI441::ShaderProgram::setUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) {
@@ -1036,6 +1060,10 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::vec2 value ) {
+    setProgramUniform( uniformName, 2, 1, &value[0] );
+}
+
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1045,6 +1073,10 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::vec3 value ) {
+    setProgramUniform( uniformName, 3, 1, &value[0] );
+}
+
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1052,6 +1084,10 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     } else {
         fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
     }
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::vec4 value ) {
+    setProgramUniform( uniformName, 4, 1, &value[0] );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) {
@@ -1290,12 +1326,24 @@ inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLfloat v
     glUniform2f( uniformLocation, v0, v1 );
 }
 
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::vec2 value ) {
+    setUniform( uniformLocation, 2, 1, &value[0] );
+}
+
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2 ) {
     glUniform3f( uniformLocation, v0, v1, v2 );
 }
 
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::vec3 value ) {
+    setUniform( uniformLocation, 3, 1, &value[0] );
+}
+
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) {
     glUniform4f( uniformLocation, v0, v1, v2, v3 );
+}
+
+inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::vec4 value ) {
+    setUniform( uniformLocation, 4, 1, &value[0] );
 }
 
 inline void CSCI441::ShaderProgram::setUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value) {
@@ -1434,12 +1482,24 @@ inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GL
     glProgramUniform2f( _shaderProgramHandle, uniformLocation, v0, v1 );
 }
 
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec2 value ) {
+    setProgramUniform( uniformLocation, 2, 1, &value[0] );
+}
+
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2 ) {
     glProgramUniform3f( _shaderProgramHandle, uniformLocation, v0, v1, v2 );
 }
 
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec3 value ) {
+    setProgramUniform( uniformLocation, 3, 1, &value[0] );
+}
+
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) {
     glProgramUniform4f( _shaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
+}
+
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec4 value ) {
+    setProgramUniform( uniformLocation, 4, 1, &value[0] );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value) {
