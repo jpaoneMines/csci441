@@ -3,7 +3,7 @@ School of Mines.
 
 When building, the library must be compiled and linked against OpenGL, GLEW, and glm.  
 
-Copyright (c) 2020 Dr. Jeffrey Paone
+Copyright (c) 2021 Dr. Jeffrey Paone
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,12 @@ TODO Items
   > Handle vertex and face colors in OFF files
 
 Revision History
+v 2.10.0 - 23 Feb 2021
+  > Added wrapper class for ComputeShaderProgram
+  > Added support to ShaderProgram to return Shader Storage Buffer Block bindings
+  > Added support to ShaderProgram to return Atomic Counter bindings
+  > Updated ShaderProgram info output to include SSBO and ABO info
+
 v 2.8.1 - 28 Jan 2021
   > Added wrappers to ShaderProgram to set a uniform by name or location
 
