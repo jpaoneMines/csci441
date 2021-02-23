@@ -32,7 +32,7 @@ namespace CSCI441_INTERNAL {
 		void enableDebugMessages();
 		void disableDebugMessages();
 
-		const char* GL_type_to_string( GLenum type );
+		const char* GLSL_type_to_string( GLenum type );
 		const char* GL_shader_type_to_string( GLenum type );
 		const char* GL_primitive_type_to_string( GLenum type );
 
@@ -43,6 +43,7 @@ namespace CSCI441_INTERNAL {
 		GLboolean printSubroutineInfo( GLuint handle, GLenum shaderStage, GLboolean printHeader );
 		void printShaderProgramInfo( GLuint handle );
         void printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean useLastNewLine );
+        void printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean hasComputeShader, GLboolean useLastNewLine );
 	}
 }
 
@@ -80,24 +81,114 @@ inline void CSCI441_INTERNAL::ShaderUtils::readTextFromFile(const char *filename
     in.close();
 }
 
-inline const char* CSCI441_INTERNAL::ShaderUtils::GL_type_to_string(GLenum type) {
-  switch(type) {
-    case GL_BOOL: return "bool";
-    case GL_INT: return "int";
-    case GL_FLOAT: return "float";
-    case GL_FLOAT_VEC2: return "vec2";
-    case GL_FLOAT_VEC3: return "vec3";
-    case GL_FLOAT_VEC4: return "vec4";
-    case GL_FLOAT_MAT2: return "mat2";
-    case GL_FLOAT_MAT3: return "mat3";
-    case GL_FLOAT_MAT4: return "mat4";
-    case GL_SAMPLER_2D: return "sampler2D";
-    case GL_SAMPLER_3D: return "sampler3D";
-    case GL_SAMPLER_CUBE: return "samplerCube";
-    case GL_SAMPLER_2D_SHADOW: return "sampler2DShadow";
-    default: break;
-  }
-  return "other";
+inline const char* CSCI441_INTERNAL::ShaderUtils::GLSL_type_to_string(GLenum type) {
+    switch(type) {
+        case GL_FLOAT:                                      return "float";
+        case GL_FLOAT_VEC2:                                 return "vec2";
+        case GL_FLOAT_VEC3:                                 return "vec3";
+        case GL_FLOAT_VEC4:                                 return "vec4";
+        case GL_DOUBLE:                                     return "double";
+        case GL_DOUBLE_VEC2:                                return "dvec2";
+        case GL_DOUBLE_VEC3:                                return "dvec3";
+        case GL_DOUBLE_VEC4:                                return "dvec4";
+        case GL_INT:                                        return "int";
+        case GL_INT_VEC2:                                   return "ivec2";
+        case GL_INT_VEC3:                                   return "ivec3";
+        case GL_INT_VEC4:                                   return "ivec4";
+        case GL_UNSIGNED_INT:                               return "unsigned int";
+        case GL_UNSIGNED_INT_VEC2:                          return "uvec2";
+        case GL_UNSIGNED_INT_VEC3:                          return "uvec3";
+        case GL_UNSIGNED_INT_VEC4:                          return "uvec4";
+        case GL_BOOL:                                       return "bool";
+        case GL_BOOL_VEC2:                                  return "bvec2";
+        case GL_BOOL_VEC3:                                  return "bvec3";
+        case GL_BOOL_VEC4:                                  return "bvec4";
+        case GL_FLOAT_MAT2:                                 return "mat2";
+        case GL_FLOAT_MAT3:                                 return "mat3";
+        case GL_FLOAT_MAT4:                                 return "mat4";
+        case GL_FLOAT_MAT2x3:                               return "mat2x3";
+        case GL_FLOAT_MAT2x4:                           return "mat2x4";
+        case GL_FLOAT_MAT3x2:                               return "mat3x2";
+        case GL_FLOAT_MAT3x4:                               return "mat3x4";
+        case GL_FLOAT_MAT4x2:                               return "mat4x2";
+        case GL_FLOAT_MAT4x3:                       return "mat4x3";
+        case GL_DOUBLE_MAT2:                            return "dmat2";
+        case GL_DOUBLE_MAT3:                            return "dmat3";
+        case GL_DOUBLE_MAT4:                            return "dmat4";
+        case GL_DOUBLE_MAT2x3:                              return "dmat2x3";
+        case GL_DOUBLE_MAT2x4:                              return "dmat2x4";
+        case GL_DOUBLE_MAT3x2:                              return "dmat3x2";
+        case GL_DOUBLE_MAT3x4:                              return "dmat3x4";
+        case GL_DOUBLE_MAT4x2:                              return "dmat4x2";
+        case GL_DOUBLE_MAT4x3:                              return "dmat4x3";
+        case GL_SAMPLER_1D:                                 return "sampler1D";
+        case GL_SAMPLER_2D:                                 return "sampler2D";
+        case GL_SAMPLER_3D:                                 return "sampler3D";
+        case GL_SAMPLER_CUBE:                               return "samplerCube";
+        case GL_SAMPLER_1D_SHADOW:                          return "sampler1DShadow";
+        case GL_SAMPLER_2D_SHADOW:                          return "sampler2DShadow";
+        case GL_SAMPLER_1D_ARRAY:                           return "sampler1DArray";
+        case GL_SAMPLER_2D_ARRAY:                           return "sampler2DArray";
+        case GL_SAMPLER_2D_MULTISAMPLE:                     return "sampler2DMS";
+        case GL_SAMPLER_2D_MULTISAMPLE_ARRAY:               return "sampler2DMSArray";
+        case GL_SAMPLER_CUBE_SHADOW:                        return "samplerCubeShadow";
+        case GL_SAMPLER_BUFFER:                             return "samplerBuffer";
+        case GL_SAMPLER_2D_RECT:                            return "sampler2DRect";
+        case GL_SAMPLER_2D_RECT_SHADOW:                     return "sampler2DRectShadow";
+        case GL_INT_SAMPLER_1D:                             return "isampler1D";
+        case GL_INT_SAMPLER_2D:                             return "isampler2D";
+        case GL_INT_SAMPLER_3D:                             return "isampler3D";
+        case GL_INT_SAMPLER_CUBE:                           return "isamplerCube";
+        case GL_INT_SAMPLER_1D_ARRAY:                       return "isampler1DArray";
+        case GL_INT_SAMPLER_2D_ARRAY:                       return "isampler2DArray";
+        case GL_INT_SAMPLER_2D_MULTISAMPLE:                 return "isampler2DMS";
+        case GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY:           return "isampler2DMSArray";
+        case GL_INT_SAMPLER_BUFFER:                         return "isamplerBuffer";
+        case GL_INT_SAMPLER_2D_RECT:                        return "isampler2DRect";
+        case GL_UNSIGNED_INT_SAMPLER_1D:                    return "usampler1D";
+        case GL_UNSIGNED_INT_SAMPLER_2D:                    return "usampler2D";
+        case GL_UNSIGNED_INT_SAMPLER_3D:                    return "usampler3D";
+        case GL_UNSIGNED_INT_SAMPLER_CUBE:                  return "usamplerCube";
+        case GL_UNSIGNED_INT_SAMPLER_1D_ARRAY:              return "usampler1DArray";
+        case GL_UNSIGNED_INT_SAMPLER_2D_ARRAY:              return "usampler2DArray";
+        case GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE:        return "usampler2DMS";
+        case GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY:  return "usampler2DMSArray";
+        case GL_UNSIGNED_INT_SAMPLER_BUFFER:                return "usamplerBuffer";
+        case GL_UNSIGNED_INT_SAMPLER_2D_RECT:               return "usampler2DRect";
+        case GL_IMAGE_1D:                                   return "image1D";
+        case GL_IMAGE_2D:                                   return "image2D";
+        case GL_IMAGE_3D:                                   return "image3D";
+        case GL_IMAGE_2D_RECT:                              return "image3D";
+        case GL_IMAGE_CUBE:                                 return "imageCube";
+        case GL_IMAGE_BUFFER:                               return "imageBuffer";
+        case GL_IMAGE_1D_ARRAY:                             return "image1DArray";
+        case GL_IMAGE_2D_ARRAY:                             return "image2DArray";
+        case GL_IMAGE_2D_MULTISAMPLE:                       return "image2DMS";
+        case GL_IMAGE_2D_MULTISAMPLE_ARRAY:                 return "image2DMSArray";
+        case GL_INT_IMAGE_1D:                               return "iimage1D";
+        case GL_INT_IMAGE_2D:                               return "iimage2D";
+        case GL_INT_IMAGE_3D:                               return "iimage3D";
+        case GL_INT_IMAGE_2D_RECT:                          return "iimage3D";
+        case GL_INT_IMAGE_CUBE:                             return "iimageCube";
+        case GL_INT_IMAGE_BUFFER:                           return "iimageBuffer";
+        case GL_INT_IMAGE_1D_ARRAY:                         return "iimage1DArray";
+        case GL_INT_IMAGE_2D_ARRAY:                         return "iimage2DArray";
+        case GL_INT_IMAGE_2D_MULTISAMPLE:                   return "iimage2DMS";
+        case GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY:             return "iimage2DMSArray";
+        case GL_UNSIGNED_INT_IMAGE_1D:                      return "uimage1D";
+        case GL_UNSIGNED_INT_IMAGE_2D:                      return "uimage2D";
+        case GL_UNSIGNED_INT_IMAGE_3D:                      return "uimage3D";
+        case GL_UNSIGNED_INT_IMAGE_2D_RECT:                 return "uimage3D";
+        case GL_UNSIGNED_INT_IMAGE_CUBE:                    return "uimageCube";
+        case GL_UNSIGNED_INT_IMAGE_BUFFER:                  return "uimageBuffer";
+        case GL_UNSIGNED_INT_IMAGE_1D_ARRAY:                return "uimage1DArray";
+        case GL_UNSIGNED_INT_IMAGE_2D_ARRAY:                return "uimage2DArray";
+        case GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE:          return "uimage2DMS";
+        case GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY:    return "uimage2DMSArray";
+        case GL_UNSIGNED_INT_ATOMIC_COUNTER:                return "atomic_uint";
+        default: break;
+    }
+    return "other";
 }
 
 inline const char* CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(GLenum type) {
@@ -186,8 +277,12 @@ inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint hand
 	int *params3 = NULL;
 
 	glGetProgramStageiv(handle, shaderStage, GL_ACTIVE_SUBROUTINE_UNIFORMS, &params);
+	bool headerPrinted = false;
 	if( params > 0 ) {
-        if( printHeader ) printf( "[INFO]: >--------------------------------------------------------<\n");
+        if( printHeader ) {
+            printf( "[INFO]: >--------------------------------------------------------<\n");
+            headerPrinted = true;
+        }
         printf("[INFO]: | GL_ACTIVE_SUBROUTINE_UNIFORMS (%-15s): %5i |\n", CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage), params);
         for(int i = 0; i < params; i++ ) {
             char name[256];
@@ -216,15 +311,24 @@ inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint hand
             free(params3);
         }
 	}
-	return (params > 0);
+	return !headerPrinted;
 }
 
 inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle ) {
-    fprintf(stderr, "[WARN]: CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(GLuint) is deprecated.  Replace with printShaderProgramInfo(GLuint, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean)");
-    printShaderProgramInfo(handle, false, false, false, false, false, true);
+    fprintf(stderr, "[WARN]: CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(GLuint) is deprecated.  Replace with printShaderProgramInfo(GLuint, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean)");
+    printShaderProgramInfo(handle, false, false, false, false, false, false, true);
 }
 
-inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean useLastNewLine = true ) {
+inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean useLastNewLine ) {
+    fprintf(stderr, "[WARN]: CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(GLuint, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean)) is deprecated.  Replace with printShaderProgramInfo(GLuint, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean)");
+    printShaderProgramInfo(handle, hasVertexShader, hasTessControlShader, hasTessEvalShader, hasGeometryShader, hasFragmentShader, false, useLastNewLine);
+}
+
+inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean hasComputeShader, GLboolean useLastNewLine = true ) {
+    GLint major, minor;
+    glGetIntegerv(GL_MAJOR_VERSION, &major);
+    glGetIntegerv(GL_MINOR_VERSION, &minor);
+
 	int params;
 
     GLuint shaders[6];
@@ -239,7 +343,23 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
             glGetShaderiv( shaders[i], GL_SHADER_TYPE, &shaderType );
             if( sDEBUG ) printf("[INFO]: |   %i) %-38s Handle: %2i |\n", i, GL_shader_type_to_string(shaderType), shaders[i]);
         }
+    }
 
+    if(sDEBUG) {
+        if(hasGeometryShader) {
+            if( major > 3 || (major >= 3 && minor >= 2)  ) {
+                GLint verticesOut, inputType, outputType;
+                glGetProgramiv(handle, GL_GEOMETRY_VERTICES_OUT, &verticesOut);
+                glGetProgramiv(handle, GL_GEOMETRY_INPUT_TYPE,   &inputType);
+                glGetProgramiv(handle, GL_GEOMETRY_OUTPUT_TYPE,  &outputType);
+
+                printf( "[INFO]: >--------------------------------------------------------<\n");
+                printf( "[INFO]: | GEOMETRY SHADER PRIMITIVE I/O                          |\n");
+                printf( "[INFO]: |   Input Type: %40s |\n", GL_primitive_type_to_string(inputType) );
+                printf( "[INFO]: |   Output Type: %39s |\n", GL_primitive_type_to_string(outputType) );
+                printf( "[INFO]: |   Max Vertices Out: %34d |\n", verticesOut );
+            }
+        }
     }
 
     if(hasVertexShader) {
@@ -259,11 +379,11 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
                         char long_name[64];
                         sprintf( long_name, "%s[%i]", name, j );
                         int location = glGetAttribLocation( handle, long_name );
-                        if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n", i, GL_type_to_string( type ), long_name, location );
+                        if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string( type ), long_name, location );
                     }
                 } else {
                     int location = glGetAttribLocation( handle, name );
-                    if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n",i, GL_type_to_string( type ), name, location );
+                    if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n",i, GLSL_type_to_string( type ), name, location );
                 }
             }
         }
@@ -285,19 +405,21 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
                     char long_name[64];
                     sprintf(long_name, "%s[%i]", name, j);
                     int location = glGetUniformLocation(handle, long_name);
-                    if( sDEBUG ) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n",
-                            i, GL_type_to_string(type), long_name, location);
+                    if(location != -1) {
+                        if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string(type), long_name, location);
+                    }
                 }
             } else {
                 int location = glGetUniformLocation(handle, name);
-                if( sDEBUG ) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n",
-                        i, GL_type_to_string(type), name, location);
+                if(location != -1) {
+                    if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n",i, GLSL_type_to_string(type), name, location);
+                }
             }
         }
     }
 
-    int vsCount, tcsCount, tesCount, gsCount, fsCount;
-    vsCount = tcsCount = tesCount = gsCount = fsCount = 0;
+    int vsCount, tcsCount, tesCount, gsCount, fsCount, csCount;
+    vsCount = tcsCount = tesCount = gsCount = fsCount = csCount = 0;
 
     glGetProgramiv(handle, GL_ACTIVE_UNIFORM_BLOCKS, &params);
     if( params > 0 ) {
@@ -320,13 +442,14 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
 
             if( sDEBUG ) printf("[INFO]: | %d) %-34s   # Uniforms: %2d |\n", i, name, params2);
 
-            GLint vs, tcs, tes, gs, fs;
+            GLint vs, tcs, tes, gs, fs, cs;
             glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER, &vs);			if( vs ) vsCount++;
             glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER, &tcs);	if( tcs) tcsCount++;
             glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER, &tes);	if( tes) tesCount++;
             glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER, &gs);			if( gs ) gsCount++;
             glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER, &fs);			if( fs ) fsCount++;
-            if( sDEBUG ) printf("[INFO]: |   Used in: %-4s %-8s %-8s %-3s %-4s   Shader(s) |\n", (vs ? "Vert" : ""), (tcs ? "TessCtrl" : ""), (tes ? "TessEval" : ""), (gs ? "Geo" : ""), (fs ? "Frag" : ""));
+            glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_COMPUTE_SHADER, &cs);			if( cs ) csCount++;
+            if( sDEBUG ) printf("[INFO]: |   Used in: %-4s %-4s %-4s %-3s %-4s %-4s      Shader(s) |\n", (vs ? "Vert" : ""), (tcs ? "Ctrl" : ""), (tes ? "Eval" : ""), (gs ? "Geo" : ""), (fs ? "Frag" : ""), (cs ? "Comp" : ""));
 
             int maxUniLength;
             glGetProgramiv(handle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxUniLength);
@@ -336,17 +459,22 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
                 int uniSize;
                 glGetActiveUniform(handle, indices[j], maxUniLength, &actualLen, &uniSize, &type, name2);
 
-                if( sDEBUG ) printf("[INFO]: |  %2d) type: %-5s name: %-10s index: %2d offset: %2d |\n", j, GL_type_to_string(type), name2, indices[j], offsets[j]);
+                if( sDEBUG ) {
+                    printf("[INFO]: |  %2d) type: %-15s name: %-21s |\n", j, GLSL_type_to_string(type), name2);
+                    printf("[INFO]: |      uniform index: %3d    offset: %4d                |\n", indices[j], offsets[j]);
+                }
             }
         }
 
-        if( vsCount + tcsCount + tesCount + gsCount + vsCount > 0 ) {
-            if( sDEBUG ) printf( "[INFO]: | Shader Uniform Block Counts                            |\n");
+        if( vsCount + tcsCount + tesCount + gsCount + fsCount + csCount > 0 ) {
+            GLint maxUniBlocks = 0;
+            glGetIntegerv( GL_MAX_COMBINED_UNIFORM_BLOCKS, &maxUniBlocks );
+            if( sDEBUG ) printf( "[INFO]: | Shader Uniform Block Counts                     %2d/%2d  |\n", params, maxUniBlocks);
             if( hasVertexShader ) {
                 GLint maxVertexUniformBlocks = 0;
                 glGetIntegerv( GL_MAX_VERTEX_UNIFORM_BLOCKS, &maxVertexUniformBlocks );
 
-                if( sDEBUG ) printf( "[INFO]: |   Vertex   Shader Uniform Blocks: %16d/%2d  |\n", vsCount, maxVertexUniformBlocks );
+                if( sDEBUG ) printf( "[INFO]: |   Vertex Shader Uniform Blocks: %18d/%2d  |\n", vsCount, maxVertexUniformBlocks );
             }
             if( hasTessControlShader ) {
                 GLint maxTessControlUniformBlocks = 0;
@@ -372,40 +500,197 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
 
                 if( sDEBUG ) printf( "[INFO]: |   Fragment Shader Uniform Blocks: %16d/%2d  |\n", fsCount, maxFragmentUniformBlocks );
             }
+            if( hasComputeShader ) {
+                GLint maxComputeUniformBlocks = 0;
+                glGetIntegerv( GL_MAX_COMPUTE_UNIFORM_BLOCKS, &maxComputeUniformBlocks );
+
+                if( sDEBUG ) printf( "[INFO]: |   Compute Shader Uniform Blocks: %17d/%2d  |\n", csCount, maxComputeUniformBlocks );
+            }
         }
     }
 
     if( sDEBUG ) {
-        GLint major, minor;
-        glGetIntegerv(GL_MAJOR_VERSION, &major);
-        glGetIntegerv(GL_MINOR_VERSION, &minor);
+        if((major == 4 && minor >= 3) || major > 4) {
+            GLint params[1];
+            glGetProgramInterfaceiv(handle, GL_SHADER_STORAGE_BLOCK, GL_ACTIVE_RESOURCES, params);
+            if(params[0] > 0) {
+                GLint maxLen;
+                glGetProgramInterfaceiv(handle, GL_SHADER_STORAGE_BLOCK, GL_MAX_NAME_LENGTH, &maxLen);
+                GLchar *ssboName = (GLchar*)malloc(sizeof(GLchar)*maxLen);
+                GLsizei ssboNameLen;
 
-        if(hasGeometryShader) {
-            if( major > 3 || (major >= 3 && minor >= 2)  ) {
-                GLint verticesOut, inputType, outputType;
-                glGetProgramiv(handle, GL_GEOMETRY_VERTICES_OUT, &verticesOut);
-                glGetProgramiv(handle, GL_GEOMETRY_INPUT_TYPE,   &inputType);
-                glGetProgramiv(handle, GL_GEOMETRY_OUTPUT_TYPE,  &outputType);
+                const int NUM_PROPS = 7;
+                GLenum props[NUM_PROPS] = {GL_BUFFER_BINDING,
+                                           GL_REFERENCED_BY_VERTEX_SHADER,
+                                           GL_REFERENCED_BY_TESS_CONTROL_SHADER, GL_REFERENCED_BY_TESS_EVALUATION_SHADER,
+                                           GL_REFERENCED_BY_GEOMETRY_SHADER,
+                                           GL_REFERENCED_BY_FRAGMENT_SHADER,
+                                           GL_REFERENCED_BY_COMPUTE_SHADER};
+                GLsizei numWritten;
+                GLint results[NUM_PROPS];
+
+                int vSSB, teSSB, tcSSB, gSSB, fSSB, cSSB;
+                vSSB = teSSB = tcSSB = gSSB = fSSB = cSSB = 0;
 
                 printf( "[INFO]: >--------------------------------------------------------<\n");
-                printf( "[INFO]: | GEOMETRY SHADER PRIMITIVE I/O                          |\n");
-                printf( "[INFO]: |   Input Type: %40s |\n", GL_primitive_type_to_string(inputType) );
-                printf( "[INFO]: |   Output Type: %39s |\n", GL_primitive_type_to_string(outputType) );
-                printf( "[INFO]: |   Max Vertices Out: %34d |\n", verticesOut );
+                printf( "[INFO]: | GL_SHADER_STORAGE_BLOCK: %29d |\n", params[0] );
+                for(int i = 0; i < params[0]; i++) {
+                    glGetProgramResourceName(handle, GL_SHADER_STORAGE_BLOCK, i, maxLen, &ssboNameLen, ssboName);
+                    GLuint ssboIndex = glGetProgramResourceIndex(handle, GL_SHADER_STORAGE_BLOCK, ssboName);
+                    glGetProgramResourceiv(handle, GL_SHADER_STORAGE_BLOCK, i, NUM_PROPS, props, NUM_PROPS, &numWritten, results);
+
+                    printf( "[INFO]: | %3d) name: %-19s index: %3d binding: %3d |\n", i, ssboName, ssboIndex, results[0] );
+                    printf( "[INFO]: |   Used in: %-4s %-4s %-4s %-3s %-4s %-4s      Shader(s) |\n", (results[1] ? "Vert" : ""), (results[2] ? "Ctrl" : ""), (results[3] ? "Eval" : ""), (results[4] ? "Geo" : ""), (results[5] ? "Frag" : ""), (results[6] ? "Comp" : ""));
+
+                    if(results[1]) vSSB++;
+                    if(results[2]) teSSB++;
+                    if(results[3]) tcSSB++;
+                    if(results[4]) gSSB++;
+                    if(results[5]) fSSB++;
+                    if(results[6]) cSSB++;
+                }
+
+                GLint maxSSBCounters = 0;
+                glGetIntegerv( GL_MAX_COMBINED_SHADER_STORAGE_BLOCKS, &maxSSBCounters );
+                printf( "[INFO]: | Shader Storage Block Counts:                   %2d/%2d   |\n", params[0], maxSSBCounters );
+                if(hasVertexShader) {
+                    GLint maxVertSSB = 0;
+                    glGetIntegerv( GL_MAX_VERTEX_SHADER_STORAGE_BLOCKS, &maxVertSSB );
+                    printf( "[INFO]: |   Vertex Shader Storage Blocks:                %2d/%2d   |\n", vSSB, maxVertSSB );
+                }
+                if(hasTessControlShader) {
+                    GLint maxTESSB = 0;
+                    glGetIntegerv( GL_MAX_TESS_CONTROL_SHADER_STORAGE_BLOCKS, &maxTESSB );
+                    printf( "[INFO]: |   Tess Ctrl Shader Storage Blocks:              %2d/%2d   |\n", teSSB, maxTESSB );
+                }
+                if(hasTessEvalShader) {
+                    GLint maxTCSSB = 0;
+                    glGetIntegerv( GL_MAX_TESS_EVALUATION_SHADER_STORAGE_BLOCKS, &maxTCSSB );
+                    printf( "[INFO]: |   Tess Eval Shader Storage Blocks:              %2d/%2d   |\n", tcSSB, maxTCSSB );
+                }
+                if(hasGeometryShader) {
+                    GLint maxGeoSSB = 0;
+                    glGetIntegerv( GL_MAX_GEOMETRY_SHADER_STORAGE_BLOCKS, &maxGeoSSB );
+                    printf( "[INFO]: |   Geometry Shader Storage Blocks:              %2d/%2d   |\n", gSSB, maxGeoSSB );
+                }
+                if(hasFragmentShader) {
+                    GLint maxFragSSB = 0;
+                    glGetIntegerv( GL_MAX_FRAGMENT_SHADER_STORAGE_BLOCKS, &maxFragSSB );
+                    printf( "[INFO]: |   Fragment Shader Storage Blocks:              %2d/%2d   |\n", fSSB, maxFragSSB );
+                }
+                if(hasComputeShader) {
+                    GLint maxComputeSSB = 0;
+                    glGetIntegerv( GL_MAX_COMPUTE_SHADER_STORAGE_BLOCKS, &maxComputeSSB );
+                    printf( "[INFO]: |   Compute Shader Storage Blocks:                %2d/%2d   |\n", cSSB, maxComputeSSB );
+                }
+            }
+        }
+
+        if((major == 4 && minor >= 2) || major > 4) {
+            GLint params[1];
+            glGetProgramInterfaceiv(handle, GL_ATOMIC_COUNTER_BUFFER, GL_ACTIVE_RESOURCES, params);
+            if(params[0] > 0) {
+                GLint maxLen;
+                glGetProgramInterfaceiv(handle, GL_ATOMIC_COUNTER_BUFFER, GL_MAX_NAME_LENGTH, &maxLen);
+                GLchar *atomicName = (GLchar*)malloc(sizeof(GLchar)*maxLen);
+                GLsizei atomicNameLen;
+
+                const int NUM_PROPS = 7;
+                GLenum props[NUM_PROPS] = {GL_BUFFER_BINDING,
+                                           GL_REFERENCED_BY_VERTEX_SHADER,
+                                           GL_REFERENCED_BY_TESS_CONTROL_SHADER, GL_REFERENCED_BY_TESS_EVALUATION_SHADER,
+                                           GL_REFERENCED_BY_GEOMETRY_SHADER,
+                                           GL_REFERENCED_BY_FRAGMENT_SHADER,
+                                           GL_REFERENCED_BY_COMPUTE_SHADER};
+                GLsizei numWritten;
+                GLint results[NUM_PROPS];
+
+                printf( "[INFO]: >--------------------------------------------------------<\n");
+                printf( "[INFO]: | GL_ATOMIC_COUNTER_BUFFER: %28d |\n", params[0] );
+
+                int vAC, teAC, tcAC, gAC, fAC, cAC;
+                vAC = teAC = tcAC = gAC = fAC = cAC = 0;
+
+                GLint numUniforms;
+                glGetProgramiv(handle, GL_ACTIVE_UNIFORMS, &numUniforms);
+                for(int j = 0; j < numUniforms; j++) {
+                    char atomicName[64];
+                    int max_length = 64;
+                    int actual_length = 0;
+                    int size = 0;
+                    GLenum type;
+                    glGetActiveUniform( handle, j, max_length, &actual_length, &size, &type, atomicName );
+
+                    GLuint atomicIndex = glGetProgramResourceIndex(handle, GL_UNIFORM, atomicName);
+
+                    GLenum atomicProps[1] = {GL_ATOMIC_COUNTER_BUFFER_INDEX};
+                    GLint atomicResults[1];
+                    glGetProgramResourceiv(handle, GL_UNIFORM, atomicIndex, 1, atomicProps, 1, nullptr, atomicResults);
+
+                    if(atomicResults[0] != -1) {
+                        glGetProgramResourceiv(handle, GL_ATOMIC_COUNTER_BUFFER, atomicResults[0], NUM_PROPS, props, NUM_PROPS, &numWritten, results);
+
+                        printf( "[INFO]: | %3d) type: %-15s name: %-21s |\n", atomicResults[0], GLSL_type_to_string(type), atomicName );
+                        printf( "[INFO]: |      uniform index: %3d atomic index: %3d binding: %3d |\n", atomicIndex, atomicResults[0], results[0] );
+                        printf( "[INFO]: |   Used in: %-4s %-4s %-4s %-3s %-4s %-4s      Shader(s) |\n", (results[1] ? "Vert" : ""), (results[2] ? "Ctrl" : ""), (results[3] ? "Eval" : ""), (results[4] ? "Geo" : ""), (results[5] ? "Frag" : ""), (results[6] ? "Comp" : ""));
+
+                        if(results[1]) vAC++;
+                        if(results[2]) teAC++;
+                        if(results[3]) tcAC++;
+                        if(results[4]) gAC++;
+                        if(results[5]) fAC++;
+                        if(results[6]) cAC++;
+                    }
+                }
+
+                GLint maxAtomicCounters = 0;
+                glGetIntegerv( GL_MAX_COMBINED_ATOMIC_COUNTERS, &maxAtomicCounters );
+                printf( "[INFO]: | Atomic Counter Counts:                     %4d/%4d   |\n", params[0], maxAtomicCounters );
+                if(hasVertexShader) {
+                    GLint maxVertAtomicCounters = 0;
+                    glGetIntegerv( GL_MAX_VERTEX_ATOMIC_COUNTERS, &maxVertAtomicCounters );
+                    printf( "[INFO]: |   Vertex Atomic Counters:                  %4d/%4d   |\n", vAC, maxVertAtomicCounters );
+                }
+                if(hasTessControlShader) {
+                    GLint maxTCAtomicCounters = 0;
+                    glGetIntegerv( GL_MAX_TESS_CONTROL_ATOMIC_COUNTERS, &maxTCAtomicCounters );
+                    printf( "[INFO]: |   Tess Ctrl Atomic Counters:                %4d/%4d   |\n", teAC, maxTCAtomicCounters );
+                }
+                if(hasTessEvalShader) {
+                    GLint maxTEAtomicCounters = 0;
+                    glGetIntegerv( GL_MAX_TESS_EVALUATION_ATOMIC_COUNTERS, &maxTEAtomicCounters );
+                    printf( "[INFO]: |   Tess Eval Atomic Counters:                %4d/%4d   |\n", tcAC, maxTEAtomicCounters );
+                }
+                if(hasGeometryShader) {
+                    GLint maxGeoAtomicCounters = 0;
+                    glGetIntegerv( GL_MAX_GEOMETRY_ATOMIC_COUNTERS, &maxGeoAtomicCounters );
+                    printf( "[INFO]: |   Geometry Atomic Counters:                  %4d/%4d   |\n", gAC, maxGeoAtomicCounters );
+                }
+                if(hasFragmentShader) {
+                    GLint maxFragAtomicCounters = 0;
+                    glGetIntegerv( GL_MAX_FRAGMENT_ATOMIC_COUNTERS, &maxFragAtomicCounters );
+                    printf( "[INFO]: |   Fragment Atomic Counters:                %4d/%4d   |\n", fAC, maxFragAtomicCounters );
+                }
+                if(hasComputeShader) {
+                    GLint maxComputeAtomicCounters = 0;
+                    glGetIntegerv( GL_MAX_COMPUTE_ATOMIC_COUNTERS, &maxComputeAtomicCounters );
+                    printf( "[INFO]: |   Compute Atomic Counters:                 %4d/%4d   |\n", cAC, maxComputeAtomicCounters );
+                }
             }
         }
 
         if( major >= 4 ) {
             GLboolean printHeader = GL_TRUE;
             if( hasVertexShader   )     printHeader = printSubroutineInfo( handle, GL_VERTEX_SHADER, printHeader );
-			if( hasTessControlShader)   printHeader = printSubroutineInfo( handle, GL_TESS_CONTROL_SHADER, printHeader );
-			if( hasTessEvalShader)      printHeader = printSubroutineInfo( handle, GL_TESS_EVALUATION_SHADER, printHeader );
-			if( hasGeometryShader )     printHeader = printSubroutineInfo( handle, GL_GEOMETRY_SHADER, printHeader );
-			if( hasFragmentShader )     printHeader = printSubroutineInfo( handle, GL_FRAGMENT_SHADER, printHeader );
-		}
+            if( hasTessControlShader)   printHeader = printSubroutineInfo( handle, GL_TESS_CONTROL_SHADER, printHeader );
+            if( hasTessEvalShader)      printHeader = printSubroutineInfo( handle, GL_TESS_EVALUATION_SHADER, printHeader );
+            if( hasGeometryShader )     printHeader = printSubroutineInfo( handle, GL_GEOMETRY_SHADER, printHeader );
+            if( hasFragmentShader )     printHeader = printSubroutineInfo( handle, GL_FRAGMENT_SHADER, printHeader );
+            if( hasComputeShader )      printHeader = printSubroutineInfo( handle, GL_COMPUTE_SHADER, printHeader );
+        }
+    }
 
-		if(useLastNewLine) printf( "[INFO]: \\--------------------------------------------------------/\n\n");
-	}
+    if(useLastNewLine) printf( "[INFO]: \\--------------------------------------------------------/\n\n");
 }
 
 // compileShader() ///////////////////////////////////////////////////////////////
