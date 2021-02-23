@@ -331,8 +331,8 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
 
 	int params;
 
-    GLuint shaders[6];
-    int max_count = 6;
+    GLuint shaders[10];
+    int max_count = 10;
     int actual_count;
     glGetAttachedShaders( handle, max_count, &actual_count, shaders );
     if(actual_count > 0) {
