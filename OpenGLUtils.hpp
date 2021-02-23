@@ -47,11 +47,11 @@ namespace CSCI441 {
      * @brief contains OpenGL Utility functions
      */
     namespace OpenGLUtils {
-        /** @desc Prints information about our OpenGL context
+        /** @brief Prints information about our OpenGL context
          *
          */
         void printOpenGLInfo();
-  	}
+  	};
 
 }
 
@@ -61,6 +61,7 @@ namespace CSCI441 {
 
 namespace CSCI441_INTERNAL {
   void printOpenGLParamHeader( const int major, const int minor );
+  void printOpenGLParamIndexed( const char *format, GLenum name, GLuint index );
   void printOpenGLParam( const char *format, GLenum name );
   void printOpenGLParam2( const char *format, GLenum name );
   void printOpenGLParam3( const char *format, GLenum name );
@@ -185,8 +186,15 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Compute Image Uniforms:  %21d |\n", 						GL_MAX_COMPUTE_IMAGE_UNIFORMS );
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Compute Atomic Counters:  %20d |\n", 					GL_MAX_COMPUTE_ATOMIC_COUNTERS );
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Compute Atomic Counter Buffers:  %13d |\n",				GL_MAX_COMPUTE_ATOMIC_COUNTER_BUFFERS );
-		CSCI441_INTERNAL::printOpenGLParam3("[INFO]: |   Max # Work Groups Per Dispatch: %6d %6d %6d |\n", 				GL_MAX_COMPUTE_WORK_GROUP_COUNT );
-		CSCI441_INTERNAL::printOpenGLParam3("[INFO]: |   Max Work Groups Size: %21d %4d %3d |\n", 						GL_MAX_COMPUTE_WORK_GROUP_SIZE );
+
+		CSCI441_INTERNAL::printOpenGLParamIndexed("[INFO]: |   Max # Work Groups Per Dispatch: %6d", 					GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0 );
+		CSCI441_INTERNAL::printOpenGLParamIndexed(" %6d", 																GL_MAX_COMPUTE_WORK_GROUP_COUNT, 1 );
+		CSCI441_INTERNAL::printOpenGLParamIndexed(" %6d |\n", 															GL_MAX_COMPUTE_WORK_GROUP_COUNT, 2 );
+
+		CSCI441_INTERNAL::printOpenGLParamIndexed("[INFO]: |   Max Work Groups Size: %16d", 							GL_MAX_COMPUTE_WORK_GROUP_SIZE, 0 );
+		CSCI441_INTERNAL::printOpenGLParamIndexed(" %6d", 																GL_MAX_COMPUTE_WORK_GROUP_SIZE, 1 );
+		CSCI441_INTERNAL::printOpenGLParamIndexed(" %6d |\n", 															GL_MAX_COMPUTE_WORK_GROUP_SIZE, 2 );
+
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Invocations Per Work Group: %18d |\n", 					GL_MAX_COMPUTE_WORK_GROUP_INVOCATIONS );
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max Total Storage Size: %22d bytes |\n", 						GL_MAX_COMPUTE_SHARED_MEMORY_SIZE );
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Vertex Shader Storage Blocks:  %15d |\n", 				GL_MAX_VERTEX_SHADER_STORAGE_BLOCKS );
@@ -211,6 +219,12 @@ inline void CSCI441_INTERNAL::printOpenGLParamHeader( const int major, const int
 	fprintf( stdout, "[INFO]: >--------------------------------------------------------<\n");
 	fprintf( stdout, "[INFO]: | OpenGL %d.%d Settings                                    |\n", major, minor);
 	fprintf( stdout, "[INFO]: |--------------------------------------------------------|\n");
+}
+
+inline void CSCI441_INTERNAL::printOpenGLParamIndexed( const char *format, GLenum name, GLuint index ) {
+	GLint value = 0;
+	glGetIntegeri_v( name, index, &value );
+	fprintf( stdout, format, value );
 }
 
 inline void CSCI441_INTERNAL::printOpenGLParam( const char *format, GLenum name ) {
