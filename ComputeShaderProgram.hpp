@@ -112,9 +112,15 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
             _uniformLocations->emplace( name, location );
         }
     }
+    GLint linkStatus;
+    glGetProgramiv( _shaderProgramHandle, GL_LINK_STATUS, &linkStatus );
 
-    // print shader info for uniforms & attributes
-    CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( _shaderProgramHandle, false, false, false, false, false, _computeShaderHandle != 0, true );
+    /* print shader info for uniforms & attributes */
+    if(linkStatus == 1) {
+        // print shader info for uniforms & attributes
+        CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(_shaderProgramHandle, false, false, false, false, false,
+                                                              _computeShaderHandle != 0, true);
+    }
 }
 
 inline void CSCI441::ComputeShaderProgram::dispatchWork(GLuint numGroupsX = 1, GLuint numGroupsY = 1, GLuint numGroupsZ = 1) {

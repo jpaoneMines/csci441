@@ -331,8 +331,8 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
 
 	int params;
 
-    GLuint shaders[10];
-    int max_count = 10;
+    GLuint shaders[6];
+    int max_count = 6;
     int actual_count;
     glGetAttachedShaders( handle, max_count, &actual_count, shaders );
     if(actual_count > 0) {
@@ -581,7 +581,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
                 if(hasComputeShader) {
                     GLint maxComputeSSB = 0;
                     glGetIntegerv( GL_MAX_COMPUTE_SHADER_STORAGE_BLOCKS, &maxComputeSSB );
-                    printf( "[INFO]: |   Compute Shader Storage Blocks:                %2d/%2d   |\n", cSSB, maxComputeSSB );
+                    printf( "[INFO]: |   Compute Shader Storage Blocks:               %2d/%2d   |\n", cSSB, maxComputeSSB );
                 }
             }
         }
@@ -595,13 +595,15 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
                 GLchar *atomicName = (GLchar*)malloc(sizeof(GLchar)*maxLen);
                 GLsizei atomicNameLen;
 
-                const int NUM_PROPS = 7;
+                const int NUM_PROPS = 8;
                 GLenum props[NUM_PROPS] = {GL_BUFFER_BINDING,
                                            GL_REFERENCED_BY_VERTEX_SHADER,
-                                           GL_REFERENCED_BY_TESS_CONTROL_SHADER, GL_REFERENCED_BY_TESS_EVALUATION_SHADER,
+                                           GL_REFERENCED_BY_TESS_CONTROL_SHADER,
+                                           GL_REFERENCED_BY_TESS_EVALUATION_SHADER,
                                            GL_REFERENCED_BY_GEOMETRY_SHADER,
                                            GL_REFERENCED_BY_FRAGMENT_SHADER,
-                                           GL_REFERENCED_BY_COMPUTE_SHADER};
+                                           GL_REFERENCED_BY_COMPUTE_SHADER,
+                                           GL_BUFFER_DATA_SIZE};
                 GLsizei numWritten;
                 GLint results[NUM_PROPS];
 
@@ -630,8 +632,12 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
                     if(atomicResults[0] != -1) {
                         glGetProgramResourceiv(handle, GL_ATOMIC_COUNTER_BUFFER, atomicResults[0], NUM_PROPS, props, NUM_PROPS, &numWritten, results);
 
+                        GLint offset;
+                        glGetActiveUniformsiv(handle, 1, &atomicIndex, GL_UNIFORM_OFFSET, &offset);
+
                         printf( "[INFO]: | %3d) type: %-15s name: %-21s |\n", atomicResults[0], GLSL_type_to_string(type), atomicName );
-                        printf( "[INFO]: |      uniform index: %3d atomic index: %3d binding: %3d |\n", atomicIndex, atomicResults[0], results[0] );
+                        printf( "[INFO]: |      uniform index: %3d    atomic index: %3d           |\n", atomicIndex, atomicResults[0] );
+                        printf( "[INFO]: |      binding: %3d   offset: %3d   buffer size: %4d    |\n", results[0], offset, results[7] );
                         printf( "[INFO]: |   Used in: %-4s %-4s %-4s %-3s %-4s %-4s      Shader(s) |\n", (results[1] ? "Vert" : ""), (results[2] ? "Ctrl" : ""), (results[3] ? "Eval" : ""), (results[4] ? "Geo" : ""), (results[5] ? "Frag" : ""), (results[6] ? "Comp" : ""));
 
                         if(results[1]) vAC++;

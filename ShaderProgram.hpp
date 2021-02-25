@@ -222,6 +222,13 @@ namespace CSCI441 {
         GLuint getSubroutineIndex( GLenum shaderStage, const char *subroutineName );
 
         /**
+         * @desc Returns the binding point for the corresponding image uniform
+         * @param imageName
+         * @return
+         */
+        GLint getImageBinding(const char* imageName);
+
+        /**
          * @desc Returns the binding point for the corresponding shader storage block
          * @param ssboName
          * @return
@@ -234,6 +241,18 @@ namespace CSCI441 {
          * @return
          */
         GLint getAtomicCounterBufferBinding(const char* atomicName);
+        /**
+         * @desc Returns the offset into the buffer for the corresponding atominc counter buffer
+         * @param atomicName
+         * @return
+         */
+        GLint getAtomicCounterBufferOffset(const char* atomicName);
+        /**
+         * @desc Returns the full buffer size for the corresponding atominc counter buffer
+         * @param atomicName
+         * @return
+         */
+        GLint getAtomicCounterBufferSize(const char* atomicName);
 
         /** @desc Returns the number of active uniforms in this shader program
           * @return GLuint - number of active uniforms in this shader program
@@ -667,9 +686,17 @@ inline bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexSha
 
     if( sDEBUG ) printf( "[INFO]: | Program Separable: %35s |\n", (separable ? "Yes" : "No"));
 
-    /* print shader info for uniforms & attributes */
-    CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( _shaderProgramHandle, _vertexShaderHandle != 0, _tesselationControlShaderHandle != 0, _tesselationEvaluationShaderHandle != 0, _geometryShaderHandle != 0, _fragmentShaderHandle != 0, false, true );
+    GLint linkStatus;
+    glGetProgramiv( _shaderProgramHandle, GL_LINK_STATUS, &linkStatus );
 
+    /* print shader info for uniforms & attributes */
+    if(linkStatus == 1) {
+        CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(_shaderProgramHandle, _vertexShaderHandle != 0,
+                                                              _tesselationControlShaderHandle != 0,
+                                                              _tesselationEvaluationShaderHandle != 0,
+                                                              _geometryShaderHandle != 0, _fragmentShaderHandle != 0,
+                                                              false, true);
+    }
     /* return handle */
     return _shaderProgramHandle != 0;
 }
@@ -677,14 +704,14 @@ inline bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexSha
 inline GLint CSCI441::ShaderProgram::getUniformLocation( const char *uniformName ) {
     GLint uniformLoc = glGetUniformLocation( _shaderProgramHandle, uniformName );
     if( uniformLoc == -1 )
-        fprintf( stderr, "[ERROR]: Could not find uniform %s\n", uniformName );
+        fprintf( stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle );
     return uniformLoc;
 }
 
 inline GLint CSCI441::ShaderProgram::getUniformBlockIndex( const char *uniformBlockName ) {
     GLint uniformBlockLoc = glGetUniformBlockIndex( _shaderProgramHandle, uniformBlockName );
     if( uniformBlockLoc == -1 )
-        fprintf( stderr, "[ERROR]: Could not find uniform block %s\n", uniformBlockName );
+        fprintf( stderr, "[ERROR]: Could not find uniform block \"%s\" for Shader Program %u\n", uniformBlockName, _shaderProgramHandle );
     return uniformBlockLoc;
 }
 
@@ -743,22 +770,37 @@ inline void CSCI441::ShaderProgram::setUniformBlockBinding( const char *uniformB
 inline GLint CSCI441::ShaderProgram::getAttributeLocation( const char *attributeName ) {
     GLint attributeLoc = glGetAttribLocation( _shaderProgramHandle, attributeName );
     if( attributeLoc == -1 )
-        fprintf( stderr, "[ERROR]: Could not find attribute %s\n", attributeName );
+        fprintf( stderr, "[ERROR]: Could not find attribute \"%s\" for Shader Program %u\n", attributeName, _shaderProgramHandle );
     return attributeLoc;
 }
 
 inline GLuint CSCI441::ShaderProgram::getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) {
     GLuint subroutineIndex = glGetSubroutineIndex( _shaderProgramHandle, shaderStage, subroutineName );
     if( subroutineIndex == GL_INVALID_INDEX )
-        fprintf( stderr, "[ERROR]: Could not find subroutine %s for %s\n", subroutineName, CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage) );
+        fprintf( stderr, "[ERROR]: Could not find subroutine \"%s\" in %s for Shader Program %u\n", subroutineName, CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage), _shaderProgramHandle );
     return subroutineIndex;
+}
+
+// images are opaque types that are not considered program resources
+inline GLint CSCI441::ShaderProgram::getImageBinding(const char* imageName) {
+    GLuint imageLoc = getUniformLocation(imageName);
+
+    if(imageLoc == -1) {
+        fprintf(stderr, "[ERROR]: Could not find image \"%s\" for Shader Program %u\n", imageName, _shaderProgramHandle);
+        return -1;
+    }
+
+    GLint bindingPoint;
+    glGetUniformiv(_shaderProgramHandle, imageLoc, &bindingPoint);
+
+    return bindingPoint;
 }
 
 inline GLint CSCI441::ShaderProgram::getShaderStorageBlockBinding(const char* ssboName) {
     GLuint ssboIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_SHADER_STORAGE_BLOCK, ssboName);
 
     if(ssboIndex == -1) {
-        fprintf(stderr, "[ERROR]: Could not find shader storage block %s\n", ssboName);
+        fprintf(stderr, "[ERROR]: Could not find shader storage block \"%s\" for Shader Program %u\n", ssboName, _shaderProgramHandle);
         return -1;
     }
 
@@ -771,21 +813,48 @@ inline GLint CSCI441::ShaderProgram::getShaderStorageBlockBinding(const char* ss
 }
 
 inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferBinding(const char* atomicName) {
-    GLuint atomicIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_UNIFORM, atomicName);
+    GLuint uniformIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_UNIFORM, atomicName);
 
-    if(atomicIndex == -1) {
-        fprintf(stderr, "[ERROR]: Could not find atomic counter buffer %s\n", atomicName);
+    if(uniformIndex == -1) {
+        fprintf(stderr, "[ERROR]: Could not find atomic counter \"%s\" for Shader Program %u\n", atomicName, _shaderProgramHandle);
         return -1;
     }
 
-    const int NUM_PROPS = 1;
-    GLenum props[NUM_PROPS] = {GL_ATOMIC_COUNTER_BUFFER_INDEX};
-    GLint results[NUM_PROPS];
-    glGetProgramResourceiv(_shaderProgramHandle, GL_UNIFORM, atomicIndex, NUM_PROPS, props, NUM_PROPS, nullptr, results);
-    props[0] = {GL_BUFFER_BINDING};
-    glGetProgramResourceiv(_shaderProgramHandle, GL_ATOMIC_COUNTER_BUFFER, results[0], NUM_PROPS, props, NUM_PROPS, nullptr, results);
+    GLenum props = GL_ATOMIC_COUNTER_BUFFER_INDEX;
+    GLint atomicIndex, binding;
+    glGetProgramResourceiv(_shaderProgramHandle, GL_UNIFORM, uniformIndex, 1, &props, 1, nullptr, &atomicIndex);
+    glGetActiveAtomicCounterBufferiv(_shaderProgramHandle, atomicIndex, GL_ATOMIC_COUNTER_BUFFER_BINDING, &binding);
 
-    return results[0];
+    return binding;
+}
+
+inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferOffset(const char* atomicName) {
+    GLuint uniformIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_UNIFORM, atomicName);
+
+    if(uniformIndex == -1) {
+        fprintf(stderr, "[ERROR]: Could not find atomic counter \"%s\" for Shader Program %u\n", atomicName, _shaderProgramHandle);
+        return -1;
+    }
+
+    GLint offset;
+    glGetActiveUniformsiv(_shaderProgramHandle, 1, &uniformIndex, GL_UNIFORM_OFFSET, &offset);
+    return offset;
+}
+
+inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferSize(const char* atomicName) {
+    GLuint uniformIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_UNIFORM, atomicName);
+
+    if(uniformIndex == -1) {
+        fprintf(stderr, "[ERROR]: Could not find atomic counter \"%s\" for Shader Program %u\n", atomicName, _shaderProgramHandle);
+        return -1;
+    }
+
+    GLenum props = GL_ATOMIC_COUNTER_BUFFER_INDEX;
+    GLint atomicIndex, bufferSize;
+    glGetProgramResourceiv(_shaderProgramHandle, GL_UNIFORM, uniformIndex, 1, &props, 1, nullptr, &atomicIndex);
+    glGetActiveAtomicCounterBufferiv(_shaderProgramHandle, atomicIndex, GL_ATOMIC_COUNTER_BUFFER_DATA_SIZE, &bufferSize);
+
+    return bufferSize;
 }
 
 inline GLuint CSCI441::ShaderProgram::getNumUniforms() {
