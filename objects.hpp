@@ -26,13 +26,17 @@
 
 #include <map>							// for map
 
+#ifndef M_PI
+#define M_PI 3.141529
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////////
 
 /** @namespace CSCI441
  * @brief CSCI441 Helper Functions for OpenGL
  */
 namespace CSCI441 {
-    /**	@desc Sets the attribute locations for vertex positions, normals, and texture coordinates
+    /**	@brief Sets the attribute locations for vertex positions, normals, and texture coordinates
         *
         *	Needs to be called after a shader program is being used and before drawing geometry
         *
@@ -42,17 +46,17 @@ namespace CSCI441 {
         */
     void setVertexAttributeLocations( GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1 );
 
-    /** @desc deletes the VAOs stored for all object types
+    /** @brief deletes the VAOs stored for all object types
      *
      */
     void deleteObjectVAOs();
 
-    /** @desc deletes the VBOs stored for all object types
+    /** @brief deletes the VBOs stored for all object types
      *
      */
     void deleteObjectVBOs();
 
-    /**	@desc Draws a solid cone
+    /**	@brief Draws a solid cone
       *
         *	Cone is oriented along the y-axis with the origin along the base of the cone
         *
@@ -66,7 +70,7 @@ namespace CSCI441 {
         * @pre slices must be greater than two
       */
     void drawSolidCone( GLfloat base, GLfloat height, GLint stacks, GLint slices );
-    /**	@desc Draws a wireframe cone
+    /**	@brief Draws a wireframe cone
       *
         *	Cone is oriented along the y-axis with the origin along the base of the cone
         *
@@ -81,13 +85,13 @@ namespace CSCI441 {
       */
     void drawWireCone( GLfloat base, GLfloat height, GLint stacks, GLint slices );
 
-    /** @desc Calls through to drawSolidCubeIndexed()
+    /** @brief Calls through to drawSolidCubeIndexed()
         *
         * @param GLfloat sideLength - length of the edge of the cube
         * @pre sideLength must be greater than zero
         */
     void drawSolidCube( GLfloat sideLength );
-    /** @desc Draws a solid cube with normals aligned with cube face
+    /** @brief Draws a solid cube with normals aligned with cube face
   *
     *	The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
     *
@@ -95,7 +99,7 @@ namespace CSCI441 {
     * @pre sideLength must be greater than zero
     */
     void drawSolidCubeFlat( GLfloat sideLength );
-    /** @desc Draws a solid cube
+    /** @brief Draws a solid cube
 		  *
 			*	The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
 			*
@@ -103,7 +107,7 @@ namespace CSCI441 {
 			* @pre sideLength must be greater than zero
 			*/
     void drawSolidCubeIndexed( GLfloat sideLength );
-    /** @desc Draws a solid textured cube.  Calls through to drawSolidCubeFlat()
+    /** @brief Draws a solid textured cube.  Calls through to drawSolidCubeFlat()
 		  *
 			*	The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
 			*
@@ -111,7 +115,7 @@ namespace CSCI441 {
 			* @pre sideLength must be greater than zero
 			*/
     void drawSolidCubeTextured( GLfloat sideLength );
-    /** @desc Draws a wireframe cube
+    /** @brief Draws a wireframe cube
       *
         *	The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
         *
@@ -120,7 +124,7 @@ namespace CSCI441 {
         */
     void drawWireCube( GLfloat sideLength );
 
-    /**	@desc Draws a solid open ended cylinder
+    /**	@brief Draws a solid open ended cylinder
       *
         *	Cylinder is oriented along the y-axis with the origin along the base
         *
@@ -135,7 +139,7 @@ namespace CSCI441 {
         * @pre slices must be greater than two
       */
     void drawSolidCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices );
-    /**	@desc Draws a wireframe open ended cylinder
+    /**	@brief Draws a wireframe open ended cylinder
       *
         *	Cylinder is oriented along the y-axis with the origin along the base
         *
@@ -151,7 +155,7 @@ namespace CSCI441 {
       */
     void drawWireCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices );
 
-    /** @desc Draws a solid disk
+    /** @brief Draws a solid disk
       *
         *	Disk is drawn in the XY plane with the origin at its center
         *
@@ -166,7 +170,7 @@ namespace CSCI441 {
         * @pre rings is greater than zero
         */
     void drawSolidDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings );
-    /** @desc Draws a wireframe disk
+    /** @brief Draws a wireframe disk
       *
         *	Disk is drawn in the XY plane with the origin at its center
         *
@@ -182,7 +186,7 @@ namespace CSCI441 {
         */
     void drawWireDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings );
 
-    /** @desc Draws part of a solid disk
+    /** @brief Draws part of a solid disk
       *
         *	Disk is drawn in the XY plane with the origin at its center
         *
@@ -201,7 +205,7 @@ namespace CSCI441 {
         * @pre sweep is between [0, 360]
         */
     void drawSolidPartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep );
-    /** @desc Draws part of a wireframe disk
+    /** @brief Draws part of a wireframe disk
       *
         *	Disk is drawn in the XY plane with the origin at its center
         *
@@ -221,7 +225,7 @@ namespace CSCI441 {
         */
     void drawWirePartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep );
 
-    /** @desc Draws a solid sphere
+    /** @brief Draws a solid sphere
       *
         *	Origin is at the center of the sphere
         *
@@ -233,7 +237,7 @@ namespace CSCI441 {
         * @pre slices must be greater than 2
         */
     void drawSolidSphere( GLfloat radius, GLint stacks, GLint slices );
-    /** @desc Draws a wireframe sphere
+    /** @brief Draws a wireframe sphere
       *
         *	Origin is at the center of the sphere
         *
@@ -246,7 +250,7 @@ namespace CSCI441 {
         */
     void drawWireSphere( GLfloat radius, GLint stacks, GLint slices );
 
-    /** @desc Draws a solid teapot
+    /** @brief Draws a solid teapot
       *
         *	Oriented with spout and handle running along X-axis, cap and bottom along Y-axis.  Origin is at the
         *	center of the teapot
@@ -255,7 +259,7 @@ namespace CSCI441 {
         *	@pre size must be greater than zero
         */
     void drawSolidTeapot( GLfloat size );
-    /** @desc Draws a wireframe teapot
+    /** @brief Draws a wireframe teapot
       *
         *	Oriented with spout and handle running along X-axis, cap and bottom along Y-axis.  Origin is at the
         *	center of the teapot
@@ -265,7 +269,7 @@ namespace CSCI441 {
         */
     void drawWireTeapot( GLfloat size );
 
-    /** @desc Draws a solid torus
+    /** @brief Draws a solid torus
       *
         * Torus is oriented in the XY-plane with the origin at its center
         *
@@ -279,7 +283,7 @@ namespace CSCI441 {
         * @pre rings must be greater than two
         */
     void drawSolidTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings );
-    /** @desc Draws a wireframe torus
+    /** @brief Draws a wireframe torus
       *
         * Torus is oriented in the XY-plane with the origin at its center
         *

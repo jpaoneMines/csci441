@@ -270,7 +270,7 @@ namespace CSCI441 {
         /** @desc Returns the handle for this shader program
           * @return GLuint - handle for this shader program
           */
-        GLuint getShaderProgramHandle();
+        GLuint getShaderProgramHandle() const;
 
         /** @desc Sets the Shader Program to be active
           */
@@ -875,7 +875,7 @@ inline GLuint CSCI441::ShaderProgram::getNumAttributes() {
     return numAttr;
 }
 
-inline GLuint CSCI441::ShaderProgram::getShaderProgramHandle() {
+inline GLuint CSCI441::ShaderProgram::getShaderProgramHandle() const {
     return _shaderProgramHandle;
 }
 

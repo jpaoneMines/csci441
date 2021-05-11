@@ -1,7 +1,7 @@
 /** @file ShaderProgramPipeline.hpp
  * @brief Class to work with OpenGL 4.0+ Shaders
  * @author Dr. Jeffrey Paone
- * @date Last Edit: 28 Jan 2021
+ * @date Last Edit: 07 May 2021
  * @version 2.2.0
  *
  * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
@@ -16,7 +16,6 @@
 #include "ShaderProgram.hpp"
 
 #include <stdlib.h>
-#include <map>
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -44,7 +43,7 @@ namespace CSCI441 {
         ShaderProgramPipeline();
         ~ShaderProgramPipeline();
 
-        void useProgramStages( GLbitfield programStages, ShaderProgram *shaderProgram );
+        void useProgramStages( GLbitfield programStages, const ShaderProgram *shaderProgram );
 
         void bindPipeline();
 
@@ -54,8 +53,6 @@ namespace CSCI441 {
         static bool sDEBUG;
 
         GLuint _pipelineHandle;
-
-        std::map< GLuint, GLbitfield > *_programs;
     };
 }
 
@@ -70,59 +67,47 @@ inline void CSCI441::ShaderProgramPipeline::disableDebugMessages() {
     sDEBUG = false;
 }
 
-CSCI441::ShaderProgramPipeline::ShaderProgramPipeline() {
+inline CSCI441::ShaderProgramPipeline::ShaderProgramPipeline() {
     glGenProgramPipelines(1,& _pipelineHandle);
-
-    _programs = new std::map< GLuint, GLbitfield >();
 }
 
-CSCI441::ShaderProgramPipeline::~ShaderProgramPipeline() {
-    delete _programs;
+inline CSCI441::ShaderProgramPipeline::~ShaderProgramPipeline() {
+    
 }
 
-void CSCI441::ShaderProgramPipeline::useProgramStages( GLbitfield programStages, ShaderProgram *shaderProgram ) {
+inline void CSCI441::ShaderProgramPipeline::useProgramStages( GLbitfield programStages, const ShaderProgram *shaderProgram ) {
     glUseProgramStages( _pipelineHandle, programStages, shaderProgram->getShaderProgramHandle() );
-
-    _programs->emplace( shaderProgram->getShaderProgramHandle(), programStages );
 }
 
-void CSCI441::ShaderProgramPipeline::bindPipeline() {
-    glUseProgram(0);    // unuse any existing program that may have previously been used.  programs override pipeline
+inline void CSCI441::ShaderProgramPipeline::bindPipeline() {
+    glUseProgram(0);    // unuse any existing program that may have previously been used.  programs override pipelines
     glBindProgramPipeline( _pipelineHandle );
 }
 
-void CSCI441::ShaderProgramPipeline::printPipelineInfo() {
+inline void CSCI441::ShaderProgramPipeline::printPipelineInfo() {
     if( sDEBUG ) {
-        printf( "[INFO]: /========================================================\\\n");
+        printf( "\n[INFO]: /--------------------------------------------------------\\\n");
         printf( "[INFO]: | Program Pipeline:                                      |\n");
         printf( "[INFO]: |   Pipeline Handle: %4u %32c\n", _pipelineHandle, '|' );
+				
+		CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog(_pipelineHandle);
+		
+		printf( "[INFO]: >--------------------------------------------------------<\n");
 
-        for( const auto& program : *_programs ) {
-            printf( "[INFO]: >========================================================<\n");
-            GLuint programHandle = program.first;
-            GLbitfield programStages = program.second;
+		GLint vs, tcs, tes, gs, fs;
+		glGetProgramPipelineiv( _pipelineHandle, GL_VERTEX_SHADER, &vs );
+		glGetProgramPipelineiv( _pipelineHandle, GL_TESS_CONTROL_SHADER, &tcs );
+		glGetProgramPipelineiv( _pipelineHandle, GL_TESS_EVALUATION_SHADER, &tes );
+		glGetProgramPipelineiv( _pipelineHandle, GL_GEOMETRY_SHADER, &gs );
+		glGetProgramPipelineiv( _pipelineHandle, GL_FRAGMENT_SHADER, &fs );
+		
+		if( vs != 0 )  printf( "[INFO]: |   Vertex    Shader Program Handle: %2d                  |\n", vs );
+		if( tcs != 0 ) printf( "[INFO]: |   Tess Ctrl Shader Program Handle: %2d                  |\n", tcs );
+		if( tes != 0 ) printf( "[INFO]: |   Tess Eval Shader Program Handle: %2d                  |\n", tes );
+		if( gs != 0 )  printf( "[INFO]: |   Geometry  Shader Program Handle: %2d                  |\n", gs );
+		if( fs != 0 )  printf( "[INFO]: |   Fragment  Shader Program Handle: %2d                  |\n", fs );
 
-            GLboolean hasVertexShader       = ((programStages & GL_VERTEX_SHADER_BIT )           == GL_VERTEX_SHADER_BIT            );
-            GLboolean hasTessControlShader  = ((programStages & GL_TESS_CONTROL_SHADER_BIT )     == GL_TESS_CONTROL_SHADER_BIT      );
-            GLboolean hasTessEvalShader     = ((programStages & GL_TESS_EVALUATION_SHADER_BIT )  == GL_TESS_EVALUATION_SHADER_BIT   );
-            GLboolean hasGeometryShader     = ((programStages & GL_GEOMETRY_SHADER_BIT )         == GL_GEOMETRY_SHADER_BIT          );
-            GLboolean hasFragmentShader     = ((programStages & GL_FRAGMENT_SHADER_BIT )         == GL_FRAGMENT_SHADER_BIT          );
-
-            printf( "[INFO]: | Shader Program Handle: %31u |\n", programHandle );
-            printf( "[INFO]: |   Uses:    %-4s %-8s %-8s %-3s %-4s   Shader(s) |\n",
-                   (hasVertexShader ? "Vert" : ""),
-                   (hasTessControlShader ? "TessCtrl" : ""),
-                   (hasTessEvalShader ? "TessEval" : ""),
-                   (hasGeometryShader ? "Geo" : ""),
-                   (hasFragmentShader ? "Frag" : ""));
-
-
-            CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( programHandle,
-                                                                   hasVertexShader, hasTessControlShader, hasTessEvalShader, hasGeometryShader, hasFragmentShader,
-                                                                   false );
-        }
-
-        printf( "[INFO]: \\========================================================/\n");
+        printf( "[INFO]: \\--------------------------------------------------------/\n");
         printf( "\n");
     }
 }

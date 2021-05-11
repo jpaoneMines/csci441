@@ -36,10 +36,14 @@ namespace CSCI441_INTERNAL {
 		const char* GL_shader_type_to_string( GLenum type );
 		const char* GL_primitive_type_to_string( GLenum type );
 
-		void readTextFromFile( const char* filename, char* &output );
+		bool readTextFromFile( const char* filename, char* &output );
 		GLuint compileShader( const char *filename, GLenum shaderType );
 
 		void printLog( GLuint handle );
+		void printShaderLog( GLuint shaderHandle );
+		void printProgramLog( GLuint programHandle );
+		void printProgramPipelineLog( GLuint pipelineHandle );
+		
 		GLboolean printSubroutineInfo( GLuint handle, GLenum shaderStage, GLboolean printHeader );
 		void printShaderProgramInfo( GLuint handle );
         void printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean useLastNewLine );
@@ -62,23 +66,26 @@ inline void CSCI441_INTERNAL::ShaderUtils::disableDebugMessages() {
 //  Reads in a text file as a single string. Used to aid in shader loading.
 //
 ////////////////////////////////////////////////////////////////////////////////
-inline void CSCI441_INTERNAL::ShaderUtils::readTextFromFile(const char *filename, char* &output){
+inline bool CSCI441_INTERNAL::ShaderUtils::readTextFromFile(const char *filename, char* &output){
     std::string buf = std::string("");
     std::string line;
 
     std::ifstream in(filename);
     if( !in.is_open() ) {
     	fprintf( stderr, "[ERROR]: Could not open file %s\n", filename );
-    	return;
+    	return false;
     }
     while( std::getline(in, line) ) {
         buf += line + "\n";
     }
-    output = new char[buf.length()+1];
-    strncpy(output, buf.c_str(), buf.length());
-    output[buf.length()] = '\0';
-
+	
+	output = new char[buf.length()+1];
+	strncpy(output, buf.c_str(), buf.length());
+	output[buf.length()] = '\0';
+	
     in.close();
+	
+	return true;
 }
 
 inline const char* CSCI441_INTERNAL::ShaderUtils::GLSL_type_to_string(GLenum type) {
@@ -107,14 +114,14 @@ inline const char* CSCI441_INTERNAL::ShaderUtils::GLSL_type_to_string(GLenum typ
         case GL_FLOAT_MAT3:                                 return "mat3";
         case GL_FLOAT_MAT4:                                 return "mat4";
         case GL_FLOAT_MAT2x3:                               return "mat2x3";
-        case GL_FLOAT_MAT2x4:                           return "mat2x4";
+        case GL_FLOAT_MAT2x4:                           	return "mat2x4";
         case GL_FLOAT_MAT3x2:                               return "mat3x2";
         case GL_FLOAT_MAT3x4:                               return "mat3x4";
         case GL_FLOAT_MAT4x2:                               return "mat4x2";
-        case GL_FLOAT_MAT4x3:                       return "mat4x3";
-        case GL_DOUBLE_MAT2:                            return "dmat2";
-        case GL_DOUBLE_MAT3:                            return "dmat3";
-        case GL_DOUBLE_MAT4:                            return "dmat4";
+        case GL_FLOAT_MAT4x3:                       		return "mat4x3";
+        case GL_DOUBLE_MAT2:                            	return "dmat2";
+        case GL_DOUBLE_MAT3:                            	return "dmat3";
+        case GL_DOUBLE_MAT4:                           		return "dmat4";
         case GL_DOUBLE_MAT2x3:                              return "dmat2x3";
         case GL_DOUBLE_MAT2x4:                              return "dmat2x4";
         case GL_DOUBLE_MAT3x2:                              return "dmat3x2";
@@ -226,50 +233,90 @@ inline const char* CSCI441_INTERNAL::ShaderUtils::GL_primitive_type_to_string(GL
 //
 ////////////////////////////////////////////////////////////////////////////////
 inline void CSCI441_INTERNAL::ShaderUtils::printLog( GLuint handle ) {
+    // check if the handle is to a vertex/fragment shader
+    if( glIsShader( handle ) ) {
+        printShaderLog(handle);
+    }
+    // check if the handle is to a shader program
+    else if( glIsProgram( handle ) ) {
+        printProgramLog(handle);
+    }
+}
+
+inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog( GLuint shaderHandle ) {
 	int status;
     int infologLength = 0;
     int maxLength;
-    bool isShader;
 
-    /* check if the handle is to a vertex/fragment shader */
-    if( glIsShader( handle ) ) {
-        glGetShaderiv(  handle, GL_INFO_LOG_LENGTH, &maxLength );
+    // check if the handle is to a vertex/fragment shader
+    if( glIsShader( shaderHandle ) ) {
+        glGetShaderiv(  shaderHandle, GL_INFO_LOG_LENGTH, &maxLength );
 
-        isShader = true;
-    }
-    /* check if the handle is to a shader program */
-    else {
-        glGetProgramiv( handle, GL_INFO_LOG_LENGTH, &maxLength );
+        // create a buffer of designated length
+		char infoLog[maxLength];
+		
+		glGetShaderiv( shaderHandle, GL_COMPILE_STATUS, &status );
+    	if( sDEBUG ) printf( "[INFO]: |   Shader  Handle %2d: Compile%-26s |\n", shaderHandle, (status == 1 ? "d Successfully" : "r Error") );
 
-        isShader = false;
-    }
-
-    /* create a buffer of designated length */
-    char infoLog[maxLength];
-
-    if( isShader ) {
-    	glGetShaderiv( handle, GL_COMPILE_STATUS, &status );
-    	if( sDEBUG ) printf( "[INFO]: |   Shader  Handle %2d: Compile%-26s |\n", handle, (status == 1 ? "d Successfully" : "r Error") );
-
-        /* get the info log for the vertex/fragment shader */
-        glGetShaderInfoLog(  handle, maxLength, &infologLength, infoLog );
+        // get the info log for the vertex/tesselation/geometry/fragment/compute shader
+        glGetShaderInfoLog(  shaderHandle, maxLength, &infologLength, infoLog );
 
         if( infologLength > 0 ) {
-			/* print info to terminal */
-        	if( sDEBUG ) printf( "[INFO]: |   %s Handle %d: %s\n", (isShader ? "Shader" : "Program"), handle, infoLog );
+			// print info to terminal
+        	if( sDEBUG ) printf( "[INFO]: |   Shader Handle %d: %s\n", shaderHandle, infoLog );
         }
     } else {
-    	glGetProgramiv( handle, GL_LINK_STATUS, &status );
-    	if( sDEBUG ) printf("[INFO]: |   Program Handle %2d: Linke%-28s |\n", handle, (status == 1 ? "d Successfully" : "r Error") );
+		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader                        |\n", shaderHandle );
+	}
+}
 
-        /* get the info log for the shader program */
-        glGetProgramInfoLog( handle, maxLength, &infologLength, infoLog );
+inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog( GLuint programHandle ) {
+	int status;
+    int infologLength = 0;
+    int maxLength;
+
+    // check if the handle is to a vertex/fragment shader
+    if( glIsProgram( programHandle ) ) {
+        glGetProgramiv(  programHandle, GL_INFO_LOG_LENGTH, &maxLength );
+
+        // create a buffer of designated length
+		char infoLog[maxLength];
+		
+		glGetProgramiv( programHandle, GL_LINK_STATUS, &status );
+    	if( sDEBUG ) printf("[INFO]: |   Program Handle %2d: Linke%-28s |\n", programHandle, (status == 1 ? "d Successfully" : "r Error") );
+
+        // get the info log for the vertex/tesselation/geometry/fragment/compute shader
+        glGetProgramInfoLog(  programHandle, maxLength, &infologLength, infoLog );
 
         if( infologLength > 0 ) {
-			/* print info to terminal */
-        	if( sDEBUG ) printf( "[INFO]: |   %s Handle %d: %s\n", (isShader ? "Shader" : "Program"), handle, infoLog );
+			// print info to terminal
+        	if( sDEBUG ) printf( "[INFO]: |   Program Handle %d: %s\n", programHandle, infoLog );
         }
-    }
+    } else {
+		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader Program                |\n", programHandle );
+	}
+}
+inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog( GLuint pipelineHandle ) {
+    int infologLength = 0;
+    int maxLength;
+
+    // check if the handle is to a vertex/fragment shader
+    if( glIsProgramPipeline( pipelineHandle ) ) {
+        glGetProgramPipelineiv(  pipelineHandle, GL_INFO_LOG_LENGTH, &maxLength );
+
+        // create a buffer of designated length
+		char infoLog[maxLength];
+		
+        // get the info log for the vertex/tesselation/geometry/fragment/compute shader
+        glGetProgramPipelineInfoLog(  pipelineHandle, maxLength, &infologLength, infoLog );
+
+        if( infologLength > 0 ) {
+			// print info to terminal
+        	if( sDEBUG ) printf( "[INFO]: |   Pipeline Handle %d: %s\n", pipelineHandle, infoLog );
+        }
+    } else {
+		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader Program Pipeline       |\n", pipelineHandle );
+	}
 }
 
 inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint handle, GLenum shaderStage, GLboolean printHeader ) {
@@ -616,12 +663,9 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
                 GLint numUniforms;
                 glGetProgramiv(handle, GL_ACTIVE_UNIFORMS, &numUniforms);
                 for(int j = 0; j < numUniforms; j++) {
-                    char atomicName[64];
-                    int max_length = 64;
-                    int actual_length = 0;
                     int size = 0;
                     GLenum type;
-                    glGetActiveUniform( handle, j, max_length, &actual_length, &size, &type, atomicName );
+                    glGetActiveUniform( handle, j, maxLen, &atomicNameLen, &size, &type, atomicName );
 
                     GLuint atomicIndex = glGetProgramResourceIndex(handle, GL_UNIFORM, atomicName);
 
@@ -712,22 +756,25 @@ inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader( const char *filename
 	shaderHandle = glCreateShader( shaderType );
 
     /* read in each text file and store the contents in a string */
-    readTextFromFile( filename, shaderString );
+    if( readTextFromFile( filename, shaderString ) ) {
 
-    /* send the contents of each program to the GPU */
-    glShaderSource( shaderHandle, 1, (const char**)&shaderString, NULL );
+		/* send the contents of each program to the GPU */
+		glShaderSource( shaderHandle, 1, (const char**)&shaderString, NULL );
 
-    /* we are good programmers so free up the memory used by each buffer */
-    delete [] shaderString;
+		/* we are good programmers so free up the memory used by each buffer */
+		delete [] shaderString;
 
-    /* compile each shader on the GPU */
-    glCompileShader( shaderHandle );
+		/* compile each shader on the GPU */
+		glCompileShader( shaderHandle );
 
-    /* check the shader log */
-    printLog( shaderHandle );
+		/* check the shader log */
+		printLog( shaderHandle );
 
-    /* return the handle of our shader */
-    return shaderHandle;
+		/* return the handle of our shader */
+		return shaderHandle;
+	} else {
+		return -1;
+	}
 }
 
 #endif // __CSCI441_SHADEREUTILS_H__

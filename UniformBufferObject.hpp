@@ -7,7 +7,9 @@
 
 #include <GL/glew.h>
 
+#include <cstdio>
 #include <string>
+#include <vector>
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -30,13 +32,10 @@ namespace CSCI441 {
 
             _numUniforms = uniformNamesList.size();
 
-            _uniformNames = (char**)malloc(_numUniforms * sizeof(char*));
-
-            int currPos = 0;
-            std::initializer_list<char*>::iterator iter;
             for(const auto &uniformName : uniformNamesList ) {
-                _uniformNames[currPos] = (char*)malloc(strlen(uniformName) * sizeof(char));
-                strcpy(_uniformNames[currPos++], uniformName);
+                char* un = (char*)malloc(strlen(uniformName) * sizeof(char));
+                strcpy(un, uniformName);
+                _uniformNames.push_back(un);
             }
 
             _uniformIndices = (GLuint*)malloc(_numUniforms * sizeof(GLuint));
@@ -51,7 +50,6 @@ namespace CSCI441 {
             for(GLuint i = 0; i < _numUniforms; i++) {
                 free(_uniformNames[i]);
             }
-            free(_uniformNames);
             free(_uniformIndices);
             free(_uniformOffsets);
             free(_buffer);
@@ -67,7 +65,7 @@ namespace CSCI441 {
             _blockSize = shaderProgram->getUniformBlockSize( _blockName );
             _buffer = (GLubyte*)malloc( _blockSize );
 
-            glGetUniformIndices(shaderProgram->getShaderProgramHandle(), _numUniforms, _uniformNames, _uniformIndices);
+            glGetUniformIndices(shaderProgram->getShaderProgramHandle(), _numUniforms, &_uniformNames[0], _uniformIndices);
             glGetActiveUniformsiv(shaderProgram->getShaderProgramHandle(), _numUniforms, _uniformIndices, GL_UNIFORM_OFFSET, _uniformOffsets);
 
             glGenBuffers(1, &_ubod);
@@ -79,8 +77,38 @@ namespace CSCI441 {
             shaderProgram->setUniformBlockBinding(_blockName, _bindingPoint);
         }
 
+        /**
+         * @desc copies the value pointed to by addr to the corresponding location within the UBO as denoted by the offset
+         * @param offset UBO offset to copy value to
+         * @param addr starting address of source to copy from
+         * @param len length of buffer to copy
+         */
         void copyToOffset( unsigned int offset, void* addr, size_t len ) {
-            memcpy( _buffer + _uniformOffsets[offset], addr, len );
+            if(offset < _numUniforms) {
+                memcpy(_buffer + _uniformOffsets[offset], addr, len);
+            } else {
+                fprintf(stderr, "[ERROR]: Offset %d exceeds size of Uniform Block %s which is %d\n", offset, _blockName, _numUniforms);
+            }
+        }
+
+        /**
+         * @desc copies the value pointed to by addr to the corresponding location within the UBO as denoted by the uniform name
+         * @param uniformName name of the uniform within the block to copy value to
+         * @param addr starting address of source to copy from
+         * @param len length of buffer to copy
+         */
+        void copyToBuffer( const char* UNIFORM_NAME, void* addr, size_t len ) {
+            bool found = false;
+            for(GLuint i = 0; i < _numUniforms; i++) {
+                if( strcmp(_uniformNames[i], UNIFORM_NAME) == 0 ) {
+                    memcpy( _buffer + _uniformOffsets[i], addr, len );
+                    found = true;
+                    break;
+                }
+            }
+            if(!found) {
+                fprintf(stderr, "[ERROR]: Uniform Name \"%s\" not found within Uniform Block \"%s\"\n", UNIFORM_NAME, _blockName);
+            }
         }
 
         void bindBuffer() {
@@ -93,7 +121,7 @@ namespace CSCI441 {
 
     private:
         char* _blockName;
-        char** _uniformNames;
+        std::vector<char*> _uniformNames;
         GLint _blockSize;
         GLubyte* _buffer;
         GLuint _numUniforms;
