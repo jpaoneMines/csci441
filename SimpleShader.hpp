@@ -451,7 +451,7 @@ inline void CSCI441_INTERNAL::SimpleShader2::setupSimpleShader() {
     glDetachShader(shaderProgramHandle, fragmentShaderHandle);
     glDeleteShader(fragmentShaderHandle);
 
-    ShaderUtils::printShaderProgramInfo(shaderProgramHandle);
+    ShaderUtils::printShaderProgramInfo(shaderProgramHandle, true, false, false, false, true, false, true);
 
     modelLocation       = glGetUniformLocation(shaderProgramHandle, "model");
     viewLocation        = glGetUniformLocation(shaderProgramHandle, "view");
@@ -611,7 +611,7 @@ inline void CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {
     glDetachShader(shaderProgramHandle, fragmentShaderHandle);
     glDeleteShader(fragmentShaderHandle);
 
-    ShaderUtils::printShaderProgramInfo(shaderProgramHandle);
+    ShaderUtils::printShaderProgramInfo(shaderProgramHandle, true, false, false, false, true, false, true);
 
     modelLocation       = glGetUniformLocation(shaderProgramHandle, "model");
     viewLocation        = glGetUniformLocation(shaderProgramHandle, "view");

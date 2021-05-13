@@ -361,13 +361,13 @@ inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint hand
 	return !headerPrinted;
 }
 
+[[deprecated("Use printShaderProgramInfo(GLuint, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean)")]]
 inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle ) {
-    fprintf(stderr, "[WARN]: CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(GLuint) is deprecated.  Replace with printShaderProgramInfo(GLuint, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean)");
     printShaderProgramInfo(handle, false, false, false, false, false, false, true);
 }
 
+[[deprecated("Use printShaderProgramInfo(GLuint, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean)")]]
 inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean useLastNewLine ) {
-    fprintf(stderr, "[WARN]: CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(GLuint, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean)) is deprecated.  Replace with printShaderProgramInfo(GLuint, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean)");
     printShaderProgramInfo(handle, hasVertexShader, hasTessControlShader, hasTessEvalShader, hasGeometryShader, hasFragmentShader, false, useLastNewLine);
 }
 

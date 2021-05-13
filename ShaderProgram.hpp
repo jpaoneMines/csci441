@@ -883,6 +883,7 @@ inline void CSCI441::ShaderProgram::useProgram() {
     glUseProgram( _shaderProgramHandle );
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLfloat)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat v0 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -892,6 +893,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLfloat, GLfloat)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat v0, GLfloat v1 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -901,10 +903,12 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, glm::vec2)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::vec2 value ) {
     setUniform( uniformName, 2, 1, &value[0] );
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLfloat, GLfloat, GLfloat)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -914,10 +918,12 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, glm::vec3)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::vec3 value ) {
     setUniform( uniformName, 3, 1, &value[0] );
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLfloat, GLfloat, GLfloat, GLfloat)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -927,10 +933,12 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLfloat
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, glm::vec4)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::vec4 value ) {
     setUniform( uniformName, 4, 1, &value[0] );
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLuint, GLsizei, const GLfloat*)")]]
 inline void CSCI441::ShaderProgram::setUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -956,6 +964,7 @@ inline void CSCI441::ShaderProgram::setUniform(const char* uniformName, GLuint d
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLint)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLint v0 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -965,6 +974,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLint v
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLint, GLint)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLint v0, GLint v1 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -974,6 +984,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLint v
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLint, GLint, GLint)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLint v0, GLint v1, GLint v2 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -983,6 +994,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLint v
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLint, GLint, GLint, GLint)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLint v0, GLint v1, GLint v2, GLint v3 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -992,6 +1004,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLint v
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLuint, GLsizei, const GLint*)")]]
 inline void CSCI441::ShaderProgram::setUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1017,6 +1030,7 @@ inline void CSCI441::ShaderProgram::setUniform(const char* uniformName, GLuint d
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLuint)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLuint v0 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1026,6 +1040,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLuint 
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLuint, GLuint)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLuint v0, GLuint v1 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1035,6 +1050,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLuint 
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLuint, GLuint, GLuint)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1044,6 +1060,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLuint 
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLuint, GLuint, GLuint, GLuint)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1053,6 +1070,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, GLuint 
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, GLuint, GLsizei, const GLuint*)")]]
 inline void CSCI441::ShaderProgram::setUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1078,6 +1096,7 @@ inline void CSCI441::ShaderProgram::setUniform(const char* uniformName, GLuint d
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, glm::mat2)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat2 mtx ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1087,6 +1106,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::ma
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, glm::mat3)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat3 mtx ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1096,6 +1116,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::ma
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, glm::mat4)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat4 mtx ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1105,6 +1126,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::ma
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, glm::mat2x3)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat2x3 mtx ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1114,6 +1136,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::ma
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, glm::mat3x2)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat3x2 mtx ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1123,6 +1146,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::ma
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, glm::mat2x4)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat2x4 mtx ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1132,6 +1156,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::ma
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, glm::mat4x2)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat4x2 mtx ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1141,6 +1166,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::ma
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, glm::mat3x4)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat3x4 mtx ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1150,6 +1176,7 @@ inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::ma
     }
 }
 
+[[deprecated("Use setProgramUniform(const char*, glm::mat4x3)")]]
 inline void CSCI441::ShaderProgram::setUniform( const char *uniformName, glm::mat4x3 mtx ) {
     std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
@@ -1435,34 +1462,42 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLfloat)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLfloat v0 ) {
     glUniform1f( uniformLocation, v0 );
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLfloat, GLfloat)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLfloat v0, GLfloat v1 ) {
     glUniform2f( uniformLocation, v0, v1 );
 }
 
+[[deprecated("Use setProgramUniform(GLint, glm::vec2)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::vec2 value ) {
     setUniform( uniformLocation, 2, 1, &value[0] );
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLfloat, GLfloat, GLfloat)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2 ) {
     glUniform3f( uniformLocation, v0, v1, v2 );
 }
 
+[[deprecated("Use setProgramUniform(GLint, glm::vec3)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::vec3 value ) {
     setUniform( uniformLocation, 3, 1, &value[0] );
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLfloat, GLfloat, GLfloat, GLfloat)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) {
     glUniform4f( uniformLocation, v0, v1, v2, v3 );
 }
 
+[[deprecated("Use setProgramUniform(GLint, glm::vec4)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::vec4 value ) {
     setUniform( uniformLocation, 4, 1, &value[0] );
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLuint, GLsizei, const GLfloat*)")]]
 inline void CSCI441::ShaderProgram::setUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value) {
     switch(dim) {
         case 1:
@@ -1483,22 +1518,27 @@ inline void CSCI441::ShaderProgram::setUniform(GLint uniformLocation, GLuint dim
     }
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLint)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLint v0 ) {
     glUniform1i( uniformLocation, v0 );
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLint, GLint)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLint v0, GLint v1 ) {
     glUniform2i( uniformLocation, v0, v1 );
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLint, GLint, GLint)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2 ) {
     glUniform3i( uniformLocation, v0, v1, v2 );
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLint, GLint, GLint, GLint)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3 ) {
     glUniform4i( uniformLocation, v0, v1, v2, v3 );
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLuint, GLsizei, const GLint*)")]]
 inline void CSCI441::ShaderProgram::setUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value) {
     switch(dim) {
         case 1:
@@ -1519,22 +1559,27 @@ inline void CSCI441::ShaderProgram::setUniform(GLint uniformLocation, GLuint dim
     }
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLuint)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLuint v0 ) {
     glUniform1ui( uniformLocation, v0 );
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLuint, GLuint)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLuint v0, GLuint v1 ) {
     glUniform2ui( uniformLocation, v0, v1 );
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLuint, GLuint, GLuint)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2 ) {
     glUniform3ui( uniformLocation, v0, v1, v2 );
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLuint, GLuint, GLuint, GLuint)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) {
     glUniform4ui( uniformLocation, v0, v1, v2, v3 );
 }
 
+[[deprecated("Use setProgramUniform(GLint, GLuint, GLsizei, const GLuint*)")]]
 inline void CSCI441::ShaderProgram::setUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) {
     switch(dim) {
         case 1:
@@ -1555,38 +1600,47 @@ inline void CSCI441::ShaderProgram::setUniform(GLint uniformLocation, GLuint dim
     }
 }
 
+[[deprecated("Use setProgramUniform(GLint, glm::mat2)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat2 mtx ) {
     glUniformMatrix2fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[deprecated("Use setProgramUniform(GLint, glm::mat3)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat3 mtx ) {
     glUniformMatrix3fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[deprecated("Use setProgramUniform(GLint, glm::mat4)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat4 mtx ) {
     glUniformMatrix4fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[deprecated("Use setProgramUniform(GLint, glm::mat2x3)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat2x3 mtx ) {
     glUniformMatrix2x3fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[deprecated("Use setProgramUniform(GLint, glm::mat3x2)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat3x2 mtx ) {
     glUniformMatrix3x2fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[deprecated("Use setProgramUniform(GLint, glm::mat2x4)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat2x4 mtx ) {
     glUniformMatrix2x4fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[deprecated("Use setProgramUniform(GLint, glm::mat4x2)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat4x2 mtx ) {
     glUniformMatrix4x2fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[deprecated("Use setProgramUniform(GLint, glm::mat3x4)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat3x4 mtx ) {
     glUniformMatrix3x4fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[deprecated("Use setProgramUniform(GLint, glm::mat4x3)")]]
 inline void CSCI441::ShaderProgram::setUniform( GLint uniformLocation, glm::mat4x3 mtx ) {
     glUniformMatrix4x3fv( uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
