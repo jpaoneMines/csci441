@@ -1,6 +1,6 @@
 /** @file teapot.hpp
  * @brief Helper functions to draw teapot with OpenGL 3.0+
- * @date Last Edit: 13 Nov 2020
+ *
  * @warning NOTE: This header file will only work with OpenGL 3.0+
  */
 // Modified by Dr. Jeffrey Paone to work in Colorado School of Mines CSCI441

@@ -1,7 +1,6 @@
 /** @file ComputeShaderProgram.hpp
  * @brief Class to work with OpenGL Compute Shaders
  * @author Dr. Jeffrey Paone
- * @date Last Edit: 21 Feb 2021
  *
  * @copyright MIT License Copyright (c) 2021 Dr. Jeffrey Paone
  *

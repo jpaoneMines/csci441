@@ -1,8 +1,6 @@
 /** @file objects.hpp
  * @brief Helper functions to draw 3D OpenGL 3.0+ objects
  * @author Dr. Jeffrey Paone
- * @date Last Edit: 22 Oct 2020
- * @version 2.5.1
  *
  * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
  *

@@ -1,8 +1,6 @@
 /** @file SimpleShader2.hpp
  * @brief Sets up a default Gourad Shader with vertex position and color inputs
  * @author Dr. Jeffrey Paone
- * @date Last Edit: 09 Jun 2020
- * @version 2.0
  *
  * @copyright MIT License Copyright (c) 2020 Dr. Jeffrey Paone
  *

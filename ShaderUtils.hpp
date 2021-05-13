@@ -1,8 +1,6 @@
 /** @file ShaderUtils3.hpp
  * @brief Helper functions to work with OpenGL Shaders
  * @author Dr. Jeffrey Paone
- * @date Last Edit: 09 Jun 2020
- * @version 2.0
  *
  * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
  *

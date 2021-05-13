@@ -1,8 +1,6 @@
 /** @file ShaderProgramPipeline.hpp
  * @brief Class to work with OpenGL 4.0+ Shaders
  * @author Dr. Jeffrey Paone
- * @date Last Edit: 07 May 2021
- * @version 2.2.0
  *
  * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
  *

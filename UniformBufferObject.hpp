@@ -1,6 +1,12 @@
-//
-// Created by Jeffrey Paone on 2/11/21.
-//
+/** @file UniformBufferObject.hpp
+ * @brief Helper functions to work with Uniform Buffer Objects
+ * @author Dr. Jeffrey Paone
+ *
+ * @copyright MIT License Copyright (c) 2021 Dr. Jeffrey Paone
+ *
+ *	These functions, classes, and constants help minimize common
+ *	code that needs to be written.
+ */
 
 #ifndef __CSCI441_UNIFORMBUFFEROBJECT_H__
 #define __CSCI441_UNIFORMBUFFEROBJECT_H__

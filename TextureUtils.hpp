@@ -1,8 +1,6 @@
 /** @file TextureUtils.hpp
  * @brief Helper functions to work with OpenGL Textures
  * @author Dr. Jeffrey Paone
- * @date Last Edit: 24 Sep 2020
- * @version 2.0
  *
  * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
  *

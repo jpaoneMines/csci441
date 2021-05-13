@@ -1,8 +1,6 @@
 /** @file FramebufferUtils.hpp
   * @brief Helper functions to work with OpenGL Framebuffer
 	* @author Dr. Jeffrey Paone
-	* @date Last Edit: 25 Sep 2020
-	* @version 2.0
 	*
 	* @copyright MIT License Copyright (c) 2020 Dr. Jeffrey Paone
 	*

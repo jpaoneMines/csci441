@@ -1,8 +1,6 @@
 /** @file materials.hpp
  * @brief Predefined material properties
  * @author Dr. Jeffrey Paone
- * @date Last Edit: 27 Oct 2020
- * @version 2.6.1
  *
  * @copyright MIT License Copyright (c) 2020 Dr. Jeffrey Paone
  *
