@@ -3,6 +3,7 @@ doc/.DS_Store
 doc/html/.DS_Store
 .idea
 CMakeLists.txt
+cmake-build-debug/
 testBuild.cpp
 testBuild_multifile.cpp
 Makefile
