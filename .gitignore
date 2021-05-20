@@ -2,9 +2,7 @@
 doc/.DS_Store
 doc/html/.DS_Store
 .idea
-Makefile
+CMakeLists.txt
 testBuild.cpp
 testBuild_multifile.cpp
-testBuild.o
-testBuild2.o
-testBuild
+Makefile
