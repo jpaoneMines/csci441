@@ -81,9 +81,9 @@ v 2.2.0 - 12 Oct 2020
   > Allow multicompilation for ShaderProgram.hpp.  Now depends upon C++17
 
 v 2.1.0 - 02 Oct 2020
-  > Fixed memory leak in objects.hpp cylinder, sphere, disk, torus caching\n
+  > Fixed memory leak in objects.hpp cylinder, sphere, disk, torus caching
 
-  > Added method for objects.hpp to delete the used VAOs/VBOs from GPU memory\n
+  > Added method for objects.hpp to delete the used VAOs/VBOs from GPU memory
 
   > Delete compiled shaders from GPU after Shader Program is linked to free up memory sooner
 
@@ -91,9 +91,9 @@ v.2.0.2 - 25 Sep 2020
   > Removed invalid enum error when querying max number of lights in OpenGL 3+
 
 v2.0.0  - 25 Sep 2020
-  > Only single version of library files to work with OpenGL 4.1\n
+  > Only single version of library files to work with OpenGL 4.1
 
-  > Removed dependency upon SOIL and replaced with stb_image\n
+  > Removed dependency upon SOIL and replaced with stb_image
 
   > Fixed bug of spheres not being spheres due to precision error
 
@@ -104,40 +104,40 @@ v1.8	- 16 Nov 2017
   > Added support for MTL files for Phong Shading and diffuse maps
 
 v1.7	- 16 Nov 2017
-  > Added loadBMP() support to TextureUtils.hpp\n
+  > Added loadBMP() support to TextureUtils.hpp
 
-  > Added support for ASCII STL files to modelLoader3.hpp\n
+  > Added support for ASCII STL files to modelLoader3.hpp
 
-  > Added support for OFF files to modelLoader3.hpp\n
+  > Added support for OFF files to modelLoader3.hpp
 
-  > Fixed reallocation error if model did not load properly\n
+  > Fixed reallocation error if model did not load properly
 
-  > Added support for ASCII PLY files to modelLoader3.hpp (as long as first three vertex properties are x/y/z location)\n
+  > Added support for ASCII PLY files to modelLoader3.hpp (as long as first three vertex properties are x/y/z location)
 
-  > If PLY file does not contain normal information (we're currently not checking for it), can autogenerate vertex normals\n
+  > If PLY file does not contain normal information (we're currently not checking for it), can autogenerate vertex normals
 
-  > If OFF file does not contain normal information, can autogenerate vertex normals\n
+  > If OFF file does not contain normal information, can autogenerate vertex normals
 
   > If OBJ file does not contain normal information, can autogenerate vertex normals
 
 v1.6	- 15 Nov 2017
-  > Added FramebufferUtils3.hpp to print Framebuffer info\n
+  > Added FramebufferUtils3.hpp to print Framebuffer info
 
-  > Fixed off by 1 error for normals/texcoords in modelLoader3.hpp\n
+  > Fixed off by 1 error for normals/texcoords in modelLoader3.hpp
 
   > Fixed overflow error for modelLoader3.hpp when reading in models with more than 65535 vertices
 
 v1.5.1	- 10 Nov 2017
-  > Fixed redefinition errors in teapot3.hpp and objects3.hpp\n
+  > Fixed redefinition errors in teapot3.hpp and objects3.hpp
 
   > Fixed bug in ShaderUtils3.hpp to check if OpenGL is version 4.0+ before querying subroutine uniforms
 
 v1.5	- 06 Nov 2017
-  > Added loadTGA method to TextureUtils.hpp\n
+  > Added loadTGA method to TextureUtils.hpp
 
-  > Commenting added to TextureUtils.hpp\n
+  > Commenting added to TextureUtils.hpp
 
-  > Converted OpenGLUtils from static non-implementable class to namespace\n
+  > Converted OpenGLUtils from static non-implementable class to namespace
 
   > Added commenting to ShaderProgram3.hpp
 
@@ -151,30 +151,30 @@ v.1.3.1	- 28 Oct 2017
   > Matched internal data types to prevent c++11 narrowing warnings on lab machines
 
 v1.3 	- 26 Oct 2017
-  > Modified texture coordinates for cylinder to linear step from 0 to 1 in s instead of following cosine\n
+  > Modified texture coordinates for cylinder to linear step from 0 to 1 in s instead of following cosine
 
-  > Modified texture coordinates for sphere to linear step form 0 to 1 in s & t instead of following sine and cosine\n
+  > Modified texture coordinates for sphere to linear step form 0 to 1 in s & t instead of following sine and cosine
 
-  > Fixed bug when disk was not being displayed if consisting of 1 ring\n
+  > Fixed bug when disk was not being displayed if consisting of 1 ring
 
-  > Fixed bug with Partial Disk not starting at current angle\n
+  > Fixed bug with Partial Disk not starting at current angle
 
-  > Fixed bug with normals on Sphere stacks\n
+  > Fixed bug with normals on Sphere stacks
 
-  > Added modelLoader3.hpp to handle loading and drawing OBJ files\n
+  > Added modelLoader3.hpp to handle loading and drawing OBJ files
 
-  > Added objects3.hpp that allow for solid primitives to be drawn with OpenGL 3.0\n
+  > Added objects3.hpp that allow for solid primitives to be drawn with OpenGL 3.0
 
-  > Notes for teapot - the teapot cannot be textured and it is a pure teapot with no bottom\n
+  > Notes for teapot - the teapot cannot be textured and it is a pure teapot with no bottom
 
   > For a textured teapot, look into using an object model
 
 v1.2	- 25 Sep 2017
-  > Fixed error in draw*Disk not completing final slice step\n
+  > Fixed error in draw*Disk not completing final slice step
 
-  > Added TextureUtils to load in a PPM\n
+  > Added TextureUtils to load in a PPM
 
-  > Added MaterialStruct structure to group together Phong properties\n
+  > Added MaterialStruct structure to group together Phong properties
 
   > Fixed error in drawSolidDisk() not allowing inner radius to be zero
 
@@ -185,7 +185,7 @@ v1.1    - 21 Sep 2017
   > Added OpenGLUtils class to store commonly used helper functions
 
 v1.0.1  - 19 Sep 2017
-  > Added documentation\n
+  > Added documentation
 
   > Added inline definition to functions to prevent duplicate linking errors
 
