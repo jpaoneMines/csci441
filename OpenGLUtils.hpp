@@ -1,73 +1,64 @@
-/** @file OpenGLUtils.hpp
+/**
+ * @file OpenGLUtils.hpp
  * @brief Helper functions to work with OpenGL 3.0+
  * @author Dr. Jeffrey Paone
  *
  * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
  *
- *	These functions, classes, and constants help minimize common
- *	code that needs to be written.
- *	*
- *	@warning NOTE: This header file depends upon glm
- *	@warning NOTE: This header file depends upon GLEW
+ * These functions, classes, and constants help minimize common
+ * code that needs to be written.
+ *
+ * @warning NOTE: This header file depends upon GLEW
+ * @warning NOTE: This header file depends upon glm
  */
 
-#ifndef __CSCI441_OPENGLUTILS_H__
-#   define __CSCI441_OPENGLUTILS_H__
-
-#   ifdef __GNUC__
-#       define DEPRECATED(func) func __attribute__ ((deprecated))
-#   elif defined(_MSC_VER)
-#       define DEPRECATED(func) __declspec(deprecated) func
-#   else
-#       pragma message("WARNING: You need to implement DEPRECATED for this compiler")
-#       define DEPRECATED(func) func
-#   endif
+#ifndef CSCI441_OPENGL_UTILS_H
+#define CSCI441_OPENGL_UTILS_H
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
-#include <stdio.h>      // for printf()
-#include <stdlib.h>     // for atoi()
+#include <cstdio>      // for printf()
+#include <cstdlib>     // for atoi()
 
-////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************
 
-/** @namespace CSCI441
- * @brief CSCI441 Helper Functions for OpenGL
- */
+/// \namespace CSCI441
+/// \desc CSCI441 Helper Functions for OpenGL
 namespace CSCI441 {
-		static const glm::vec3 X_AXIS( 1.0f, 0.0f, 0.0f );				// constant for postive X_AXIS
-		static const glm::vec3 Y_AXIS( 0.0f, 1.0f, 0.0f );				// constant for postive Y_AXIS
-		static const glm::vec3 Z_AXIS( 0.0f, 0.0f, 1.0f );				// constant for postive Z_AXIS
-		static const glm::vec3 X_AXIS_NEG( -1.0f,  0.0f,  0.0f );		// constant for negative X_AXIS
-		static const glm::vec3 Y_AXIS_NEG(  0.0f, -1.0f,  0.0f );		// constant for negative Y_AXIS
-		static const glm::vec3 Z_AXIS_NEG(  0.0f,  0.0f, -1.0f );		// constant for negative Z_AXIS
+    static const glm::vec3 X_AXIS( 1.0f, 0.0f, 0.0f );				// constant for positive X_AXIS
+    static const glm::vec3 Y_AXIS( 0.0f, 1.0f, 0.0f );				// constant for positive Y_AXIS
+    static const glm::vec3 Z_AXIS( 0.0f, 0.0f, 1.0f );				// constant for positive Z_AXIS
+    static const glm::vec3 X_AXIS_POS = X_AXIS;                 				// alias for constant for positive X_AXIS
+    static const glm::vec3 Y_AXIS_POS = Y_AXIS;                 				// alias for constant for positive Y_AXIS
+    static const glm::vec3 Z_AXIS_POS = Z_AXIS;                 				// alias for constant for positive Z_AXIS
+    static const glm::vec3 X_AXIS_NEG( -1.0f,  0.0f,  0.0f );		// constant for negative X_AXIS
+    static const glm::vec3 Y_AXIS_NEG(  0.0f, -1.0f,  0.0f );		// constant for negative Y_AXIS
+    static const glm::vec3 Z_AXIS_NEG(  0.0f,  0.0f, -1.0f );		// constant for negative Z_AXIS
 
-    /** @namespace OpenGLUtils
-     * @brief contains OpenGL Utility functions
-     */
+    /// \namespace OpenGLUtils
+    /// \desc contains OpenGL Utility functions
     namespace OpenGLUtils {
-        /** @brief Prints information about our OpenGL context
-         *
-         */
+        /// \desc Prints information about our OpenGL context
         void printOpenGLInfo();
   	};
 
 }
 
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************
+//**********************************************************************************
 // Internal definitions
 
 namespace CSCI441_INTERNAL {
-  void printOpenGLParamHeader( const int major, const int minor );
-  void printOpenGLParamIndexed( const char *format, GLenum name, GLuint index );
-  void printOpenGLParam( const char *format, GLenum name );
-  void printOpenGLParam2( const char *format, GLenum name );
-  void printOpenGLParam3( const char *format, GLenum name );
-  void printOpenGLParam4( const char *format, GLenum name );
+  void printOpenGLParamHeader(int MAJOR, int MINOR );
+  void printOpenGLParamIndexed(const char *FORMAT, GLenum name, GLuint index );
+  void printOpenGLParam(const char *FORMAT, GLenum name );
+  void printOpenGLParam2(const char *FORMAT, GLenum name );
+  void printOpenGLParam3(const char *FORMAT, GLenum name );
+  void printOpenGLParam4(const char *FORMAT, GLenum name );
 }
 
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************
+//**********************************************************************************
 // Outward facing function implementations
 
 inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
@@ -109,7 +100,7 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Transform Feedback Buffers:  %17d |\n", 			    	GL_MAX_TRANSFORM_FEEDBACK_BUFFERS );
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Transform Separate Attributes:  %14d |\n", 		    	GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS );
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Transform Separate Components:  %14d |\n", 		    	GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS );
-		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Transform Interleaveed Buffers:  %13d |\n", 		    	GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS );
+		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Transform Interleaved Buffers:  %14d |\n", 		    	GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS );
 	}
 
 	if( (major >= 3 && minor >= 1) || major > 3 ) {
@@ -148,7 +139,7 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Tess Evaluation Uniform Blocks:  %13d |\n", 		    	GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS );
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Tess Evaluation Textures:  %19d |\n", 					GL_MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS );
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Tess Evaluation Outputs:  %20d |\n", 					GL_MAX_TESS_EVALUATION_OUTPUT_COMPONENTS );
-		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Geometry Invocationss:  %22d |\n", 				    	GL_MAX_GEOMETRY_SHADER_INVOCATIONS );
+		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Geometry Invocations:  %23d |\n", 				    	GL_MAX_GEOMETRY_SHADER_INVOCATIONS );
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Vertex Streams:  %29d |\n", 						    	GL_MAX_VERTEX_STREAMS );
 	}
 
@@ -209,44 +200,44 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************
+//**********************************************************************************
 // Internal function implementations
 
-inline void CSCI441_INTERNAL::printOpenGLParamHeader( const int major, const int minor ) {
-	fprintf( stdout, "[INFO]: >--------------------------------------------------------<\n");
-	fprintf( stdout, "[INFO]: | OpenGL %d.%d Settings                                    |\n", major, minor);
-	fprintf( stdout, "[INFO]: |--------------------------------------------------------|\n");
+inline void CSCI441_INTERNAL::printOpenGLParamHeader( const int MAJOR, const int MINOR ) {
+	fprintf( stdout, "[INFO]: >--------------------------------------------------------<\n" );
+	fprintf( stdout, "[INFO]: | OpenGL %d.%d Settings                                    |\n", MAJOR, MINOR );
+	fprintf( stdout, "[INFO]: |--------------------------------------------------------|\n" );
 }
 
-inline void CSCI441_INTERNAL::printOpenGLParamIndexed( const char *format, GLenum name, GLuint index ) {
+inline void CSCI441_INTERNAL::printOpenGLParamIndexed(const char *FORMAT, GLenum name, GLuint index ) {
 	GLint value = 0;
 	glGetIntegeri_v( name, index, &value );
-	fprintf( stdout, format, value );
+	fprintf(stdout, FORMAT, value );
 }
 
-inline void CSCI441_INTERNAL::printOpenGLParam( const char *format, GLenum name ) {
+inline void CSCI441_INTERNAL::printOpenGLParam(const char *FORMAT, GLenum name ) {
 	GLint value = 0;
 	glGetIntegerv( name, &value );
-	fprintf( stdout, format, value );
+	fprintf(stdout, FORMAT, value );
 }
 
-inline void CSCI441_INTERNAL::printOpenGLParam2( const char *format, GLenum name ) {
+inline void CSCI441_INTERNAL::printOpenGLParam2(const char *FORMAT, GLenum name ) {
 	GLint values[2] = {0,0};
 	glGetIntegerv( name, values );
-	fprintf( stdout, format, values[0], values[1] );
+	fprintf(stdout, FORMAT, values[0], values[1] );
 }
 
-inline void CSCI441_INTERNAL::printOpenGLParam3( const char *format, GLenum name ) {
+inline void CSCI441_INTERNAL::printOpenGLParam3(const char *FORMAT, GLenum name ) {
 	GLint values[3] = {0,0,0};
 	glGetIntegerv( name, values );
-	fprintf( stdout, format, values[0], values[1], values[2] );
+	fprintf(stdout, FORMAT, values[0], values[1], values[2] );
 }
 
-inline void CSCI441_INTERNAL::printOpenGLParam4( const char *format, GLenum name ) {
+inline void CSCI441_INTERNAL::printOpenGLParam4(const char *FORMAT, GLenum name ) {
 	GLint values[4] = {0,0,0,0};
 	glGetIntegerv( name, values );
-	fprintf( stdout, format, values[0], values[1], values[2], values[3] );
+	fprintf(stdout, FORMAT, values[0], values[1], values[2], values[3] );
 }
 
-#endif // __CSCI441_OPENGLUTILS_H__
+#endif // CSCI441_OPENGL_UTILS_H
