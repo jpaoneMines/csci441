@@ -27,6 +27,17 @@ TODO Items
   > Handle vertex and face colors in OFF files
 
 Revision History
+v 3.0.0 - 21 May 2021
+  > Reworked ModelLoader.hpp to first set attribute locations then specify the shader handle.  This allows for the model to be used with separable programs and shader pipelines.
+  > Renamed modelLoader.hpp to ModelLoader.hpp to reflect it stores a class
+  > Created abstract OpenGLEngine and abstract OpenGL3DEngine classes to provide framework for a class engine style framework.
+  > ShaderProgram class caches attribute locations for quicker repeated lookups instead of doing program introspection each time.
+  > Added ability to load a texture to a cube map face via TextureUtils
+  > ShaderProgram::setProgramUniform() now supports glm::ivec and glm::uvec
+  > Marked functions as deprecated that will be removed in v4
+  > Cleaned up console output for ShaderPrograms
+  > Various fixes to ShaderProgramPipelines
+
 v 2.10.0 - 23 Feb 2021
   > Added wrapper class for ComputeShaderProgram
   > Added support to ShaderProgram to return Shader Storage Buffer Block bindings
