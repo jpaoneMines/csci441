@@ -1,54 +1,49 @@
-/** @file FramebufferUtils.hpp
-  * @brief Helper functions to work with OpenGL Framebuffer
-	* @author Dr. Jeffrey Paone
-	*
-	* @copyright MIT License Copyright (c) 2020 Dr. Jeffrey Paone
-	*
-	*	These functions, classes, and constants help minimize common
-	*	code that needs to be written.
-  */
+/**
+ * @file FramebufferUtils.hpp
+ * @brief Helper functions to work with OpenGL Framebuffer
+ * @author Dr. Jeffrey Paone
+ *
+ * @copyright MIT License Copyright (c) 2020 Dr. Jeffrey Paone
+ *
+ * These functions, classes, and constants help minimize common
+ * code that needs to be written.
+ */
 
-#ifndef __CSCI441_FRAMEBUFFER_UTILS_H_
-#define __CSCI441_FRAMEBUFFER_UTILS_H_
+#ifndef CSCI441_FRAMEBUFFER_UTILS_H
+#define CSCI441_FRAMEBUFFER_UTILS_H
 
 #include <GL/glew.h>
 
-#include <stdio.h>
+#include <cstdio>
 
-////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************
 
-/** @namespace CSCI441
-  * @brief CSCI441 Helper Functions for OpenGL
-	*/
+/// \namespace CSCI441::FramebufferUtils
+/// \desc CSCI441 Helper Functions for OpenGL
 namespace CSCI441 {
-	/** @namespace FramebufferUtils
-	  * @brief OpenGL Texture Utility functions
-	  */
+
+	/// \namespace FramebufferUtils
+	/// \desc OpenGL Texture Utility functions
 	namespace FramebufferUtils {
 
-	    /**
-	     * Prints the framebuffer information for the FBO attached to the corresponding target
-	     * @param target
-	     * @param fbo
-	     */
+	    /// \desc Prints the framebuffer information for the FBO attached to the corresponding target
+	    /// \param target framebuffer target to bind named framebuffer to
+	    /// \param fbo name of a framebuffer object
 		void printFramebufferInfo( GLenum target, GLuint fbo );
 
-		/**
-		 * Prints the framebuffer status for the FBO attached to the corresponding target
-		 * @param target
-		 * @param fbo
-		 */
+		/// \desc Prints the framebuffer status for the FBO attached to the corresponding target
+		/// \param target framebuffer target to bind named framebuffer to
+		/// \param fbo name of a framebuffer object
         void printFramebufferStatusMessage( GLenum target, GLuint fbo );
-        /**
-         * Prints the framebuffer status for the FBO currently attached to the corresponding target
-         * @param target
-         */
+
+        /// \desc Prints the framebuffer status for the FBO currently attached to the corresponding target
+        /// \param target framebuffer target to check status of bound framebuffer
 		void printFramebufferStatusMessage( GLenum target );
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************
+//**********************************************************************************
 // Outward facing function implementations
 
 inline void CSCI441::FramebufferUtils::printFramebufferInfo( GLenum target, GLuint fbo ) {
