@@ -139,6 +139,8 @@ namespace CSCI441 {
 															  			GLenum magFilter = GL_LINEAR,
 																  		GLenum wrapS = GL_REPEAT,
 																	  	GLenum wrapT = GL_REPEAT );
+
+        void loadCubeMapFaceTexture(const GLint CUBE_MAP_FACE, const char* FILENAME);
 	}
 }
 
@@ -471,6 +473,19 @@ inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filen
     }
 
 	return texHandle;
+}
+
+inline void CSCI441::TextureUtils::loadCubeMapFaceTexture(const GLint CUBE_MAP_FACE, const char* FILENAME) {
+    int imageWidth, imageHeight, imageChannels;
+    unsigned char *data = stbi_load( FILENAME, &imageWidth, &imageHeight, &imageChannels, 0);
+
+    if( data ) {
+        const GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);
+        glTexImage2D(CUBE_MAP_FACE, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);
+        stbi_image_free(data);
+    } else {
+        fprintf( stderr, "[ERROR]: Could not load texture map \"%s\"\n", FILENAME );
+    }
 }
 
 #endif // __CSCI441_TEXTUREUTILS_H__
