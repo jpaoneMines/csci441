@@ -27,6 +27,9 @@ TODO Items
   > Handle vertex and face colors in OFF files
 
 Revision History
+v 3.1.0 - 21 May 2021
+  > Removed all ShaderProgram::setUniform().  Use ShaderProgram::setProgramUniform() instead.
+
 v 3.0.0 - 21 May 2021
   > Reworked ModelLoader.hpp to first set attribute locations then specify the shader handle.  This allows for the model to be used with separable programs and shader pipelines.
   > Renamed modelLoader.hpp to ModelLoader.hpp to reflect it stores a class
