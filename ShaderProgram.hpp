@@ -205,7 +205,7 @@ namespace CSCI441 {
 
         /** @desc Returns the location of the given attribute in this shader program
           * @note Prints an error message to standard error stream if the attribute is not found
-            * @param const char* attributeName - name of the attribute to get the location for
+          * @param const char* attributeName - name of the attribute to get the location for
           * @return GLint - location of the given attribute in this shader program
           */
         GLint getAttributeLocation( const char *attributeName );
@@ -412,6 +412,7 @@ namespace CSCI441 {
         GLuint _shaderProgramHandle;
 
         std::map<std::string, GLint> *_uniformLocations;
+        std::map<std::string, GLint> *_attributeLocations;
 
         bool registerShaderProgram( const char *vertexShaderFilename,
                                     const char *tesselationControlShaderFilename,
@@ -691,6 +692,32 @@ inline bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexSha
         }
     }
 
+    // map attributes
+    _attributeLocations = new std::map<std::string, GLint>();
+    GLint numAttributes;
+    glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_ATTRIBUTES, &numAttributes );
+    if( numAttributes > 0 ) {
+        for(GLuint i = 0; i < numAttributes; i++) {
+            char name[64];
+            int max_length = 64;
+            int actual_length = 0;
+            int size = 0;
+            GLenum type;
+            glGetActiveAttrib( _shaderProgramHandle, i, max_length, &actual_length, &size, &type, name );
+            GLint location = -1;
+            if( size > 1 ) {
+                for( int j = 0; j < size; j++ ) {
+                    char long_name[64];
+                    sprintf( long_name, "%s[%i]", name, j );
+                    location = glGetAttribLocation( _shaderProgramHandle, long_name );
+                }
+            } else {
+                location = glGetAttribLocation( _shaderProgramHandle, name );
+            }
+            _attributeLocations->emplace( name, location );
+        }
+    }
+
     GLint separable = GL_FALSE;
     glGetProgramiv( _shaderProgramHandle, GL_PROGRAM_SEPARABLE, &separable );
 
@@ -778,10 +805,12 @@ inline void CSCI441::ShaderProgram::setUniformBlockBinding( const char *uniformB
 }
 
 inline GLint CSCI441::ShaderProgram::getAttributeLocation( const char *attributeName ) {
-    GLint attributeLoc = glGetAttribLocation( _shaderProgramHandle, attributeName );
-    if( attributeLoc == -1 )
+    std::map<std::string, GLint>::iterator attribIter = _attributeLocations->find(attributeName);
+    if( attribIter == _attributeLocations->end() ) {
         fprintf( stderr, "[ERROR]: Could not find attribute \"%s\" for Shader Program %u\n", attributeName, _shaderProgramHandle );
-    return attributeLoc;
+        return -1;
+    }
+    return attribIter->second;
 }
 
 inline GLuint CSCI441::ShaderProgram::getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) {
@@ -1899,6 +1928,7 @@ inline CSCI441::ShaderProgram::ShaderProgram() {}
 inline CSCI441::ShaderProgram::~ShaderProgram() {
     glDeleteProgram( _shaderProgramHandle );
     delete _uniformLocations;
+    delete _attributeLocations;
 }
 
 #endif //__CSCI441_SHADERPROGRAM_H__
