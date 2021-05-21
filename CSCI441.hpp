@@ -17,7 +17,7 @@
 #include "ComputeShaderProgram.hpp" // helper class to compile and use compute shaders
 #include "FramebufferUtils.hpp"     // to query common FBO information
 #include "materials.hpp"            // predefined material properties
-#include "modelLoader.hpp"          // to load OBJ, OFF, PLY, STL files
+#include "ModelLoader.hpp"          // to load OBJ, OFF, PLY, STL files
 #include "OpenGLUtils.hpp"          // to query OpenGL features
 #include "objects.hpp"              // include 3D objects (cube, cylinder, cone, torus, sphere, disk, teapot)
 #include "ShaderProgram.hpp"        // helper class to compile and use shaders

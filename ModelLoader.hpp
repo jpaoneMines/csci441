@@ -68,20 +68,27 @@ namespace CSCI441 {
 			* @return true if load succeeded, false otherwise
 			*/
 		bool loadModelFile( const char* filename, bool INFO = true, bool ERRORS = true );
-		/** @desc Renders a model
-			* @param GLint positionLocation	- attribute location of vertex position
-			* @param GLint normalLocation		- attribute location of vertex normal
-			* @param GLint texCoordLocation	- attribute location of vertex texture coordinate
-			* @param GLint matDiffLocation	- attribute location of material diffuse component
-			* @param GLint matSpecLocation	- attribute location of material specular component
-			* @param GLint matShinLocation	- attribute location of material shininess component
-			* @param GLint matAmbLocation		- attribute location of material ambient component
-			* @param GLenum diffuseTexture	- texture number to bind diffuse texture map to
-			* @return true if draw succeeded, false otherwise
-			*/
-		bool draw( GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1,
-							 GLint matDiffLocation = -1, GLint matSpecLocation = -1, GLint matShinLocation = -1, GLint matAmbLocation = -1,
-						   GLenum diffuseTexture = GL_TEXTURE0 ) const;
+
+		/**
+		 * @desc Enables VBO attribute array locations
+		 * @param GLint positionLocation	- attribute location of vertex position
+         * @param GLint normalLocation		- attribute location of vertex normal
+         * @param GLint texCoordLocation	- attribute location of vertex texture coordinate
+		 */
+		void setAttributeLocations(GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1) const;
+
+        /** @desc Renders a model
+         * @param GLint shaderProgramHandle - shader program handle that
+            * @param GLint matDiffLocation	- uniform location of material diffuse component
+            * @param GLint matSpecLocation	- uniform location of material specular component
+            * @param GLint matShinLocation	- uniform location of material shininess component
+            * @param GLint matAmbLocation		- uniform location of material ambient component
+            * @param GLenum diffuseTexture	- texture number to bind diffuse texture map to
+            * @return true if draw succeeded, false otherwise
+            */
+        bool draw( GLuint shaderProgramHandle,
+                   GLint matDiffLocation = -1, GLint matSpecLocation = -1, GLint matShinLocation = -1, GLint matAmbLocation = -1,
+                   GLenum diffuseTexture = GL_TEXTURE0 ) const;
 
 		/**
 		 * @desc Return the vertex array that makes up the model mesh.
@@ -225,23 +232,26 @@ inline bool CSCI441::ModelLoader::loadModelFile( const char* filename, bool INFO
 	return result;
 }
 
-inline bool CSCI441::ModelLoader::draw( GLint positionLocation, GLint normalLocation, GLint texCoordLocation,
-						 										 GLint matDiffLocation, GLint matSpecLocation, GLint matShinLocation, GLint matAmbLocation,
-															   GLenum diffuseTexture ) const {
-  bool result = true;
+inline void CSCI441::ModelLoader::setAttributeLocations(GLint positionLocation, GLint normalLocation, GLint texCoordLocation) const {
+    glBindVertexArray( _vaod );
+    glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
 
-	glBindVertexArray( _vaod );
-	glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
+    glEnableVertexAttribArray( positionLocation );
+    glVertexAttribPointer( positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
 
-	glEnableVertexAttribArray( positionLocation );
-	glVertexAttribPointer( positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
+    glEnableVertexAttribArray( normalLocation );
+    glVertexAttribPointer( normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * _uniqueIndex * 3) );
 
-	glEnableVertexAttribArray( normalLocation );
-	glVertexAttribPointer( normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * _uniqueIndex * 3) );
+    glEnableVertexAttribArray( texCoordLocation );
+    glVertexAttribPointer( texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * _uniqueIndex * 6) );
+}
 
-	glEnableVertexAttribArray( texCoordLocation );
-	glVertexAttribPointer( texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * _uniqueIndex * 6) );
+inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
+                                        GLint matDiffLocation, GLint matSpecLocation, GLint matShinLocation, GLint matAmbLocation,
+                                        GLenum diffuseTexture ) const {
+    glBindVertexArray( _vaod );
 
+    bool result = true;
 	if( _modelType == CSCI441_INTERNAL::OBJ ) {
 		for( auto materialIter = _materialIndexStartStop.begin();
 						materialIter != _materialIndexStartStop.end();
@@ -250,7 +260,7 @@ inline bool CSCI441::ModelLoader::draw( GLint positionLocation, GLint normalLoca
 			string materialName = materialIter->first;
 			vector< pair< unsigned int, unsigned int > > indexStartStop = materialIter->second;
 
-			CSCI441_INTERNAL::ModelMaterial* material = NULL;
+			CSCI441_INTERNAL::ModelMaterial* material = nullptr;
 			if( _materials.find( materialName ) != _materials.end() )
 				material = _materials.find( materialName )->second;
 
@@ -262,13 +272,13 @@ inline bool CSCI441::ModelLoader::draw( GLint positionLocation, GLint normalLoca
 				unsigned int end = idxIter->second;
 				unsigned int length = end - start + 1;
 
-				//printf( "rendering material %s (%u, %u) = %u\n", materialName.c_str(), start, end, length );
+//				printf( "rendering material %s (%u, %u) = %u\n", materialName.c_str(), start, end, length );
 
-				if( material != NULL ) {
-					glUniform4fv( matAmbLocation, 1, material->ambient );
-					glUniform4fv( matDiffLocation, 1, material->diffuse );
-					glUniform4fv( matSpecLocation, 1, material->specular );
-					glUniform1f( matShinLocation, material->shininess );
+				if( material != nullptr ) {
+					glProgramUniform4fv( shaderProgramHandle, matAmbLocation, 1, material->ambient );
+					glProgramUniform4fv( shaderProgramHandle, matDiffLocation, 1, material->diffuse );
+					glProgramUniform4fv( shaderProgramHandle, matSpecLocation, 1, material->specular );
+					glProgramUniform1f( shaderProgramHandle, matShinLocation, material->shininess );
 
 					if( material->map_Kd != -1 ) {
 						glActiveTexture( diffuseTexture );
