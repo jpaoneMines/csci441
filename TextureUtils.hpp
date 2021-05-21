@@ -140,6 +140,12 @@ namespace CSCI441 {
 																  		GLenum wrapS = GL_REPEAT,
 																	  	GLenum wrapT = GL_REPEAT );
 
+		/**
+		 * @brief loads a texture into memory of a cube face
+		 * @param CUBE_MAP_FACE face of the Cube Map to load the texture to
+		 * @param FILENAME filename of image to load texture from
+		 * @warning Cube Map must be bound as active texture before calling
+		 */
         void loadCubeMapFaceTexture(const GLint CUBE_MAP_FACE, const char* FILENAME);
 	}
 }
