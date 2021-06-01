@@ -33,22 +33,70 @@ namespace CSCI441_INTERNAL {
 	namespace ShaderUtils {
 		static bool sDEBUG = true;
 
+		/// \desc Enables console output
 		void enableDebugMessages();
+
+		/// \desc Disables console output
 		void disableDebugMessages();
 
+		/// \desc Converts a GLenum data type variable to the string name of the associated value
+		/// \param GLenum data type
+		/// \return const char* name of data type
 		const char* GLSL_type_to_string( GLenum type );
+
+        /// \desc Converts a GLenum shader type variable to the string name of the associated value
+        /// \param GLenum shader type
+        /// \return const char* name of shader type
 		const char* GL_shader_type_to_string( GLenum type );
+
+        /// \desc Converts a GLenum primitive type variable to the string name of the associated value
+        /// \param GLenum primitive type
+        /// \return const char* name of primitive type
 		const char* GL_primitive_type_to_string( GLenum type );
 
+		/// \desc Reads the contents of a text file to a character array
+		/// \param const char* filename of shader file to read in
+		/// \param char*& character array to store the contents of the file.  Will allocate memory and populate within the function
+		/// \return bool true if file was successfully opened and read.  false otherwise
 		bool readTextFromFile( const char* filename, char* &output );
+
+        /// \desc Reads the contents of a text file and compiles the associated shader type
+        /// \param const char* filename of shader file to read in
+        /// \param GLenum type of shader file corresponds to
+        /// \return GLuint shader handle if compilation successful.  -1 otherwise
 		GLuint compileShader( const char *filename, GLenum shaderType );
 
+		/// \desc Prints the shader log for the associated Shader handle
 		void printShaderLog( GLuint shaderHandle );
+
+        /// \desc Prints the shader log for the associated Shader Program handle
 		void printProgramLog( GLuint programHandle );
+
+        /// \desc Prints the shader log for the associated Program Pipeline handle
 		void printProgramPipelineLog( GLuint pipelineHandle );
-		
-		GLboolean printSubroutineInfo( GLuint handle, GLenum shaderStage, GLboolean printHeader );
-        void printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean hasComputeShader, GLboolean useLastNewLine );
+
+		/// \desc Prints subroutine information from a Shader program
+		/// \param GLuint Shader Program handle to inspect
+		/// \param GLenum Shader Stage to inspect
+		/// \param GLboolean if opening output line should be printed to console
+		GLboolean printSubroutineInfo(GLuint programHandle, GLenum shaderStage, GLboolean printHeader );
+
+		/// \desc Uses Shader Program introspection to print contents of Shader Program
+		/// \param GLuint Shader Program handle to inspect
+		/// \param GLboolean if Shader Program contains a vertex shader
+		/// \param GLboolean if Shader Program contains a tessellation control shader
+		/// \param GLboolean if Shader Program contains a tessellation evaluation shader
+		/// \param GLboolean if Shader Program contains a geometry shader
+		/// \param GLboolean if Shader Program contains a fragment shader
+		/// \param GLboolean if Shader Program contains a compute shader
+		/// \param GLboolean if closing output line should be printed to console (defaults to true)
+		void printShaderProgramInfo( GLuint programHandle,
+                                     GLboolean hasVertexShader,
+                                     GLboolean hasTessControlShader, GLboolean hasTessEvalShader,
+                                     GLboolean hasGeometryShader,
+                                     GLboolean hasFragmentShader,
+                                     GLboolean hasComputeShader,
+                                     GLboolean useLastNewLine );
 	}
 }
 
@@ -302,11 +350,11 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog( GLuint pipel
 	}
 }
 
-inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint handle, GLenum shaderStage, GLboolean printHeader ) {
+inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo(GLuint programHandle, GLenum shaderStage, GLboolean printHeader ) {
 	int params, params2;
 	int *params3;
 
-	glGetProgramStageiv(handle, shaderStage, GL_ACTIVE_SUBROUTINE_UNIFORMS, &params);
+	glGetProgramStageiv(programHandle, shaderStage, GL_ACTIVE_SUBROUTINE_UNIFORMS, &params);
 	bool headerPrinted = false;
 	if( params > 0 ) {
         if( printHeader ) {
@@ -319,11 +367,11 @@ inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint hand
             int max_length = 256;
             int actual_length = 0;
 
-            glGetActiveSubroutineUniformName( handle, shaderStage, i, max_length, &actual_length, name );
-            glGetActiveSubroutineUniformiv( handle, shaderStage, i, GL_NUM_COMPATIBLE_SUBROUTINES, &params2 );
+            glGetActiveSubroutineUniformName(programHandle, shaderStage, i, max_length, &actual_length, name );
+            glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL_NUM_COMPATIBLE_SUBROUTINES, &params2 );
             params3 = (int*)malloc(sizeof(int) * params2);
-            glGetActiveSubroutineUniformiv( handle, shaderStage, i, GL_COMPATIBLE_SUBROUTINES, params3 );
-            GLint loc = glGetSubroutineUniformLocation( handle, shaderStage, name );
+            glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL_COMPATIBLE_SUBROUTINES, params3 );
+            GLint loc = glGetSubroutineUniformLocation(programHandle, shaderStage, name );
 
             printf("[INFO]: |   %i) name: %-15s #subRoutines: %-5i loc: %2i |\n", i, name, params2, loc );
 
@@ -333,7 +381,7 @@ inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint hand
                 char name2[64];
                 int max_length2 = 64;
                 int actual_length2 = 0;
-                glGetActiveSubroutineName( handle, shaderStage, idx, max_length2, &actual_length2, name2 );
+                glGetActiveSubroutineName(programHandle, shaderStage, idx, max_length2, &actual_length2, name2 );
 
                 printf("[INFO]: |     %i) subroutine: %-25s index: %2i |\n", j, name2, idx );
             }
@@ -344,7 +392,7 @@ inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint hand
 	return !headerPrinted;
 }
 
-inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean hasComputeShader, GLboolean useLastNewLine = true ) {
+inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(GLuint programHandle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean hasComputeShader, GLboolean useLastNewLine = true ) {
     GLint major, minor;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
@@ -354,7 +402,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
     GLuint shaders[6];
     int max_count = 6;
     int actual_count;
-    glGetAttachedShaders( handle, max_count, &actual_count, shaders );
+    glGetAttachedShaders(programHandle, max_count, &actual_count, shaders );
     if(actual_count > 0) {
         if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n");
         if( sDEBUG ) printf("[INFO]: | GL_ATTACHED_SHADERS: %33i |\n", actual_count);
@@ -369,9 +417,9 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
         if(hasGeometryShader) {
             if( major > 3 || (major >= 3 && minor >= 2)  ) {
                 GLint verticesOut, inputType, outputType;
-                glGetProgramiv(handle, GL_GEOMETRY_VERTICES_OUT, &verticesOut);
-                glGetProgramiv(handle, GL_GEOMETRY_INPUT_TYPE,   &inputType);
-                glGetProgramiv(handle, GL_GEOMETRY_OUTPUT_TYPE,  &outputType);
+                glGetProgramiv(programHandle, GL_GEOMETRY_VERTICES_OUT, &verticesOut);
+                glGetProgramiv(programHandle, GL_GEOMETRY_INPUT_TYPE, &inputType);
+                glGetProgramiv(programHandle, GL_GEOMETRY_OUTPUT_TYPE, &outputType);
 
                 printf( "[INFO]: >--------------------------------------------------------<\n");
                 printf( "[INFO]: | GEOMETRY SHADER PRIMITIVE I/O                          |\n");
@@ -383,7 +431,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
     }
 
     if(hasVertexShader) {
-        glGetProgramiv( handle, GL_ACTIVE_ATTRIBUTES, &params );
+        glGetProgramiv(programHandle, GL_ACTIVE_ATTRIBUTES, &params );
         if( params > 0 ) {
             if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n");
             if( sDEBUG ) printf( "[INFO]: | GL_ACTIVE_ATTRIBUTES: %32i |\n", params );
@@ -393,23 +441,23 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
                 int actual_length = 0;
                 int size = 0;
                 GLenum type;
-                glGetActiveAttrib( handle, i, max_length, &actual_length, &size, &type, name );
+                glGetActiveAttrib(programHandle, i, max_length, &actual_length, &size, &type, name );
                 if( size > 1 ) {
                     for( int j = 0; j < size; j++ ) {
                         char long_name[64];
                         sprintf( long_name, "%s[%i]", name, j );
-                        int location = glGetAttribLocation( handle, long_name );
+                        int location = glGetAttribLocation(programHandle, long_name );
                         if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string( type ), long_name, location );
                     }
                 } else {
-                    int location = glGetAttribLocation( handle, name );
+                    int location = glGetAttribLocation(programHandle, name );
                     if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n",i, GLSL_type_to_string( type ), name, location );
                 }
             }
         }
     }
 
-    glGetProgramiv(handle, GL_ACTIVE_UNIFORMS, &params);
+    glGetProgramiv(programHandle, GL_ACTIVE_UNIFORMS, &params);
     if( params > 0 ) {
         if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n" );
         if( sDEBUG ) printf("[INFO]: | GL_ACTIVE_UNIFORMS: %34i |\n", params);
@@ -419,18 +467,18 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
             int actual_length = 0;
             int size = 0;
             GLenum type;
-            glGetActiveUniform( handle, i, max_length, &actual_length, &size, &type, name );
+            glGetActiveUniform(programHandle, i, max_length, &actual_length, &size, &type, name );
             if(size > 1) {
                 for(int j = 0; j < size; j++) {
                     char long_name[64];
                     sprintf(long_name, "%s[%i]", name, j);
-                    int location = glGetUniformLocation(handle, long_name);
+                    int location = glGetUniformLocation(programHandle, long_name);
                     if(location != -1) {
                         if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string(type), long_name, location);
                     }
                 }
             } else {
-                int location = glGetUniformLocation(handle, name);
+                int location = glGetUniformLocation(programHandle, name);
                 if(location != -1) {
                     if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n",i, GLSL_type_to_string(type), name, location);
                 }
@@ -441,43 +489,43 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
     int vsCount, tcsCount, tesCount, gsCount, fsCount, csCount;
     vsCount = tcsCount = tesCount = gsCount = fsCount = csCount = 0;
 
-    glGetProgramiv(handle, GL_ACTIVE_UNIFORM_BLOCKS, &params);
+    glGetProgramiv(programHandle, GL_ACTIVE_UNIFORM_BLOCKS, &params);
     if( params > 0 ) {
         if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n");
         if( sDEBUG ) printf("[INFO]: | GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS: %20d |\n", params);
         for(int i = 0; i < params; i++ ) {
             int params2;
-            glGetActiveUniformBlockiv(handle, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &params2 );
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &params2 );
 
             int actualLen;
-            glGetActiveUniformBlockiv(handle, i, GL_UNIFORM_BLOCK_NAME_LENGTH, &actualLen);
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_NAME_LENGTH, &actualLen);
             char *name = (char *)malloc(sizeof(char) * actualLen);
-            glGetActiveUniformBlockName(handle, i, actualLen, nullptr, name);
+            glGetActiveUniformBlockName(programHandle, i, actualLen, nullptr, name);
 
             auto indices = (GLuint*)malloc(params2*sizeof(GLuint));
-            glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, (GLint*)indices);
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, (GLint*)indices);
 
             auto offsets = (GLint*)malloc(params2*sizeof(GLint));
-            glGetActiveUniformsiv(handle, params2, indices, GL_UNIFORM_OFFSET, offsets);
+            glGetActiveUniformsiv(programHandle, params2, indices, GL_UNIFORM_OFFSET, offsets);
 
             if( sDEBUG ) printf("[INFO]: | %d) %-34s   # Uniforms: %2d |\n", i, name, params2);
 
             GLint vs, tcs, tes, gs, fs, cs;
-            glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER, &vs);			if( vs ) vsCount++;
-            glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER, &tcs);	if( tcs) tcsCount++;
-            glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER, &tes);	if( tes) tesCount++;
-            glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER, &gs);			if( gs ) gsCount++;
-            glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER, &fs);			if( fs ) fsCount++;
-            glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_COMPUTE_SHADER, &cs);			if( cs ) csCount++;
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER, &vs);			if( vs ) vsCount++;
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER, &tcs);	if( tcs) tcsCount++;
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER, &tes);	if( tes) tesCount++;
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER, &gs);			if( gs ) gsCount++;
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER, &fs);			if( fs ) fsCount++;
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_COMPUTE_SHADER, &cs);			if( cs ) csCount++;
             if( sDEBUG ) printf("[INFO]: |   Used in: %-4s %-4s %-4s %-3s %-4s %-4s      Shader(s) |\n", (vs ? "Vert" : ""), (tcs ? "Ctrl" : ""), (tes ? "Eval" : ""), (gs ? "Geo" : ""), (fs ? "Frag" : ""), (cs ? "Comp" : ""));
 
             int maxUniLength;
-            glGetProgramiv(handle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxUniLength);
+            glGetProgramiv(programHandle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxUniLength);
             char *name2 = (char *)malloc(sizeof(char) * maxUniLength);
             for(int j = 0; j < params2; j++) {
                 GLenum type;
                 int uniSize;
-                glGetActiveUniform(handle, indices[j], maxUniLength, &actualLen, &uniSize, &type, name2);
+                glGetActiveUniform(programHandle, indices[j], maxUniLength, &actualLen, &uniSize, &type, name2);
 
                 if( sDEBUG ) {
                     printf("[INFO]: |  %2d) type: %-15s name: %-21s |\n", j, GLSL_type_to_string(type), name2);
@@ -532,10 +580,10 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
     if( sDEBUG ) {
         if((major == 4 && minor >= 3) || major > 4) {
             GLint paramsSSBO[1];
-            glGetProgramInterfaceiv(handle, GL_SHADER_STORAGE_BLOCK, GL_ACTIVE_RESOURCES, paramsSSBO);
+            glGetProgramInterfaceiv(programHandle, GL_SHADER_STORAGE_BLOCK, GL_ACTIVE_RESOURCES, paramsSSBO);
             if(paramsSSBO[0] > 0) {
                 GLint maxLen;
-                glGetProgramInterfaceiv(handle, GL_SHADER_STORAGE_BLOCK, GL_MAX_NAME_LENGTH, &maxLen);
+                glGetProgramInterfaceiv(programHandle, GL_SHADER_STORAGE_BLOCK, GL_MAX_NAME_LENGTH, &maxLen);
                 auto ssboName = (GLchar*)malloc(sizeof(GLchar)*maxLen);
                 GLsizei ssboNameLen;
 
@@ -555,9 +603,9 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
                 printf( "[INFO]: >--------------------------------------------------------<\n");
                 printf( "[INFO]: | GL_SHADER_STORAGE_BLOCK: %29d |\n", paramsSSBO[0] );
                 for(int i = 0; i < paramsSSBO[0]; i++) {
-                    glGetProgramResourceName(handle, GL_SHADER_STORAGE_BLOCK, i, maxLen, &ssboNameLen, ssboName);
-                    GLuint ssboIndex = glGetProgramResourceIndex(handle, GL_SHADER_STORAGE_BLOCK, ssboName);
-                    glGetProgramResourceiv(handle, GL_SHADER_STORAGE_BLOCK, i, NUM_PROPS, props, NUM_PROPS, &numWritten, results);
+                    glGetProgramResourceName(programHandle, GL_SHADER_STORAGE_BLOCK, i, maxLen, &ssboNameLen, ssboName);
+                    GLuint ssboIndex = glGetProgramResourceIndex(programHandle, GL_SHADER_STORAGE_BLOCK, ssboName);
+                    glGetProgramResourceiv(programHandle, GL_SHADER_STORAGE_BLOCK, i, NUM_PROPS, props, NUM_PROPS, &numWritten, results);
 
                     printf( "[INFO]: | %3d) name: %-19s index: %3d binding: %3d |\n", i, ssboName, ssboIndex, results[0] );
                     printf( "[INFO]: |   Used in: %-4s %-4s %-4s %-3s %-4s %-4s      Shader(s) |\n", (results[1] ? "Vert" : ""), (results[2] ? "Ctrl" : ""), (results[3] ? "Eval" : ""), (results[4] ? "Geo" : ""), (results[5] ? "Frag" : ""), (results[6] ? "Comp" : ""));
@@ -608,10 +656,10 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
 
         if((major == 4 && minor >= 2) || major > 4) {
             GLint paramsAtomic[1];
-            glGetProgramInterfaceiv(handle, GL_ATOMIC_COUNTER_BUFFER, GL_ACTIVE_RESOURCES, paramsAtomic);
+            glGetProgramInterfaceiv(programHandle, GL_ATOMIC_COUNTER_BUFFER, GL_ACTIVE_RESOURCES, paramsAtomic);
             if(paramsAtomic[0] > 0) {
                 GLint maxLen;
-                glGetProgramInterfaceiv(handle, GL_ATOMIC_COUNTER_BUFFER, GL_MAX_NAME_LENGTH, &maxLen);
+                glGetProgramInterfaceiv(programHandle, GL_ATOMIC_COUNTER_BUFFER, GL_MAX_NAME_LENGTH, &maxLen);
                 auto atomicName = (GLchar*)malloc(sizeof(GLchar)*maxLen);
                 GLsizei atomicNameLen;
 
@@ -634,23 +682,23 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
                 vAC = teAC = tcAC = gAC = fAC = cAC = 0;
 
                 GLint numUniforms;
-                glGetProgramiv(handle, GL_ACTIVE_UNIFORMS, &numUniforms);
+                glGetProgramiv(programHandle, GL_ACTIVE_UNIFORMS, &numUniforms);
                 for(int j = 0; j < numUniforms; j++) {
                     int size = 0;
                     GLenum type;
-                    glGetActiveUniform( handle, j, maxLen, &atomicNameLen, &size, &type, atomicName );
+                    glGetActiveUniform(programHandle, j, maxLen, &atomicNameLen, &size, &type, atomicName );
 
-                    GLuint atomicIndex = glGetProgramResourceIndex(handle, GL_UNIFORM, atomicName);
+                    GLuint atomicIndex = glGetProgramResourceIndex(programHandle, GL_UNIFORM, atomicName);
 
                     GLenum atomicProps[1] = {GL_ATOMIC_COUNTER_BUFFER_INDEX};
                     GLint atomicResults[1];
-                    glGetProgramResourceiv(handle, GL_UNIFORM, atomicIndex, 1, atomicProps, 1, nullptr, atomicResults);
+                    glGetProgramResourceiv(programHandle, GL_UNIFORM, atomicIndex, 1, atomicProps, 1, nullptr, atomicResults);
 
                     if(atomicResults[0] != -1) {
-                        glGetProgramResourceiv(handle, GL_ATOMIC_COUNTER_BUFFER, atomicResults[0], NUM_PROPS, props, NUM_PROPS, &numWritten, results);
+                        glGetProgramResourceiv(programHandle, GL_ATOMIC_COUNTER_BUFFER, atomicResults[0], NUM_PROPS, props, NUM_PROPS, &numWritten, results);
 
                         GLint offset;
-                        glGetActiveUniformsiv(handle, 1, &atomicIndex, GL_UNIFORM_OFFSET, &offset);
+                        glGetActiveUniformsiv(programHandle, 1, &atomicIndex, GL_UNIFORM_OFFSET, &offset);
 
                         printf( "[INFO]: | %3d) type: %-15s name: %-21s |\n", atomicResults[0], GLSL_type_to_string(type), atomicName );
                         printf( "[INFO]: |      uniform index: %3d    atomic index: %3d           |\n", atomicIndex, atomicResults[0] );
@@ -704,12 +752,12 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
 
         if( major >= 4 ) {
             GLboolean printHeader = GL_TRUE;
-            if( hasVertexShader   )     printHeader = printSubroutineInfo( handle, GL_VERTEX_SHADER, printHeader );
-            if( hasTessControlShader)   printHeader = printSubroutineInfo( handle, GL_TESS_CONTROL_SHADER, printHeader );
-            if( hasTessEvalShader)      printHeader = printSubroutineInfo( handle, GL_TESS_EVALUATION_SHADER, printHeader );
-            if( hasGeometryShader )     printHeader = printSubroutineInfo( handle, GL_GEOMETRY_SHADER, printHeader );
-            if( hasFragmentShader )     printHeader = printSubroutineInfo( handle, GL_FRAGMENT_SHADER, printHeader );
-            if( hasComputeShader )      printSubroutineInfo( handle, GL_COMPUTE_SHADER, printHeader );
+            if( hasVertexShader   )     printHeader = printSubroutineInfo(programHandle, GL_VERTEX_SHADER, printHeader );
+            if( hasTessControlShader)   printHeader = printSubroutineInfo(programHandle, GL_TESS_CONTROL_SHADER, printHeader );
+            if( hasTessEvalShader)      printHeader = printSubroutineInfo(programHandle, GL_TESS_EVALUATION_SHADER, printHeader );
+            if( hasGeometryShader )     printHeader = printSubroutineInfo(programHandle, GL_GEOMETRY_SHADER, printHeader );
+            if( hasFragmentShader )     printHeader = printSubroutineInfo(programHandle, GL_FRAGMENT_SHADER, printHeader );
+            if( hasComputeShader )      printSubroutineInfo(programHandle, GL_COMPUTE_SHADER, printHeader );
         }
     }
 
@@ -719,22 +767,22 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
 inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader( const char *filename, GLenum shaderType ) {
 	GLuint shaderHandle = glCreateShader( shaderType );	char *shaderString;
 
-    /* read in each text file and store the contents in a string */
+    // read in each text file and store the contents in a string
     if( readTextFromFile( filename, shaderString ) ) {
 
-		/* send the contents of each program to the GPU */
+		// send the contents of each program to the GPU
 		glShaderSource( shaderHandle, 1, (const char**)&shaderString, nullptr );
 
-		/* we are good programmers so free up the memory used by each buffer */
+		// we are good programmers so free up the memory used by each buffer
 		delete [] shaderString;
 
-		/* compile each shader on the GPU */
+		// compile each shader on the GPU
 		glCompileShader( shaderHandle );
 
-		/* check the shader log */
+		// check the shader log
 		printShaderLog( shaderHandle );
 
-		/* return the handle of our shader */
+		// return the handle of our shader
 		return shaderHandle;
 	} else {
 		return -1;
