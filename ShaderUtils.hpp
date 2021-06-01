@@ -1,22 +1,23 @@
-/** @file ShaderUtils3.hpp
+/**
+ * @file ShaderUtils3.hpp
  * @brief Helper functions to work with OpenGL Shaders
  * @author Dr. Jeffrey Paone
  *
  * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
  *
- *	These functions, classes, and constants help minimize common
- *	code that needs to be written.
+ * These functions, classes, and constants help minimize common
+ * code that needs to be written.
  *
- *	@warning NOTE: This header file depends upon GLEW
+ * @warning NOTE: This header file depends upon GLEW
  */
 
-#ifndef __CSCI441_SHADEREUTILS_H__
-#define __CSCI441_SHADEREUTILS_H__
+#ifndef CSCI441_SHADEREUTILS_H
+#define CSCI441_SHADEREUTILS_H
 
 #include <GL/glew.h>
 
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 
 #include <fstream>
 #include <string>
@@ -37,14 +38,11 @@ namespace CSCI441_INTERNAL {
 		bool readTextFromFile( const char* filename, char* &output );
 		GLuint compileShader( const char *filename, GLenum shaderType );
 
-		void printLog( GLuint handle );
 		void printShaderLog( GLuint shaderHandle );
 		void printProgramLog( GLuint programHandle );
 		void printProgramPipelineLog( GLuint pipelineHandle );
 		
 		GLboolean printSubroutineInfo( GLuint handle, GLenum shaderStage, GLboolean printHeader );
-		void printShaderProgramInfo( GLuint handle );
-        void printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean useLastNewLine );
         void printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean hasComputeShader, GLboolean useLastNewLine );
 	}
 }
@@ -163,7 +161,7 @@ inline const char* CSCI441_INTERNAL::ShaderUtils::GLSL_type_to_string(GLenum typ
         case GL_IMAGE_1D:                                   return "image1D";
         case GL_IMAGE_2D:                                   return "image2D";
         case GL_IMAGE_3D:                                   return "image3D";
-        case GL_IMAGE_2D_RECT:                              return "image3D";
+        case GL_IMAGE_2D_RECT:                              return "image2DRect";
         case GL_IMAGE_CUBE:                                 return "imageCube";
         case GL_IMAGE_BUFFER:                               return "imageBuffer";
         case GL_IMAGE_1D_ARRAY:                             return "image1DArray";
@@ -173,7 +171,7 @@ inline const char* CSCI441_INTERNAL::ShaderUtils::GLSL_type_to_string(GLenum typ
         case GL_INT_IMAGE_1D:                               return "iimage1D";
         case GL_INT_IMAGE_2D:                               return "iimage2D";
         case GL_INT_IMAGE_3D:                               return "iimage3D";
-        case GL_INT_IMAGE_2D_RECT:                          return "iimage3D";
+        case GL_INT_IMAGE_2D_RECT:                          return "iimage2DRect";
         case GL_INT_IMAGE_CUBE:                             return "iimageCube";
         case GL_INT_IMAGE_BUFFER:                           return "iimageBuffer";
         case GL_INT_IMAGE_1D_ARRAY:                         return "iimage1DArray";
@@ -183,7 +181,7 @@ inline const char* CSCI441_INTERNAL::ShaderUtils::GLSL_type_to_string(GLenum typ
         case GL_UNSIGNED_INT_IMAGE_1D:                      return "uimage1D";
         case GL_UNSIGNED_INT_IMAGE_2D:                      return "uimage2D";
         case GL_UNSIGNED_INT_IMAGE_3D:                      return "uimage3D";
-        case GL_UNSIGNED_INT_IMAGE_2D_RECT:                 return "uimage3D";
+        case GL_UNSIGNED_INT_IMAGE_2D_RECT:                 return "uimage2DRect";
         case GL_UNSIGNED_INT_IMAGE_CUBE:                    return "uimageCube";
         case GL_UNSIGNED_INT_IMAGE_BUFFER:                  return "uimageBuffer";
         case GL_UNSIGNED_INT_IMAGE_1D_ARRAY:                return "uimage1DArray";
@@ -193,7 +191,7 @@ inline const char* CSCI441_INTERNAL::ShaderUtils::GLSL_type_to_string(GLenum typ
         case GL_UNSIGNED_INT_ATOMIC_COUNTER:                return "atomic_uint";
         default: break;
     }
-    return "other";
+    return "other data type";
 }
 
 inline const char* CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(GLenum type) {
@@ -203,9 +201,10 @@ inline const char* CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(GLenu
     case GL_TESS_EVALUATION_SHADER: return "Tess Eval Shader";
     case GL_GEOMETRY_SHADER: return "Geometry Shader";
     case GL_FRAGMENT_SHADER: return "Fragment Shader";
+    case GL_COMPUTE_SHADER: return "Compute Shader";
     default: break;
   }
-  return "other";
+  return "other shader type";
 }
 
 inline const char* CSCI441_INTERNAL::ShaderUtils::GL_primitive_type_to_string(GLenum type) {
@@ -221,24 +220,7 @@ inline const char* CSCI441_INTERNAL::ShaderUtils::GL_primitive_type_to_string(GL
         case GL_PATCHES: return "Patches";
         default: break;
     }
-    return "other";
-}
-
-// printLog() //////////////////////////////////////////////////////////////////
-//
-//  Check for errors from compiling or linking a vertex/fragment/shader program
-//      Prints to terminal
-//
-////////////////////////////////////////////////////////////////////////////////
-inline void CSCI441_INTERNAL::ShaderUtils::printLog( GLuint handle ) {
-    // check if the handle is to a vertex/fragment shader
-    if( glIsShader( handle ) ) {
-        printShaderLog(handle);
-    }
-    // check if the handle is to a shader program
-    else if( glIsProgram( handle ) ) {
-        printProgramLog(handle);
-    }
+    return "other primitive type";
 }
 
 inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog( GLuint shaderHandle ) {
@@ -294,6 +276,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog( GLuint programHandle
 		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader Program                |\n", programHandle );
 	}
 }
+
 inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog( GLuint pipelineHandle ) {
     int infologLength = 0;
     int maxLength;
@@ -319,7 +302,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog( GLuint pipel
 
 inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint handle, GLenum shaderStage, GLboolean printHeader ) {
 	int params, params2;
-	int *params3 = NULL;
+	int *params3 = nullptr;
 
 	glGetProgramStageiv(handle, shaderStage, GL_ACTIVE_SUBROUTINE_UNIFORMS, &params);
 	bool headerPrinted = false;
@@ -357,16 +340,6 @@ inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo( GLuint hand
         }
 	}
 	return !headerPrinted;
-}
-
-[[deprecated("Use printShaderProgramInfo(GLuint, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean)")]]
-inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle ) {
-    printShaderProgramInfo(handle, false, false, false, false, false, false, true);
-}
-
-[[deprecated("Use printShaderProgramInfo(GLuint, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean, GLboolean)")]]
-inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean useLastNewLine ) {
-    printShaderProgramInfo(handle, hasVertexShader, hasTessControlShader, hasTessEvalShader, hasGeometryShader, hasFragmentShader, false, useLastNewLine);
 }
 
 inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean hasComputeShader, GLboolean useLastNewLine = true ) {
@@ -477,7 +450,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
             int actualLen;
             glGetActiveUniformBlockiv(handle, i, GL_UNIFORM_BLOCK_NAME_LENGTH, &actualLen);
             char *name = (char *)malloc(sizeof(char) * actualLen);
-            glGetActiveUniformBlockName(handle, i, actualLen, NULL, name);
+            glGetActiveUniformBlockName(handle, i, actualLen, nullptr, name);
 
             GLuint *indices = (GLuint*)malloc(params2*sizeof(GLuint));
             glGetActiveUniformBlockiv( handle, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, (GLint*)indices);
@@ -734,7 +707,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
             if( hasTessEvalShader)      printHeader = printSubroutineInfo( handle, GL_TESS_EVALUATION_SHADER, printHeader );
             if( hasGeometryShader )     printHeader = printSubroutineInfo( handle, GL_GEOMETRY_SHADER, printHeader );
             if( hasFragmentShader )     printHeader = printSubroutineInfo( handle, GL_FRAGMENT_SHADER, printHeader );
-            if( hasComputeShader )      printHeader = printSubroutineInfo( handle, GL_COMPUTE_SHADER, printHeader );
+            if( hasComputeShader )      printSubroutineInfo( handle, GL_COMPUTE_SHADER, printHeader );
         }
     }
 
@@ -747,17 +720,14 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
 //
 ////////////////////////////////////////////////////////////////////////////////
 inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader( const char *filename, GLenum shaderType ) {
-	GLuint shaderHandle = 0;
+	GLuint shaderHandle = glCreateShader( shaderType );
 	char *shaderString;
-
-    /* create a handle to our shader */
-	shaderHandle = glCreateShader( shaderType );
 
     /* read in each text file and store the contents in a string */
     if( readTextFromFile( filename, shaderString ) ) {
 
 		/* send the contents of each program to the GPU */
-		glShaderSource( shaderHandle, 1, (const char**)&shaderString, NULL );
+		glShaderSource( shaderHandle, 1, (const char**)&shaderString, nullptr );
 
 		/* we are good programmers so free up the memory used by each buffer */
 		delete [] shaderString;
@@ -766,7 +736,7 @@ inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader( const char *filename
 		glCompileShader( shaderHandle );
 
 		/* check the shader log */
-		printLog( shaderHandle );
+		printShaderLog( shaderHandle );
 
 		/* return the handle of our shader */
 		return shaderHandle;
@@ -775,4 +745,4 @@ inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader( const char *filename
 	}
 }
 
-#endif // __CSCI441_SHADEREUTILS_H__
+#endif // CSCI441_SHADEREUTILS_H

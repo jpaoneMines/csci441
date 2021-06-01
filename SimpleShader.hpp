@@ -430,18 +430,18 @@ inline void CSCI441_INTERNAL::SimpleShader2::setupSimpleShader() {
     GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );
     glShaderSource(vertexShaderHandle, 1, vertexShaders, nullptr);
     glCompileShader(vertexShaderHandle);
-    ShaderUtils::printLog(vertexShaderHandle);
+    ShaderUtils::printShaderLog(vertexShaderHandle);
 
     GLuint fragmentShaderHandle = glCreateShader( GL_FRAGMENT_SHADER );
     glShaderSource(fragmentShaderHandle, 1, fragmentShaders, nullptr);
     glCompileShader(fragmentShaderHandle);
-    ShaderUtils::printLog(fragmentShaderHandle);
+    ShaderUtils::printShaderLog(fragmentShaderHandle);
 
     shaderProgramHandle = glCreateProgram();
     glAttachShader(shaderProgramHandle, vertexShaderHandle);
     glAttachShader(shaderProgramHandle, fragmentShaderHandle);
     glLinkProgram(shaderProgramHandle);
-    ShaderUtils::printLog(shaderProgramHandle);
+    ShaderUtils::printProgramLog(shaderProgramHandle);
 
     glDetachShader(shaderProgramHandle, vertexShaderHandle);
     glDeleteShader(vertexShaderHandle);
@@ -590,18 +590,18 @@ inline void CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {
     GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );
     glShaderSource(vertexShaderHandle, 1, vertexShaders, nullptr);
     glCompileShader(vertexShaderHandle);
-    ShaderUtils::printLog(vertexShaderHandle);
+    ShaderUtils::printShaderLog(vertexShaderHandle);
 
     GLuint fragmentShaderHandle = glCreateShader( GL_FRAGMENT_SHADER );
     glShaderSource(fragmentShaderHandle, 1, fragmentShaders, nullptr);
     glCompileShader(fragmentShaderHandle);
-    ShaderUtils::printLog(fragmentShaderHandle);
+    ShaderUtils::printShaderLog(fragmentShaderHandle);
 
     shaderProgramHandle = glCreateProgram();
     glAttachShader(shaderProgramHandle, vertexShaderHandle);
     glAttachShader(shaderProgramHandle, fragmentShaderHandle);
     glLinkProgram(shaderProgramHandle);
-    ShaderUtils::printLog(shaderProgramHandle);
+    ShaderUtils::printProgramLog(shaderProgramHandle);
 
     glDetachShader(shaderProgramHandle, vertexShaderHandle);
     glDeleteShader(vertexShaderHandle);

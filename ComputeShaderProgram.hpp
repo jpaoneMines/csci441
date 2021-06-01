@@ -78,7 +78,7 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
     if( sDEBUG ) printf( "[INFO]: | Shader Program: %41s", "|\n" );
 
     // check the program log
-    CSCI441_INTERNAL::ShaderUtils::printLog( _shaderProgramHandle );
+    CSCI441_INTERNAL::ShaderUtils::printProgramLog( _shaderProgramHandle );
 
     // detach & delete the vertex and fragment shaders to the shader program
     if( _computeShaderHandle != 0 ) {
