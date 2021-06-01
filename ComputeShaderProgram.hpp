@@ -1,4 +1,5 @@
-/** @file ComputeShaderProgram.hpp
+/**
+ * @file ComputeShaderProgram.hpp
  * @brief Class to work with OpenGL Compute Shaders
  * @author Dr. Jeffrey Paone
  *
@@ -8,30 +9,30 @@
  *	code that needs to be written.
  */
 
-#ifndef __CSCI441_COMPUTESHADERPROGRAM_H__
-#define __CSCI441_COMPUTESHADERPROGRAM_H__
+#ifndef CSCI441_COMPUTESHADERPROGRAM_HPP
+#define CSCI441_COMPUTESHADERPROGRAM_HPP
 
 #include "ShaderProgram.hpp"
 
-
 ////////////////////////////////////////////////////////////////////////////////
 
-/** @namespace CSCI441
-  * @brief CSCI441 Helper Functions for OpenGL
-	*/
+/// \namespace CSCI441
+/// \desc CSCI441 Helper Functions for OpenGL
 namespace CSCI441 {
 
-    /** @class ComputeShaderProgram
-        * @desc Handles registration and compilation of Compute Shaders
-        */
+    /// \class ComputeShaderProgram
+    /// \desc Handles registration and compilation of Compute Shaders
+    /// \note Extends the ShaderProgram class
     class ComputeShaderProgram : public ShaderProgram {
     public:
-        /** @desc Creates a Compute Shader Program
-          *
-            * @param const char* computeShaderFilename - name of the file corresponding to the compute shader
-          */
-        ComputeShaderProgram( const char *computeShaderFilename );
+        /// \desc Creates a Compute Shader Program
+        /// \param const char* name of the file corresponding to the compute shader
+        explicit ComputeShaderProgram( const char *computeShaderFilename );
 
+        /// \desc dispatches work to the Compute Shader on the GPU
+        /// \param GLuint number of work groups in X dimension (defaults to 1)
+        /// \param GLuint number of work groups in Y dimension (defaults to 1)
+        /// \param GLuint number of work groups in Z dimension (defaults to 1)
         void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ);
     private:
         ComputeShaderProgram();
@@ -126,4 +127,4 @@ inline void CSCI441::ComputeShaderProgram::dispatchWork(GLuint numGroupsX = 1, G
     glDispatchCompute(numGroupsX, numGroupsY, numGroupsZ);
 }
 
-#endif // __CSCI441_COMPUTESHADERPROGRAM_H__
+#endif // CSCI441_COMPUTESHADERPROGRAM_HPP
