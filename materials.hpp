@@ -1,4 +1,5 @@
-/** @file materials.hpp
+/**
+ * @file materials.hpp
  * @brief Predefined material properties
  * @author Dr. Jeffrey Paone
  *
@@ -6,22 +7,26 @@
  *
  */
 
-#ifndef __CSCI441_MATERIALS_HPP__
-#define __CSCI441_MATERIALS_HPP__
+#ifndef CSCI441_MATERIALS_HPP
+#define CSCI441_MATERIALS_HPP
 
-/** @namespace CSCI441
- * @brief CSCI441 Helper Functions for OpenGL
- */
+/// \namespace CSCI441
+/// \desc CSCI441 Helper Functions for OpenGL
 namespace CSCI441 {
-    /** @namespace Materials
-     * @brief Material Helpers for OpenGL
-	 */
+
+    /// \namespace Materials
+    /// \desc Material Helpers for OpenGL
     namespace Materials {
 
+        /// \desc Stores material properties used within the Phong Reflectance Model
         struct Material {
+            /// \desc RGBA values for Diffuse (Lambertian) Reflectance
             float diffuse[4];
+            /// \desc RGBA values for Specular Reflectance
             float specular[4];
+            /// \desc Shininess value to control exponential falloff of Specular Refletance
             float shininess;
+            /// \desc RGBA values for Ambient Illumination
             float ambient[4];
         };
 
@@ -58,4 +63,4 @@ namespace CSCI441 {
     }
 }
 
-#endif // __CSCI441_MATERIALS_HPP__
+#endif // CSCI441_MATERIALS_HPP

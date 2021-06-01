@@ -9,8 +9,8 @@
  * code that needs to be written.
  */
 
-#ifndef CSCI441_FRAMEBUFFER_UTILS_H
-#define CSCI441_FRAMEBUFFER_UTILS_H
+#ifndef CSCI441_FRAMEBUFFER_UTILS_HPP
+#define CSCI441_FRAMEBUFFER_UTILS_HPP
 
 #include <GL/glew.h>
 
@@ -131,4 +131,4 @@ inline void CSCI441::FramebufferUtils::printFramebufferStatusMessage( GLenum tar
 	}
 }
 
-#endif // __CSCI441_FRAMEBUFFER_UTILS_H_
+#endif // CSCI441_FRAMEBUFFER_UTILS_HPP

@@ -720,8 +720,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo( GLuint handle
 //
 ////////////////////////////////////////////////////////////////////////////////
 inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader( const char *filename, GLenum shaderType ) {
-	GLuint shaderHandle = glCreateShader( shaderType );
-	char *shaderString;
+	GLuint shaderHandle = glCreateShader( shaderType );	char *shaderString;
 
     /* read in each text file and store the contents in a string */
     if( readTextFromFile( filename, shaderString ) ) {

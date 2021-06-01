@@ -13,8 +13,8 @@
  * @warning NOTE: This header file depends upon glm
  */
 
-#ifndef CSCI441_CSCI441_H
-#define CSCI441_CSCI441_H
+#ifndef CSCI441_CSCI441_HPP
+#define CSCI441_CSCI441_HPP
 
 #include "ComputeShaderProgram.hpp" // helper class to compile and use compute shaders
 #include "FramebufferUtils.hpp"     // to query common FBO information
@@ -28,4 +28,4 @@
 #include "TextureUtils.hpp"         // helper functions for registering textures
 #include "UniformBufferObject.hpp"  // helper class to use UBOs
 
-#endif // CSCI441_CSCI441_H
+#endif // CSCI441_CSCI441_HPP
