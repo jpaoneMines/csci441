@@ -7,3 +7,5 @@ cmake-build-debug/
 testBuild.cpp
 testBuild_multifile.cpp
 Makefile
+tests/
+
