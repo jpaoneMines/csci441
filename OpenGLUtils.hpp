@@ -25,15 +25,24 @@
 /// \namespace CSCI441
 /// \desc CSCI441 Helper Functions for OpenGL
 namespace CSCI441 {
-    static const glm::vec3 X_AXIS( 1.0f, 0.0f, 0.0f );				// constant for positive X_AXIS
-    static const glm::vec3 Y_AXIS( 0.0f, 1.0f, 0.0f );				// constant for positive Y_AXIS
-    static const glm::vec3 Z_AXIS( 0.0f, 0.0f, 1.0f );				// constant for positive Z_AXIS
-    static const glm::vec3 X_AXIS_POS = X_AXIS;                 				// alias for constant for positive X_AXIS
-    static const glm::vec3 Y_AXIS_POS = Y_AXIS;                 				// alias for constant for positive Y_AXIS
-    static const glm::vec3 Z_AXIS_POS = Z_AXIS;                 				// alias for constant for positive Z_AXIS
-    static const glm::vec3 X_AXIS_NEG( -1.0f,  0.0f,  0.0f );		// constant for negative X_AXIS
-    static const glm::vec3 Y_AXIS_NEG(  0.0f, -1.0f,  0.0f );		// constant for negative Y_AXIS
-    static const glm::vec3 Z_AXIS_NEG(  0.0f,  0.0f, -1.0f );		// constant for negative Z_AXIS
+    /// \desc constant for positive X_AXIS
+    static const glm::vec3 X_AXIS( 1.0f, 0.0f, 0.0f );
+    /// \desc constant for positive Y_AXIS
+    static const glm::vec3 Y_AXIS( 0.0f, 1.0f, 0.0f );
+    /// \desc constant for positive Z_AXIS
+    static const glm::vec3 Z_AXIS( 0.0f, 0.0f, 1.0f );
+    /// \desc alias for constant for positive X_AXIS
+    static const glm::vec3 X_AXIS_POS = X_AXIS;
+    /// \desc alias for constant for positive Y_AXIS
+    static const glm::vec3 Y_AXIS_POS = Y_AXIS;
+    /// \desc alias for constant for positive Z_AXIS
+    static const glm::vec3 Z_AXIS_POS = Z_AXIS;
+    /// \desc constant for negative X_AXIS
+    static const glm::vec3 X_AXIS_NEG( -1.0f,  0.0f,  0.0f );
+    /// \desc constant for negative Y_AXIS
+    static const glm::vec3 Y_AXIS_NEG(  0.0f, -1.0f,  0.0f );
+    /// \desc constant for negative Z_AXIS
+    static const glm::vec3 Z_AXIS_NEG(  0.0f,  0.0f, -1.0f );
 
     /// \namespace OpenGLUtils
     /// \desc contains OpenGL Utility functions
