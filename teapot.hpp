@@ -1,34 +1,60 @@
-/** @file teapot.hpp
+/**
+ * @file teapot.hpp
  * @brief Helper functions to draw teapot with OpenGL 3.0+
  *
  * @warning NOTE: This header file will only work with OpenGL 3.0+
- */
-// Modified by Dr. Jeffrey Paone to work in Colorado School of Mines CSCI441
-// course context.
-
-#ifndef __CSCI441_TEAPOT_HPP__
-#define __CSCI441_TEAPOT_HPP__
-
-/*
+ *
  * From the OpenGL Programming wikibook: http://en.wikibooks.org/wiki/OpenGL_Programming
  * This file is in the public domain.
  * https://gitlab.com/wikibooks-opengl/modern-tutorials/blob/master/bezier_teapot/teapot.cpp
  * Contributors: Sylvain Beucler
+ *
+ * Modified by Dr. Jeffrey Paone to work in Colorado School of Mines CSCI441 course context.
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 
-/* Use glew.h instead of gl.h to get all the GL prototypes declared */
+#ifndef CSCI441_TEAPOT_HPP
+#define CSCI441_TEAPOT_HPP
+
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+
 #include <GL/glew.h>
 
 namespace CSCI441_INTERNAL {
 
-    static GLuint vao_teapot;
-    static GLuint vbo_teapot_vertices, ibo_teapot_elements;
+    /// \desc Draws the Utah teapot as a static collection of Bezier surfaces with position, normal, and
+    /// texture vertex data
+    /// \param GLfloat unused (kept for legacy consistency)
+    /// \param GLint vertex position attribute location within shader program
+    /// \param GLint vertex normal attribute location within shader program (defaults to -1 and unused)
+    /// \param GLint vertex texture coordinate attribute location within shader program (defaults to -1 and unused)
+    void teapot( GLfloat size, GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1);
 
-    struct vertex { GLfloat x, y, z; };
-    static vertex teapot_cp_vertices[] = {
+    /// \desc Enables VBO attribute array locations
+    /// \param GLint vertex position attribute location within shader program
+    /// \param GLint vertex normal attribute location within shader program (defaults to -1 and unused)
+    /// \param GLint vertex texture coordinate attribute location within shader program (defaults to -1 and unused)
+    void setTeapotAttributeLocations(GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1);
+
+    /// \desc Draws the Utah teapot as a static collection of Bezier surfaces with position, normal, and
+    /// texture vertex data
+    /// \warning setTeapotAttributeLocations() must be called first
+    void teapot();
+
+    //************************************************************************************************
+    //************************************************************************************************
+
+#define TEAPOT_NUMBER_PATCHES 28
+#define TEAPOT_PATCH_DIMENSION 3
+#define TEAPOT_RES_U 10
+#define TEAPOT_RES_V 10
+
+    static GLuint teapot_vao;
+    static GLuint teapot_vbo, teapot_ibo;
+
+    struct Teapot_Vertex { GLfloat x, y, z; };
+    static Teapot_Vertex teapot_cp_vertices[] = {
             // 1
             {  1.4   ,   0.0   ,  2.4     },
             {  1.4   ,  -0.784 ,  2.4     },
@@ -326,9 +352,8 @@ namespace CSCI441_INTERNAL {
             {  0.728 ,   1.3   ,  2.4     },
             {  1.3   ,   0.728 ,  2.4     },
     };
-#define TEAPOT_NB_PATCHES 28
-#define ORDER 3
-    static GLushort teapot_patches[TEAPOT_NB_PATCHES][ORDER+1][ORDER+1] = {
+
+    static GLushort teapot_patches[TEAPOT_NUMBER_PATCHES][TEAPOT_PATCH_DIMENSION + 1][TEAPOT_PATCH_DIMENSION + 1] = {
             // rim
             { {   1,   2,   3,   4 }, {   5,   6,   7,   8 }, {   9,  10,  11,  12 }, {  13,  14,  15,  16, } },
             { {   4,  17,  18,  19 }, {   8,  20,  21,  22 }, {  12,  23,  24,  25 }, {  16,  26,  27,  28, } },
@@ -364,67 +389,77 @@ namespace CSCI441_INTERNAL {
             { { 229, 232, 233, 212 }, { 257, 264, 265, 234 }, { 260, 266, 267, 238 }, { 263, 268, 269, 242, } },
             // no bottom!
     };
-#define RESU 10
-#define RESV 10
-    static vertex teapot_vertices[TEAPOT_NB_PATCHES * RESU*RESV * 3];
-    static GLushort teapot_elements[TEAPOT_NB_PATCHES * (RESU-1)*(RESV-1) * 2 * 3];
 
-    static bool teapotBuilt = false;
+    static Teapot_Vertex teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 3];
+    static GLushort teapot_elements[TEAPOT_NUMBER_PATCHES * (TEAPOT_RES_U - 1) * (TEAPOT_RES_V - 1) * 2 * 3];
 
-    void build_control_points_k(int p, vertex control_points_k[][ORDER+1]);
-    vertex compute_position(vertex control_points_k[][ORDER+1], float u, float v);
-    vertex compute_normal(vertex control_points_k[][ORDER+1], float u, float v);
-    vertex compute_texture(vertex position);
-    float bernstein_polynomial(int i, int n, float u);
-    float binomial_coefficient(int i, int n);
-    int factorial(int n);
+    static bool teapot_built = false;
+    static GLint teapot_pos_attr_loc = -1;
+    static GLint teapot_norm_attr_loc = -1;
+    static GLint teapot_tex_attr_loc = -1;
 
-    inline void build_teapot() {
+    void teapot_build_control_points_k(int p, Teapot_Vertex** control_points_k);
+    Teapot_Vertex teapot_compute_position(Teapot_Vertex** control_points_k, float u, float v);
+    Teapot_Vertex teapot_compute_normal(Teapot_Vertex** control_points_k, float u, float v);
+    Teapot_Vertex teapot_compute_texture(Teapot_Vertex position);
+    float teapot_bernstein_polynomial(int i, int n, float u);
+    float teapot_binomial_coefficient(int i, int n);
+    int teapot_factorial(int n);
+
+    inline void teapot_build_teapot() {
         // Vertices
-        for (int p = 0; p < TEAPOT_NB_PATCHES; p++) {
-            vertex control_points_k[ORDER+1][ORDER+1];
-            build_control_points_k(p, control_points_k);
-            for (int ru = 0; ru <= RESU-1; ru++) {
-                float u = 1.0 * ru / (RESU-1);
-                for (int rv = 0; rv <= RESV-1; rv++) {
-                    float v = 1.0 * rv / (RESV-1);
-                    teapot_vertices[                                    p*RESU*RESV + ru*RESV + rv] = compute_position(control_points_k, u, v);
-                    teapot_vertices[TEAPOT_NB_PATCHES * RESU*RESV     + p*RESU*RESV + ru*RESV + rv] = compute_normal(  control_points_k, u, v);
-                    teapot_vertices[TEAPOT_NB_PATCHES * RESU*RESV * 2 + p*RESU*RESV + ru*RESV + rv] = compute_texture(teapot_vertices[p*RESU*RESV + ru*RESV + rv]);
+        for (int p = 0; p < TEAPOT_NUMBER_PATCHES; p++) {
+            auto control_points_k = (Teapot_Vertex**)malloc(sizeof(Teapot_Vertex*) * (TEAPOT_PATCH_DIMENSION + 1));
+            for(int i = 0; i < TEAPOT_PATCH_DIMENSION + 1; i++)
+                control_points_k[i] = (Teapot_Vertex*)malloc(sizeof(Teapot_Vertex) * (TEAPOT_PATCH_DIMENSION + 1));
+
+            teapot_build_control_points_k(p, control_points_k);
+
+            for (int ru = 0; ru <= TEAPOT_RES_U - 1; ru++) {
+                float u = 1.0f * ru / (TEAPOT_RES_U - 1);
+                for (int rv = 0; rv <= TEAPOT_RES_V - 1; rv++) {
+                    float v = 1.0f * rv / (TEAPOT_RES_V - 1);
+                    teapot_vertices[                    p * TEAPOT_RES_U * TEAPOT_RES_V                                       + ru * TEAPOT_RES_V + rv ] = teapot_compute_position(control_points_k, u, v);
+                    teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V     + p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv ] = teapot_compute_normal(control_points_k, u, v);
+                    teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 2 + p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv ] = teapot_compute_texture(teapot_vertices[p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv]);
                 }
             }
         }
 
         // Elements
         int n = 0;
-        for (int p = 0; p < TEAPOT_NB_PATCHES; p++)
-            for (int ru = 0; ru < RESU-1; ru++)
-                for (int rv = 0; rv < RESV-1; rv++) {
+        for (int p = 0; p < TEAPOT_NUMBER_PATCHES; p++)
+            for (int ru = 0; ru < TEAPOT_RES_U - 1; ru++)
+                for (int rv = 0; rv < TEAPOT_RES_V - 1; rv++) {
                     // 1 square ABCD = 2 triangles ABC + CDA
+                    GLushort a = p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv      ;
+                    GLushort b = p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + (rv + 1);
+                    GLushort c = p * TEAPOT_RES_U * TEAPOT_RES_V + (ru + 1) * TEAPOT_RES_V + (rv + 1);
+                    GLushort d = p * TEAPOT_RES_U * TEAPOT_RES_V + (ru + 1) * TEAPOT_RES_V + rv      ;
                     // ABC
-                    teapot_elements[n] = p*RESU*RESV +  ru   *RESV +  rv   ; n++;
-                    teapot_elements[n] = p*RESU*RESV +  ru   *RESV + (rv+1); n++;
-                    teapot_elements[n] = p*RESU*RESV + (ru+1)*RESV + (rv+1); n++;
+                    teapot_elements[n++] = a;
+                    teapot_elements[n++] = b;
+                    teapot_elements[n++] = c;
                     // CDA
-                    teapot_elements[n] = p*RESU*RESV + (ru+1)*RESV + (rv+1); n++;
-                    teapot_elements[n] = p*RESU*RESV + (ru+1)*RESV +  rv   ; n++;
-                    teapot_elements[n] = p*RESU*RESV +  ru   *RESV +  rv   ; n++;
+                    teapot_elements[n++] = c;
+                    teapot_elements[n++] = d;
+                    teapot_elements[n++] = a;
                 }
 
     }
 
-    inline void build_control_points_k(int p, vertex control_points_k[][ORDER+1]) {
-        for (int i = 0; i <= ORDER; i++)
-            for (int j = 0; j <= ORDER; j++)
+    inline void teapot_build_control_points_k(int p, Teapot_Vertex** control_points_k) {
+        for (int i = 0; i <= TEAPOT_PATCH_DIMENSION; i++)
+            for (int j = 0; j <= TEAPOT_PATCH_DIMENSION; j++)
                 control_points_k[i][j] = teapot_cp_vertices[teapot_patches[p][i][j] - 1];
     }
 
-    inline vertex compute_position(vertex control_points_k[][ORDER+1], float u, float v) {
-        vertex result = { 0.0, 0.0, 0.0 };
-        for (int i = 0; i <= ORDER; i++) {
-            float poly_i = bernstein_polynomial(i, ORDER, u);
-            for (int j = 0; j <= ORDER; j++) {
-                float poly_j = bernstein_polynomial(j, ORDER, v);
+    inline Teapot_Vertex teapot_compute_position(Teapot_Vertex** control_points_k, float u, float v) {
+        Teapot_Vertex result = {0.0, 0.0, 0.0 };
+        for (int i = 0; i <= TEAPOT_PATCH_DIMENSION; i++) {
+            float poly_i = teapot_bernstein_polynomial(i, TEAPOT_PATCH_DIMENSION, u);
+            for (int j = 0; j <= TEAPOT_PATCH_DIMENSION; j++) {
+                float poly_j = teapot_bernstein_polynomial(j, TEAPOT_PATCH_DIMENSION, v);
                 result.x += poly_i * poly_j * control_points_k[i][j].x;
                 result.y += poly_i * poly_j * control_points_k[i][j].y;
                 result.z += poly_i * poly_j * control_points_k[i][j].z;
@@ -434,12 +469,12 @@ namespace CSCI441_INTERNAL {
     }
 
     // TODO compute normal based on partial derivatives of surface patch
-    inline vertex compute_normal(vertex control_points_k[][ORDER+1], float u, float v) {
-        vertex result = { 0.0, 0.0, 0.0 };
-        for (int i = 0; i <= ORDER; i++) {
-            float poly_i = bernstein_polynomial(i, ORDER, u);
-            for (int j = 0; j <= ORDER; j++) {
-                float poly_j = bernstein_polynomial(j, ORDER, v);
+    inline Teapot_Vertex teapot_compute_normal(Teapot_Vertex** control_points_k, float u, float v) {
+        Teapot_Vertex result = {0.0, 0.0, 0.0 };
+        for (int i = 0; i <= TEAPOT_PATCH_DIMENSION; i++) {
+            float poly_i = teapot_bernstein_polynomial(i, TEAPOT_PATCH_DIMENSION, u);
+            for (int j = 0; j <= TEAPOT_PATCH_DIMENSION; j++) {
+                float poly_j = teapot_bernstein_polynomial(j, TEAPOT_PATCH_DIMENSION, v);
                 result.x += poly_i * poly_j * control_points_k[i][j].x;
                 result.y += poly_i * poly_j * control_points_k[i][j].y;
                 result.z += poly_i * poly_j * control_points_k[i][j].z;
@@ -448,8 +483,8 @@ namespace CSCI441_INTERNAL {
         return result;
     }
 
-    inline vertex compute_texture(vertex position) {
-        vertex result = {0.0f, 0.0f, 0.0f};
+    inline Teapot_Vertex teapot_compute_texture(Teapot_Vertex position) {
+        Teapot_Vertex result = {0.0f, 0.0f, 0.0f};
         const GLfloat PI = 3.14159265f;
         GLfloat theta = atan2(position.y, position.x);
         result.x = (theta+PI) / (2.0f*PI);
@@ -457,15 +492,16 @@ namespace CSCI441_INTERNAL {
         return result;
     }
 
-    inline float bernstein_polynomial(int i, int n, float u) {
-        return binomial_coefficient(i, n) * powf(u, i) * powf(1-u, n-i);
+    inline float teapot_bernstein_polynomial(int i, int n, float u) {
+        return teapot_binomial_coefficient(i, n) * powf(u, i) * powf(1 - u, n - i);
     }
 
-    inline float binomial_coefficient(int i, int n) {
-        assert(i >= 0); assert(n >= 0);
-        return 1.0f * factorial(n) / (factorial(i) * factorial(n-i));
+    inline float teapot_binomial_coefficient(int i, int n) {
+        assert(i >= 0);
+        assert(n >= 0);
+        return 1.0f * (float) teapot_factorial(n) / (float)(teapot_factorial(i) * teapot_factorial(n - i));
     }
-    inline int factorial(int n) {
+    inline int teapot_factorial(int n) {
         assert(n >= 0);
         int result = 1;
         for (int i = n; i > 1; i--)
@@ -473,64 +509,87 @@ namespace CSCI441_INTERNAL {
         return result;
     }
 
-    inline int init_resources() {
-        build_teapot();
+    inline int teapot_init_resources() {
+        teapot_build_teapot();
 
-        glGenVertexArrays(1, &vao_teapot);
-        glBindVertexArray(vao_teapot);
+        glGenVertexArrays(1, &teapot_vao);
+        glBindVertexArray(teapot_vao);
 
-        glGenBuffers(1, &vbo_teapot_vertices);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo_teapot_vertices);
+        glGenBuffers(1, &teapot_vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, teapot_vbo);
         glBufferData(GL_ARRAY_BUFFER, sizeof(teapot_vertices), teapot_vertices, GL_STATIC_DRAW);
 
-        glGenBuffers(1, &ibo_teapot_elements);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_teapot_elements);
+        glGenBuffers(1, &teapot_ibo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, teapot_ibo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(teapot_elements), teapot_elements, GL_STATIC_DRAW);
 
-        teapotBuilt = true;
+        teapot_built = true;
 
         return 1;
     }
 
     inline void teapot( GLfloat size, GLint positionLocation, GLint normalLocation, GLint texCoordLocation ) {
-        if( !teapotBuilt ) {
-            init_resources();
+        if( !teapot_built ) {
+            teapot_init_resources();
+        }
+        if( positionLocation != teapot_pos_attr_loc || normalLocation != teapot_norm_attr_loc || texCoordLocation != teapot_tex_attr_loc ) {
+            setTeapotAttributeLocations(positionLocation, normalLocation, texCoordLocation);
+        }
+        teapot();
+    }
+
+    inline void setTeapotAttributeLocations(GLint positionLocation, GLint normalLocation, GLint texCoordLocation) {
+        if( !teapot_built ) {
+            teapot_init_resources();
         }
 
-        glBindVertexArray( vao_teapot );
-        glBindBuffer(GL_ARRAY_BUFFER, vbo_teapot_vertices);
+        glBindVertexArray(teapot_vao );
+        glBindBuffer(GL_ARRAY_BUFFER, teapot_vbo);
+
+        glDisableVertexAttribArray(teapot_pos_attr_loc);
+        glDisableVertexAttribArray(teapot_norm_attr_loc);
+        glDisableVertexAttribArray(teapot_tex_attr_loc);
+
+        teapot_pos_attr_loc = positionLocation;
+        teapot_norm_attr_loc = normalLocation;
+        teapot_tex_attr_loc = texCoordLocation;
+
         // Describe our vertices array to OpenGL (it can't guess its format automatically)
-        glEnableVertexAttribArray(positionLocation);
+        glEnableVertexAttribArray(teapot_pos_attr_loc);
         glVertexAttribPointer(
-                positionLocation,  // attribute
+                teapot_pos_attr_loc,  // attribute
                 3,                 // number of elements per vertex, here (x,y,z)
                 GL_FLOAT,          // the type of each element
                 GL_FALSE,          // take our values as-is
                 0,                 // no extra data between each position
-                0                  // offset of first element
+                nullptr            // offset of first element
         );
-        glEnableVertexAttribArray(normalLocation);
+        glEnableVertexAttribArray(teapot_norm_attr_loc);
         glVertexAttribPointer(
-                normalLocation,  // attribute
+                teapot_norm_attr_loc,  // attribute
                 3,                 // number of elements per vertex, here (x,y,z)
                 GL_FLOAT,          // the type of each element
                 GL_FALSE,          // take our values as-is
                 0,                 // no extra data between each position
-                (void*)(TEAPOT_NB_PATCHES * RESU*RESV * sizeof(vertex))                  // offset of first element
+                (void*)(TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * sizeof(Teapot_Vertex))                  // offset of first element
         );
-        glEnableVertexAttribArray(texCoordLocation);
+        glEnableVertexAttribArray(teapot_tex_attr_loc);
         glVertexAttribPointer(
-                texCoordLocation,  // attribute
+                teapot_tex_attr_loc,  // attribute
                 2,                 // number of elements per vertex, here (s,t)
                 GL_FLOAT,          // the type of each element
                 GL_FALSE,          // take our values as-is
-                sizeof(vertex),                 // no extra data between each position
-                (void*)(TEAPOT_NB_PATCHES * RESU*RESV * 2 * sizeof(vertex))                  // offset of first element
+                sizeof(Teapot_Vertex),                 // no extra data between each position
+                (void*)(TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 2 * sizeof(Teapot_Vertex))                  // offset of first element
         );
+    }
 
-        glDrawElements(GL_TRIANGLES, sizeof(teapot_elements)/sizeof(teapot_elements[0]), GL_UNSIGNED_SHORT, 0);
+    inline void teapot() {
+        glBindVertexArray(teapot_vao );
+        glBindBuffer(GL_ARRAY_BUFFER, teapot_vbo);
+        glDrawElements(GL_TRIANGLES, sizeof(teapot_elements)/sizeof(teapot_elements[0]), GL_UNSIGNED_SHORT, nullptr);
     }
 }
 
 
-#endif // __CSCI441_TEAPOT_3_HPP__
+#endif // CSCI441_TEAPOT_HPP

@@ -256,7 +256,7 @@ namespace CSCI441 {
         *	@param GLfloat size	- scale of the teapot
         *	@pre size must be greater than zero
         */
-    void drawSolidTeapot( GLfloat size );
+    void drawSolidTeapot( GLfloat size = 1.0f );
     /** @brief Draws a wireframe teapot
       *
         *	Oriented with spout and handle running along X-axis, cap and bottom along Y-axis.  Origin is at the
@@ -265,7 +265,7 @@ namespace CSCI441 {
         *	@param GLfloat size	- scale of the teapot
         *	@pre size must be greater than zero
         */
-    void drawWireTeapot( GLfloat size );
+    void drawWireTeapot( GLfloat size = 1.0f );
 
     /** @brief Draws a solid torus
       *
@@ -454,6 +454,7 @@ inline void CSCI441::setVertexAttributeLocations( GLint positionLocation, GLint 
     CSCI441_INTERNAL::AttributeLocations::_positionLocation = positionLocation;
     CSCI441_INTERNAL::AttributeLocations::_normalLocation = normalLocation;
     CSCI441_INTERNAL::AttributeLocations::_texCoordLocation = texCoordLocation;
+    CSCI441_INTERNAL::setTeapotAttributeLocations(positionLocation, normalLocation, texCoordLocation);
 }
 
 inline void CSCI441::deleteObjectVAOs() {
@@ -587,16 +588,12 @@ inline void CSCI441::drawWireSphere( GLfloat radius, GLint stacks, GLint slices 
 }
 
 inline void CSCI441::drawSolidTeapot( GLfloat size ) {
-    assert( size > 0.0f );
-
-    CSCI441_INTERNAL::teapot( size, CSCI441_INTERNAL::AttributeLocations::_positionLocation, CSCI441_INTERNAL::AttributeLocations::_normalLocation, CSCI441_INTERNAL::AttributeLocations::_texCoordLocation );
+    CSCI441_INTERNAL::teapot();
 }
 
 inline void CSCI441::drawWireTeapot( GLfloat size ) {
-    assert( size > 0.0f );
-
     glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-    CSCI441_INTERNAL::teapot( size, CSCI441_INTERNAL::AttributeLocations::_positionLocation, CSCI441_INTERNAL::AttributeLocations::_normalLocation, CSCI441_INTERNAL::AttributeLocations::_texCoordLocation );
+    CSCI441_INTERNAL::teapot();
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 }
 
