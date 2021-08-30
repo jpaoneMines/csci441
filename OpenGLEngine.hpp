@@ -1,4 +1,5 @@
-/** @file OpenGLEngine.hpp
+/**
+ * @file OpenGLEngine.hpp
  * @brief Abstract class
  * @author Dr. Jeffrey Paone
  *
@@ -67,8 +68,7 @@ namespace CSCI441 {
         /// \desc Tell our engine's window to close
         void setWindowShouldClose() { glfwSetWindowShouldClose(_window, GLFW_TRUE); }
 
-        /// \desc Return current value of error code and clear
-        /// the error code
+        /// \desc Return current value of error code and clear the error code
         [[nodiscard]] unsigned int getError() noexcept {
             unsigned int storedErrorCode = _errorCode;  // store current error code
             _errorCode = OPENGL_ENGINE_ERROR_NO_ERROR;  // reset error code

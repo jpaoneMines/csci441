@@ -101,9 +101,21 @@ namespace CSCI441 {
          */
         void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
 
+        /** @desc Pushes a transformation to the stack and updates our model matrix
+         *
+         * @param TRANSFORMATION_MATRIX
+         */
         void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
 
+        /** @desc Pops the last transformation off the stack and updates our model matrix
+         * by the inverse of the last transformation
+         */
         void popTransformation();
+
+        /** @desc Sets the model matrix back to the identity matrix and clears the
+         * transformation stack
+         */
+        void resetTransformationMatrix();
 
         void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
     }
@@ -184,8 +196,21 @@ namespace CSCI441 {
         void setLightColor(const glm::vec3& LIGHT_COLOR);
         void setMaterialColor(const glm::vec3& MATERIAL_COLOR);
 
+        /** @desc Pushes a transformation to the stack and updates our model matrix
+         *
+         * @param TRANSFORMATION_MATRIX
+         */
         void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
+
+        /** @desc Pops the last transformation off the stack and updates our model matrix
+         * by the inverse of the last transformation
+         */
         void popTransformation();
+
+        /** @desc Sets the model matrix back to the identity matrix and clears the
+         * transformation stack
+         */
+        void resetTransformationMatrix();
 
         /** @desc turns on lighting and applies Phong Illumination to fragment
          *
@@ -216,6 +241,7 @@ namespace CSCI441_INTERNAL {
         void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
         void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
         void popTransformation();
+        void resetTransformationMatrix();
         void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
 
         static GLboolean smoothShading = true;
@@ -243,6 +269,7 @@ namespace CSCI441_INTERNAL {
         void setMaterialColor(const glm::vec3& MATERIAL_COLOR);
         void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
         void popTransformation();
+        void resetTransformationMatrix();
         void setNormalMatrix();
         void enableLighting();
         void disableLighting();
@@ -310,6 +337,10 @@ inline void CSCI441::SimpleShader2::popTransformation() {
     CSCI441_INTERNAL::SimpleShader2::popTransformation();
 }
 
+inline void CSCI441::SimpleShader2::resetTransformationMatrix() {
+    CSCI441_INTERNAL::SimpleShader2::resetTransformationMatrix();
+}
+
 inline void CSCI441::SimpleShader2::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
     CSCI441_INTERNAL::SimpleShader2::draw(PRIMITIVE_TYPE, VAOD, VERTEX_COUNT);
 }
@@ -369,6 +400,10 @@ inline void CSCI441::SimpleShader3::pushTransformation(const glm::mat4& TRANSFOR
 
 inline void CSCI441::SimpleShader3::popTransformation() {
     CSCI441_INTERNAL::SimpleShader3::popTransformation();
+}
+
+inline void CSCI441::SimpleShader3::resetTransformationMatrix() {
+    CSCI441_INTERNAL::SimpleShader3::resetTransformationMatrix();
 }
 
 inline void CSCI441::SimpleShader3::enableLighting() {
@@ -517,6 +552,13 @@ inline void CSCI441_INTERNAL::SimpleShader2::popTransformation() {
         modelMatrix *= glm::inverse( lastTransformation );
         glUniformMatrix4fv( modelLocation, 1, GL_FALSE, &modelMatrix[0][0] );
     }
+}
+
+inline void CSCI441_INTERNAL::SimpleShader2::resetTransformationMatrix() {
+    modelMatrix = glm::mat4(1.0f);
+    transformationStack.clear();
+    transformationStack.emplace_back(modelMatrix);
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
@@ -718,6 +760,14 @@ inline void CSCI441_INTERNAL::SimpleShader3::popTransformation() {
         modelMatrix *= glm::inverse( lastTransformation );
         glUniformMatrix4fv( modelLocation, 1, GL_FALSE, &modelMatrix[0][0] );
     }
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::resetTransformationMatrix() {
+    modelMatrix = glm::mat4(1.0f);
+    transformationStack.clear();
+    transformationStack.emplace_back(modelMatrix);
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+    setNormalMatrix();
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setNormalMatrix() {

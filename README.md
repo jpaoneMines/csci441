@@ -1,7 +1,7 @@
 This library is intended to be used with OpenGL for CSCI441 at the Colorado
 School of Mines.
 
-When building, the library must be compiled and linked against OpenGL, GLEW, and glm.  
+When building, the library must be compiled and linked against OpenGL, GLFW, GLEW, and glm.  
 
 Copyright (c) 2021 Dr. Jeffrey Paone
 
@@ -26,7 +26,22 @@ SOFTWARE.
 TODO Items
   > Handle vertex and face colors in OFF files
 
+  > Generate teapot normals based on partial derivatives
+
 Revision History
+
+v 3.2.0 - 30 Aug 2021
+  > Cleaning up code style
+
+  > Removed deprecated functions in ShaderUtils
+
+  > Removed printLog() in ShaderUtils forcing explicit use of printShaderLog(), printProgramLog(), printProgramPipelineLog()
+
+  > Removed loadBMP() and loadTGA() in TextureUtils.  Use stb_image library instead
+
+  > Improved efficiency of setting VBO attribute locations for teapot 
+
+  > Sidestepped the precision error in SimpleShader2 (and therefore SimpleShader3) when popping and multiplying by the inverse by adding a resetTransformationMatrix() method which clears the stack and sets the model matrix to the identity 
 
 v 3.1.0 - 21 May 2021
   > Removed all ShaderProgram::setUniform().  Use ShaderProgram::setProgramUniform() instead.
