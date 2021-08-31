@@ -1,4 +1,4 @@
-/** @file SimpleShader2.hpp
+/** @file SimpleShader.hpp
  * @brief Sets up a default Gourad Shader with vertex position and color inputs
  * @author Dr. Jeffrey Paone
  *
