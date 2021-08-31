@@ -499,6 +499,8 @@ inline void CSCI441_INTERNAL::SimpleShader2::setupSimpleShader() {
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &identity[0][0]);
     glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &identity[0][0]);
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &identity[0][0]);
+
+    transformationStack.emplace_back(identity);
 }
 
 inline GLuint CSCI441_INTERNAL::SimpleShader2::registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[0]) {
@@ -544,12 +546,16 @@ inline void CSCI441_INTERNAL::SimpleShader2::pushTransformation(const glm::mat4&
 
 inline void CSCI441_INTERNAL::SimpleShader2::popTransformation() {
     // ensure there is a transformation stack to pop off
-    if( !transformationStack.empty() ) {
+    // never let the original identity matrix pop off
+    if( transformationStack.size() > 1 ) {
         glUseProgram(shaderProgramHandle);
         glm::mat4 lastTransformation = transformationStack.back();
         transformationStack.pop_back();
 
-        modelMatrix *= glm::inverse( lastTransformation );
+        modelMatrix = glm::mat4(1.0f);
+        for( auto tMtx : transformationStack ) {
+            modelMatrix *= tMtx;
+        }
         glUniformMatrix4fv( modelLocation, 1, GL_FALSE, &modelMatrix[0][0] );
     }
 }
@@ -672,6 +678,8 @@ inline void CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {
     glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &identity[0][0]);
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &identity[0][0]);
 
+    transformationStack.emplace_back(identity);
+
     glm::vec3 white(1.0, 1.0, 1.0);
     glUniform3fv(lightColorLocation, 1, &white[0]);
     glUniform3fv(materialLocation, 1, &white[0]);
@@ -752,12 +760,16 @@ inline void CSCI441_INTERNAL::SimpleShader3::pushTransformation(const glm::mat4&
 
 inline void CSCI441_INTERNAL::SimpleShader3::popTransformation() {
     // ensure there is a transformation stack to pop off
-    if( !transformationStack.empty() ) {
+    // never let the original identity matrix pop off
+    if( transformationStack.size() > 1 ) {
         glUseProgram(shaderProgramHandle);
         glm::mat4 lastTransformation = transformationStack.back();
         transformationStack.pop_back();
 
-        modelMatrix *= glm::inverse( lastTransformation );
+        modelMatrix = glm::mat4(1.0f);
+        for( auto tMtx : transformationStack ) {
+            modelMatrix *= tMtx;
+        }
         glUniformMatrix4fv( modelLocation, 1, GL_FALSE, &modelMatrix[0][0] );
     }
 }
