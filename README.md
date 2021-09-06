@@ -30,6 +30,11 @@ TODO Items
 
 Revision History
 
+v 3.3.0 - 06 Sept 2021
+  > Created an abstract Camera class to store parameters and to make camera objects
+
+  > Created a concrete FreeCam implementation 
+
 v 3.2.1 - 31 Aug 2021
   > Reworked SimpleShader::popTransformation() to always remultiply the model matrix and not use the inverse calculation to avoid precision errors
 

@@ -36,6 +36,7 @@ namespace CSCI441 {
         /// \warning If this method is overridden, then the parent implementation must
         /// be called first as part of the derived implementation
         virtual void initialize();
+        /// \desc Initiate the draw loop
         virtual void run() = 0;
         /// \desc Cleanup everything needed for OpenGL Rendering.  This includes
         /// freeing memory for data used in: any Scene information, Textures, Buffer Objects,
@@ -81,22 +82,8 @@ namespace CSCI441 {
         static const unsigned int OPENGL_ENGINE_ERROR_GLEW_INIT     = 3;
 
     protected:
-        OpenGLEngine(const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION, const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const char* WINDOW_TITLE, const int WINDOW_RESIZABLE = GLFW_FALSE)
-            : _majorVersion(OPENGL_MAJOR_VERSION), _minorVersion(OPENGL_MINOR_VERSION), _windowWidth(WINDOW_WIDTH), _windowHeight(WINDOW_HEIGHT), _windowResizable(WINDOW_RESIZABLE) {
-
-            _windowTitle = (char*)malloc(sizeof(char) * strlen(WINDOW_TITLE));
-            strcpy(_windowTitle, WINDOW_TITLE);
-
-            _window = nullptr;
-
-            _isInitialized = _isCleanedUp = false;
-            DEBUG = true;
-            _errorCode = OPENGL_ENGINE_ERROR_NO_ERROR;
-        }
-        ~OpenGLEngine() {
-            shutdown();
-            free(_windowTitle);
-        }
+        OpenGLEngine(const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION, const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const char* WINDOW_TITLE, const int WINDOW_RESIZABLE = GLFW_FALSE);
+        ~OpenGLEngine();
 
         bool DEBUG;
 
@@ -154,6 +141,24 @@ namespace CSCI441 {
         bool _isInitialized;
         bool _isCleanedUp;
     };
+}
+
+inline CSCI441::OpenGLEngine::OpenGLEngine(const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION, const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const char* WINDOW_TITLE, const int WINDOW_RESIZABLE)
+        : _majorVersion(OPENGL_MAJOR_VERSION), _minorVersion(OPENGL_MINOR_VERSION), _windowWidth(WINDOW_WIDTH), _windowHeight(WINDOW_HEIGHT), _windowResizable(WINDOW_RESIZABLE) {
+
+    _windowTitle = (char*)malloc(sizeof(char) * strlen(WINDOW_TITLE));
+    strcpy(_windowTitle, WINDOW_TITLE);
+
+    _window = nullptr;
+
+    _isInitialized = _isCleanedUp = false;
+    DEBUG = true;
+    _errorCode = OPENGL_ENGINE_ERROR_NO_ERROR;
+}
+
+inline CSCI441::OpenGLEngine::~OpenGLEngine() {
+    shutdown();
+    free(_windowTitle);
 }
 
 inline void CSCI441::OpenGLEngine::initialize() {
