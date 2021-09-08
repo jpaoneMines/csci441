@@ -130,7 +130,7 @@ namespace CSCI441 {
         virtual void _setupScene() {};
 
         virtual void _cleanupGLFW();
-        void _cleanupGLEW() { /* nothing to be done at this time */ }
+        void _cleanupGLEW() {} // nothing to be done at this time
         virtual void _cleanupOpenGL() {};
         virtual void _cleanupShaders() {};
         virtual void _cleanupBuffers() {};
