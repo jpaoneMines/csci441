@@ -30,7 +30,12 @@ TODO Items
 
 Revision History
 
-v 3.3.0 - 06 Sept 2021
+v 3.4.0 - 08 Sep 2021
+  > Created a concrete Fixed Camera implementation that can be positioned but doesn't move
+
+  > Fixed FreeCam being included across multiple object files 
+
+v 3.3.0 - 06 Sep 2021
   > Created an abstract Camera class to store parameters and to make camera objects
 
   > Created a concrete FreeCam implementation 

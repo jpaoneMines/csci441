@@ -16,8 +16,11 @@
 #ifndef CSCI441_CSCI441_HPP
 #define CSCI441_CSCI441_HPP
 
+#include "Camera.hpp"               // abstract Camera class
 #include "ComputeShaderProgram.hpp" // helper class to compile and use compute shaders
+#include "FixedCam.hpp"             // static camera implementation
 #include "FramebufferUtils.hpp"     // to query common FBO information
+#include "FreeCam.hpp"              // free cam implementation
 #include "materials.hpp"            // predefined material properties
 #include "ModelLoader.hpp"          // to load OBJ, OFF, PLY, STL files
 #include "OpenGL3DEngine.hpp"       // to create a concrete 3D Rendering engine
