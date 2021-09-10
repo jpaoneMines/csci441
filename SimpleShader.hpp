@@ -244,16 +244,16 @@ namespace CSCI441_INTERNAL {
         void resetTransformationMatrix();
         void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
 
-        static GLboolean smoothShading = true;
-        static GLint shaderProgramHandle = -1;
-        static GLint modelLocation = -1;
-        static GLint viewLocation = -1;
-        static GLint projectionLocation = -1;
-        static GLint vertexLocation = -1;
-        static GLint colorLocation = -1;
+        inline GLboolean smoothShading = true;
+        inline GLint shaderProgramHandle = -1;
+        inline GLint modelLocation = -1;
+        inline GLint viewLocation = -1;
+        inline GLint projectionLocation = -1;
+        inline GLint vertexLocation = -1;
+        inline GLint colorLocation = -1;
 
-        static std::vector<glm::mat4> transformationStack;
-        static glm::mat4 modelMatrix(1.0);
+        inline std::vector<glm::mat4> transformationStack;
+        inline glm::mat4 modelMatrix(1.0);
     }
 
     namespace SimpleShader3 {
@@ -275,22 +275,22 @@ namespace CSCI441_INTERNAL {
         void disableLighting();
         void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
 
-        static GLboolean smoothShading = true;
-        static GLint shaderProgramHandle = -1;
-        static GLint modelLocation = -1;
-        static GLint viewLocation = -1;
-        static GLint projectionLocation = -1;
-        static GLint normalMtxLocation = -1;
-        static GLint lightPositionLocation = -1;
-        static GLint lightColorLocation = -1;
-        static GLint materialLocation = -1;
-        static GLint vertexLocation = -1;
-        static GLint normalLocation = -1;
-        static GLint useLightingLocation = -1;
+        inline GLboolean smoothShading = true;
+        inline GLint shaderProgramHandle = -1;
+        inline GLint modelLocation = -1;
+        inline GLint viewLocation = -1;
+        inline GLint projectionLocation = -1;
+        inline GLint normalMtxLocation = -1;
+        inline GLint lightPositionLocation = -1;
+        inline GLint lightColorLocation = -1;
+        inline GLint materialLocation = -1;
+        inline GLint vertexLocation = -1;
+        inline GLint normalLocation = -1;
+        inline GLint useLightingLocation = -1;
 
-        static std::vector<glm::mat4> transformationStack;
-        static glm::mat4 modelMatrix(1.0);
-        static glm::mat4 viewMatrix(1.0);
+        inline std::vector<glm::mat4> transformationStack;
+        inline glm::mat4 modelMatrix(1.0);
+        inline glm::mat4 viewMatrix(1.0);
     }
 }
 
@@ -503,7 +503,7 @@ inline void CSCI441_INTERNAL::SimpleShader2::setupSimpleShader() {
     transformationStack.emplace_back(identity);
 }
 
-inline GLuint CSCI441_INTERNAL::SimpleShader2::registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[0]) {
+inline GLuint CSCI441_INTERNAL::SimpleShader2::registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]) {
     GLuint vaod;
     glGenVertexArrays(1, &vaod);
     glBindVertexArray(vaod);
