@@ -30,6 +30,9 @@ TODO Items
 
 Revision History
 
+v 3.4.1 - 10 Sep 2021
+  > Fixed bug within SimpleShader when the SimpleShader was used split across multiple class objects
+
 v 3.4.0 - 08 Sep 2021
   > Created a concrete Fixed Camera implementation that can be positioned but doesn't move
 
