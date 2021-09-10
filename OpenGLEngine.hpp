@@ -80,6 +80,8 @@ namespace CSCI441 {
         static const unsigned int OPENGL_ENGINE_ERROR_GLFW_INIT     = 1;
         static const unsigned int OPENGL_ENGINE_ERROR_GLFW_WINDOW   = 2;
         static const unsigned int OPENGL_ENGINE_ERROR_GLEW_INIT     = 3;
+        static const unsigned int OPENGL_ENGINE_ERROR_UNKNOWN       = 4;
+        static const unsigned int OPENGL_ENGINE_ERROR_LAST          = OPENGL_ENGINE_ERROR_UNKNOWN;
 
     protected:
         OpenGLEngine(const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION, const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const char* WINDOW_TITLE, const int WINDOW_RESIZABLE = GLFW_FALSE);
