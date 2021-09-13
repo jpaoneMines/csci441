@@ -30,6 +30,9 @@ TODO Items
 
 Revision History
 
+v 3.5.0 - 13 Sep 2021
+  > Added full getter suite to Camera class
+
 v 3.4.1 - 10 Sep 2021
   > Fixed bug within SimpleShader when the SimpleShader was used split across multiple class objects
 

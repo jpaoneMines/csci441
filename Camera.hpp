@@ -62,7 +62,17 @@ namespace CSCI441 {
         void computeViewMatrix() { _viewMatrix = glm::lookAt( _position, _lookAtPoint, _upVector ); }
 
         /// \desc returns the current view matrix
-        [[nodiscard]] virtual glm::mat4 getViewMatrix() { return _viewMatrix; }
+        [[nodiscard]] glm::mat4 getViewMatrix() { return _viewMatrix; }
+        /// \desc returns the current camera position in world space
+        [[nodiscard]] glm::vec3 getPosition() const { return _position; }
+        /// \desc returns the current lookAt point in world space
+        [[nodiscard]] glm::vec3 getLookAtPoint() const { return _lookAtPoint; }
+        /// \desc returns the current up vector in world space
+        [[nodiscard]] glm::vec3 getUpVector() const { return _upVector; }
+        /// \desc returns the current theta value in radians
+        [[nodiscard]] GLfloat getTheta() const { return _theta; }
+        /// \desc returns the current phi value in radians
+        [[nodiscard]] GLfloat getPhi() const { return _phi; }
 
         /// \desc sets the camera's position in world space
         /// \param pos the new camera world space position
