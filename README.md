@@ -30,6 +30,9 @@ TODO Items
 
 Revision History
 
+v 3.6.0 - 15 Sep 2021
+  > Created a concrete ArcBall Cam implementation
+
 v 3.5.0 - 13 Sep 2021
   > Added full getter suite to Camera class
 

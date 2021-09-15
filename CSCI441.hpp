@@ -16,6 +16,7 @@
 #ifndef CSCI441_CSCI441_HPP
 #define CSCI441_CSCI441_HPP
 
+#include "ArcballCam.hpp"           // arcball cam implementation
 #include "Camera.hpp"               // abstract Camera class
 #include "ComputeShaderProgram.hpp" // helper class to compile and use compute shaders
 #include "FixedCam.hpp"             // static camera implementation
