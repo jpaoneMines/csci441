@@ -43,6 +43,8 @@ namespace CSCI441 {
         /// \desc updates the camera position and recalculates the view matrix
         void _updateFreeCameraViewMatrix();
 
+        void _clampRadius();
+
         GLfloat _minRadius;
         GLfloat _maxRadius;
     };
@@ -59,29 +61,26 @@ inline void CSCI441::ArcballCam::recomputeOrientation() {
 
 inline void CSCI441::ArcballCam::moveForward(GLfloat movementFactor) {
     _radius -= movementFactor;
-
-    // do not let our camera get too close
-    if( _radius < _minRadius )  _radius = _minRadius;
-    // do not let our camera get too far away
-    if( _radius > _maxRadius ) _radius = _maxRadius;
-
+    _clampRadius();
     recomputeOrientation();
 }
 
 inline void CSCI441::ArcballCam::moveBackward(GLfloat movementFactor) {
     _radius += movementFactor;
-
-    // do not let our camera get too close
-    if( _radius < _minRadius )  _radius = _minRadius;
-    // do not let our camera get too far away
-    if( _radius > _maxRadius ) _radius = _maxRadius;
-
+    _clampRadius();
     recomputeOrientation();
 }
 
 inline void CSCI441::ArcballCam::_updateFreeCameraViewMatrix() {
     setPosition( _lookAtPoint + _direction );
     computeViewMatrix();
+}
+
+inline void CSCI441::ArcballCam::_clampRadius() {
+    // do not let our camera get too close
+    if( _radius < _minRadius )  _radius = _minRadius;
+    // do not let our camera get too far away
+    if( _radius > _maxRadius ) _radius = _maxRadius;
 }
 
 #endif // CSCI441_ARCBALL_CAM_HPP

@@ -30,6 +30,9 @@ TODO Items
 
 Revision History
 
+v 3.?.? - ?? ??? ????
+  > Improved encapsulation of Arcball radius modification
+
 v 3.6.0 - 15 Sep 2021
   > Created a concrete ArcBall Cam implementation
 
