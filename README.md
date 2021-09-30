@@ -33,6 +33,8 @@ Revision History
 v 3.?.? - ?? ??? ????
   > Improved encapsulation of Arcball radius modification
 
+  > Drawing objects now resets glPolygonMode to previous value instead of just forcing GL_FILL 
+
 v 3.6.0 - 15 Sep 2021
   > Created a concrete ArcBall Cam implementation
 

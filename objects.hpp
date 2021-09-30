@@ -39,7 +39,7 @@ namespace CSCI441 {
         *	Needs to be called after a shader program is being used and before drawing geometry
         *
         * @param GLint positionLocation	- location of the vertex position attribute
-        * @param GLint normalLocation		- location of the vertex normal attribute
+        * @param GLint normalLocation	- location of the vertex normal attribute
         * @param GLint texCoordLocation	- location of the vertex texture coordinate attribute
         */
     void setVertexAttributeLocations( GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1 );
@@ -315,6 +315,7 @@ namespace CSCI441_INTERNAL {
     void drawPartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep, GLenum renderMode );
     void drawSphere( GLfloat radius, GLint stacks, GLint slices, GLenum renderMode );
     void drawTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings, GLenum renderMode );
+    void drawTeapot( GLenum renderMode );
 
     struct AttributeLocations {
         static GLint _positionLocation;
@@ -589,12 +590,12 @@ inline void CSCI441::drawWireSphere( GLfloat radius, GLint stacks, GLint slices 
 
 inline void CSCI441::drawSolidTeapot( GLfloat size ) {
     CSCI441_INTERNAL::teapot();
+
+    CSCI441_INTERNAL::drawTeapot(GL_FILL);
 }
 
 inline void CSCI441::drawWireTeapot( GLfloat size ) {
-    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-    CSCI441_INTERNAL::teapot();
-    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    CSCI441_INTERNAL::drawTeapot(GL_LINE);
 }
 
 inline void CSCI441::drawSolidTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings ) {
@@ -672,6 +673,9 @@ inline void CSCI441_INTERNAL::drawCubeFlat( GLfloat sideLength, GLenum renderMod
         CSCI441_INTERNAL::generateCubeVAOFlat( sideLength );
     }
 
+    GLint currentPolygonMode;
+    glGetIntegerv(GL_POLYGON_MODE, &currentPolygonMode);
+
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_cubeVAO.find( sideLength )->second );
     glBindBuffer( GL_ARRAY_BUFFER, CSCI441_INTERNAL::_cubeVBO.find( sideLength )->second );
@@ -683,13 +687,16 @@ inline void CSCI441_INTERNAL::drawCubeFlat( GLfloat sideLength, GLenum renderMod
     glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*36*6) );
     glDrawArrays( GL_TRIANGLES, 0, 36 );
 
-    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode );
 }
 
 inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum renderMode ) {
     if( CSCI441_INTERNAL::_cubeVAOIndexed.count( sideLength ) == 0 ) {
         CSCI441_INTERNAL::generateCubeVAOIndexed( sideLength );
     }
+
+    GLint currentPolygonMode;
+    glGetIntegerv(GL_POLYGON_MODE, &currentPolygonMode);
 
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_cubeVAOIndexed.find( sideLength )->second );
@@ -700,7 +707,7 @@ inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum render
     glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*8*3) );
     glDrawElements( GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*)0 );
 
-    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode );
 }
 
 inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices, GLenum renderMode ) {
@@ -710,6 +717,9 @@ inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat h
     }
 
     unsigned long int numVertices = cylData.st * (cylData.sl+1) * 2;
+
+    GLint currentPolygonMode;
+    glGetIntegerv(GL_POLYGON_MODE, &currentPolygonMode);
 
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_cylinderVAO.find( cylData )->second );
@@ -725,7 +735,7 @@ inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat h
         glDrawArrays( GL_TRIANGLE_STRIP, (slices+1)*2*stackNum, (slices+1)*2 );
     }
 
-    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode );
 }
 
 inline void CSCI441_INTERNAL::drawPartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep, GLenum renderMode ) {
@@ -733,6 +743,9 @@ inline void CSCI441_INTERNAL::drawPartialDisk( GLfloat inner, GLfloat outer, GLi
     if( CSCI441_INTERNAL::_diskVAO.count( diskData ) == 0 ) {
         CSCI441_INTERNAL::generateDiskVAO( diskData );
     }
+
+    GLint currentPolygonMode;
+    glGetIntegerv(GL_POLYGON_MODE, &currentPolygonMode);
 
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_diskVAO.find( diskData )->second );
@@ -748,7 +761,7 @@ inline void CSCI441_INTERNAL::drawPartialDisk( GLfloat inner, GLfloat outer, GLi
         glDrawArrays( GL_TRIANGLE_STRIP, (slices+1)*2*ringNum, (slices+1)*2 );
     }
 
-    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode );
 }
 
 inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLint stacks, GLint slices, GLenum renderMode ) {
@@ -756,6 +769,9 @@ inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLint stacks, GLint sl
     if( CSCI441_INTERNAL::_sphereVAO.count( sphereData ) == 0 ) {
         CSCI441_INTERNAL::generateSphereVAO( sphereData );
     }
+
+    GLint currentPolygonMode;
+    glGetIntegerv(GL_POLYGON_MODE, &currentPolygonMode);
 
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_sphereVAO.find( sphereData )->second );
@@ -775,7 +791,7 @@ inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLint stacks, GLint sl
 
     glDrawArrays( GL_TRIANGLE_FAN, (slices+2) + (stacks-2)*(slices+1)*2, slices+2 );
 
-    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode );
 }
 
 inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings, GLenum renderMode ) {
@@ -783,6 +799,9 @@ inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadiu
     if( CSCI441_INTERNAL::_torusVAO.count( torusData ) == 0 ) {
         CSCI441_INTERNAL::generateTorusVAO( torusData );
     }
+
+    GLint currentPolygonMode;
+    glGetIntegerv(GL_POLYGON_MODE, &currentPolygonMode);
 
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_torusVAO.find( torusData )->second );
@@ -798,7 +817,16 @@ inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadiu
         glDrawArrays( GL_TRIANGLE_STRIP, ringNum*sides*4, sides*4 );
     }
 
-    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode );
+}
+
+inline void CSCI441_INTERNAL::drawTeapot( GLenum renderMode ) {
+    GLint currentPolygonMode;
+    glGetIntegerv(GL_POLYGON_MODE, &currentPolygonMode);
+
+    glPolygonMode( GL_FRONT_AND_BACK, renderMode );
+    CSCI441_INTERNAL::teapot();
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode );
 }
 
 inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLfloat sideLength ) {
