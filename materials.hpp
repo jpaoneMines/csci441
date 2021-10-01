@@ -24,7 +24,7 @@ namespace CSCI441 {
             float diffuse[4];
             /// \desc RGBA values for Specular Reflectance
             float specular[4];
-            /// \desc Shininess value to control exponential falloff of Specular Refletance
+            /// \desc Shininess value to control exponential falloff of Specular Reflectance
             float shininess;
             /// \desc RGBA values for Ambient Illumination
             float ambient[4];
