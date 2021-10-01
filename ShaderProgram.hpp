@@ -1419,14 +1419,13 @@ inline CSCI441::ShaderProgram::~ShaderProgram() {
     char infoLog[maxLength];
 
     glGetProgramiv( _shaderProgramHandle, GL_DELETE_STATUS, &status );
-    if( sDEBUG ) printf("[INFO]: Program Handle %2d: Delete%s\n", _shaderProgramHandle, (status == GL_TRUE ? "d Successfully" : " Error") );
 
     // get the info log for the vertex/tesselation/geometry/fragment/compute shader
     glGetProgramInfoLog(  _shaderProgramHandle, maxLength, &infologLength, infoLog );
 
     if( infologLength > 0 ) {
         // print info to terminal
-        if( sDEBUG ) printf( "[INFO]: Program Handle %d: %s\n", _shaderProgramHandle, infoLog );
+        if( sDEBUG ) printf( "[INFO]: Program Handle %d Delete Status %s: %s\n", _shaderProgramHandle, (status == GL_TRUE ? "Success" : " Error"), infoLog );
     }
 
     if( _uniformLocations )
