@@ -35,15 +35,12 @@ namespace CSCI441 {
         /// \param GLuint number of work groups in Z dimension (defaults to 1)
         void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ);
     private:
-        ComputeShaderProgram();
 
         GLuint _computeShaderHandle;
     };
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-
-inline CSCI441::ComputeShaderProgram::ComputeShaderProgram() {}
 
 inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeShaderFilename ) {
     GLint major, minor;

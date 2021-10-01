@@ -39,6 +39,8 @@ v 3.?.? - ?? ??? ????
 
   > Drawing objects now resets glPolygonMode to previous value instead of just forcing GL_FILL 
 
+  > When deleting a Shader Program, check the deletion status 
+
 v 3.6.0 - 15 Sep 2021
   > Created a concrete ArcBall Cam implementation
 
