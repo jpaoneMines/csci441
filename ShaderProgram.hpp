@@ -367,6 +367,9 @@ namespace CSCI441 {
 
         GLint* getUniformBlockOffsets( GLint uniformBlockIndex );
         GLint* getUniformBlockOffsets( GLint uniformBlockIndex, const char *names[] );
+
+    private:
+        void _initialize();
     };
 
 }
@@ -383,49 +386,49 @@ inline void CSCI441::ShaderProgram::disableDebugMessages() {
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *fragmentShaderFilename ) {
-    ShaderProgram();
+    _initialize();
     registerShaderProgram( vertexShaderFilename, "", "", "", fragmentShaderFilename, false );
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *fragmentShaderFilename, bool isSeparable ) {
-    ShaderProgram();
+    _initialize();
     registerShaderProgram( vertexShaderFilename, "", "", "", fragmentShaderFilename, isSeparable );
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename ) {
-    ShaderProgram();
+    _initialize();
     registerShaderProgram( vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename, geometryShaderFilename, fragmentShaderFilename, false );
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
-    ShaderProgram();
+    _initialize();
     registerShaderProgram( vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename, geometryShaderFilename, fragmentShaderFilename, isSeparable );
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename ) {
-    ShaderProgram();
+    _initialize();
     registerShaderProgram( vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename, "", fragmentShaderFilename, false );
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
-    ShaderProgram();
+    _initialize();
     registerShaderProgram( vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename, "", fragmentShaderFilename, isSeparable );
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename ) {
-    ShaderProgram();
+    _initialize();
     registerShaderProgram( vertexShaderFilename, "", "", geometryShaderFilename, fragmentShaderFilename, false );
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
-    ShaderProgram();
+    _initialize();
     registerShaderProgram( vertexShaderFilename, "", "", geometryShaderFilename, fragmentShaderFilename, isSeparable );
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char **shaderFilenames,
                                        const bool vertexPresent, const bool tessellationPresent, const bool geometryPresent, const bool fragmentPresent,
                                        const bool isSeparable ) {
-    ShaderProgram();
+    _initialize();
     if( vertexPresent && !tessellationPresent && !geometryPresent && !fragmentPresent ) {
         if( !isSeparable ) {
             fprintf(stderr, "[ERROR]: Fragment Shader not present.  Program must be separable.\n");
@@ -1391,6 +1394,10 @@ inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, gl
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram() {
+    _initialize();
+}
+
+inline void CSCI441::ShaderProgram::_initialize() {
     _vertexShaderHandle = 0;
     _tesselationControlShaderHandle = 0;
     _tesselationEvaluationShaderHandle = 0;
@@ -1402,7 +1409,26 @@ inline CSCI441::ShaderProgram::ShaderProgram() {
 }
 
 inline CSCI441::ShaderProgram::~ShaderProgram() {
+    int status;
+    int infologLength = 0;
+    int maxLength = 1000;
+
     glDeleteProgram( _shaderProgramHandle );
+
+    // create a buffer of designated length
+    char infoLog[maxLength];
+
+    glGetProgramiv( _shaderProgramHandle, GL_DELETE_STATUS, &status );
+    if( sDEBUG ) printf("[INFO]: Program Handle %2d: Delete%s\n", _shaderProgramHandle, (status == GL_TRUE ? "d Successfully" : " Error") );
+
+    // get the info log for the vertex/tesselation/geometry/fragment/compute shader
+    glGetProgramInfoLog(  _shaderProgramHandle, maxLength, &infologLength, infoLog );
+
+    if( infologLength > 0 ) {
+        // print info to terminal
+        if( sDEBUG ) printf( "[INFO]: Program Handle %d: %s\n", _shaderProgramHandle, infoLog );
+    }
+
     if( _uniformLocations )
         delete _uniformLocations;
     if( _attributeLocations )
