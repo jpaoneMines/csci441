@@ -28,6 +28,10 @@ TODO Items
 
   > Generate teapot normals based on partial derivatives
 
+  > Rework abstract classes to not use protected members, change them to be private and add public interface with
+  > validation in place to access values as appropriate (will necessitate v4.0.0 since it will break backward 
+  > compatibility)
+
 Revision History
 
 v 3.?.? - ?? ??? ????
