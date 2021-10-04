@@ -122,6 +122,16 @@ namespace CSCI441 {
         */
     void drawWireCube( GLfloat sideLength );
 
+    /**
+     * @brief Draws a cube with 3D Texture Coordinates to map a cubemap texture to it
+     *
+     *   The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
+     *
+     * @param GLflaot sideLength - length of the edge of the cube
+     * @pre sideLength must be greater than zero
+     */
+    void drawCubeMap( GLfloat sideLength );
+
     /**	@brief Draws a solid open ended cylinder
       *
         *	Cylinder is oriented along the y-axis with the origin along the base
@@ -510,6 +520,12 @@ inline void CSCI441::drawWireCube( GLfloat sideLength ) {
     CSCI441_INTERNAL::drawCube( sideLength, GL_LINE );
 }
 
+inline void CSCI441::drawCubeMap(GLfloat sideLength) {
+    assert(sideLength > 0.0f);
+
+    CSCI441_INTERNAL::drawCube( sideLength, GL_FILL );
+}
+
 inline void CSCI441::drawSolidCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices ) {
     assert( (base >= 0.0f && top > 0.0f) || (base > 0.0f && top >= 0.0f) );
     assert( height > 0.0f );
@@ -705,6 +721,8 @@ inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum render
     glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
     glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_normalLocation );
     glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*8*3) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*8*3*2) );
     glDrawElements( GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*)0 );
 
     glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode );
@@ -924,14 +942,24 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
             { -CORNER_POINT,  CORNER_POINT,  CORNER_POINT }  // 7 - tlf
     };
     GLfloat normals[8][3] = {
-            {-1, -1, -1}, // 0 LBF
-            {-1,  1, -1}, // 1 LTF
-            { 1, -1, -1}, // 2 RBF
-            { 1,  1, -1}, // 3 RTF
-            {-1, -1,  1}, // 4 LBN
-            {-1,  1,  1}, // 5 LTN
-            { 1, -1,  1}, // 6 RBN
-            { 1,  1,  1}  // 7 RTN
+            {-1, -1, -1}, // 0 bln
+            { 1, -1, -1}, // 1 brn
+            { 1,  1, -1}, // 2 trn
+            {-1,  1, -1}, // 3 tln
+            {-1, -1,  1}, // 4 blf
+            { 1, -1,  1}, // 5 brf
+            { 1,  1,  1}, // 6 trf
+            {-1,  1,  1}  // 7 tlf
+    };
+    GLfloat texCoords[8][3] = {
+            {-1, -1, -1}, // 0 bln
+            { 1, -1, -1}, // 1 brn
+            { 1,  1, -1}, // 2 trn
+            {-1,  1, -1}, // 3 tln
+            {-1, -1,  1}, // 4 blf
+            { 1, -1,  1}, // 5 brf
+            { 1,  1,  1}, // 6 trf
+            {-1,  1,  1}  // 7 tlf
     };
     unsigned short indices[36] = {
             0, 1, 2,   0, 2, 3, // near
@@ -950,9 +978,10 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
     glGenBuffers( 2, vbods );
 
     glBindBuffer( GL_ARRAY_BUFFER, vbods[0] );
-    glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * 8 * 6, nullptr, GL_STATIC_DRAW );
-    glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(GLfloat) * 8 * 3, vertices );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * 8 * 3, sizeof(GLfloat) * 8 * 3, normals );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * 8 * 9, nullptr, GL_STATIC_DRAW );
+    glBufferSubData( GL_ARRAY_BUFFER, 0,                       sizeof(GLfloat) * 8 * 3, vertices  );
+    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * 8 * 3, sizeof(GLfloat) * 8 * 3, normals   );
+    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * 8 * 6, sizeof(GLfloat) * 8 * 3, texCoords );
 
     glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, vbods[1] );
     glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW) ;
@@ -972,7 +1001,7 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
 
     unsigned long int numVertices = cylData.st * (cylData.sl+1) * 2;
 
-    GLfloat sliceStep = 2.0 * M_PI / cylData.sl;
+    GLfloat sliceStep = 2.0f * M_PI / cylData.sl;
     GLfloat stackStep = cylData.h / cylData.st;
 
     GLfloat* vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);

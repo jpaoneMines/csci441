@@ -40,6 +40,10 @@ v 3.?.? - ?? ??? ????
   > Drawing objects now resets glPolygonMode to previous value instead of just forcing GL_FILL 
 
   > When deleting a Shader Program, check the deletion status 
+ 
+  > Adding 3D texture coordinates to indexed cube and adding entry point to explicitly drawCubeMap()
+
+  > Corrected normals for indexed cube  
 
 v 3.6.0 - 15 Sep 2021
   > Created a concrete ArcBall Cam implementation
