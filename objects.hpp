@@ -327,18 +327,16 @@ namespace CSCI441_INTERNAL {
     void drawTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings, GLenum renderMode );
     void drawTeapot( GLenum renderMode );
 
-    struct AttributeLocations {
-        static GLint _positionLocation;
-        static GLint _normalLocation;
-        static GLint _texCoordLocation;
-    };
+    inline GLint _positionAttributeLocation = -1;
+    inline GLint _normalAttributeLocation = -1;
+    inline GLint _texCoordAttributeLocation = -1;
 
     void generateCubeVAOFlat( GLfloat sideLength );
     void generateCubeVAOIndexed( GLfloat sideLength );
-    static std::map< GLfloat, GLuint > _cubeVAO;
-    static std::map< GLfloat, GLuint > _cubeVBO;
-    static std::map< GLfloat, GLuint > _cubeVAOIndexed;
-    static std::map< GLfloat, GLuint > _cubeVBOIndexed;
+    inline std::map< GLfloat, GLuint > _cubeVAO;
+    inline std::map< GLfloat, GLuint > _cubeVBO;
+    inline std::map< GLfloat, GLuint > _cubeVAOIndexed;
+    inline std::map< GLfloat, GLuint > _cubeVBOIndexed;
 
     struct CylinderData {
         GLfloat b, t, h;
@@ -457,14 +455,10 @@ namespace CSCI441_INTERNAL {
 ////////////////////////////////////////////////////////////////////////////////////
 // Outward facing function implementations
 
-inline GLint CSCI441_INTERNAL::AttributeLocations::_positionLocation = -1;
-inline GLint CSCI441_INTERNAL::AttributeLocations::_normalLocation = -1;
-inline GLint CSCI441_INTERNAL::AttributeLocations::_texCoordLocation = -1;
-
 inline void CSCI441::setVertexAttributeLocations( GLint positionLocation, GLint normalLocation, GLint texCoordLocation ) {
-    CSCI441_INTERNAL::AttributeLocations::_positionLocation = positionLocation;
-    CSCI441_INTERNAL::AttributeLocations::_normalLocation = normalLocation;
-    CSCI441_INTERNAL::AttributeLocations::_texCoordLocation = texCoordLocation;
+    CSCI441_INTERNAL::_positionAttributeLocation = positionLocation;
+    CSCI441_INTERNAL::_normalAttributeLocation = normalLocation;
+    CSCI441_INTERNAL::_texCoordAttributeLocation = texCoordLocation;
     CSCI441_INTERNAL::setTeapotAttributeLocations(positionLocation, normalLocation, texCoordLocation);
 }
 
@@ -605,8 +599,8 @@ inline void CSCI441::drawWireSphere( GLfloat radius, GLint stacks, GLint slices 
 }
 
 inline void CSCI441::drawSolidTeapot( GLfloat size ) {
-    CSCI441_INTERNAL::teapot();
-
+//    CSCI441_INTERNAL::teapot();
+//
     CSCI441_INTERNAL::drawTeapot(GL_FILL);
 }
 
@@ -639,43 +633,43 @@ inline void CSCI441::drawWireTorus( GLfloat innerRadius, GLfloat outerRadius, GL
 
 
 inline void CSCI441_INTERNAL::deleteObjectVAOs() {
-    for(std::map<GLfloat, GLuint>::iterator iter = _cubeVAO.begin(); iter != _cubeVAO.end(); iter++) {
+    for(auto iter = _cubeVAO.begin(); iter != _cubeVAO.end(); iter++) {
         glDeleteVertexArrays(1, &(iter->second));
     }
-    for(std::map<GLfloat, GLuint>::iterator iter = _cubeVAOIndexed.begin(); iter != _cubeVAOIndexed.end(); iter++) {
+    for(auto iter = _cubeVAOIndexed.begin(); iter != _cubeVAOIndexed.end(); iter++) {
         glDeleteVertexArrays(1, &(iter->second));
     }
-    for(std::map<CylinderData, GLuint>::iterator iter = _cylinderVAO.begin(); iter != _cylinderVAO.end(); iter++) {
+    for(auto iter = _cylinderVAO.begin(); iter != _cylinderVAO.end(); iter++) {
         glDeleteVertexArrays(1, &(iter->second));
     }
-    for(std::map<DiskData, GLuint>::iterator iter = _diskVAO.begin(); iter != _diskVAO.end(); iter++) {
+    for(auto iter = _diskVAO.begin(); iter != _diskVAO.end(); iter++) {
         glDeleteVertexArrays(1, &(iter->second));
     }
-    for(std::map<SphereData, GLuint>::iterator iter = _sphereVAO.begin(); iter != _sphereVAO.end(); iter++) {
+    for(auto iter = _sphereVAO.begin(); iter != _sphereVAO.end(); iter++) {
         glDeleteVertexArrays(1, &(iter->second));
     }
-    for(std::map<TorusData, GLuint>::iterator iter = _torusVAO.begin(); iter != _torusVAO.end(); iter++) {
+    for(auto iter = _torusVAO.begin(); iter != _torusVAO.end(); iter++) {
         glDeleteVertexArrays(1, &(iter->second));
     }
 }
 
 inline void CSCI441_INTERNAL::deleteObjectVBOs() {
-    for(std::map<GLfloat, GLuint>::iterator iter = _cubeVBO.begin(); iter != _cubeVBO.end(); iter++) {
+    for(auto iter = _cubeVBO.begin(); iter != _cubeVBO.end(); iter++) {
         glDeleteBuffers(1, &(iter->second));
     }
-    for(std::map<GLfloat, GLuint>::iterator iter = _cubeVBOIndexed.begin(); iter != _cubeVBOIndexed.end(); iter++) {
+    for(auto iter = _cubeVBOIndexed.begin(); iter != _cubeVBOIndexed.end(); iter++) {
         glDeleteBuffers(1, &(iter->second));
     }
-    for(std::map<CylinderData, GLuint>::iterator iter = _cylinderVBO.begin(); iter != _cylinderVBO.end(); iter++) {
+    for(auto iter = _cylinderVBO.begin(); iter != _cylinderVBO.end(); iter++) {
         glDeleteBuffers(1, &(iter->second));
     }
-    for(std::map<DiskData, GLuint>::iterator iter = _diskVBO.begin(); iter != _diskVBO.end(); iter++) {
+    for(auto iter = _diskVBO.begin(); iter != _diskVBO.end(); iter++) {
         glDeleteBuffers(1, &(iter->second));
     }
-    for(std::map<SphereData, GLuint>::iterator iter = _sphereVBO.begin(); iter != _sphereVBO.end(); iter++) {
+    for(auto iter = _sphereVBO.begin(); iter != _sphereVBO.end(); iter++) {
         glDeleteBuffers(1, &(iter->second));
     }
-    for(std::map<TorusData, GLuint>::iterator iter = _torusVBO.begin(); iter != _torusVBO.end(); iter++) {
+    for(auto iter = _torusVBO.begin(); iter != _torusVBO.end(); iter++) {
         glDeleteBuffers(1, &(iter->second));
     }
 }
@@ -695,12 +689,12 @@ inline void CSCI441_INTERNAL::drawCubeFlat( GLfloat sideLength, GLenum renderMod
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_cubeVAO.find( sideLength )->second );
     glBindBuffer( GL_ARRAY_BUFFER, CSCI441_INTERNAL::_cubeVBO.find( sideLength )->second );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_positionLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_normalLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*36*3) );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*36*6) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_positionAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_positionAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*36*3) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*36*6) );
     glDrawArrays( GL_TRIANGLES, 0, 36 );
 
     glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode );
@@ -717,12 +711,12 @@ inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum render
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_cubeVAOIndexed.find( sideLength )->second );
     glBindBuffer( GL_ARRAY_BUFFER, CSCI441_INTERNAL::_cubeVBOIndexed.find( sideLength )->second );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_positionLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_normalLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*8*3) );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*8*3*2) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_positionAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_positionAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*8*3) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*8*3*2) );
     glDrawElements( GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*)0 );
 
     glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode );
@@ -742,12 +736,12 @@ inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat h
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_cylinderVAO.find( cylData )->second );
     glBindBuffer( GL_ARRAY_BUFFER, CSCI441_INTERNAL::_cylinderVBO.find( cylData )->second );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_positionLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_normalLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * numVertices * 3) );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * numVertices * 6) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_positionAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_positionAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * numVertices * 3) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * numVertices * 6) );
 
     for( int stackNum = 0; stackNum < stacks; stackNum++ ) {
         glDrawArrays( GL_TRIANGLE_STRIP, (slices+1)*2*stackNum, (slices+1)*2 );
@@ -768,12 +762,12 @@ inline void CSCI441_INTERNAL::drawPartialDisk( GLfloat inner, GLfloat outer, GLi
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_diskVAO.find( diskData )->second );
     glBindBuffer( GL_ARRAY_BUFFER, CSCI441_INTERNAL::_diskVBO.find( diskData )->second );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_positionLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_normalLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*rings * (slices+1) * 2*3) );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*rings * (slices+1) * 2*6) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_positionAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_positionAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*rings * (slices+1) * 2*3) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*rings * (slices+1) * 2*6) );
 
     for( int ringNum = 0; ringNum < rings; ringNum++ ) {
         glDrawArrays( GL_TRIANGLE_STRIP, (slices+1)*2*ringNum, (slices+1)*2 );
@@ -794,12 +788,12 @@ inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLint stacks, GLint sl
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_sphereVAO.find( sphereData )->second );
     glBindBuffer( GL_ARRAY_BUFFER, CSCI441_INTERNAL::_sphereVBO.find( sphereData )->second );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_positionLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_normalLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*((slices + 2)*2 + ((stacks - 2)*(slices+1))*2) *3) );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*((slices + 2)*2 + ((stacks - 2)*(slices+1))*2) *6) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_positionAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_positionAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*((slices + 2)*2 + ((stacks - 2)*(slices+1))*2) *3) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*((slices + 2)*2 + ((stacks - 2)*(slices+1))*2) *6) );
 
     glDrawArrays( GL_TRIANGLE_FAN, 0, slices+2 );
 
@@ -824,12 +818,12 @@ inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadiu
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     glBindVertexArray( CSCI441_INTERNAL::_torusVAO.find( torusData )->second );
     glBindBuffer( GL_ARRAY_BUFFER, CSCI441_INTERNAL::_torusVBO.find( torusData )->second );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_positionLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_normalLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*(sides*4*rings)*3) );
-    glEnableVertexAttribArray( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation );
-    glVertexAttribPointer( CSCI441_INTERNAL::AttributeLocations::_texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*(sides*4*rings)*6) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_positionAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_positionAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*(sides*4*rings)*3) );
+    glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
+    glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*(sides*4*rings)*6) );
 
     for( int ringNum = 0; ringNum < rings; ringNum++ ) {
         glDrawArrays( GL_TRIANGLE_STRIP, ringNum*sides*4, sides*4 );

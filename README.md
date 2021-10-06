@@ -34,7 +34,7 @@ TODO Items
 
 Revision History
 
-v 3.?.? - ?? ??? ????
+v 3.7.0 - 06 Oct 2021
   > Improved encapsulation of Arcball radius modification
 
   > Drawing objects now resets glPolygonMode to previous value instead of just forcing GL_FILL 
@@ -44,6 +44,8 @@ v 3.?.? - ?? ??? ????
   > Adding 3D texture coordinates to indexed cube and adding entry point to explicitly drawCubeMap()
 
   > Corrected normals for indexed cube  
+
+  > Changed object and teapot internal variables from static to inline to support multicompilation and single use across multiple contexts
 
 v 3.6.0 - 15 Sep 2021
   > Created a concrete ArcBall Cam implementation

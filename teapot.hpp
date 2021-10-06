@@ -50,11 +50,11 @@ namespace CSCI441_INTERNAL {
 #define TEAPOT_RES_U 10
 #define TEAPOT_RES_V 10
 
-    static GLuint teapot_vao;
-    static GLuint teapot_vbo, teapot_ibo;
+    inline GLuint teapot_vao;
+    inline GLuint teapot_vbo, teapot_ibo;
 
     struct Teapot_Vertex { GLfloat x, y, z; };
-    static Teapot_Vertex teapot_cp_vertices[] = {
+    inline Teapot_Vertex teapot_cp_vertices[] = {
             // 1
             {  1.4   ,   0.0   ,  2.4     },
             {  1.4   ,  -0.784 ,  2.4     },
@@ -353,7 +353,7 @@ namespace CSCI441_INTERNAL {
             {  1.3   ,   0.728 ,  2.4     },
     };
 
-    static GLushort teapot_patches[TEAPOT_NUMBER_PATCHES][TEAPOT_PATCH_DIMENSION + 1][TEAPOT_PATCH_DIMENSION + 1] = {
+    inline GLushort teapot_patches[TEAPOT_NUMBER_PATCHES][TEAPOT_PATCH_DIMENSION + 1][TEAPOT_PATCH_DIMENSION + 1] = {
             // rim
             { {   1,   2,   3,   4 }, {   5,   6,   7,   8 }, {   9,  10,  11,  12 }, {  13,  14,  15,  16, } },
             { {   4,  17,  18,  19 }, {   8,  20,  21,  22 }, {  12,  23,  24,  25 }, {  16,  26,  27,  28, } },
@@ -390,13 +390,13 @@ namespace CSCI441_INTERNAL {
             // no bottom!
     };
 
-    static Teapot_Vertex teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 3];
-    static GLushort teapot_elements[TEAPOT_NUMBER_PATCHES * (TEAPOT_RES_U - 1) * (TEAPOT_RES_V - 1) * 2 * 3];
+    inline Teapot_Vertex teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 3];
+    inline GLushort teapot_elements[TEAPOT_NUMBER_PATCHES * (TEAPOT_RES_U - 1) * (TEAPOT_RES_V - 1) * 2 * 3];
 
-    static bool teapot_built = false;
-    static GLint teapot_pos_attr_loc = -1;
-    static GLint teapot_norm_attr_loc = -1;
-    static GLint teapot_tex_attr_loc = -1;
+    inline bool teapot_built = false;
+    inline GLint teapot_pos_attr_loc = -1;
+    inline GLint teapot_norm_attr_loc = -1;
+    inline GLint teapot_tex_attr_loc = -1;
 
     void teapot_build_control_points_k(int p, Teapot_Vertex** control_points_k);
     Teapot_Vertex teapot_compute_position(Teapot_Vertex** control_points_k, float u, float v);
