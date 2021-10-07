@@ -34,6 +34,11 @@ TODO Items
 
 Revision History
 
+v 3.7.1 - 07 Oct 2021
+  > Fixed get polygon mode bug where it returns two values
+
+  > Objects and Teapot only enable attribute locations if they are not -1.  Prevents a invalid enum error 
+
 v 3.7.0 - 06 Oct 2021
   > Improved encapsulation of Arcball radius modification
 

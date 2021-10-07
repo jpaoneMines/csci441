@@ -546,42 +546,48 @@ namespace CSCI441_INTERNAL {
         glBindVertexArray(teapot_vao );
         glBindBuffer(GL_ARRAY_BUFFER, teapot_vbo);
 
-        glDisableVertexAttribArray(teapot_pos_attr_loc);
-        glDisableVertexAttribArray(teapot_norm_attr_loc);
-        glDisableVertexAttribArray(teapot_tex_attr_loc);
+        if(teapot_pos_attr_loc != -1)  glDisableVertexAttribArray(teapot_pos_attr_loc);
+        if(teapot_norm_attr_loc != -1) glDisableVertexAttribArray(teapot_norm_attr_loc);
+        if(teapot_tex_attr_loc != -1)  glDisableVertexAttribArray(teapot_tex_attr_loc);
 
         teapot_pos_attr_loc = positionLocation;
         teapot_norm_attr_loc = normalLocation;
         teapot_tex_attr_loc = texCoordLocation;
 
         // Describe our vertices array to OpenGL (it can't guess its format automatically)
-        glEnableVertexAttribArray(teapot_pos_attr_loc);
-        glVertexAttribPointer(
-                teapot_pos_attr_loc,  // attribute
-                3,                 // number of elements per vertex, here (x,y,z)
-                GL_FLOAT,          // the type of each element
-                GL_FALSE,          // take our values as-is
-                0,                 // no extra data between each position
-                nullptr            // offset of first element
-        );
-        glEnableVertexAttribArray(teapot_norm_attr_loc);
-        glVertexAttribPointer(
-                teapot_norm_attr_loc,  // attribute
-                3,                 // number of elements per vertex, here (x,y,z)
-                GL_FLOAT,          // the type of each element
-                GL_FALSE,          // take our values as-is
-                0,                 // no extra data between each position
-                (void*)(TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * sizeof(Teapot_Vertex))                  // offset of first element
-        );
-        glEnableVertexAttribArray(teapot_tex_attr_loc);
-        glVertexAttribPointer(
-                teapot_tex_attr_loc,  // attribute
-                2,                 // number of elements per vertex, here (s,t)
-                GL_FLOAT,          // the type of each element
-                GL_FALSE,          // take our values as-is
-                sizeof(Teapot_Vertex),                 // no extra data between each position
-                (void*)(TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 2 * sizeof(Teapot_Vertex))                  // offset of first element
-        );
+        if(teapot_pos_attr_loc != -1) {
+            glEnableVertexAttribArray(teapot_pos_attr_loc);
+            glVertexAttribPointer(
+                    teapot_pos_attr_loc,  // attribute
+                    3,                 // number of elements per vertex, here (x,y,z)
+                    GL_FLOAT,          // the type of each element
+                    GL_FALSE,          // take our values as-is
+                    0,                 // no extra data between each position
+                    nullptr            // offset of first element
+            );
+        }
+        if(teapot_norm_attr_loc != -1) {
+            glEnableVertexAttribArray(teapot_norm_attr_loc);
+            glVertexAttribPointer(
+                    teapot_norm_attr_loc,  // attribute
+                    3,                 // number of elements per vertex, here (x,y,z)
+                    GL_FLOAT,          // the type of each element
+                    GL_FALSE,          // take our values as-is
+                    0,                 // no extra data between each position
+                    (void*)(TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * sizeof(Teapot_Vertex))                  // offset of first element
+            );
+        }
+        if(teapot_tex_attr_loc != -1) {
+            glEnableVertexAttribArray(teapot_tex_attr_loc);
+            glVertexAttribPointer(
+                    teapot_tex_attr_loc,  // attribute
+                    2,                 // number of elements per vertex, here (s,t)
+                    GL_FLOAT,          // the type of each element
+                    GL_FALSE,          // take our values as-is
+                    sizeof(Teapot_Vertex),                 // no extra data between each position
+                    (void*)(TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 2 * sizeof(Teapot_Vertex))                  // offset of first element
+            );
+        }
     }
 
     inline void teapot() {
