@@ -34,6 +34,9 @@ TODO Items
 
 Revision History
 
+v 3.8.0 - 07 Oct 2021
+  > Resolved Issue #2 for OBJ files with negative indices.  The negative indices weren't unique and needed to offset before caching
+
 v 3.7.1 - 07 Oct 2021
   > Fixed get polygon mode bug where it returns two values
 

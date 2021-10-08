@@ -24,6 +24,7 @@
 #include <stb_image.h>
 
 #include <fstream>
+#include <sstream>
 #include <map>
 #include <string>
 #include <vector>
@@ -368,11 +369,6 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			vector<string> faceTokens = _tokenizeString(line, " ");
 
 			for(unsigned int i = 1; i < faceTokens.size(); i++) {
-				if( uniqueCounts.find( faceTokens[i] ) == uniqueCounts.end() ) {
-					uniqueCounts.insert( pair<string,long int>(faceTokens[i],_uniqueIndex) );
-					_uniqueIndex++;
-				}
-
 				//need to use both the tokens and number of slashes to determine what info is there.
 				vector<string> groupTokens = _tokenizeString(faceTokens[i], "/");
 				int numSlashes = 0;
@@ -380,18 +376,48 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 					if(faceTokens[i][j] == '/') numSlashes++;
 				}
 
+                stringstream currentFaceTokenStream;
+                int v = atoi(groupTokens[0].c_str());
+                if(v < 0)
+                    v = numVertices + v + 1;
+                currentFaceTokenStream << v;
+
 				//based on combination of number of tokens and slashes, we can determine what we have.
 				if(groupTokens.size() == 2 && numSlashes == 1) {
 					_hasVertexTexCoords = true;
+
+                    int vt = atoi(groupTokens[1].c_str());
+                    if(vt < 0)
+                        vt = numTexCoords + vt + 1;
+                    currentFaceTokenStream << "/" << vt;
 				} else if(groupTokens.size() == 2 && numSlashes == 2) {
 					_hasVertexNormals = true;
+
+                    int vn = atoi(groupTokens[1].c_str());
+                    if(vn < 0)
+                        vn = numNormals + vn + 1;
+                    currentFaceTokenStream << "//" << vn;
 				} else if(groupTokens.size() == 3) {
 					_hasVertexTexCoords = true;
 					_hasVertexNormals = true;
+
+                    int vt = atoi(groupTokens[1].c_str());
+                    if(vt < 0)
+                        vt = numTexCoords + vt + 1;
+                    int vn = atoi(groupTokens[2].c_str());
+                    if(vn < 0)
+                        vn = numNormals + vn + 1;
+                    currentFaceTokenStream << "/" << vt << "/" << vn;
 				} else if(groupTokens.size() != 1) {
 					if (ERRORS) fprintf(stderr, "[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename);
 					return false;
 				}
+
+                string processedFaceToken = currentFaceTokenStream.str();
+                if( uniqueCounts.find( processedFaceToken ) == uniqueCounts.end() ) {
+                    uniqueCounts.insert( pair<string,long int>(processedFaceToken,_uniqueIndex) );
+                    _uniqueIndex++;
+                }
 			}
 
 			numTriangles += (faceTokens.size() - 1 - 3 + 1);
@@ -532,16 +558,64 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			//now, faces can be either quads or triangles (or maybe more?)
 			//split the string on spaces to get the number of verts+attrs.
 			vector<string> faceTokens = _tokenizeString(line, " ");
+            vector<string> processedFaceTokens;
 
 			for(unsigned int i = 1; i < faceTokens.size(); i++) {
-				if( uniqueCounts.find( faceTokens[i] ) == uniqueCounts.end() ) {
-					uniqueCounts.insert( pair<string,unsigned long int>(faceTokens[i],uniqueV) );
+                //need to use both the tokens and number of slashes to determine what info is there.
+                vector<string> groupTokens = _tokenizeString(faceTokens[i], "/");
+                int numSlashes = 0;
+                for( unsigned int j = 0; j < faceTokens[i].length(); j++ ) {
+                    if(faceTokens[i][j] == '/') numSlashes++;
+                }
+
+                stringstream currentFaceTokenStream;
+                int vx = atoi(groupTokens[0].c_str());
+                if(vx < 0)
+                    vx = vSeen + vx + 1;
+                currentFaceTokenStream << vx;
+
+                //based on combination of number of tokens and slashes, we can determine what we have.
+                if(groupTokens.size() == 2 && numSlashes == 1) {
+                    _hasVertexTexCoords = true;
+
+                    int vtx = atoi(groupTokens[1].c_str());
+                    if(vtx < 0)
+                        vtx = vtSeen + vtx + 1;
+                    currentFaceTokenStream << "/" << vtx;
+                } else if(groupTokens.size() == 2 && numSlashes == 2) {
+                    _hasVertexNormals = true;
+
+                    int vnx = atoi(groupTokens[1].c_str());
+                    if(vnx < 0)
+                        vnx = vnSeen + vnx + 1;
+                    currentFaceTokenStream << "//" << vnx;
+                } else if(groupTokens.size() == 3) {
+                    _hasVertexTexCoords = true;
+                    _hasVertexNormals = true;
+
+                    int vtx = atoi(groupTokens[1].c_str());
+                    if(vtx < 0)
+                        vtx = vtSeen + vtx + 1;
+                    int vnx = atoi(groupTokens[2].c_str());
+                    if(vnx < 0)
+                        vnx = vnSeen + vnx + 1;
+                    currentFaceTokenStream << "/" << vtx << "/" << vnx;
+                } else if(groupTokens.size() != 1) {
+                    if (ERRORS) fprintf(stderr, "[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename);
+                    return false;
+                }
+
+                string processedFaceToken = currentFaceTokenStream.str();
+                processedFaceTokens.push_back(processedFaceToken);
+
+				if( uniqueCounts.find( processedFaceToken ) == uniqueCounts.end() ) {
+					uniqueCounts.insert( pair<string,unsigned long int>(processedFaceToken,uniqueV) );
 
 					//need to use both the tokens and number of slashes to determine what info is there.
-					vector<string> groupTokens = _tokenizeString(faceTokens[i], "/");
+					vector<string> groupTokens = _tokenizeString(processedFaceToken, "/");
 					int numSlashes = 0;
-					for( unsigned int j = 0; j < faceTokens[i].length(); j++ ) {
-						if(faceTokens[i][j] == '/') numSlashes++;
+					for( unsigned int j = 0; j < processedFaceToken.length(); j++ ) {
+						if(processedFaceToken[j] == '/') numSlashes++;
 					}
 
 					if( _hasVertexNormals || !AUTO_GEN_NORMALS ) {
@@ -625,17 +699,17 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 				}
 			}
 
-			for(unsigned int i = 2; i < faceTokens.size()-1; i++) {
+			for(unsigned int i = 1; i < processedFaceTokens.size()-1; i++) {
 				if( _hasVertexNormals || !AUTO_GEN_NORMALS ) {
-					_indices[ indicesSeen++ ] = uniqueCounts.find( faceTokens[1]   )->second;
-					_indices[ indicesSeen++ ] = uniqueCounts.find( faceTokens[i]   )->second;
-					_indices[ indicesSeen++ ] = uniqueCounts.find( faceTokens[i+1] )->second;
+					_indices[ indicesSeen++ ] = uniqueCounts.find( processedFaceTokens[0]   )->second;
+					_indices[ indicesSeen++ ] = uniqueCounts.find( processedFaceTokens[i]   )->second;
+					_indices[ indicesSeen++ ] = uniqueCounts.find( processedFaceTokens[i+1] )->second;
 
 					_numIndices += 3;
 				} else {
-					int aI = uniqueCounts.find( faceTokens[1]   )->second;
-					int bI = uniqueCounts.find( faceTokens[i]   )->second;
-					int cI = uniqueCounts.find( faceTokens[i+1] )->second;
+					int aI = uniqueCounts.find( processedFaceTokens[0]   )->second;
+					int bI = uniqueCounts.find( processedFaceTokens[i]   )->second;
+					int cI = uniqueCounts.find( processedFaceTokens[i+1] )->second;
 
 					glm::vec3 a( vertsTemp[aI*3 + 0], vertsTemp[aI*3 + 1], vertsTemp[aI*3 + 2] );
 					glm::vec3 b( vertsTemp[bI*3 + 0], vertsTemp[bI*3 + 1], vertsTemp[bI*3 + 2] );
