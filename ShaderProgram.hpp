@@ -8,13 +8,13 @@
  *	code that needs to be written.
  */
 
-#ifndef __CSCI441_SHADERPROGRAM_H__
-#define __CSCI441_SHADERPROGRAM_H__
+#ifndef CSCI441_SHADER_PROGRAM_HPP
+#define CSCI441_SHADER_PROGRAM_HPP
 
 #include "ShaderUtils.hpp"
 
 #include <glm/glm.hpp>
-#include <stdlib.h>
+#include <cstdlib>
 #include <map>
 #include <string>
 
@@ -52,13 +52,13 @@ namespace CSCI441 {
 
         /** @desc Creates a Shader Program using a Vertex Shader and Fragment Shader
           *
-            * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
-            * @param const char* fragmentShaderFilename - name of the file corresponding to the fragment shader
-         * @param const bool isSeparable - if program is separable
+            * @param vertexShaderFilename name of the file corresponding to the vertex shader
+            * @param fragmentShaderFilename name of the file corresponding to the fragment shader
+         * @param isSeparable if program is separable
           */
         ShaderProgram( const char *vertexShaderFilename,
                        const char *fragmentShaderFilename,
-                       const bool isSpearable);
+                       const bool isSeparable);
 
         /** @desc Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader
               *
@@ -148,7 +148,7 @@ namespace CSCI441 {
          * @param const bool tessellationPresent - if tessellation shader is present
          * @param const bool geometryPresent - if geometry shader is present
          * @param const bool fragmentPresent - if fragment shader is present
-         * @param const bool isSeparable - if program is seperable
+         * @param const bool isSeparable - if program is separable
          */
         ShaderProgram( const char **shaderFilenames,
                        const bool vertexPresent, const bool tessellationPresent, const bool geometryPresent, const bool fragmentPresent,
@@ -163,52 +163,52 @@ namespace CSCI441 {
             * @param const char* uniformName - name of the uniform to get the location for
           * @return GLint - location of the given uniform in this shader program
           */
-        GLint getUniformLocation( const char *uniformName );
+        GLint getUniformLocation( const char *uniformName ) const;
 
         /** @desc Returns the index of the given uniform block in this shader program
           * @note Prints an error message to standard error stream if the uniform block is not found
             * @param const char* uniformBlockName - name of the uniform block to get the index for
           * @return GLint - index of the given uniform block in this shader program
           */
-        GLint getUniformBlockIndex( const char *uniformBlockName );
+        GLint getUniformBlockIndex( const char *uniformBlockName ) const;
         /** @desc Returns the size of the given uniform block in this shader program
           * @note Prints an error message to standard error stream if the uniform block is not found
             * @param const char* uniformBlockName - name of the uniform block to get the size for
           * @return GLint - size of the given uniform block in this shader program
           */
-        GLint getUniformBlockSize( const char *uniformBlockName );
+        GLint getUniformBlockSize( const char *uniformBlockName ) const;
         /** @desc Returns an allocated buffer for the given uniform block in this shader program
           * @note Prints an error message to standard error stream if the uniform block is not found
             * @param const char* uniformBlockName - name of the uniform block to allocate a buffer for
           * @return GLubyte* - allocated buffer for the given uniform block in this shader program
           */
-        GLubyte* getUniformBlockBuffer( const char *uniformBlockName );
+        GLubyte* getUniformBlockBuffer( const char *uniformBlockName ) const;
         /** @desc Returns an array of offsets into the buffer for the given uniform block in this shader program
           * @note Prints an error message to standard error stream if the uniform block is not found
             * @param const char* uniformBlockName - name of the uniform block to return offsets for
           * @return GLint* - array of offsets for the given uniform block in this shader program
           */
-        GLint* getUniformBlockOffsets( const char *uniformBlockName );
+        GLint* getUniformBlockOffsets( const char *uniformBlockName ) const;
         /** @desc Returns an array of offsets into the buffer for the given uniform block and names in this shader program
           * @note Prints an error message to standard error stream if the uniform block is not found
             * @param const char* uniformBlockName - name of the uniform block to return offsets for
             * @param const char* names[] - names of the uniform block components to get offsets for
           * @return GLint* - array of offsets for the given uniform block in this shader program
           */
-        GLint* getUniformBlockOffsets( const char *uniformBlockName, const char *names[] );
+        GLint* getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) const;
         /** @desc Set the binding point for the given uniform block in this shader program
           * @note Prints an error message to standard error stream if the uniform block is not found
             * @param const char* uniformBlockName - name of the uniform block to bind
             * @param GLuint binding               - binding point for this uniform block
           */
-        void setUniformBlockBinding( const char *uniformBlockName, GLuint binding );
+        void setUniformBlockBinding( const char *uniformBlockName, GLuint binding ) const;
 
         /** @desc Returns the location of the given attribute in this shader program
           * @note Prints an error message to standard error stream if the attribute is not found
           * @param const char* attributeName - name of the attribute to get the location for
           * @return GLint - location of the given attribute in this shader program
           */
-        GLint getAttributeLocation( const char *attributeName );
+        GLint getAttributeLocation( const char *attributeName ) const;
 
         /** @desc Returns the index of the given subroutine for a shader stage in this shader program
           * @note Prints an error message to standard error stream if the subroutine is not found
@@ -217,130 +217,178 @@ namespace CSCI441 {
             * @param const char* subroutineName - name of the subroutine to get the location for
           * @return GLuint - index of the given subroutine for the shader stage in this shader program
           */
-        GLuint getSubroutineIndex( GLenum shaderStage, const char *subroutineName );
+        GLuint getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) const;
 
         /**
          * @desc Returns the binding point for the corresponding image uniform
          * @param imageName
          * @return
          */
-        GLint getImageBinding(const char* imageName);
+        GLint getImageBinding(const char* imageName) const;
 
         /**
          * @desc Returns the binding point for the corresponding shader storage block
          * @param ssboName
          * @return
          */
-        GLint getShaderStorageBlockBinding(const char* ssboName);
+        GLint getShaderStorageBlockBinding(const char* ssboName) const;
 
         /**
-         * @desc Returns the binding point for the corresponding atominc counter buffer
+         * @desc Returns the binding point for the corresponding atomic counter buffer
          * @param atomicName
          * @return
          */
-        GLint getAtomicCounterBufferBinding(const char* atomicName);
+        GLint getAtomicCounterBufferBinding(const char* atomicName) const;
         /**
-         * @desc Returns the offset into the buffer for the corresponding atominc counter buffer
+         * @desc Returns the offset into the buffer for the corresponding atomic counter buffer
          * @param atomicName
          * @return
          */
-        GLint getAtomicCounterBufferOffset(const char* atomicName);
+        GLint getAtomicCounterBufferOffset(const char* atomicName) const;
         /**
-         * @desc Returns the full buffer size for the corresponding atominc counter buffer
+         * @desc Returns the full buffer size for the corresponding atomic counter buffer
          * @param atomicName
          * @return
          */
-        GLint getAtomicCounterBufferSize(const char* atomicName);
+        GLint getAtomicCounterBufferSize(const char* atomicName) const;
 
         /** @desc Returns the number of active uniforms in this shader program
           * @return GLuint - number of active uniforms in this shader program
           */
-        GLuint getNumUniforms();
+        [[nodiscard]] GLuint getNumUniforms() const;
         /** @desc Returns the number of active uniform blocks in this shader program
           * @return GLuint - number of active uniform blocks in this shader program
           */
-        GLuint getNumUniformBlocks();
+        [[nodiscard]] GLuint getNumUniformBlocks() const;
         /** @desc Returns the number of active attributes in this shader program
           * @return GLuint - number of active attributes in this shader program
           */
-        GLuint getNumAttributes();
+        [[nodiscard]] GLuint getNumAttributes() const;
 
         /** @desc Returns the handle for this shader program
           * @return GLuint - handle for this shader program
           */
-        GLuint getShaderProgramHandle() const;
+        [[nodiscard]] GLuint getShaderProgramHandle() const;
 
         /** @desc Sets the Shader Program to be active
           */
-        void useProgram();
+        void useProgram() const;
 
-        void setProgramUniform(const char* uniformName, GLfloat v0);
-        void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1);
-        void setProgramUniform(const char* uniformName, glm::vec2 value);
-        void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2);
-        void setProgramUniform(const char* uniformName, glm::vec3 value);
-        void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
-        void setProgramUniform(const char* uniformName, glm::vec4 value);
-        void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value);
-        void setProgramUniform(const char* uniformName, GLint v0);
-        void setProgramUniform(const char* uniformName, GLint v0, GLint v1);
-        void setProgramUniform(const char* uniformName, glm::ivec2 value);
-        void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2);
-        void setProgramUniform(const char* uniformName, glm::ivec3 value);
-        void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2, GLint v3);
-        void setProgramUniform(const char* uniformName, glm::ivec4 value);
-        void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value);
-        void setProgramUniform(const char* uniformName, GLuint v0);
-        void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1);
-        void setProgramUniform(const char* uniformName, glm::uvec2 value);
-        void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2);
-        void setProgramUniform(const char* uniformName, glm::uvec3 value);
-        void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
-        void setProgramUniform(const char* uniformName, glm::uvec4 value);
-        void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value);
-        void setProgramUniform(const char* uniformName, glm::mat2 mtx);
-        void setProgramUniform(const char* uniformName, glm::mat3 mtx);
-        void setProgramUniform(const char* uniformName, glm::mat4 mtx);
-        void setProgramUniform(const char* uniformName, glm::mat2x3 mtx);
-        void setProgramUniform(const char* uniformName, glm::mat3x2 mtx);
-        void setProgramUniform(const char* uniformName, glm::mat2x4 mtx);
-        void setProgramUniform(const char* uniformName, glm::mat4x2 mtx);
-        void setProgramUniform(const char* uniformName, glm::mat3x4 mtx);
-        void setProgramUniform(const char* uniformName, glm::mat4x3 mtx);
+        /**
+         * @desc sets the program uniform consisting of one float
+         * @param uniformName name of the uniform as a string
+         * @param v0 value to set
+         */
+        void setProgramUniform(const char* uniformName, GLfloat v0) const;
+        /**
+         * @desc sets the program uniform consisting of two floats
+         * @param uniformName name of the uniform as a string
+         * @param v0 value to set
+         * @param v1 value to set
+         */
+        void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1) const;
+        /**
+         * @desc sets the program uniform consisting of two floats
+         * @param uniformName name of the uniform as a string
+         * @param value value to set
+         */
+        void setProgramUniform(const char* uniformName, glm::vec2 value) const;
+        /**
+         * @desc sets the program uniform consisting of three floats
+         * @param uniformName name of the uniform as a string
+         * @param v0 value to set
+         * @param v1 value to set
+         * @param v2 value to set
+         */
+        void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2) const;
+        /**
+         * @desc sets the program uniform consisting of three floats
+         * @param uniformName name of the uniform as a string
+         * @param value value to set
+         */
+        void setProgramUniform(const char* uniformName, glm::vec3 value) const;
+        /**
+         * @desc sets the program uniform consisting of four floats
+         * @param uniformName name of the uniform as a string
+         * @param v0 value to set
+         * @param v1 value to set
+         * @param v2 value to set
+         * @param v3 value to set
+         */
+        void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const;
+        /**
+         * @desc sets the program uniform consisting of four floats
+         * @param uniformName name of the uniform as a string
+         * @param value value to set
+         */
+        void setProgramUniform(const char* uniformName, glm::vec4 value) const;
+        /**
+         * @desc sets the program uniform consisting of floats
+         * @param uniformName name of the uniform as a string
+         * @param dim dimension (number of components) for each value
+         * @param count number of values in array
+         * @param value array of values (array size is equal to dim*count)
+         */
+        void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) const;
+        void setProgramUniform(const char* uniformName, GLint v0) const;
+        void setProgramUniform(const char* uniformName, GLint v0, GLint v1) const;
+        void setProgramUniform(const char* uniformName, glm::ivec2 value) const;
+        void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2) const;
+        void setProgramUniform(const char* uniformName, glm::ivec3 value) const;
+        void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2, GLint v3) const;
+        void setProgramUniform(const char* uniformName, glm::ivec4 value) const;
+        void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value) const;
+        void setProgramUniform(const char* uniformName, GLuint v0) const;
+        void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1) const;
+        void setProgramUniform(const char* uniformName, glm::uvec2 value) const;
+        void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2) const;
+        void setProgramUniform(const char* uniformName, glm::uvec3 value) const;
+        void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3) const;
+        void setProgramUniform(const char* uniformName, glm::uvec4 value) const;
+        void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value) const;
+        void setProgramUniform(const char* uniformName, glm::mat2 mtx) const;
+        void setProgramUniform(const char* uniformName, glm::mat3 mtx) const;
+        void setProgramUniform(const char* uniformName, glm::mat4 mtx) const;
+        void setProgramUniform(const char* uniformName, glm::mat2x3 mtx) const;
+        void setProgramUniform(const char* uniformName, glm::mat3x2 mtx) const;
+        void setProgramUniform(const char* uniformName, glm::mat2x4 mtx) const;
+        void setProgramUniform(const char* uniformName, glm::mat4x2 mtx) const;
+        void setProgramUniform(const char* uniformName, glm::mat3x4 mtx) const;
+        void setProgramUniform(const char* uniformName, glm::mat4x3 mtx) const;
 
-        void setProgramUniform(GLint uniformLocation, GLfloat v0);
-        void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1);
-        void setProgramUniform(GLint uniformLocation, glm::vec2 value);
-        void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2);
-        void setProgramUniform(GLint uniformLocation, glm::vec3 value);
-        void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
-        void setProgramUniform(GLint uniformLocation, glm::vec4 value);
-        void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value);
-        void setProgramUniform(GLint uniformLocation, GLint v0);
-        void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1);
-        void setProgramUniform(GLint uniformLocation, glm::ivec2 value);
-        void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2);
-        void setProgramUniform(GLint uniformLocation, glm::ivec3 value);
-        void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3);
-        void setProgramUniform(GLint uniformLocation, glm::ivec4 value);
-        void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value);
-        void setProgramUniform(GLint uniformLocation, GLuint v0);
-        void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1);
-        void setProgramUniform(GLint uniformLocation, glm::uvec2 value);
-        void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2);
-        void setProgramUniform(GLint uniformLocation, glm::uvec3 value);
-        void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
-        void setProgramUniform(GLint uniformLocation, glm::uvec4 value);
-        void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value);
-        void setProgramUniform(GLint uniformLocation, glm::mat2 mtx);
-        void setProgramUniform(GLint uniformLocation, glm::mat3 mtx);
-        void setProgramUniform(GLint uniformLocation, glm::mat4 mtx);
-        void setProgramUniform(GLint uniformLocation, glm::mat2x3 mtx);
-        void setProgramUniform(GLint uniformLocation, glm::mat3x2 mtx);
-        void setProgramUniform(GLint uniformLocation, glm::mat2x4 mtx);
-        void setProgramUniform(GLint uniformLocation, glm::mat4x2 mtx);
-        void setProgramUniform(GLint uniformLocation, glm::mat3x4 mtx);
-        void setProgramUniform(GLint uniformLocation, glm::mat4x3 mtx);
+        void setProgramUniform(GLint uniformLocation, GLfloat v0) const;
+        void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1) const;
+        void setProgramUniform(GLint uniformLocation, glm::vec2 value) const;
+        void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2) const;
+        void setProgramUniform(GLint uniformLocation, glm::vec3 value) const;
+        void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const;
+        void setProgramUniform(GLint uniformLocation, glm::vec4 value) const;
+        void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value) const;
+        void setProgramUniform(GLint uniformLocation, GLint v0) const;
+        void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1) const;
+        void setProgramUniform(GLint uniformLocation, glm::ivec2 value) const;
+        void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2) const;
+        void setProgramUniform(GLint uniformLocation, glm::ivec3 value) const;
+        void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3) const;
+        void setProgramUniform(GLint uniformLocation, glm::ivec4 value) const;
+        void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value) const;
+        void setProgramUniform(GLint uniformLocation, GLuint v0) const;
+        void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1) const;
+        void setProgramUniform(GLint uniformLocation, glm::uvec2 value) const;
+        void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2) const;
+        void setProgramUniform(GLint uniformLocation, glm::uvec3 value) const;
+        void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3) const;
+        void setProgramUniform(GLint uniformLocation, glm::uvec4 value) const;
+        void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) const;
+        void setProgramUniform(GLint uniformLocation, glm::mat2 mtx) const;
+        void setProgramUniform(GLint uniformLocation, glm::mat3 mtx) const;
+        void setProgramUniform(GLint uniformLocation, glm::mat4 mtx) const;
+        void setProgramUniform(GLint uniformLocation, glm::mat2x3 mtx) const;
+        void setProgramUniform(GLint uniformLocation, glm::mat3x2 mtx) const;
+        void setProgramUniform(GLint uniformLocation, glm::mat2x4 mtx) const;
+        void setProgramUniform(GLint uniformLocation, glm::mat4x2 mtx) const;
+        void setProgramUniform(GLint uniformLocation, glm::mat3x4 mtx) const;
+        void setProgramUniform(GLint uniformLocation, glm::mat4x3 mtx) const;
 
     protected:
         ShaderProgram();
@@ -365,8 +413,8 @@ namespace CSCI441 {
                                     const char *fragmentShaderFilename,
                                     const bool isSeparable );
 
-        GLint* getUniformBlockOffsets( GLint uniformBlockIndex );
-        GLint* getUniformBlockOffsets( GLint uniformBlockIndex, const char *names[] );
+        [[nodiscard]] GLint* getUniformBlockOffsets( GLint uniformBlockIndex ) const;
+        [[nodiscard]] GLint* getUniformBlockOffsets( GLint uniformBlockIndex, const char *names[] ) const;
 
     private:
         void _initialize();
@@ -390,7 +438,7 @@ inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, 
     registerShaderProgram( vertexShaderFilename, "", "", "", fragmentShaderFilename, false );
 }
 
-inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *fragmentShaderFilename, bool isSeparable ) {
+inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *fragmentShaderFilename, const bool isSeparable ) {
     _initialize();
     registerShaderProgram( vertexShaderFilename, "", "", "", fragmentShaderFilename, isSeparable );
 }
@@ -694,27 +742,27 @@ inline bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexSha
     return _shaderProgramHandle != 0;
 }
 
-inline GLint CSCI441::ShaderProgram::getUniformLocation( const char *uniformName ) {
+inline GLint CSCI441::ShaderProgram::getUniformLocation( const char *uniformName ) const {
     GLint uniformLoc = glGetUniformLocation( _shaderProgramHandle, uniformName );
     if( uniformLoc == -1 )
         fprintf( stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle );
     return uniformLoc;
 }
 
-inline GLint CSCI441::ShaderProgram::getUniformBlockIndex( const char *uniformBlockName ) {
+inline GLint CSCI441::ShaderProgram::getUniformBlockIndex( const char *uniformBlockName ) const {
     GLint uniformBlockLoc = glGetUniformBlockIndex( _shaderProgramHandle, uniformBlockName );
     if( uniformBlockLoc == -1 )
         fprintf( stderr, "[ERROR]: Could not find uniform block \"%s\" for Shader Program %u\n", uniformBlockName, _shaderProgramHandle );
     return uniformBlockLoc;
 }
 
-inline GLint CSCI441::ShaderProgram::getUniformBlockSize( const char *uniformBlockName ) {
+inline GLint CSCI441::ShaderProgram::getUniformBlockSize( const char *uniformBlockName ) const {
     GLint blockSize;
     glGetActiveUniformBlockiv( _shaderProgramHandle, getUniformBlockIndex(uniformBlockName), GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize );
     return blockSize;
 }
 
-inline GLubyte* CSCI441::ShaderProgram::getUniformBlockBuffer( const char *uniformBlockName ) {
+inline GLubyte* CSCI441::ShaderProgram::getUniformBlockBuffer( const char *uniformBlockName ) const {
     GLubyte *blockBuffer;
 
     GLint blockSize = getUniformBlockSize( uniformBlockName );
@@ -724,44 +772,44 @@ inline GLubyte* CSCI441::ShaderProgram::getUniformBlockBuffer( const char *unifo
     return blockBuffer;
 }
 
-inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName ) {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName ) const {
     return getUniformBlockOffsets( getUniformBlockIndex(uniformBlockName) );
 }
 
-inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) const {
     return getUniformBlockOffsets( getUniformBlockIndex(uniformBlockName), names );
 }
 
-inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( GLint uniformBlockIndex ) {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( GLint uniformBlockIndex ) const {
     GLint numUniforms;
     glGetActiveUniformBlockiv( _shaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
 
-    GLuint *indices = (GLuint*)malloc(numUniforms*sizeof(GLuint));
+    auto indices = (GLuint*)malloc(numUniforms*sizeof(GLuint));
     glGetActiveUniformBlockiv( _shaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, (GLint*)indices);
 
-    GLint *offsets = (GLint*)malloc(numUniforms*sizeof(GLint));
+    auto offsets = (GLint*)malloc(numUniforms*sizeof(GLint));
     glGetActiveUniformsiv( _shaderProgramHandle, numUniforms, indices, GL_UNIFORM_OFFSET, offsets );
     return offsets;
 }
 
-inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( GLint uniformBlockIndex, const char *names[] ) {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( GLint uniformBlockIndex, const char *names[] ) const {
     GLint numUniforms;
     glGetActiveUniformBlockiv( _shaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
 
-    GLuint *indices = (GLuint*)malloc(numUniforms*sizeof(GLuint));
+    auto indices = (GLuint*)malloc(numUniforms*sizeof(GLuint));
     glGetUniformIndices( _shaderProgramHandle, numUniforms, names, indices );
 
-    GLint *offsets = (GLint*)malloc(numUniforms*sizeof(GLint));
+    auto offsets = (GLint*)malloc(numUniforms*sizeof(GLint));
     glGetActiveUniformsiv( _shaderProgramHandle, numUniforms, indices, GL_UNIFORM_OFFSET, offsets );
     return offsets;
 }
 
-inline void CSCI441::ShaderProgram::setUniformBlockBinding( const char *uniformBlockName, GLuint binding ) {
+inline void CSCI441::ShaderProgram::setUniformBlockBinding( const char *uniformBlockName, GLuint binding ) const {
     glUniformBlockBinding( _shaderProgramHandle, getUniformBlockIndex(uniformBlockName), binding );
 }
 
-inline GLint CSCI441::ShaderProgram::getAttributeLocation( const char *attributeName ) {
-    std::map<std::string, GLint>::iterator attribIter = _attributeLocations->find(attributeName);
+inline GLint CSCI441::ShaderProgram::getAttributeLocation( const char *attributeName ) const {
+    auto attribIter = _attributeLocations->find(attributeName);
     if( attribIter == _attributeLocations->end() ) {
         fprintf( stderr, "[ERROR]: Could not find attribute \"%s\" for Shader Program %u\n", attributeName, _shaderProgramHandle );
         return -1;
@@ -769,7 +817,7 @@ inline GLint CSCI441::ShaderProgram::getAttributeLocation( const char *attribute
     return attribIter->second;
 }
 
-inline GLuint CSCI441::ShaderProgram::getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) {
+inline GLuint CSCI441::ShaderProgram::getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) const {
     GLuint subroutineIndex = glGetSubroutineIndex( _shaderProgramHandle, shaderStage, subroutineName );
     if( subroutineIndex == GL_INVALID_INDEX )
         fprintf( stderr, "[ERROR]: Could not find subroutine \"%s\" in %s for Shader Program %u\n", subroutineName, CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage), _shaderProgramHandle );
@@ -777,7 +825,7 @@ inline GLuint CSCI441::ShaderProgram::getSubroutineIndex( GLenum shaderStage, co
 }
 
 // images are opaque types that are not considered program resources
-inline GLint CSCI441::ShaderProgram::getImageBinding(const char* imageName) {
+inline GLint CSCI441::ShaderProgram::getImageBinding(const char* imageName) const {
     GLuint imageLoc = getUniformLocation(imageName);
 
     if(imageLoc == -1) {
@@ -791,7 +839,7 @@ inline GLint CSCI441::ShaderProgram::getImageBinding(const char* imageName) {
     return bindingPoint;
 }
 
-inline GLint CSCI441::ShaderProgram::getShaderStorageBlockBinding(const char* ssboName) {
+inline GLint CSCI441::ShaderProgram::getShaderStorageBlockBinding(const char* ssboName) const {
     GLuint ssboIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_SHADER_STORAGE_BLOCK, ssboName);
 
     if(ssboIndex == -1) {
@@ -807,7 +855,7 @@ inline GLint CSCI441::ShaderProgram::getShaderStorageBlockBinding(const char* ss
     return results[0];
 }
 
-inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferBinding(const char* atomicName) {
+inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferBinding(const char* atomicName) const {
     GLuint uniformIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_UNIFORM, atomicName);
 
     if(uniformIndex == -1) {
@@ -823,7 +871,7 @@ inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferBinding(const char* a
     return binding;
 }
 
-inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferOffset(const char* atomicName) {
+inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferOffset(const char* atomicName) const {
     GLuint uniformIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_UNIFORM, atomicName);
 
     if(uniformIndex == -1) {
@@ -836,7 +884,7 @@ inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferOffset(const char* at
     return offset;
 }
 
-inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferSize(const char* atomicName) {
+inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferSize(const char* atomicName) const {
     GLuint uniformIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_UNIFORM, atomicName);
 
     if(uniformIndex == -1) {
@@ -852,19 +900,19 @@ inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferSize(const char* atom
     return bufferSize;
 }
 
-inline GLuint CSCI441::ShaderProgram::getNumUniforms() {
+inline GLuint CSCI441::ShaderProgram::getNumUniforms() const {
     int numUniform = 0;
     glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_UNIFORMS, &numUniform );
     return numUniform;
 }
 
-inline GLuint CSCI441::ShaderProgram::getNumUniformBlocks() {
+inline GLuint CSCI441::ShaderProgram::getNumUniformBlocks() const {
     int numUniformBlocks = 0;
     glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_UNIFORM_BLOCKS, &numUniformBlocks );
     return numUniformBlocks;
 }
 
-inline GLuint CSCI441::ShaderProgram::getNumAttributes() {
+inline GLuint CSCI441::ShaderProgram::getNumAttributes() const {
     int numAttr = 0;
     glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_ATTRIBUTES, &numAttr );
     return numAttr;
@@ -874,12 +922,12 @@ inline GLuint CSCI441::ShaderProgram::getShaderProgramHandle() const {
     return _shaderProgramHandle;
 }
 
-inline void CSCI441::ShaderProgram::useProgram() {
+inline void CSCI441::ShaderProgram::useProgram() const {
     glUseProgram( _shaderProgramHandle );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0 ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0 ) const  {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform1f( _shaderProgramHandle, uniformIter->second, v0 );
     } else {
@@ -887,8 +935,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1 ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1 ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform2f( _shaderProgramHandle, uniformIter->second, v0, v1 );
     } else {
@@ -896,12 +944,12 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::vec2 value ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::vec2 value ) const {
     setProgramUniform( uniformName, 2, 1, &value[0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2 ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2 ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform3f( _shaderProgramHandle, uniformIter->second, v0, v1, v2 );
     } else {
@@ -909,12 +957,12 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::vec3 value ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::vec3 value ) const {
     setProgramUniform( uniformName, 3, 1, &value[0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform4f( _shaderProgramHandle, uniformIter->second, v0, v1, v2, v3 );
     } else {
@@ -922,12 +970,12 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::vec4 value ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::vec4 value ) const {
     setProgramUniform( uniformName, 4, 1, &value[0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         switch(dim) {
             case 1:
@@ -951,8 +999,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, G
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0 ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0 ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform1i( _shaderProgramHandle, uniformIter->second, v0 );
     } else {
@@ -960,8 +1008,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1 ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1 ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform2i( _shaderProgramHandle, uniformIter->second, v0, v1 );
     } else {
@@ -969,8 +1017,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::ivec2 value) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::ivec2 value) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform2iv( _shaderProgramHandle, uniformIter->second, 1, &value[0] );
     } else {
@@ -978,8 +1026,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, g
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1, GLint v2 ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1, GLint v2 ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform3i( _shaderProgramHandle, uniformIter->second, v0, v1, v2 );
     } else {
@@ -987,9 +1035,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-
-inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::ivec3 value) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::ivec3 value) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform3iv( _shaderProgramHandle, uniformIter->second, 1, &value[0] );
     } else {
@@ -997,8 +1044,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, g
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1, GLint v2, GLint v3 ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1, GLint v2, GLint v3 ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform4i( _shaderProgramHandle, uniformIter->second, v0, v1, v2, v3 );
     } else {
@@ -1006,9 +1053,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-
-inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::ivec4 value) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::ivec4 value) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform4iv( _shaderProgramHandle, uniformIter->second, 1, &value[0] );
     } else {
@@ -1016,8 +1062,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, g
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         switch(dim) {
             case 1:
@@ -1041,8 +1087,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, G
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0 ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0 ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform1ui( _shaderProgramHandle, uniformIter->second, v0 );
     } else {
@@ -1050,8 +1096,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1 ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1 ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform2ui( _shaderProgramHandle, uniformIter->second, v0, v1 );
     } else {
@@ -1059,8 +1105,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::uvec2 value) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::uvec2 value) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform2uiv( _shaderProgramHandle, uniformIter->second, 1, &value[0] );
     } else {
@@ -1068,8 +1114,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, g
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2 ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2 ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform3ui( _shaderProgramHandle, uniformIter->second, v0, v1, v2 );
     } else {
@@ -1077,9 +1123,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-
-inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::uvec3 value) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::uvec3 value) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform3uiv( _shaderProgramHandle, uniformIter->second, 1, &value[0] );
     } else {
@@ -1087,8 +1132,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, g
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform4ui( _shaderProgramHandle, uniformIter->second, v0, v1, v2, v3 );
     } else {
@@ -1096,9 +1141,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-
-inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::uvec4 value) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::uvec4 value) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniform4uiv( _shaderProgramHandle, uniformIter->second, 1, &value[0] );
     } else {
@@ -1106,8 +1150,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, g
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         switch(dim) {
             case 1:
@@ -1131,8 +1175,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, G
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2 mtx ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2 mtx ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniformMatrix2fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
@@ -1140,8 +1184,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3 mtx ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3 mtx ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniformMatrix3fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
@@ -1149,8 +1193,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4 mtx ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4 mtx ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniformMatrix4fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
@@ -1158,8 +1202,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2x3 mtx ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2x3 mtx ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniformMatrix2x3fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
@@ -1167,8 +1211,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3x2 mtx ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3x2 mtx ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniformMatrix3x2fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
@@ -1176,8 +1220,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2x4 mtx ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2x4 mtx ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniformMatrix2x4fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
@@ -1185,8 +1229,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4x2 mtx ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4x2 mtx ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniformMatrix4x2fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
@@ -1194,8 +1238,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3x4 mtx ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3x4 mtx ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniformMatrix3x4fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
@@ -1203,8 +1247,8 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4x3 mtx ) {
-    std::map<std::string, GLint>::iterator uniformIter = _uniformLocations->find(uniformName);
+inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4x3 mtx ) const {
+    auto uniformIter = _uniformLocations->find(uniformName);
     if(uniformIter != _uniformLocations->end()) {
         glProgramUniformMatrix4x3fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
@@ -1212,35 +1256,35 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0 ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0 ) const {
     glProgramUniform1f( _shaderProgramHandle, uniformLocation, v0 );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1 ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1 ) const {
     glProgramUniform2f( _shaderProgramHandle, uniformLocation, v0, v1 );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec2 value ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec2 value ) const {
     setProgramUniform( uniformLocation, 2, 1, &value[0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2 ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2 ) const {
     glProgramUniform3f( _shaderProgramHandle, uniformLocation, v0, v1, v2 );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec3 value ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec3 value ) const {
     setProgramUniform( uniformLocation, 3, 1, &value[0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) const {
     glProgramUniform4f( _shaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec4 value ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec4 value ) const {
     setProgramUniform( uniformLocation, 4, 1, &value[0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value) {
+inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value) const {
     switch(dim) {
         case 1:
             glProgramUniform1fv( _shaderProgramHandle, uniformLocation, count, value );
@@ -1260,36 +1304,35 @@ inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLu
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0 ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0 ) const {
     glProgramUniform1i( _shaderProgramHandle, uniformLocation, v0 );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1 ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1 ) const {
     glProgramUniform2i( _shaderProgramHandle, uniformLocation, v0, v1 );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::ivec2 value) {
+inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::ivec2 value) const {
     setProgramUniform(uniformLocation, 2, 1, &value[0]);
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2 ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2 ) const {
     glProgramUniform3i( _shaderProgramHandle, uniformLocation, v0, v1, v2 );
 }
 
-
-inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::ivec3 value) {
+inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::ivec3 value) const {
     setProgramUniform(uniformLocation, 3, 1, &value[0]);
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3 ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3 ) const {
     glProgramUniform4i( _shaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::ivec4 value) {
+inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::ivec4 value) const {
     setProgramUniform(uniformLocation, 4, 1, &value[0]);
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value) {
+inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value) const {
     switch(dim) {
         case 1:
             glProgramUniform1iv( _shaderProgramHandle, uniformLocation, count, value );
@@ -1309,35 +1352,35 @@ inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLu
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0 ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0 ) const {
     glProgramUniform1ui( _shaderProgramHandle, uniformLocation, v0 );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1 ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1 ) const {
     glProgramUniform2ui( _shaderProgramHandle, uniformLocation, v0, v1 );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::uvec2 value) {
+inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::uvec2 value) const {
     setProgramUniform(uniformLocation, 2, 1, &value[0]);
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2 ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2 ) const {
     glProgramUniform3ui( _shaderProgramHandle, uniformLocation, v0, v1, v2 );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::uvec3 value) {
+inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::uvec3 value) const {
     setProgramUniform(uniformLocation, 3, 1, &value[0]);
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) const {
     glProgramUniform4ui( _shaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::uvec4 value) {
+inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::uvec4 value) const {
     setProgramUniform(uniformLocation, 4, 1, &value[0]);
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) {
+inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) const {
     switch(dim) {
         case 1:
             glProgramUniform1uiv( _shaderProgramHandle, uniformLocation, count, value );
@@ -1357,39 +1400,39 @@ inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLu
     }
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2 mtx ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2 mtx ) const {
     glProgramUniformMatrix2fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3 mtx ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3 mtx ) const {
     glProgramUniformMatrix3fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4 mtx ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4 mtx ) const {
     glProgramUniformMatrix4fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2x3 mtx ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2x3 mtx ) const {
     glProgramUniformMatrix2x3fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3x2 mtx ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3x2 mtx ) const {
     glProgramUniformMatrix3x2fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2x4 mtx ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2x4 mtx ) const {
     glProgramUniformMatrix2x4fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4x2 mtx ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4x2 mtx ) const {
     glProgramUniformMatrix4x2fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3x4 mtx ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3x4 mtx ) const {
     glProgramUniformMatrix3x4fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
-inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4x3 mtx ) {
+inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4x3 mtx ) const {
     glProgramUniformMatrix4x3fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
@@ -1410,7 +1453,7 @@ inline void CSCI441::ShaderProgram::_initialize() {
 
 inline CSCI441::ShaderProgram::~ShaderProgram() {
     int status;
-    int infologLength = 0;
+    int infoLogLength = 0;
     int maxLength = 1000;
 
     glDeleteProgram( _shaderProgramHandle );
@@ -1421,17 +1464,15 @@ inline CSCI441::ShaderProgram::~ShaderProgram() {
     glGetProgramiv( _shaderProgramHandle, GL_DELETE_STATUS, &status );
 
     // get the info log for the vertex/tesselation/geometry/fragment/compute shader
-    glGetProgramInfoLog(  _shaderProgramHandle, maxLength, &infologLength, infoLog );
+    glGetProgramInfoLog(_shaderProgramHandle, maxLength, &infoLogLength, infoLog );
 
-    if( infologLength > 0 ) {
+    if(infoLogLength > 0 ) {
         // print info to terminal
         if( sDEBUG ) printf( "[INFO]: Program Handle %d Delete Status %s: %s\n", _shaderProgramHandle, (status == GL_TRUE ? "Success" : " Error"), infoLog );
     }
 
-    if( _uniformLocations )
-        delete _uniformLocations;
-    if( _attributeLocations )
-        delete _attributeLocations;
+    delete _uniformLocations;
+    delete _attributeLocations;
 }
 
-#endif //__CSCI441_SHADERPROGRAM_H__
+#endif // CSCI441_SHADER_PROGRAM_HPP
