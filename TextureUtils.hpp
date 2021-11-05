@@ -16,6 +16,7 @@
 #include <stb_image.h>
 
 #include <cstdio>
+#include <cstring>
 
 #include <string>
 
@@ -139,19 +140,26 @@ inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filen
     unsigned char *data = stbi_load( filename, &imageWidth, &imageHeight, &imageChannels, 0);
 
 	if( !data ) {
-        printf( "[ERROR]: CSCI441::TextureUtils::loadAndRegister2DTexture(): Could not load texture \"%s\"\n", filename );
-	} else {
-        glGenTextures(1, &texHandle );
-        glBindTexture(   GL_TEXTURE_2D,  texHandle );
-        glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_MIN_FILTER, minFilter );
-        glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_MAG_FILTER, magFilter );
-        glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_S,     wrapS );
-        glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_T,     wrapT );
-        const GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);
-        glTexImage2D( GL_TEXTURE_2D, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-        printf( "[INFO]: Successfully loaded texture \"%s\" with handle %d\n", filename, texHandle );
-    }
+        if( strstr(filename, ".ppm") != NULL ) {
+            loadPPM(filename, imageWidth, imageHeight, data);
+            imageChannels = 3;
+        }
+        if( !data ) {
+            printf( "[ERROR]: CSCI441::TextureUtils::loadAndRegister2DTexture(): Could not load texture \"%s\"\n", filename );
+            return texHandle;
+        }
+	}
+
+    glGenTextures(1, &texHandle );
+    glBindTexture(   GL_TEXTURE_2D,  texHandle );
+    glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_MIN_FILTER, minFilter );
+    glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_MAG_FILTER, magFilter );
+    glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_S,     wrapS );
+    glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_T,     wrapT );
+    const GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);
+    glTexImage2D( GL_TEXTURE_2D, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    printf( "[INFO]: Successfully loaded texture \"%s\" with handle %d\n", filename, texHandle );
 
 	return texHandle;
 }
