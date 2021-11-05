@@ -34,6 +34,13 @@ TODO Items
 
 Revision History
 
+v 3.9.0 - 05 Nov 2021
+  > ModelLoader can query number of vertices and indices within model
+
+  > TextureUtils load method will roll back to ppm loader if stb_image fails to load ppm
+
+  > Reversed top fan winding order for spheres 
+
 v 3.8.0 - 07 Oct 2021
   > Resolved Issue #2 for OBJ files with negative indices.  The negative indices weren't unique and needed to offset before caching
 

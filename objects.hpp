@@ -1194,7 +1194,7 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
 
     idx++;
 
-    for( int sliceNum = sphereData.sl; sliceNum >= 0; sliceNum-- ) {
+    for( int sliceNum = 0; sliceNum <= sphereData.sl; sliceNum++ ) {
         GLfloat theta = sliceStep * sliceNum;
 
         normals[ idx*3 + 0 ] = -cos( theta )*sin( phiNext );
