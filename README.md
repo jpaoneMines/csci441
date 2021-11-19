@@ -34,6 +34,9 @@ TODO Items
 
 Revision History
 
+v ?.?.? - ?? ??? ????
+  > Added capability for ShaderProgram to write to/load from binary - if supported by driver
+
 v 3.9.0 - 05 Nov 2021
   > ModelLoader can query number of vertices and indices within model
 

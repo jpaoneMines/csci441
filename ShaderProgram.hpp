@@ -15,8 +15,10 @@
 
 #include <glm/glm.hpp>
 #include <cstdlib>
+#include <fstream>
 #include <map>
 #include <string>
+#include <vector>
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -157,6 +159,10 @@ namespace CSCI441 {
         /** @desc Clean up memory associated with the Shader Program
              */
         ~ShaderProgram();
+
+        bool writeShaderProgramBinaryToFile(const char* BINARY_FILE_NAME);
+
+        static ShaderProgram* loadShaderProgramFromBinaryFile(const char* BINARY_FILE_NAME, GLenum format);
 
         /** @desc Returns the location of the given uniform in this shader program
           * @note Prints an error message to standard error stream if the uniform is not found
@@ -1473,6 +1479,64 @@ inline CSCI441::ShaderProgram::~ShaderProgram() {
 
     delete _uniformLocations;
     delete _attributeLocations;
+}
+
+inline bool CSCI441::ShaderProgram::writeShaderProgramBinaryToFile(const char* BINARY_FILE_NAME) {
+    GLint formats = 0;
+    glGetIntegerv(GL_NUM_PROGRAM_BINARY_FORMATS, &formats);
+    if( formats < 1 ) {
+        fprintf(stderr, "[ERROR]: Driver does not support any binary formats.\n");
+        return false;
+    }
+
+    // Get the binary length
+    GLint length = 0;
+    glGetProgramiv(_shaderProgramHandle, GL_PROGRAM_BINARY_LENGTH, &length);
+
+    // Retrieve the binary code
+    std::vector<GLubyte> buffer(length);
+    GLenum format = 0;
+    glGetProgramBinary(_shaderProgramHandle, length, nullptr, &format, buffer.data());
+
+    // Write the binary to a file.
+    fprintf(stdout, "[INFO]: Writing to %s, binary format %d\n",BINARY_FILE_NAME, format);
+    std::ofstream out(BINARY_FILE_NAME, std::ios::binary);
+    out.write( reinterpret_cast<char *>(buffer.data()), length );
+    out.close();
+
+    return true;
+}
+
+inline CSCI441::ShaderProgram* CSCI441::ShaderProgram::loadShaderProgramFromBinaryFile(const char* BINARY_FILE_NAME, const GLenum FORMAT) {
+    GLint formats = 0;
+    glGetIntegerv(GL_NUM_PROGRAM_BINARY_FORMATS, &formats);
+    if( formats < 1 ) {
+        fprintf(stderr, "[ERROR]: Driver does not support any binary formats.\n");
+        return nullptr;
+    }
+
+    GLuint program = glCreateProgram();
+
+    // Load binary from file
+    std::ifstream inputStream(BINARY_FILE_NAME, std::ios::binary);
+    std::istreambuf_iterator<char> startIt(inputStream), endIt;
+    std::vector<char> buffer(startIt, endIt);  // Load file
+    inputStream.close();
+
+    // Install shader binary
+    glProgramBinary(program, FORMAT, buffer.data(), buffer.size() );
+
+    // Check for success/failure
+    GLint status;
+    glGetProgramiv(program, GL_LINK_STATUS, &status);
+    if( GL_FALSE == status ) {
+        CSCI441_INTERNAL::ShaderUtils::printProgramLog(program);
+        return nullptr;
+    }
+
+    auto shaderProgram = new CSCI441::ShaderProgram();
+    shaderProgram->_shaderProgramHandle = program;
+    return shaderProgram;
 }
 
 #endif // CSCI441_SHADER_PROGRAM_HPP
