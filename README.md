@@ -34,8 +34,10 @@ TODO Items
 
 Revision History
 
-v ?.?.? - ?? ??? ????
+v 3.10.0 - 06 Aug 2022
   > Added capability for ShaderProgram to write to/load from binary - if supported by driver
+
+  > ModelLoader no longer internal applies using namespace std; and qualifies all STL types
 
 v 3.9.0 - 05 Nov 2021
   > ModelLoader can query number of vertices and indices within model
