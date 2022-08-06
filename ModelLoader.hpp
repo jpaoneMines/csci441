@@ -28,7 +28,6 @@
 #include <map>
 #include <string>
 #include <vector>
-using namespace std;
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -154,7 +153,7 @@ namespace CSCI441 {
 		bool _loadOFFFile( bool INFO, bool ERRORS );
 		bool _loadPLYFile( bool INFO, bool ERRORS );
 		bool _loadSTLFile( bool INFO, bool ERRORS );
-		vector<string> _tokenizeString( string input, string delimiters );
+		std::vector<std::string> _tokenizeString( std::string input, std::string delimiters );
 
 		char* _filename;
 		CSCI441_INTERNAL::MODEL_TYPE _modelType;
@@ -169,8 +168,8 @@ namespace CSCI441 {
 		GLuint _uniqueIndex;
 		GLuint _numIndices;
 
-		map< string, CSCI441_INTERNAL::ModelMaterial* > _materials;
-		map< string, vector< pair< GLuint, GLuint > > > _materialIndexStartStop;
+		std::map< std::string, CSCI441_INTERNAL::ModelMaterial* > _materials;
+		std::map< std::string, std::vector< std::pair< GLuint, GLuint > > > _materialIndexStartStop;
 
 		bool _hasVertexTexCoords;
 		bool _hasVertexNormals;
@@ -270,14 +269,14 @@ inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
 						materialIter != _materialIndexStartStop.end();
 						materialIter++ ) {
 
-			string materialName = materialIter->first;
-			vector< pair< GLuint, GLuint > > indexStartStop = materialIter->second;
+			std::string materialName = materialIter->first;
+			std::vector< std::pair< GLuint, GLuint > > indexStartStop = materialIter->second;
 
 			CSCI441_INTERNAL::ModelMaterial* material = nullptr;
 			if( _materials.find( materialName ) != _materials.end() )
 				material = _materials.find( materialName )->second;
 
-			for( vector< pair< GLuint, GLuint > >::iterator idxIter = indexStartStop.begin();
+			for( std::vector< std::pair< GLuint, GLuint > >::iterator idxIter = indexStartStop.begin();
 							idxIter != indexStartStop.end();
 							idxIter++ ) {
 
@@ -325,7 +324,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	time_t start, end;
 	time(&start);
 
-	ifstream in( _filename );
+	std::ifstream in( _filename );
 	if( !in.is_open() ) {
 		if (ERRORS) fprintf( stderr, "[.obj]: [ERROR]: Could not open \"%s\"\n", _filename );
 		if ( INFO ) printf( "[.obj]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=- \n", _filename );
@@ -336,9 +335,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	GLuint numVertices = 0, numTexCoords = 0, numNormals = 0;
 	GLuint numFaces = 0, numTriangles = 0;
 	double minX = 999999, maxX = -999999, minY = 999999, maxY = -999999, minZ = 999999, maxZ = -999999;
-	string line;
+	std::string line;
 
-	map<string, GLuint> uniqueCounts;
+	std::map<std::string, GLuint> uniqueCounts;
 	_uniqueIndex = 0;
 
 	int progressCounter = 0;
@@ -348,7 +347,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
-		vector< string > tokens = _tokenizeString( line, " \t" );
+		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
 		if( tokens.size() < 1 ) continue;
 
 		//the line should have a single character that lets us know if it's a...
@@ -380,17 +379,17 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 			//now, faces can be either quads or triangles (or maybe more?)
 			//split the string on spaces to get the number of verts+attrs.
-			vector<string> faceTokens = _tokenizeString(line, " ");
+			std::vector<std::string> faceTokens = _tokenizeString(line, " ");
 
 			for(GLuint i = 1; i < faceTokens.size(); i++) {
 				//need to use both the tokens and number of slashes to determine what info is there.
-				vector<string> groupTokens = _tokenizeString(faceTokens[i], "/");
+				std::vector<std::string> groupTokens = _tokenizeString(faceTokens[i], "/");
 				int numSlashes = 0;
 				for( GLuint j = 0; j < faceTokens[i].length(); j++ ) {
 					if(faceTokens[i][j] == '/') numSlashes++;
 				}
 
-                stringstream currentFaceTokenStream;
+                std::stringstream currentFaceTokenStream;
                 int v = atoi(groupTokens[0].c_str());
                 if(v < 0)
                     v = numVertices + v + 1;
@@ -427,9 +426,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 					return false;
 				}
 
-                string processedFaceToken = currentFaceTokenStream.str();
+                std::string processedFaceToken = currentFaceTokenStream.str();
                 if( uniqueCounts.find( processedFaceToken ) == uniqueCounts.end() ) {
-                    uniqueCounts.insert( pair<string,long int>(processedFaceToken,_uniqueIndex) );
+                    uniqueCounts.insert( std::pair<std::string,long int>(processedFaceToken,_uniqueIndex) );
                     _uniqueIndex++;
                 }
 			}
@@ -490,8 +489,8 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	GLfloat* vt = (GLfloat*)malloc(sizeof(GLfloat) * numTexCoords * 2);
 	GLfloat* vn = (GLfloat*)malloc(sizeof(GLfloat) * numNormals * 3);
 
-	vector<GLfloat> vertsTemp;
-	vector<GLfloat> texCoordsTemp;
+	std::vector<GLfloat> vertsTemp;
+	std::vector<GLfloat> texCoordsTemp;
 
 	printf( "[.obj]: ------------\n" );
 
@@ -504,8 +503,8 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	GLuint vSeen = 0, vtSeen = 0, vnSeen = 0, indicesSeen = 0;
 	GLuint uniqueV = 0;
 
-	string currentMaterial = "default";
-	_materialIndexStartStop.insert( pair< string, vector< pair< GLuint, GLuint > > >( currentMaterial, vector< pair< GLuint, GLuint > >(1) ) );
+	std::string currentMaterial = "default";
+	_materialIndexStartStop.insert( std::pair< std::string, std::vector< std::pair< GLuint, GLuint > > >( currentMaterial, std::vector< std::pair< GLuint, GLuint > >(1) ) );
 	_materialIndexStartStop.find( currentMaterial )->second.back().first = indicesSeen;
 
 	while( getline( in, line ) ) {
@@ -513,7 +512,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
-		vector< string > tokens = _tokenizeString( line, " \t" );
+		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
 		if( tokens.size() < 1 ) continue;
 
 		//the line should have a single character that lets us know if it's a...
@@ -532,10 +531,10 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			}
 			currentMaterial = tokens[1];
 			if( _materialIndexStartStop.find( currentMaterial ) == _materialIndexStartStop.end() ) {
-				_materialIndexStartStop.insert( pair< string, vector< pair< GLuint, GLuint > > >( currentMaterial, vector< pair< GLuint, GLuint > >(1) ) );
+				_materialIndexStartStop.insert( std::pair< std::string, std::vector< std::pair< GLuint, GLuint > > >( currentMaterial, std::vector< std::pair< GLuint, GLuint > >(1) ) );
 				_materialIndexStartStop.find( currentMaterial )->second.back().first = indicesSeen;
 			} else {
-				_materialIndexStartStop.find( currentMaterial )->second.push_back( pair< GLuint, GLuint >( indicesSeen, -1 ) );
+				_materialIndexStartStop.find( currentMaterial )->second.push_back( std::pair< GLuint, GLuint >( indicesSeen, -1 ) );
 			}
 		} else if( !tokens[0].compare( "s" ) ) {						// smooth shading
 
@@ -571,18 +570,18 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 			//now, faces can be either quads or triangles (or maybe more?)
 			//split the string on spaces to get the number of verts+attrs.
-			vector<string> faceTokens = _tokenizeString(line, " ");
-            vector<string> processedFaceTokens;
+			std::vector<std::string> faceTokens = _tokenizeString(line, " ");
+            std::vector<std::string> processedFaceTokens;
 
 			for(GLuint i = 1; i < faceTokens.size(); i++) {
                 //need to use both the tokens and number of slashes to determine what info is there.
-                vector<string> groupTokens = _tokenizeString(faceTokens[i], "/");
+                std::vector<std::string> groupTokens = _tokenizeString(faceTokens[i], "/");
                 int numSlashes = 0;
                 for( GLuint j = 0; j < faceTokens[i].length(); j++ ) {
                     if(faceTokens[i][j] == '/') numSlashes++;
                 }
 
-                stringstream currentFaceTokenStream;
+                std::stringstream currentFaceTokenStream;
                 int vx = atoi(groupTokens[0].c_str());
                 if(vx < 0)
                     vx = vSeen + vx + 1;
@@ -619,14 +618,14 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
                     return false;
                 }
 
-                string processedFaceToken = currentFaceTokenStream.str();
+                std::string processedFaceToken = currentFaceTokenStream.str();
                 processedFaceTokens.push_back(processedFaceToken);
 
 				if( uniqueCounts.find( processedFaceToken ) == uniqueCounts.end() ) {
-					uniqueCounts.insert( pair<string,unsigned long int>(processedFaceToken,uniqueV) );
+					uniqueCounts.insert( std::pair<std::string,unsigned long int>(processedFaceToken,uniqueV) );
 
 					//need to use both the tokens and number of slashes to determine what info is there.
-					vector<string> groupTokens = _tokenizeString(processedFaceToken, "/");
+					std::vector<std::string> groupTokens = _tokenizeString(processedFaceToken, "/");
 					int numSlashes = 0;
 					for( GLuint j = 0; j < processedFaceToken.length(); j++ ) {
 						if(processedFaceToken[j] == '/') numSlashes++;
@@ -843,18 +842,18 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 
 	if (INFO) printf( "[.mtl]: -*-*-*-*-*-*-*- BEGIN %s Info -*-*-*-*-*-*-*-\n", mtlFilename );
 
-	string line;
-	string path;
+	std::string line;
+	std::string path;
 	if( strstr( _filename, "/" ) != NULL ) {
-	 	path = string( _filename ).substr( 0, string(_filename).find_last_of("/")+1 );
+	 	path = std::string( _filename ).substr( 0, std::string(_filename).find_last_of("/")+1 );
 	} else {
 		path = "./";
 	}
 
-	ifstream in;
+	std::ifstream in;
 	in.open( mtlFilename );
 	if( !in.is_open() ) {
-		string folderMtlFile = path + mtlFilename;
+		std::string folderMtlFile = path + mtlFilename;
 		in.open( folderMtlFile.c_str() );
 		if( !in.is_open() ) {
 			if (ERRORS) fprintf( stderr, "[.mtl]: [ERROR]: could not open material file: %s\n", mtlFilename );
@@ -864,7 +863,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 	}
 
 	CSCI441_INTERNAL::ModelMaterial* currentMaterial = NULL;
-	string materialName;
+	std::string materialName;
 
 	unsigned char *textureData = NULL;
 	unsigned char *maskData = NULL;
@@ -872,7 +871,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 	int texWidth, texHeight, textureChannels = 1, maskChannels = 1;
 	GLuint textureHandle = 0;
 
-	map< string, GLuint > imageHandles;
+	std::map< std::string, GLuint > imageHandles;
 
 	int numMaterials = 0;
 
@@ -881,7 +880,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
-		vector< string > tokens = _tokenizeString( line, " /" );
+		std::vector< std::string > tokens = _tokenizeString( line, " /" );
 		if( tokens.size() < 1 ) continue;
 
 		//the line should have a single character that lets us know if it's a...
@@ -890,7 +889,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 			if (INFO) printf( "[.mtl]: Parsing material %s properties\n", tokens[1].c_str() );
 			currentMaterial = new CSCI441_INTERNAL::ModelMaterial();
 			materialName = tokens[1];
-			_materials.insert( pair<string, CSCI441_INTERNAL::ModelMaterial*>( materialName, currentMaterial ) );
+			_materials.insert( std::pair<std::string, CSCI441_INTERNAL::ModelMaterial*>( materialName, currentMaterial ) );
 
 			textureHandle = 0;
 			textureData = NULL;
@@ -932,7 +931,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
                 stbi_set_flip_vertically_on_load(true);
 				textureData = stbi_load( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, 0 );
 				if( !textureData ) {
-					string folderName = path + tokens[1];
+					std::string folderName = path + tokens[1];
 					textureData = stbi_load( folderName.c_str(), &texWidth, &texHeight, &textureChannels, 0 );
 				}
 
@@ -944,7 +943,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 					if( maskData == NULL ) {
 						if( textureHandle == 0 ) {
 							glGenTextures( 1, &textureHandle );
-							imageHandles.insert( pair<string, GLuint>( tokens[1], textureHandle ) );
+							imageHandles.insert( std::pair<std::string, GLuint>( tokens[1], textureHandle ) );
 						}
 
 						glBindTexture( GL_TEXTURE_2D, textureHandle );
@@ -966,7 +965,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 
 						if( textureHandle == 0 ) {
 							glGenTextures( 1, &textureHandle );
-							imageHandles.insert( pair<string, GLuint>( tokens[1], textureHandle ) );
+							imageHandles.insert( std::pair<std::string, GLuint>( tokens[1], textureHandle ) );
 						}
 
 						glBindTexture( GL_TEXTURE_2D, textureHandle );
@@ -993,7 +992,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 			    stbi_set_flip_vertically_on_load(true);
 				maskData = stbi_load( tokens[1].c_str(), &texWidth, &texHeight, &textureChannels, 0 );
 				if( !textureData ) {
-					string folderName = path + tokens[1];
+					std::string folderName = path + tokens[1];
 					maskData = stbi_load( folderName.c_str(), &texWidth, &texHeight, &textureChannels, 0 );
 				}
 
@@ -1056,7 +1055,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 	time_t start, end;
 	time(&start);
 
-	ifstream in( _filename );
+	std::ifstream in( _filename );
 	if( !in.is_open() ) {
 		if (ERRORS) fprintf( stderr, "[.off]: [ERROR]: Could not open \"%s\"\n", _filename );
 		if ( INFO ) printf( "[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
@@ -1065,7 +1064,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 
 	GLuint numVertices = 0, numFaces = 0, numTriangles = 0;
 	float minX = 999999, maxX = -999999, minY = 999999, maxY = -999999, minZ = 999999, maxZ = -999999;
-	string line;
+	std::string line;
 
 	enum OFF_FILE_STATE { HEADER, VERTICES, FACES, DONE };
 
@@ -1078,7 +1077,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
-		vector< string > tokens = _tokenizeString( line, " \t" );
+		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
 		if( tokens.size() < 1 ) continue;
 
 		//the line should have a single character that lets us know if it's a...
@@ -1155,7 +1154,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 		_indices = (GLuint*)malloc(sizeof(GLuint) * numTriangles * 3);
 	}
 
-	vector<GLfloat> vertsTemp;
+	std::vector<GLfloat> vertsTemp;
 
 	if (INFO) printf( "[.off]: ------------\n" );
 
@@ -1174,7 +1173,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
-		vector< string > tokens = _tokenizeString( line, " \t" );
+		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
 		if( tokens.size() < 1 ) continue;
 
 		//the line should have a single character that lets us know if it's a...
@@ -1359,7 +1358,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 	time_t start, end;
 	time(&start);
 
-	ifstream in( _filename );
+	std::ifstream in( _filename );
 	if( !in.is_open() ) {
 		if (ERRORS) fprintf( stderr, "[.ply]: [ERROR]: Could not open \"%s\"\n", _filename );
 		if ( INFO ) printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
@@ -1368,7 +1367,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 
 	GLuint numVertices = 0, numFaces = 0, numTriangles = 0, numMaterials = 0;
 	float minX = 999999, maxX = -999999, minY = 999999, maxY = -999999, minZ = 999999, maxZ = -999999;
-	string line;
+	std::string line;
 
 	enum PLY_FILE_STATE { HEADER, VERTICES, FACES, MATERIALS };
 	enum PLY_ELEMENT_TYPE { NONE, VERTEX, FACE, MATERIAL };
@@ -1384,7 +1383,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
-		vector< string > tokens = _tokenizeString( line, " \t" );
+		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
 
 		if( tokens.size() < 1 ) continue;
 
@@ -1494,7 +1493,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 
 	if (INFO) printf( "[.ply]: ------------\n" );
 
-	vector<GLfloat> vertsTemp;
+	std::vector<GLfloat> vertsTemp;
 
 	in.open( _filename );
 
@@ -1512,7 +1511,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
-		vector< string > tokens = _tokenizeString( line, " \t" );
+		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
 
 		if( tokens.size() < 1 ) continue;
 
@@ -1683,7 +1682,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 	time_t start, end;
 	time(&start);
 
-	ifstream in( _filename );
+	std::ifstream in( _filename );
 	if( !in.is_open() ) {
 		if (ERRORS) fprintf(stderr, "[.stl]: [ERROR]: Could not open \"%s\"\n", _filename );
 		if ( INFO ) printf( "[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
@@ -1692,7 +1691,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 
 	GLuint numVertices = 0, numNormals = 0, numFaces = 0, numTriangles = 0, numVertsInLoop = 0;
 	float minX = 999999, maxX = -999999, minY = 999999, maxY = -999999, minZ = 999999, maxZ = -999999;
-	string line;
+	std::string line;
 
 	int progressCounter = 0;
 	GLfloat normalVector[3] = {0,0,0};
@@ -1702,7 +1701,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
-		vector< string > tokens = _tokenizeString( line, " \t" );
+		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
 
 		if( tokens.size() < 1 ) continue;
 
@@ -1790,7 +1789,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 			line = line.substr( 1 );
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
-		vector< string > tokens = _tokenizeString( line, " \t" );
+		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
 
 		if( tokens.size() < 1 ) continue;
 
@@ -1882,32 +1881,32 @@ inline void CSCI441::ModelLoader::disableAutoGenerateNormals() {
 //      This is a helper function to break a single string into std::vector
 //  of strings, based on a given set of delimiter characters.
 //
-inline vector<string> CSCI441::ModelLoader::_tokenizeString(string input, string delimiters) {
+inline std::vector<std::string> CSCI441::ModelLoader::_tokenizeString(std::string input, std::string delimiters) {
 	if(input.size() == 0)
-		return vector<string>();
+		return std::vector<std::string>();
 
-	vector<string> retVec = vector<string>();
+	std::vector<std::string> retVec = std::vector<std::string>();
 	size_t oldR = 0, r = 0;
 
 	//strip all delimiter characters from the front and end of the input string.
-	string strippedInput;
+	std::string strippedInput;
 	int lowerValidIndex = 0, upperValidIndex = input.size() - 1;
-	while((GLuint)lowerValidIndex < input.size() && delimiters.find_first_of(input.at(lowerValidIndex), 0) != string::npos)
+	while((GLuint)lowerValidIndex < input.size() && delimiters.find_first_of(input.at(lowerValidIndex), 0) != std::string::npos)
 		lowerValidIndex++;
 
-	while(upperValidIndex >= 0 && delimiters.find_first_of(input.at(upperValidIndex), 0) != string::npos)
+	while(upperValidIndex >= 0 && delimiters.find_first_of(input.at(upperValidIndex), 0) != std::string::npos)
 		upperValidIndex--;
 
 	//if the lowest valid index is higher than the highest valid index, they're all delimiters! return nothing.
 	if((GLuint)lowerValidIndex >= input.size() || upperValidIndex < 0 || lowerValidIndex > upperValidIndex)
-		return vector<string>();
+		return std::vector<std::string>();
 
 	//remove the delimiters from the beginning and end of the string, if any.
 	strippedInput = input.substr(lowerValidIndex, upperValidIndex-lowerValidIndex+1);
 
 	//search for each instance of a delimiter character, and create a new token spanning
 	//from the last valid character up to the delimiter character.
-	while((r = strippedInput.find_first_of(delimiters, oldR)) != string::npos)
+	while((r = strippedInput.find_first_of(delimiters, oldR)) != std::string::npos)
 	{
 		if(oldR != r)           //but watch out for multiple consecutive delimiters!
 			retVec.push_back(strippedInput.substr(oldR, r-oldR));
