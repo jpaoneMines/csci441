@@ -34,6 +34,9 @@ TODO Items
 
 Revision History
 
+v 3.10.1 - 09 Sep 2022
+  > Camera::_clampPhi() explicitly checking against floats instead of double
+
 v 3.10.0 - 06 Aug 2022
   > Added capability for ShaderProgram to write to/load from binary - if supported by driver
 
