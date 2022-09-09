@@ -140,8 +140,8 @@ inline void CSCI441::Camera::rotate(GLfloat dTheta, GLfloat dPhi) {
 }
 
 inline void CSCI441::Camera::_clampPhi() {
-    if(_phi <= 0)       _phi = 0+0.001;
-    if(_phi >= M_PI)    _phi = M_PI-0.001;
+    if(_phi <= 0.0f)    _phi = 0.0f+0.001f;
+    if(_phi >= M_PI)    _phi = M_PI-0.001f;
 }
 
 #endif // CSCI441_CAMERA_HPP
