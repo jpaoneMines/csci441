@@ -14,7 +14,8 @@
 
 #include <GL/glew.h>
 
-#include <glm/glm.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/vec3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #ifndef M_PI
@@ -121,15 +122,15 @@ namespace CSCI441 {
     };
 }
 
-inline CSCI441::Camera::Camera() {
-    _viewMatrix = glm::mat4(1.0f);
-    _position = glm::vec3(0.0f, 0.0f, 0.0f );
-    _direction = glm::vec3( 0.0f, 0.0f, -1.0f );
-    _lookAtPoint = glm::vec3( 0.0f, 0.0f, -1.0f );
-    _upVector = glm::vec3( 0.0f, 1.0f, 0.0f );
-    _theta = 0.0f;
-    _phi = M_PI / 2.0f;
-    _radius = 1.0f;
+inline CSCI441::Camera::Camera() :
+    _viewMatrix( glm::mat4(1.0f) ),
+    _position( glm::vec3(0.0f, 0.0f, 0.0f ) ),
+    _direction( glm::vec3( 0.0f, 0.0f, -1.0f ) ),
+    _lookAtPoint( glm::vec3( 0.0f, 0.0f, -1.0f ) ),
+    _upVector( glm::vec3( 0.0f, 1.0f, 0.0f ) ),
+    _theta( 0.0f ),
+    _phi( M_PI / 2.0f ),
+    _radius( 1.0f ) {
 }
 
 inline void CSCI441::Camera::rotate(GLfloat dTheta, GLfloat dPhi) {
