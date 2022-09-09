@@ -2,10 +2,11 @@
 // Created by Jeffrey Paone on 5/20/21.
 //
 
-#ifndef CSCI441_OPENGL3DENGINE_HPP
-#define CSCI441_OPENGL3DENGINE_HPP
+#ifndef CSCI441_OPENGL3D_ENGINE_HPP
+#define CSCI441_OPENGL3D_ENGINE_HPP
 
 #include "OpenGLEngine.hpp"
+#include "ArcballCam.hpp"
 
 #include <glm/glm.hpp>
 
@@ -17,62 +18,48 @@ namespace CSCI441 {
 
     class OpenGL3DEngine : public OpenGLEngine {
     public:
-        GLboolean isLeftMouseDown() noexcept { return _isLeftMouseDown; }
+        [[nodiscard]] GLboolean isLeftMouseDown() const noexcept { return _isLeftMouseDown; }
         void setLeftMouseDown(GLboolean isDown) { _isLeftMouseDown = isDown; }
 
-        GLboolean isShiftDown() noexcept { return _isShiftDown; }
+        [[nodiscard]] GLboolean isShiftDown() const noexcept { return _isShiftDown; }
         void setShiftDown(GLboolean isDown) { _isShiftDown = isDown; }
 
-        glm::vec2 getMousePosition() noexcept { return _mousePosition; }
+        [[nodiscard]] glm::vec2 getMousePosition() const noexcept { return _mousePosition; }
         void setMousePosition(glm::vec2 mousePos) { _mousePosition = mousePos; }
 
-        void setArcballCameraAngles( glm::vec3 angles ) { _arcballCamera.cameraAngles = angles; }
+        void setArcballCameraAngles( glm::vec3 angles ) {
+            _arcballCamera->setTheta( angles[0] );
+            _arcballCamera->setPhi( angles[1] );
+            _arcballCamera->setRadius( angles[2] );
+        }
 
-        glm::vec3 getArcballCameraEyePoint() noexcept { return _arcballCamera.eyePoint; }
+        [[nodiscard]] glm::vec3 getArcballCameraEyePoint() const noexcept { return _arcballCamera->getPosition(); }
 
-        glm::vec3 getArcballCameraLookAtPoint() noexcept { return _arcballCamera.lookAtPoint; }
-        void setArcballCameraLookAtPoint( glm::vec3 lookAtPoint ) { _arcballCamera.lookAtPoint = lookAtPoint; }
+        [[nodiscard]] glm::vec3 getArcballCameraLookAtPoint() const noexcept { return _arcballCamera->getLookAtPoint(); }
+        void setArcballCameraLookAtPoint( glm::vec3 lookAtPoint ) { _arcballCamera->setLookAtPoint(lookAtPoint); }
 
-        glm::vec3 getArcballCameraUpVector() noexcept { return _arcballCamera.upVector; }
-        void setArcballCameraUpVector( glm::vec3 upVector ) { _arcballCamera.upVector = upVector; }
+        [[nodiscard]] glm::vec3 getArcballCameraUpVector() const noexcept { return _arcballCamera->getUpVector(); }
+        void setArcballCameraUpVector( glm::vec3 upVector ) { _arcballCamera->setUpVector(upVector); }
 
         void addToArcballCameraAngles( glm::vec3 angleAdditions ) {
-            _arcballCamera.cameraAngles += angleAdditions;
+            _arcballCamera->setTheta( _arcballCamera->getTheta() + angleAdditions[0] );
+            _arcballCamera->setPhi(_arcballCamera->getPhi() + angleAdditions[1] );
+            _arcballCamera->moveBackward( angleAdditions[2] );
         }
 
         void updateArcballCameraDirection() {
-            // ensure the camera does not flip upside down at either pole
-            if( _arcballCamera.cameraAngles.y < 0 )     _arcballCamera.cameraAngles.y = 0.0f + 0.001f;
-            if( _arcballCamera.cameraAngles.y >= M_PI ) _arcballCamera.cameraAngles.y = M_PI - 0.001f;
-
-            // do not let our camera get too close or too far away
-            if( _arcballCamera.cameraAngles.z <= 2.0f )  _arcballCamera.cameraAngles.z = 2.0f;
-            if( _arcballCamera.cameraAngles.z >= 35.0f ) _arcballCamera.cameraAngles.z = 35.0f;
-
-            // update the new direction to the camera
-            _arcballCamera.camDir.x =  sinf( _arcballCamera.cameraAngles.x ) * sinf( _arcballCamera.cameraAngles.y );
-            _arcballCamera.camDir.y = -cosf( _arcballCamera.cameraAngles.y );
-            _arcballCamera.camDir.z = -cosf( _arcballCamera.cameraAngles.x ) * sinf( _arcballCamera.cameraAngles.y );
-
-            // normalize this direction
-            _arcballCamera.camDir = glm::normalize(_arcballCamera.camDir);
-
-            // update the eye point
-            _arcballCamera.eyePoint = _arcballCamera.lookAtPoint + _arcballCamera.camDir * _arcballCamera.cameraAngles.z;
+            _arcballCamera->recomputeOrientation();
         }
 
     protected:
         OpenGL3DEngine(const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION, const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const char* WINDOW_TITLE, const int WINDOW_RESIZABLE = GLFW_FALSE)
-            : OpenGLEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, WINDOW_RESIZABLE) {}
-        ~OpenGL3DEngine() {}
+            : OpenGLEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, WINDOW_RESIZABLE),
+            _arcballCamera( new CSCI441::ArcballCam() ),
+            _isShiftDown(GL_FALSE), _isLeftMouseDown(GL_FALSE),
+            _mousePosition(glm::vec2(0.0f, 0.0f)) {}
+        ~OpenGL3DEngine() { delete _arcballCamera; }
 
-        struct CameraParameters {
-            glm::vec3 cameraAngles;                     // cameraAngles --> x = theta, y = phi, z = radius
-            glm::vec3 camDir;                           // direction to the camera
-            glm::vec3 eyePoint;                         // camera vPos
-            glm::vec3 lookAtPoint;                      // location of our object of interest
-            glm::vec3 upVector;                         // the upVector of our camera
-        } _arcballCamera;
+        CSCI441::ArcballCam* _arcballCamera;
 
         GLboolean _isShiftDown;                          // if the shift key was pressed when the mouse was pressed
         GLboolean _isLeftMouseDown;                      // if the mouse left button is currently pressed
@@ -81,4 +68,4 @@ namespace CSCI441 {
 
 }
 
-#endif // CSCI441_OPENGL3DENGINE_HPP
+#endif // CSCI441_OPENGL3D_ENGINE_HPP
