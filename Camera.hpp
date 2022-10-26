@@ -33,6 +33,9 @@ namespace CSCI441 {
     ///  - moveBackward()<br>
     class Camera {
     public:
+        /// \desc properly destroy concrete children
+        virtual ~Camera() = default;
+
         /// \desc Uses theta, phi, & radius to update the
         /// camera's view matrix parameters.
         /// The camera orientation is controlled via spherical coordinates

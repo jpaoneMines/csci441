@@ -34,6 +34,11 @@ TODO Items
 
 Revision History
 
+v 3.10.2 - 26 Oct 2022
+  > Cleaned up Camera class warnings
+
+  > Replaced OpenGL3DEngine internal arcball implementation with ArcballCam object
+
 v 3.10.1 - 09 Sep 2022
   > Camera::_clampPhi() explicitly checking against floats instead of double
 
@@ -55,7 +60,7 @@ v 3.8.0 - 07 Oct 2021
 v 3.7.1 - 07 Oct 2021
   > Fixed get polygon mode bug where it returns two values
 
-  > Objects and Teapot only enable attribute locations if they are not -1.  Prevents a invalid enum error 
+  > Objects and Teapot only enable attribute locations if they are not -1.  Prevents an invalid enum error 
 
 v 3.7.0 - 06 Oct 2021
   > Improved encapsulation of Arcball radius modification
@@ -68,7 +73,7 @@ v 3.7.0 - 06 Oct 2021
 
   > Corrected normals for indexed cube  
 
-  > Changed object and teapot internal variables from static to inline to support multicompilation and single use across multiple contexts
+  > Changed object and teapot internal variables from static to inline to support multi-compilation and single use across multiple contexts
 
 v 3.6.0 - 15 Sep 2021
   > Created a concrete ArcBall Cam implementation
@@ -90,7 +95,7 @@ v 3.3.0 - 06 Sep 2021
   > Created a concrete FreeCam implementation 
 
 v 3.2.1 - 31 Aug 2021
-  > Reworked SimpleShader::popTransformation() to always remultiply the model matrix and not use the inverse calculation to avoid precision errors
+  > Reworked SimpleShader::popTransformation() to always re-multiply the model matrix and not use the inverse calculation to avoid precision errors
 
 v 3.2.0 - 30 Aug 2021
   > Cleaning up code style
@@ -152,10 +157,10 @@ v 2.6.0 - 27 Oct 2020
   > Added predefined Material properties for reuse
 
 v 2.3.0 - 12 Oct 2020
-  > Allow multicompilation for objects.hpp with shaders.  Now depends upon C++17
+  > Allow multi-compilation for objects.hpp with shaders.  Now depends upon C++17
 
 v 2.2.0 - 12 Oct 2020
-  > Allow multicompilation for ShaderProgram.hpp.  Now depends upon C++17
+  > Allow multi-compilation for ShaderProgram.hpp.  Now depends upon C++17
 
 v 2.1.0 - 02 Oct 2020
   > Fixed memory leak in objects.hpp cylinder, sphere, disk, torus caching
@@ -242,7 +247,7 @@ v1.3 	- 26 Oct 2017
 
   > Added objects3.hpp that allow for solid primitives to be drawn with OpenGL 3.0
 
-  > Notes for teapot - the teapot cannot be textured and it is a pure teapot with no bottom
+  > Notes for teapot - the teapot cannot be textured, and it is a pure teapot with no bottom
 
   > For a textured teapot, look into using an object model
 
