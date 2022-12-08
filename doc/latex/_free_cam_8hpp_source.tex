@@ -1,0 +1,55 @@
+\hypertarget{_free_cam_8hpp_source}{}\doxysection{Free\+Cam.\+hpp}
+\mbox{\hyperlink{_free_cam_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifndef CSCI441\_FREE\_CAM\_HPP}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define CSCI441\_FREE\_CAM\_HPP}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_camera_8hpp}{Camera.hpp}}"{}}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <cmath>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}} \{}
+\DoxyCodeLine{24     \textcolor{keyword}{class }\mbox{\hyperlink{class_c_s_c_i441_1_1_free_cam}{FreeCam}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera}{CSCI441::Camera}} \{}
+\DoxyCodeLine{25     \textcolor{keyword}{public}:}
+\DoxyCodeLine{31         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_free_cam_aea185b8dad3bcbdc81fd12f322ee357a}{recomputeOrientation}}() \textcolor{keyword}{final};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{37         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_free_cam_a6477c2e4e7734f313f3b03f832450c5f}{moveForward}}(GLfloat movementFactor) \textcolor{keyword}{final};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{43         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_free_cam_a9538c96b3167b01c3d5481de848dafec}{moveBackward}}(GLfloat movementFactor) \textcolor{keyword}{final};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45     \textcolor{keyword}{private}:}
+\DoxyCodeLine{47         \textcolor{keywordtype}{void} \_updateFreeCameraViewMatrix();}
+\DoxyCodeLine{48     \};}
+\DoxyCodeLine{49 \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_free_cam_aea185b8dad3bcbdc81fd12f322ee357a}{CSCI441::FreeCam::recomputeOrientation}}() \{}
+\DoxyCodeLine{52     \textcolor{comment}{// compute direction vector based on spherical to cartesian conversion}}
+\DoxyCodeLine{53     \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a573b77c852aa122446adbc957e489515}{\_direction}}.x =  sinf( \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a8f728295b7cb3a9ecdf34edaa818e5d4}{\_theta}} )*sinf( \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a027b4470a0ae629a107dbd40dd932166}{\_phi}} );}
+\DoxyCodeLine{54     \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a573b77c852aa122446adbc957e489515}{\_direction}}.y = -\/cosf( \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a027b4470a0ae629a107dbd40dd932166}{\_phi}} );}
+\DoxyCodeLine{55     \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a573b77c852aa122446adbc957e489515}{\_direction}}.z = -\/cosf( \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a8f728295b7cb3a9ecdf34edaa818e5d4}{\_theta}} )*sinf( \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a027b4470a0ae629a107dbd40dd932166}{\_phi}} );}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57     \textcolor{comment}{// and normalize this directional vector!}}
+\DoxyCodeLine{58     \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a573b77c852aa122446adbc957e489515}{\_direction}} = glm::normalize( \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a573b77c852aa122446adbc957e489515}{\_direction}} );}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \_updateFreeCameraViewMatrix();}
+\DoxyCodeLine{61 \}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_free_cam_a6477c2e4e7734f313f3b03f832450c5f}{CSCI441::FreeCam::moveForward}}(GLfloat movementFactor) \{}
+\DoxyCodeLine{64     \_position += \_direction * movementFactor;}
+\DoxyCodeLine{65     \_updateFreeCameraViewMatrix();}
+\DoxyCodeLine{66 \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_free_cam_a9538c96b3167b01c3d5481de848dafec}{CSCI441::FreeCam::moveBackward}}(GLfloat movementFactor) \{}
+\DoxyCodeLine{69     \_position -\/= \_direction * movementFactor;}
+\DoxyCodeLine{70     \_updateFreeCameraViewMatrix();}
+\DoxyCodeLine{71 \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441::FreeCam::\_updateFreeCameraViewMatrix() \{}
+\DoxyCodeLine{74     setLookAtPoint( \_position + \_direction );}
+\DoxyCodeLine{75     computeViewMatrix();}
+\DoxyCodeLine{76 \}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CSCI441\_FREE\_CAM\_HPP}}
+
+\end{DoxyCode}

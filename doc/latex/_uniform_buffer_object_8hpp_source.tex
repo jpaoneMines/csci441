@@ -1,0 +1,104 @@
+\hypertarget{_uniform_buffer_object_8hpp_source}{}\doxysection{Uniform\+Buffer\+Object.\+hpp}
+\mbox{\hyperlink{_uniform_buffer_object_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#ifndef \_\_CSCI441\_UNIFORMBUFFEROBJECT\_H\_\_}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#define \_\_CSCI441\_UNIFORMBUFFEROBJECT\_H\_\_}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <GL/glew.h>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{21 }
+\DoxyCodeLine{25 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}} \{}
+\DoxyCodeLine{29     \textcolor{keyword}{class }\mbox{\hyperlink{class_c_s_c_i441_1_1_uniform_buffer_object}{UniformBufferObject}} \{}
+\DoxyCodeLine{30     \textcolor{keyword}{public}:}
+\DoxyCodeLine{36         \mbox{\hyperlink{class_c_s_c_i441_1_1_uniform_buffer_object_a82ecc51521c3031a85312446877486d1}{UniformBufferObject}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* UNIFORM\_BLOCK\_NAME, std::initializer\_list<const char*> uniformNamesList) \{}
+\DoxyCodeLine{37             \_blockName = (\textcolor{keywordtype}{char}*)UNIFORM\_BLOCK\_NAME;}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39             \_numUniforms = uniformNamesList.size();}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41             \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&uniformName : uniformNamesList ) \{}
+\DoxyCodeLine{42                 \textcolor{keywordtype}{char}* un = (\textcolor{keywordtype}{char}*)malloc(strlen(uniformName) * \textcolor{keyword}{sizeof}(char));}
+\DoxyCodeLine{43                 strcpy(un, uniformName);}
+\DoxyCodeLine{44                 \_uniformNames.push\_back(un);}
+\DoxyCodeLine{45             \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47             \_uniformIndices = (GLuint*)malloc(\_numUniforms * \textcolor{keyword}{sizeof}(GLuint));}
+\DoxyCodeLine{48             \_uniformOffsets = (GLint*)malloc(\_numUniforms * \textcolor{keyword}{sizeof}(GLint));}
+\DoxyCodeLine{49         \}}
+\DoxyCodeLine{53         \mbox{\hyperlink{class_c_s_c_i441_1_1_uniform_buffer_object_a25509246b1331ac2c1792ee7500e9c01}{\string~UniformBufferObject}}() \{}
+\DoxyCodeLine{54             glDeleteBuffers(1, \&\_ubod);}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56             \textcolor{keywordflow}{for}(GLuint i = 0; i < \_numUniforms; i++) \{}
+\DoxyCodeLine{57                 free(\_uniformNames[i]);}
+\DoxyCodeLine{58             \}}
+\DoxyCodeLine{59             free(\_uniformIndices);}
+\DoxyCodeLine{60             free(\_uniformOffsets);}
+\DoxyCodeLine{61             free(\_buffer);}
+\DoxyCodeLine{62         \}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{70         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_uniform_buffer_object_ae6a0b46eaf1fce65c7c185b27e9876c6}{setupWithShaderProgram}}( \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program}{ShaderProgram}} *shaderProgram, GLuint bindingPoint ) \{}
+\DoxyCodeLine{71             \_blockSize = shaderProgram-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program_ab5a02cba527f6bd9ebfd09d4232c2200}{getUniformBlockSize}}( \_blockName );}
+\DoxyCodeLine{72             \_buffer = (GLubyte*)malloc( \_blockSize );}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74             glGetUniformIndices(shaderProgram-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program_a1eee7ca13c9b16bd345ab1815859ef16}{getShaderProgramHandle}}(), \_numUniforms, \&\_uniformNames[0], \_uniformIndices);}
+\DoxyCodeLine{75             glGetActiveUniformsiv(shaderProgram-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program_a1eee7ca13c9b16bd345ab1815859ef16}{getShaderProgramHandle}}(), \_numUniforms, \_uniformIndices, GL\_UNIFORM\_OFFSET, \_uniformOffsets);}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77             glGenBuffers(1, \&\_ubod);}
+\DoxyCodeLine{78             bindBuffer();}
+\DoxyCodeLine{79             glBufferData(GL\_UNIFORM\_BUFFER, \_blockSize, \textcolor{keyword}{nullptr}, GL\_DYNAMIC\_DRAW);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81             \_bindingPoint = bindingPoint;}
+\DoxyCodeLine{82             glBindBufferBase(GL\_UNIFORM\_BUFFER, \_bindingPoint, \_ubod);}
+\DoxyCodeLine{83             shaderProgram-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program_a72ce0d5cd4176fc67b1debde03cfe843}{setUniformBlockBinding}}(\_blockName, \_bindingPoint);}
+\DoxyCodeLine{84         \}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{92         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_uniform_buffer_object_a93bfc9c16fb2d49f35dc360a9009437b}{copyToOffset}}( \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} offset, \textcolor{keywordtype}{void}* addr, \textcolor{keywordtype}{size\_t} len ) \{}
+\DoxyCodeLine{93             \textcolor{keywordflow}{if}(offset < \_numUniforms) \{}
+\DoxyCodeLine{94                 memcpy(\_buffer + \_uniformOffsets[offset], addr, len);}
+\DoxyCodeLine{95             \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{96                 fprintf(stderr, \textcolor{stringliteral}{"{}[ERROR]: Offset \%d exceeds size of Uniform Block \%s which is \%d\(\backslash\)n"{}}, offset, \_blockName, \_numUniforms);}
+\DoxyCodeLine{97             \}}
+\DoxyCodeLine{98         \}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{106         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_uniform_buffer_object_ab640cb7aec972a4b4a0a7d4b88a36ab7}{copyToBuffer}}( \textcolor{keyword}{const} \textcolor{keywordtype}{char}* UNIFORM\_NAME, \textcolor{keywordtype}{void}* addr, \textcolor{keywordtype}{size\_t} len ) \{}
+\DoxyCodeLine{107             \textcolor{keywordtype}{bool} found = \textcolor{keyword}{false};}
+\DoxyCodeLine{108             \textcolor{keywordflow}{for}(GLuint i = 0; i < \_numUniforms; i++) \{}
+\DoxyCodeLine{109                 \textcolor{keywordflow}{if}( strcmp(\_uniformNames[i], UNIFORM\_NAME) == 0 ) \{}
+\DoxyCodeLine{110                     memcpy( \_buffer + \_uniformOffsets[i], addr, len );}
+\DoxyCodeLine{111                     found = \textcolor{keyword}{true};}
+\DoxyCodeLine{112                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{113                 \}}
+\DoxyCodeLine{114             \}}
+\DoxyCodeLine{115             \textcolor{keywordflow}{if}(!found) \{}
+\DoxyCodeLine{116                 fprintf(stderr, \textcolor{stringliteral}{"{}[ERROR]: Uniform Name \(\backslash\)"{}\%s\(\backslash\)"{} not found within Uniform Block \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}}, UNIFORM\_NAME, \_blockName);}
+\DoxyCodeLine{117             \}}
+\DoxyCodeLine{118         \}}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120         \textcolor{keywordtype}{void} bindBuffer() \{}
+\DoxyCodeLine{121             glBindBuffer(GL\_UNIFORM\_BUFFER, \_ubod);}
+\DoxyCodeLine{122         \}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124         \textcolor{keywordtype}{void} bufferSubData() \{}
+\DoxyCodeLine{125             glBufferSubData(GL\_UNIFORM\_BUFFER, 0, \_blockSize, \_buffer);}
+\DoxyCodeLine{126         \}}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{128     \textcolor{keyword}{private}:}
+\DoxyCodeLine{129         \textcolor{keywordtype}{char}* \_blockName;}
+\DoxyCodeLine{130         std::vector<char*> \_uniformNames;}
+\DoxyCodeLine{131         GLint \_blockSize;}
+\DoxyCodeLine{132         GLubyte* \_buffer;}
+\DoxyCodeLine{133         GLuint \_numUniforms;}
+\DoxyCodeLine{134         GLuint* \_uniformIndices;}
+\DoxyCodeLine{135         GLint* \_uniformOffsets;}
+\DoxyCodeLine{136         GLuint \_ubod;}
+\DoxyCodeLine{137         GLuint \_bindingPoint;}
+\DoxyCodeLine{138     \};}
+\DoxyCodeLine{139 \}}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{141 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//\_\_CSCI441\_UNIFORMBUFFEROBJECT\_H\_\_}}
+
+\end{DoxyCode}

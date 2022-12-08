@@ -1,0 +1,78 @@
+\hypertarget{class_c_s_c_i441_1_1_fixed_cam}{}\doxysection{CSCI441\+::Fixed\+Cam Class Reference}
+\label{class_c_s_c_i441_1_1_fixed_cam}\index{CSCI441::FixedCam@{CSCI441::FixedCam}}
+
+
+{\ttfamily \#include $<$Fixed\+Cam.\+hpp$>$}
+
+Inheritance diagram for CSCI441\+::Fixed\+Cam\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_c_s_c_i441_1_1_fixed_cam}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_fixed_cam_a37be99738bfbd423573dcd298cf69784}{recompute\+Orientation}} () final
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_fixed_cam_ab3c54e0f35b91dbe6a4aa09cd9891cbe}{move\+Forward}} (GLfloat unused) final
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_fixed_cam_aa41281f1f007473f3e08fba58c437448}{move\+Backward}} (GLfloat unused) final
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\textbackslash{}desc A camera that can be positioned and oriented but never moved or rotated. \begin{DoxyNote}{Note}
+Must position via \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a81f0069fe27dfeb53a1f293404cc6d25}{set\+Position()}} 
+
+Must orient via \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a7dd05dba693c36f27d23fee37a9d1a9b}{set\+Look\+At\+Point()}} 
+\end{DoxyNote}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_fixed_cam_aa41281f1f007473f3e08fba58c437448}\label{class_c_s_c_i441_1_1_fixed_cam_aa41281f1f007473f3e08fba58c437448}} 
+\index{CSCI441::FixedCam@{CSCI441::FixedCam}!moveBackward@{moveBackward}}
+\index{moveBackward@{moveBackward}!CSCI441::FixedCam@{CSCI441::FixedCam}}
+\doxysubsubsection{\texorpdfstring{moveBackward()}{moveBackward()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Fixed\+Cam\+::move\+Backward (\begin{DoxyParamCaption}\item[{GLfloat}]{movement\+Factor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
+
+\textbackslash{}desc steps backward along the camera\textquotesingle{}s view 
+\begin{DoxyParams}{Parameters}
+{\em movement\+Factor} & scaling factor for distance to move \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a2d44bf0b6b8f73cba73c510988519676}{CSCI441\+::\+Camera}}.
+
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_fixed_cam_ab3c54e0f35b91dbe6a4aa09cd9891cbe}\label{class_c_s_c_i441_1_1_fixed_cam_ab3c54e0f35b91dbe6a4aa09cd9891cbe}} 
+\index{CSCI441::FixedCam@{CSCI441::FixedCam}!moveForward@{moveForward}}
+\index{moveForward@{moveForward}!CSCI441::FixedCam@{CSCI441::FixedCam}}
+\doxysubsubsection{\texorpdfstring{moveForward()}{moveForward()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Fixed\+Cam\+::move\+Forward (\begin{DoxyParamCaption}\item[{GLfloat}]{movement\+Factor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
+
+\textbackslash{}desc steps forward along the camera\textquotesingle{}s view 
+\begin{DoxyParams}{Parameters}
+{\em movement\+Factor} & scaling factor for distance to move \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_aabd8040c8f3ab9dae28ed396c632b94a}{CSCI441\+::\+Camera}}.
+
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_fixed_cam_a37be99738bfbd423573dcd298cf69784}\label{class_c_s_c_i441_1_1_fixed_cam_a37be99738bfbd423573dcd298cf69784}} 
+\index{CSCI441::FixedCam@{CSCI441::FixedCam}!recomputeOrientation@{recomputeOrientation}}
+\index{recomputeOrientation@{recomputeOrientation}!CSCI441::FixedCam@{CSCI441::FixedCam}}
+\doxysubsubsection{\texorpdfstring{recomputeOrientation()}{recomputeOrientation()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Fixed\+Cam\+::recompute\+Orientation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
+
+\textbackslash{}desc Uses theta, phi, \& radius to update the camera\textquotesingle{}s view matrix parameters. The camera orientation is controlled via spherical coordinates and this method would orient and/or position the camera in cartesian coordinates. 
+
+Implements \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a507ca14a9c56993a11f381de2367d2bb}{CSCI441\+::\+Camera}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_fixed_cam_8hpp}{Fixed\+Cam.\+hpp}}\end{DoxyCompactItemize}

@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['setmaterial',['setMaterial',['../namespace_c_s_c_i441.html#ac201d649430f0c55e57db10b0dddd100',1,'CSCI441']]],
-  ['setuniformblockbinding',['setUniformBlockBinding',['../class_c_s_c_i441_1_1_shader_program.html#ae1200c6f7a7afd36ed1090eb47a7d3ac',1,'CSCI441::ShaderProgram']]],
-  ['setvertexattributelocations',['setVertexAttributeLocations',['../namespace_c_s_c_i441.html#a4330a78bc3618a59f4c9a14db9d3e48a',1,'CSCI441']]],
-  ['shaderprogram',['ShaderProgram',['../class_c_s_c_i441_1_1_shader_program.html#a0f51bed7fb1b24075b96be6c7a490f8d',1,'CSCI441::ShaderProgram::ShaderProgram(const char *vertexShaderFilename, const char *fragmentShaderFilename)'],['../class_c_s_c_i441_1_1_shader_program.html#af561da1984872a47dba91e30a5aec14d',1,'CSCI441::ShaderProgram::ShaderProgram(const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename)'],['../class_c_s_c_i441_1_1_shader_program.html#afd18599e84cde305494daa39dc751fd1',1,'CSCI441::ShaderProgram::ShaderProgram(const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename)'],['../class_c_s_c_i441_1_1_shader_program.html#a1d1750c87ea740caf05dac2816a6b800',1,'CSCI441::ShaderProgram::ShaderProgram(const char *vertexShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename)']]]
+  ['loadandregister2dtexture_0',['loadAndRegister2DTexture',['../_texture_utils_8hpp.html#aa8b481c9cb79f954a876e2b805e8f4f4',1,'CSCI441::TextureUtils']]],
+  ['loadandregistertexture_1',['loadAndRegisterTexture',['../_texture_utils_8hpp.html#a1b3eaf6583ec3e581dbd514a525162a1',1,'CSCI441::TextureUtils']]],
+  ['loadcubemapfacetexture_2',['loadCubeMapFaceTexture',['../_texture_utils_8hpp.html#a490cac31deb34e0a0c70f7908192b327',1,'CSCI441::TextureUtils']]],
+  ['loadmodelfile_3',['loadModelFile',['../class_c_s_c_i441_1_1_model_loader.html#a2ee2d1efb2279540d9d89885ed173ac0',1,'CSCI441::ModelLoader']]],
+  ['loadppm_4',['loadPPM',['../_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8',1,'CSCI441::TextureUtils']]]
 ];

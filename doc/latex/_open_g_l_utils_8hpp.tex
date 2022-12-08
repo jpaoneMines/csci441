@@ -1,63 +1,62 @@
-\hypertarget{_open_g_l_utils_8hpp}{}\section{C\+S\+C\+I441/\+Open\+G\+L\+Utils.hpp File Reference}
-\label{_open_g_l_utils_8hpp}\index{C\+S\+C\+I441/\+Open\+G\+L\+Utils.\+hpp@{C\+S\+C\+I441/\+Open\+G\+L\+Utils.\+hpp}}
+\hypertarget{_open_g_l_utils_8hpp}{}\doxysection{Open\+GLUtils.\+hpp File Reference}
+\label{_open_g_l_utils_8hpp}\index{OpenGLUtils.hpp@{OpenGLUtils.hpp}}
 
 
-Helper functions to work with Open\+GL 2.\+1.  
+Helper functions to work with Open\+GL 3.\+0+.  
 
 
-{\ttfamily \#include $<$G\+L/gl.\+h$>$}\newline
+{\ttfamily \#include $<$GL/glew.\+h$>$}\newline
 {\ttfamily \#include $<$glm/glm.\+hpp$>$}\newline
-{\ttfamily \#include $<$stdio.\+h$>$}\newline
-\subsection*{Namespaces}
+{\ttfamily \#include $<$cstdio$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+\doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespace_c_s_c_i441}{C\+S\+C\+I441}
-\begin{DoxyCompactList}\small\item\em \hyperlink{namespace_c_s_c_i441}{C\+S\+C\+I441} Helper Functions for Open\+GL. \end{DoxyCompactList}\item 
- \hyperlink{namespace_open_g_l_utils}{Open\+G\+L\+Utils}
-\begin{DoxyCompactList}\small\item\em contains Open\+GL Utility functions \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Functions}
+namespace \mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}} Helper Functions for Open\+GL. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespace_open_g_l_utils}{Open\+GLUtils}}
+\item 
+namespace \mbox{\hyperlink{namespace_c_s_c_i441___i_n_t_e_r_n_a_l}{CSCI441\+\_\+\+INTERNAL}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{namespace_c_s_c_i441_aa818e8189c42c50e88d6d0512274bcfb}{C\+S\+C\+I441\+::push\+Matrix} (glm\+::mat4 mtx)
-\begin{DoxyCompactList}\small\item\em Multiplies current matrix by given matrix. \end{DoxyCompactList}\item 
-void \hyperlink{namespace_c_s_c_i441_ae423b2406df96b1cafe485245e4f9203}{C\+S\+C\+I441\+::pop\+Matrix} (glm\+::mat4 mtx)
-\begin{DoxyCompactList}\small\item\em Multiplies current matrix by inverse of given matrix. \end{DoxyCompactList}\item 
-void \hyperlink{_open_g_l_utils_8hpp_a23e011241f0e95738bafa0b0404eb679}{C\+S\+C\+I441\+::\+Open\+G\+L\+Utils\+::print\+Open\+G\+L\+Info} ()
-\begin{DoxyCompactList}\small\item\em Prints information about our Open\+GL context. \end{DoxyCompactList}\item 
-void \hyperlink{namespace_c_s_c_i441_ac201d649430f0c55e57db10b0dddd100}{C\+S\+C\+I441\+::set\+Material} (Material\+Struct material)
-\begin{DoxyCompactList}\small\item\em sets all material properties at once \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\Hypertarget{_open_g_l_utils_8hpp_a23e011241f0e95738bafa0b0404eb679}\label{_open_g_l_utils_8hpp_a23e011241f0e95738bafa0b0404eb679}} 
+void {\bfseries CSCI441\+::\+Open\+GLUtils\+::print\+Open\+GLInfo} ()
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc Prints information about our Open\+GL context \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a286138e90ff2be84bc7f8be40d10e919}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a286138e90ff2be84bc7f8be40d10e919}} 
+void {\bfseries CSCI441\+\_\+\+INTERNAL\+::print\+Open\+GLParam\+Header} (int MAJOR, int MINOR)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_afe1905ea1fc1646e10c3f2b06c4fe3bd}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_afe1905ea1fc1646e10c3f2b06c4fe3bd}} 
+void {\bfseries CSCI441\+\_\+\+INTERNAL\+::print\+Open\+GLParam\+Indexed} (const char $\ast$FORMAT, GLenum name, GLuint index)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a771bf65151790bf08f689aed31e9b048}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a771bf65151790bf08f689aed31e9b048}} 
+void {\bfseries CSCI441\+\_\+\+INTERNAL\+::print\+Open\+GLParam} (const char $\ast$FORMAT, GLenum name)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a381663acd8ae689f910918ac8c1a1067}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a381663acd8ae689f910918ac8c1a1067}} 
+void {\bfseries CSCI441\+\_\+\+INTERNAL\+::print\+Open\+GLParam2} (const char $\ast$FORMAT, GLenum name)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a51ddf1acd7e3da8373ff1cac5526b1db}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a51ddf1acd7e3da8373ff1cac5526b1db}} 
+void {\bfseries CSCI441\+\_\+\+INTERNAL\+::print\+Open\+GLParam3} (const char $\ast$FORMAT, GLenum name)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a3b72168af9edb4cbdc75e40a79486a4c}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a3b72168af9edb4cbdc75e40a79486a4c}} 
+void {\bfseries CSCI441\+\_\+\+INTERNAL\+::print\+Open\+GLParam4} (const char $\ast$FORMAT, GLenum name)
+\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
-Helper functions to work with Open\+GL 2.\+1. 
+\doxysubsection{Detailed Description}
+Helper functions to work with Open\+GL 3.\+0+. 
 
 \begin{DoxyAuthor}{Author}
-Dr. Jeffrey Paone 
+Dr. Jeffrey Paone
 \end{DoxyAuthor}
-\begin{DoxyDate}{Date}
-Last Edit\+: 25 Oct 2017 
-\end{DoxyDate}
-\begin{DoxyVersion}{Version}
-1.\+3
-\end{DoxyVersion}
 \begin{DoxyCopyright}{Copyright}
-M\+IT License Copyright (c) 2017 Dr. Jeffrey Paone
+MIT License Copyright (c) 2017 Dr. Jeffrey Paone
 \end{DoxyCopyright}
 These functions, classes, and constants help minimize common code that needs to be written.
 
 \begin{DoxyWarning}{Warning}
-N\+O\+TE\+: This header file depends upon glm 
+NOTE\+: This header file depends upon GLEW 
+
+NOTE\+: This header file depends upon glm 
 \end{DoxyWarning}
-
-
-\subsection{Function Documentation}
-\mbox{\Hypertarget{_open_g_l_utils_8hpp_file_a23e011241f0e95738bafa0b0404eb679}\label{_open_g_l_utils_8hpp_file_a23e011241f0e95738bafa0b0404eb679}} 
-\index{Open\+G\+L\+Utils.\+hpp@{Open\+G\+L\+Utils.\+hpp}!print\+Open\+G\+L\+Info@{print\+Open\+G\+L\+Info}}
-\index{print\+Open\+G\+L\+Info@{print\+Open\+G\+L\+Info}!Open\+G\+L\+Utils.\+hpp@{Open\+G\+L\+Utils.\+hpp}}
-\subsubsection{\texorpdfstring{print\+Open\+G\+L\+Info()}{printOpenGLInfo()}}
-{\footnotesize\ttfamily void C\+S\+C\+I441\+::\+Open\+G\+L\+Utils\+::print\+Open\+G\+L\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-Prints information about our Open\+GL context. 
-

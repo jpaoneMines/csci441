@@ -1,18 +1,18 @@
 /** @file modelLoader.hpp
   * @brief Helper functions to draw 3D OpenGL 3.0+ objects
-	* @author Dr. Jeffrey Paone
-	*
-	* @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
-	*
-	*	This class will load and render object files.  Currently supports:
-	*		.obj + .mtl
-	*		.off
-    *       .ply
-	*		.stl
-	*
-	*	@warning NOTE: This header file will only work with OpenGL 3.0+
-	*	@warning NOTE: This header file depends upon GLEW, glm, stb_image
-  */
+  * @author Dr. Jeffrey Paone
+  *
+  * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
+  *
+  *	This class will load and render object files.  Currently supports:
+  *		.obj + .mtl
+  *		.off
+  *     .ply
+  *		.stl
+  *
+  *	@warning NOTE: This header file will only work with OpenGL 3.0+
+  *	@warning NOTE: This header file depends upon GLEW, glm, stb_image
+*/
 
 #ifndef __CSCI441_MODELLOADER_HPP__
 #define __CSCI441_MODELLOADER_HPP__
@@ -43,8 +43,6 @@
 	*/
 namespace CSCI441 {
 
-	static bool AUTO_GEN_NORMALS = false;
-
 	/** @class ModelLoader
 		* @brief Loads object models from file and renders using VBOs/VAOs
 		*/
@@ -56,7 +54,7 @@ namespace CSCI441 {
 		/** @desc Loads a model from the given file
 			* @param const char* filename	- file to load model from
 			*/
-		ModelLoader( const char* filename );
+		explicit ModelLoader( const char* filename );
 		/** @desc Frees memory associated with model on both CPU and GPU
 			*/
 		~ModelLoader();
@@ -173,6 +171,8 @@ namespace CSCI441 {
 
 		bool _hasVertexTexCoords;
 		bool _hasVertexNormals;
+
+        static bool _AUTO_GEN_NORMALS;
 	};
 }
 

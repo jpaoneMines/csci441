@@ -1,0 +1,92 @@
+\hypertarget{_camera_8hpp_source}{}\doxysection{Camera.\+hpp}
+\mbox{\hyperlink{_camera_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifndef CSCI441\_CAMERA\_HPP}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define CSCI441\_CAMERA\_HPP}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <GL/glew.h>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <glm/mat4x4.hpp>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <glm/vec3.hpp>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <glm/gtc/matrix\_transform.hpp>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#ifndef M\_PI}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#define M\_PI 3.14159265}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{27 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}} \{}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{34     \textcolor{keyword}{class }\mbox{\hyperlink{class_c_s_c_i441_1_1_camera}{Camera}} \{}
+\DoxyCodeLine{35     \textcolor{keyword}{public}:}
+\DoxyCodeLine{37         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a812c4b551be79e31f634eb6b41ae2315}{\string~Camera}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{44         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a507ca14a9c56993a11f381de2367d2bb}{recomputeOrientation}}() = 0;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{48         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_aabd8040c8f3ab9dae28ed396c632b94a}{moveForward}}(GLfloat movementFactor) = 0;}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{52         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a2d44bf0b6b8f73cba73c510988519676}{moveBackward}}(GLfloat movementFactor) = 0;}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{63         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_aefb6d39b085ffa3ab185048c91bab056}{rotate}}(GLfloat dTheta, GLfloat dPhi);}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{66         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a7ed16fb3b9a25234dc21a996f885d92e}{computeViewMatrix}}() \{ \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_abb34f303ec780ec6642a434f548543a5}{\_viewMatrix}} = glm::lookAt( \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_ad3690871d746b8301b59f90a0ee6322d}{\_position}}, \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a0e3f21f35c4b81f6bb6dc914b030c16c}{\_lookAtPoint}}, \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a628720f41042c2d9e53666b7416f9e04}{\_upVector}} ); \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{69         [[nodiscard]] glm::mat4 \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a358f8072f4b0f984a6764b3609df5717}{getViewMatrix}}() \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_abb34f303ec780ec6642a434f548543a5}{\_viewMatrix}}; \}}
+\DoxyCodeLine{71         [[nodiscard]] glm::vec3 \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a3b6c129340babd754222090e434f487e}{getPosition}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_ad3690871d746b8301b59f90a0ee6322d}{\_position}}; \}}
+\DoxyCodeLine{73         [[nodiscard]] glm::vec3 \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_ab52326e0cbe97b5e68b7da2cea7ec512}{getLookAtPoint}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a0e3f21f35c4b81f6bb6dc914b030c16c}{\_lookAtPoint}}; \}}
+\DoxyCodeLine{75         [[nodiscard]] glm::vec3 \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a7048a119c897abf05168b49a1534adfd}{getUpVector}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a628720f41042c2d9e53666b7416f9e04}{\_upVector}}; \}}
+\DoxyCodeLine{77         [[nodiscard]] GLfloat \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_ae521b33f2ac9174455842db2f0780949}{getTheta}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a8f728295b7cb3a9ecdf34edaa818e5d4}{\_theta}}; \}}
+\DoxyCodeLine{79         [[nodiscard]] GLfloat \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a3069ac83e9cdc8153d3770d9136bd496}{getPhi}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a027b4470a0ae629a107dbd40dd932166}{\_phi}}; \}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{83         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a81f0069fe27dfeb53a1f293404cc6d25}{setPosition}}( glm::vec3 pos ) \{ \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_ad3690871d746b8301b59f90a0ee6322d}{\_position}} = pos; \}}
+\DoxyCodeLine{86         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a7dd05dba693c36f27d23fee37a9d1a9b}{setLookAtPoint}}( glm::vec3 lookAt ) \{ \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a0e3f21f35c4b81f6bb6dc914b030c16c}{\_lookAtPoint}} = lookAt; \}}
+\DoxyCodeLine{89         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a4338ac7c7fc68f7d1688473bc69f2e66}{setUpVector}}( glm::vec3 up ) \{ \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a628720f41042c2d9e53666b7416f9e04}{\_upVector}} = up; \}}
+\DoxyCodeLine{92         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a12bbf47ca619531c61228b6b461f8ab7}{setTheta}}( GLfloat t ) \{ \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a8f728295b7cb3a9ecdf34edaa818e5d4}{\_theta}} = t; \}}
+\DoxyCodeLine{95         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a32a7a4604599f33e4559ca3b3c1041a8}{setPhi}}( GLfloat p ) \{ \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a027b4470a0ae629a107dbd40dd932166}{\_phi}} = p; \}}
+\DoxyCodeLine{98         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a38ffedfb5b1976dd129ebc8efa5ba33f}{setRadius}}( GLfloat r ) \{ \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_acf581134ac2813d71b828007fd91b21b}{\_radius}} = r; \}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{101         \mbox{\hyperlink{class_c_s_c_i441_1_1_camera}{Camera}}();}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{104         glm::mat4 \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_abb34f303ec780ec6642a434f548543a5}{\_viewMatrix}};}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{107         glm::vec3 \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_ad3690871d746b8301b59f90a0ee6322d}{\_position}};}
+\DoxyCodeLine{109         glm::vec3 \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a573b77c852aa122446adbc957e489515}{\_direction}};}
+\DoxyCodeLine{111         glm::vec3 \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a0e3f21f35c4b81f6bb6dc914b030c16c}{\_lookAtPoint}};}
+\DoxyCodeLine{113         glm::vec3 \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a628720f41042c2d9e53666b7416f9e04}{\_upVector}};}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{116         GLfloat \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a8f728295b7cb3a9ecdf34edaa818e5d4}{\_theta}};}
+\DoxyCodeLine{118         GLfloat \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a027b4470a0ae629a107dbd40dd932166}{\_phi}};}
+\DoxyCodeLine{120         GLfloat \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_acf581134ac2813d71b828007fd91b21b}{\_radius}};}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122     \textcolor{keyword}{private}:}
+\DoxyCodeLine{124         \textcolor{keywordtype}{void} \_clampPhi();}
+\DoxyCodeLine{125     \};}
+\DoxyCodeLine{126 \}}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{128 \textcolor{keyword}{inline} CSCI441::Camera::Camera() :}
+\DoxyCodeLine{129     \_viewMatrix( glm::mat4(1.0f) ),}
+\DoxyCodeLine{130     \_position( glm::vec3(0.0f, 0.0f, 0.0f ) ),}
+\DoxyCodeLine{131     \_direction( glm::vec3( 0.0f, 0.0f, -\/1.0f ) ),}
+\DoxyCodeLine{132     \_lookAtPoint( glm::vec3( 0.0f, 0.0f, -\/1.0f ) ),}
+\DoxyCodeLine{133     \_upVector( glm::vec3( 0.0f, 1.0f, 0.0f ) ),}
+\DoxyCodeLine{134     \_theta( 0.0f ),}
+\DoxyCodeLine{135     \_phi( M\_PI / 2.0f ),}
+\DoxyCodeLine{136     \_radius( 1.0f ) \{}
+\DoxyCodeLine{137 \}}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_aefb6d39b085ffa3ab185048c91bab056}{CSCI441::Camera::rotate}}(GLfloat dTheta, GLfloat dPhi) \{}
+\DoxyCodeLine{140     \_theta += dTheta;           \textcolor{comment}{// update theta}}
+\DoxyCodeLine{141     \_phi += dPhi;               \textcolor{comment}{// update phi}}
+\DoxyCodeLine{142     \_clampPhi();                \textcolor{comment}{// bounds check phi}}
+\DoxyCodeLine{143     recomputeOrientation();     \textcolor{comment}{// convert to cartesian}}
+\DoxyCodeLine{144 \}}
+\DoxyCodeLine{145 }
+\DoxyCodeLine{146 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441::Camera::\_clampPhi() \{}
+\DoxyCodeLine{147     \textcolor{keywordflow}{if}(\_phi <= 0.0f)    \_phi = 0.0f+0.001f;}
+\DoxyCodeLine{148     \textcolor{keywordflow}{if}(\_phi >= M\_PI)    \_phi = M\_PI-\/0.001f;}
+\DoxyCodeLine{149 \}}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{151 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CSCI441\_CAMERA\_HPP}}
+
+\end{DoxyCode}

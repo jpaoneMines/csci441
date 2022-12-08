@@ -1,0 +1,263 @@
+\hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l}{}\doxysection{CSCI441\+\_\+\+INTERNAL Namespace Reference}
+\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l}\index{CSCI441\_INTERNAL@{CSCI441\_INTERNAL}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data}{Cylinder\+Data}}
+\begin{DoxyCompactList}\small\item\em stores data necessary to specify a unique cylinder \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_disk_data}{Disk\+Data}}
+\item 
+struct \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_model_material}{Model\+Material}}
+\item 
+struct \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_sphere_data}{Sphere\+Data}}
+\item 
+struct \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_teapot___vertex}{Teapot\+\_\+\+Vertex}}
+\item 
+struct \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_torus_data}{Torus\+Data}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a672dbea2fba4cdc326465a37380b3995}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a672dbea2fba4cdc326465a37380b3995}} 
+enum {\bfseries MODEL\+\_\+\+TYPE} \{ {\bfseries OBJ}
+, {\bfseries OFF}
+, {\bfseries PLY}
+, {\bfseries STL}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a186dfe83bc2b5062e4cb30fcc2ba498f}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a186dfe83bc2b5062e4cb30fcc2ba498f}} 
+unsigned char $\ast$ {\bfseries create\+Transparent\+Texture} (unsigned char $\ast$image\+Data, unsigned char $\ast$image\+Mask, int tex\+Width, int tex\+Height, int tex\+Channels, int mask\+Channels)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a2998e31d84c168fac44e986e49e3533c}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a2998e31d84c168fac44e986e49e3533c}} 
+void {\bfseries flip\+ImageY} (int tex\+Width, int tex\+Height, int texture\+Channels, unsigned char $\ast$texture\+Data)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a6181e4158de465d1e96ec608d0c59cf9}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a6181e4158de465d1e96ec608d0c59cf9}} 
+void {\bfseries delete\+Object\+VAOs} ()
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aedfbe5181413d4ffb7ca4b2aaabd8674}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aedfbe5181413d4ffb7ca4b2aaabd8674}} 
+void {\bfseries delete\+Object\+VBOs} ()
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a666e06e50cb469735ddae8df4ca71f51}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a666e06e50cb469735ddae8df4ca71f51}} 
+void {\bfseries draw\+Cube} (GLfloat side\+Length, GLenum render\+Mode)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ad839e0cb9e93df5ce5a3e2048ebcc032}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ad839e0cb9e93df5ce5a3e2048ebcc032}} 
+void {\bfseries draw\+Cube\+Indexed} (GLfloat side\+Length, GLenum render\+Mode)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a5db714f478d7108cc08f6d3e780c3393}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a5db714f478d7108cc08f6d3e780c3393}} 
+void {\bfseries draw\+Cube\+Flat} (GLfloat side\+Length, GLenum render\+Mode)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a30430e321049a917e5d07a3369bd35b8}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a30430e321049a917e5d07a3369bd35b8}} 
+void {\bfseries draw\+Cylinder} (GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices, GLenum render\+Mode)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a30d2cecc5fc167b3e85388380b10f062}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a30d2cecc5fc167b3e85388380b10f062}} 
+void {\bfseries draw\+Partial\+Disk} (GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep, GLenum render\+Mode)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a26d0d5697b62378a0875c79ed98316ac}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a26d0d5697b62378a0875c79ed98316ac}} 
+void {\bfseries draw\+Sphere} (GLfloat radius, GLint stacks, GLint slices, GLenum render\+Mode)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a0c6658c19e8d434a20009eed691fc17a}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a0c6658c19e8d434a20009eed691fc17a}} 
+void {\bfseries draw\+Torus} (GLfloat inner\+Radius, GLfloat outer\+Radius, GLint sides, GLint rings, GLenum render\+Mode)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a047b4b3ca2d9527140c677343dcf88de}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a047b4b3ca2d9527140c677343dcf88de}} 
+void {\bfseries draw\+Teapot} (GLenum render\+Mode)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ae5d0a73cba5806b5e4aa9ab19b07d620}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ae5d0a73cba5806b5e4aa9ab19b07d620}} 
+void {\bfseries generate\+Cube\+VAOFlat} (GLfloat side\+Length)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aeba8ec1ea3cbd14209cdface21eeca2e}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aeba8ec1ea3cbd14209cdface21eeca2e}} 
+void {\bfseries generate\+Cube\+VAOIndexed} (GLfloat side\+Length)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a58a50c7b37ae3396410e16a13f1a4909}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a58a50c7b37ae3396410e16a13f1a4909}} 
+void {\bfseries generate\+Cylinder\+VAO} (\mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data}{Cylinder\+Data}} cyl\+Data)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a0f7863e2879496b975eda6a5b9b63f03}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a0f7863e2879496b975eda6a5b9b63f03}} 
+void {\bfseries generate\+Disk\+VAO} (\mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_disk_data}{Disk\+Data}} disk\+Data)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a1bb8cb88729d74f2eced216860cf6feb}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a1bb8cb88729d74f2eced216860cf6feb}} 
+void {\bfseries generate\+Sphere\+VAO} (\mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_sphere_data}{Sphere\+Data}} sphere\+Data)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a4f89b369f60fe745015e8aa028e6cdad}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a4f89b369f60fe745015e8aa028e6cdad}} 
+void {\bfseries generate\+Torus\+VAO} (\mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_torus_data}{Torus\+Data}} torus\+Data)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a286138e90ff2be84bc7f8be40d10e919}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a286138e90ff2be84bc7f8be40d10e919}} 
+void {\bfseries print\+Open\+GLParam\+Header} (int MAJOR, int MINOR)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_afe1905ea1fc1646e10c3f2b06c4fe3bd}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_afe1905ea1fc1646e10c3f2b06c4fe3bd}} 
+void {\bfseries print\+Open\+GLParam\+Indexed} (const char $\ast$FORMAT, GLenum name, GLuint index)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a771bf65151790bf08f689aed31e9b048}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a771bf65151790bf08f689aed31e9b048}} 
+void {\bfseries print\+Open\+GLParam} (const char $\ast$FORMAT, GLenum name)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a381663acd8ae689f910918ac8c1a1067}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a381663acd8ae689f910918ac8c1a1067}} 
+void {\bfseries print\+Open\+GLParam2} (const char $\ast$FORMAT, GLenum name)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a51ddf1acd7e3da8373ff1cac5526b1db}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a51ddf1acd7e3da8373ff1cac5526b1db}} 
+void {\bfseries print\+Open\+GLParam3} (const char $\ast$FORMAT, GLenum name)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a3b72168af9edb4cbdc75e40a79486a4c}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a3b72168af9edb4cbdc75e40a79486a4c}} 
+void {\bfseries print\+Open\+GLParam4} (const char $\ast$FORMAT, GLenum name)
+\item 
+void \mbox{\hyperlink{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a977832e1ac289852f27ad3d49aa35948}{teapot}} (GLfloat size, GLint position\+Location, GLint normal\+Location=-\/1, GLint tex\+Coord\+Location=-\/1)
+\item 
+void \mbox{\hyperlink{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ae31cb715469970ff096d1b640e3cfd4e}{set\+Teapot\+Attribute\+Locations}} (GLint position\+Location, GLint normal\+Location=-\/1, GLint tex\+Coord\+Location=-\/1)
+\item 
+void \mbox{\hyperlink{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a8ef819c6452f775a349b2e37ca0e3bc5}{teapot}} ()
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aad70775e8c0a48072102bf4b892d1d35}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aad70775e8c0a48072102bf4b892d1d35}} 
+void {\bfseries teapot\+\_\+build\+\_\+control\+\_\+points\+\_\+k} (int p, \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_teapot___vertex}{Teapot\+\_\+\+Vertex}} $\ast$$\ast$control\+\_\+points\+\_\+k)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aabc17fcb437134c91ba86574dc72cf5f}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aabc17fcb437134c91ba86574dc72cf5f}} 
+\mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_teapot___vertex}{Teapot\+\_\+\+Vertex}} {\bfseries teapot\+\_\+compute\+\_\+position} (\mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_teapot___vertex}{Teapot\+\_\+\+Vertex}} $\ast$$\ast$control\+\_\+points\+\_\+k, float u, float v)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_abd59070d8b926c7d777acd7ba281ff41}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_abd59070d8b926c7d777acd7ba281ff41}} 
+\mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_teapot___vertex}{Teapot\+\_\+\+Vertex}} {\bfseries teapot\+\_\+compute\+\_\+normal} (\mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_teapot___vertex}{Teapot\+\_\+\+Vertex}} $\ast$$\ast$control\+\_\+points\+\_\+k, float u, float v)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a486fe10ce83b9f9ca95377f04734c2b0}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a486fe10ce83b9f9ca95377f04734c2b0}} 
+\mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_teapot___vertex}{Teapot\+\_\+\+Vertex}} {\bfseries teapot\+\_\+compute\+\_\+texture} (\mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_teapot___vertex}{Teapot\+\_\+\+Vertex}} position)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aef4c527b471850472ccc1689c7149831}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aef4c527b471850472ccc1689c7149831}} 
+float {\bfseries teapot\+\_\+bernstein\+\_\+polynomial} (int i, int n, float u)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a878ee452f3d212723e2c1396f7241f3b}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a878ee452f3d212723e2c1396f7241f3b}} 
+float {\bfseries teapot\+\_\+binomial\+\_\+coefficient} (int i, int n)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a328850bdc369935a8c58c48c791810d6}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a328850bdc369935a8c58c48c791810d6}} 
+int {\bfseries teapot\+\_\+factorial} (int n)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_af80a43a04059e433b6b8b365aec97738}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_af80a43a04059e433b6b8b365aec97738}} 
+void {\bfseries teapot\+\_\+build\+\_\+teapot} ()
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_afb1312993d218e417b8d06a9f87a612d}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_afb1312993d218e417b8d06a9f87a612d}} 
+int {\bfseries teapot\+\_\+init\+\_\+resources} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a5440e8ddb04c5fb997a2f155a81f78dd}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a5440e8ddb04c5fb997a2f155a81f78dd}} 
+GLint {\bfseries \+\_\+position\+Attribute\+Location} = -\/1
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_acf7ae577d823e1235c58b25e57dfab0e}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_acf7ae577d823e1235c58b25e57dfab0e}} 
+GLint {\bfseries \+\_\+normal\+Attribute\+Location} = -\/1
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a9b1d5971aa88a99ae15afa66b69a4a15}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a9b1d5971aa88a99ae15afa66b69a4a15}} 
+GLint {\bfseries \+\_\+tex\+Coord\+Attribute\+Location} = -\/1
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a1e84869373f9fb8d7b090a8a972142ed}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a1e84869373f9fb8d7b090a8a972142ed}} 
+std\+::map$<$ GLfloat, GLuint $>$ {\bfseries \+\_\+cube\+VAO}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ae12fb509c2dcd4232715c92fa9417277}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ae12fb509c2dcd4232715c92fa9417277}} 
+std\+::map$<$ GLfloat, GLuint $>$ {\bfseries \+\_\+cube\+VBO}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aefbd2b40ca4313de6b7f4f2b78e19e78}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aefbd2b40ca4313de6b7f4f2b78e19e78}} 
+std\+::map$<$ GLfloat, GLuint $>$ {\bfseries \+\_\+cube\+VAOIndexed}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a7b1f3f258273cdb98085266b493ae1a8}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a7b1f3f258273cdb98085266b493ae1a8}} 
+std\+::map$<$ GLfloat, GLuint $>$ {\bfseries \+\_\+cube\+VBOIndexed}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a3791cdb50775d8752effff26dc4d7002}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a3791cdb50775d8752effff26dc4d7002}} 
+std\+::map$<$ \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data}{Cylinder\+Data}}, GLuint $>$ {\bfseries \+\_\+cylinder\+VAO}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ade6cd0ed7b24ad94f10edeee2938e34d}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ade6cd0ed7b24ad94f10edeee2938e34d}} 
+std\+::map$<$ \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data}{Cylinder\+Data}}, GLuint $>$ {\bfseries \+\_\+cylinder\+VBO}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a5c26b9561300828dabe524fb635d79ad}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a5c26b9561300828dabe524fb635d79ad}} 
+std\+::map$<$ \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_disk_data}{Disk\+Data}}, GLuint $>$ {\bfseries \+\_\+disk\+VAO}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_abe8dc1469730fd772dd2e409b7d18a9d}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_abe8dc1469730fd772dd2e409b7d18a9d}} 
+std\+::map$<$ \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_disk_data}{Disk\+Data}}, GLuint $>$ {\bfseries \+\_\+disk\+VBO}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aa758ce9261344ce1ff5926a435a01004}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aa758ce9261344ce1ff5926a435a01004}} 
+std\+::map$<$ \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_sphere_data}{Sphere\+Data}}, GLuint $>$ {\bfseries \+\_\+sphere\+VAO}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a8a67f5a194292a318363a4ddaf2c4ca1}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a8a67f5a194292a318363a4ddaf2c4ca1}} 
+std\+::map$<$ \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_sphere_data}{Sphere\+Data}}, GLuint $>$ {\bfseries \+\_\+sphere\+VBO}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a774f922d6f13883369763e94ceef94cf}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a774f922d6f13883369763e94ceef94cf}} 
+std\+::map$<$ \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_torus_data}{Torus\+Data}}, GLuint $>$ {\bfseries \+\_\+torus\+VAO}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_af4a27be460d396b63949dae1f408ed52}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_af4a27be460d396b63949dae1f408ed52}} 
+std\+::map$<$ \mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_torus_data}{Torus\+Data}}, GLuint $>$ {\bfseries \+\_\+torus\+VBO}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a8036163528275597c6074386f7f2bf1b}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a8036163528275597c6074386f7f2bf1b}} 
+GLuint {\bfseries teapot\+\_\+vao}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a44403563f3f2af76dd346ebe30168476}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a44403563f3f2af76dd346ebe30168476}} 
+GLuint {\bfseries teapot\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aa1d732ab76de0dc0884b74be764057e0}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_aa1d732ab76de0dc0884b74be764057e0}} 
+GLuint {\bfseries teapot\+\_\+ibo}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a96dad4e16fd7fcb2403424e31cc57888}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a96dad4e16fd7fcb2403424e31cc57888}} 
+\mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_teapot___vertex}{Teapot\+\_\+\+Vertex}} {\bfseries teapot\+\_\+cp\+\_\+vertices} \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a9160e2a45926d9d54f93a164020ce6c9}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a9160e2a45926d9d54f93a164020ce6c9}} 
+GLushort {\bfseries teapot\+\_\+patches} \mbox{[}TEAPOT\+\_\+\+NUMBER\+\_\+\+PATCHES\mbox{]}\mbox{[}TEAPOT\+\_\+\+PATCH\+\_\+\+DIMENSION+1\mbox{]}\mbox{[}TEAPOT\+\_\+\+PATCH\+\_\+\+DIMENSION+1\mbox{]}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_afc2af43db4a3c0faad74edab20a0dc33}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_afc2af43db4a3c0faad74edab20a0dc33}} 
+\mbox{\hyperlink{struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_teapot___vertex}{Teapot\+\_\+\+Vertex}} {\bfseries teapot\+\_\+vertices} \mbox{[}TEAPOT\+\_\+\+NUMBER\+\_\+\+PATCHES $\ast$TEAPOT\+\_\+\+RES\+\_\+U $\ast$TEAPOT\+\_\+\+RES\+\_\+V $\ast$3\mbox{]}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a90378118e32d9c28687ae80265f08d14}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a90378118e32d9c28687ae80265f08d14}} 
+GLushort {\bfseries teapot\+\_\+elements} \mbox{[}TEAPOT\+\_\+\+NUMBER\+\_\+\+PATCHES $\ast$(TEAPOT\+\_\+\+RES\+\_\+U -\/ 1) $\ast$(TEAPOT\+\_\+\+RES\+\_\+V -\/ 1) $\ast$2 $\ast$3\mbox{]}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ad85944f79259f6398f821fe8bffcb7d2}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ad85944f79259f6398f821fe8bffcb7d2}} 
+bool {\bfseries teapot\+\_\+built} = false
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a6cde857b0690c21abcec522bac4d25fc}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a6cde857b0690c21abcec522bac4d25fc}} 
+GLint {\bfseries teapot\+\_\+pos\+\_\+attr\+\_\+loc} = -\/1
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a9a9eef3c421a45501163bea7c8ce8913}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a9a9eef3c421a45501163bea7c8ce8913}} 
+GLint {\bfseries teapot\+\_\+norm\+\_\+attr\+\_\+loc} = -\/1
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ac49b097a4c064fe47eed7dd92b0cb3e7}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ac49b097a4c064fe47eed7dd92b0cb3e7}} 
+GLint {\bfseries teapot\+\_\+tex\+\_\+attr\+\_\+loc} = -\/1
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\textbackslash{}desc Contains implementations used internally within other library functions/classes. Not intended to be exposed and used directly (though may be if need arises) 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ae31cb715469970ff096d1b640e3cfd4e}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ae31cb715469970ff096d1b640e3cfd4e}} 
+\index{CSCI441\_INTERNAL@{CSCI441\_INTERNAL}!setTeapotAttributeLocations@{setTeapotAttributeLocations}}
+\index{setTeapotAttributeLocations@{setTeapotAttributeLocations}!CSCI441\_INTERNAL@{CSCI441\_INTERNAL}}
+\doxysubsubsection{\texorpdfstring{setTeapotAttributeLocations()}{setTeapotAttributeLocations()}}
+{\footnotesize\ttfamily void CSCI441\+\_\+\+INTERNAL\+::set\+Teapot\+Attribute\+Locations (\begin{DoxyParamCaption}\item[{GLint}]{position\+Location,  }\item[{GLint}]{normal\+Location = {\ttfamily -\/1},  }\item[{GLint}]{tex\+Coord\+Location = {\ttfamily -\/1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\textbackslash{}desc Enables VBO attribute array locations 
+\begin{DoxyParams}{Parameters}
+{\em GLint} & vertex position attribute location within shader program \\
+\hline
+{\em GLint} & vertex normal attribute location within shader program (defaults to -\/1 and unused) \\
+\hline
+{\em GLint} & vertex texture coordinate attribute location within shader program (defaults to -\/1 and unused) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a8ef819c6452f775a349b2e37ca0e3bc5}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a8ef819c6452f775a349b2e37ca0e3bc5}} 
+\index{CSCI441\_INTERNAL@{CSCI441\_INTERNAL}!teapot@{teapot}}
+\index{teapot@{teapot}!CSCI441\_INTERNAL@{CSCI441\_INTERNAL}}
+\doxysubsubsection{\texorpdfstring{teapot()}{teapot()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void CSCI441\+\_\+\+INTERNAL\+::teapot (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\textbackslash{}desc Draws the Utah teapot as a static collection of Bezier surfaces with position, normal, and texture vertex data \begin{DoxyWarning}{Warning}
+\mbox{\hyperlink{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_ae31cb715469970ff096d1b640e3cfd4e}{set\+Teapot\+Attribute\+Locations()}} must be called first 
+\end{DoxyWarning}
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a977832e1ac289852f27ad3d49aa35948}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a977832e1ac289852f27ad3d49aa35948}} 
+\index{CSCI441\_INTERNAL@{CSCI441\_INTERNAL}!teapot@{teapot}}
+\index{teapot@{teapot}!CSCI441\_INTERNAL@{CSCI441\_INTERNAL}}
+\doxysubsubsection{\texorpdfstring{teapot()}{teapot()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void CSCI441\+\_\+\+INTERNAL\+::teapot (\begin{DoxyParamCaption}\item[{GLfloat}]{size,  }\item[{GLint}]{position\+Location,  }\item[{GLint}]{normal\+Location = {\ttfamily -\/1},  }\item[{GLint}]{tex\+Coord\+Location = {\ttfamily -\/1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\textbackslash{}desc Draws the Utah teapot as a static collection of Bezier surfaces with position, normal, and texture vertex data 
+\begin{DoxyParams}{Parameters}
+{\em GLfloat} & unused (kept for legacy consistency) \\
+\hline
+{\em GLint} & vertex position attribute location within shader program \\
+\hline
+{\em GLint} & vertex normal attribute location within shader program (defaults to -\/1 and unused) \\
+\hline
+{\em GLint} & vertex texture coordinate attribute location within shader program (defaults to -\/1 and unused) \\
+\hline
+\end{DoxyParams}

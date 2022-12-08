@@ -1,0 +1,109 @@
+\hypertarget{_compute_shader_program_8hpp_source}{}\doxysection{Compute\+Shader\+Program.\+hpp}
+\mbox{\hyperlink{_compute_shader_program_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifndef CSCI441\_COMPUTESHADERPROGRAM\_HPP}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define CSCI441\_COMPUTESHADERPROGRAM\_HPP}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_shader_program_8hpp}{ShaderProgram.hpp}}"{}}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{18 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}} \{}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{26     \textcolor{keyword}{class }\mbox{\hyperlink{class_c_s_c_i441_1_1_compute_shader_program}{ComputeShaderProgram}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program}{ShaderProgram}} \{}
+\DoxyCodeLine{27     \textcolor{keyword}{public}:}
+\DoxyCodeLine{30         \textcolor{keyword}{explicit} \mbox{\hyperlink{class_c_s_c_i441_1_1_compute_shader_program}{ComputeShaderProgram}}( \textcolor{keyword}{const} \textcolor{keywordtype}{char} *computeShaderFilename );}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{36         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_compute_shader_program_a9343b72b40396f369da312af5de30ba3}{dispatchWork}}(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ);}
+\DoxyCodeLine{37     \textcolor{keyword}{private}:}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39         GLuint \_computeShaderHandle;}
+\DoxyCodeLine{40     \};}
+\DoxyCodeLine{41 \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{keyword}{inline} \mbox{\hyperlink{class_c_s_c_i441_1_1_compute_shader_program_a549bc6c5ca95c6817917ab1286503303}{CSCI441::ComputeShaderProgram::ComputeShaderProgram}}( \textcolor{keyword}{const} \textcolor{keywordtype}{char} *computeShaderFilename ) \{}
+\DoxyCodeLine{46     GLint major, minor;}
+\DoxyCodeLine{47     glGetIntegerv(GL\_MAJOR\_VERSION, \&major);}
+\DoxyCodeLine{48     glGetIntegerv(GL\_MINOR\_VERSION, \&minor);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     \textcolor{keywordflow}{if}(major < 4 || (major == 4 \&\& minor < 3)) \{}
+\DoxyCodeLine{51         fprintf(stderr, \textcolor{stringliteral}{"{}[ERROR]: Compute Shaders only supported in OpenGL 4.3+\(\backslash\)n"{}});}
+\DoxyCodeLine{52         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55     \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}\(\backslash\)n[INFO]: /-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)\(\backslash\)\(\backslash\)n"{}});}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57     \textcolor{comment}{// compile each one of our shaders}}
+\DoxyCodeLine{58     \textcolor{keywordflow}{if}( strcmp( computeShaderFilename, \textcolor{stringliteral}{"{}"{}} ) != 0 ) \{}
+\DoxyCodeLine{59         \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: | Compute Shader: \%38s |\(\backslash\)n"{}}, computeShaderFilename );}
+\DoxyCodeLine{60         \_computeShaderHandle = CSCI441\_INTERNAL::ShaderUtils::compileShader( computeShaderFilename, GL\_COMPUTE\_SHADER );}
+\DoxyCodeLine{61     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{62         \_computeShaderHandle = 0;}
+\DoxyCodeLine{63     \}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     \textcolor{comment}{// get a handle to a shader program}}
+\DoxyCodeLine{66     \_shaderProgramHandle = glCreateProgram();}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68     \textcolor{comment}{// attach the computer fragment shader to the shader program}}
+\DoxyCodeLine{69     \textcolor{keywordflow}{if}( \_computeShaderHandle != 0 ) \{}
+\DoxyCodeLine{70         glAttachShader( \_shaderProgramHandle, \_computeShaderHandle );}
+\DoxyCodeLine{71     \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     \textcolor{comment}{// link all the programs together on the GPU}}
+\DoxyCodeLine{74     glLinkProgram( \_shaderProgramHandle );}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76     \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: | Shader Program: \%41s"{}}, \textcolor{stringliteral}{"{}|\(\backslash\)n"{}} );}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78     \textcolor{comment}{// check the program log}}
+\DoxyCodeLine{79     CSCI441\_INTERNAL::ShaderUtils::printProgramLog( \_shaderProgramHandle );}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{comment}{// detach \& delete the vertex and fragment shaders to the shader program}}
+\DoxyCodeLine{82     \textcolor{keywordflow}{if}( \_computeShaderHandle != 0 ) \{}
+\DoxyCodeLine{83         glDetachShader( \_shaderProgramHandle, \_computeShaderHandle );}
+\DoxyCodeLine{84         glDeleteShader( \_computeShaderHandle );}
+\DoxyCodeLine{85     \}}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     \textcolor{comment}{// map uniforms}}
+\DoxyCodeLine{88     \_uniformLocations = \textcolor{keyword}{new} std::map<std::string, GLint>();}
+\DoxyCodeLine{89     GLint numUniforms;}
+\DoxyCodeLine{90     glGetProgramiv( \_shaderProgramHandle, GL\_ACTIVE\_UNIFORMS, \&numUniforms);}
+\DoxyCodeLine{91     \textcolor{keywordflow}{if}( numUniforms > 0 ) \{}
+\DoxyCodeLine{92         \textcolor{keywordflow}{for}(GLuint i = 0; i < numUniforms; i++) \{}
+\DoxyCodeLine{93             \textcolor{keywordtype}{char} name[64];}
+\DoxyCodeLine{94             \textcolor{keywordtype}{int} max\_length = 64;}
+\DoxyCodeLine{95             \textcolor{keywordtype}{int} actual\_length = 0;}
+\DoxyCodeLine{96             \textcolor{keywordtype}{int} size = 0;}
+\DoxyCodeLine{97             GLenum type;}
+\DoxyCodeLine{98             glGetActiveUniform( \_shaderProgramHandle, i, max\_length, \&actual\_length, \&size, \&type, name );}
+\DoxyCodeLine{99             GLint location = -\/1;}
+\DoxyCodeLine{100             \textcolor{keywordflow}{if}(size > 1) \{}
+\DoxyCodeLine{101                 \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0; j < size; j++) \{}
+\DoxyCodeLine{102                     \textcolor{keywordtype}{char} long\_name[64];}
+\DoxyCodeLine{103                     sprintf(long\_name, \textcolor{stringliteral}{"{}\%s[\%i]"{}}, name, j);}
+\DoxyCodeLine{104                     location = glGetUniformLocation(\_shaderProgramHandle, long\_name);}
+\DoxyCodeLine{105                 \}}
+\DoxyCodeLine{106             \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{107                 location = glGetUniformLocation(\_shaderProgramHandle, name);}
+\DoxyCodeLine{108             \}}
+\DoxyCodeLine{109             \_uniformLocations-\/>emplace( name, location );}
+\DoxyCodeLine{110         \}}
+\DoxyCodeLine{111     \}}
+\DoxyCodeLine{112     GLint linkStatus;}
+\DoxyCodeLine{113     glGetProgramiv( \_shaderProgramHandle, GL\_LINK\_STATUS, \&linkStatus );}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115     \textcolor{comment}{/* print shader info for uniforms \& attributes */}}
+\DoxyCodeLine{116     \textcolor{keywordflow}{if}(linkStatus == 1) \{}
+\DoxyCodeLine{117         \textcolor{comment}{// print shader info for uniforms \& attributes}}
+\DoxyCodeLine{118         CSCI441\_INTERNAL::ShaderUtils::printShaderProgramInfo(\_shaderProgramHandle, \textcolor{keyword}{false}, \textcolor{keyword}{false}, \textcolor{keyword}{false}, \textcolor{keyword}{false}, \textcolor{keyword}{false},}
+\DoxyCodeLine{119                                                               \_computeShaderHandle != 0, \textcolor{keyword}{true});}
+\DoxyCodeLine{120     \}}
+\DoxyCodeLine{121 \}}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_compute_shader_program_a9343b72b40396f369da312af5de30ba3}{CSCI441::ComputeShaderProgram::dispatchWork}}(GLuint numGroupsX = 1, GLuint numGroupsY = 1, GLuint numGroupsZ = 1) \{}
+\DoxyCodeLine{124     glDispatchCompute(numGroupsX, numGroupsY, numGroupsZ);}
+\DoxyCodeLine{125 \}}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CSCI441\_COMPUTESHADERPROGRAM\_HPP}}
+
+\end{DoxyCode}

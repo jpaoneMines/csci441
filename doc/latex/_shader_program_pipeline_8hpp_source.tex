@@ -1,0 +1,93 @@
+\hypertarget{_shader_program_pipeline_8hpp_source}{}\doxysection{Shader\+Program\+Pipeline.\+hpp}
+\mbox{\hyperlink{_shader_program_pipeline_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#ifndef \_\_CSCI441\_SHADERPROGRAMPIPELINE\_H\_\_}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#define \_\_CSCI441\_SHADERPROGRAMPIPELINE\_H\_\_}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_shader_program_8hpp}{ShaderProgram.hpp}}"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{19 }
+\DoxyCodeLine{23 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}} \{}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{28     \textcolor{keyword}{class }\mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program_pipeline}{ShaderProgramPipeline}} \{}
+\DoxyCodeLine{29     \textcolor{keyword}{public}:}
+\DoxyCodeLine{34         \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program_pipeline_a6b53ab4ee941e25102ca93b7a2b3f577}{enableDebugMessages}}();}
+\DoxyCodeLine{39         \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program_pipeline_acb236c9887e0e500b97f622aeddef960}{disableDebugMessages}}();}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41         \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program_pipeline}{ShaderProgramPipeline}}();}
+\DoxyCodeLine{42         \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program_pipeline}{\string~ShaderProgramPipeline}}();}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44         \textcolor{keywordtype}{void} useProgramStages( GLbitfield programStages, \textcolor{keyword}{const} \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program}{ShaderProgram}} *shaderProgram );}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46         \textcolor{keywordtype}{void} bindPipeline();}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48         \textcolor{keywordtype}{void} printPipelineInfo();}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     \textcolor{keyword}{private}:}
+\DoxyCodeLine{51         \textcolor{keyword}{static} \textcolor{keywordtype}{bool} sDEBUG;}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53         GLuint \_pipelineHandle;}
+\DoxyCodeLine{54     \};}
+\DoxyCodeLine{55 \}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} CSCI441::ShaderProgramPipeline::sDEBUG = \textcolor{keyword}{true};}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program_pipeline_a6b53ab4ee941e25102ca93b7a2b3f577}{CSCI441::ShaderProgramPipeline::enableDebugMessages}}() \{}
+\DoxyCodeLine{62     sDEBUG = \textcolor{keyword}{true};}
+\DoxyCodeLine{63 \}}
+\DoxyCodeLine{64 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program_pipeline_acb236c9887e0e500b97f622aeddef960}{CSCI441::ShaderProgramPipeline::disableDebugMessages}}() \{}
+\DoxyCodeLine{65     sDEBUG = \textcolor{keyword}{false};}
+\DoxyCodeLine{66 \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{keyword}{inline} CSCI441::ShaderProgramPipeline::ShaderProgramPipeline() \{}
+\DoxyCodeLine{69     glGenProgramPipelines(1,\& \_pipelineHandle);}
+\DoxyCodeLine{70 \}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{keyword}{inline} CSCI441::ShaderProgramPipeline::\string~ShaderProgramPipeline() \{}
+\DoxyCodeLine{73     }
+\DoxyCodeLine{74 \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441::ShaderProgramPipeline::useProgramStages( GLbitfield programStages, \textcolor{keyword}{const} ShaderProgram *shaderProgram ) \{}
+\DoxyCodeLine{77     glUseProgramStages( \_pipelineHandle, programStages, shaderProgram-\/>getShaderProgramHandle() );}
+\DoxyCodeLine{78 \}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441::ShaderProgramPipeline::bindPipeline() \{}
+\DoxyCodeLine{81     glUseProgram(0);    \textcolor{comment}{// unuse any existing program that may have previously been used.  programs override pipelines}}
+\DoxyCodeLine{82     glBindProgramPipeline( \_pipelineHandle );}
+\DoxyCodeLine{83 \}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441::ShaderProgramPipeline::printPipelineInfo() \{}
+\DoxyCodeLine{86     \textcolor{keywordflow}{if}( sDEBUG ) \{}
+\DoxyCodeLine{87         printf( \textcolor{stringliteral}{"{}\(\backslash\)n[INFO]: /-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)\(\backslash\)\(\backslash\)n"{}});}
+\DoxyCodeLine{88         printf( \textcolor{stringliteral}{"{}[INFO]: | Program Pipeline:                                      |\(\backslash\)n"{}});}
+\DoxyCodeLine{89         printf( \textcolor{stringliteral}{"{}[INFO]: |   Pipeline Handle: \%4u \%32c\(\backslash\)n"{}}, \_pipelineHandle, \textcolor{charliteral}{'|'} );}
+\DoxyCodeLine{90                 }
+\DoxyCodeLine{91         CSCI441\_INTERNAL::ShaderUtils::printProgramPipelineLog(\_pipelineHandle);}
+\DoxyCodeLine{92         }
+\DoxyCodeLine{93         printf( \textcolor{stringliteral}{"{}[INFO]: >-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\(\backslash\)n"{}});}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95         GLint vs, tcs, tes, gs, fs;}
+\DoxyCodeLine{96         glGetProgramPipelineiv( \_pipelineHandle, GL\_VERTEX\_SHADER, \&vs );}
+\DoxyCodeLine{97         glGetProgramPipelineiv( \_pipelineHandle, GL\_TESS\_CONTROL\_SHADER, \&tcs );}
+\DoxyCodeLine{98         glGetProgramPipelineiv( \_pipelineHandle, GL\_TESS\_EVALUATION\_SHADER, \&tes );}
+\DoxyCodeLine{99         glGetProgramPipelineiv( \_pipelineHandle, GL\_GEOMETRY\_SHADER, \&gs );}
+\DoxyCodeLine{100         glGetProgramPipelineiv( \_pipelineHandle, GL\_FRAGMENT\_SHADER, \&fs );}
+\DoxyCodeLine{101         }
+\DoxyCodeLine{102         \textcolor{keywordflow}{if}( vs != 0 )  printf( \textcolor{stringliteral}{"{}[INFO]: |   Vertex    Shader Program Handle: \%2d                  |\(\backslash\)n"{}}, vs );}
+\DoxyCodeLine{103         \textcolor{keywordflow}{if}( tcs != 0 ) printf( \textcolor{stringliteral}{"{}[INFO]: |   Tess Ctrl Shader Program Handle: \%2d                  |\(\backslash\)n"{}}, tcs );}
+\DoxyCodeLine{104         \textcolor{keywordflow}{if}( tes != 0 ) printf( \textcolor{stringliteral}{"{}[INFO]: |   Tess Eval Shader Program Handle: \%2d                  |\(\backslash\)n"{}}, tes );}
+\DoxyCodeLine{105         \textcolor{keywordflow}{if}( gs != 0 )  printf( \textcolor{stringliteral}{"{}[INFO]: |   Geometry  Shader Program Handle: \%2d                  |\(\backslash\)n"{}}, gs );}
+\DoxyCodeLine{106         \textcolor{keywordflow}{if}( fs != 0 )  printf( \textcolor{stringliteral}{"{}[INFO]: |   Fragment  Shader Program Handle: \%2d                  |\(\backslash\)n"{}}, fs );}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108         printf( \textcolor{stringliteral}{"{}[INFO]: \(\backslash\)\(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//\(\backslash\)n"{}});}
+\DoxyCodeLine{109         printf( \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{110     \}}
+\DoxyCodeLine{111 \}}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

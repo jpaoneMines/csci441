@@ -1,0 +1,101 @@
+\hypertarget{class_c_s_c_i441_1_1_uniform_buffer_object}{}\doxysection{CSCI441\+::Uniform\+Buffer\+Object Struct Reference}
+\label{class_c_s_c_i441_1_1_uniform_buffer_object}\index{CSCI441::UniformBufferObject@{CSCI441::UniformBufferObject}}
+
+
+{\ttfamily \#include $<$Uniform\+Buffer\+Object.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_s_c_i441_1_1_uniform_buffer_object_a82ecc51521c3031a85312446877486d1}{Uniform\+Buffer\+Object}} (const char $\ast$UNIFORM\+\_\+\+BLOCK\+\_\+\+NAME, std\+::initializer\+\_\+list$<$ const char $\ast$ $>$ uniform\+Names\+List)
+\item 
+\mbox{\hyperlink{class_c_s_c_i441_1_1_uniform_buffer_object_a25509246b1331ac2c1792ee7500e9c01}{$\sim$\+Uniform\+Buffer\+Object}} ()
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_uniform_buffer_object_ae6a0b46eaf1fce65c7c185b27e9876c6}{setup\+With\+Shader\+Program}} (\mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program}{Shader\+Program}} $\ast$shader\+Program, GLuint binding\+Point)
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_uniform_buffer_object_a93bfc9c16fb2d49f35dc360a9009437b}{copy\+To\+Offset}} (unsigned int offset, void $\ast$addr, size\+\_\+t len)
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_uniform_buffer_object_ab640cb7aec972a4b4a0a7d4b88a36ab7}{copy\+To\+Buffer}} (const char $\ast$UNIFORM\+\_\+\+NAME, void $\ast$addr, size\+\_\+t len)
+\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_uniform_buffer_object_ac9361d4374449367022259ca4c696e2c}\label{class_c_s_c_i441_1_1_uniform_buffer_object_ac9361d4374449367022259ca4c696e2c}} 
+void {\bfseries bind\+Buffer} ()
+\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_uniform_buffer_object_a68baea2dffd2e661fecce431abe6363d}\label{class_c_s_c_i441_1_1_uniform_buffer_object_a68baea2dffd2e661fecce431abe6363d}} 
+void {\bfseries buffer\+Sub\+Data} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+@desc Storage of UBO related data 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_uniform_buffer_object_a82ecc51521c3031a85312446877486d1}\label{class_c_s_c_i441_1_1_uniform_buffer_object_a82ecc51521c3031a85312446877486d1}} 
+\index{CSCI441::UniformBufferObject@{CSCI441::UniformBufferObject}!UniformBufferObject@{UniformBufferObject}}
+\index{UniformBufferObject@{UniformBufferObject}!CSCI441::UniformBufferObject@{CSCI441::UniformBufferObject}}
+\doxysubsubsection{\texorpdfstring{UniformBufferObject()}{UniformBufferObject()}}
+{\footnotesize\ttfamily CSCI441\+::\+Uniform\+Buffer\+Object\+::\+Uniform\+Buffer\+Object (\begin{DoxyParamCaption}\item[{const char $\ast$}]{UNIFORM\+\_\+\+BLOCK\+\_\+\+NAME,  }\item[{std\+::initializer\+\_\+list$<$ const char $\ast$ $>$}]{uniform\+Names\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+@desc Initializes the \mbox{\hyperlink{class_c_s_c_i441_1_1_uniform_buffer_object}{Uniform\+Buffer\+Object}} object 
+\begin{DoxyParams}{Parameters}
+{\em UNIFORM\+\_\+\+BLOCK\+\_\+\+NAME} & name of the uniform block \\
+\hline
+{\em uniform\+Names\+List} & list of names that makeup the uniform block components \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_uniform_buffer_object_a25509246b1331ac2c1792ee7500e9c01}\label{class_c_s_c_i441_1_1_uniform_buffer_object_a25509246b1331ac2c1792ee7500e9c01}} 
+\index{CSCI441::UniformBufferObject@{CSCI441::UniformBufferObject}!````~UniformBufferObject@{$\sim$UniformBufferObject}}
+\index{````~UniformBufferObject@{$\sim$UniformBufferObject}!CSCI441::UniformBufferObject@{CSCI441::UniformBufferObject}}
+\doxysubsubsection{\texorpdfstring{$\sim$UniformBufferObject()}{~UniformBufferObject()}}
+{\footnotesize\ttfamily CSCI441\+::\+Uniform\+Buffer\+Object\+::$\sim$\+Uniform\+Buffer\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+@desc Deletes the UBO from the GPU and frees all memory on the CPU 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_uniform_buffer_object_ab640cb7aec972a4b4a0a7d4b88a36ab7}\label{class_c_s_c_i441_1_1_uniform_buffer_object_ab640cb7aec972a4b4a0a7d4b88a36ab7}} 
+\index{CSCI441::UniformBufferObject@{CSCI441::UniformBufferObject}!copyToBuffer@{copyToBuffer}}
+\index{copyToBuffer@{copyToBuffer}!CSCI441::UniformBufferObject@{CSCI441::UniformBufferObject}}
+\doxysubsubsection{\texorpdfstring{copyToBuffer()}{copyToBuffer()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Uniform\+Buffer\+Object\+::copy\+To\+Buffer (\begin{DoxyParamCaption}\item[{const char $\ast$}]{UNIFORM\+\_\+\+NAME,  }\item[{void $\ast$}]{addr,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+@desc copies the value pointed to by addr to the corresponding location within the UBO as denoted by the uniform name 
+\begin{DoxyParams}{Parameters}
+{\em uniform\+Name} & name of the uniform within the block to copy value to \\
+\hline
+{\em addr} & starting address of source to copy from \\
+\hline
+{\em len} & length of buffer to copy \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_uniform_buffer_object_a93bfc9c16fb2d49f35dc360a9009437b}\label{class_c_s_c_i441_1_1_uniform_buffer_object_a93bfc9c16fb2d49f35dc360a9009437b}} 
+\index{CSCI441::UniformBufferObject@{CSCI441::UniformBufferObject}!copyToOffset@{copyToOffset}}
+\index{copyToOffset@{copyToOffset}!CSCI441::UniformBufferObject@{CSCI441::UniformBufferObject}}
+\doxysubsubsection{\texorpdfstring{copyToOffset()}{copyToOffset()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Uniform\+Buffer\+Object\+::copy\+To\+Offset (\begin{DoxyParamCaption}\item[{unsigned int}]{offset,  }\item[{void $\ast$}]{addr,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+@desc copies the value pointed to by addr to the corresponding location within the UBO as denoted by the offset 
+\begin{DoxyParams}{Parameters}
+{\em offset} & UBO offset to copy value to \\
+\hline
+{\em addr} & starting address of source to copy from \\
+\hline
+{\em len} & length of buffer to copy \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_uniform_buffer_object_ae6a0b46eaf1fce65c7c185b27e9876c6}\label{class_c_s_c_i441_1_1_uniform_buffer_object_ae6a0b46eaf1fce65c7c185b27e9876c6}} 
+\index{CSCI441::UniformBufferObject@{CSCI441::UniformBufferObject}!setupWithShaderProgram@{setupWithShaderProgram}}
+\index{setupWithShaderProgram@{setupWithShaderProgram}!CSCI441::UniformBufferObject@{CSCI441::UniformBufferObject}}
+\doxysubsubsection{\texorpdfstring{setupWithShaderProgram()}{setupWithShaderProgram()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Uniform\+Buffer\+Object\+::setup\+With\+Shader\+Program (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program}{Shader\+Program}} $\ast$}]{shader\+Program,  }\item[{GLuint}]{binding\+Point }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+@desc creates the UBO and allocates memory on both the CPU \& GPU. binds the UBO and the uniform block for the provided \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program}{Shader\+Program}} to the same binding point. 
+\begin{DoxyParams}{Parameters}
+{\em shader\+Program} & \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program}{Shader\+Program}} object that utilizes the uniform\+Block \\
+\hline
+{\em binding\+Point} & Binding point to bind the UBO and \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program}{Shader\+Program}} Uniform Block to \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_uniform_buffer_object_8hpp}{Uniform\+Buffer\+Object.\+hpp}}\end{DoxyCompactItemize}

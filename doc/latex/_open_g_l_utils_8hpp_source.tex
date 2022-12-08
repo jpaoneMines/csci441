@@ -1,0 +1,230 @@
+\hypertarget{_open_g_l_utils_8hpp_source}{}\doxysection{Open\+GLUtils.\+hpp}
+\mbox{\hyperlink{_open_g_l_utils_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#ifndef CSCI441\_OPENGL\_UTILS\_H}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#define CSCI441\_OPENGL\_UTILS\_H}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <GL/glew.h>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <glm/glm.hpp>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <cstdio>}      \textcolor{comment}{// for printf()}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <cstdlib>}     \textcolor{comment}{// for atoi()}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{comment}{//**********************************************************************************}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{27 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}} \{}
+\DoxyCodeLine{29     \textcolor{keyword}{static} \textcolor{keyword}{const} glm::vec3 X\_AXIS( 1.0f, 0.0f, 0.0f );}
+\DoxyCodeLine{31     \textcolor{keyword}{static} \textcolor{keyword}{const} glm::vec3 Y\_AXIS( 0.0f, 1.0f, 0.0f );}
+\DoxyCodeLine{33     \textcolor{keyword}{static} \textcolor{keyword}{const} glm::vec3 Z\_AXIS( 0.0f, 0.0f, 1.0f );}
+\DoxyCodeLine{35     \textcolor{keyword}{static} \textcolor{keyword}{const} glm::vec3 X\_AXIS\_POS = X\_AXIS;}
+\DoxyCodeLine{37     \textcolor{keyword}{static} \textcolor{keyword}{const} glm::vec3 Y\_AXIS\_POS = Y\_AXIS;}
+\DoxyCodeLine{39     \textcolor{keyword}{static} \textcolor{keyword}{const} glm::vec3 Z\_AXIS\_POS = Z\_AXIS;}
+\DoxyCodeLine{41     \textcolor{keyword}{static} \textcolor{keyword}{const} glm::vec3 X\_AXIS\_NEG( -\/1.0f,  0.0f,  0.0f );}
+\DoxyCodeLine{43     \textcolor{keyword}{static} \textcolor{keyword}{const} glm::vec3 Y\_AXIS\_NEG(  0.0f, -\/1.0f,  0.0f );}
+\DoxyCodeLine{45     \textcolor{keyword}{static} \textcolor{keyword}{const} glm::vec3 Z\_AXIS\_NEG(  0.0f,  0.0f, -\/1.0f );}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{49     \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_open_g_l_utils}{OpenGLUtils}} \{}
+\DoxyCodeLine{51         \textcolor{keywordtype}{void} \mbox{\hyperlink{_open_g_l_utils_8hpp_a23e011241f0e95738bafa0b0404eb679}{printOpenGLInfo}}();}
+\DoxyCodeLine{52     \};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{comment}{//**********************************************************************************}}
+\DoxyCodeLine{57 \textcolor{comment}{//**********************************************************************************}}
+\DoxyCodeLine{58 \textcolor{comment}{// Internal definitions}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_c_s_c_i441___i_n_t_e_r_n_a_l}{CSCI441\_INTERNAL}} \{}
+\DoxyCodeLine{61   \textcolor{keywordtype}{void} printOpenGLParamHeader(\textcolor{keywordtype}{int} MAJOR, \textcolor{keywordtype}{int} MINOR );}
+\DoxyCodeLine{62   \textcolor{keywordtype}{void} printOpenGLParamIndexed(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *FORMAT, GLenum name, GLuint index );}
+\DoxyCodeLine{63   \textcolor{keywordtype}{void} printOpenGLParam(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *FORMAT, GLenum name );}
+\DoxyCodeLine{64   \textcolor{keywordtype}{void} printOpenGLParam2(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *FORMAT, GLenum name );}
+\DoxyCodeLine{65   \textcolor{keywordtype}{void} printOpenGLParam3(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *FORMAT, GLenum name );}
+\DoxyCodeLine{66   \textcolor{keywordtype}{void} printOpenGLParam4(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *FORMAT, GLenum name );}
+\DoxyCodeLine{67 \}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 \textcolor{comment}{//**********************************************************************************}}
+\DoxyCodeLine{70 \textcolor{comment}{//**********************************************************************************}}
+\DoxyCodeLine{71 \textcolor{comment}{// Outward facing function implementations}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{_open_g_l_utils_8hpp_a23e011241f0e95738bafa0b0404eb679}{CSCI441::OpenGLUtils::printOpenGLInfo}}() \{}
+\DoxyCodeLine{74     GLint major, minor;}
+\DoxyCodeLine{75     glGetIntegerv(GL\_MAJOR\_VERSION, \&major);}
+\DoxyCodeLine{76     glGetIntegerv(GL\_MINOR\_VERSION, \&minor);}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78     fprintf( stdout, \textcolor{stringliteral}{"{}\(\backslash\)n[INFO]: /-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)\(\backslash\)\(\backslash\)n"{}} );}
+\DoxyCodeLine{79     fprintf( stdout, \textcolor{stringliteral}{"{}[INFO]: | OpenGL Information                                     |\(\backslash\)n"{}} );}
+\DoxyCodeLine{80     fprintf( stdout, \textcolor{stringliteral}{"{}[INFO]: |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|\(\backslash\)n"{}} );}
+\DoxyCodeLine{81     fprintf( stdout, \textcolor{stringliteral}{"{}[INFO]: |   OpenGL Version:  \%35s |\(\backslash\)n"{}}, glGetString(GL\_VERSION) );}
+\DoxyCodeLine{82     fprintf( stdout, \textcolor{stringliteral}{"{}[INFO]: |   OpenGL Renderer: \%35s |\(\backslash\)n"{}}, glGetString(GL\_RENDERER) );}
+\DoxyCodeLine{83     fprintf( stdout, \textcolor{stringliteral}{"{}[INFO]: |   OpenGL Vendor:   \%35s |\(\backslash\)n"{}}, glGetString(GL\_VENDOR) );}
+\DoxyCodeLine{84     fprintf( stdout, \textcolor{stringliteral}{"{}[INFO]: |   Shading Version: \%35s |\(\backslash\)n"{}}, glGetString(GL\_SHADING\_LANGUAGE\_VERSION) );}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86     \textcolor{keywordflow}{if}( (major >= 2 \&\& minor >= 0) || major > 2 ) \{}
+\DoxyCodeLine{87         CSCI441\_INTERNAL::printOpenGLParamHeader( 2, 0 );}
+\DoxyCodeLine{88         \textcolor{keywordflow}{if}(major == 2) \{}
+\DoxyCodeLine{89             CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Lights:    \%35d |\(\backslash\)n"{}},                         GL\_MAX\_LIGHTS );}
+\DoxyCodeLine{90         \}}
+\DoxyCodeLine{91         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Color Attachments:  \%26d |\(\backslash\)n"{}},                           GL\_MAX\_COLOR\_ATTACHMENTS );}
+\DoxyCodeLine{92     \}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94     \textcolor{keywordflow}{if}( (major >= 2 \&\& minor >= 1) || major > 2 ) \{}
+\DoxyCodeLine{95         CSCI441\_INTERNAL::printOpenGLParamHeader( 2, 1 );}
+\DoxyCodeLine{96         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Vertex Attributes:  \%26d |\(\backslash\)n"{}},                           GL\_MAX\_VERTEX\_ATTRIBS );}
+\DoxyCodeLine{97         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Vertex Uniforms:  \%28d |\(\backslash\)n"{}},                             GL\_MAX\_VERTEX\_UNIFORM\_COMPONENTS );}
+\DoxyCodeLine{98         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Vertex Textures:  \%28d |\(\backslash\)n"{}},                             GL\_MAX\_VERTEX\_TEXTURE\_IMAGE\_UNITS );}
+\DoxyCodeLine{99         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Vertex Outputs:  \%29d |\(\backslash\)n"{}},                              GL\_MAX\_VERTEX\_OUTPUT\_COMPONENTS );}
+\DoxyCodeLine{100         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Fragment Inputs:  \%28d |\(\backslash\)n"{}},                             GL\_MAX\_FRAGMENT\_INPUT\_COMPONENTS );}
+\DoxyCodeLine{101         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Fragment Uniforms:  \%26d |\(\backslash\)n"{}},                           GL\_MAX\_FRAGMENT\_UNIFORM\_COMPONENTS );}
+\DoxyCodeLine{102         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Fragment Textures:  \%26d |\(\backslash\)n"{}},                           GL\_MAX\_TEXTURE\_IMAGE\_UNITS );}
+\DoxyCodeLine{103         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Draw Buffers:  \%31d |\(\backslash\)n"{}},                                GL\_MAX\_DRAW\_BUFFERS );}
+\DoxyCodeLine{104         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Textures Combined:  \%26d |\(\backslash\)n"{}},                           GL\_MAX\_COMBINED\_TEXTURE\_IMAGE\_UNITS );}
+\DoxyCodeLine{105     \}}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107     \textcolor{keywordflow}{if}( (major >= 3 \&\& minor >= 0) || major > 3 ) \{}
+\DoxyCodeLine{108         CSCI441\_INTERNAL::printOpenGLParamHeader( 3, 0 );}
+\DoxyCodeLine{109         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Transform Feedback Buffers:  \%17d |\(\backslash\)n"{}},                  GL\_MAX\_TRANSFORM\_FEEDBACK\_BUFFERS );}
+\DoxyCodeLine{110         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Transform Separate Attributes:  \%14d |\(\backslash\)n"{}},               GL\_MAX\_TRANSFORM\_FEEDBACK\_SEPARATE\_ATTRIBS );}
+\DoxyCodeLine{111         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Transform Separate Components:  \%14d |\(\backslash\)n"{}},               GL\_MAX\_TRANSFORM\_FEEDBACK\_SEPARATE\_COMPONENTS );}
+\DoxyCodeLine{112         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Transform Interleaved Buffers:  \%14d |\(\backslash\)n"{}},               GL\_MAX\_TRANSFORM\_FEEDBACK\_INTERLEAVED\_COMPONENTS );}
+\DoxyCodeLine{113     \}}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115     \textcolor{keywordflow}{if}( (major >= 3 \&\& minor >= 1) || major > 3 ) \{}
+\DoxyCodeLine{116         CSCI441\_INTERNAL::printOpenGLParamHeader( 3, 1 );}
+\DoxyCodeLine{117         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Fragment Uniform Blocks:  \%20d |\(\backslash\)n"{}},                     GL\_MAX\_FRAGMENT\_UNIFORM\_BLOCKS );}
+\DoxyCodeLine{118         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Vertex Uniform Blocks:  \%22d |\(\backslash\)n"{}},                       GL\_MAX\_VERTEX\_UNIFORM\_BLOCKS );}
+\DoxyCodeLine{119         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max Uniform Blocks Size:  \%20d bytes |\(\backslash\)n"{}},                     GL\_MAX\_UNIFORM\_BLOCK\_SIZE );}
+\DoxyCodeLine{120         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Combined Uniform Blocks:  \%20d |\(\backslash\)n"{}},                     GL\_MAX\_COMBINED\_UNIFORM\_BLOCKS );}
+\DoxyCodeLine{121         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Uniform Bindings:  \%27d |\(\backslash\)n"{}},                            GL\_MAX\_UNIFORM\_BUFFER\_BINDINGS );}
+\DoxyCodeLine{122     \}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124     \textcolor{keywordflow}{if}( (major >= 3 \&\& minor >= 2) || major > 3 ) \{}
+\DoxyCodeLine{125         CSCI441\_INTERNAL::printOpenGLParamHeader( 3, 2 );}
+\DoxyCodeLine{126         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Geometry Uniforms:  \%26d |\(\backslash\)n"{}},                           GL\_MAX\_GEOMETRY\_UNIFORM\_COMPONENTS );}
+\DoxyCodeLine{127         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Geometry Uniform Blocks:  \%20d |\(\backslash\)n"{}},                     GL\_MAX\_GEOMETRY\_UNIFORM\_BLOCKS );}
+\DoxyCodeLine{128         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Geometry Textures:  \%26d |\(\backslash\)n"{}},                           GL\_MAX\_GEOMETRY\_TEXTURE\_IMAGE\_UNITS );}
+\DoxyCodeLine{129         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Geometry Inputs:  \%28d |\(\backslash\)n"{}},                             GL\_MAX\_GEOMETRY\_INPUT\_COMPONENTS );}
+\DoxyCodeLine{130         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Geometry Output Vertices:  \%19d |\(\backslash\)n"{}},                    GL\_MAX\_GEOMETRY\_OUTPUT\_VERTICES );}
+\DoxyCodeLine{131         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Geometry Total Output Components:  \%11d |\(\backslash\)n"{}},            GL\_MAX\_GEOMETRY\_TOTAL\_OUTPUT\_COMPONENTS );}
+\DoxyCodeLine{132         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Geometry Outputs:  \%27d |\(\backslash\)n"{}},                            GL\_MAX\_GEOMETRY\_OUTPUT\_COMPONENTS );}
+\DoxyCodeLine{133     \}}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135     \textcolor{keywordflow}{if}( (major >= 4 \&\& minor >= 0) || major > 4 ) \{}
+\DoxyCodeLine{136         CSCI441\_INTERNAL::printOpenGLParamHeader( 4, 0 );}
+\DoxyCodeLine{137         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Patch Vertices:  \%29d |\(\backslash\)n"{}},                              GL\_MAX\_PATCH\_VERTICES );}
+\DoxyCodeLine{138         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tessellation Level:  \%25d |\(\backslash\)n"{}},                          GL\_MAX\_TESS\_GEN\_LEVEL );}
+\DoxyCodeLine{139         CSCI441\_INTERNAL::printOpenGLParam4(\textcolor{stringliteral}{"{}[INFO]: |   Default Tessellation Outer Levels:  \%7d \%2d \%2d \%2d |\(\backslash\)n"{}},      GL\_PATCH\_DEFAULT\_OUTER\_LEVEL );}
+\DoxyCodeLine{140         CSCI441\_INTERNAL::printOpenGLParam2(\textcolor{stringliteral}{"{}[INFO]: |   Default Tessellation Inner Levels:  \%13d \%2d |\(\backslash\)n"{}},             GL\_PATCH\_DEFAULT\_INNER\_LEVEL );}
+\DoxyCodeLine{141         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Control Inputs:  \%24d |\(\backslash\)n"{}},                         GL\_MAX\_GEOMETRY\_INPUT\_COMPONENTS );}
+\DoxyCodeLine{142         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Control Uniforms:  \%22d |\(\backslash\)n"{}},                       GL\_MAX\_TESS\_CONTROL\_UNIFORM\_COMPONENTS );}
+\DoxyCodeLine{143         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Control Uniform Blocks:  \%16d |\(\backslash\)n"{}},                 GL\_MAX\_TESS\_CONTROL\_UNIFORM\_BLOCKS );}
+\DoxyCodeLine{144         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Control Textures:  \%22d |\(\backslash\)n"{}},                       GL\_MAX\_TESS\_CONTROL\_TEXTURE\_IMAGE\_UNITS );}
+\DoxyCodeLine{145         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Control Outputs:  \%23d |\(\backslash\)n"{}},                        GL\_MAX\_TESS\_CONTROL\_OUTPUT\_COMPONENTS );}
+\DoxyCodeLine{146         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Evaluation Inputs:  \%21d |\(\backslash\)n"{}},                      GL\_MAX\_TESS\_EVALUATION\_INPUT\_COMPONENTS );}
+\DoxyCodeLine{147         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Evaluation Uniforms:  \%19d |\(\backslash\)n"{}},                    GL\_MAX\_TESS\_EVALUATION\_UNIFORM\_COMPONENTS );}
+\DoxyCodeLine{148         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Evaluation Uniform Blocks:  \%13d |\(\backslash\)n"{}},              GL\_MAX\_TESS\_EVALUATION\_UNIFORM\_BLOCKS );}
+\DoxyCodeLine{149         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Evaluation Textures:  \%19d |\(\backslash\)n"{}},                    GL\_MAX\_TESS\_EVALUATION\_TEXTURE\_IMAGE\_UNITS );}
+\DoxyCodeLine{150         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Evaluation Outputs:  \%20d |\(\backslash\)n"{}},                     GL\_MAX\_TESS\_EVALUATION\_OUTPUT\_COMPONENTS );}
+\DoxyCodeLine{151         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Geometry Invocations:  \%23d |\(\backslash\)n"{}},                        GL\_MAX\_GEOMETRY\_SHADER\_INVOCATIONS );}
+\DoxyCodeLine{152         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Vertex Streams:  \%29d |\(\backslash\)n"{}},                              GL\_MAX\_VERTEX\_STREAMS );}
+\DoxyCodeLine{153     \}}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155     \textcolor{keywordflow}{if}( (major >= 4 \&\& minor >= 2) || major > 4 ) \{}
+\DoxyCodeLine{156         CSCI441\_INTERNAL::printOpenGLParamHeader( 4, 2 );}
+\DoxyCodeLine{157         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Vertex Atomic Counters:  \%21d |\(\backslash\)n"{}},                      GL\_MAX\_VERTEX\_ATOMIC\_COUNTERS );}
+\DoxyCodeLine{158         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Control Atomic Counters:  \%15d |\(\backslash\)n"{}},                GL\_MAX\_TESS\_CONTROL\_ATOMIC\_COUNTERS );}
+\DoxyCodeLine{159         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Evaluation Atomic Counters:  \%12d |\(\backslash\)n"{}},             GL\_MAX\_TESS\_EVALUATION\_ATOMIC\_COUNTERS );}
+\DoxyCodeLine{160         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Geometry Atomic Counters:  \%19d |\(\backslash\)n"{}},                    GL\_MAX\_GEOMETRY\_ATOMIC\_COUNTERS );}
+\DoxyCodeLine{161         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Fragment Atomic Counters:  \%19d |\(\backslash\)n"{}},                    GL\_MAX\_FRAGMENT\_ATOMIC\_COUNTERS );}
+\DoxyCodeLine{162         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Combined Atomic Counters:  \%19d |\(\backslash\)n"{}},                    GL\_MAX\_COMBINED\_ATOMIC\_COUNTERS );}
+\DoxyCodeLine{163         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Vertex Atomic Counter Buffers:  \%14d |\(\backslash\)n"{}},               GL\_MAX\_VERTEX\_ATOMIC\_COUNTER\_BUFFERS );}
+\DoxyCodeLine{164         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Control Atomic Counter Buffers:  \%8d |\(\backslash\)n"{}},          GL\_MAX\_TESS\_CONTROL\_ATOMIC\_COUNTER\_BUFFERS );}
+\DoxyCodeLine{165         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Evaluation Atomic Counter Buffers:  \%5d |\(\backslash\)n"{}},       GL\_MAX\_TESS\_EVALUATION\_ATOMIC\_COUNTER\_BUFFERS );}
+\DoxyCodeLine{166         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Geometry Atomic Counter Buffers:  \%12d |\(\backslash\)n"{}},             GL\_MAX\_GEOMETRY\_ATOMIC\_COUNTER\_BUFFERS );}
+\DoxyCodeLine{167         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Fragment Atomic Counter Buffers:  \%12d |\(\backslash\)n"{}},             GL\_MAX\_FRAGMENT\_ATOMIC\_COUNTER\_BUFFERS );}
+\DoxyCodeLine{168         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Combined Atomic Counter Buffers:  \%12d |\(\backslash\)n"{}},             GL\_MAX\_COMBINED\_ATOMIC\_COUNTER\_BUFFERS );}
+\DoxyCodeLine{169         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Atomic Counter Buffer Bindings:  \%13d |\(\backslash\)n"{}},              GL\_MAX\_ATOMIC\_COUNTER\_BUFFER\_BINDINGS );}
+\DoxyCodeLine{170         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Vertex Image Uniforms:  \%22d |\(\backslash\)n"{}},                       GL\_MAX\_VERTEX\_IMAGE\_UNIFORMS );}
+\DoxyCodeLine{171         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Control Image Uniforms:  \%16d |\(\backslash\)n"{}},                 GL\_MAX\_TESS\_CONTROL\_IMAGE\_UNIFORMS );}
+\DoxyCodeLine{172         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Evaluation Image Uniforms:  \%13d |\(\backslash\)n"{}},              GL\_MAX\_TESS\_EVALUATION\_IMAGE\_UNIFORMS );}
+\DoxyCodeLine{173         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Geometry Image Uniforms:  \%20d |\(\backslash\)n"{}},                     GL\_MAX\_GEOMETRY\_IMAGE\_UNIFORMS );}
+\DoxyCodeLine{174         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Fragment Image Uniforms:  \%20d |\(\backslash\)n"{}},                     GL\_MAX\_FRAGMENT\_IMAGE\_UNIFORMS );}
+\DoxyCodeLine{175         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Combined Image Uniforms:  \%20d |\(\backslash\)n"{}},                     GL\_MAX\_IMAGE\_UNITS );}
+\DoxyCodeLine{176         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Shader Storage Buffer Bindings:  \%13d |\(\backslash\)n"{}},              GL\_MAX\_SHADER\_STORAGE\_BUFFER\_BINDINGS );}
+\DoxyCodeLine{177     \}}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{179     \textcolor{keywordflow}{if}( (major >= 4 \&\& minor >= 3) || major > 4 ) \{}
+\DoxyCodeLine{180         CSCI441\_INTERNAL::printOpenGLParamHeader( 4, 3 );}
+\DoxyCodeLine{181         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Compute Uniforms:  \%27d |\(\backslash\)n"{}},                            GL\_MAX\_COMPUTE\_UNIFORM\_COMPONENTS );}
+\DoxyCodeLine{182         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Compute Uniform Blocks:  \%21d |\(\backslash\)n"{}},                      GL\_MAX\_COMPUTE\_UNIFORM\_BLOCKS );}
+\DoxyCodeLine{183         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Compute Textures:  \%27d |\(\backslash\)n"{}},                            GL\_MAX\_COMPUTE\_TEXTURE\_IMAGE\_UNITS );}
+\DoxyCodeLine{184         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Compute Image Uniforms:  \%21d |\(\backslash\)n"{}},                      GL\_MAX\_COMPUTE\_IMAGE\_UNIFORMS );}
+\DoxyCodeLine{185         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Compute Atomic Counters:  \%20d |\(\backslash\)n"{}},                     GL\_MAX\_COMPUTE\_ATOMIC\_COUNTERS );}
+\DoxyCodeLine{186         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Compute Atomic Counter Buffers:  \%13d |\(\backslash\)n"{}},              GL\_MAX\_COMPUTE\_ATOMIC\_COUNTER\_BUFFERS );}
+\DoxyCodeLine{187 }
+\DoxyCodeLine{188         CSCI441\_INTERNAL::printOpenGLParamIndexed(\textcolor{stringliteral}{"{}[INFO]: |   Max \# Work Groups Per Dispatch: \%6d"{}},                    GL\_MAX\_COMPUTE\_WORK\_GROUP\_COUNT, 0 );}
+\DoxyCodeLine{189         CSCI441\_INTERNAL::printOpenGLParamIndexed(\textcolor{stringliteral}{"{} \%6d"{}},                                                               GL\_MAX\_COMPUTE\_WORK\_GROUP\_COUNT, 1 );}
+\DoxyCodeLine{190         CSCI441\_INTERNAL::printOpenGLParamIndexed(\textcolor{stringliteral}{"{} \%6d |\(\backslash\)n"{}},                                                           GL\_MAX\_COMPUTE\_WORK\_GROUP\_COUNT, 2 );}
+\DoxyCodeLine{191 }
+\DoxyCodeLine{192         CSCI441\_INTERNAL::printOpenGLParamIndexed(\textcolor{stringliteral}{"{}[INFO]: |   Max Work Groups Size: \%16d"{}},                             GL\_MAX\_COMPUTE\_WORK\_GROUP\_SIZE, 0 );}
+\DoxyCodeLine{193         CSCI441\_INTERNAL::printOpenGLParamIndexed(\textcolor{stringliteral}{"{} \%6d"{}},                                                               GL\_MAX\_COMPUTE\_WORK\_GROUP\_SIZE, 1 );}
+\DoxyCodeLine{194         CSCI441\_INTERNAL::printOpenGLParamIndexed(\textcolor{stringliteral}{"{} \%6d |\(\backslash\)n"{}},                                                           GL\_MAX\_COMPUTE\_WORK\_GROUP\_SIZE, 2 );}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Invocations Per Work Group: \%18d |\(\backslash\)n"{}},                   GL\_MAX\_COMPUTE\_WORK\_GROUP\_INVOCATIONS );}
+\DoxyCodeLine{197         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max Total Storage Size: \%22d bytes |\(\backslash\)n"{}},                       GL\_MAX\_COMPUTE\_SHARED\_MEMORY\_SIZE );}
+\DoxyCodeLine{198         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Vertex Shader Storage Blocks:  \%15d |\(\backslash\)n"{}},                GL\_MAX\_VERTEX\_SHADER\_STORAGE\_BLOCKS );}
+\DoxyCodeLine{199         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Control Shader Storage Blocks:  \%9d |\(\backslash\)n"{}},           GL\_MAX\_TESS\_CONTROL\_SHADER\_STORAGE\_BLOCKS );}
+\DoxyCodeLine{200         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Tess Evaluation Shader Storage Blocks:  \%6d |\(\backslash\)n"{}},        GL\_MAX\_TESS\_EVALUATION\_SHADER\_STORAGE\_BLOCKS );}
+\DoxyCodeLine{201         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Geometry Shader Storage Blocks:  \%13d |\(\backslash\)n"{}},              GL\_MAX\_GEOMETRY\_SHADER\_STORAGE\_BLOCKS );}
+\DoxyCodeLine{202         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Fragment Shader Storage Blocks:  \%13d |\(\backslash\)n"{}},              GL\_MAX\_FRAGMENT\_SHADER\_STORAGE\_BLOCKS );}
+\DoxyCodeLine{203         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Compute Shader Storage Blocks:  \%14d |\(\backslash\)n"{}},               GL\_MAX\_COMPUTE\_SHADER\_STORAGE\_BLOCKS );}
+\DoxyCodeLine{204         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Combined Shader Storage Blocks:  \%13d |\(\backslash\)n"{}},              GL\_MAX\_COMBINED\_SHADER\_STORAGE\_BLOCKS );}
+\DoxyCodeLine{205         CSCI441\_INTERNAL::printOpenGLParam( \textcolor{stringliteral}{"{}[INFO]: |   Max \# Combined Shader Output Resources:  \%11d |\(\backslash\)n"{}},            GL\_MAX\_COMBINED\_SHADER\_OUTPUT\_RESOURCES );}
+\DoxyCodeLine{206     \}}
+\DoxyCodeLine{207 }
+\DoxyCodeLine{208     fprintf( stdout, \textcolor{stringliteral}{"{}[INFO]: \(\backslash\)\(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{209 \}}
+\DoxyCodeLine{210 }
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212 \textcolor{comment}{//**********************************************************************************}}
+\DoxyCodeLine{213 \textcolor{comment}{//**********************************************************************************}}
+\DoxyCodeLine{214 \textcolor{comment}{// Internal function implementations}}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{216 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441\_INTERNAL::printOpenGLParamHeader( \textcolor{keyword}{const} \textcolor{keywordtype}{int} MAJOR, \textcolor{keyword}{const} \textcolor{keywordtype}{int} MINOR ) \{}
+\DoxyCodeLine{217     fprintf( stdout, \textcolor{stringliteral}{"{}[INFO]: >-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\(\backslash\)n"{}} );}
+\DoxyCodeLine{218     fprintf( stdout, \textcolor{stringliteral}{"{}[INFO]: | OpenGL \%d.\%d Settings                                    |\(\backslash\)n"{}}, MAJOR, MINOR );}
+\DoxyCodeLine{219     fprintf( stdout, \textcolor{stringliteral}{"{}[INFO]: |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|\(\backslash\)n"{}} );}
+\DoxyCodeLine{220 \}}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{222 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441\_INTERNAL::printOpenGLParamIndexed(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *FORMAT, GLenum name, GLuint index ) \{}
+\DoxyCodeLine{223     GLint value = 0;}
+\DoxyCodeLine{224     glGetIntegeri\_v( name, index, \&value );}
+\DoxyCodeLine{225     fprintf(stdout, FORMAT, value );}
+\DoxyCodeLine{226 \}}
+\DoxyCodeLine{227 }
+\DoxyCodeLine{228 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441\_INTERNAL::printOpenGLParam(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *FORMAT, GLenum name ) \{}
+\DoxyCodeLine{229     GLint value = 0;}
+\DoxyCodeLine{230     glGetIntegerv( name, \&value );}
+\DoxyCodeLine{231     fprintf(stdout, FORMAT, value );}
+\DoxyCodeLine{232 \}}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441\_INTERNAL::printOpenGLParam2(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *FORMAT, GLenum name ) \{}
+\DoxyCodeLine{235     GLint values[2] = \{0,0\};}
+\DoxyCodeLine{236     glGetIntegerv( name, values );}
+\DoxyCodeLine{237     fprintf(stdout, FORMAT, values[0], values[1] );}
+\DoxyCodeLine{238 \}}
+\DoxyCodeLine{239 }
+\DoxyCodeLine{240 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441\_INTERNAL::printOpenGLParam3(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *FORMAT, GLenum name ) \{}
+\DoxyCodeLine{241     GLint values[3] = \{0,0,0\};}
+\DoxyCodeLine{242     glGetIntegerv( name, values );}
+\DoxyCodeLine{243     fprintf(stdout, FORMAT, values[0], values[1], values[2] );}
+\DoxyCodeLine{244 \}}
+\DoxyCodeLine{245 }
+\DoxyCodeLine{246 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441\_INTERNAL::printOpenGLParam4(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *FORMAT, GLenum name ) \{}
+\DoxyCodeLine{247     GLint values[4] = \{0,0,0,0\};}
+\DoxyCodeLine{248     glGetIntegerv( name, values );}
+\DoxyCodeLine{249     fprintf(stdout, FORMAT, values[0], values[1], values[2], values[3] );}
+\DoxyCodeLine{250 \}}
+\DoxyCodeLine{251 }
+\DoxyCodeLine{252 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CSCI441\_OPENGL\_UTILS\_H}}
+
+\end{DoxyCode}

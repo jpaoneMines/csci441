@@ -1,0 +1,63 @@
+\hypertarget{class_c_s_c_i441_1_1_compute_shader_program}{}\doxysection{CSCI441\+::Compute\+Shader\+Program Class Reference}
+\label{class_c_s_c_i441_1_1_compute_shader_program}\index{CSCI441::ComputeShaderProgram@{CSCI441::ComputeShaderProgram}}
+
+
+{\ttfamily \#include $<$Compute\+Shader\+Program.\+hpp$>$}
+
+Inheritance diagram for CSCI441\+::Compute\+Shader\+Program\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_c_s_c_i441_1_1_compute_shader_program}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_s_c_i441_1_1_compute_shader_program_a549bc6c5ca95c6817917ab1286503303}{Compute\+Shader\+Program}} (const char $\ast$compute\+Shader\+Filename)
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_compute_shader_program_a9343b72b40396f369da312af5de30ba3}{dispatch\+Work}} (GLuint num\+GroupsX, GLuint num\+GroupsY, GLuint num\+GroupsZ)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\textbackslash{}desc Handles registration and compilation of Compute Shaders \begin{DoxyNote}{Note}
+Extends the \mbox{\hyperlink{class_c_s_c_i441_1_1_shader_program}{Shader\+Program}} class 
+\end{DoxyNote}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_compute_shader_program_a549bc6c5ca95c6817917ab1286503303}\label{class_c_s_c_i441_1_1_compute_shader_program_a549bc6c5ca95c6817917ab1286503303}} 
+\index{CSCI441::ComputeShaderProgram@{CSCI441::ComputeShaderProgram}!ComputeShaderProgram@{ComputeShaderProgram}}
+\index{ComputeShaderProgram@{ComputeShaderProgram}!CSCI441::ComputeShaderProgram@{CSCI441::ComputeShaderProgram}}
+\doxysubsubsection{\texorpdfstring{ComputeShaderProgram()}{ComputeShaderProgram()}}
+{\footnotesize\ttfamily CSCI441\+::\+Compute\+Shader\+Program\+::\+Compute\+Shader\+Program (\begin{DoxyParamCaption}\item[{const char $\ast$}]{compute\+Shader\+Filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\textbackslash{}desc Creates a Compute Shader Program 
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ name of the file corresponding to the compute shader \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_compute_shader_program_a9343b72b40396f369da312af5de30ba3}\label{class_c_s_c_i441_1_1_compute_shader_program_a9343b72b40396f369da312af5de30ba3}} 
+\index{CSCI441::ComputeShaderProgram@{CSCI441::ComputeShaderProgram}!dispatchWork@{dispatchWork}}
+\index{dispatchWork@{dispatchWork}!CSCI441::ComputeShaderProgram@{CSCI441::ComputeShaderProgram}}
+\doxysubsubsection{\texorpdfstring{dispatchWork()}{dispatchWork()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Compute\+Shader\+Program\+::dispatch\+Work (\begin{DoxyParamCaption}\item[{GLuint}]{num\+GroupsX = {\ttfamily 1},  }\item[{GLuint}]{num\+GroupsY = {\ttfamily 1},  }\item[{GLuint}]{num\+GroupsZ = {\ttfamily 1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\textbackslash{}desc dispatches work to the Compute Shader on the GPU 
+\begin{DoxyParams}{Parameters}
+{\em GLuint} & number of work groups in X dimension (defaults to 1) \\
+\hline
+{\em GLuint} & number of work groups in Y dimension (defaults to 1) \\
+\hline
+{\em GLuint} & number of work groups in Z dimension (defaults to 1) \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_compute_shader_program_8hpp}{Compute\+Shader\+Program.\+hpp}}\end{DoxyCompactItemize}

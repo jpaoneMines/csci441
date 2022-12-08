@@ -1,0 +1,59 @@
+\hypertarget{_model_loader_8hpp}{}\doxysection{Model\+Loader.\+hpp File Reference}
+\label{_model_loader_8hpp}\index{ModelLoader.hpp@{ModelLoader.hpp}}
+
+
+Helper functions to draw 3D Open\+GL 3.\+0+ objects.  
+
+
+{\ttfamily \#include $<$GL/glew.\+h$>$}\newline
+{\ttfamily \#include $<$glm/glm.\+hpp$>$}\newline
+{\ttfamily \#include $<$stb\+\_\+image.\+h$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$CSCI441/model\+Material.\+hpp$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader}{CSCI441\+::\+Model\+Loader}}
+\begin{DoxyCompactList}\small\item\em Loads object models from file and renders using VBOs/\+VAOs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}} Helper Functions for Open\+GL. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespace_c_s_c_i441___i_n_t_e_r_n_a_l}{CSCI441\+\_\+\+INTERNAL}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a186dfe83bc2b5062e4cb30fcc2ba498f}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a186dfe83bc2b5062e4cb30fcc2ba498f}} 
+unsigned char $\ast$ {\bfseries CSCI441\+\_\+\+INTERNAL\+::create\+Transparent\+Texture} (unsigned char $\ast$image\+Data, unsigned char $\ast$image\+Mask, int tex\+Width, int tex\+Height, int tex\+Channels, int mask\+Channels)
+\item 
+\mbox{\Hypertarget{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a2998e31d84c168fac44e986e49e3533c}\label{namespace_c_s_c_i441___i_n_t_e_r_n_a_l_a2998e31d84c168fac44e986e49e3533c}} 
+void {\bfseries CSCI441\+\_\+\+INTERNAL\+::flip\+ImageY} (int tex\+Width, int tex\+Height, int texture\+Channels, unsigned char $\ast$texture\+Data)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Helper functions to draw 3D Open\+GL 3.\+0+ objects. 
+
+\begin{DoxyAuthor}{Author}
+Dr. Jeffrey Paone
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+MIT License Copyright (c) 2017 Dr. Jeffrey Paone
+\end{DoxyCopyright}
+This class will load and render object files. Currently supports\+: .obj + .mtl .off .ply .stl
+
+\begin{DoxyWarning}{Warning}
+NOTE\+: This header file will only work with Open\+GL 3.\+0+ 
+
+NOTE\+: This header file depends upon GLEW, glm, stb\+\_\+image 
+\end{DoxyWarning}

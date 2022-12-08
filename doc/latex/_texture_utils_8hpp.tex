@@ -1,193 +1,145 @@
-\hypertarget{_texture_utils_8hpp}{}\section{C\+S\+C\+I441/\+Texture\+Utils.hpp File Reference}
-\label{_texture_utils_8hpp}\index{C\+S\+C\+I441/\+Texture\+Utils.\+hpp@{C\+S\+C\+I441/\+Texture\+Utils.\+hpp}}
+\hypertarget{_texture_utils_8hpp}{}\doxysection{Texture\+Utils.\+hpp File Reference}
+\label{_texture_utils_8hpp}\index{TextureUtils.hpp@{TextureUtils.hpp}}
 
 
 Helper functions to work with Open\+GL Textures.  
 
 
-{\ttfamily \#include $<$G\+L/gl.\+h$>$}\newline
-{\ttfamily \#include $<$S\+O\+I\+L/\+S\+O\+I\+L.\+h$>$}\newline
-{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$GL/glew.\+h$>$}\newline
+{\ttfamily \#include $<$stb\+\_\+image.\+h$>$}\newline
+{\ttfamily \#include $<$cstdio$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
-\subsection*{Namespaces}
+\doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespace_c_s_c_i441}{C\+S\+C\+I441}
-\begin{DoxyCompactList}\small\item\em \hyperlink{namespace_c_s_c_i441}{C\+S\+C\+I441} Helper Functions for Open\+GL. \end{DoxyCompactList}\item 
- \hyperlink{namespace_texture_utils}{Texture\+Utils}
-\begin{DoxyCompactList}\small\item\em Open\+GL Texture Utility functions. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Functions}
+namespace \mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}} Helper Functions for Open\+GL. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespace_texture_utils}{Texture\+Utils}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \hyperlink{_texture_utils_8hpp_a7f58e6db7faf86181d593d3afb1a55d7}{C\+S\+C\+I441\+::\+Texture\+Utils\+::load\+B\+MP} (const char $\ast$filename, int \&image\+Width, int \&image\+Height, int \&image\+Channels, unsigned char $\ast$image\+Data, const char $\ast$path=\char`\"{}./\char`\"{})
-\begin{DoxyCompactList}\small\item\em loads a B\+MP into memory \end{DoxyCompactList}\item 
-bool \hyperlink{_texture_utils_8hpp_a4059995665c90622a8fec7b4a4c358c8}{C\+S\+C\+I441\+::\+Texture\+Utils\+::load\+P\+PM} (const char $\ast$filename, int \&image\+Width, int \&image\+Height, unsigned char $\ast$\&image\+Data)
-\begin{DoxyCompactList}\small\item\em loads a P\+PM into memory \end{DoxyCompactList}\item 
-bool \hyperlink{_texture_utils_8hpp_ae52af733c3796818303438e6624da3e6}{C\+S\+C\+I441\+::\+Texture\+Utils\+::load\+T\+GA} (const char $\ast$filename, int \&image\+Width, int \&image\+Height, unsigned char $\ast$\&image\+Data, int \&image\+Channels)
-\begin{DoxyCompactList}\small\item\em loads a T\+GA into memory \end{DoxyCompactList}\item 
-G\+Luint \hyperlink{_texture_utils_8hpp_a071f2923f621e1e83748eaaba616d6d5}{C\+S\+C\+I441\+::\+Texture\+Utils\+::load\+And\+Register\+Texture} (const char $\ast$filename, G\+Lenum min\+Filter=G\+L\+\_\+\+L\+I\+N\+E\+AR, G\+Lenum mag\+Filter=G\+L\+\_\+\+L\+I\+N\+E\+AR, G\+Lenum wrapS=G\+L\+\_\+\+R\+E\+P\+E\+AT, G\+Lenum wrapT=G\+L\+\_\+\+R\+E\+P\+E\+AT)
-\begin{DoxyCompactList}\small\item\em loads and registers a texture into memory returning a texture handle \end{DoxyCompactList}\item 
-G\+Luint \hyperlink{_texture_utils_8hpp_af1fbabe680da3978d0651e19e9b64cd1}{C\+S\+C\+I441\+::\+Texture\+Utils\+::load\+And\+Register2\+D\+Texture} (const char $\ast$filename, G\+Lenum min\+Filter=G\+L\+\_\+\+L\+I\+N\+E\+AR, G\+Lenum mag\+Filter=G\+L\+\_\+\+L\+I\+N\+E\+AR, G\+Lenum wrapS=G\+L\+\_\+\+R\+E\+P\+E\+AT, G\+Lenum wrapT=G\+L\+\_\+\+R\+E\+P\+E\+AT)
-\begin{DoxyCompactList}\small\item\em loads and registers a texture into memory returning a texture handle \end{DoxyCompactList}\end{DoxyCompactItemize}
+bool \mbox{\hyperlink{_texture_utils_8hpp_a4059995665c90622a8fec7b4a4c358c8}{CSCI441\+::\+Texture\+Utils\+::load\+PPM}} (const char $\ast$filename, int \&image\+Width, int \&image\+Height, unsigned char $\ast$\&image\+Data)
+\begin{DoxyCompactList}\small\item\em loads a PPM into memory \textbackslash{}desc This function reads an ASCII PPM, returning true if the function succeeds and false if it fails. If it succeeds, the variables image\+Width and image\+Height will hold the width and height of the read image, respectively.~\newline
+~\newline
+ It\textquotesingle{}s not terribly robust.~\newline
+~\newline
+ Returns the image as an unsigned character array containing image\+Width$\ast$image\+Height$\ast$3 entries (for that many bytes of storage). \end{DoxyCompactList}\item 
+GLuint \mbox{\hyperlink{_texture_utils_8hpp_a1b3eaf6583ec3e581dbd514a525162a1}{CSCI441\+::\+Texture\+Utils\+::load\+And\+Register\+Texture}} (const char $\ast$filename, GLint min\+Filter=GL\+\_\+\+LINEAR, GLint mag\+Filter=GL\+\_\+\+LINEAR, GLint wrapS=GL\+\_\+\+REPEAT, GLint wrapT=GL\+\_\+\+REPEAT)
+\begin{DoxyCompactList}\small\item\em loads and registers a texture into memory returning a texture handle \textbackslash{}desc Calls through to \mbox{\hyperlink{_texture_utils_8hpp_aa8b481c9cb79f954a876e2b805e8f4f4}{load\+And\+Register2\+DTexture()}} \end{DoxyCompactList}\item 
+GLuint \mbox{\hyperlink{_texture_utils_8hpp_aa8b481c9cb79f954a876e2b805e8f4f4}{CSCI441\+::\+Texture\+Utils\+::load\+And\+Register2\+DTexture}} (const char $\ast$filename, GLint min\+Filter=GL\+\_\+\+LINEAR, GLint mag\+Filter=GL\+\_\+\+LINEAR, GLint wrapS=GL\+\_\+\+REPEAT, GLint wrapT=GL\+\_\+\+REPEAT)
+\begin{DoxyCompactList}\small\item\em loads and registers a texture into memory returning a texture handle \textbackslash{}desc This function loads a texture into memory and registers the texture with Open\+GL. The provided minification and magnification filters are set for the texture. The texture coordinate wrapping parameters are also set. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_texture_utils_8hpp_a490cac31deb34e0a0c70f7908192b327}{CSCI441\+::\+Texture\+Utils\+::load\+Cube\+Map\+Face\+Texture}} (const GLint CUBE\+\_\+\+MAP\+\_\+\+FACE, const char $\ast$FILENAME)
+\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 Helper functions to work with Open\+GL Textures. 
 
 \begin{DoxyAuthor}{Author}
-Dr. Jeffrey Paone 
+Dr. Jeffrey Paone
 \end{DoxyAuthor}
-\begin{DoxyDate}{Date}
-Last Edit\+: 03 Nov 2017 
-\end{DoxyDate}
-\begin{DoxyVersion}{Version}
-1.\+5
-\end{DoxyVersion}
 \begin{DoxyCopyright}{Copyright}
-M\+IT License Copyright (c) 2017 Dr. Jeffrey Paone
+MIT License Copyright (c) 2017 Dr. Jeffrey Paone
 \end{DoxyCopyright}
 These functions, classes, and constants help minimize common code that needs to be written. 
 
-\subsection{Function Documentation}
-\mbox{\Hypertarget{_texture_utils_8hpp_file_af1fbabe680da3978d0651e19e9b64cd1}\label{_texture_utils_8hpp_file_af1fbabe680da3978d0651e19e9b64cd1}} 
-\index{Texture\+Utils.\+hpp@{Texture\+Utils.\+hpp}!load\+And\+Register2\+D\+Texture@{load\+And\+Register2\+D\+Texture}}
-\index{load\+And\+Register2\+D\+Texture@{load\+And\+Register2\+D\+Texture}!Texture\+Utils.\+hpp@{Texture\+Utils.\+hpp}}
-\subsubsection{\texorpdfstring{load\+And\+Register2\+D\+Texture()}{loadAndRegister2DTexture()}}
-{\footnotesize\ttfamily G\+Luint C\+S\+C\+I441\+::\+Texture\+Utils\+::load\+And\+Register2\+D\+Texture (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{G\+Lenum}]{min\+Filter = {\ttfamily GL\+\_\+LINEAR},  }\item[{G\+Lenum}]{mag\+Filter = {\ttfamily GL\+\_\+LINEAR},  }\item[{G\+Lenum}]{wrapS = {\ttfamily GL\+\_\+REPEAT},  }\item[{G\+Lenum}]{wrapT = {\ttfamily GL\+\_\+REPEAT} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_texture_utils_8hpp_aa8b481c9cb79f954a876e2b805e8f4f4}\label{_texture_utils_8hpp_aa8b481c9cb79f954a876e2b805e8f4f4}} 
+\index{TextureUtils.hpp@{TextureUtils.hpp}!loadAndRegister2DTexture@{loadAndRegister2DTexture}}
+\index{loadAndRegister2DTexture@{loadAndRegister2DTexture}!TextureUtils.hpp@{TextureUtils.hpp}}
+\doxysubsubsection{\texorpdfstring{loadAndRegister2DTexture()}{loadAndRegister2DTexture()}}
+{\footnotesize\ttfamily GLuint CSCI441\+::\+Texture\+Utils\+::load\+And\+Register2\+DTexture (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{GLint}]{min\+Filter = {\ttfamily GL\+\_\+LINEAR},  }\item[{GLint}]{mag\+Filter = {\ttfamily GL\+\_\+LINEAR},  }\item[{GLint}]{wrapS = {\ttfamily GL\+\_\+REPEAT},  }\item[{GLint}]{wrapT = {\ttfamily GL\+\_\+REPEAT} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-loads and registers a texture into memory returning a texture handle 
-
-This function loads a texture into memory and registers the texture with Open\+GL. The provided minification and magnification filters are set for the texture. The texture coordinate wrapping parameters are also set.
+loads and registers a texture into memory returning a texture handle \textbackslash{}desc This function loads a texture into memory and registers the texture with Open\+GL. The provided minification and magnification filters are set for the texture. The texture coordinate wrapping parameters are also set. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em const} & char$\ast$ filename -\/ name of texture to load \\
+{\em const} & char$\ast$ name of texture to load \\
 \hline
-{\em G\+Lenum} & min\+Filter -\/ minification filter to apply (default\+: G\+L\+\_\+\+L\+I\+N\+E\+AR) \\
+{\em GLint} & minification filter to apply (default\+: GL\+\_\+\+LINEAR) \\
 \hline
-{\em G\+Lenum} & mag\+Filter -\/ magnification filter to apply (default\+: G\+L\+\_\+\+L\+I\+N\+E\+AR) \\
+{\em GLint} & magnification filter to apply (default\+: GL\+\_\+\+LINEAR) \\
 \hline
-{\em G\+Lenum} & wrapS -\/ wrapping to apply to S coordinate (default\+: G\+L\+\_\+\+R\+E\+P\+E\+AT) \\
+{\em GLint} & wrapping to apply to S coordinate (default\+: GL\+\_\+\+REPEAT) \\
 \hline
-{\em G\+Lenum} & wrapT -\/ wrapping to apply to T coordinate (default\+: G\+L\+\_\+\+R\+E\+P\+E\+AT) \\
+{\em GLint} & wrapping to apply to T coordinate (default\+: GL\+\_\+\+REPEAT) \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-G\+Luint -\/ texture handle corresponding to the texture 
+GLuint texture handle corresponding to the texture 
 \end{DoxyReturn}
-\mbox{\Hypertarget{_texture_utils_8hpp_file_a071f2923f621e1e83748eaaba616d6d5}\label{_texture_utils_8hpp_file_a071f2923f621e1e83748eaaba616d6d5}} 
-\index{Texture\+Utils.\+hpp@{Texture\+Utils.\+hpp}!load\+And\+Register\+Texture@{load\+And\+Register\+Texture}}
-\index{load\+And\+Register\+Texture@{load\+And\+Register\+Texture}!Texture\+Utils.\+hpp@{Texture\+Utils.\+hpp}}
-\subsubsection{\texorpdfstring{load\+And\+Register\+Texture()}{loadAndRegisterTexture()}}
-{\footnotesize\ttfamily G\+Luint C\+S\+C\+I441\+::\+Texture\+Utils\+::load\+And\+Register\+Texture (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{G\+Lenum}]{min\+Filter = {\ttfamily GL\+\_\+LINEAR},  }\item[{G\+Lenum}]{mag\+Filter = {\ttfamily GL\+\_\+LINEAR},  }\item[{G\+Lenum}]{wrapS = {\ttfamily GL\+\_\+REPEAT},  }\item[{G\+Lenum}]{wrapT = {\ttfamily GL\+\_\+REPEAT} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{_texture_utils_8hpp_a1b3eaf6583ec3e581dbd514a525162a1}\label{_texture_utils_8hpp_a1b3eaf6583ec3e581dbd514a525162a1}} 
+\index{TextureUtils.hpp@{TextureUtils.hpp}!loadAndRegisterTexture@{loadAndRegisterTexture}}
+\index{loadAndRegisterTexture@{loadAndRegisterTexture}!TextureUtils.hpp@{TextureUtils.hpp}}
+\doxysubsubsection{\texorpdfstring{loadAndRegisterTexture()}{loadAndRegisterTexture()}}
+{\footnotesize\ttfamily GLuint CSCI441\+::\+Texture\+Utils\+::load\+And\+Register\+Texture (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{GLint}]{min\+Filter = {\ttfamily GL\+\_\+LINEAR},  }\item[{GLint}]{mag\+Filter = {\ttfamily GL\+\_\+LINEAR},  }\item[{GLint}]{wrapS = {\ttfamily GL\+\_\+REPEAT},  }\item[{GLint}]{wrapT = {\ttfamily GL\+\_\+REPEAT} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-loads and registers a texture into memory returning a texture handle 
-
-Equivalent to \hyperlink{_texture_utils_8hpp_af1fbabe680da3978d0651e19e9b64cd1}{load\+And\+Register2\+D\+Texture()} \mbox{\Hypertarget{_texture_utils_8hpp_file_a7f58e6db7faf86181d593d3afb1a55d7}\label{_texture_utils_8hpp_file_a7f58e6db7faf86181d593d3afb1a55d7}} 
-\index{Texture\+Utils.\+hpp@{Texture\+Utils.\+hpp}!load\+B\+MP@{load\+B\+MP}}
-\index{load\+B\+MP@{load\+B\+MP}!Texture\+Utils.\+hpp@{Texture\+Utils.\+hpp}}
-\subsubsection{\texorpdfstring{load\+B\+M\+P()}{loadBMP()}}
-{\footnotesize\ttfamily bool C\+S\+C\+I441\+::\+Texture\+Utils\+::load\+B\+MP (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{int \&}]{image\+Width,  }\item[{int \&}]{image\+Height,  }\item[{int \&}]{image\+Channels,  }\item[{unsigned char $\ast$}]{image\+Data,  }\item[{const char $\ast$}]{path = {\ttfamily \char`\"{}./\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+loads and registers a texture into memory returning a texture handle \textbackslash{}desc Calls through to load\+And\+Register2\+DTexture() 
 
 
-
-loads a B\+MP into memory 
-
-This function reads an A\+S\+C\+II B\+MP, returning true if the function succeeds and false if it fails. If it succeeds, the variables image\+Width and image\+Height will hold the width and height of the read image, respectively.
-
-It\textquotesingle{}s not terribly robust.
-
-Returns the image as an unsigned character array containing image\+Width$\ast$image\+Height$\ast$3 entries (for that many bytes of storage).
-
-N\+O\+TE\+: this function expects image\+Data to be U\+N\+A\+L\+L\+O\+C\+A\+T\+ED, and will allocate memory itself. If the function fails (returns false), image\+Data will be set to N\+U\+LL and any allocated memory will be automatically deallocated.
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em const} & char$\ast$ filename -\/ filename of the image to load \\
+\begin{DoxyParams}{Parameters}
+{\em const} & char$\ast$ name of texture to load \\
 \hline
-\mbox{\tt out}  & {\em int} & \&image\+Width -\/ will contain the image width upon successful completion \\
+{\em GLint} & minification filter to apply (default\+: GL\+\_\+\+LINEAR) \\
 \hline
-\mbox{\tt out}  & {\em int} & \&image\+Height -\/ will contain the image height upon successful completion \\
+{\em GLint} & magnification filter to apply (default\+: GL\+\_\+\+LINEAR) \\
 \hline
-\mbox{\tt out}  & {\em unsigned} & char$\ast$ \&image\+Data -\/ will contain the R\+GB data upon successful completion \\
+{\em GLint} & wrapping to apply to S coordinate (default\+: GL\+\_\+\+REPEAT) \\
 \hline
-\mbox{\tt in}  & {\em const} & char$\ast$ path -\/ path to where file is stored. defaults to current directory \\
+{\em GLint} & wrapping to apply to T coordinate (default\+: GL\+\_\+\+REPEAT) \\
 \hline
 \end{DoxyParams}
-\begin{DoxyPrecond}{Precondition}
-image\+Data is unallocated 
-\end{DoxyPrecond}
 \begin{DoxyReturn}{Returns}
-bool -\/ true if loading succeeded, false otherwise 
+GLuint texture handle corresponding to the texture 
 \end{DoxyReturn}
-\mbox{\Hypertarget{_texture_utils_8hpp_file_a4059995665c90622a8fec7b4a4c358c8}\label{_texture_utils_8hpp_file_a4059995665c90622a8fec7b4a4c358c8}} 
-\index{Texture\+Utils.\+hpp@{Texture\+Utils.\+hpp}!load\+P\+PM@{load\+P\+PM}}
-\index{load\+P\+PM@{load\+P\+PM}!Texture\+Utils.\+hpp@{Texture\+Utils.\+hpp}}
-\subsubsection{\texorpdfstring{load\+P\+P\+M()}{loadPPM()}}
-{\footnotesize\ttfamily bool C\+S\+C\+I441\+::\+Texture\+Utils\+::load\+P\+PM (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{int \&}]{image\+Width,  }\item[{int \&}]{image\+Height,  }\item[{unsigned char $\ast$\&}]{image\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{_texture_utils_8hpp_a490cac31deb34e0a0c70f7908192b327}\label{_texture_utils_8hpp_a490cac31deb34e0a0c70f7908192b327}} 
+\index{TextureUtils.hpp@{TextureUtils.hpp}!loadCubeMapFaceTexture@{loadCubeMapFaceTexture}}
+\index{loadCubeMapFaceTexture@{loadCubeMapFaceTexture}!TextureUtils.hpp@{TextureUtils.hpp}}
+\doxysubsubsection{\texorpdfstring{loadCubeMapFaceTexture()}{loadCubeMapFaceTexture()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Texture\+Utils\+::load\+Cube\+Map\+Face\+Texture (\begin{DoxyParamCaption}\item[{const GLint}]{CUBE\+\_\+\+MAP\+\_\+\+FACE,  }\item[{const char $\ast$}]{FILENAME }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-
-
-loads a P\+PM into memory 
-
-This function reads an A\+S\+C\+II P\+PM, returning true if the function succeeds and false if it fails. If it succeeds, the variables image\+Width and image\+Height will hold the width and height of the read image, respectively.
-
-It\textquotesingle{}s not terribly robust.
-
-Returns the image as an unsigned character array containing image\+Width$\ast$image\+Height$\ast$3 entries (for that many bytes of storage).
-
-N\+O\+TE\+: this function expects image\+Data to be U\+N\+A\+L\+L\+O\+C\+A\+T\+ED, and will allocate memory itself. If the function fails (returns false), image\+Data will be set to N\+U\+LL and any allocated memory will be automatically deallocated.
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em const} & char $\ast$filename -\/ filename of the image to load \\
+\textbackslash{}desc loads a texture into memory of a cube face 
+\begin{DoxyParams}{Parameters}
+{\em GLint} & face of the Cube Map to load the texture to \\
 \hline
-\mbox{\tt out}  & {\em int} & \&image\+Width -\/ will contain the image width upon successful completion \\
-\hline
-\mbox{\tt out}  & {\em int} & \&image\+Height -\/ will contain the image height upon successful completion \\
-\hline
-\mbox{\tt out}  & {\em unsigned} & char$\ast$ \&image\+Data -\/ will contain the R\+GB data upon successful completion \\
+{\em const} & char$\ast$ filename of image to load texture from \\
 \hline
 \end{DoxyParams}
-\begin{DoxyPrecond}{Precondition}
-image\+Data is unallocated 
-\end{DoxyPrecond}
-\begin{DoxyReturn}{Returns}
-bool -\/ true if loading succeeded, false otherwise 
-\end{DoxyReturn}
-\mbox{\Hypertarget{_texture_utils_8hpp_file_ae52af733c3796818303438e6624da3e6}\label{_texture_utils_8hpp_file_ae52af733c3796818303438e6624da3e6}} 
-\index{Texture\+Utils.\+hpp@{Texture\+Utils.\+hpp}!load\+T\+GA@{load\+T\+GA}}
-\index{load\+T\+GA@{load\+T\+GA}!Texture\+Utils.\+hpp@{Texture\+Utils.\+hpp}}
-\subsubsection{\texorpdfstring{load\+T\+G\+A()}{loadTGA()}}
-{\footnotesize\ttfamily bool C\+S\+C\+I441\+::\+Texture\+Utils\+::load\+T\+GA (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{int \&}]{image\+Width,  }\item[{int \&}]{image\+Height,  }\item[{unsigned char $\ast$\&}]{image\+Data,  }\item[{int \&}]{image\+Channels }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\begin{DoxyWarning}{Warning}
+Cube Map must be bound as active texture before calling 
+\end{DoxyWarning}
+\mbox{\Hypertarget{_texture_utils_8hpp_a4059995665c90622a8fec7b4a4c358c8}\label{_texture_utils_8hpp_a4059995665c90622a8fec7b4a4c358c8}} 
+\index{TextureUtils.hpp@{TextureUtils.hpp}!loadPPM@{loadPPM}}
+\index{loadPPM@{loadPPM}!TextureUtils.hpp@{TextureUtils.hpp}}
+\doxysubsubsection{\texorpdfstring{loadPPM()}{loadPPM()}}
+{\footnotesize\ttfamily bool CSCI441\+::\+Texture\+Utils\+::load\+PPM (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{int \&}]{image\+Width,  }\item[{int \&}]{image\+Height,  }\item[{unsigned char $\ast$\&}]{image\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-loads a T\+GA into memory 
+loads a PPM into memory \textbackslash{}desc This function reads an ASCII PPM, returning true if the function succeeds and false if it fails. If it succeeds, the variables image\+Width and image\+Height will hold the width and height of the read image, respectively.~\newline
+~\newline
+ It\textquotesingle{}s not terribly robust.~\newline
+~\newline
+ Returns the image as an unsigned character array containing image\+Width$\ast$image\+Height$\ast$3 entries (for that many bytes of storage). 
 
-This function reads an A\+S\+C\+II T\+GA, returning true if the function succeeds and false if it fails. If it succeeds, the variables image\+Width and image\+Height will hold the width and height of the read image, respectively.
-
-It\textquotesingle{}s not terribly robust.
-
-Returns the image as an unsigned character array containing image\+Width$\ast$image\+Height$\ast$3 entries (for that many bytes of storage).
-
-N\+O\+TE\+: this function expects image\+Data to be U\+N\+A\+L\+L\+O\+C\+A\+T\+ED, and will allocate memory itself. If the function fails (returns false), image\+Data will be set to N\+U\+LL and any allocated memory will be automatically deallocated.
-
+\begin{DoxyWarning}{Warning}
+This function expects image\+Data to be UNALLOCATED, and will allocate memory itself. If the function fails (returns false), image\+Data will be set to NULL and any allocated memory will be automatically deallocated. 
+\end{DoxyWarning}
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em const} & char $\ast$filename -\/ filename of the image to load \\
+\mbox{\texttt{ in}}  & {\em const} & char$\ast$ filename of the image to load \\
 \hline
-\mbox{\tt out}  & {\em int} & \&image\+Width -\/ will contain the image width upon successful completion \\
+\mbox{\texttt{ out}}  & {\em int} & will contain the image width upon successful completion \\
 \hline
-\mbox{\tt out}  & {\em int} & \&image\+Height -\/ will contain the image height upon successful completion \\
+\mbox{\texttt{ out}}  & {\em int} & will contain the image height upon successful completion \\
 \hline
-\mbox{\tt out}  & {\em unsigned} & char$\ast$ \&image\+Data -\/ will contain the R\+GB data upon successful completion \\
-\hline
-\mbox{\tt out}  & {\em int} & \&image\+Channels -\/ will contain the number of channels in the image upon successful completion \\
+\mbox{\texttt{ out}}  & {\em unsigned} & char$\ast$ will contain the RGB data upon successful completion \\
 \hline
 \end{DoxyParams}
 \begin{DoxyPrecond}{Precondition}

@@ -1,0 +1,228 @@
+\hypertarget{class_c_s_c_i441_1_1_camera}{}\doxysection{CSCI441\+::Camera Class Reference}
+\label{class_c_s_c_i441_1_1_camera}\index{CSCI441::Camera@{CSCI441::Camera}}
+
+
+{\ttfamily \#include $<$Camera.\+hpp$>$}
+
+Inheritance diagram for CSCI441\+::Camera\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_c_s_c_i441_1_1_camera}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a812c4b551be79e31f634eb6b41ae2315}\label{class_c_s_c_i441_1_1_camera_a812c4b551be79e31f634eb6b41ae2315}} 
+virtual {\bfseries $\sim$\+Camera} ()=default
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc properly destroy concrete children \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a507ca14a9c56993a11f381de2367d2bb}{recompute\+Orientation}} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_aabd8040c8f3ab9dae28ed396c632b94a}{move\+Forward}} (GLfloat movement\+Factor)=0
+\item 
+virtual void \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a2d44bf0b6b8f73cba73c510988519676}{move\+Backward}} (GLfloat movement\+Factor)=0
+\item 
+virtual void \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_aefb6d39b085ffa3ab185048c91bab056}{rotate}} (GLfloat d\+Theta, GLfloat d\+Phi)
+\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a7ed16fb3b9a25234dc21a996f885d92e}\label{class_c_s_c_i441_1_1_camera_a7ed16fb3b9a25234dc21a996f885d92e}} 
+void {\bfseries compute\+View\+Matrix} ()
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc creates the View Matrix based on the position, look\+At point, and up vector \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a358f8072f4b0f984a6764b3609df5717}\label{class_c_s_c_i441_1_1_camera_a358f8072f4b0f984a6764b3609df5717}} 
+glm\+::mat4 {\bfseries get\+View\+Matrix} ()
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc returns the current view matrix \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a3b6c129340babd754222090e434f487e}\label{class_c_s_c_i441_1_1_camera_a3b6c129340babd754222090e434f487e}} 
+glm\+::vec3 {\bfseries get\+Position} () const
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc returns the current camera position in world space \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_ab52326e0cbe97b5e68b7da2cea7ec512}\label{class_c_s_c_i441_1_1_camera_ab52326e0cbe97b5e68b7da2cea7ec512}} 
+glm\+::vec3 {\bfseries get\+Look\+At\+Point} () const
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc returns the current look\+At point in world space \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a7048a119c897abf05168b49a1534adfd}\label{class_c_s_c_i441_1_1_camera_a7048a119c897abf05168b49a1534adfd}} 
+glm\+::vec3 {\bfseries get\+Up\+Vector} () const
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc returns the current up vector in world space \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_ae521b33f2ac9174455842db2f0780949}\label{class_c_s_c_i441_1_1_camera_ae521b33f2ac9174455842db2f0780949}} 
+GLfloat {\bfseries get\+Theta} () const
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc returns the current theta value in radians \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a3069ac83e9cdc8153d3770d9136bd496}\label{class_c_s_c_i441_1_1_camera_a3069ac83e9cdc8153d3770d9136bd496}} 
+GLfloat {\bfseries get\+Phi} () const
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc returns the current phi value in radians \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a81f0069fe27dfeb53a1f293404cc6d25}{set\+Position}} (glm\+::vec3 pos)
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a7dd05dba693c36f27d23fee37a9d1a9b}{set\+Look\+At\+Point}} (glm\+::vec3 look\+At)
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a4338ac7c7fc68f7d1688473bc69f2e66}{set\+Up\+Vector}} (glm\+::vec3 up)
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a12bbf47ca619531c61228b6b461f8ab7}{set\+Theta}} (GLfloat t)
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a32a7a4604599f33e4559ca3b3c1041a8}{set\+Phi}} (GLfloat p)
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a38ffedfb5b1976dd129ebc8efa5ba33f}{set\+Radius}} (GLfloat r)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_abb34f303ec780ec6642a434f548543a5}\label{class_c_s_c_i441_1_1_camera_abb34f303ec780ec6642a434f548543a5}} 
+glm\+::mat4 {\bfseries \+\_\+view\+Matrix}
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc stores the View Matrix corresponding to the inverse of the \mbox{\hyperlink{class_c_s_c_i441_1_1_camera}{Camera}}\textquotesingle{}s Matrix \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_ad3690871d746b8301b59f90a0ee6322d}\label{class_c_s_c_i441_1_1_camera_ad3690871d746b8301b59f90a0ee6322d}} 
+glm\+::vec3 {\bfseries \+\_\+position}
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc the cartesian position in world space of the camera \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a573b77c852aa122446adbc957e489515}\label{class_c_s_c_i441_1_1_camera_a573b77c852aa122446adbc957e489515}} 
+glm\+::vec3 {\bfseries \+\_\+direction}
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc the cartesian direction the camera is facing in world space \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a0e3f21f35c4b81f6bb6dc914b030c16c}\label{class_c_s_c_i441_1_1_camera_a0e3f21f35c4b81f6bb6dc914b030c16c}} 
+glm\+::vec3 {\bfseries \+\_\+look\+At\+Point}
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc the world space point in front of the camera \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a628720f41042c2d9e53666b7416f9e04}\label{class_c_s_c_i441_1_1_camera_a628720f41042c2d9e53666b7416f9e04}} 
+glm\+::vec3 {\bfseries \+\_\+up\+Vector}
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc the up vector of the camera specified in world space \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a8f728295b7cb3a9ecdf34edaa818e5d4}\label{class_c_s_c_i441_1_1_camera_a8f728295b7cb3a9ecdf34edaa818e5d4}} 
+GLfloat {\bfseries \+\_\+theta}
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc spherical angle for yaw direction in radians \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a027b4470a0ae629a107dbd40dd932166}\label{class_c_s_c_i441_1_1_camera_a027b4470a0ae629a107dbd40dd932166}} 
+GLfloat {\bfseries \+\_\+phi}
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc spherical angle for pitch direction in radians \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_acf581134ac2813d71b828007fd91b21b}\label{class_c_s_c_i441_1_1_camera_acf581134ac2813d71b828007fd91b21b}} 
+GLfloat {\bfseries \+\_\+radius}
+\begin{DoxyCompactList}\small\item\em \textbackslash{}desc spherical magnitude for direction in world space \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\textbackslash{}desc Abstract Class to represent a synthetic camera. The following methods must be overridden\+:~\newline
+
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a507ca14a9c56993a11f381de2367d2bb}{recompute\+Orientation()}}~\newline
+
+\item \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_aabd8040c8f3ab9dae28ed396c632b94a}{move\+Forward()}}~\newline
+
+\item \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a2d44bf0b6b8f73cba73c510988519676}{move\+Backward()}}~\newline
+ 
+\end{DoxyItemize}
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a2d44bf0b6b8f73cba73c510988519676}\label{class_c_s_c_i441_1_1_camera_a2d44bf0b6b8f73cba73c510988519676}} 
+\index{CSCI441::Camera@{CSCI441::Camera}!moveBackward@{moveBackward}}
+\index{moveBackward@{moveBackward}!CSCI441::Camera@{CSCI441::Camera}}
+\doxysubsubsection{\texorpdfstring{moveBackward()}{moveBackward()}}
+{\footnotesize\ttfamily virtual void CSCI441\+::\+Camera\+::move\+Backward (\begin{DoxyParamCaption}\item[{GLfloat}]{movement\+Factor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\textbackslash{}desc steps backward along the camera\textquotesingle{}s view 
+\begin{DoxyParams}{Parameters}
+{\em movement\+Factor} & scaling factor for distance to move \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_c_s_c_i441_1_1_arcball_cam_aaeb9f7a5c9ab3a08a11687f1fd7234e2}{CSCI441\+::\+Arcball\+Cam}}, \mbox{\hyperlink{class_c_s_c_i441_1_1_free_cam_a9538c96b3167b01c3d5481de848dafec}{CSCI441\+::\+Free\+Cam}}, and \mbox{\hyperlink{class_c_s_c_i441_1_1_fixed_cam_aa41281f1f007473f3e08fba58c437448}{CSCI441\+::\+Fixed\+Cam}}.
+
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_aabd8040c8f3ab9dae28ed396c632b94a}\label{class_c_s_c_i441_1_1_camera_aabd8040c8f3ab9dae28ed396c632b94a}} 
+\index{CSCI441::Camera@{CSCI441::Camera}!moveForward@{moveForward}}
+\index{moveForward@{moveForward}!CSCI441::Camera@{CSCI441::Camera}}
+\doxysubsubsection{\texorpdfstring{moveForward()}{moveForward()}}
+{\footnotesize\ttfamily virtual void CSCI441\+::\+Camera\+::move\+Forward (\begin{DoxyParamCaption}\item[{GLfloat}]{movement\+Factor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\textbackslash{}desc steps forward along the camera\textquotesingle{}s view 
+\begin{DoxyParams}{Parameters}
+{\em movement\+Factor} & scaling factor for distance to move \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_c_s_c_i441_1_1_arcball_cam_a5e618322522a711de4d22ff0331e8db2}{CSCI441\+::\+Arcball\+Cam}}, \mbox{\hyperlink{class_c_s_c_i441_1_1_free_cam_a6477c2e4e7734f313f3b03f832450c5f}{CSCI441\+::\+Free\+Cam}}, and \mbox{\hyperlink{class_c_s_c_i441_1_1_fixed_cam_ab3c54e0f35b91dbe6a4aa09cd9891cbe}{CSCI441\+::\+Fixed\+Cam}}.
+
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a507ca14a9c56993a11f381de2367d2bb}\label{class_c_s_c_i441_1_1_camera_a507ca14a9c56993a11f381de2367d2bb}} 
+\index{CSCI441::Camera@{CSCI441::Camera}!recomputeOrientation@{recomputeOrientation}}
+\index{recomputeOrientation@{recomputeOrientation}!CSCI441::Camera@{CSCI441::Camera}}
+\doxysubsubsection{\texorpdfstring{recomputeOrientation()}{recomputeOrientation()}}
+{\footnotesize\ttfamily virtual void CSCI441\+::\+Camera\+::recompute\+Orientation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\textbackslash{}desc Uses theta, phi, \& radius to update the camera\textquotesingle{}s view matrix parameters. The camera orientation is controlled via spherical coordinates and this method would orient and/or position the camera in cartesian coordinates. 
+
+Implemented in \mbox{\hyperlink{class_c_s_c_i441_1_1_arcball_cam_a05be1d4f9916e124258810d8f1d2b7e4}{CSCI441\+::\+Arcball\+Cam}}, \mbox{\hyperlink{class_c_s_c_i441_1_1_fixed_cam_a37be99738bfbd423573dcd298cf69784}{CSCI441\+::\+Fixed\+Cam}}, and \mbox{\hyperlink{class_c_s_c_i441_1_1_free_cam_aea185b8dad3bcbdc81fd12f322ee357a}{CSCI441\+::\+Free\+Cam}}.
+
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_aefb6d39b085ffa3ab185048c91bab056}\label{class_c_s_c_i441_1_1_camera_aefb6d39b085ffa3ab185048c91bab056}} 
+\index{CSCI441::Camera@{CSCI441::Camera}!rotate@{rotate}}
+\index{rotate@{rotate}!CSCI441::Camera@{CSCI441::Camera}}
+\doxysubsubsection{\texorpdfstring{rotate()}{rotate()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Camera\+::rotate (\begin{DoxyParamCaption}\item[{GLfloat}]{d\+Theta,  }\item[{GLfloat}]{d\+Phi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+\textbackslash{}desc rotates the camera\textquotesingle{}s POV by adding to theta \& phi then ensuring phi stays within the (0, pi) range and finally calls through to \mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a507ca14a9c56993a11f381de2367d2bb}{recompute\+Orientation()}} to update the view parameters after the rotation 
+\begin{DoxyParams}{Parameters}
+{\em d\+Theta} & change in rotation of theta represented in radians \\
+\hline
+{\em d\+Phi} & change in rotation of phi represented in radians \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+There is a default implementation to update theta \& phi, but the method is overridable in the event a camera should be fixed and rotation can then be disabled. 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a7dd05dba693c36f27d23fee37a9d1a9b}\label{class_c_s_c_i441_1_1_camera_a7dd05dba693c36f27d23fee37a9d1a9b}} 
+\index{CSCI441::Camera@{CSCI441::Camera}!setLookAtPoint@{setLookAtPoint}}
+\index{setLookAtPoint@{setLookAtPoint}!CSCI441::Camera@{CSCI441::Camera}}
+\doxysubsubsection{\texorpdfstring{setLookAtPoint()}{setLookAtPoint()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Camera\+::set\+Look\+At\+Point (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{look\+At }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\textbackslash{}desc sets the camera\textquotesingle{}s look\+At point in world space 
+\begin{DoxyParams}{Parameters}
+{\em look\+At} & the new camera world space look\+At point \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a32a7a4604599f33e4559ca3b3c1041a8}\label{class_c_s_c_i441_1_1_camera_a32a7a4604599f33e4559ca3b3c1041a8}} 
+\index{CSCI441::Camera@{CSCI441::Camera}!setPhi@{setPhi}}
+\index{setPhi@{setPhi}!CSCI441::Camera@{CSCI441::Camera}}
+\doxysubsubsection{\texorpdfstring{setPhi()}{setPhi()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Camera\+::set\+Phi (\begin{DoxyParamCaption}\item[{GLfloat}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\textbackslash{}desc sets the camera\textquotesingle{}s phi angle in radians 
+\begin{DoxyParams}{Parameters}
+{\em p} & the new camera phi angle in radians \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a81f0069fe27dfeb53a1f293404cc6d25}\label{class_c_s_c_i441_1_1_camera_a81f0069fe27dfeb53a1f293404cc6d25}} 
+\index{CSCI441::Camera@{CSCI441::Camera}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!CSCI441::Camera@{CSCI441::Camera}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Camera\+::set\+Position (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\textbackslash{}desc sets the camera\textquotesingle{}s position in world space 
+\begin{DoxyParams}{Parameters}
+{\em pos} & the new camera world space position \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a38ffedfb5b1976dd129ebc8efa5ba33f}\label{class_c_s_c_i441_1_1_camera_a38ffedfb5b1976dd129ebc8efa5ba33f}} 
+\index{CSCI441::Camera@{CSCI441::Camera}!setRadius@{setRadius}}
+\index{setRadius@{setRadius}!CSCI441::Camera@{CSCI441::Camera}}
+\doxysubsubsection{\texorpdfstring{setRadius()}{setRadius()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Camera\+::set\+Radius (\begin{DoxyParamCaption}\item[{GLfloat}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\textbackslash{}desc sets the camera\textquotesingle{}s radius 
+\begin{DoxyParams}{Parameters}
+{\em r} & the new camera radius \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a12bbf47ca619531c61228b6b461f8ab7}\label{class_c_s_c_i441_1_1_camera_a12bbf47ca619531c61228b6b461f8ab7}} 
+\index{CSCI441::Camera@{CSCI441::Camera}!setTheta@{setTheta}}
+\index{setTheta@{setTheta}!CSCI441::Camera@{CSCI441::Camera}}
+\doxysubsubsection{\texorpdfstring{setTheta()}{setTheta()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Camera\+::set\+Theta (\begin{DoxyParamCaption}\item[{GLfloat}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\textbackslash{}desc sets the camera\textquotesingle{}s theta angle in radians 
+\begin{DoxyParams}{Parameters}
+{\em t} & the new camera theta angle in radians \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_camera_a4338ac7c7fc68f7d1688473bc69f2e66}\label{class_c_s_c_i441_1_1_camera_a4338ac7c7fc68f7d1688473bc69f2e66}} 
+\index{CSCI441::Camera@{CSCI441::Camera}!setUpVector@{setUpVector}}
+\index{setUpVector@{setUpVector}!CSCI441::Camera@{CSCI441::Camera}}
+\doxysubsubsection{\texorpdfstring{setUpVector()}{setUpVector()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Camera\+::set\+Up\+Vector (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{up }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\textbackslash{}desc sets the camera\textquotesingle{}s up vector in world space 
+\begin{DoxyParams}{Parameters}
+{\em up} & the new camera world space up vector \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_camera_8hpp}{Camera.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,76 @@
+\hypertarget{_open_g_l3_d_engine_8hpp_source}{}\doxysection{Open\+GL3\+DEngine.\+hpp}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//}}
+\DoxyCodeLine{2 \textcolor{comment}{// Created by Jeffrey Paone on 5/20/21.}}
+\DoxyCodeLine{3 \textcolor{comment}{//}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#ifndef CSCI441\_OPENGL3D\_ENGINE\_HPP}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#define CSCI441\_OPENGL3D\_ENGINE\_HPP}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_open_g_l_engine_8hpp}{OpenGLEngine.hpp}}"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}ArcballCam.hpp"{}}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <glm/glm.hpp>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#ifndef M\_PI}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#define M\_PI 3.141529}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_c_s_c_i441}{CSCI441}} \{}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     \textcolor{keyword}{class }\mbox{\hyperlink{class_c_s_c_i441_1_1_open_g_l3_d_engine}{OpenGL3DEngine}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_c_s_c_i441_1_1_open_g_l_engine}{OpenGLEngine}} \{}
+\DoxyCodeLine{20     \textcolor{keyword}{public}:}
+\DoxyCodeLine{21         [[nodiscard]] GLboolean isLeftMouseDown() \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \{ \textcolor{keywordflow}{return} \_isLeftMouseDown; \}}
+\DoxyCodeLine{22         \textcolor{keywordtype}{void} setLeftMouseDown(GLboolean isDown) \{ \_isLeftMouseDown = isDown; \}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24         [[nodiscard]] GLboolean isShiftDown() \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \{ \textcolor{keywordflow}{return} \_isShiftDown; \}}
+\DoxyCodeLine{25         \textcolor{keywordtype}{void} setShiftDown(GLboolean isDown) \{ \_isShiftDown = isDown; \}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27         [[nodiscard]] glm::vec2 getMousePosition() \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \{ \textcolor{keywordflow}{return} \_mousePosition; \}}
+\DoxyCodeLine{28         \textcolor{keywordtype}{void} setMousePosition(glm::vec2 mousePos) \{ \_mousePosition = mousePos; \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30         \textcolor{keywordtype}{void} setArcballCameraAngles( glm::vec3 angles ) \{}
+\DoxyCodeLine{31             \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a12bbf47ca619531c61228b6b461f8ab7}{setTheta}}( angles[0] );}
+\DoxyCodeLine{32             \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a32a7a4604599f33e4559ca3b3c1041a8}{setPhi}}( angles[1] );}
+\DoxyCodeLine{33             \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a38ffedfb5b1976dd129ebc8efa5ba33f}{setRadius}}( angles[2] );}
+\DoxyCodeLine{34         \}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36         [[nodiscard]] glm::vec3 getArcballCameraEyePoint() \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \{ \textcolor{keywordflow}{return} \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a3b6c129340babd754222090e434f487e}{getPosition}}(); \}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38         [[nodiscard]] glm::vec3 getArcballCameraLookAtPoint() \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \{ \textcolor{keywordflow}{return} \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_camera_ab52326e0cbe97b5e68b7da2cea7ec512}{getLookAtPoint}}(); \}}
+\DoxyCodeLine{39         \textcolor{keywordtype}{void} setArcballCameraLookAtPoint( glm::vec3 lookAtPoint ) \{ \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a7dd05dba693c36f27d23fee37a9d1a9b}{setLookAtPoint}}(lookAtPoint); \}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41         [[nodiscard]] glm::vec3 getArcballCameraUpVector() \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \{ \textcolor{keywordflow}{return} \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a7048a119c897abf05168b49a1534adfd}{getUpVector}}(); \}}
+\DoxyCodeLine{42         \textcolor{keywordtype}{void} setArcballCameraUpVector( glm::vec3 upVector ) \{ \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a4338ac7c7fc68f7d1688473bc69f2e66}{setUpVector}}(upVector); \}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44         \textcolor{keywordtype}{void} addToArcballCameraAngles( glm::vec3 angleAdditions ) \{}
+\DoxyCodeLine{45             \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a12bbf47ca619531c61228b6b461f8ab7}{setTheta}}( \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_camera_ae521b33f2ac9174455842db2f0780949}{getTheta}}() + angleAdditions[0] );}
+\DoxyCodeLine{46             \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a32a7a4604599f33e4559ca3b3c1041a8}{setPhi}}(\_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_camera_a3069ac83e9cdc8153d3770d9136bd496}{getPhi}}() + angleAdditions[1] );}
+\DoxyCodeLine{47             \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_arcball_cam_aaeb9f7a5c9ab3a08a11687f1fd7234e2}{moveBackward}}( angleAdditions[2] );}
+\DoxyCodeLine{48         \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50         \textcolor{keywordtype}{void} updateArcballCameraDirection() \{}
+\DoxyCodeLine{51             \_arcballCamera-\/>\mbox{\hyperlink{class_c_s_c_i441_1_1_arcball_cam_a05be1d4f9916e124258810d8f1d2b7e4}{recomputeOrientation}}();}
+\DoxyCodeLine{52         \}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{55         \mbox{\hyperlink{class_c_s_c_i441_1_1_open_g_l3_d_engine}{OpenGL3DEngine}}(\textcolor{keyword}{const} \textcolor{keywordtype}{int} OPENGL\_MAJOR\_VERSION, \textcolor{keyword}{const} \textcolor{keywordtype}{int} OPENGL\_MINOR\_VERSION, \textcolor{keyword}{const} \textcolor{keywordtype}{int} WINDOW\_WIDTH, \textcolor{keyword}{const} \textcolor{keywordtype}{int} WINDOW\_HEIGHT, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* WINDOW\_TITLE, \textcolor{keyword}{const} \textcolor{keywordtype}{int} WINDOW\_RESIZABLE = GLFW\_FALSE)}
+\DoxyCodeLine{56             : \mbox{\hyperlink{class_c_s_c_i441_1_1_open_g_l_engine}{OpenGLEngine}}(OPENGL\_MAJOR\_VERSION, OPENGL\_MINOR\_VERSION, WINDOW\_WIDTH, WINDOW\_HEIGHT, WINDOW\_TITLE, WINDOW\_RESIZABLE),}
+\DoxyCodeLine{57             \_arcballCamera( \textcolor{keyword}{new} \mbox{\hyperlink{class_c_s_c_i441_1_1_arcball_cam}{CSCI441::ArcballCam}}() ),}
+\DoxyCodeLine{58             \_isShiftDown(GL\_FALSE), \_isLeftMouseDown(GL\_FALSE),}
+\DoxyCodeLine{59             \_mousePosition(glm::vec2(0.0f, 0.0f)) \{\}}
+\DoxyCodeLine{60         \mbox{\hyperlink{class_c_s_c_i441_1_1_open_g_l3_d_engine}{\string~OpenGL3DEngine}}() \{ \textcolor{keyword}{delete} \_arcballCamera; \}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62         \mbox{\hyperlink{class_c_s_c_i441_1_1_arcball_cam}{CSCI441::ArcballCam}}* \_arcballCamera;}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64         GLboolean \_isShiftDown;                          \textcolor{comment}{// if the shift key was pressed when the mouse was pressed}}
+\DoxyCodeLine{65         GLboolean \_isLeftMouseDown;                      \textcolor{comment}{// if the mouse left button is currently pressed}}
+\DoxyCodeLine{66         glm::vec2 \_mousePosition;                        \textcolor{comment}{// current mouse position}}
+\DoxyCodeLine{67     \};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CSCI441\_OPENGL3D\_ENGINE\_HPP}}
+
+\end{DoxyCode}

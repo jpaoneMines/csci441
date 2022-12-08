@@ -1,69 +1,87 @@
-\hypertarget{class_c_s_c_i441_1_1_model_loader}{}\section{C\+S\+C\+I441\+:\+:Model\+Loader Class Reference}
-\label{class_c_s_c_i441_1_1_model_loader}\index{C\+S\+C\+I441\+::\+Model\+Loader@{C\+S\+C\+I441\+::\+Model\+Loader}}
+\hypertarget{class_c_s_c_i441_1_1_model_loader}{}\doxysection{CSCI441\+::Model\+Loader Class Reference}
+\label{class_c_s_c_i441_1_1_model_loader}\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}}
 
 
-Loads object models from file and renders using V\+B\+Os/\+V\+A\+Os.  
+Loads object models from file and renders using VBOs/\+VAOs.  
 
 
 
 
-{\ttfamily \#include $<$model\+Loader3.\+hpp$>$}
+{\ttfamily \#include $<$Model\+Loader.\+hpp$>$}
 
-\subsection*{Public Member Functions}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_afd8c5602678127d25348714be53342a5}{Model\+Loader}} ()
+\item 
+\mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_a1223befa1c79f54b33a48a13efd8f639}{Model\+Loader}} (const char $\ast$filename)
+\item 
+\mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_ab30fbbe152e05c88300f98fa33998102}{$\sim$\+Model\+Loader}} ()
+\item 
+bool \mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_a2ee2d1efb2279540d9d89885ed173ac0}{load\+Model\+File}} (const char $\ast$filename, bool INFO=true, bool ERRORS=true)
+\item 
+void \mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_a219e23f5fdc0efccb4a49138da240197}{set\+Attribute\+Locations}} (GLint position\+Location, GLint normal\+Location=-\/1, GLint tex\+Coord\+Location=-\/1) const
+\item 
+bool \mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_a8fb084faddc03520932564e627490654}{draw}} (GLuint shader\+Program\+Handle, GLint mat\+Diff\+Location=-\/1, GLint mat\+Spec\+Location=-\/1, GLint mat\+Shin\+Location=-\/1, GLint mat\+Amb\+Location=-\/1, GLenum diffuse\+Texture=GL\+\_\+\+TEXTURE0) const
+\item 
+GLuint \mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_aae033d75ebda399f07ad10c71523de40}{get\+Number\+Of\+Vertices}} () const
+\item 
+GLfloat $\ast$ \mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_a5c2d76360ed4fb7b31bf49aa8d9e35c7}{get\+Vertices}} () const
+\item 
+GLfloat $\ast$ \mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_a98b9c1bc899975fcbf0710a018b2c121}{get\+Tex\+Coords}} () const
+\item 
+GLfloat $\ast$ \mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_a8efabf9b18c039ee93367ab33d092b4e}{get\+Normals}} () const
+\item 
+GLuint \mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_a5adfe3130cc2b28713b72a58c5252bcc}{get\+Number\+Of\+Indices}} () const
+\item 
+GLuint $\ast$ \mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_a98736116c5ac6c2fc9b89b1b1b79923c}{get\+Indices}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_a202848314c149e59b5211858ff082072}{enable\+Auto\+Generate\+Normals}} ()
+\item 
+static void \mbox{\hyperlink{class_c_s_c_i441_1_1_model_loader_aaf1ec38a0f551569ccf1a47af2a561f3}{disable\+Auto\+Generate\+Normals}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Loads object models from file and renders using VBOs/\+VAOs. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_afd8c5602678127d25348714be53342a5}\label{class_c_s_c_i441_1_1_model_loader_afd8c5602678127d25348714be53342a5}} 
-\hyperlink{class_c_s_c_i441_1_1_model_loader_afd8c5602678127d25348714be53342a5}{Model\+Loader} ()
-\begin{DoxyCompactList}\small\item\em Creates an empty model. \end{DoxyCompactList}\item 
-\hyperlink{class_c_s_c_i441_1_1_model_loader_a1223befa1c79f54b33a48a13efd8f639}{Model\+Loader} (const char $\ast$filename)
-\begin{DoxyCompactList}\small\item\em Loads a model from the given file. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_ab30fbbe152e05c88300f98fa33998102}\label{class_c_s_c_i441_1_1_model_loader_ab30fbbe152e05c88300f98fa33998102}} 
-\hyperlink{class_c_s_c_i441_1_1_model_loader_ab30fbbe152e05c88300f98fa33998102}{$\sim$\+Model\+Loader} ()
-\begin{DoxyCompactList}\small\item\em Frees memory associated with model on both C\+PU and G\+PU. \end{DoxyCompactList}\item 
-bool \hyperlink{class_c_s_c_i441_1_1_model_loader_a2ee2d1efb2279540d9d89885ed173ac0}{load\+Model\+File} (const char $\ast$filename, bool I\+N\+FO=true, bool E\+R\+R\+O\+RS=true)
-\begin{DoxyCompactList}\small\item\em Loads a model from the given file. \end{DoxyCompactList}\item 
-bool \hyperlink{class_c_s_c_i441_1_1_model_loader_a46734dcf7845e240a1ca9a31d6e5a468}{draw} (G\+Lint position\+Location, G\+Lint normal\+Location=-\/1, G\+Lint tex\+Coord\+Location=-\/1, G\+Lint mat\+Diff\+Location=-\/1, G\+Lint mat\+Spec\+Location=-\/1, G\+Lint mat\+Shin\+Location=-\/1, G\+Lint mat\+Amb\+Location=-\/1, G\+Lenum diffuse\+Texture=G\+L\+\_\+\+T\+E\+X\+T\+U\+R\+E0)
-\begin{DoxyCompactList}\small\item\em Renders a model. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-static void \hyperlink{class_c_s_c_i441_1_1_model_loader_a202848314c149e59b5211858ff082072}{enable\+Auto\+Generate\+Normals} ()
-\begin{DoxyCompactList}\small\item\em Enable autogeneration of vertex normals. \end{DoxyCompactList}\item 
-static void \hyperlink{class_c_s_c_i441_1_1_model_loader_aaf1ec38a0f551569ccf1a47af2a561f3}{disable\+Auto\+Generate\+Normals} ()
-\begin{DoxyCompactList}\small\item\em Disable autogeneration of vertex normals. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!ModelLoader@{ModelLoader}}
+\index{ModelLoader@{ModelLoader}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{ModelLoader()}{ModelLoader()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily CSCI441\+::\+Model\+Loader\+::\+Model\+Loader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+@desc Creates an empty model \mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_a1223befa1c79f54b33a48a13efd8f639}\label{class_c_s_c_i441_1_1_model_loader_a1223befa1c79f54b33a48a13efd8f639}} 
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!ModelLoader@{ModelLoader}}
+\index{ModelLoader@{ModelLoader}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{ModelLoader()}{ModelLoader()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily CSCI441\+::\+Model\+Loader\+::\+Model\+Loader (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
-\subsection{Detailed Description}
-Loads object models from file and renders using V\+B\+Os/\+V\+A\+Os. 
-
-\subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_a1223befa1c79f54b33a48a13efd8f639}\label{class_c_s_c_i441_1_1_model_loader_a1223befa1c79f54b33a48a13efd8f639}} 
-\index{C\+S\+C\+I441\+::\+Model\+Loader@{C\+S\+C\+I441\+::\+Model\+Loader}!Model\+Loader@{Model\+Loader}}
-\index{Model\+Loader@{Model\+Loader}!C\+S\+C\+I441\+::\+Model\+Loader@{C\+S\+C\+I441\+::\+Model\+Loader}}
-\subsubsection{\texorpdfstring{Model\+Loader()}{ModelLoader()}}
-{\footnotesize\ttfamily C\+S\+C\+I441\+::\+Model\+Loader\+::\+Model\+Loader (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-Loads a model from the given file. 
-
-
+@desc Loads a model from the given file 
 \begin{DoxyParams}{Parameters}
 {\em const} & char$\ast$ filename -\/ file to load model from \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_ab30fbbe152e05c88300f98fa33998102}\label{class_c_s_c_i441_1_1_model_loader_ab30fbbe152e05c88300f98fa33998102}} 
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!````~ModelLoader@{$\sim$ModelLoader}}
+\index{````~ModelLoader@{$\sim$ModelLoader}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{$\sim$ModelLoader()}{~ModelLoader()}}
+{\footnotesize\ttfamily CSCI441\+::\+Model\+Loader\+::$\sim$\+Model\+Loader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+@desc Frees memory associated with model on both CPU and GPU 
 
-\subsection{Member Function Documentation}
+\doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_aaf1ec38a0f551569ccf1a47af2a561f3}\label{class_c_s_c_i441_1_1_model_loader_aaf1ec38a0f551569ccf1a47af2a561f3}} 
-\index{C\+S\+C\+I441\+::\+Model\+Loader@{C\+S\+C\+I441\+::\+Model\+Loader}!disable\+Auto\+Generate\+Normals@{disable\+Auto\+Generate\+Normals}}
-\index{disable\+Auto\+Generate\+Normals@{disable\+Auto\+Generate\+Normals}!C\+S\+C\+I441\+::\+Model\+Loader@{C\+S\+C\+I441\+::\+Model\+Loader}}
-\subsubsection{\texorpdfstring{disable\+Auto\+Generate\+Normals()}{disableAutoGenerateNormals()}}
-{\footnotesize\ttfamily void C\+S\+C\+I441\+::\+Model\+Loader\+::disable\+Auto\+Generate\+Normals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!disableAutoGenerateNormals@{disableAutoGenerateNormals}}
+\index{disableAutoGenerateNormals@{disableAutoGenerateNormals}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{disableAutoGenerateNormals()}{disableAutoGenerateNormals()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Model\+Loader\+::disable\+Auto\+Generate\+Normals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
-
-
-Disable autogeneration of vertex normals. 
+@desc Disable autogeneration of vertex normals
 
 If an object model does not contain vertex normal data, then normals will be computed based on the cross product of vertex winding order.
 
@@ -72,77 +90,134 @@ Must be called prior to loading in a model from file
 
 No normals are generated by default 
 \end{DoxyNote}
-\mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_a46734dcf7845e240a1ca9a31d6e5a468}\label{class_c_s_c_i441_1_1_model_loader_a46734dcf7845e240a1ca9a31d6e5a468}} 
-\index{C\+S\+C\+I441\+::\+Model\+Loader@{C\+S\+C\+I441\+::\+Model\+Loader}!draw@{draw}}
-\index{draw@{draw}!C\+S\+C\+I441\+::\+Model\+Loader@{C\+S\+C\+I441\+::\+Model\+Loader}}
-\subsubsection{\texorpdfstring{draw()}{draw()}}
-{\footnotesize\ttfamily bool C\+S\+C\+I441\+::\+Model\+Loader\+::draw (\begin{DoxyParamCaption}\item[{G\+Lint}]{position\+Location,  }\item[{G\+Lint}]{normal\+Location = {\ttfamily -\/1},  }\item[{G\+Lint}]{tex\+Coord\+Location = {\ttfamily -\/1},  }\item[{G\+Lint}]{mat\+Diff\+Location = {\ttfamily -\/1},  }\item[{G\+Lint}]{mat\+Spec\+Location = {\ttfamily -\/1},  }\item[{G\+Lint}]{mat\+Shin\+Location = {\ttfamily -\/1},  }\item[{G\+Lint}]{mat\+Amb\+Location = {\ttfamily -\/1},  }\item[{G\+Lenum}]{diffuse\+Texture = {\ttfamily GL\+\_\+TEXTURE0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_a8fb084faddc03520932564e627490654}\label{class_c_s_c_i441_1_1_model_loader_a8fb084faddc03520932564e627490654}} 
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!draw@{draw}}
+\index{draw@{draw}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily bool CSCI441\+::\+Model\+Loader\+::draw (\begin{DoxyParamCaption}\item[{GLuint}]{shader\+Program\+Handle,  }\item[{GLint}]{mat\+Diff\+Location = {\ttfamily -\/1},  }\item[{GLint}]{mat\+Spec\+Location = {\ttfamily -\/1},  }\item[{GLint}]{mat\+Shin\+Location = {\ttfamily -\/1},  }\item[{GLint}]{mat\+Amb\+Location = {\ttfamily -\/1},  }\item[{GLenum}]{diffuse\+Texture = {\ttfamily GL\+\_\+TEXTURE0} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-
-
-Renders a model. 
-
-
+@desc Renders a model 
 \begin{DoxyParams}{Parameters}
-{\em G\+Lint} & position\+Location -\/ attribute location of vertex position \\
+{\em GLint} & shader\+Program\+Handle -\/ shader program handle that \\
 \hline
-{\em G\+Lint} & normal\+Location -\/ attribute location of vertex normal \\
+{\em GLint} & mat\+Diff\+Location -\/ uniform location of material diffuse component \\
 \hline
-{\em G\+Lint} & tex\+Coord\+Location -\/ attribute location of vertex texture coordinate \\
+{\em GLint} & mat\+Spec\+Location -\/ uniform location of material specular component \\
 \hline
-{\em G\+Lint} & mat\+Diff\+Location -\/ attribute location of material diffuse component \\
+{\em GLint} & mat\+Shin\+Location -\/ uniform location of material shininess component \\
 \hline
-{\em G\+Lint} & mat\+Spec\+Location -\/ attribute location of material specular component \\
+{\em GLint} & mat\+Amb\+Location -\/ uniform location of material ambient component \\
 \hline
-{\em G\+Lint} & mat\+Shin\+Location -\/ attribute location of material shininess component \\
-\hline
-{\em G\+Lint} & mat\+Amb\+Location -\/ attribute location of material ambient component \\
-\hline
-{\em G\+Lenum} & diffuse\+Texture -\/ texture number to bind diffuse texture map to \\
+{\em GLenum} & diffuse\+Texture -\/ texture number to bind diffuse texture map to \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 true if draw succeeded, false otherwise 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_a202848314c149e59b5211858ff082072}\label{class_c_s_c_i441_1_1_model_loader_a202848314c149e59b5211858ff082072}} 
-\index{C\+S\+C\+I441\+::\+Model\+Loader@{C\+S\+C\+I441\+::\+Model\+Loader}!enable\+Auto\+Generate\+Normals@{enable\+Auto\+Generate\+Normals}}
-\index{enable\+Auto\+Generate\+Normals@{enable\+Auto\+Generate\+Normals}!C\+S\+C\+I441\+::\+Model\+Loader@{C\+S\+C\+I441\+::\+Model\+Loader}}
-\subsubsection{\texorpdfstring{enable\+Auto\+Generate\+Normals()}{enableAutoGenerateNormals()}}
-{\footnotesize\ttfamily void C\+S\+C\+I441\+::\+Model\+Loader\+::enable\+Auto\+Generate\+Normals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!enableAutoGenerateNormals@{enableAutoGenerateNormals}}
+\index{enableAutoGenerateNormals@{enableAutoGenerateNormals}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{enableAutoGenerateNormals()}{enableAutoGenerateNormals()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Model\+Loader\+::enable\+Auto\+Generate\+Normals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
-
-
-Enable autogeneration of vertex normals. 
+@desc Enable autogeneration of vertex normals
 
 If an object model does not contain vertex normal data, then normals will be computed based on the cross product of vertex winding order.
 
 \begin{DoxyNote}{Note}
 Must be called prior to loading in a model from file 
+
+No normals are generated by default 
 \end{DoxyNote}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_a98736116c5ac6c2fc9b89b1b1b79923c}\label{class_c_s_c_i441_1_1_model_loader_a98736116c5ac6c2fc9b89b1b1b79923c}} 
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!getIndices@{getIndices}}
+\index{getIndices@{getIndices}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{getIndices()}{getIndices()}}
+{\footnotesize\ttfamily GLuint $\ast$ CSCI441\+::\+Model\+Loader\+::get\+Indices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+@desc Return the index array that dictates the order to draw the model mesh. For use with IBOs \begin{DoxyReturn}{Returns}
+GLuint$\ast$ indices -\/ pointer to the index array 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_a8efabf9b18c039ee93367ab33d092b4e}\label{class_c_s_c_i441_1_1_model_loader_a8efabf9b18c039ee93367ab33d092b4e}} 
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!getNormals@{getNormals}}
+\index{getNormals@{getNormals}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{getNormals()}{getNormals()}}
+{\footnotesize\ttfamily GLfloat $\ast$ CSCI441\+::\+Model\+Loader\+::get\+Normals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+@desc Return the normal array that corresponds to the model mesh. For use with VBOs \begin{DoxyReturn}{Returns}
+GLfloat$\ast$ normals -\/ pointer to the normal array 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_a5adfe3130cc2b28713b72a58c5252bcc}\label{class_c_s_c_i441_1_1_model_loader_a5adfe3130cc2b28713b72a58c5252bcc}} 
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!getNumberOfIndices@{getNumberOfIndices}}
+\index{getNumberOfIndices@{getNumberOfIndices}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{getNumberOfIndices()}{getNumberOfIndices()}}
+{\footnotesize\ttfamily GLuint CSCI441\+::\+Model\+Loader\+::get\+Number\+Of\+Indices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+@desc Return the number of indices to draw the model. This value corresponds to the size of the Indices array. \begin{DoxyReturn}{Returns}
+GLuint num\+Indices -\/ the number of indices when drawing the model 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_aae033d75ebda399f07ad10c71523de40}\label{class_c_s_c_i441_1_1_model_loader_aae033d75ebda399f07ad10c71523de40}} 
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!getNumberOfVertices@{getNumberOfVertices}}
+\index{getNumberOfVertices@{getNumberOfVertices}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{getNumberOfVertices()}{getNumberOfVertices()}}
+{\footnotesize\ttfamily GLuint CSCI441\+::\+Model\+Loader\+::get\+Number\+Of\+Vertices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+@desc Return the number of vertices the model is made up of. This value corresponds to the size of the Vertices, Tex\+Coords, and Normals arrays. \begin{DoxyReturn}{Returns}
+GLuint num\+Vertices -\/ the number of vertices within the model 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_a98b9c1bc899975fcbf0710a018b2c121}\label{class_c_s_c_i441_1_1_model_loader_a98b9c1bc899975fcbf0710a018b2c121}} 
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!getTexCoords@{getTexCoords}}
+\index{getTexCoords@{getTexCoords}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{getTexCoords()}{getTexCoords()}}
+{\footnotesize\ttfamily GLfloat $\ast$ CSCI441\+::\+Model\+Loader\+::get\+Tex\+Coords (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+@desc Return the texture coordinates array that corresponds to the model mesh. For use with VBOs \begin{DoxyReturn}{Returns}
+GLfloat$\ast$ tex\+Coords -\/ pointer to texture coordinate array 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_a5c2d76360ed4fb7b31bf49aa8d9e35c7}\label{class_c_s_c_i441_1_1_model_loader_a5c2d76360ed4fb7b31bf49aa8d9e35c7}} 
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!getVertices@{getVertices}}
+\index{getVertices@{getVertices}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{getVertices()}{getVertices()}}
+{\footnotesize\ttfamily GLfloat $\ast$ CSCI441\+::\+Model\+Loader\+::get\+Vertices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+@desc Return the vertex array that makes up the model mesh. For use with VBOs \begin{DoxyReturn}{Returns}
+GLfloat$\ast$ vertices -\/ pointer to vertex array 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_a2ee2d1efb2279540d9d89885ed173ac0}\label{class_c_s_c_i441_1_1_model_loader_a2ee2d1efb2279540d9d89885ed173ac0}} 
-\index{C\+S\+C\+I441\+::\+Model\+Loader@{C\+S\+C\+I441\+::\+Model\+Loader}!load\+Model\+File@{load\+Model\+File}}
-\index{load\+Model\+File@{load\+Model\+File}!C\+S\+C\+I441\+::\+Model\+Loader@{C\+S\+C\+I441\+::\+Model\+Loader}}
-\subsubsection{\texorpdfstring{load\+Model\+File()}{loadModelFile()}}
-{\footnotesize\ttfamily bool C\+S\+C\+I441\+::\+Model\+Loader\+::load\+Model\+File (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{bool}]{I\+N\+FO = {\ttfamily true},  }\item[{bool}]{E\+R\+R\+O\+RS = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!loadModelFile@{loadModelFile}}
+\index{loadModelFile@{loadModelFile}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{loadModelFile()}{loadModelFile()}}
+{\footnotesize\ttfamily bool CSCI441\+::\+Model\+Loader\+::load\+Model\+File (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{bool}]{INFO = {\ttfamily true},  }\item[{bool}]{ERRORS = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-
-
-Loads a model from the given file. 
-
-
+@desc Loads a model from the given file 
 \begin{DoxyParams}{Parameters}
 {\em const} & char$\ast$ filename -\/ file to load model from \\
 \hline
-{\em bool} & I\+N\+FO -\/ flag to control if informational messages should be displayed \\
+{\em bool} & INFO -\/ flag to control if informational messages should be displayed \\
 \hline
-{\em bool} & E\+R\+R\+O\+RS -\/ flag to control if error messages should be displayed \\
+{\em bool} & ERRORS -\/ flag to control if error messages should be displayed \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 true if load succeeded, false otherwise 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_c_i441_1_1_model_loader_a219e23f5fdc0efccb4a49138da240197}\label{class_c_s_c_i441_1_1_model_loader_a219e23f5fdc0efccb4a49138da240197}} 
+\index{CSCI441::ModelLoader@{CSCI441::ModelLoader}!setAttributeLocations@{setAttributeLocations}}
+\index{setAttributeLocations@{setAttributeLocations}!CSCI441::ModelLoader@{CSCI441::ModelLoader}}
+\doxysubsubsection{\texorpdfstring{setAttributeLocations()}{setAttributeLocations()}}
+{\footnotesize\ttfamily void CSCI441\+::\+Model\+Loader\+::set\+Attribute\+Locations (\begin{DoxyParamCaption}\item[{GLint}]{position\+Location,  }\item[{GLint}]{normal\+Location = {\ttfamily -\/1},  }\item[{GLint}]{tex\+Coord\+Location = {\ttfamily -\/1} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+@desc Enables VBO attribute array locations 
+\begin{DoxyParams}{Parameters}
+{\em GLint} & position\+Location -\/ attribute location of vertex position \\
+\hline
+{\em GLint} & normal\+Location -\/ attribute location of vertex normal \\
+\hline
+{\em GLint} & tex\+Coord\+Location -\/ attribute location of vertex texture coordinate \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-C\+S\+C\+I441/\hyperlink{model_loader3_8hpp}{model\+Loader3.\+hpp}\end{DoxyCompactItemize}
+\mbox{\hyperlink{_model_loader_8hpp}{Model\+Loader.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,746 @@
+\hypertarget{_shader_utils_8hpp_source}{}\doxysection{Shader\+Utils.\+hpp}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#ifndef CSCI441\_SHADEREUTILS\_HPP}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#define CSCI441\_SHADEREUTILS\_HPP}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <GL/glew.h>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <cstring>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{comment}{//********************************************************************************************************************}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{29 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_c_s_c_i441___i_n_t_e_r_n_a_l}{CSCI441\_INTERNAL}} \{}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{33     \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_shader_utils}{ShaderUtils}} \{}
+\DoxyCodeLine{34         \textcolor{keyword}{static} \textcolor{keywordtype}{bool} sDEBUG = \textcolor{keyword}{true};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{37         \textcolor{keywordtype}{void} enableDebugMessages();}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{40         \textcolor{keywordtype}{void} disableDebugMessages();}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{45         \textcolor{keyword}{const} \textcolor{keywordtype}{char}* GLSL\_type\_to\_string( GLenum type );}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{50         \textcolor{keyword}{const} \textcolor{keywordtype}{char}* GL\_shader\_type\_to\_string( GLenum type );}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{55         \textcolor{keyword}{const} \textcolor{keywordtype}{char}* GL\_primitive\_type\_to\_string( GLenum type );}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{61         \textcolor{keywordtype}{bool} readTextFromFile( \textcolor{keyword}{const} \textcolor{keywordtype}{char}* filename, \textcolor{keywordtype}{char}* \&output );}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{67         GLuint compileShader( \textcolor{keyword}{const} \textcolor{keywordtype}{char} *filename, GLenum shaderType );}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{70         \textcolor{keywordtype}{void} printShaderLog( GLuint shaderHandle );}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{73         \textcolor{keywordtype}{void} printProgramLog( GLuint programHandle );}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{76         \textcolor{keywordtype}{void} printProgramPipelineLog( GLuint pipelineHandle );}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{82         GLboolean printSubroutineInfo(GLuint programHandle, GLenum shaderStage, GLboolean printHeader );}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{93         \textcolor{keywordtype}{void} printShaderProgramInfo( GLuint programHandle,}
+\DoxyCodeLine{94                                      GLboolean hasVertexShader,}
+\DoxyCodeLine{95                                      GLboolean hasTessControlShader, GLboolean hasTessEvalShader,}
+\DoxyCodeLine{96                                      GLboolean hasGeometryShader,}
+\DoxyCodeLine{97                                      GLboolean hasFragmentShader,}
+\DoxyCodeLine{98                                      GLboolean hasComputeShader,}
+\DoxyCodeLine{99                                      GLboolean useLastNewLine );}
+\DoxyCodeLine{100     \}}
+\DoxyCodeLine{101 \}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \textcolor{comment}{//********************************************************************************************************************}}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441\_INTERNAL::ShaderUtils::enableDebugMessages() \{}
+\DoxyCodeLine{106     sDEBUG = \textcolor{keyword}{true};}
+\DoxyCodeLine{107 \}}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441\_INTERNAL::ShaderUtils::disableDebugMessages() \{}
+\DoxyCodeLine{110     sDEBUG = \textcolor{keyword}{false};}
+\DoxyCodeLine{111 \}}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113 \textcolor{comment}{//********************************************************************************************************************}}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} CSCI441\_INTERNAL::ShaderUtils::readTextFromFile(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *filename, \textcolor{keywordtype}{char}* \&output)\{}
+\DoxyCodeLine{116     std::string buf = std::string(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{117     std::string line;}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119     std::ifstream in(filename);}
+\DoxyCodeLine{120     \textcolor{keywordflow}{if}( !in.is\_open() ) \{}
+\DoxyCodeLine{121         fprintf( stderr, \textcolor{stringliteral}{"{}[ERROR]: Could not open file \%s\(\backslash\)n"{}}, filename );}
+\DoxyCodeLine{122         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{123     \}}
+\DoxyCodeLine{124     \textcolor{keywordflow}{while}( std::getline(in, line) ) \{}
+\DoxyCodeLine{125         buf += line + \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{126     \}}
+\DoxyCodeLine{127     }
+\DoxyCodeLine{128     output = \textcolor{keyword}{new} \textcolor{keywordtype}{char}[buf.length()+1];}
+\DoxyCodeLine{129     strncpy(output, buf.c\_str(), buf.length());}
+\DoxyCodeLine{130     output[buf.length()] = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{131     }
+\DoxyCodeLine{132     in.close();}
+\DoxyCodeLine{133     }
+\DoxyCodeLine{134     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{135 \}}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137 \textcolor{keyword}{inline} \textcolor{keyword}{const} \textcolor{keywordtype}{char}* CSCI441\_INTERNAL::ShaderUtils::GLSL\_type\_to\_string(GLenum type) \{}
+\DoxyCodeLine{138     \textcolor{keywordflow}{switch}(type) \{}
+\DoxyCodeLine{139         \textcolor{keywordflow}{case} GL\_FLOAT:                                      \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}float"{}};}
+\DoxyCodeLine{140         \textcolor{keywordflow}{case} GL\_FLOAT\_VEC2:                                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}vec2"{}};}
+\DoxyCodeLine{141         \textcolor{keywordflow}{case} GL\_FLOAT\_VEC3:                                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}vec3"{}};}
+\DoxyCodeLine{142         \textcolor{keywordflow}{case} GL\_FLOAT\_VEC4:                                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}vec4"{}};}
+\DoxyCodeLine{143         \textcolor{keywordflow}{case} GL\_DOUBLE:                                     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}double"{}};}
+\DoxyCodeLine{144         \textcolor{keywordflow}{case} GL\_DOUBLE\_VEC2:                                \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}dvec2"{}};}
+\DoxyCodeLine{145         \textcolor{keywordflow}{case} GL\_DOUBLE\_VEC3:                                \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}dvec3"{}};}
+\DoxyCodeLine{146         \textcolor{keywordflow}{case} GL\_DOUBLE\_VEC4:                                \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}dvec4"{}};}
+\DoxyCodeLine{147         \textcolor{keywordflow}{case} GL\_INT:                                        \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}int"{}};}
+\DoxyCodeLine{148         \textcolor{keywordflow}{case} GL\_INT\_VEC2:                                   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}ivec2"{}};}
+\DoxyCodeLine{149         \textcolor{keywordflow}{case} GL\_INT\_VEC3:                                   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}ivec3"{}};}
+\DoxyCodeLine{150         \textcolor{keywordflow}{case} GL\_INT\_VEC4:                                   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}ivec4"{}};}
+\DoxyCodeLine{151         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT:                               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}unsigned int"{}};}
+\DoxyCodeLine{152         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_VEC2:                          \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uvec2"{}};}
+\DoxyCodeLine{153         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_VEC3:                          \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uvec3"{}};}
+\DoxyCodeLine{154         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_VEC4:                          \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uvec4"{}};}
+\DoxyCodeLine{155         \textcolor{keywordflow}{case} GL\_BOOL:                                       \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}bool"{}};}
+\DoxyCodeLine{156         \textcolor{keywordflow}{case} GL\_BOOL\_VEC2:                                  \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}bvec2"{}};}
+\DoxyCodeLine{157         \textcolor{keywordflow}{case} GL\_BOOL\_VEC3:                                  \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}bvec3"{}};}
+\DoxyCodeLine{158         \textcolor{keywordflow}{case} GL\_BOOL\_VEC4:                                  \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}bvec4"{}};}
+\DoxyCodeLine{159         \textcolor{keywordflow}{case} GL\_FLOAT\_MAT2:                                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}mat2"{}};}
+\DoxyCodeLine{160         \textcolor{keywordflow}{case} GL\_FLOAT\_MAT3:                                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}mat3"{}};}
+\DoxyCodeLine{161         \textcolor{keywordflow}{case} GL\_FLOAT\_MAT4:                                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}mat4"{}};}
+\DoxyCodeLine{162         \textcolor{keywordflow}{case} GL\_FLOAT\_MAT2x3:                               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}mat2x3"{}};}
+\DoxyCodeLine{163         \textcolor{keywordflow}{case} GL\_FLOAT\_MAT2x4:                               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}mat2x4"{}};}
+\DoxyCodeLine{164         \textcolor{keywordflow}{case} GL\_FLOAT\_MAT3x2:                               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}mat3x2"{}};}
+\DoxyCodeLine{165         \textcolor{keywordflow}{case} GL\_FLOAT\_MAT3x4:                               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}mat3x4"{}};}
+\DoxyCodeLine{166         \textcolor{keywordflow}{case} GL\_FLOAT\_MAT4x2:                               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}mat4x2"{}};}
+\DoxyCodeLine{167         \textcolor{keywordflow}{case} GL\_FLOAT\_MAT4x3:                               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}mat4x3"{}};}
+\DoxyCodeLine{168         \textcolor{keywordflow}{case} GL\_DOUBLE\_MAT2:                                \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}dmat2"{}};}
+\DoxyCodeLine{169         \textcolor{keywordflow}{case} GL\_DOUBLE\_MAT3:                                \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}dmat3"{}};}
+\DoxyCodeLine{170         \textcolor{keywordflow}{case} GL\_DOUBLE\_MAT4:                                \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}dmat4"{}};}
+\DoxyCodeLine{171         \textcolor{keywordflow}{case} GL\_DOUBLE\_MAT2x3:                              \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}dmat2x3"{}};}
+\DoxyCodeLine{172         \textcolor{keywordflow}{case} GL\_DOUBLE\_MAT2x4:                              \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}dmat2x4"{}};}
+\DoxyCodeLine{173         \textcolor{keywordflow}{case} GL\_DOUBLE\_MAT3x2:                              \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}dmat3x2"{}};}
+\DoxyCodeLine{174         \textcolor{keywordflow}{case} GL\_DOUBLE\_MAT3x4:                              \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}dmat3x4"{}};}
+\DoxyCodeLine{175         \textcolor{keywordflow}{case} GL\_DOUBLE\_MAT4x2:                              \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}dmat4x2"{}};}
+\DoxyCodeLine{176         \textcolor{keywordflow}{case} GL\_DOUBLE\_MAT4x3:                              \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}dmat4x3"{}};}
+\DoxyCodeLine{177         \textcolor{keywordflow}{case} GL\_SAMPLER\_1D:                                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}sampler1D"{}};}
+\DoxyCodeLine{178         \textcolor{keywordflow}{case} GL\_SAMPLER\_2D:                                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}sampler2D"{}};}
+\DoxyCodeLine{179         \textcolor{keywordflow}{case} GL\_SAMPLER\_3D:                                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}sampler3D"{}};}
+\DoxyCodeLine{180         \textcolor{keywordflow}{case} GL\_SAMPLER\_CUBE:                               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}samplerCube"{}};}
+\DoxyCodeLine{181         \textcolor{keywordflow}{case} GL\_SAMPLER\_1D\_SHADOW:                          \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}sampler1DShadow"{}};}
+\DoxyCodeLine{182         \textcolor{keywordflow}{case} GL\_SAMPLER\_2D\_SHADOW:                          \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}sampler2DShadow"{}};}
+\DoxyCodeLine{183         \textcolor{keywordflow}{case} GL\_SAMPLER\_1D\_ARRAY:                           \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}sampler1DArray"{}};}
+\DoxyCodeLine{184         \textcolor{keywordflow}{case} GL\_SAMPLER\_2D\_ARRAY:                           \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}sampler2DArray"{}};}
+\DoxyCodeLine{185         \textcolor{keywordflow}{case} GL\_SAMPLER\_2D\_MULTISAMPLE:                     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}sampler2DMS"{}};}
+\DoxyCodeLine{186         \textcolor{keywordflow}{case} GL\_SAMPLER\_2D\_MULTISAMPLE\_ARRAY:               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}sampler2DMSArray"{}};}
+\DoxyCodeLine{187         \textcolor{keywordflow}{case} GL\_SAMPLER\_CUBE\_SHADOW:                        \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}samplerCubeShadow"{}};}
+\DoxyCodeLine{188         \textcolor{keywordflow}{case} GL\_SAMPLER\_BUFFER:                             \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}samplerBuffer"{}};}
+\DoxyCodeLine{189         \textcolor{keywordflow}{case} GL\_SAMPLER\_2D\_RECT:                            \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}sampler2DRect"{}};}
+\DoxyCodeLine{190         \textcolor{keywordflow}{case} GL\_SAMPLER\_2D\_RECT\_SHADOW:                     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}sampler2DRectShadow"{}};}
+\DoxyCodeLine{191         \textcolor{keywordflow}{case} GL\_INT\_SAMPLER\_1D:                             \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}isampler1D"{}};}
+\DoxyCodeLine{192         \textcolor{keywordflow}{case} GL\_INT\_SAMPLER\_2D:                             \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}isampler2D"{}};}
+\DoxyCodeLine{193         \textcolor{keywordflow}{case} GL\_INT\_SAMPLER\_3D:                             \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}isampler3D"{}};}
+\DoxyCodeLine{194         \textcolor{keywordflow}{case} GL\_INT\_SAMPLER\_CUBE:                           \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}isamplerCube"{}};}
+\DoxyCodeLine{195         \textcolor{keywordflow}{case} GL\_INT\_SAMPLER\_1D\_ARRAY:                       \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}isampler1DArray"{}};}
+\DoxyCodeLine{196         \textcolor{keywordflow}{case} GL\_INT\_SAMPLER\_2D\_ARRAY:                       \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}isampler2DArray"{}};}
+\DoxyCodeLine{197         \textcolor{keywordflow}{case} GL\_INT\_SAMPLER\_2D\_MULTISAMPLE:                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}isampler2DMS"{}};}
+\DoxyCodeLine{198         \textcolor{keywordflow}{case} GL\_INT\_SAMPLER\_2D\_MULTISAMPLE\_ARRAY:           \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}isampler2DMSArray"{}};}
+\DoxyCodeLine{199         \textcolor{keywordflow}{case} GL\_INT\_SAMPLER\_BUFFER:                         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}isamplerBuffer"{}};}
+\DoxyCodeLine{200         \textcolor{keywordflow}{case} GL\_INT\_SAMPLER\_2D\_RECT:                        \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}isampler2DRect"{}};}
+\DoxyCodeLine{201         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_SAMPLER\_1D:                    \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}usampler1D"{}};}
+\DoxyCodeLine{202         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_SAMPLER\_2D:                    \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}usampler2D"{}};}
+\DoxyCodeLine{203         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_SAMPLER\_3D:                    \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}usampler3D"{}};}
+\DoxyCodeLine{204         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_SAMPLER\_CUBE:                  \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}usamplerCube"{}};}
+\DoxyCodeLine{205         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_SAMPLER\_1D\_ARRAY:              \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}usampler1DArray"{}};}
+\DoxyCodeLine{206         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_SAMPLER\_2D\_ARRAY:              \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}usampler2DArray"{}};}
+\DoxyCodeLine{207         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_SAMPLER\_2D\_MULTISAMPLE:        \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}usampler2DMS"{}};}
+\DoxyCodeLine{208         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_SAMPLER\_2D\_MULTISAMPLE\_ARRAY:  \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}usampler2DMSArray"{}};}
+\DoxyCodeLine{209         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_SAMPLER\_BUFFER:                \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}usamplerBuffer"{}};}
+\DoxyCodeLine{210         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_SAMPLER\_2D\_RECT:               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}usampler2DRect"{}};}
+\DoxyCodeLine{211         \textcolor{keywordflow}{case} GL\_IMAGE\_1D:                                   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}image1D"{}};}
+\DoxyCodeLine{212         \textcolor{keywordflow}{case} GL\_IMAGE\_2D:                                   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}image2D"{}};}
+\DoxyCodeLine{213         \textcolor{keywordflow}{case} GL\_IMAGE\_3D:                                   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}image3D"{}};}
+\DoxyCodeLine{214         \textcolor{keywordflow}{case} GL\_IMAGE\_2D\_RECT:                              \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}image2DRect"{}};}
+\DoxyCodeLine{215         \textcolor{keywordflow}{case} GL\_IMAGE\_CUBE:                                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}imageCube"{}};}
+\DoxyCodeLine{216         \textcolor{keywordflow}{case} GL\_IMAGE\_BUFFER:                               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}imageBuffer"{}};}
+\DoxyCodeLine{217         \textcolor{keywordflow}{case} GL\_IMAGE\_1D\_ARRAY:                             \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}image1DArray"{}};}
+\DoxyCodeLine{218         \textcolor{keywordflow}{case} GL\_IMAGE\_2D\_ARRAY:                             \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}image2DArray"{}};}
+\DoxyCodeLine{219         \textcolor{keywordflow}{case} GL\_IMAGE\_2D\_MULTISAMPLE:                       \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}image2DMS"{}};}
+\DoxyCodeLine{220         \textcolor{keywordflow}{case} GL\_IMAGE\_2D\_MULTISAMPLE\_ARRAY:                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}image2DMSArray"{}};}
+\DoxyCodeLine{221         \textcolor{keywordflow}{case} GL\_INT\_IMAGE\_1D:                               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}iimage1D"{}};}
+\DoxyCodeLine{222         \textcolor{keywordflow}{case} GL\_INT\_IMAGE\_2D:                               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}iimage2D"{}};}
+\DoxyCodeLine{223         \textcolor{keywordflow}{case} GL\_INT\_IMAGE\_3D:                               \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}iimage3D"{}};}
+\DoxyCodeLine{224         \textcolor{keywordflow}{case} GL\_INT\_IMAGE\_2D\_RECT:                          \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}iimage2DRect"{}};}
+\DoxyCodeLine{225         \textcolor{keywordflow}{case} GL\_INT\_IMAGE\_CUBE:                             \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}iimageCube"{}};}
+\DoxyCodeLine{226         \textcolor{keywordflow}{case} GL\_INT\_IMAGE\_BUFFER:                           \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}iimageBuffer"{}};}
+\DoxyCodeLine{227         \textcolor{keywordflow}{case} GL\_INT\_IMAGE\_1D\_ARRAY:                         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}iimage1DArray"{}};}
+\DoxyCodeLine{228         \textcolor{keywordflow}{case} GL\_INT\_IMAGE\_2D\_ARRAY:                         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}iimage2DArray"{}};}
+\DoxyCodeLine{229         \textcolor{keywordflow}{case} GL\_INT\_IMAGE\_2D\_MULTISAMPLE:                   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}iimage2DMS"{}};}
+\DoxyCodeLine{230         \textcolor{keywordflow}{case} GL\_INT\_IMAGE\_2D\_MULTISAMPLE\_ARRAY:             \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}iimage2DMSArray"{}};}
+\DoxyCodeLine{231         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_IMAGE\_1D:                      \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uimage1D"{}};}
+\DoxyCodeLine{232         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_IMAGE\_2D:                      \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uimage2D"{}};}
+\DoxyCodeLine{233         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_IMAGE\_3D:                      \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uimage3D"{}};}
+\DoxyCodeLine{234         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_IMAGE\_2D\_RECT:                 \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uimage2DRect"{}};}
+\DoxyCodeLine{235         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_IMAGE\_CUBE:                    \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uimageCube"{}};}
+\DoxyCodeLine{236         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_IMAGE\_BUFFER:                  \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uimageBuffer"{}};}
+\DoxyCodeLine{237         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_IMAGE\_1D\_ARRAY:                \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uimage1DArray"{}};}
+\DoxyCodeLine{238         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_IMAGE\_2D\_ARRAY:                \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uimage2DArray"{}};}
+\DoxyCodeLine{239         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_IMAGE\_2D\_MULTISAMPLE:          \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uimage2DMS"{}};}
+\DoxyCodeLine{240         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_IMAGE\_2D\_MULTISAMPLE\_ARRAY:    \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}uimage2DMSArray"{}};}
+\DoxyCodeLine{241         \textcolor{keywordflow}{case} GL\_UNSIGNED\_INT\_ATOMIC\_COUNTER:                \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}atomic\_uint"{}};}
+\DoxyCodeLine{242         \textcolor{keywordflow}{default}: \textcolor{keywordflow}{break};}
+\DoxyCodeLine{243     \}}
+\DoxyCodeLine{244     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}other data type"{}};}
+\DoxyCodeLine{245 \}}
+\DoxyCodeLine{246 }
+\DoxyCodeLine{247 \textcolor{keyword}{inline} \textcolor{keyword}{const} \textcolor{keywordtype}{char}* CSCI441\_INTERNAL::ShaderUtils::GL\_shader\_type\_to\_string(GLenum type) \{}
+\DoxyCodeLine{248   \textcolor{keywordflow}{switch}(type) \{}
+\DoxyCodeLine{249     \textcolor{keywordflow}{case} GL\_VERTEX\_SHADER: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Vertex Shader"{}};}
+\DoxyCodeLine{250     \textcolor{keywordflow}{case} GL\_TESS\_CONTROL\_SHADER: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Tess Ctrl Shader"{}};}
+\DoxyCodeLine{251     \textcolor{keywordflow}{case} GL\_TESS\_EVALUATION\_SHADER: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Tess Eval Shader"{}};}
+\DoxyCodeLine{252     \textcolor{keywordflow}{case} GL\_GEOMETRY\_SHADER: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Geometry Shader"{}};}
+\DoxyCodeLine{253     \textcolor{keywordflow}{case} GL\_FRAGMENT\_SHADER: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Fragment Shader"{}};}
+\DoxyCodeLine{254     \textcolor{keywordflow}{case} GL\_COMPUTE\_SHADER: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Compute Shader"{}};}
+\DoxyCodeLine{255     \textcolor{keywordflow}{default}: \textcolor{keywordflow}{break};}
+\DoxyCodeLine{256   \}}
+\DoxyCodeLine{257   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}other shader type"{}};}
+\DoxyCodeLine{258 \}}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260 \textcolor{keyword}{inline} \textcolor{keyword}{const} \textcolor{keywordtype}{char}* CSCI441\_INTERNAL::ShaderUtils::GL\_primitive\_type\_to\_string(GLenum type) \{}
+\DoxyCodeLine{261     \textcolor{keywordflow}{switch}(type) \{}
+\DoxyCodeLine{262         \textcolor{keywordflow}{case} GL\_POINTS: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Points"{}};}
+\DoxyCodeLine{263         \textcolor{keywordflow}{case} GL\_LINES: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Lines"{}};}
+\DoxyCodeLine{264         \textcolor{keywordflow}{case} GL\_LINE\_STRIP: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Line Strip"{}};}
+\DoxyCodeLine{265         \textcolor{keywordflow}{case} GL\_LINE\_LOOP: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Line Loop"{}};}
+\DoxyCodeLine{266         \textcolor{keywordflow}{case} GL\_LINES\_ADJACENCY: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Line Adjacency"{}};}
+\DoxyCodeLine{267         \textcolor{keywordflow}{case} GL\_TRIANGLES: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Triangles"{}};}
+\DoxyCodeLine{268         \textcolor{keywordflow}{case} GL\_TRIANGLE\_STRIP: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Triangle Strip"{}};}
+\DoxyCodeLine{269         \textcolor{keywordflow}{case} GL\_TRIANGLES\_ADJACENCY: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Triangle Adjacency"{}};}
+\DoxyCodeLine{270         \textcolor{keywordflow}{case} GL\_PATCHES: \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Patches"{}};}
+\DoxyCodeLine{271         \textcolor{keywordflow}{default}: \textcolor{keywordflow}{break};}
+\DoxyCodeLine{272     \}}
+\DoxyCodeLine{273     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}other primitive type"{}};}
+\DoxyCodeLine{274 \}}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{276 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441\_INTERNAL::ShaderUtils::printShaderLog( GLuint shaderHandle ) \{}
+\DoxyCodeLine{277     \textcolor{keywordtype}{int} status;}
+\DoxyCodeLine{278     \textcolor{keywordtype}{int} infologLength = 0;}
+\DoxyCodeLine{279     \textcolor{keywordtype}{int} maxLength;}
+\DoxyCodeLine{280 }
+\DoxyCodeLine{281     \textcolor{comment}{// check if the handle is to a vertex/fragment shader}}
+\DoxyCodeLine{282     \textcolor{keywordflow}{if}( glIsShader( shaderHandle ) ) \{}
+\DoxyCodeLine{283         glGetShaderiv(  shaderHandle, GL\_INFO\_LOG\_LENGTH, \&maxLength );}
+\DoxyCodeLine{284 }
+\DoxyCodeLine{285         \textcolor{comment}{// create a buffer of designated length}}
+\DoxyCodeLine{286         \textcolor{keywordtype}{char} infoLog[maxLength];}
+\DoxyCodeLine{287         }
+\DoxyCodeLine{288         glGetShaderiv( shaderHandle, GL\_COMPILE\_STATUS, \&status );}
+\DoxyCodeLine{289         \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: |   Shader  Handle \%2d: Compile\%-\/26s |\(\backslash\)n"{}}, shaderHandle, (status == 1 ? \textcolor{stringliteral}{"{}d Successfully"{}} : \textcolor{stringliteral}{"{}r Error"{}}) );}
+\DoxyCodeLine{290 }
+\DoxyCodeLine{291         \textcolor{comment}{// get the info log for the vertex/tesselation/geometry/fragment/compute shader}}
+\DoxyCodeLine{292         glGetShaderInfoLog(  shaderHandle, maxLength, \&infologLength, infoLog );}
+\DoxyCodeLine{293 }
+\DoxyCodeLine{294         \textcolor{keywordflow}{if}( infologLength > 0 ) \{}
+\DoxyCodeLine{295             \textcolor{comment}{// print info to terminal}}
+\DoxyCodeLine{296             \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: |   Shader Handle \%d: \%s\(\backslash\)n"{}}, shaderHandle, infoLog );}
+\DoxyCodeLine{297         \}}
+\DoxyCodeLine{298     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{299         \textcolor{keywordflow}{if}( sDEBUG ) fprintf( stderr, \textcolor{stringliteral}{"{}[WARN]: |  Handle \%-\/3d is not for a Shader                        |\(\backslash\)n"{}}, shaderHandle );}
+\DoxyCodeLine{300     \}}
+\DoxyCodeLine{301 \}}
+\DoxyCodeLine{302 }
+\DoxyCodeLine{303 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441\_INTERNAL::ShaderUtils::printProgramLog( GLuint programHandle ) \{}
+\DoxyCodeLine{304     \textcolor{keywordtype}{int} status;}
+\DoxyCodeLine{305     \textcolor{keywordtype}{int} infologLength = 0;}
+\DoxyCodeLine{306     \textcolor{keywordtype}{int} maxLength;}
+\DoxyCodeLine{307 }
+\DoxyCodeLine{308     \textcolor{comment}{// check if the handle is to a vertex/fragment shader}}
+\DoxyCodeLine{309     \textcolor{keywordflow}{if}( glIsProgram( programHandle ) ) \{}
+\DoxyCodeLine{310         glGetProgramiv(  programHandle, GL\_INFO\_LOG\_LENGTH, \&maxLength );}
+\DoxyCodeLine{311 }
+\DoxyCodeLine{312         \textcolor{comment}{// create a buffer of designated length}}
+\DoxyCodeLine{313         \textcolor{keywordtype}{char} infoLog[maxLength];}
+\DoxyCodeLine{314         }
+\DoxyCodeLine{315         glGetProgramiv( programHandle, GL\_LINK\_STATUS, \&status );}
+\DoxyCodeLine{316         \textcolor{keywordflow}{if}( sDEBUG ) printf(\textcolor{stringliteral}{"{}[INFO]: |   Program Handle \%2d: Linke\%-\/28s |\(\backslash\)n"{}}, programHandle, (status == 1 ? \textcolor{stringliteral}{"{}d Successfully"{}} : \textcolor{stringliteral}{"{}r Error"{}}) );}
+\DoxyCodeLine{317 }
+\DoxyCodeLine{318         \textcolor{comment}{// get the info log for the vertex/tesselation/geometry/fragment/compute shader}}
+\DoxyCodeLine{319         glGetProgramInfoLog(  programHandle, maxLength, \&infologLength, infoLog );}
+\DoxyCodeLine{320 }
+\DoxyCodeLine{321         \textcolor{keywordflow}{if}( infologLength > 0 ) \{}
+\DoxyCodeLine{322             \textcolor{comment}{// print info to terminal}}
+\DoxyCodeLine{323             \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: |   Program Handle \%d: \%s\(\backslash\)n"{}}, programHandle, infoLog );}
+\DoxyCodeLine{324         \}}
+\DoxyCodeLine{325     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{326         \textcolor{keywordflow}{if}( sDEBUG ) fprintf( stderr, \textcolor{stringliteral}{"{}[WARN]: |  Handle \%-\/3d is not for a Shader Program                |\(\backslash\)n"{}}, programHandle );}
+\DoxyCodeLine{327     \}}
+\DoxyCodeLine{328 \}}
+\DoxyCodeLine{329 }
+\DoxyCodeLine{330 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441\_INTERNAL::ShaderUtils::printProgramPipelineLog( GLuint pipelineHandle ) \{}
+\DoxyCodeLine{331     \textcolor{comment}{// check if the handle is to a shader program pipeline}}
+\DoxyCodeLine{332     \textcolor{keywordflow}{if}( glIsProgramPipeline( pipelineHandle ) ) \{}
+\DoxyCodeLine{333         \textcolor{keywordtype}{int} infoLogLength;}
+\DoxyCodeLine{334         \textcolor{keywordtype}{int} maxLength;}
+\DoxyCodeLine{335 }
+\DoxyCodeLine{336         glGetProgramPipelineiv(  pipelineHandle, GL\_INFO\_LOG\_LENGTH, \&maxLength );}
+\DoxyCodeLine{337 }
+\DoxyCodeLine{338         \textcolor{comment}{// create a buffer of designated length}}
+\DoxyCodeLine{339         \textcolor{keywordtype}{char} infoLog[maxLength];}
+\DoxyCodeLine{340         }
+\DoxyCodeLine{341         \textcolor{comment}{// get the info log for the shader program pipeline}}
+\DoxyCodeLine{342         glGetProgramPipelineInfoLog(pipelineHandle, maxLength, \&infoLogLength, infoLog );}
+\DoxyCodeLine{343 }
+\DoxyCodeLine{344         \textcolor{keywordflow}{if}( infoLogLength > 0 ) \{}
+\DoxyCodeLine{345             \textcolor{comment}{// print info to terminal}}
+\DoxyCodeLine{346             \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: |   Pipeline Handle \%d: \%s\(\backslash\)n"{}}, pipelineHandle, infoLog );}
+\DoxyCodeLine{347         \}}
+\DoxyCodeLine{348     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{349         \textcolor{keywordflow}{if}( sDEBUG ) fprintf( stderr, \textcolor{stringliteral}{"{}[WARN]: |  Handle \%-\/3d is not for a Shader Program Pipeline       |\(\backslash\)n"{}}, pipelineHandle );}
+\DoxyCodeLine{350     \}}
+\DoxyCodeLine{351 \}}
+\DoxyCodeLine{352 }
+\DoxyCodeLine{353 \textcolor{keyword}{inline} GLboolean CSCI441\_INTERNAL::ShaderUtils::printSubroutineInfo(GLuint programHandle, GLenum shaderStage, GLboolean printHeader ) \{}
+\DoxyCodeLine{354     \textcolor{keywordtype}{int} params, params2;}
+\DoxyCodeLine{355     \textcolor{keywordtype}{int} *params3;}
+\DoxyCodeLine{356 }
+\DoxyCodeLine{357     glGetProgramStageiv(programHandle, shaderStage, GL\_ACTIVE\_SUBROUTINE\_UNIFORMS, \&params);}
+\DoxyCodeLine{358     \textcolor{keywordtype}{bool} headerPrinted = \textcolor{keyword}{false};}
+\DoxyCodeLine{359     \textcolor{keywordflow}{if}( params > 0 ) \{}
+\DoxyCodeLine{360         \textcolor{keywordflow}{if}( printHeader ) \{}
+\DoxyCodeLine{361             printf( \textcolor{stringliteral}{"{}[INFO]: >-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\(\backslash\)n"{}});}
+\DoxyCodeLine{362             headerPrinted = \textcolor{keyword}{true};}
+\DoxyCodeLine{363         \}}
+\DoxyCodeLine{364         printf(\textcolor{stringliteral}{"{}[INFO]: | GL\_ACTIVE\_SUBROUTINE\_UNIFORMS (\%-\/15s): \%5i |\(\backslash\)n"{}}, CSCI441\_INTERNAL::ShaderUtils::GL\_shader\_type\_to\_string(shaderStage), params);}
+\DoxyCodeLine{365         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < params; i++ ) \{}
+\DoxyCodeLine{366             \textcolor{keywordtype}{char} name[256];}
+\DoxyCodeLine{367             \textcolor{keywordtype}{int} max\_length = 256;}
+\DoxyCodeLine{368             \textcolor{keywordtype}{int} actual\_length = 0;}
+\DoxyCodeLine{369 }
+\DoxyCodeLine{370             glGetActiveSubroutineUniformName(programHandle, shaderStage, i, max\_length, \&actual\_length, name );}
+\DoxyCodeLine{371             glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL\_NUM\_COMPATIBLE\_SUBROUTINES, \&params2 );}
+\DoxyCodeLine{372             params3 = (\textcolor{keywordtype}{int}*)malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}) * params2);}
+\DoxyCodeLine{373             glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL\_COMPATIBLE\_SUBROUTINES, params3 );}
+\DoxyCodeLine{374             GLint loc = glGetSubroutineUniformLocation(programHandle, shaderStage, name );}
+\DoxyCodeLine{375 }
+\DoxyCodeLine{376             printf(\textcolor{stringliteral}{"{}[INFO]: |   \%i) name: \%-\/15s \#subRoutines: \%-\/5i loc: \%2i |\(\backslash\)n"{}}, i, name, params2, loc );}
+\DoxyCodeLine{377 }
+\DoxyCodeLine{378             \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0; j < params2; j++ ) \{}
+\DoxyCodeLine{379                 GLint idx = params3[j];}
+\DoxyCodeLine{380 }
+\DoxyCodeLine{381                 \textcolor{keywordtype}{char} name2[64];}
+\DoxyCodeLine{382                 \textcolor{keywordtype}{int} max\_length2 = 64;}
+\DoxyCodeLine{383                 \textcolor{keywordtype}{int} actual\_length2 = 0;}
+\DoxyCodeLine{384                 glGetActiveSubroutineName(programHandle, shaderStage, idx, max\_length2, \&actual\_length2, name2 );}
+\DoxyCodeLine{385 }
+\DoxyCodeLine{386                 printf(\textcolor{stringliteral}{"{}[INFO]: |     \%i) subroutine: \%-\/25s index: \%2i |\(\backslash\)n"{}}, j, name2, idx );}
+\DoxyCodeLine{387             \}}
+\DoxyCodeLine{388 }
+\DoxyCodeLine{389             free(params3);}
+\DoxyCodeLine{390         \}}
+\DoxyCodeLine{391     \}}
+\DoxyCodeLine{392     \textcolor{keywordflow}{return} !headerPrinted;}
+\DoxyCodeLine{393 \}}
+\DoxyCodeLine{394 }
+\DoxyCodeLine{395 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} CSCI441\_INTERNAL::ShaderUtils::printShaderProgramInfo(GLuint programHandle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean hasComputeShader, GLboolean useLastNewLine = \textcolor{keyword}{true} ) \{}
+\DoxyCodeLine{396     GLint major, minor;}
+\DoxyCodeLine{397     glGetIntegerv(GL\_MAJOR\_VERSION, \&major);}
+\DoxyCodeLine{398     glGetIntegerv(GL\_MINOR\_VERSION, \&minor);}
+\DoxyCodeLine{399 }
+\DoxyCodeLine{400     \textcolor{keywordtype}{int} params;}
+\DoxyCodeLine{401 }
+\DoxyCodeLine{402     GLuint shaders[6];}
+\DoxyCodeLine{403     \textcolor{keywordtype}{int} max\_count = 6;}
+\DoxyCodeLine{404     \textcolor{keywordtype}{int} actual\_count;}
+\DoxyCodeLine{405     glGetAttachedShaders(programHandle, max\_count, \&actual\_count, shaders );}
+\DoxyCodeLine{406     \textcolor{keywordflow}{if}(actual\_count > 0) \{}
+\DoxyCodeLine{407         \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: >-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\(\backslash\)n"{}});}
+\DoxyCodeLine{408         \textcolor{keywordflow}{if}( sDEBUG ) printf(\textcolor{stringliteral}{"{}[INFO]: | GL\_ATTACHED\_SHADERS: \%33i |\(\backslash\)n"{}}, actual\_count);}
+\DoxyCodeLine{409         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < actual\_count; i++ ) \{}
+\DoxyCodeLine{410             GLint shaderType;}
+\DoxyCodeLine{411             glGetShaderiv( shaders[i], GL\_SHADER\_TYPE, \&shaderType );}
+\DoxyCodeLine{412             \textcolor{keywordflow}{if}( sDEBUG ) printf(\textcolor{stringliteral}{"{}[INFO]: |   \%i) \%-\/38s Handle: \%2i |\(\backslash\)n"{}}, i, GL\_shader\_type\_to\_string(shaderType), shaders[i]);}
+\DoxyCodeLine{413         \}}
+\DoxyCodeLine{414     \}}
+\DoxyCodeLine{415 }
+\DoxyCodeLine{416     \textcolor{keywordflow}{if}(sDEBUG) \{}
+\DoxyCodeLine{417         \textcolor{keywordflow}{if}(hasGeometryShader) \{}
+\DoxyCodeLine{418             \textcolor{keywordflow}{if}( major > 3 || (major >= 3 \&\& minor >= 2)  ) \{}
+\DoxyCodeLine{419                 GLint verticesOut, inputType, outputType;}
+\DoxyCodeLine{420                 glGetProgramiv(programHandle, GL\_GEOMETRY\_VERTICES\_OUT, \&verticesOut);}
+\DoxyCodeLine{421                 glGetProgramiv(programHandle, GL\_GEOMETRY\_INPUT\_TYPE, \&inputType);}
+\DoxyCodeLine{422                 glGetProgramiv(programHandle, GL\_GEOMETRY\_OUTPUT\_TYPE, \&outputType);}
+\DoxyCodeLine{423 }
+\DoxyCodeLine{424                 printf( \textcolor{stringliteral}{"{}[INFO]: >-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\(\backslash\)n"{}});}
+\DoxyCodeLine{425                 printf( \textcolor{stringliteral}{"{}[INFO]: | GEOMETRY SHADER PRIMITIVE I/O                          |\(\backslash\)n"{}});}
+\DoxyCodeLine{426                 printf( \textcolor{stringliteral}{"{}[INFO]: |   Input Type: \%40s |\(\backslash\)n"{}}, GL\_primitive\_type\_to\_string(inputType) );}
+\DoxyCodeLine{427                 printf( \textcolor{stringliteral}{"{}[INFO]: |   Output Type: \%39s |\(\backslash\)n"{}}, GL\_primitive\_type\_to\_string(outputType) );}
+\DoxyCodeLine{428                 printf( \textcolor{stringliteral}{"{}[INFO]: |   Max Vertices Out: \%34d |\(\backslash\)n"{}}, verticesOut );}
+\DoxyCodeLine{429             \}}
+\DoxyCodeLine{430         \}}
+\DoxyCodeLine{431     \}}
+\DoxyCodeLine{432 }
+\DoxyCodeLine{433     \textcolor{keywordflow}{if}(hasVertexShader) \{}
+\DoxyCodeLine{434         glGetProgramiv(programHandle, GL\_ACTIVE\_ATTRIBUTES, \&params );}
+\DoxyCodeLine{435         \textcolor{keywordflow}{if}( params > 0 ) \{}
+\DoxyCodeLine{436             \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: >-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\(\backslash\)n"{}});}
+\DoxyCodeLine{437             \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: | GL\_ACTIVE\_ATTRIBUTES: \%32i |\(\backslash\)n"{}}, params );}
+\DoxyCodeLine{438             \textcolor{keywordflow}{for}( \textcolor{keywordtype}{int} i = 0; i < params; i++ ) \{}
+\DoxyCodeLine{439                 \textcolor{keywordtype}{char} name[64];}
+\DoxyCodeLine{440                 \textcolor{keywordtype}{int} max\_length = 64;}
+\DoxyCodeLine{441                 \textcolor{keywordtype}{int} actual\_length = 0;}
+\DoxyCodeLine{442                 \textcolor{keywordtype}{int} size = 0;}
+\DoxyCodeLine{443                 GLenum type;}
+\DoxyCodeLine{444                 glGetActiveAttrib(programHandle, i, max\_length, \&actual\_length, \&size, \&type, name );}
+\DoxyCodeLine{445                 \textcolor{keywordflow}{if}( size > 1 ) \{}
+\DoxyCodeLine{446                     \textcolor{keywordflow}{for}( \textcolor{keywordtype}{int} j = 0; j < size; j++ ) \{}
+\DoxyCodeLine{447                         \textcolor{keywordtype}{char} long\_name[64];}
+\DoxyCodeLine{448                         sprintf( long\_name, \textcolor{stringliteral}{"{}\%s[\%i]"{}}, name, j );}
+\DoxyCodeLine{449                         \textcolor{keywordtype}{int} location = glGetAttribLocation(programHandle, long\_name );}
+\DoxyCodeLine{450                         \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: |   \%i) type: \%-\/15s name: \%-\/13s loc: \%2i |\(\backslash\)n"{}}, i, GLSL\_type\_to\_string( type ), long\_name, location );}
+\DoxyCodeLine{451                     \}}
+\DoxyCodeLine{452                 \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{453                     \textcolor{keywordtype}{int} location = glGetAttribLocation(programHandle, name );}
+\DoxyCodeLine{454                     \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: |   \%i) type: \%-\/15s name: \%-\/13s loc: \%2i |\(\backslash\)n"{}},i, GLSL\_type\_to\_string( type ), name, location );}
+\DoxyCodeLine{455                 \}}
+\DoxyCodeLine{456             \}}
+\DoxyCodeLine{457         \}}
+\DoxyCodeLine{458     \}}
+\DoxyCodeLine{459 }
+\DoxyCodeLine{460     glGetProgramiv(programHandle, GL\_ACTIVE\_UNIFORMS, \&params);}
+\DoxyCodeLine{461     \textcolor{keywordflow}{if}( params > 0 ) \{}
+\DoxyCodeLine{462         \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: >-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\(\backslash\)n"{}} );}
+\DoxyCodeLine{463         \textcolor{keywordflow}{if}( sDEBUG ) printf(\textcolor{stringliteral}{"{}[INFO]: | GL\_ACTIVE\_UNIFORMS: \%34i |\(\backslash\)n"{}}, params);}
+\DoxyCodeLine{464         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < params; i++) \{}
+\DoxyCodeLine{465             \textcolor{keywordtype}{char} name[64];}
+\DoxyCodeLine{466             \textcolor{keywordtype}{int} max\_length = 64;}
+\DoxyCodeLine{467             \textcolor{keywordtype}{int} actual\_length = 0;}
+\DoxyCodeLine{468             \textcolor{keywordtype}{int} size = 0;}
+\DoxyCodeLine{469             GLenum type;}
+\DoxyCodeLine{470             glGetActiveUniform(programHandle, i, max\_length, \&actual\_length, \&size, \&type, name );}
+\DoxyCodeLine{471             \textcolor{keywordflow}{if}(size > 1) \{}
+\DoxyCodeLine{472                 \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0; j < size; j++) \{}
+\DoxyCodeLine{473                     \textcolor{keywordtype}{char} long\_name[64];}
+\DoxyCodeLine{474                     sprintf(long\_name, \textcolor{stringliteral}{"{}\%s[\%i]"{}}, name, j);}
+\DoxyCodeLine{475                     \textcolor{keywordtype}{int} location = glGetUniformLocation(programHandle, long\_name);}
+\DoxyCodeLine{476                     \textcolor{keywordflow}{if}(location != -\/1) \{}
+\DoxyCodeLine{477                         \textcolor{keywordflow}{if} (sDEBUG) printf(\textcolor{stringliteral}{"{}[INFO]: |  \%2i) type: \%-\/15s name: \%-\/13s loc: \%2i |\(\backslash\)n"{}}, i, GLSL\_type\_to\_string(type), long\_name, location);}
+\DoxyCodeLine{478                     \}}
+\DoxyCodeLine{479                 \}}
+\DoxyCodeLine{480             \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{481                 \textcolor{keywordtype}{int} location = glGetUniformLocation(programHandle, name);}
+\DoxyCodeLine{482                 \textcolor{keywordflow}{if}(location != -\/1) \{}
+\DoxyCodeLine{483                     \textcolor{keywordflow}{if} (sDEBUG) printf(\textcolor{stringliteral}{"{}[INFO]: |  \%2i) type: \%-\/15s name: \%-\/13s loc: \%2i |\(\backslash\)n"{}},i, GLSL\_type\_to\_string(type), name, location);}
+\DoxyCodeLine{484                 \}}
+\DoxyCodeLine{485             \}}
+\DoxyCodeLine{486         \}}
+\DoxyCodeLine{487     \}}
+\DoxyCodeLine{488 }
+\DoxyCodeLine{489     \textcolor{keywordtype}{int} vsCount, tcsCount, tesCount, gsCount, fsCount, csCount;}
+\DoxyCodeLine{490     vsCount = tcsCount = tesCount = gsCount = fsCount = csCount = 0;}
+\DoxyCodeLine{491 }
+\DoxyCodeLine{492     glGetProgramiv(programHandle, GL\_ACTIVE\_UNIFORM\_BLOCKS, \&params);}
+\DoxyCodeLine{493     \textcolor{keywordflow}{if}( params > 0 ) \{}
+\DoxyCodeLine{494         \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: >-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\(\backslash\)n"{}});}
+\DoxyCodeLine{495         \textcolor{keywordflow}{if}( sDEBUG ) printf(\textcolor{stringliteral}{"{}[INFO]: | GL\_UNIFORM\_BLOCK\_ACTIVE\_UNIFORMS: \%20d |\(\backslash\)n"{}}, params);}
+\DoxyCodeLine{496         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < params; i++ ) \{}
+\DoxyCodeLine{497             \textcolor{keywordtype}{int} params2;}
+\DoxyCodeLine{498             glGetActiveUniformBlockiv(programHandle, i, GL\_UNIFORM\_BLOCK\_ACTIVE\_UNIFORMS, \&params2 );}
+\DoxyCodeLine{499 }
+\DoxyCodeLine{500             \textcolor{keywordtype}{int} actualLen;}
+\DoxyCodeLine{501             glGetActiveUniformBlockiv(programHandle, i, GL\_UNIFORM\_BLOCK\_NAME\_LENGTH, \&actualLen);}
+\DoxyCodeLine{502             \textcolor{keywordtype}{char} *name = (\textcolor{keywordtype}{char} *)malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}) * actualLen);}
+\DoxyCodeLine{503             glGetActiveUniformBlockName(programHandle, i, actualLen, \textcolor{keyword}{nullptr}, name);}
+\DoxyCodeLine{504 }
+\DoxyCodeLine{505             \textcolor{keyword}{auto} indices = (GLuint*)malloc(params2*\textcolor{keyword}{sizeof}(GLuint));}
+\DoxyCodeLine{506             glGetActiveUniformBlockiv(programHandle, i, GL\_UNIFORM\_BLOCK\_ACTIVE\_UNIFORM\_INDICES, (GLint*)indices);}
+\DoxyCodeLine{507 }
+\DoxyCodeLine{508             \textcolor{keyword}{auto} offsets = (GLint*)malloc(params2*\textcolor{keyword}{sizeof}(GLint));}
+\DoxyCodeLine{509             glGetActiveUniformsiv(programHandle, params2, indices, GL\_UNIFORM\_OFFSET, offsets);}
+\DoxyCodeLine{510 }
+\DoxyCodeLine{511             \textcolor{keywordflow}{if}( sDEBUG ) printf(\textcolor{stringliteral}{"{}[INFO]: | \%d) \%-\/34s   \# Uniforms: \%2d |\(\backslash\)n"{}}, i, name, params2);}
+\DoxyCodeLine{512 }
+\DoxyCodeLine{513             GLint vs, tcs, tes, gs, fs, cs;}
+\DoxyCodeLine{514             glGetActiveUniformBlockiv(programHandle, i, GL\_UNIFORM\_BLOCK\_REFERENCED\_BY\_VERTEX\_SHADER, \&vs);         \textcolor{keywordflow}{if}( vs ) vsCount++;}
+\DoxyCodeLine{515             glGetActiveUniformBlockiv(programHandle, i, GL\_UNIFORM\_BLOCK\_REFERENCED\_BY\_TESS\_CONTROL\_SHADER, \&tcs);  \textcolor{keywordflow}{if}( tcs) tcsCount++;}
+\DoxyCodeLine{516             glGetActiveUniformBlockiv(programHandle, i, GL\_UNIFORM\_BLOCK\_REFERENCED\_BY\_TESS\_EVALUATION\_SHADER, \&tes);   \textcolor{keywordflow}{if}( tes) tesCount++;}
+\DoxyCodeLine{517             glGetActiveUniformBlockiv(programHandle, i, GL\_UNIFORM\_BLOCK\_REFERENCED\_BY\_GEOMETRY\_SHADER, \&gs);           \textcolor{keywordflow}{if}( gs ) gsCount++;}
+\DoxyCodeLine{518             glGetActiveUniformBlockiv(programHandle, i, GL\_UNIFORM\_BLOCK\_REFERENCED\_BY\_FRAGMENT\_SHADER, \&fs);           \textcolor{keywordflow}{if}( fs ) fsCount++;}
+\DoxyCodeLine{519             glGetActiveUniformBlockiv(programHandle, i, GL\_UNIFORM\_BLOCK\_REFERENCED\_BY\_COMPUTE\_SHADER, \&cs);            \textcolor{keywordflow}{if}( cs ) csCount++;}
+\DoxyCodeLine{520             \textcolor{keywordflow}{if}( sDEBUG ) printf(\textcolor{stringliteral}{"{}[INFO]: |   Used in: \%-\/4s \%-\/4s \%-\/4s \%-\/3s \%-\/4s \%-\/4s      Shader(s) |\(\backslash\)n"{}}, (vs ? \textcolor{stringliteral}{"{}Vert"{}} : \textcolor{stringliteral}{"{}"{}}), (tcs ? \textcolor{stringliteral}{"{}Ctrl"{}} : \textcolor{stringliteral}{"{}"{}}), (tes ? \textcolor{stringliteral}{"{}Eval"{}} : \textcolor{stringliteral}{"{}"{}}), (gs ? \textcolor{stringliteral}{"{}Geo"{}} : \textcolor{stringliteral}{"{}"{}}), (fs ? \textcolor{stringliteral}{"{}Frag"{}} : \textcolor{stringliteral}{"{}"{}}), (cs ? \textcolor{stringliteral}{"{}Comp"{}} : \textcolor{stringliteral}{"{}"{}}));}
+\DoxyCodeLine{521 }
+\DoxyCodeLine{522             \textcolor{keywordtype}{int} maxUniLength;}
+\DoxyCodeLine{523             glGetProgramiv(programHandle, GL\_ACTIVE\_UNIFORM\_MAX\_LENGTH, \&maxUniLength);}
+\DoxyCodeLine{524             \textcolor{keywordtype}{char} *name2 = (\textcolor{keywordtype}{char} *)malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}) * maxUniLength);}
+\DoxyCodeLine{525             \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0; j < params2; j++) \{}
+\DoxyCodeLine{526                 GLenum type;}
+\DoxyCodeLine{527                 \textcolor{keywordtype}{int} uniSize;}
+\DoxyCodeLine{528                 glGetActiveUniform(programHandle, indices[j], maxUniLength, \&actualLen, \&uniSize, \&type, name2);}
+\DoxyCodeLine{529 }
+\DoxyCodeLine{530                 \textcolor{keywordflow}{if}( sDEBUG ) \{}
+\DoxyCodeLine{531                     printf(\textcolor{stringliteral}{"{}[INFO]: |  \%2d) type: \%-\/15s name: \%-\/21s |\(\backslash\)n"{}}, j, GLSL\_type\_to\_string(type), name2);}
+\DoxyCodeLine{532                     printf(\textcolor{stringliteral}{"{}[INFO]: |      uniform index: \%3d    offset: \%4d                |\(\backslash\)n"{}}, indices[j], offsets[j]);}
+\DoxyCodeLine{533                 \}}
+\DoxyCodeLine{534             \}}
+\DoxyCodeLine{535         \}}
+\DoxyCodeLine{536 }
+\DoxyCodeLine{537         \textcolor{keywordflow}{if}( vsCount + tcsCount + tesCount + gsCount + fsCount + csCount > 0 ) \{}
+\DoxyCodeLine{538             GLint maxUniBlocks = 0;}
+\DoxyCodeLine{539             glGetIntegerv( GL\_MAX\_COMBINED\_UNIFORM\_BLOCKS, \&maxUniBlocks );}
+\DoxyCodeLine{540             \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: | Shader Uniform Block Counts                     \%2d/\%2d  |\(\backslash\)n"{}}, params, maxUniBlocks);}
+\DoxyCodeLine{541             \textcolor{keywordflow}{if}( hasVertexShader ) \{}
+\DoxyCodeLine{542                 GLint maxVertexUniformBlocks = 0;}
+\DoxyCodeLine{543                 glGetIntegerv( GL\_MAX\_VERTEX\_UNIFORM\_BLOCKS, \&maxVertexUniformBlocks );}
+\DoxyCodeLine{544 }
+\DoxyCodeLine{545                 \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: |   Vertex Shader Uniform Blocks: \%18d/\%2d  |\(\backslash\)n"{}}, vsCount, maxVertexUniformBlocks );}
+\DoxyCodeLine{546             \}}
+\DoxyCodeLine{547             \textcolor{keywordflow}{if}( hasTessControlShader ) \{}
+\DoxyCodeLine{548                 GLint maxTessControlUniformBlocks = 0;}
+\DoxyCodeLine{549                 glGetIntegerv( GL\_MAX\_TESS\_CONTROL\_UNIFORM\_BLOCKS, \&maxTessControlUniformBlocks );}
+\DoxyCodeLine{550 }
+\DoxyCodeLine{551                 \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: |   Tess Ctrl Shader Uniform Blocks: \%15d/\%2d  |\(\backslash\)n"{}}, tcsCount, maxTessControlUniformBlocks );}
+\DoxyCodeLine{552             \}}
+\DoxyCodeLine{553             \textcolor{keywordflow}{if}( hasTessEvalShader ) \{}
+\DoxyCodeLine{554                 GLint maxTessEvalUniformBlocks = 0;}
+\DoxyCodeLine{555                 glGetIntegerv( GL\_MAX\_TESS\_EVALUATION\_UNIFORM\_BLOCKS, \&maxTessEvalUniformBlocks );}
+\DoxyCodeLine{556 }
+\DoxyCodeLine{557                 \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: |   Tess Eval Shader Uniform Blocks: \%15d/\%2d  |\(\backslash\)n"{}}, tesCount, maxTessEvalUniformBlocks );}
+\DoxyCodeLine{558             \}}
+\DoxyCodeLine{559             \textcolor{keywordflow}{if}( hasGeometryShader ) \{}
+\DoxyCodeLine{560                 GLint maxGeometryUniformBlocks = 0;}
+\DoxyCodeLine{561                 glGetIntegerv( GL\_MAX\_GEOMETRY\_UNIFORM\_BLOCKS, \&maxGeometryUniformBlocks );}
+\DoxyCodeLine{562 }
+\DoxyCodeLine{563                 \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: |   Geometry Shader Uniform Blocks: \%16d/\%2d  |\(\backslash\)n"{}}, gsCount, maxGeometryUniformBlocks );}
+\DoxyCodeLine{564             \}}
+\DoxyCodeLine{565             \textcolor{keywordflow}{if}( hasFragmentShader ) \{}
+\DoxyCodeLine{566                 GLint maxFragmentUniformBlocks = 0;}
+\DoxyCodeLine{567                 glGetIntegerv( GL\_MAX\_FRAGMENT\_UNIFORM\_BLOCKS, \&maxFragmentUniformBlocks );}
+\DoxyCodeLine{568 }
+\DoxyCodeLine{569                 \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: |   Fragment Shader Uniform Blocks: \%16d/\%2d  |\(\backslash\)n"{}}, fsCount, maxFragmentUniformBlocks );}
+\DoxyCodeLine{570             \}}
+\DoxyCodeLine{571             \textcolor{keywordflow}{if}( hasComputeShader ) \{}
+\DoxyCodeLine{572                 GLint maxComputeUniformBlocks = 0;}
+\DoxyCodeLine{573                 glGetIntegerv( GL\_MAX\_COMPUTE\_UNIFORM\_BLOCKS, \&maxComputeUniformBlocks );}
+\DoxyCodeLine{574 }
+\DoxyCodeLine{575                 \textcolor{keywordflow}{if}( sDEBUG ) printf( \textcolor{stringliteral}{"{}[INFO]: |   Compute Shader Uniform Blocks: \%17d/\%2d  |\(\backslash\)n"{}}, csCount, maxComputeUniformBlocks );}
+\DoxyCodeLine{576             \}}
+\DoxyCodeLine{577         \}}
+\DoxyCodeLine{578     \}}
+\DoxyCodeLine{579 }
+\DoxyCodeLine{580     \textcolor{keywordflow}{if}( sDEBUG ) \{}
+\DoxyCodeLine{581         \textcolor{keywordflow}{if}((major == 4 \&\& minor >= 3) || major > 4) \{}
+\DoxyCodeLine{582             GLint paramsSSBO[1];}
+\DoxyCodeLine{583             glGetProgramInterfaceiv(programHandle, GL\_SHADER\_STORAGE\_BLOCK, GL\_ACTIVE\_RESOURCES, paramsSSBO);}
+\DoxyCodeLine{584             \textcolor{keywordflow}{if}(paramsSSBO[0] > 0) \{}
+\DoxyCodeLine{585                 GLint maxLen;}
+\DoxyCodeLine{586                 glGetProgramInterfaceiv(programHandle, GL\_SHADER\_STORAGE\_BLOCK, GL\_MAX\_NAME\_LENGTH, \&maxLen);}
+\DoxyCodeLine{587                 \textcolor{keyword}{auto} ssboName = (GLchar*)malloc(\textcolor{keyword}{sizeof}(GLchar)*maxLen);}
+\DoxyCodeLine{588                 GLsizei ssboNameLen;}
+\DoxyCodeLine{589 }
+\DoxyCodeLine{590                 \textcolor{keyword}{const} \textcolor{keywordtype}{int} NUM\_PROPS = 7;}
+\DoxyCodeLine{591                 GLenum props[NUM\_PROPS] = \{GL\_BUFFER\_BINDING,}
+\DoxyCodeLine{592                                            GL\_REFERENCED\_BY\_VERTEX\_SHADER,}
+\DoxyCodeLine{593                                            GL\_REFERENCED\_BY\_TESS\_CONTROL\_SHADER, GL\_REFERENCED\_BY\_TESS\_EVALUATION\_SHADER,}
+\DoxyCodeLine{594                                            GL\_REFERENCED\_BY\_GEOMETRY\_SHADER,}
+\DoxyCodeLine{595                                            GL\_REFERENCED\_BY\_FRAGMENT\_SHADER,}
+\DoxyCodeLine{596                                            GL\_REFERENCED\_BY\_COMPUTE\_SHADER\};}
+\DoxyCodeLine{597                 GLsizei numWritten;}
+\DoxyCodeLine{598                 GLint results[NUM\_PROPS];}
+\DoxyCodeLine{599 }
+\DoxyCodeLine{600                 \textcolor{keywordtype}{int} vSSB, teSSB, tcSSB, gSSB, fSSB, cSSB;}
+\DoxyCodeLine{601                 vSSB = teSSB = tcSSB = gSSB = fSSB = cSSB = 0;}
+\DoxyCodeLine{602 }
+\DoxyCodeLine{603                 printf( \textcolor{stringliteral}{"{}[INFO]: >-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\(\backslash\)n"{}});}
+\DoxyCodeLine{604                 printf( \textcolor{stringliteral}{"{}[INFO]: | GL\_SHADER\_STORAGE\_BLOCK: \%29d |\(\backslash\)n"{}}, paramsSSBO[0] );}
+\DoxyCodeLine{605                 \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < paramsSSBO[0]; i++) \{}
+\DoxyCodeLine{606                     glGetProgramResourceName(programHandle, GL\_SHADER\_STORAGE\_BLOCK, i, maxLen, \&ssboNameLen, ssboName);}
+\DoxyCodeLine{607                     GLuint ssboIndex = glGetProgramResourceIndex(programHandle, GL\_SHADER\_STORAGE\_BLOCK, ssboName);}
+\DoxyCodeLine{608                     glGetProgramResourceiv(programHandle, GL\_SHADER\_STORAGE\_BLOCK, i, NUM\_PROPS, props, NUM\_PROPS, \&numWritten, results);}
+\DoxyCodeLine{609 }
+\DoxyCodeLine{610                     printf( \textcolor{stringliteral}{"{}[INFO]: | \%3d) name: \%-\/19s index: \%3d binding: \%3d |\(\backslash\)n"{}}, i, ssboName, ssboIndex, results[0] );}
+\DoxyCodeLine{611                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Used in: \%-\/4s \%-\/4s \%-\/4s \%-\/3s \%-\/4s \%-\/4s      Shader(s) |\(\backslash\)n"{}}, (results[1] ? \textcolor{stringliteral}{"{}Vert"{}} : \textcolor{stringliteral}{"{}"{}}), (results[2] ? \textcolor{stringliteral}{"{}Ctrl"{}} : \textcolor{stringliteral}{"{}"{}}), (results[3] ? \textcolor{stringliteral}{"{}Eval"{}} : \textcolor{stringliteral}{"{}"{}}), (results[4] ? \textcolor{stringliteral}{"{}Geo"{}} : \textcolor{stringliteral}{"{}"{}}), (results[5] ? \textcolor{stringliteral}{"{}Frag"{}} : \textcolor{stringliteral}{"{}"{}}), (results[6] ? \textcolor{stringliteral}{"{}Comp"{}} : \textcolor{stringliteral}{"{}"{}}));}
+\DoxyCodeLine{612 }
+\DoxyCodeLine{613                     \textcolor{keywordflow}{if}(results[1]) vSSB++;}
+\DoxyCodeLine{614                     \textcolor{keywordflow}{if}(results[2]) teSSB++;}
+\DoxyCodeLine{615                     \textcolor{keywordflow}{if}(results[3]) tcSSB++;}
+\DoxyCodeLine{616                     \textcolor{keywordflow}{if}(results[4]) gSSB++;}
+\DoxyCodeLine{617                     \textcolor{keywordflow}{if}(results[5]) fSSB++;}
+\DoxyCodeLine{618                     \textcolor{keywordflow}{if}(results[6]) cSSB++;}
+\DoxyCodeLine{619                 \}}
+\DoxyCodeLine{620 }
+\DoxyCodeLine{621                 GLint maxSSBCounters = 0;}
+\DoxyCodeLine{622                 glGetIntegerv( GL\_MAX\_COMBINED\_SHADER\_STORAGE\_BLOCKS, \&maxSSBCounters );}
+\DoxyCodeLine{623                 printf( \textcolor{stringliteral}{"{}[INFO]: | Shader Storage Block Counts:                   \%2d/\%2d   |\(\backslash\)n"{}}, paramsSSBO[0], maxSSBCounters );}
+\DoxyCodeLine{624                 \textcolor{keywordflow}{if}(hasVertexShader) \{}
+\DoxyCodeLine{625                     GLint maxVertSSB = 0;}
+\DoxyCodeLine{626                     glGetIntegerv( GL\_MAX\_VERTEX\_SHADER\_STORAGE\_BLOCKS, \&maxVertSSB );}
+\DoxyCodeLine{627                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Vertex Shader Storage Blocks:                \%2d/\%2d   |\(\backslash\)n"{}}, vSSB, maxVertSSB );}
+\DoxyCodeLine{628                 \}}
+\DoxyCodeLine{629                 \textcolor{keywordflow}{if}(hasTessControlShader) \{}
+\DoxyCodeLine{630                     GLint maxTESSB = 0;}
+\DoxyCodeLine{631                     glGetIntegerv( GL\_MAX\_TESS\_CONTROL\_SHADER\_STORAGE\_BLOCKS, \&maxTESSB );}
+\DoxyCodeLine{632                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Tess Ctrl Shader Storage Blocks:              \%2d/\%2d   |\(\backslash\)n"{}}, teSSB, maxTESSB );}
+\DoxyCodeLine{633                 \}}
+\DoxyCodeLine{634                 \textcolor{keywordflow}{if}(hasTessEvalShader) \{}
+\DoxyCodeLine{635                     GLint maxTCSSB = 0;}
+\DoxyCodeLine{636                     glGetIntegerv( GL\_MAX\_TESS\_EVALUATION\_SHADER\_STORAGE\_BLOCKS, \&maxTCSSB );}
+\DoxyCodeLine{637                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Tess Eval Shader Storage Blocks:              \%2d/\%2d   |\(\backslash\)n"{}}, tcSSB, maxTCSSB );}
+\DoxyCodeLine{638                 \}}
+\DoxyCodeLine{639                 \textcolor{keywordflow}{if}(hasGeometryShader) \{}
+\DoxyCodeLine{640                     GLint maxGeoSSB = 0;}
+\DoxyCodeLine{641                     glGetIntegerv( GL\_MAX\_GEOMETRY\_SHADER\_STORAGE\_BLOCKS, \&maxGeoSSB );}
+\DoxyCodeLine{642                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Geometry Shader Storage Blocks:              \%2d/\%2d   |\(\backslash\)n"{}}, gSSB, maxGeoSSB );}
+\DoxyCodeLine{643                 \}}
+\DoxyCodeLine{644                 \textcolor{keywordflow}{if}(hasFragmentShader) \{}
+\DoxyCodeLine{645                     GLint maxFragSSB = 0;}
+\DoxyCodeLine{646                     glGetIntegerv( GL\_MAX\_FRAGMENT\_SHADER\_STORAGE\_BLOCKS, \&maxFragSSB );}
+\DoxyCodeLine{647                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Fragment Shader Storage Blocks:              \%2d/\%2d   |\(\backslash\)n"{}}, fSSB, maxFragSSB );}
+\DoxyCodeLine{648                 \}}
+\DoxyCodeLine{649                 \textcolor{keywordflow}{if}(hasComputeShader) \{}
+\DoxyCodeLine{650                     GLint maxComputeSSB = 0;}
+\DoxyCodeLine{651                     glGetIntegerv( GL\_MAX\_COMPUTE\_SHADER\_STORAGE\_BLOCKS, \&maxComputeSSB );}
+\DoxyCodeLine{652                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Compute Shader Storage Blocks:               \%2d/\%2d   |\(\backslash\)n"{}}, cSSB, maxComputeSSB );}
+\DoxyCodeLine{653                 \}}
+\DoxyCodeLine{654             \}}
+\DoxyCodeLine{655         \}}
+\DoxyCodeLine{656 }
+\DoxyCodeLine{657         \textcolor{keywordflow}{if}((major == 4 \&\& minor >= 2) || major > 4) \{}
+\DoxyCodeLine{658             GLint paramsAtomic[1];}
+\DoxyCodeLine{659             glGetProgramInterfaceiv(programHandle, GL\_ATOMIC\_COUNTER\_BUFFER, GL\_ACTIVE\_RESOURCES, paramsAtomic);}
+\DoxyCodeLine{660             \textcolor{keywordflow}{if}(paramsAtomic[0] > 0) \{}
+\DoxyCodeLine{661                 GLint maxLen;}
+\DoxyCodeLine{662                 glGetProgramInterfaceiv(programHandle, GL\_ATOMIC\_COUNTER\_BUFFER, GL\_MAX\_NAME\_LENGTH, \&maxLen);}
+\DoxyCodeLine{663                 \textcolor{keyword}{auto} atomicName = (GLchar*)malloc(\textcolor{keyword}{sizeof}(GLchar)*maxLen);}
+\DoxyCodeLine{664                 GLsizei atomicNameLen;}
+\DoxyCodeLine{665 }
+\DoxyCodeLine{666                 \textcolor{keyword}{const} \textcolor{keywordtype}{int} NUM\_PROPS = 8;}
+\DoxyCodeLine{667                 GLenum props[NUM\_PROPS] = \{GL\_BUFFER\_BINDING,}
+\DoxyCodeLine{668                                            GL\_REFERENCED\_BY\_VERTEX\_SHADER,}
+\DoxyCodeLine{669                                            GL\_REFERENCED\_BY\_TESS\_CONTROL\_SHADER,}
+\DoxyCodeLine{670                                            GL\_REFERENCED\_BY\_TESS\_EVALUATION\_SHADER,}
+\DoxyCodeLine{671                                            GL\_REFERENCED\_BY\_GEOMETRY\_SHADER,}
+\DoxyCodeLine{672                                            GL\_REFERENCED\_BY\_FRAGMENT\_SHADER,}
+\DoxyCodeLine{673                                            GL\_REFERENCED\_BY\_COMPUTE\_SHADER,}
+\DoxyCodeLine{674                                            GL\_BUFFER\_DATA\_SIZE\};}
+\DoxyCodeLine{675                 GLsizei numWritten;}
+\DoxyCodeLine{676                 GLint results[NUM\_PROPS];}
+\DoxyCodeLine{677 }
+\DoxyCodeLine{678                 printf( \textcolor{stringliteral}{"{}[INFO]: >-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\(\backslash\)n"{}});}
+\DoxyCodeLine{679                 printf(\textcolor{stringliteral}{"{}[INFO]: | GL\_ATOMIC\_COUNTER\_BUFFER: \%28d |\(\backslash\)n"{}}, paramsAtomic[0] );}
+\DoxyCodeLine{680 }
+\DoxyCodeLine{681                 \textcolor{keywordtype}{int} vAC, teAC, tcAC, gAC, fAC, cAC;}
+\DoxyCodeLine{682                 vAC = teAC = tcAC = gAC = fAC = cAC = 0;}
+\DoxyCodeLine{683 }
+\DoxyCodeLine{684                 GLint numUniforms;}
+\DoxyCodeLine{685                 glGetProgramiv(programHandle, GL\_ACTIVE\_UNIFORMS, \&numUniforms);}
+\DoxyCodeLine{686                 \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0; j < numUniforms; j++) \{}
+\DoxyCodeLine{687                     \textcolor{keywordtype}{int} size = 0;}
+\DoxyCodeLine{688                     GLenum type;}
+\DoxyCodeLine{689                     glGetActiveUniform(programHandle, j, maxLen, \&atomicNameLen, \&size, \&type, atomicName );}
+\DoxyCodeLine{690 }
+\DoxyCodeLine{691                     GLuint atomicIndex = glGetProgramResourceIndex(programHandle, GL\_UNIFORM, atomicName);}
+\DoxyCodeLine{692 }
+\DoxyCodeLine{693                     GLenum atomicProps[1] = \{GL\_ATOMIC\_COUNTER\_BUFFER\_INDEX\};}
+\DoxyCodeLine{694                     GLint atomicResults[1];}
+\DoxyCodeLine{695                     glGetProgramResourceiv(programHandle, GL\_UNIFORM, atomicIndex, 1, atomicProps, 1, \textcolor{keyword}{nullptr}, atomicResults);}
+\DoxyCodeLine{696 }
+\DoxyCodeLine{697                     \textcolor{keywordflow}{if}(atomicResults[0] != -\/1) \{}
+\DoxyCodeLine{698                         glGetProgramResourceiv(programHandle, GL\_ATOMIC\_COUNTER\_BUFFER, atomicResults[0], NUM\_PROPS, props, NUM\_PROPS, \&numWritten, results);}
+\DoxyCodeLine{699 }
+\DoxyCodeLine{700                         GLint offset;}
+\DoxyCodeLine{701                         glGetActiveUniformsiv(programHandle, 1, \&atomicIndex, GL\_UNIFORM\_OFFSET, \&offset);}
+\DoxyCodeLine{702 }
+\DoxyCodeLine{703                         printf( \textcolor{stringliteral}{"{}[INFO]: | \%3d) type: \%-\/15s name: \%-\/21s |\(\backslash\)n"{}}, atomicResults[0], GLSL\_type\_to\_string(type), atomicName );}
+\DoxyCodeLine{704                         printf( \textcolor{stringliteral}{"{}[INFO]: |      uniform index: \%3d    atomic index: \%3d           |\(\backslash\)n"{}}, atomicIndex, atomicResults[0] );}
+\DoxyCodeLine{705                         printf( \textcolor{stringliteral}{"{}[INFO]: |      binding: \%3d   offset: \%3d   buffer size: \%4d    |\(\backslash\)n"{}}, results[0], offset, results[7] );}
+\DoxyCodeLine{706                         printf( \textcolor{stringliteral}{"{}[INFO]: |   Used in: \%-\/4s \%-\/4s \%-\/4s \%-\/3s \%-\/4s \%-\/4s      Shader(s) |\(\backslash\)n"{}}, (results[1] ? \textcolor{stringliteral}{"{}Vert"{}} : \textcolor{stringliteral}{"{}"{}}), (results[2] ? \textcolor{stringliteral}{"{}Ctrl"{}} : \textcolor{stringliteral}{"{}"{}}), (results[3] ? \textcolor{stringliteral}{"{}Eval"{}} : \textcolor{stringliteral}{"{}"{}}), (results[4] ? \textcolor{stringliteral}{"{}Geo"{}} : \textcolor{stringliteral}{"{}"{}}), (results[5] ? \textcolor{stringliteral}{"{}Frag"{}} : \textcolor{stringliteral}{"{}"{}}), (results[6] ? \textcolor{stringliteral}{"{}Comp"{}} : \textcolor{stringliteral}{"{}"{}}));}
+\DoxyCodeLine{707 }
+\DoxyCodeLine{708                         \textcolor{keywordflow}{if}(results[1]) vAC++;}
+\DoxyCodeLine{709                         \textcolor{keywordflow}{if}(results[2]) teAC++;}
+\DoxyCodeLine{710                         \textcolor{keywordflow}{if}(results[3]) tcAC++;}
+\DoxyCodeLine{711                         \textcolor{keywordflow}{if}(results[4]) gAC++;}
+\DoxyCodeLine{712                         \textcolor{keywordflow}{if}(results[5]) fAC++;}
+\DoxyCodeLine{713                         \textcolor{keywordflow}{if}(results[6]) cAC++;}
+\DoxyCodeLine{714                     \}}
+\DoxyCodeLine{715                 \}}
+\DoxyCodeLine{716 }
+\DoxyCodeLine{717                 GLint maxAtomicCounters = 0;}
+\DoxyCodeLine{718                 glGetIntegerv( GL\_MAX\_COMBINED\_ATOMIC\_COUNTERS, \&maxAtomicCounters );}
+\DoxyCodeLine{719                 printf(\textcolor{stringliteral}{"{}[INFO]: | Atomic Counter Counts:                     \%4d/\%4d   |\(\backslash\)n"{}}, paramsAtomic[0], maxAtomicCounters );}
+\DoxyCodeLine{720                 \textcolor{keywordflow}{if}(hasVertexShader) \{}
+\DoxyCodeLine{721                     GLint maxVertAtomicCounters = 0;}
+\DoxyCodeLine{722                     glGetIntegerv( GL\_MAX\_VERTEX\_ATOMIC\_COUNTERS, \&maxVertAtomicCounters );}
+\DoxyCodeLine{723                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Vertex Atomic Counters:                  \%4d/\%4d   |\(\backslash\)n"{}}, vAC, maxVertAtomicCounters );}
+\DoxyCodeLine{724                 \}}
+\DoxyCodeLine{725                 \textcolor{keywordflow}{if}(hasTessControlShader) \{}
+\DoxyCodeLine{726                     GLint maxTCAtomicCounters = 0;}
+\DoxyCodeLine{727                     glGetIntegerv( GL\_MAX\_TESS\_CONTROL\_ATOMIC\_COUNTERS, \&maxTCAtomicCounters );}
+\DoxyCodeLine{728                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Tess Ctrl Atomic Counters:                \%4d/\%4d   |\(\backslash\)n"{}}, teAC, maxTCAtomicCounters );}
+\DoxyCodeLine{729                 \}}
+\DoxyCodeLine{730                 \textcolor{keywordflow}{if}(hasTessEvalShader) \{}
+\DoxyCodeLine{731                     GLint maxTEAtomicCounters = 0;}
+\DoxyCodeLine{732                     glGetIntegerv( GL\_MAX\_TESS\_EVALUATION\_ATOMIC\_COUNTERS, \&maxTEAtomicCounters );}
+\DoxyCodeLine{733                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Tess Eval Atomic Counters:                \%4d/\%4d   |\(\backslash\)n"{}}, tcAC, maxTEAtomicCounters );}
+\DoxyCodeLine{734                 \}}
+\DoxyCodeLine{735                 \textcolor{keywordflow}{if}(hasGeometryShader) \{}
+\DoxyCodeLine{736                     GLint maxGeoAtomicCounters = 0;}
+\DoxyCodeLine{737                     glGetIntegerv( GL\_MAX\_GEOMETRY\_ATOMIC\_COUNTERS, \&maxGeoAtomicCounters );}
+\DoxyCodeLine{738                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Geometry Atomic Counters:                  \%4d/\%4d   |\(\backslash\)n"{}}, gAC, maxGeoAtomicCounters );}
+\DoxyCodeLine{739                 \}}
+\DoxyCodeLine{740                 \textcolor{keywordflow}{if}(hasFragmentShader) \{}
+\DoxyCodeLine{741                     GLint maxFragAtomicCounters = 0;}
+\DoxyCodeLine{742                     glGetIntegerv( GL\_MAX\_FRAGMENT\_ATOMIC\_COUNTERS, \&maxFragAtomicCounters );}
+\DoxyCodeLine{743                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Fragment Atomic Counters:                \%4d/\%4d   |\(\backslash\)n"{}}, fAC, maxFragAtomicCounters );}
+\DoxyCodeLine{744                 \}}
+\DoxyCodeLine{745                 \textcolor{keywordflow}{if}(hasComputeShader) \{}
+\DoxyCodeLine{746                     GLint maxComputeAtomicCounters = 0;}
+\DoxyCodeLine{747                     glGetIntegerv( GL\_MAX\_COMPUTE\_ATOMIC\_COUNTERS, \&maxComputeAtomicCounters );}
+\DoxyCodeLine{748                     printf( \textcolor{stringliteral}{"{}[INFO]: |   Compute Atomic Counters:                 \%4d/\%4d   |\(\backslash\)n"{}}, cAC, maxComputeAtomicCounters );}
+\DoxyCodeLine{749                 \}}
+\DoxyCodeLine{750             \}}
+\DoxyCodeLine{751         \}}
+\DoxyCodeLine{752 }
+\DoxyCodeLine{753         \textcolor{keywordflow}{if}( major >= 4 ) \{}
+\DoxyCodeLine{754             GLboolean printHeader = GL\_TRUE;}
+\DoxyCodeLine{755             \textcolor{keywordflow}{if}( hasVertexShader   )     printHeader = printSubroutineInfo(programHandle, GL\_VERTEX\_SHADER, printHeader );}
+\DoxyCodeLine{756             \textcolor{keywordflow}{if}( hasTessControlShader)   printHeader = printSubroutineInfo(programHandle, GL\_TESS\_CONTROL\_SHADER, printHeader );}
+\DoxyCodeLine{757             \textcolor{keywordflow}{if}( hasTessEvalShader)      printHeader = printSubroutineInfo(programHandle, GL\_TESS\_EVALUATION\_SHADER, printHeader );}
+\DoxyCodeLine{758             \textcolor{keywordflow}{if}( hasGeometryShader )     printHeader = printSubroutineInfo(programHandle, GL\_GEOMETRY\_SHADER, printHeader );}
+\DoxyCodeLine{759             \textcolor{keywordflow}{if}( hasFragmentShader )     printHeader = printSubroutineInfo(programHandle, GL\_FRAGMENT\_SHADER, printHeader );}
+\DoxyCodeLine{760             \textcolor{keywordflow}{if}( hasComputeShader )      printSubroutineInfo(programHandle, GL\_COMPUTE\_SHADER, printHeader );}
+\DoxyCodeLine{761         \}}
+\DoxyCodeLine{762     \}}
+\DoxyCodeLine{763 }
+\DoxyCodeLine{764     \textcolor{keywordflow}{if}(useLastNewLine) printf( \textcolor{stringliteral}{"{}[INFO]: \(\backslash\)\(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{765 \}}
+\DoxyCodeLine{766 }
+\DoxyCodeLine{767 \textcolor{keyword}{inline} GLuint CSCI441\_INTERNAL::ShaderUtils::compileShader( \textcolor{keyword}{const} \textcolor{keywordtype}{char} *filename, GLenum shaderType ) \{}
+\DoxyCodeLine{768     GLuint shaderHandle = glCreateShader( shaderType ); \textcolor{keywordtype}{char} *shaderString;}
+\DoxyCodeLine{769 }
+\DoxyCodeLine{770     \textcolor{comment}{// read in each text file and store the contents in a string}}
+\DoxyCodeLine{771     \textcolor{keywordflow}{if}( readTextFromFile( filename, shaderString ) ) \{}
+\DoxyCodeLine{772 }
+\DoxyCodeLine{773         \textcolor{comment}{// send the contents of each program to the GPU}}
+\DoxyCodeLine{774         glShaderSource( shaderHandle, 1, (\textcolor{keyword}{const} \textcolor{keywordtype}{char}**)\&shaderString, \textcolor{keyword}{nullptr} );}
+\DoxyCodeLine{775 }
+\DoxyCodeLine{776         \textcolor{comment}{// we are good programmers so free up the memory used by each buffer}}
+\DoxyCodeLine{777         \textcolor{keyword}{delete} [] shaderString;}
+\DoxyCodeLine{778 }
+\DoxyCodeLine{779         \textcolor{comment}{// compile each shader on the GPU}}
+\DoxyCodeLine{780         glCompileShader( shaderHandle );}
+\DoxyCodeLine{781 }
+\DoxyCodeLine{782         \textcolor{comment}{// check the shader log}}
+\DoxyCodeLine{783         printShaderLog( shaderHandle );}
+\DoxyCodeLine{784 }
+\DoxyCodeLine{785         \textcolor{comment}{// return the handle of our shader}}
+\DoxyCodeLine{786         \textcolor{keywordflow}{return} shaderHandle;}
+\DoxyCodeLine{787     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{788         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{789     \}}
+\DoxyCodeLine{790 \}}
+\DoxyCodeLine{791 }
+\DoxyCodeLine{792 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CSCI441\_SHADEREUTILS\_HPP}}
+
+\end{DoxyCode}
