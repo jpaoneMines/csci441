@@ -23,11 +23,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-TODO Items
-  > Handle vertex and face colors in OFF files
-
-  > Generate teapot normals based on partial derivatives
-
 Revision History
 
 v 3.10.2 - 26 Oct 2022
