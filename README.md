@@ -3,7 +3,7 @@ School of Mines.
 
 When building, the library must be compiled and linked against OpenGL, GLFW, GLEW, and glm.  
 
-Copyright (c) 2021 Dr. Jeffrey Paone
+Copyright (c) 2022 Dr. Jeffrey Paone
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,10 +27,6 @@ TODO Items
   > Handle vertex and face colors in OFF files
 
   > Generate teapot normals based on partial derivatives
-
-  > Rework abstract classes to not use protected members, change them to be private and add public interface with
-  > validation in place to access values as appropriate (will necessitate v4.0.0 since it will break backward 
-  > compatibility)
 
 Revision History
 
