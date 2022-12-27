@@ -14,8 +14,6 @@
 
 #include "Camera.hpp"
 
-#include <cmath>
-
 /// \namespace CSCI441
 /// \desc CSCI441 Helper Functions for OpenGL
 namespace CSCI441 {
@@ -50,9 +48,9 @@ namespace CSCI441 {
 
 inline void CSCI441::FreeCam::recomputeOrientation() {
     // compute direction vector based on spherical to cartesian conversion
-    _direction.x =  sinf( _theta )*sinf( _phi );
-    _direction.y = -cosf( _phi );
-    _direction.z = -cosf( _theta )*sinf( _phi );
+    _direction.x =  glm::sin( _theta )*glm::sin( _phi );
+    _direction.y = -glm::cos( _phi );
+    _direction.z = -glm::cos( _theta )*glm::sin( _phi );
 
     // and normalize this directional vector!
     _direction = glm::normalize( _direction );

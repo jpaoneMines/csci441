@@ -1,6 +1,8 @@
 #ifndef __CSCI441_MODELMATERIAL_H__
 #define __CSCI441_MODELMATERIAL_H__
 
+#include <GL/glew.h> // for GLtype typedefs
+
 namespace CSCI441_INTERNAL {
 
   struct ModelMaterial {

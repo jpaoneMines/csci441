@@ -52,9 +52,9 @@ namespace CSCI441 {
 
 inline void CSCI441::ArcballCam::recomputeOrientation() {
     // compute direction vector based on spherical to cartesian conversion
-    _direction.x =  sinf( _theta )*sinf( _phi ) * _radius;
-    _direction.y = -cosf( _phi ) * _radius;
-    _direction.z = -cosf( _theta )*sinf( _phi ) * _radius;
+    _direction.x =  glm::sin( _theta )*glm::sin( _phi ) * _radius;
+    _direction.y = -glm::cos( _phi ) * _radius;
+    _direction.z = -glm::cos( _theta )*glm::sin( _phi ) * _radius;
 
     _updateFreeCameraViewMatrix();
 }
@@ -77,10 +77,8 @@ inline void CSCI441::ArcballCam::_updateFreeCameraViewMatrix() {
 }
 
 inline void CSCI441::ArcballCam::_clampRadius() {
-    // do not let our camera get too close
-    if( _radius < _minRadius )  _radius = _minRadius;
-    // do not let our camera get too far away
-    if( _radius > _maxRadius ) _radius = _maxRadius;
+    // do not let our camera get too close or too far away
+    _radius = glm::clamp(_radius, _minRadius, _maxRadius);
 }
 
 #endif // CSCI441_ARCBALL_CAM_HPP

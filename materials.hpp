@@ -10,6 +10,8 @@
 #ifndef CSCI441_MATERIALS_HPP
 #define CSCI441_MATERIALS_HPP
 
+#include <GL/glew.h> // for GLfloat typedef
+
 /// \namespace CSCI441
 /// \desc CSCI441 Helper Functions for OpenGL
 namespace CSCI441 {
@@ -21,13 +23,13 @@ namespace CSCI441 {
         /// \desc Stores material properties used within the Phong Reflectance Model
         struct Material {
             /// \desc RGBA values for Diffuse (Lambertian) Reflectance
-            float diffuse[4];
+            GLfloat diffuse[4];
             /// \desc RGBA values for Specular Reflectance
-            float specular[4];
+            GLfloat specular[4];
             /// \desc Shininess value to control exponential falloff of Specular Reflectance
-            float shininess;
+            GLfloat shininess;
             /// \desc RGBA values for Ambient Illumination
-            float ambient[4];
+            GLfloat ambient[4];
         };
 
         const Material BRASS            = { {0.780392f, 0.568627f,  0.113725f,  1.0f}, {0.992157f,  0.941176f,  0.807843f,  1.0f},27.8974f, {0.329412f, 0.223529f,  0.027451f,  1.0f} };

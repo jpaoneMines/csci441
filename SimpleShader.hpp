@@ -253,7 +253,7 @@ namespace CSCI441_INTERNAL {
         inline GLint colorLocation = -1;
 
         inline std::vector<glm::mat4> transformationStack;
-        inline glm::mat4 modelMatrix(1.0);
+        inline glm::mat4 modelMatrix(1.0f);
     }
 
     namespace SimpleShader3 {
@@ -289,8 +289,8 @@ namespace CSCI441_INTERNAL {
         inline GLint useLightingLocation = -1;
 
         inline std::vector<glm::mat4> transformationStack;
-        inline glm::mat4 modelMatrix(1.0);
-        inline glm::mat4 viewMatrix(1.0);
+        inline glm::mat4 modelMatrix(1.0f);
+        inline glm::mat4 viewMatrix(1.0f);
     }
 }
 
@@ -444,8 +444,8 @@ inline void CSCI441_INTERNAL::SimpleShader2::setupSimpleShader() {
     vertex_shader_src += "out vec4 fragColor;\n \
                                     \n \
                                     void main() {\n \
-                                        gl_Position = projection * view * model * vec4(vPos, 0.0, 1.0);\n \
-                                        fragColor = vec4(vColor, 1.0);\n \
+                                        gl_Position = projection * view * model * vec4(vPos, 0.0f, 1.0f);\n \
+                                        fragColor = vec4(vColor, 1.0f);\n \
                                     }";
     const char* vertexShaders[1] = { vertex_shader_src.c_str() };
 
@@ -495,7 +495,7 @@ inline void CSCI441_INTERNAL::SimpleShader2::setupSimpleShader() {
 
     glUseProgram(shaderProgramHandle);
 
-    glm::mat4 identity(1.0);
+    glm::mat4 identity(1.0f);
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &identity[0][0]);
     glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &identity[0][0]);
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &identity[0][0]);
@@ -601,17 +601,17 @@ inline void CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {
     vertex_shader_src += "out vec4 fragColor;\n \
                                     \n \
                                     void main() {\n \
-                                        gl_Position = projection * view * model * vec4(vPos, 1.0);\n \
+                                        gl_Position = projection * view * model * vec4(vPos, 1.0f);\n \
                                         \n \
-                                        vec3 vertexEye = (view * model * vec4(vPos, 1.0)).xyz;\n \
-                                        vec3 lightEye = (view * vec4(lightPosition, 1.0)).xyz;\n \
+                                        vec3 vertexEye = (view * model * vec4(vPos, 1.0f)).xyz;\n \
+                                        vec3 lightEye = (view * vec4(lightPosition, 1.0f)).xyz;\n \
                                         vec3 lightVec = normalize( lightEye - vertexEye );\n \
                                         vec3 normalVec = normalize( normalMtx * vNormal );\n \
-                                        float sDotN = max(dot(lightVec, normalVec), 0.0);\n \
+                                        float sDotN = max(dot(lightVec, normalVec), 0.0f);\n \
                                         vec3 diffColor = lightColor * materialColor * sDotN;\n \
-                                        vec3 ambColor = materialColor * 0.3;\
+                                        vec3 ambColor = materialColor * 0.3f;\
                                         vec3 color = diffColor + ambColor;\n \
-                                        fragColor = vec4(color, 1.0);\n \
+                                        fragColor = vec4(color, 1.0f);\n \
                                     }";
     const char* vertexShaders[1] = { vertex_shader_src.c_str() };
 
@@ -673,18 +673,18 @@ inline void CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {
 
     glUseProgram(shaderProgramHandle);
 
-    glm::mat4 identity(1.0);
+    glm::mat4 identity(1.0f);
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &identity[0][0]);
     glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &identity[0][0]);
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &identity[0][0]);
 
     transformationStack.emplace_back(identity);
 
-    glm::vec3 white(1.0, 1.0, 1.0);
+    glm::vec3 white(1.0f, 1.0f, 1.0f);
     glUniform3fv(lightColorLocation, 1, &white[0]);
     glUniform3fv(materialLocation, 1, &white[0]);
 
-    glm::vec3 origin(0.0, 0.0, 0.0);
+    glm::vec3 origin(0.0f, 0.0f, 0.0f);
     glUniform3fv(lightPositionLocation, 1, &origin[0]);
 
     glUniform1i(useLightingLocation, 1);

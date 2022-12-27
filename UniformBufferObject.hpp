@@ -11,6 +11,8 @@
 #ifndef __CSCI441_UNIFORMBUFFEROBJECT_H__
 #define __CSCI441_UNIFORMBUFFEROBJECT_H__
 
+#include "ShaderProgram.hpp"
+
 #include <GL/glew.h>
 
 #include <cstdio>

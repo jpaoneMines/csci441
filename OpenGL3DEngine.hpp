@@ -9,9 +9,11 @@
 #include "ArcballCam.hpp"
 
 #include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp> // for single-precision pi
 
-#ifndef M_PI
-#define M_PI 3.141529
+// same as M_PIf, but let's only use glm for math
+#ifndef PIf
+#define PIf glm::pi<GLfloat>()
 #endif
 
 namespace CSCI441 {

@@ -14,12 +14,20 @@
 
 #include <GL/glew.h>
 
-#include <glm/mat4x4.hpp>
-#include <glm/vec3.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp> // for single-precision pi
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/trigonometric.hpp> // for sin(), cos()
+#include <glm/vec3.hpp>
 
-#ifndef M_PI
-#define M_PI 3.14159265
+// same as M_PIf, but let's only use glm for math
+#ifndef PIf
+#define PIf glm::pi<GLfloat>()
+#endif
+
+#ifndef EPSf
+#define EPSf glm::epsilon<GLfloat>() // machine epsilon
 #endif
 
 /// \namespace CSCI441
@@ -132,7 +140,7 @@ inline CSCI441::Camera::Camera() :
     _lookAtPoint( glm::vec3( 0.0f, 0.0f, -1.0f ) ),
     _upVector( glm::vec3( 0.0f, 1.0f, 0.0f ) ),
     _theta( 0.0f ),
-    _phi( M_PI / 2.0f ),
+    _phi( PIf / 2.0f ),
     _radius( 1.0f ) {
 }
 
@@ -144,8 +152,7 @@ inline void CSCI441::Camera::rotate(GLfloat dTheta, GLfloat dPhi) {
 }
 
 inline void CSCI441::Camera::_clampPhi() {
-    if(_phi <= 0.0f)    _phi = 0.0f+0.001f;
-    if(_phi >= M_PI)    _phi = M_PI-0.001f;
+    _phi = glm::clamp(_phi, 0.001f, PIf - 0.001f);
 }
 
 #endif // CSCI441_CAMERA_HPP
