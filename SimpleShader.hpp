@@ -1,5 +1,5 @@
 /** @file SimpleShader.hpp
- * @brief Sets up a default Gourad Shader with vertex position and color inputs
+ * @brief Sets up a default Gouraud Shader with vertex position and color inputs
  * @author Dr. Jeffrey Paone
  *
  * @copyright MIT License Copyright (c) 2020 Dr. Jeffrey Paone
@@ -46,7 +46,7 @@ namespace CSCI441 {
          */
         void enableSmoothShading();
 
-        /** @desc Registers a simple Gourad shader for 2-Dimensional drawing
+        /** @desc Registers a simple Gouraud shader for 2-Dimensional drawing
          *
          */
         void setupSimpleShader();
@@ -132,7 +132,7 @@ namespace CSCI441 {
          */
         void enableSmoothShading();
 
-        /** @desc Registers a simple Gourad Shader with Lambertian Illumination for 3-Dimensional drawing
+        /** @desc Registers a simple Gouraud Shader with Lambertian Illumination for 3-Dimensional drawing
          *
          */
         void setupSimpleShader();
