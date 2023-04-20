@@ -184,6 +184,8 @@ namespace CSCI441_INTERNAL {
 	void flipImageY( int texWidth, int texHeight, int textureChannels, unsigned char *textureData );
 }
 
+inline bool CSCI441::ModelLoader::_AUTO_GEN_NORMALS = false;
+
 inline CSCI441::ModelLoader::ModelLoader() {
 	_init();
 }
@@ -470,7 +472,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		printf( "[.obj]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
 	}
 
-	if( _hasVertexNormals || !AUTO_GEN_NORMALS ) {
+	if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
 		if (INFO && !_hasVertexNormals)
 			printf( "[.obj]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
 		_vertices = (GLfloat*)malloc(sizeof(GLfloat) * _uniqueIndex * 3);
@@ -631,7 +633,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 						if(processedFaceToken[j] == '/') numSlashes++;
 					}
 
-					if( _hasVertexNormals || !AUTO_GEN_NORMALS ) {
+					if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
 						//regardless, we always get a vertex index.
 						int vI = atoi(groupTokens[0].c_str());
 						if( vI < 0 )
@@ -713,7 +715,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			}
 
 			for(GLuint i = 1; i < processedFaceTokens.size()-1; i++) {
-				if( _hasVertexNormals || !AUTO_GEN_NORMALS ) {
+				if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
 					_indices[ indicesSeen++ ] = uniqueCounts.find( processedFaceTokens[0]   )->second;
 					_indices[ indicesSeen++ ] = uniqueCounts.find( processedFaceTokens[i]   )->second;
 					_indices[ indicesSeen++ ] = uniqueCounts.find( processedFaceTokens[i+1] )->second;
@@ -1139,7 +1141,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 		printf( "[.off]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
 	}
 
-	if( _hasVertexNormals || !AUTO_GEN_NORMALS ) {
+	if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
 		if (INFO && !_hasVertexNormals)
 			printf( "[.off]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
 		_vertices = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
@@ -1203,7 +1205,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 				// 	a = atof( tokens[6].c_str() );
 			}
 
-			if( _hasVertexNormals || !AUTO_GEN_NORMALS ) {
+			if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
 				_vertices[ _uniqueIndex*3 + 0 ] = x;
 				_vertices[ _uniqueIndex*3 + 1 ] = y;
 				_vertices[ _uniqueIndex*3 + 2 ] = z;
@@ -1224,7 +1226,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 
 			// read in each vertex index of the face
 			for(GLuint i = 2; i <= numberOfVerticesInFace - 1; i++) {
-				if( _hasVertexNormals || !AUTO_GEN_NORMALS ) {
+				if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
 					int fanRoot = atoi( tokens[1].c_str() );
 					int fanA = atoi( tokens[i].c_str() );
 					int fanB = atoi( tokens[i+1].c_str() );
@@ -1476,7 +1478,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 		printf( "[.ply]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
 	}
 
-	if( _hasVertexNormals || !AUTO_GEN_NORMALS ) {
+	if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
 		if (INFO && !_hasVertexNormals)
 			printf( "[.ply]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
 		_vertices = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
@@ -1558,7 +1560,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 						y = atof( tokens[1].c_str() ),
 						z = atof( tokens[2].c_str() );
 
-			if( _hasVertexNormals || !AUTO_GEN_NORMALS ) {
+			if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
 				_vertices[ _uniqueIndex*3 + 0 ] = x;
 				_vertices[ _uniqueIndex*3 + 1 ] = y;
 				_vertices[ _uniqueIndex*3 + 2 ] = z;
@@ -1578,7 +1580,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 			GLuint numberOfVerticesInFace = atoi( tokens[0].c_str() );
 
 			for( GLuint i = 2; i <= numberOfVerticesInFace - 1; i++ ) {
-				if( _hasVertexNormals || !AUTO_GEN_NORMALS ) {
+				if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
 					_indices[ _numIndices++ ] = atoi( tokens[1].c_str() );
 					_indices[ _numIndices++ ] = atoi( tokens[i].c_str() );
 					_indices[ _numIndices++ ] = atoi( tokens[i+1].c_str() );
@@ -1868,11 +1870,11 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 }
 
 inline void CSCI441::ModelLoader::enableAutoGenerateNormals() {
-	AUTO_GEN_NORMALS = true;
+	_AUTO_GEN_NORMALS = true;
 }
 
 inline void CSCI441::ModelLoader::disableAutoGenerateNormals() {
-	AUTO_GEN_NORMALS = false;
+	_AUTO_GEN_NORMALS = false;
 }
 
 //
