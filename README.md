@@ -5,6 +5,10 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v 3.11.0 - 20 Apr 2023
+- Fixed renaming bug in ModelLoader _AUTO_GEN_NORMALS and properly initialize to false
+- Removed memory leaks in object generation of cylinder, disk, sphere, and torus
+
 ## v 3.10.2 - 26 Oct 2022
 - Cleaned up Camera class warnings 
 - Replaced OpenGL3DEngine internal arcball implementation with ArcballCam object
