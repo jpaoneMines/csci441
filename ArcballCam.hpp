@@ -41,7 +41,7 @@ namespace CSCI441 {
 
     private:
         /// \desc updates the camera position and recalculates the view matrix
-        void _updateFreeCameraViewMatrix();
+        void _updateArcballCameraViewMatrix();
 
         void _clampRadius();
 
@@ -56,7 +56,7 @@ inline void CSCI441::ArcballCam::recomputeOrientation() {
     _direction.y = -cosf( _phi ) * _radius;
     _direction.z = -cosf( _theta )*sinf( _phi ) * _radius;
 
-    _updateFreeCameraViewMatrix();
+    _updateArcballCameraViewMatrix();
 }
 
 inline void CSCI441::ArcballCam::moveForward(GLfloat movementFactor) {
@@ -71,7 +71,7 @@ inline void CSCI441::ArcballCam::moveBackward(GLfloat movementFactor) {
     recomputeOrientation();
 }
 
-inline void CSCI441::ArcballCam::_updateFreeCameraViewMatrix() {
+inline void CSCI441::ArcballCam::_updateArcballCameraViewMatrix() {
     setPosition( _lookAtPoint + _direction );
     computeViewMatrix();
 }

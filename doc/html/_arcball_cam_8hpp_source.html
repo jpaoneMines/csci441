@@ -91,7 +91,7 @@ $(function() {
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#aaeb9f7a5c9ab3a08a11687f1fd7234e2">moveBackward</a>(GLfloat movementFactor) <span class="keyword">final</span>;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordtype">void</span> _updateFreeCameraViewMatrix();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordtype">void</span> _updateArcballCameraViewMatrix();</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">void</span> _clampRadius();</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
@@ -106,7 +106,7 @@ $(function() {
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a573b77c852aa122446adbc957e489515">_direction</a>.y = -cosf( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a027b4470a0ae629a107dbd40dd932166">_phi</a> ) * <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#acf581134ac2813d71b828007fd91b21b">_radius</a>;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a573b77c852aa122446adbc957e489515">_direction</a>.z = -cosf( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a8f728295b7cb3a9ecdf34edaa818e5d4">_theta</a> )*sinf( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a027b4470a0ae629a107dbd40dd932166">_phi</a> ) * <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#acf581134ac2813d71b828007fd91b21b">_radius</a>;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    _updateFreeCameraViewMatrix();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    _updateArcballCameraViewMatrix();</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#a5e618322522a711de4d22ff0331e8db2">   62</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a5e618322522a711de4d22ff0331e8db2">CSCI441::ArcballCam::moveForward</a>(GLfloat movementFactor) {</div>
@@ -121,7 +121,7 @@ $(function() {
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    recomputeOrientation();</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441::ArcballCam::_updateFreeCameraViewMatrix() {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441::ArcballCam::_updateArcballCameraViewMatrix() {</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    setPosition( _lookAtPoint + _direction );</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    computeViewMatrix();</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
