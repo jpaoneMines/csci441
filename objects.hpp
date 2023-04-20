@@ -1067,9 +1067,9 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
     GLfloat sliceStep = 2.0f * M_PI / cylData.sl;
     GLfloat stackStep = cylData.h / cylData.st;
 
-    GLfloat* vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
-    GLfloat* texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
-    GLfloat* normals = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
+    auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
+    auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
+    auto normals = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
 
     unsigned long int idx = 0;
 
@@ -1113,6 +1113,10 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
 
     CSCI441_INTERNAL::_cylinderVAO.insert( std::pair<CylinderData, GLuint>( cylData, vaod ) );
     CSCI441_INTERNAL::_cylinderVBO.insert( std::pair<CylinderData, GLuint>( cylData, vbod ) );
+
+    free(vertices);
+    free(texCoords);
+    free(normals);
 }
 
 inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
@@ -1129,9 +1133,9 @@ inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
     GLfloat sliceStep = diskData.sw / diskData.sl;
     GLfloat ringStep = (diskData.o - diskData.i) / diskData.r;
 
-    GLfloat* vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
-    GLfloat* texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
-    GLfloat* normals = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
+    auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
+    auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
+    auto normals = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
 
     unsigned long int idx = 0;
 
@@ -1176,6 +1180,10 @@ inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
 
     CSCI441_INTERNAL::_diskVAO.insert( std::pair<DiskData, GLuint>( diskData, vaod ) );
     CSCI441_INTERNAL::_diskVBO.insert( std::pair<DiskData, GLuint>( diskData, vbod ) );
+
+    free(vertices);
+    free(texCoords);
+    free(normals);
 }
 
 inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
@@ -1192,9 +1200,9 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
     GLfloat sliceStep = 2.0 * M_PI / sphereData.sl;
     GLfloat stackStep = M_PI / sphereData.st;
 
-    GLfloat* vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
-    GLfloat* texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
-    GLfloat* normals = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
+    auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
+    auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
+    auto normals = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
 
     unsigned long int idx = 0;
 
@@ -1309,6 +1317,10 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
 
     CSCI441_INTERNAL::_sphereVAO.insert( std::pair<SphereData, GLuint>( sphereData, vaod ) );
     CSCI441_INTERNAL::_sphereVBO.insert( std::pair<SphereData, GLuint>( sphereData, vbod ) );
+
+    free(vertices);
+    free(texCoords);
+    free(normals);
 }
 
 inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
@@ -1322,9 +1334,9 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
 
     unsigned long int numVertices = torusData.s * 4 * torusData.r;
 
-    GLfloat* vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
-    GLfloat* texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
-    GLfloat* normals = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
+    auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
+    auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
+    auto normals = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
 
     unsigned long int idx = 0;
 
@@ -1400,6 +1412,10 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
 
     CSCI441_INTERNAL::_torusVAO.insert( std::pair<TorusData, GLuint>( torusData, vaod ) );
     CSCI441_INTERNAL::_torusVBO.insert( std::pair<TorusData, GLuint>( torusData, vbod ) );
+
+    free(vertices);
+    free(texCoords);
+    free(normals);
 }
 
 #endif // __CSCI441_OBJECTS_HPP__
