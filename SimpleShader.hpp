@@ -12,8 +12,8 @@
  *	@warning NOTE: This header file depends upon GLEW
  */
 
-#ifndef __CSCI441_SIMPLESHADER_H__
-#define __CSCI441_SIMPLESHADER_H__
+#ifndef CSCI441_SIMPLESHADER_H
+#define CSCI441_SIMPLESHADER_H
 
 #include <GL/glew.h>
 

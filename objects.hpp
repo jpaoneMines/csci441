@@ -12,8 +12,8 @@
  *	@warning NOTE: This header file depends upon GLEW
  */
 
-#ifndef __CSCI441_OBJECTS_HPP__
-#define __CSCI441_OBJECTS_HPP__
+#ifndef CSCI441_OBJECTS_HPP
+#define CSCI441_OBJECTS_HPP
 
 #include <GL/glew.h>
 

@@ -8,8 +8,8 @@
  *	code that needs to be written.
  */
 
-#ifndef __CSCI441_SHADERPROGRAMPIPELINE_H__
-#define __CSCI441_SHADERPROGRAMPIPELINE_H__
+#ifndef CSCI441_SHADERPROGRAMPIPELINE_H
+#define CSCI441_SHADERPROGRAMPIPELINE_H
 
 #include "ShaderProgram.hpp"
 

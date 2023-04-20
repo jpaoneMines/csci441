@@ -8,8 +8,8 @@
  *	code that needs to be written.
  */
 
-#ifndef __CSCI441_UNIFORMBUFFEROBJECT_H__
-#define __CSCI441_UNIFORMBUFFEROBJECT_H__
+#ifndef CSCI441_UNIFORMBUFFEROBJECT_H
+#define CSCI441_UNIFORMBUFFEROBJECT_H
 
 #include <GL/glew.h>
 

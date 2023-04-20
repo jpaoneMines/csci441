@@ -14,8 +14,8 @@
   *	@warning NOTE: This header file depends upon GLEW, glm, stb_image
 */
 
-#ifndef __CSCI441_MODELLOADER_HPP__
-#define __CSCI441_MODELLOADER_HPP__
+#ifndef CSCI441_MODELLOADER_HPP
+#define CSCI441_MODELLOADER_HPP
 
 #include <GL/glew.h>
 
