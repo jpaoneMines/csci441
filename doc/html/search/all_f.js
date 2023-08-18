@@ -22,12 +22,12 @@ var searchData=
   ['shaderprogrampipeline_19',['ShaderProgramPipeline',['../class_c_s_c_i441_1_1_shader_program_pipeline.html',1,'CSCI441']]],
   ['shaderprogrampipeline_2ehpp_20',['ShaderProgramPipeline.hpp',['../_shader_program_pipeline_8hpp.html',1,'']]],
   ['shaderutils_21',['ShaderUtils',['../namespace_shader_utils.html',1,'']]],
-  ['shininess_22',['shininess',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#ac98508da20d7b6ea8e46fa9cbe282744',1,'CSCI441::Materials::Material']]],
+  ['shininess_22',['shininess',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#a3e272e12faaa70cbcce6927d5c8305ce',1,'CSCI441::Materials::Material']]],
   ['shutdown_23',['shutdown',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a22d9d1ed576a697c79ec43aa92aff8e3',1,'CSCI441::OpenGLEngine']]],
   ['simpleshader_2ehpp_24',['SimpleShader.hpp',['../_simple_shader_8hpp.html',1,'']]],
   ['simpleshader2_25',['SimpleShader2',['../namespace_simple_shader2.html',1,'']]],
   ['sl_26',['sl',['../struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html#aa98f835c514b9f41b060e81f1668a77d',1,'CSCI441_INTERNAL::CylinderData']]],
-  ['specular_27',['specular',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#ac7ad1bf375488cc1529b1993cc2d5d17',1,'CSCI441::Materials::Material']]],
+  ['specular_27',['specular',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#ac1a20c197ba9dd4a9ebbf6f36679f49f',1,'CSCI441::Materials::Material']]],
   ['spheredata_28',['SphereData',['../struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_sphere_data.html',1,'CSCI441_INTERNAL']]],
   ['st_29',['st',['../struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html#a6b26c85aa6410edf742af1b145c74790',1,'CSCI441_INTERNAL::CylinderData']]]
 ];

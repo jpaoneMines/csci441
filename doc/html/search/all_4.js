@@ -2,7 +2,7 @@ var searchData=
 [
   ['deleteobjectvaos_0',['deleteObjectVAOs',['../namespace_c_s_c_i441.html#a40af25cf92eb23f7999256aeefb0456a',1,'CSCI441']]],
   ['deleteobjectvbos_1',['deleteObjectVBOs',['../namespace_c_s_c_i441.html#a391eacbe953d622a7fefa94f27982fe5',1,'CSCI441']]],
-  ['diffuse_2',['diffuse',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#a7d1d4836638055b563932c553f83d9b8',1,'CSCI441::Materials::Material']]],
+  ['diffuse_2',['diffuse',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#a8e7e3791a3edd0067deade301645bcf3',1,'CSCI441::Materials::Material']]],
   ['disableautogeneratenormals_3',['disableAutoGenerateNormals',['../class_c_s_c_i441_1_1_model_loader.html#aaf1ec38a0f551569ccf1a47af2a561f3',1,'CSCI441::ModelLoader']]],
   ['disabledebugmessages_4',['disableDebugMessages',['../class_c_s_c_i441_1_1_shader_program.html#a9358a3f05e8432707d8ec89d1cd9d248',1,'CSCI441::ShaderProgram::disableDebugMessages()'],['../class_c_s_c_i441_1_1_shader_program_pipeline.html#acb236c9887e0e500b97f622aeddef960',1,'CSCI441::ShaderProgramPipeline::disableDebugMessages()']]],
   ['disablelighting_5',['disableLighting',['../_simple_shader_8hpp.html#a86c823d75eac359329967141d6c20261',1,'CSCI441::SimpleShader3']]],

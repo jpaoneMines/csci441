@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CSCI441 OpenGL Library: ArcballCam.hpp Source File</title>
+<title>CSCI 441 OpenGL Library: ArcballCam.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;3.10.2</span>
+   <div id="projectname">CSCI 441 OpenGL Library<span id="projectnumber">&#160;3.12.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -102,9 +102,9 @@ $(function() {
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">   53</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">CSCI441::ArcballCam::recomputeOrientation</a>() {</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// compute direction vector based on spherical to cartesian conversion</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a573b77c852aa122446adbc957e489515">_direction</a>.x =  sinf( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a8f728295b7cb3a9ecdf34edaa818e5d4">_theta</a> )*sinf( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a027b4470a0ae629a107dbd40dd932166">_phi</a> ) * <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#acf581134ac2813d71b828007fd91b21b">_radius</a>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a573b77c852aa122446adbc957e489515">_direction</a>.y = -cosf( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a027b4470a0ae629a107dbd40dd932166">_phi</a> ) * <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#acf581134ac2813d71b828007fd91b21b">_radius</a>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a573b77c852aa122446adbc957e489515">_direction</a>.z = -cosf( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a8f728295b7cb3a9ecdf34edaa818e5d4">_theta</a> )*sinf( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a027b4470a0ae629a107dbd40dd932166">_phi</a> ) * <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#acf581134ac2813d71b828007fd91b21b">_radius</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a573b77c852aa122446adbc957e489515">_direction</a>.x =  glm::sin( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a8f728295b7cb3a9ecdf34edaa818e5d4">_theta</a> )*glm::sin( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a027b4470a0ae629a107dbd40dd932166">_phi</a> ) * <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#acf581134ac2813d71b828007fd91b21b">_radius</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a573b77c852aa122446adbc957e489515">_direction</a>.y = -glm::cos( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a027b4470a0ae629a107dbd40dd932166">_phi</a> ) * <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#acf581134ac2813d71b828007fd91b21b">_radius</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a573b77c852aa122446adbc957e489515">_direction</a>.z = -glm::cos( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a8f728295b7cb3a9ecdf34edaa818e5d4">_theta</a> )*glm::sin( <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a027b4470a0ae629a107dbd40dd932166">_phi</a> ) * <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#acf581134ac2813d71b828007fd91b21b">_radius</a>;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    _updateArcballCameraViewMatrix();</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
@@ -127,13 +127,10 @@ $(function() {
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441::ArcballCam::_clampRadius() {</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">// do not let our camera get too close</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">if</span>( _radius &lt; _minRadius )  _radius = _minRadius;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="comment">// do not let our camera get too far away</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">if</span>( _radius &gt; _maxRadius ) _radius = _maxRadius;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_ARCBALL_CAM_HPP</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    _radius = glm::clamp(_radius, _minRadius, _maxRadius);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_ARCBALL_CAM_HPP</span></div>
 <div class="ttc" id="a_camera_8hpp_html"><div class="ttname"><a href="_camera_8hpp.html">Camera.hpp</a></div><div class="ttdoc">Abstract Camera class.</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html">CSCI441::ArcballCam</a></div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:22</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_a05be1d4f9916e124258810d8f1d2b7e4"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">CSCI441::ArcballCam::recomputeOrientation</a></div><div class="ttdeci">void recomputeOrientation() final</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:53</div></div>
