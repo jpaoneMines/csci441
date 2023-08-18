@@ -5,6 +5,9 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v 3.12.0 - 18 Aug 2023
+- Consistently use only single precision and GLfloat typedef for OS X Metal compatibility
+
 ## v 3.11.0 - 20 Apr 2023
 - Fixed renaming bug in ModelLoader _AUTO_GEN_NORMALS and properly initialize to false
 - Removed memory leaks in object generation of cylinder, disk, sphere, and torus
