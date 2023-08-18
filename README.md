@@ -7,6 +7,9 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v 3.12.1 - 18 Aug 2023
+- Improving web documentation
+
 ## v 3.12.0 - 18 Aug 2023
 - Consistently use only single precision and GLfloat typedef for OS X Metal compatibility
 
