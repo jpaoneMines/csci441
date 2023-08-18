@@ -11,6 +11,18 @@
  * @warning NOTE: This header file depends upon GLEW
  * @warning NOTE: This header file depends upon GLFW
  * @warning NOTE: This header file depends upon glm
+ *
+ */
+
+/*! \mainpage
+ *
+ * \section download_sec Download
+ *
+ * Download the latest version from the \htmlonly <a rel="noreferrer" href="https://github.com/jpaoneMines/csci441" target="_blank">CSCI441 GitHub Repo</a> \endhtmlonly
+ *
+ * \section revision_sec Revision History
+ *
+ * View the \htmlonly <a href="md__r_e_a_d_m_e.html">README Revision History</a> \endhtmlonly
  */
 
 #ifndef CSCI441_CSCI441_HPP

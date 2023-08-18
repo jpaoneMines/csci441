@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['readme_0',['README',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['csci441_20opengl_20library_0',['CSCI441 OpenGL Library',['../index.html',1,'']]]
 ];
