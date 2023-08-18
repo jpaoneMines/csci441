@@ -34,7 +34,7 @@
 #include <string.h>
 #include <time.h>
 
-#include <CSCI441/modelMaterial.hpp>
+#include "modelMaterial.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////
 
