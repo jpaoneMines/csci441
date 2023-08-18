@@ -253,7 +253,7 @@ namespace CSCI441_INTERNAL {
         inline GLint colorLocation = -1;
 
         inline std::vector<glm::mat4> transformationStack;
-        inline glm::mat4 modelMatrix(1.0);
+        inline glm::mat4 modelMatrix(1.0f);
     }
 
     namespace SimpleShader3 {
@@ -289,8 +289,8 @@ namespace CSCI441_INTERNAL {
         inline GLint useLightingLocation = -1;
 
         inline std::vector<glm::mat4> transformationStack;
-        inline glm::mat4 modelMatrix(1.0);
-        inline glm::mat4 viewMatrix(1.0);
+        inline glm::mat4 modelMatrix(1.0f);
+        inline glm::mat4 viewMatrix(1.0f);
     }
 }
 
@@ -495,7 +495,7 @@ inline void CSCI441_INTERNAL::SimpleShader2::setupSimpleShader() {
 
     glUseProgram(shaderProgramHandle);
 
-    glm::mat4 identity(1.0);
+    glm::mat4 identity(1.0f);
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &identity[0][0]);
     glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &identity[0][0]);
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &identity[0][0]);
@@ -673,18 +673,18 @@ inline void CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {
 
     glUseProgram(shaderProgramHandle);
 
-    glm::mat4 identity(1.0);
+    glm::mat4 identity(1.0f);
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &identity[0][0]);
     glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &identity[0][0]);
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &identity[0][0]);
 
     transformationStack.emplace_back(identity);
 
-    glm::vec3 white(1.0, 1.0, 1.0);
+    glm::vec3 white(1.0f, 1.0f, 1.0f);
     glUniform3fv(lightColorLocation, 1, &white[0]);
     glUniform3fv(materialLocation, 1, &white[0]);
 
-    glm::vec3 origin(0.0, 0.0, 0.0);
+    glm::vec3 origin(0.0f, 0.0f, 0.0f);
     glUniform3fv(lightPositionLocation, 1, &origin[0]);
 
     glUniform1i(useLightingLocation, 1);

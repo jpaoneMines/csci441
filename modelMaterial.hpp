@@ -1,6 +1,8 @@
 #ifndef CSCI441_MODELMATERIAL_H
 #define CSCI441_MODELMATERIAL_H
 
+#include <GL/glew.h>
+
 namespace CSCI441_INTERNAL {
 
   struct ModelMaterial {
@@ -15,16 +17,16 @@ namespace CSCI441_INTERNAL {
 
       ModelMaterial() {
         for( int i = 0; i < 3; i++ ) {
-          ambient[i] = 0;
-          diffuse[i] = 0;
-          specular[i] = 0;
-          emissive[i] = 0;
+          ambient[i] = 0.0f;
+          diffuse[i] = 0.0f;
+          specular[i] = 0.0f;
+          emissive[i] = 0.0f;
         }
-        ambient[3] = 1;
-        diffuse[3] = 1;
-        specular[3] = 1;
-        emissive[3] = 1;
-        shininess = 0;
+        ambient[3] = 1.0f;
+        diffuse[3] = 1.0f;
+        specular[3] = 1.0f;
+        emissive[3] = 1.0f;
+        shininess = 0.0f;
         map_Kd = 0;
         map_d = 0;
       }

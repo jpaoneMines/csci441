@@ -336,7 +336,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	GLuint numObjects = 0, numGroups = 0;
 	GLuint numVertices = 0, numTexCoords = 0, numNormals = 0;
 	GLuint numFaces = 0, numTriangles = 0;
-	double minX = 999999, maxX = -999999, minY = 999999, maxY = -999999, minZ = 999999, maxZ = -999999;
+	GLfloat minX = 999999.0f, maxX = -999999.0f, minY = 999999.0f, maxY = -999999.0f, minZ = 999999.0f, maxZ = -999999.0f;
 	std::string line;
 
 	std::map<std::string, GLuint> uniqueCounts;
@@ -363,9 +363,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		} else if( !tokens[0].compare( "v" ) ) {						//vertex
 			numVertices++;
 
-			double x = atof( tokens[1].c_str() ),
-				     y = atof( tokens[2].c_str() ),
-				     z = atof( tokens[3].c_str() );
+			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
+				     y = (GLfloat) atof( tokens[2].c_str() ),
+				     z = (GLfloat) atof( tokens[3].c_str() );
 
 			if( x < minX ) minX = x;
 			if( x > maxX ) maxX = x;
@@ -541,9 +541,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		} else if( !tokens[0].compare( "s" ) ) {						// smooth shading
 
 		} else if( !tokens[0].compare( "v" ) ) {						//vertex
-			double x = atof( tokens[1].c_str() ),
-				     y = atof( tokens[2].c_str() ),
-				     z = atof( tokens[3].c_str() );
+			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
+				     y = (GLfloat) atof( tokens[2].c_str() ),
+				     z = (GLfloat) atof( tokens[3].c_str() );
 
 			v[vSeen*3 + 0] = x;
 			v[vSeen*3 + 1] = y;
@@ -551,9 +551,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 			vSeen++;
 		} else if( !tokens.at(0).compare( "vn" ) ) {                    //vertex normal
-			double x = atof( tokens[1].c_str() ),
-				     y = atof( tokens[2].c_str() ),
-				     z = atof( tokens[3].c_str() );
+			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
+				     y = (GLfloat) atof( tokens[2].c_str() ),
+				     z = (GLfloat) atof( tokens[3].c_str() );
 
 			vn[vnSeen*3 + 0] = x;
 			vn[vnSeen*3 + 1] = y;
@@ -561,8 +561,8 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 			vnSeen++;
 		} else if( !tokens.at(0).compare( "vt" ) ) {                    //vertex tex coord
-			double s = atof( tokens[1].c_str() ),
-						 t = atof( tokens[2].c_str() );
+			GLfloat s = (GLfloat) atof( tokens[1].c_str() ),
+						 t = (GLfloat) atof( tokens[2].c_str() );
 
 		  vt[vtSeen*2 + 0] = s;
 			vt[vtSeen*2 + 1] = t;
@@ -1065,7 +1065,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 	}
 
 	GLuint numVertices = 0, numFaces = 0, numTriangles = 0;
-	float minX = 999999, maxX = -999999, minY = 999999, maxY = -999999, minZ = 999999, maxZ = -999999;
+	GLfloat minX = 999999.0f, maxX = -999999.0f, minY = 999999.0f, maxY = -999999.0f, minZ = 999999.0f, maxZ = -999999.0f;
 	std::string line;
 
 	enum OFF_FILE_STATE { HEADER, VERTICES, FACES, DONE };
@@ -1104,9 +1104,9 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 			}
 		} else if( fileState == VERTICES ) {
 			// read in x y z vertex location
-			float x = atof( tokens[0].c_str() ),
-						y = atof( tokens[1].c_str() ),
-						z = atof( tokens[2].c_str() );
+			GLfloat x = (GLfloat) atof( tokens[0].c_str() ),
+                    y = (GLfloat) atof( tokens[1].c_str() ),
+                    z = (GLfloat) atof( tokens[2].c_str() );
 
 			if( x < minX ) minX = x;
 			if( x > maxX ) maxX = x;
@@ -1189,17 +1189,17 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 			}
 		} else if( fileState == VERTICES ) {
 			// read in x y z vertex location
-			float x = atof( tokens[0].c_str() ),
-						y = atof( tokens[1].c_str() ),
-						z = atof( tokens[2].c_str() );
+			GLfloat x = (GLfloat) atof( tokens[0].c_str() ),
+                    y = (GLfloat) atof( tokens[1].c_str() ),
+                    z = (GLfloat) atof( tokens[2].c_str() );
 
 			// check if RGB(A) color information is associated with vertex
 			if( tokens.size() == 6 || tokens.size() == 7 ) {
 				// TODO: handle RGBA color info
-				// float r = atof( tokens[3].c_str() ),
-				// 		g = atof( tokens[4].c_str() ),
-				// 		b = atof( tokens[5].c_str() ),
-				// 		a = 1;
+				// GLfloat r = (GLfloat) atof( tokens[3].c_str() ),
+				// 		g = (GLfloat) atof( tokens[4].c_str() ),
+				// 		b = (GLfloat) atof( tokens[5].c_str() ),
+				// 		a = 1.0f;
         //
 				// if( tokens.size() == 7 )
 				// 	a = atof( tokens[6].c_str() );
@@ -1368,7 +1368,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 	}
 
 	GLuint numVertices = 0, numFaces = 0, numTriangles = 0, numMaterials = 0;
-	float minX = 999999, maxX = -999999, minY = 999999, maxY = -999999, minZ = 999999, maxZ = -999999;
+	GLfloat minX = 999999.0f, maxX = -999999.0f, minY = 999999.0f, maxY = -999999.0f, minZ = 999999.0f, maxZ = -999999.0f;
 	std::string line;
 
 	enum PLY_FILE_STATE { HEADER, VERTICES, FACES, MATERIALS };
@@ -1428,9 +1428,9 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 			}
 		} else if( fileState == VERTICES ) {
 			// read in x y z vertex location
-			float x = atof( tokens[0].c_str() ),
-						y = atof( tokens[1].c_str() ),
-						z = atof( tokens[2].c_str() );
+			GLfloat x = (GLfloat) atof( tokens[0].c_str() ),
+						y = (GLfloat) atof( tokens[1].c_str() ),
+						z = (GLfloat) atof( tokens[2].c_str() );
 
 			if( x < minX ) minX = x;
 			if( x > maxX ) maxX = x;
@@ -1556,9 +1556,9 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 			}
 		} else if( fileState == VERTICES ) {
 			// read in x y z vertex location
-			float x = atof( tokens[0].c_str() ),
-						y = atof( tokens[1].c_str() ),
-						z = atof( tokens[2].c_str() );
+			GLfloat x = (GLfloat) atof( tokens[0].c_str() ),
+						y = (GLfloat) atof( tokens[1].c_str() ),
+						z = (GLfloat) atof( tokens[2].c_str() );
 
 			if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
 				_vertices[ _uniqueIndex*3 + 0 ] = x;
@@ -1692,7 +1692,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 	}
 
 	GLuint numVertices = 0, numNormals = 0, numFaces = 0, numTriangles = 0, numVertsInLoop = 0;
-	float minX = 999999, maxX = -999999, minY = 999999, maxY = -999999, minZ = 999999, maxZ = -999999;
+	GLfloat minX = 999999.0f, maxX = -999999.0f, minY = 999999.0f, maxY = -999999.0f, minZ = 999999.0f, maxZ = -999999.0f;
 	std::string line;
 
 	int progressCounter = 0;
@@ -1716,9 +1716,9 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 			// begin a primitive
 			numVertsInLoop = 0;
 		} else if( !tokens[0].compare( "vertex" ) ) {
-			float x = atof( tokens[1].c_str() ),
-					y = atof( tokens[2].c_str() ),
-					z = atof( tokens[3].c_str() );
+			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
+					y = (GLfloat) atof( tokens[2].c_str() ),
+					z = (GLfloat) atof( tokens[3].c_str() );
 
 			if( x < minX ) minX = x;
 			if( x > maxX ) maxX = x;
@@ -1805,9 +1805,9 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 		} else if( !tokens[0].compare( "outer" ) && !tokens[1].compare( "loop" ) ) {
 			// begin a primitive
 		} else if( !tokens[0].compare( "vertex" ) ) {
-			float x = atof( tokens[1].c_str() ),
-					y = atof( tokens[2].c_str() ),
-					z = atof( tokens[3].c_str() );
+			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
+					y = (GLfloat) atof( tokens[2].c_str() ),
+					z = (GLfloat) atof( tokens[3].c_str() );
 
 			_vertices[ _uniqueIndex*3 + 0 ] = x;
 			_vertices[ _uniqueIndex*3 + 1 ] = y;
