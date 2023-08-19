@@ -1,5 +1,5 @@
 /**
- * @file ShaderUtils3.hpp
+ * @file ShaderUtils.hpp
  * @brief Helper functions to work with OpenGL Shaders
  * @author Dr. Jeffrey Paone
  *

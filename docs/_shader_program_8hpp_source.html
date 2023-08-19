@@ -77,7 +77,7 @@ $(function() {
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#ifndef CSCI441_SHADER_PROGRAM_HPP</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define CSCI441_SHADER_PROGRAM_HPP</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;ShaderUtils.hpp&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="_shader_utils_8hpp.html">ShaderUtils.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
@@ -430,7 +430,7 @@ $(function() {
 <div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>            printf( <span class="stringliteral">&quot;[ERROR]:|   TESSELATION SHADER NOT SUPPORTED!!  UPGRADE TO v4.0+ |\n&quot;</span> );</div>
 <div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>            _tesselationControlShaderHandle = 0;</div>
 <div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>            _tesselationControlShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader( tesselationControlShaderFilename, GL_TESS_CONTROL_SHADER );</div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>            _tesselationControlShaderHandle = <a class="code hl_function" href="_shader_utils_8hpp.html#a6fa6365aa2ac13d731910e5c5b9b61ec">CSCI441_INTERNAL::ShaderUtils::compileShader</a>( tesselationControlShaderFilename, GL_TESS_CONTROL_SHADER );</div>
 <div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>        }</div>
 <div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>        _tesselationControlShaderHandle = 0;</div>
@@ -442,7 +442,7 @@ $(function() {
 <div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>            printf( <span class="stringliteral">&quot;[ERROR]:|   TESSELATION SHADER NOT SUPPORTED!!  UPGRADE TO v4.0+ |\n&quot;</span> );</div>
 <div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>            _tesselationEvaluationShaderHandle = 0;</div>
 <div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>            _tesselationEvaluationShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader( tesselationEvaluationShaderFilename, GL_TESS_EVALUATION_SHADER );</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>            _tesselationEvaluationShaderHandle = <a class="code hl_function" href="_shader_utils_8hpp.html#a6fa6365aa2ac13d731910e5c5b9b61ec">CSCI441_INTERNAL::ShaderUtils::compileShader</a>( tesselationEvaluationShaderFilename, GL_TESS_EVALUATION_SHADER );</div>
 <div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>        }</div>
 <div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>        _tesselationEvaluationShaderHandle = 0;</div>
@@ -454,7 +454,7 @@ $(function() {
 <div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>            printf( <span class="stringliteral">&quot;[ERROR]:|   GEOMETRY SHADER NOT SUPPORTED!!!    UPGRADE TO v3.2+ |\n&quot;</span> );</div>
 <div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>            _geometryShaderHandle = 0;</div>
 <div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>            _geometryShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader( geometryShaderFilename, GL_GEOMETRY_SHADER );</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>            _geometryShaderHandle = <a class="code hl_function" href="_shader_utils_8hpp.html#a6fa6365aa2ac13d731910e5c5b9b61ec">CSCI441_INTERNAL::ShaderUtils::compileShader</a>( geometryShaderFilename, GL_GEOMETRY_SHADER );</div>
 <div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>        }</div>
 <div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>        _geometryShaderHandle = 0;</div>
@@ -462,7 +462,7 @@ $(function() {
 <div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span> </div>
 <div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>    <span class="keywordflow">if</span>( strcmp( fragmentShaderFilename, <span class="stringliteral">&quot;&quot;</span> ) != 0 ) {</div>
 <div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>        <span class="keywordflow">if</span>( sDEBUG ) printf( <span class="stringliteral">&quot;[INFO]: | Fragment Shader: %37s |\n&quot;</span>, fragmentShaderFilename );</div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>        _fragmentShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader( fragmentShaderFilename, GL_FRAGMENT_SHADER );</div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>        _fragmentShaderHandle = <a class="code hl_function" href="_shader_utils_8hpp.html#a6fa6365aa2ac13d731910e5c5b9b61ec">CSCI441_INTERNAL::ShaderUtils::compileShader</a>( fragmentShaderFilename, GL_FRAGMENT_SHADER );</div>
 <div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>        _fragmentShaderHandle = 0;</div>
 <div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>    }</div>
@@ -497,7 +497,7 @@ $(function() {
 <div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>    <span class="keywordflow">if</span>( sDEBUG ) printf( <span class="stringliteral">&quot;[INFO]: | Shader Program: %41s&quot;</span>, <span class="stringliteral">&quot;|\n&quot;</span> );</div>
 <div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span> </div>
 <div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>    <span class="comment">/* check the program log */</span></div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    CSCI441_INTERNAL::ShaderUtils::printProgramLog( _shaderProgramHandle );</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    <a class="code hl_function" href="_shader_utils_8hpp.html#a4646e73b61cd89d47a66d95a70a0cb3d">CSCI441_INTERNAL::ShaderUtils::printProgramLog</a>( _shaderProgramHandle );</div>
 <div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span> </div>
 <div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>    <span class="comment">/* detach &amp; delete the vertex and fragment shaders to the shader program */</span></div>
 <div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>    <span class="keywordflow">if</span>( _vertexShaderHandle != 0 ) {</div>
@@ -583,7 +583,7 @@ $(function() {
 <div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span> </div>
 <div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>    <span class="comment">/* print shader info for uniforms &amp; attributes */</span></div>
 <div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>    <span class="keywordflow">if</span>(linkStatus == 1) {</div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>        CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(_shaderProgramHandle, _vertexShaderHandle != 0,</div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>        <a class="code hl_function" href="_shader_utils_8hpp.html#a5695a1fae3c4bf90f8b9a13d58a2ccee">CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo</a>(_shaderProgramHandle, _vertexShaderHandle != 0,</div>
 <div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>                                                              _tesselationControlShaderHandle != 0,</div>
 <div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>                                                              _tesselationEvaluationShaderHandle != 0,</div>
 <div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>                                                              _geometryShaderHandle != 0, _fragmentShaderHandle != 0,</div>
@@ -1375,7 +1375,7 @@ $(function() {
 <div class="line"><a id="l01530" name="l01530"></a><span class="lineno"> 1530</span>    GLint status;</div>
 <div class="line"><a id="l01531" name="l01531"></a><span class="lineno"> 1531</span>    glGetProgramiv(program, GL_LINK_STATUS, &amp;status);</div>
 <div class="line"><a id="l01532" name="l01532"></a><span class="lineno"> 1532</span>    <span class="keywordflow">if</span>( GL_FALSE == status ) {</div>
-<div class="line"><a id="l01533" name="l01533"></a><span class="lineno"> 1533</span>        CSCI441_INTERNAL::ShaderUtils::printProgramLog(program);</div>
+<div class="line"><a id="l01533" name="l01533"></a><span class="lineno"> 1533</span>        <a class="code hl_function" href="_shader_utils_8hpp.html#a4646e73b61cd89d47a66d95a70a0cb3d">CSCI441_INTERNAL::ShaderUtils::printProgramLog</a>(program);</div>
 <div class="line"><a id="l01534" name="l01534"></a><span class="lineno"> 1534</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span>    }</div>
 <div class="line"><a id="l01536" name="l01536"></a><span class="lineno"> 1536</span> </div>
@@ -1385,6 +1385,10 @@ $(function() {
 <div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span>}</div>
 <div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span> </div>
 <div class="line"><a id="l01542" name="l01542"></a><span class="lineno"> 1542</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_SHADER_PROGRAM_HPP</span></div>
+<div class="ttc" id="a_shader_utils_8hpp_html"><div class="ttname"><a href="_shader_utils_8hpp.html">ShaderUtils.hpp</a></div><div class="ttdoc">Helper functions to work with OpenGL Shaders.</div></div>
+<div class="ttc" id="a_shader_utils_8hpp_html_a4646e73b61cd89d47a66d95a70a0cb3d"><div class="ttname"><a href="_shader_utils_8hpp.html#a4646e73b61cd89d47a66d95a70a0cb3d">CSCI441_INTERNAL::ShaderUtils::printProgramLog</a></div><div class="ttdeci">void printProgramLog(GLuint programHandle)</div><div class="ttdoc">\desc Prints the shader log for the associated Shader Program handle</div><div class="ttdef"><b>Definition:</b> ShaderUtils.hpp:303</div></div>
+<div class="ttc" id="a_shader_utils_8hpp_html_a5695a1fae3c4bf90f8b9a13d58a2ccee"><div class="ttname"><a href="_shader_utils_8hpp.html#a5695a1fae3c4bf90f8b9a13d58a2ccee">CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo</a></div><div class="ttdeci">void printShaderProgramInfo(GLuint programHandle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean hasComputeShader, GLboolean useLastNewLine)</div><div class="ttdef"><b>Definition:</b> ShaderUtils.hpp:395</div></div>
+<div class="ttc" id="a_shader_utils_8hpp_html_a6fa6365aa2ac13d731910e5c5b9b61ec"><div class="ttname"><a href="_shader_utils_8hpp.html#a6fa6365aa2ac13d731910e5c5b9b61ec">CSCI441_INTERNAL::ShaderUtils::compileShader</a></div><div class="ttdeci">GLuint compileShader(const char *filename, GLenum shaderType)</div><div class="ttdef"><b>Definition:</b> ShaderUtils.hpp:767</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a></div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:33</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a01b1a56c6446e20e512323a0eb5d3ab8"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a01b1a56c6446e20e512323a0eb5d3ab8">CSCI441::ShaderProgram::getAtomicCounterBufferBinding</a></div><div class="ttdeci">GLint getAtomicCounterBufferBinding(const char *atomicName) const</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:864</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a0f51bed7fb1b24075b96be6c7a490f8d"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a0f51bed7fb1b24075b96be6c7a490f8d">CSCI441::ShaderProgram::ShaderProgram</a></div><div class="ttdeci">ShaderProgram(const char *vertexShaderFilename, const char *fragmentShaderFilename)</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:442</div></div>
