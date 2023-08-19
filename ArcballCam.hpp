@@ -1,5 +1,5 @@
 /**
- * @file ArcballC.hpp
+ * @file ArcballCam.hpp
  * @brief Abstract Camera class
  * @author Dr. Jeffrey Paone
  *
@@ -14,33 +14,31 @@
 
 #include "Camera.hpp"
 
-/// \namespace CSCI441
-/// \desc CSCI441 Helper Functions for OpenGL
 namespace CSCI441 {
-    /// \desc concrete CSCI441::Camera implementation to implement an ArcBall camera model
+    /// A camera that implements an ArcBall camera model.
     /// \note camera direction is controlled by setting theta & phi and rotating the camera
     class ArcballCam : public CSCI441::Camera {
     public:
         explicit ArcballCam(GLfloat minRadius = 2.0f, GLfloat maxRadius = 30.0f) : _minRadius(minRadius), _maxRadius(maxRadius) {}
 
-        /// \desc converts spherical theta & phi to cartesian x,y,z direction vector
+        /// converts spherical theta & phi to cartesian x,y,z direction vector
         /// \note sets the camera's position to be on a sphere centered
         /// at the camera's look at position.  internally sets the
         /// camera's view matrix
         void recomputeOrientation() final;
 
-        /// \desc updates the camera's position by decreasing the camera's radius
+        /// updates the camera's position by decreasing the camera's radius
         /// \param movementFactor distance factor to scale the movement step
         /// \note internally sets the camera's view matrix
         void moveForward(GLfloat movementFactor) final;
 
-        /// \desc updates the camera's position by increasing the camera's radius
+        /// updates the camera's position by increasing the camera's radius
         /// \param movementFactor distance factor to scale the movement step
         /// \note internally sets the camera's view matrix
         void moveBackward(GLfloat movementFactor) final;
 
     private:
-        /// \desc updates the camera position and recalculates the view matrix
+        // updates the camera position and recalculates the view matrix
         void _updateArcballCameraViewMatrix();
 
         void _clampRadius();

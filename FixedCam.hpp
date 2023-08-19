@@ -15,14 +15,18 @@
 #include <CSCI441/Camera.hpp>
 
 namespace CSCI441 {
-    /// \desc A camera that can be positioned and oriented but never moved or
-    /// rotated.
+    /// A camera that can be positioned and oriented but never moved or rotated.
     /// \note Must position via setPosition()
     /// \note Must orient via setLookAtPoint()
     class FixedCam : public CSCI441::Camera {
     public:
+        /// does nothing
         void recomputeOrientation() final;
+        /// does nothing
+        /// \param unused does nothing
         void moveForward(GLfloat unused) final;
+        /// does nothing
+        /// \param unused does nothing
         void moveBackward(GLfloat unused) final;
     };
 }
