@@ -401,26 +401,26 @@ namespace CSCI441 {
 
         static bool sDEBUG;
 
-        GLuint _vertexShaderHandle;
-        GLuint _tesselationControlShaderHandle;
-        GLuint _tesselationEvaluationShaderHandle;
-        GLuint _geometryShaderHandle;
-        GLuint _fragmentShaderHandle;
+        GLuint mVertexShaderHandle;
+        GLuint mTesselationControlShaderHandle;
+        GLuint mTesselationEvaluationShaderHandle;
+        GLuint mGeometryShaderHandle;
+        GLuint mFragmentShaderHandle;
 
-        GLuint _shaderProgramHandle;
+        GLuint mShaderProgramHandle;
 
-        std::map<std::string, GLint> *_uniformLocations;
-        std::map<std::string, GLint> *_attributeLocations;
+        std::map<std::string, GLint> *mpUniformLocationsMap;
+        std::map<std::string, GLint> *mpAttributeLocationsMap;
 
-        bool registerShaderProgram( const char *vertexShaderFilename,
+        bool mRegisterShaderProgram(const char *vertexShaderFilename,
                                     const char *tesselationControlShaderFilename,
                                     const char *tesselationEvaluationShaderFilename,
                                     const char *geometryShaderFilename,
                                     const char *fragmentShaderFilename,
                                     const bool isSeparable );
 
-        [[nodiscard]] GLint* getUniformBlockOffsets( GLint uniformBlockIndex ) const;
-        [[nodiscard]] GLint* getUniformBlockOffsets( GLint uniformBlockIndex, const char *names[] ) const;
+        [[nodiscard]] GLint* mGetUniformBlockOffsets(GLint uniformBlockIndex ) const;
+        [[nodiscard]] GLint* mGetUniformBlockOffsets(GLint uniformBlockIndex, const char *names[] ) const;
 
     private:
         void _initialize();
@@ -441,42 +441,46 @@ inline void CSCI441::ShaderProgram::disableDebugMessages() {
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *fragmentShaderFilename ) {
     _initialize();
-    registerShaderProgram( vertexShaderFilename, "", "", "", fragmentShaderFilename, false );
+    mRegisterShaderProgram(vertexShaderFilename, "", "", "", fragmentShaderFilename, false);
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *fragmentShaderFilename, const bool isSeparable ) {
     _initialize();
-    registerShaderProgram( vertexShaderFilename, "", "", "", fragmentShaderFilename, isSeparable );
+    mRegisterShaderProgram(vertexShaderFilename, "", "", "", fragmentShaderFilename, isSeparable);
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename ) {
     _initialize();
-    registerShaderProgram( vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename, geometryShaderFilename, fragmentShaderFilename, false );
+    mRegisterShaderProgram(vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename,
+                           geometryShaderFilename, fragmentShaderFilename, false);
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
     _initialize();
-    registerShaderProgram( vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename, geometryShaderFilename, fragmentShaderFilename, isSeparable );
+    mRegisterShaderProgram(vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename,
+                           geometryShaderFilename, fragmentShaderFilename, isSeparable);
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename ) {
     _initialize();
-    registerShaderProgram( vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename, "", fragmentShaderFilename, false );
+    mRegisterShaderProgram(vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename,
+                           "", fragmentShaderFilename, false);
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
     _initialize();
-    registerShaderProgram( vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename, "", fragmentShaderFilename, isSeparable );
+    mRegisterShaderProgram(vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename,
+                           "", fragmentShaderFilename, isSeparable);
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename ) {
     _initialize();
-    registerShaderProgram( vertexShaderFilename, "", "", geometryShaderFilename, fragmentShaderFilename, false );
+    mRegisterShaderProgram(vertexShaderFilename, "", "", geometryShaderFilename, fragmentShaderFilename, false);
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
     _initialize();
-    registerShaderProgram( vertexShaderFilename, "", "", geometryShaderFilename, fragmentShaderFilename, isSeparable );
+    mRegisterShaderProgram(vertexShaderFilename, "", "", geometryShaderFilename, fragmentShaderFilename, isSeparable);
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char **shaderFilenames,
@@ -487,75 +491,79 @@ inline CSCI441::ShaderProgram::ShaderProgram( const char **shaderFilenames,
         if( !isSeparable ) {
             fprintf(stderr, "[ERROR]: Fragment Shader not present.  Program must be separable.\n");
         } else {
-            registerShaderProgram( shaderFilenames[0], "", "", "", "", isSeparable );
+            mRegisterShaderProgram(shaderFilenames[0], "", "", "", "", isSeparable);
         }
     } else if( vertexPresent && tessellationPresent && !geometryPresent && !fragmentPresent ) {
         if( !isSeparable ) {
             fprintf(stderr, "[ERROR]: Fragment Shader not present.  Program must be separable.\n");
         } else {
-            registerShaderProgram( shaderFilenames[0], shaderFilenames[1], shaderFilenames[2], "", "", isSeparable );
+            mRegisterShaderProgram(shaderFilenames[0], shaderFilenames[1], shaderFilenames[2], "", "", isSeparable);
         }
     } else if( vertexPresent && tessellationPresent && geometryPresent && !fragmentPresent ) {
         if( !isSeparable ) {
             fprintf(stderr, "[ERROR]: Fragment Shader not present.  Program must be separable.\n");
         } else {
-            registerShaderProgram( shaderFilenames[0], shaderFilenames[1], shaderFilenames[2], shaderFilenames[3], "", isSeparable );
+            mRegisterShaderProgram(shaderFilenames[0], shaderFilenames[1], shaderFilenames[2], shaderFilenames[3], "",
+                                   isSeparable);
         }
     } else if( vertexPresent && tessellationPresent && geometryPresent && fragmentPresent ) {
-        registerShaderProgram( shaderFilenames[0], shaderFilenames[1], shaderFilenames[2], shaderFilenames[3], shaderFilenames[4], isSeparable );
+        mRegisterShaderProgram(shaderFilenames[0], shaderFilenames[1], shaderFilenames[2], shaderFilenames[3],
+                               shaderFilenames[4], isSeparable);
     } else if( vertexPresent && tessellationPresent && !geometryPresent && fragmentPresent ) {
-        registerShaderProgram( shaderFilenames[0], shaderFilenames[1], shaderFilenames[2], "", shaderFilenames[3], isSeparable );
+        mRegisterShaderProgram(shaderFilenames[0], shaderFilenames[1], shaderFilenames[2], "", shaderFilenames[3],
+                               isSeparable);
     } else if( vertexPresent && !tessellationPresent && geometryPresent && !fragmentPresent ) {
         if( !isSeparable ) {
             fprintf(stderr, "[ERROR]: Fragment Shader not present.  Program must be separable.\n");
         } else {
-            registerShaderProgram( shaderFilenames[0], "", "", shaderFilenames[1], "", isSeparable );
+            mRegisterShaderProgram(shaderFilenames[0], "", "", shaderFilenames[1], "", isSeparable);
         }
     } else if( vertexPresent && !tessellationPresent && geometryPresent && fragmentPresent ) {
-        registerShaderProgram( shaderFilenames[0], "", "", shaderFilenames[1], shaderFilenames[2], isSeparable );
+        mRegisterShaderProgram(shaderFilenames[0], "", "", shaderFilenames[1], shaderFilenames[2], isSeparable);
     } else if( vertexPresent && !tessellationPresent && !geometryPresent && fragmentPresent ) {
-        registerShaderProgram( shaderFilenames[0], "", "", "", shaderFilenames[1], isSeparable );
+        mRegisterShaderProgram(shaderFilenames[0], "", "", "", shaderFilenames[1], isSeparable);
     } else if( !vertexPresent && tessellationPresent && !geometryPresent && !fragmentPresent ) {
         if( !isSeparable ) {
             fprintf(stderr, "[ERROR]: Vertex & Fragment Shaders not present.  Program must be separable.\n");
         } else {
-            registerShaderProgram( "", shaderFilenames[0], shaderFilenames[1], "", "", isSeparable );
+            mRegisterShaderProgram("", shaderFilenames[0], shaderFilenames[1], "", "", isSeparable);
         }
     } else if( !vertexPresent && tessellationPresent && geometryPresent && !fragmentPresent ) {
         if( !isSeparable ) {
             fprintf(stderr, "[ERROR]: Vertex & Fragment Shaders not present.  Program must be separable.\n");
         } else {
-            registerShaderProgram( "", shaderFilenames[0], shaderFilenames[1], shaderFilenames[2], "", isSeparable );
+            mRegisterShaderProgram("", shaderFilenames[0], shaderFilenames[1], shaderFilenames[2], "", isSeparable);
         }
     } else if( !vertexPresent && tessellationPresent && geometryPresent && fragmentPresent ) {
         if( !isSeparable ) {
             fprintf(stderr, "[ERROR]: Vertex Shader not present.  Program must be separable.\n");
         } else {
-            registerShaderProgram( "", shaderFilenames[0], shaderFilenames[1], shaderFilenames[2], shaderFilenames[3], isSeparable );
+            mRegisterShaderProgram("", shaderFilenames[0], shaderFilenames[1], shaderFilenames[2], shaderFilenames[3],
+                                   isSeparable);
         }
     } else if( !vertexPresent && tessellationPresent && !geometryPresent && fragmentPresent ) {
         if( !isSeparable ) {
             fprintf(stderr, "[ERROR]: Vertex Shader not present.  Program must be separable.\n");
         } else {
-            registerShaderProgram( "", shaderFilenames[0], shaderFilenames[1], "", shaderFilenames[2], isSeparable );
+            mRegisterShaderProgram("", shaderFilenames[0], shaderFilenames[1], "", shaderFilenames[2], isSeparable);
         }
     } else if( !vertexPresent && !tessellationPresent && geometryPresent && !fragmentPresent ) {
         if( !isSeparable ) {
             fprintf(stderr, "[ERROR]: Vertex & Fragment Shaders not present.  Program must be separable.\n");
         } else {
-            registerShaderProgram( "", "", "", shaderFilenames[0], "", isSeparable );
+            mRegisterShaderProgram("", "", "", shaderFilenames[0], "", isSeparable);
         }
     } else if( !vertexPresent && !tessellationPresent && geometryPresent && fragmentPresent ) {
         if( !isSeparable ) {
             fprintf(stderr, "[ERROR]: Vertex Shader not present.  Program must be separable.\n");
         } else {
-            registerShaderProgram( "", "", "", shaderFilenames[0], shaderFilenames[1], isSeparable );
+            mRegisterShaderProgram("", "", "", shaderFilenames[0], shaderFilenames[1], isSeparable);
         }
     } else if( !vertexPresent && !tessellationPresent && !geometryPresent && fragmentPresent ) {
         if( !isSeparable ) {
             fprintf(stderr, "[ERROR]: Vertex Shader not present.  Program must be separable.\n");
         } else {
-            registerShaderProgram( "", "", "", "", shaderFilenames[0], isSeparable );
+            mRegisterShaderProgram("", "", "", "", shaderFilenames[0], isSeparable);
         }
     } else if( !vertexPresent && !tessellationPresent && !geometryPresent && !fragmentPresent ) {
         fprintf(stderr, "[ERROR]: At least one shader must be present.\n");
@@ -564,7 +572,7 @@ inline CSCI441::ShaderProgram::ShaderProgram( const char **shaderFilenames,
     }
 }
 
-inline bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, const bool isSeparable ) {
+inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, const bool isSeparable ) {
     GLint major, minor;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
@@ -574,112 +582,112 @@ inline bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexSha
     /* compile each one of our shaders */
     if( strcmp( vertexShaderFilename, "" ) != 0 ) {
         if( sDEBUG ) printf( "[INFO]: | Vertex Shader: %39s |\n", vertexShaderFilename );
-        _vertexShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader( vertexShaderFilename, GL_VERTEX_SHADER );
+        mVertexShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(vertexShaderFilename, GL_VERTEX_SHADER );
     } else {
-        _vertexShaderHandle = 0;
+        mVertexShaderHandle = 0;
     }
 
     if( strcmp( tesselationControlShaderFilename, "" ) != 0 ) {
         if( sDEBUG ) printf( "[INFO]: | Tess Control Shader: %33s |\n", tesselationControlShaderFilename );
         if( major < 4 ) {
             printf( "[ERROR]:|   TESSELATION SHADER NOT SUPPORTED!!  UPGRADE TO v4.0+ |\n" );
-            _tesselationControlShaderHandle = 0;
+            mTesselationControlShaderHandle = 0;
         } else {
-            _tesselationControlShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader( tesselationControlShaderFilename, GL_TESS_CONTROL_SHADER );
+            mTesselationControlShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(tesselationControlShaderFilename, GL_TESS_CONTROL_SHADER );
         }
     } else {
-        _tesselationControlShaderHandle = 0;
+        mTesselationControlShaderHandle = 0;
     }
 
     if( strcmp( tesselationEvaluationShaderFilename, "" ) != 0 ) {
         if( sDEBUG ) printf( "[INFO]: | Tess Evaluation Shader: %30s |\n", tesselationEvaluationShaderFilename );
         if( major < 4 ) {
             printf( "[ERROR]:|   TESSELATION SHADER NOT SUPPORTED!!  UPGRADE TO v4.0+ |\n" );
-            _tesselationEvaluationShaderHandle = 0;
+            mTesselationEvaluationShaderHandle = 0;
         } else {
-            _tesselationEvaluationShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader( tesselationEvaluationShaderFilename, GL_TESS_EVALUATION_SHADER );
+            mTesselationEvaluationShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(tesselationEvaluationShaderFilename, GL_TESS_EVALUATION_SHADER );
         }
     } else {
-        _tesselationEvaluationShaderHandle = 0;
+        mTesselationEvaluationShaderHandle = 0;
     }
 
     if( strcmp( geometryShaderFilename, "" ) != 0 ) {
         if( sDEBUG ) printf( "[INFO]: | Geometry Shader: %37s |\n", geometryShaderFilename );
         if( major < 3 || (major == 3 && minor < 2) ) {
             printf( "[ERROR]:|   GEOMETRY SHADER NOT SUPPORTED!!!    UPGRADE TO v3.2+ |\n" );
-            _geometryShaderHandle = 0;
+            mGeometryShaderHandle = 0;
         } else {
-            _geometryShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader( geometryShaderFilename, GL_GEOMETRY_SHADER );
+            mGeometryShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(geometryShaderFilename, GL_GEOMETRY_SHADER );
         }
     } else {
-        _geometryShaderHandle = 0;
+        mGeometryShaderHandle = 0;
     }
 
     if( strcmp( fragmentShaderFilename, "" ) != 0 ) {
         if( sDEBUG ) printf( "[INFO]: | Fragment Shader: %37s |\n", fragmentShaderFilename );
-        _fragmentShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader( fragmentShaderFilename, GL_FRAGMENT_SHADER );
+        mFragmentShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(fragmentShaderFilename, GL_FRAGMENT_SHADER );
     } else {
-        _fragmentShaderHandle = 0;
+        mFragmentShaderHandle = 0;
     }
     /* get a handle to a shader program */
-    _shaderProgramHandle = glCreateProgram();
+    mShaderProgramHandle = glCreateProgram();
 
     /* if program is separable, make it so */
     if( isSeparable ) {
-        glProgramParameteri( _shaderProgramHandle, GL_PROGRAM_SEPARABLE, GL_TRUE );
+        glProgramParameteri(mShaderProgramHandle, GL_PROGRAM_SEPARABLE, GL_TRUE );
     }
 
     /* attach the vertex and fragment shaders to the shader program */
-    if( _vertexShaderHandle != 0 ) {
-        glAttachShader( _shaderProgramHandle, _vertexShaderHandle );
+    if(mVertexShaderHandle != 0 ) {
+        glAttachShader(mShaderProgramHandle, mVertexShaderHandle );
     }
-    if( _tesselationControlShaderHandle != 0 ) {
-        glAttachShader( _shaderProgramHandle, _tesselationControlShaderHandle );
+    if(mTesselationControlShaderHandle != 0 ) {
+        glAttachShader(mShaderProgramHandle, mTesselationControlShaderHandle );
     }
-    if( _tesselationEvaluationShaderHandle != 0 ) {
-        glAttachShader( _shaderProgramHandle, _tesselationEvaluationShaderHandle );
+    if(mTesselationEvaluationShaderHandle != 0 ) {
+        glAttachShader(mShaderProgramHandle, mTesselationEvaluationShaderHandle );
     }
-    if( _geometryShaderHandle != 0 ) {
-        glAttachShader( _shaderProgramHandle, _geometryShaderHandle );
+    if(mGeometryShaderHandle != 0 ) {
+        glAttachShader(mShaderProgramHandle, mGeometryShaderHandle );
     }
-    if( _fragmentShaderHandle != 0 ) {
-        glAttachShader( _shaderProgramHandle, _fragmentShaderHandle );
+    if(mFragmentShaderHandle != 0 ) {
+        glAttachShader(mShaderProgramHandle, mFragmentShaderHandle );
     }
 
     /* link all the programs together on the GPU */
-    glLinkProgram( _shaderProgramHandle );
+    glLinkProgram(mShaderProgramHandle );
 
     if( sDEBUG ) printf( "[INFO]: | Shader Program: %41s", "|\n" );
 
     /* check the program log */
-    CSCI441_INTERNAL::ShaderUtils::printProgramLog( _shaderProgramHandle );
+    CSCI441_INTERNAL::ShaderUtils::printProgramLog(mShaderProgramHandle );
 
     /* detach & delete the vertex and fragment shaders to the shader program */
-    if( _vertexShaderHandle != 0 ) {
-        glDetachShader( _shaderProgramHandle, _vertexShaderHandle );
-        glDeleteShader( _vertexShaderHandle );
+    if(mVertexShaderHandle != 0 ) {
+        glDetachShader(mShaderProgramHandle, mVertexShaderHandle );
+        glDeleteShader(mVertexShaderHandle );
     }
-    if( _tesselationControlShaderHandle != 0 ) {
-        glDetachShader( _shaderProgramHandle, _tesselationControlShaderHandle );
-        glDeleteShader( _tesselationControlShaderHandle );
+    if(mTesselationControlShaderHandle != 0 ) {
+        glDetachShader(mShaderProgramHandle, mTesselationControlShaderHandle );
+        glDeleteShader(mTesselationControlShaderHandle );
     }
-    if( _tesselationEvaluationShaderHandle != 0 ) {
-        glDetachShader( _shaderProgramHandle, _tesselationEvaluationShaderHandle );
-        glDeleteShader( _tesselationEvaluationShaderHandle );
+    if(mTesselationEvaluationShaderHandle != 0 ) {
+        glDetachShader(mShaderProgramHandle, mTesselationEvaluationShaderHandle );
+        glDeleteShader(mTesselationEvaluationShaderHandle );
     }
-    if( _geometryShaderHandle != 0 ) {
-        glDetachShader( _shaderProgramHandle, _geometryShaderHandle );
-        glDeleteShader( _geometryShaderHandle );
+    if(mGeometryShaderHandle != 0 ) {
+        glDetachShader(mShaderProgramHandle, mGeometryShaderHandle );
+        glDeleteShader(mGeometryShaderHandle );
     }
-    if( _fragmentShaderHandle != 0 ) {
-        glDetachShader( _shaderProgramHandle, _fragmentShaderHandle );
-        glDeleteShader( _fragmentShaderHandle );
+    if(mFragmentShaderHandle != 0 ) {
+        glDetachShader(mShaderProgramHandle, mFragmentShaderHandle );
+        glDeleteShader(mFragmentShaderHandle );
     }
 
     // map uniforms
-    _uniformLocations = new std::map<std::string, GLint>();
+    mpUniformLocationsMap = new std::map<std::string, GLint>();
     GLint numUniforms;
-    glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_UNIFORMS, &numUniforms);
+    glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_UNIFORMS, &numUniforms);
     if( numUniforms > 0 ) {
         for(GLuint i = 0; i < numUniforms; i++) {
             char name[64];
@@ -687,25 +695,25 @@ inline bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexSha
             int actual_length = 0;
             int size = 0;
             GLenum type;
-            glGetActiveUniform( _shaderProgramHandle, i, max_length, &actual_length, &size, &type, name );
+            glGetActiveUniform(mShaderProgramHandle, i, max_length, &actual_length, &size, &type, name );
             GLint location = -1;
             if(size > 1) {
                 for(int j = 0; j < size; j++) {
                     char long_name[64];
                     sprintf(long_name, "%s[%i]", name, j);
-                    location = glGetUniformLocation(_shaderProgramHandle, long_name);
+                    location = glGetUniformLocation(mShaderProgramHandle, long_name);
                 }
             } else {
-                location = glGetUniformLocation(_shaderProgramHandle, name);
+                location = glGetUniformLocation(mShaderProgramHandle, name);
             }
-            _uniformLocations->emplace( name, location );
+            mpUniformLocationsMap->emplace(name, location );
         }
     }
 
     // map attributes
-    _attributeLocations = new std::map<std::string, GLint>();
+    mpAttributeLocationsMap = new std::map<std::string, GLint>();
     GLint numAttributes;
-    glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_ATTRIBUTES, &numAttributes );
+    glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_ATTRIBUTES, &numAttributes );
     if( numAttributes > 0 ) {
         for(GLuint i = 0; i < numAttributes; i++) {
             char name[64];
@@ -713,58 +721,58 @@ inline bool CSCI441::ShaderProgram::registerShaderProgram( const char *vertexSha
             int actual_length = 0;
             int size = 0;
             GLenum type;
-            glGetActiveAttrib( _shaderProgramHandle, i, max_length, &actual_length, &size, &type, name );
+            glGetActiveAttrib(mShaderProgramHandle, i, max_length, &actual_length, &size, &type, name );
             GLint location = -1;
             if( size > 1 ) {
                 for( int j = 0; j < size; j++ ) {
                     char long_name[64];
                     sprintf( long_name, "%s[%i]", name, j );
-                    location = glGetAttribLocation( _shaderProgramHandle, long_name );
+                    location = glGetAttribLocation(mShaderProgramHandle, long_name );
                 }
             } else {
-                location = glGetAttribLocation( _shaderProgramHandle, name );
+                location = glGetAttribLocation(mShaderProgramHandle, name );
             }
-            _attributeLocations->emplace( name, location );
+            mpAttributeLocationsMap->emplace(name, location );
         }
     }
 
     GLint separable = GL_FALSE;
-    glGetProgramiv( _shaderProgramHandle, GL_PROGRAM_SEPARABLE, &separable );
+    glGetProgramiv(mShaderProgramHandle, GL_PROGRAM_SEPARABLE, &separable );
 
     if( sDEBUG ) printf( "[INFO]: | Program Separable: %35s |\n", (separable ? "Yes" : "No"));
 
     GLint linkStatus;
-    glGetProgramiv( _shaderProgramHandle, GL_LINK_STATUS, &linkStatus );
+    glGetProgramiv(mShaderProgramHandle, GL_LINK_STATUS, &linkStatus );
 
     /* print shader info for uniforms & attributes */
     if(linkStatus == 1) {
-        CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(_shaderProgramHandle, _vertexShaderHandle != 0,
-                                                              _tesselationControlShaderHandle != 0,
-                                                              _tesselationEvaluationShaderHandle != 0,
-                                                              _geometryShaderHandle != 0, _fragmentShaderHandle != 0,
+        CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(mShaderProgramHandle, mVertexShaderHandle != 0,
+                                                              mTesselationControlShaderHandle != 0,
+                                                              mTesselationEvaluationShaderHandle != 0,
+                                                              mGeometryShaderHandle != 0, mFragmentShaderHandle != 0,
                                                               false, true);
     }
     /* return handle */
-    return _shaderProgramHandle != 0;
+    return mShaderProgramHandle != 0;
 }
 
 inline GLint CSCI441::ShaderProgram::getUniformLocation( const char *uniformName ) const {
-    GLint uniformLoc = glGetUniformLocation( _shaderProgramHandle, uniformName );
+    GLint uniformLoc = glGetUniformLocation(mShaderProgramHandle, uniformName );
     if( uniformLoc == -1 )
-        fprintf( stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle );
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle );
     return uniformLoc;
 }
 
 inline GLint CSCI441::ShaderProgram::getUniformBlockIndex( const char *uniformBlockName ) const {
-    GLint uniformBlockLoc = glGetUniformBlockIndex( _shaderProgramHandle, uniformBlockName );
+    GLint uniformBlockLoc = glGetUniformBlockIndex(mShaderProgramHandle, uniformBlockName );
     if( uniformBlockLoc == -1 )
-        fprintf( stderr, "[ERROR]: Could not find uniform block \"%s\" for Shader Program %u\n", uniformBlockName, _shaderProgramHandle );
+        fprintf(stderr, "[ERROR]: Could not find uniform block \"%s\" for Shader Program %u\n", uniformBlockName, mShaderProgramHandle );
     return uniformBlockLoc;
 }
 
 inline GLint CSCI441::ShaderProgram::getUniformBlockSize( const char *uniformBlockName ) const {
     GLint blockSize;
-    glGetActiveUniformBlockiv( _shaderProgramHandle, getUniformBlockIndex(uniformBlockName), GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize );
+    glGetActiveUniformBlockiv(mShaderProgramHandle, getUniformBlockIndex(uniformBlockName), GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize );
     return blockSize;
 }
 
@@ -779,54 +787,54 @@ inline GLubyte* CSCI441::ShaderProgram::getUniformBlockBuffer( const char *unifo
 }
 
 inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName ) const {
-    return getUniformBlockOffsets( getUniformBlockIndex(uniformBlockName) );
+    return mGetUniformBlockOffsets(getUniformBlockIndex(uniformBlockName));
 }
 
 inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) const {
-    return getUniformBlockOffsets( getUniformBlockIndex(uniformBlockName), names );
+    return mGetUniformBlockOffsets(getUniformBlockIndex(uniformBlockName), names);
 }
 
-inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( GLint uniformBlockIndex ) const {
+inline GLint* CSCI441::ShaderProgram::mGetUniformBlockOffsets(GLint uniformBlockIndex ) const {
     GLint numUniforms;
-    glGetActiveUniformBlockiv( _shaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
+    glGetActiveUniformBlockiv(mShaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
 
     auto indices = (GLuint*)malloc(numUniforms*sizeof(GLuint));
-    glGetActiveUniformBlockiv( _shaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, (GLint*)indices);
+    glGetActiveUniformBlockiv(mShaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, (GLint*)indices);
 
     auto offsets = (GLint*)malloc(numUniforms*sizeof(GLint));
-    glGetActiveUniformsiv( _shaderProgramHandle, numUniforms, indices, GL_UNIFORM_OFFSET, offsets );
+    glGetActiveUniformsiv(mShaderProgramHandle, numUniforms, indices, GL_UNIFORM_OFFSET, offsets );
     return offsets;
 }
 
-inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( GLint uniformBlockIndex, const char *names[] ) const {
+inline GLint* CSCI441::ShaderProgram::mGetUniformBlockOffsets(GLint uniformBlockIndex, const char *names[] ) const {
     GLint numUniforms;
-    glGetActiveUniformBlockiv( _shaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
+    glGetActiveUniformBlockiv(mShaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
 
     auto indices = (GLuint*)malloc(numUniforms*sizeof(GLuint));
-    glGetUniformIndices( _shaderProgramHandle, numUniforms, names, indices );
+    glGetUniformIndices(mShaderProgramHandle, numUniforms, names, indices );
 
     auto offsets = (GLint*)malloc(numUniforms*sizeof(GLint));
-    glGetActiveUniformsiv( _shaderProgramHandle, numUniforms, indices, GL_UNIFORM_OFFSET, offsets );
+    glGetActiveUniformsiv(mShaderProgramHandle, numUniforms, indices, GL_UNIFORM_OFFSET, offsets );
     return offsets;
 }
 
 inline void CSCI441::ShaderProgram::setUniformBlockBinding( const char *uniformBlockName, GLuint binding ) const {
-    glUniformBlockBinding( _shaderProgramHandle, getUniformBlockIndex(uniformBlockName), binding );
+    glUniformBlockBinding(mShaderProgramHandle, getUniformBlockIndex(uniformBlockName), binding );
 }
 
 inline GLint CSCI441::ShaderProgram::getAttributeLocation( const char *attributeName ) const {
-    auto attribIter = _attributeLocations->find(attributeName);
-    if( attribIter == _attributeLocations->end() ) {
-        fprintf( stderr, "[ERROR]: Could not find attribute \"%s\" for Shader Program %u\n", attributeName, _shaderProgramHandle );
+    auto attribIter = mpAttributeLocationsMap->find(attributeName);
+    if(attribIter == mpAttributeLocationsMap->end() ) {
+        fprintf(stderr, "[ERROR]: Could not find attribute \"%s\" for Shader Program %u\n", attributeName, mShaderProgramHandle );
         return -1;
     }
     return attribIter->second;
 }
 
 inline GLuint CSCI441::ShaderProgram::getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) const {
-    GLuint subroutineIndex = glGetSubroutineIndex( _shaderProgramHandle, shaderStage, subroutineName );
+    GLuint subroutineIndex = glGetSubroutineIndex(mShaderProgramHandle, shaderStage, subroutineName );
     if( subroutineIndex == GL_INVALID_INDEX )
-        fprintf( stderr, "[ERROR]: Could not find subroutine \"%s\" in %s for Shader Program %u\n", subroutineName, CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage), _shaderProgramHandle );
+        fprintf(stderr, "[ERROR]: Could not find subroutine \"%s\" in %s for Shader Program %u\n", subroutineName, CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage), mShaderProgramHandle );
     return subroutineIndex;
 }
 
@@ -835,118 +843,118 @@ inline GLint CSCI441::ShaderProgram::getImageBinding(const char* imageName) cons
     GLuint imageLoc = getUniformLocation(imageName);
 
     if(imageLoc == -1) {
-        fprintf(stderr, "[ERROR]: Could not find image \"%s\" for Shader Program %u\n", imageName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find image \"%s\" for Shader Program %u\n", imageName, mShaderProgramHandle);
         return -1;
     }
 
     GLint bindingPoint;
-    glGetUniformiv(_shaderProgramHandle, imageLoc, &bindingPoint);
+    glGetUniformiv(mShaderProgramHandle, imageLoc, &bindingPoint);
 
     return bindingPoint;
 }
 
 inline GLint CSCI441::ShaderProgram::getShaderStorageBlockBinding(const char* ssboName) const {
-    GLuint ssboIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_SHADER_STORAGE_BLOCK, ssboName);
+    GLuint ssboIndex = glGetProgramResourceIndex(mShaderProgramHandle, GL_SHADER_STORAGE_BLOCK, ssboName);
 
     if(ssboIndex == -1) {
-        fprintf(stderr, "[ERROR]: Could not find shader storage block \"%s\" for Shader Program %u\n", ssboName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find shader storage block \"%s\" for Shader Program %u\n", ssboName, mShaderProgramHandle);
         return -1;
     }
 
     const int NUM_PROPS = 1;
     GLenum props[NUM_PROPS] = {GL_BUFFER_BINDING};
     GLint results[NUM_PROPS];
-    glGetProgramResourceiv(_shaderProgramHandle, GL_SHADER_STORAGE_BLOCK, ssboIndex, NUM_PROPS, props, NUM_PROPS, nullptr, results);
+    glGetProgramResourceiv(mShaderProgramHandle, GL_SHADER_STORAGE_BLOCK, ssboIndex, NUM_PROPS, props, NUM_PROPS, nullptr, results);
 
     return results[0];
 }
 
 inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferBinding(const char* atomicName) const {
-    GLuint uniformIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_UNIFORM, atomicName);
+    GLuint uniformIndex = glGetProgramResourceIndex(mShaderProgramHandle, GL_UNIFORM, atomicName);
 
     if(uniformIndex == -1) {
-        fprintf(stderr, "[ERROR]: Could not find atomic counter \"%s\" for Shader Program %u\n", atomicName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find atomic counter \"%s\" for Shader Program %u\n", atomicName, mShaderProgramHandle);
         return -1;
     }
 
     GLenum props = GL_ATOMIC_COUNTER_BUFFER_INDEX;
     GLint atomicIndex, binding;
-    glGetProgramResourceiv(_shaderProgramHandle, GL_UNIFORM, uniformIndex, 1, &props, 1, nullptr, &atomicIndex);
-    glGetActiveAtomicCounterBufferiv(_shaderProgramHandle, atomicIndex, GL_ATOMIC_COUNTER_BUFFER_BINDING, &binding);
+    glGetProgramResourceiv(mShaderProgramHandle, GL_UNIFORM, uniformIndex, 1, &props, 1, nullptr, &atomicIndex);
+    glGetActiveAtomicCounterBufferiv(mShaderProgramHandle, atomicIndex, GL_ATOMIC_COUNTER_BUFFER_BINDING, &binding);
 
     return binding;
 }
 
 inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferOffset(const char* atomicName) const {
-    GLuint uniformIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_UNIFORM, atomicName);
+    GLuint uniformIndex = glGetProgramResourceIndex(mShaderProgramHandle, GL_UNIFORM, atomicName);
 
     if(uniformIndex == -1) {
-        fprintf(stderr, "[ERROR]: Could not find atomic counter \"%s\" for Shader Program %u\n", atomicName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find atomic counter \"%s\" for Shader Program %u\n", atomicName, mShaderProgramHandle);
         return -1;
     }
 
     GLint offset;
-    glGetActiveUniformsiv(_shaderProgramHandle, 1, &uniformIndex, GL_UNIFORM_OFFSET, &offset);
+    glGetActiveUniformsiv(mShaderProgramHandle, 1, &uniformIndex, GL_UNIFORM_OFFSET, &offset);
     return offset;
 }
 
 inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferSize(const char* atomicName) const {
-    GLuint uniformIndex = glGetProgramResourceIndex(_shaderProgramHandle, GL_UNIFORM, atomicName);
+    GLuint uniformIndex = glGetProgramResourceIndex(mShaderProgramHandle, GL_UNIFORM, atomicName);
 
     if(uniformIndex == -1) {
-        fprintf(stderr, "[ERROR]: Could not find atomic counter \"%s\" for Shader Program %u\n", atomicName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find atomic counter \"%s\" for Shader Program %u\n", atomicName, mShaderProgramHandle);
         return -1;
     }
 
     GLenum props = GL_ATOMIC_COUNTER_BUFFER_INDEX;
     GLint atomicIndex, bufferSize;
-    glGetProgramResourceiv(_shaderProgramHandle, GL_UNIFORM, uniformIndex, 1, &props, 1, nullptr, &atomicIndex);
-    glGetActiveAtomicCounterBufferiv(_shaderProgramHandle, atomicIndex, GL_ATOMIC_COUNTER_BUFFER_DATA_SIZE, &bufferSize);
+    glGetProgramResourceiv(mShaderProgramHandle, GL_UNIFORM, uniformIndex, 1, &props, 1, nullptr, &atomicIndex);
+    glGetActiveAtomicCounterBufferiv(mShaderProgramHandle, atomicIndex, GL_ATOMIC_COUNTER_BUFFER_DATA_SIZE, &bufferSize);
 
     return bufferSize;
 }
 
 inline GLuint CSCI441::ShaderProgram::getNumUniforms() const {
     int numUniform = 0;
-    glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_UNIFORMS, &numUniform );
+    glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_UNIFORMS, &numUniform );
     return numUniform;
 }
 
 inline GLuint CSCI441::ShaderProgram::getNumUniformBlocks() const {
     int numUniformBlocks = 0;
-    glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_UNIFORM_BLOCKS, &numUniformBlocks );
+    glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_UNIFORM_BLOCKS, &numUniformBlocks );
     return numUniformBlocks;
 }
 
 inline GLuint CSCI441::ShaderProgram::getNumAttributes() const {
     int numAttr = 0;
-    glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_ATTRIBUTES, &numAttr );
+    glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_ATTRIBUTES, &numAttr );
     return numAttr;
 }
 
 inline GLuint CSCI441::ShaderProgram::getShaderProgramHandle() const {
-    return _shaderProgramHandle;
+    return mShaderProgramHandle;
 }
 
 inline void CSCI441::ShaderProgram::useProgram() const {
-    glUseProgram( _shaderProgramHandle );
+    glUseProgram(mShaderProgramHandle );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0 ) const  {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform1f( _shaderProgramHandle, uniformIter->second, v0 );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform1f(mShaderProgramHandle, uniformIter->second, v0 );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1 ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform2f( _shaderProgramHandle, uniformIter->second, v0, v1 );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform2f(mShaderProgramHandle, uniformIter->second, v0, v1 );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
@@ -955,11 +963,11 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2 ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform3f( _shaderProgramHandle, uniformIter->second, v0, v1, v2 );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform3f(mShaderProgramHandle, uniformIter->second, v0, v1, v2 );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
@@ -968,11 +976,11 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform4f( _shaderProgramHandle, uniformIter->second, v0, v1, v2, v3 );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform4f(mShaderProgramHandle, uniformIter->second, v0, v1, v2, v3 );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
@@ -981,293 +989,293 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
         switch(dim) {
             case 1:
-                glProgramUniform1fv( _shaderProgramHandle, uniformIter->second, count, value );
+                glProgramUniform1fv(mShaderProgramHandle, uniformIter->second, count, value );
                 break;
             case 2:
-                glProgramUniform2fv( _shaderProgramHandle, uniformIter->second, count, value );
+                glProgramUniform2fv(mShaderProgramHandle, uniformIter->second, count, value );
                 break;
             case 3:
-                glProgramUniform3fv( _shaderProgramHandle, uniformIter->second, count, value );
+                glProgramUniform3fv(mShaderProgramHandle, uniformIter->second, count, value );
                 break;
             case 4:
-                glProgramUniform4fv( _shaderProgramHandle, uniformIter->second, count, value );
+                glProgramUniform4fv(mShaderProgramHandle, uniformIter->second, count, value );
                 break;
             default:
-                fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %s in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformName, _shaderProgramHandle);
+                fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %s in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformName, mShaderProgramHandle);
                 break;
         }
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0 ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform1i( _shaderProgramHandle, uniformIter->second, v0 );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform1i(mShaderProgramHandle, uniformIter->second, v0 );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1 ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform2i( _shaderProgramHandle, uniformIter->second, v0, v1 );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform2i(mShaderProgramHandle, uniformIter->second, v0, v1 );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::ivec2 value) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform2iv( _shaderProgramHandle, uniformIter->second, 1, &value[0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform2iv(mShaderProgramHandle, uniformIter->second, 1, &value[0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1, GLint v2 ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform3i( _shaderProgramHandle, uniformIter->second, v0, v1, v2 );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform3i(mShaderProgramHandle, uniformIter->second, v0, v1, v2 );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::ivec3 value) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform3iv( _shaderProgramHandle, uniformIter->second, 1, &value[0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform3iv(mShaderProgramHandle, uniformIter->second, 1, &value[0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1, GLint v2, GLint v3 ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform4i( _shaderProgramHandle, uniformIter->second, v0, v1, v2, v3 );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform4i(mShaderProgramHandle, uniformIter->second, v0, v1, v2, v3 );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::ivec4 value) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform4iv( _shaderProgramHandle, uniformIter->second, 1, &value[0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform4iv(mShaderProgramHandle, uniformIter->second, 1, &value[0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
         switch(dim) {
             case 1:
-                glProgramUniform1iv( _shaderProgramHandle, uniformIter->second, count, value );
+                glProgramUniform1iv(mShaderProgramHandle, uniformIter->second, count, value );
                 break;
             case 2:
-                glProgramUniform2iv( _shaderProgramHandle, uniformIter->second, count, value );
+                glProgramUniform2iv(mShaderProgramHandle, uniformIter->second, count, value );
                 break;
             case 3:
-                glProgramUniform3iv( _shaderProgramHandle, uniformIter->second, count, value );
+                glProgramUniform3iv(mShaderProgramHandle, uniformIter->second, count, value );
                 break;
             case 4:
-                glProgramUniform4iv( _shaderProgramHandle, uniformIter->second, count, value );
+                glProgramUniform4iv(mShaderProgramHandle, uniformIter->second, count, value );
                 break;
             default:
-                fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %s in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformName, _shaderProgramHandle);
+                fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %s in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformName, mShaderProgramHandle);
                 break;
         }
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0 ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform1ui( _shaderProgramHandle, uniformIter->second, v0 );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform1ui(mShaderProgramHandle, uniformIter->second, v0 );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1 ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform2ui( _shaderProgramHandle, uniformIter->second, v0, v1 );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform2ui(mShaderProgramHandle, uniformIter->second, v0, v1 );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::uvec2 value) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform2uiv( _shaderProgramHandle, uniformIter->second, 1, &value[0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform2uiv(mShaderProgramHandle, uniformIter->second, 1, &value[0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2 ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform3ui( _shaderProgramHandle, uniformIter->second, v0, v1, v2 );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform3ui(mShaderProgramHandle, uniformIter->second, v0, v1, v2 );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::uvec3 value) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform3uiv( _shaderProgramHandle, uniformIter->second, 1, &value[0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform3uiv(mShaderProgramHandle, uniformIter->second, 1, &value[0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform4ui( _shaderProgramHandle, uniformIter->second, v0, v1, v2, v3 );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform4ui(mShaderProgramHandle, uniformIter->second, v0, v1, v2, v3 );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::uvec4 value) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniform4uiv( _shaderProgramHandle, uniformIter->second, 1, &value[0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniform4uiv(mShaderProgramHandle, uniformIter->second, 1, &value[0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
         switch(dim) {
             case 1:
-                glProgramUniform1uiv( _shaderProgramHandle, uniformIter->second, count, value );
+                glProgramUniform1uiv(mShaderProgramHandle, uniformIter->second, count, value );
                 break;
             case 2:
-                glProgramUniform2uiv( _shaderProgramHandle, uniformIter->second, count, value );
+                glProgramUniform2uiv(mShaderProgramHandle, uniformIter->second, count, value );
                 break;
             case 3:
-                glProgramUniform3uiv( _shaderProgramHandle, uniformIter->second, count, value );
+                glProgramUniform3uiv(mShaderProgramHandle, uniformIter->second, count, value );
                 break;
             case 4:
-                glProgramUniform4uiv( _shaderProgramHandle, uniformIter->second, count, value );
+                glProgramUniform4uiv(mShaderProgramHandle, uniformIter->second, count, value );
                 break;
             default:
-                fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %s in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformName, _shaderProgramHandle);
+                fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %s in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformName, mShaderProgramHandle);
                 break;
         }
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2 mtx ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniformMatrix2fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniformMatrix2fv(mShaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3 mtx ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniformMatrix3fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniformMatrix3fv(mShaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4 mtx ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniformMatrix4fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniformMatrix4fv(mShaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2x3 mtx ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniformMatrix2x3fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniformMatrix2x3fv(mShaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3x2 mtx ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniformMatrix3x2fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniformMatrix3x2fv(mShaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2x4 mtx ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniformMatrix2x4fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniformMatrix2x4fv(mShaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4x2 mtx ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniformMatrix4x2fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniformMatrix4x2fv(mShaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3x4 mtx ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniformMatrix3x4fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniformMatrix3x4fv(mShaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4x3 mtx ) const {
-    auto uniformIter = _uniformLocations->find(uniformName);
-    if(uniformIter != _uniformLocations->end()) {
-        glProgramUniformMatrix4x3fv( _shaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
+    auto uniformIter = mpUniformLocationsMap->find(uniformName);
+    if(uniformIter != mpUniformLocationsMap->end()) {
+        glProgramUniformMatrix4x3fv(mShaderProgramHandle, uniformIter->second, 1, GL_FALSE, &mtx[0][0] );
     } else {
-        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, _shaderProgramHandle);
+        fprintf(stderr, "[ERROR]: Could not find uniform \"%s\" for Shader Program %u\n", uniformName, mShaderProgramHandle);
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0 ) const {
-    glProgramUniform1f( _shaderProgramHandle, uniformLocation, v0 );
+    glProgramUniform1f(mShaderProgramHandle, uniformLocation, v0 );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1 ) const {
-    glProgramUniform2f( _shaderProgramHandle, uniformLocation, v0, v1 );
+    glProgramUniform2f(mShaderProgramHandle, uniformLocation, v0, v1 );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec2 value ) const {
@@ -1275,7 +1283,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, gl
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2 ) const {
-    glProgramUniform3f( _shaderProgramHandle, uniformLocation, v0, v1, v2 );
+    glProgramUniform3f(mShaderProgramHandle, uniformLocation, v0, v1, v2 );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec3 value ) const {
@@ -1283,7 +1291,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, gl
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) const {
-    glProgramUniform4f( _shaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
+    glProgramUniform4f(mShaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec4 value ) const {
@@ -1293,29 +1301,29 @@ inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, gl
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value) const {
     switch(dim) {
         case 1:
-            glProgramUniform1fv( _shaderProgramHandle, uniformLocation, count, value );
+            glProgramUniform1fv(mShaderProgramHandle, uniformLocation, count, value );
             break;
         case 2:
-            glProgramUniform2fv( _shaderProgramHandle, uniformLocation, count, value );
+            glProgramUniform2fv(mShaderProgramHandle, uniformLocation, count, value );
             break;
         case 3:
-            glProgramUniform3fv( _shaderProgramHandle, uniformLocation, count, value );
+            glProgramUniform3fv(mShaderProgramHandle, uniformLocation, count, value );
             break;
         case 4:
-            glProgramUniform4fv( _shaderProgramHandle, uniformLocation, count, value );
+            glProgramUniform4fv(mShaderProgramHandle, uniformLocation, count, value );
             break;
         default:
-            fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %i in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformLocation, _shaderProgramHandle);
+            fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %i in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformLocation, mShaderProgramHandle);
             break;
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0 ) const {
-    glProgramUniform1i( _shaderProgramHandle, uniformLocation, v0 );
+    glProgramUniform1i(mShaderProgramHandle, uniformLocation, v0 );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1 ) const {
-    glProgramUniform2i( _shaderProgramHandle, uniformLocation, v0, v1 );
+    glProgramUniform2i(mShaderProgramHandle, uniformLocation, v0, v1 );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::ivec2 value) const {
@@ -1323,7 +1331,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2 ) const {
-    glProgramUniform3i( _shaderProgramHandle, uniformLocation, v0, v1, v2 );
+    glProgramUniform3i(mShaderProgramHandle, uniformLocation, v0, v1, v2 );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::ivec3 value) const {
@@ -1331,7 +1339,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3 ) const {
-    glProgramUniform4i( _shaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
+    glProgramUniform4i(mShaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::ivec4 value) const {
@@ -1341,29 +1349,29 @@ inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value) const {
     switch(dim) {
         case 1:
-            glProgramUniform1iv( _shaderProgramHandle, uniformLocation, count, value );
+            glProgramUniform1iv(mShaderProgramHandle, uniformLocation, count, value );
             break;
         case 2:
-            glProgramUniform2iv( _shaderProgramHandle, uniformLocation, count, value );
+            glProgramUniform2iv(mShaderProgramHandle, uniformLocation, count, value );
             break;
         case 3:
-            glProgramUniform3iv( _shaderProgramHandle, uniformLocation, count, value );
+            glProgramUniform3iv(mShaderProgramHandle, uniformLocation, count, value );
             break;
         case 4:
-            glProgramUniform4iv( _shaderProgramHandle, uniformLocation, count, value );
+            glProgramUniform4iv(mShaderProgramHandle, uniformLocation, count, value );
             break;
         default:
-            fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %i in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformLocation, _shaderProgramHandle);
+            fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %i in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformLocation, mShaderProgramHandle);
             break;
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0 ) const {
-    glProgramUniform1ui( _shaderProgramHandle, uniformLocation, v0 );
+    glProgramUniform1ui(mShaderProgramHandle, uniformLocation, v0 );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1 ) const {
-    glProgramUniform2ui( _shaderProgramHandle, uniformLocation, v0, v1 );
+    glProgramUniform2ui(mShaderProgramHandle, uniformLocation, v0, v1 );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::uvec2 value) const {
@@ -1371,7 +1379,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2 ) const {
-    glProgramUniform3ui( _shaderProgramHandle, uniformLocation, v0, v1, v2 );
+    glProgramUniform3ui(mShaderProgramHandle, uniformLocation, v0, v1, v2 );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::uvec3 value) const {
@@ -1379,7 +1387,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) const {
-    glProgramUniform4ui( _shaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
+    glProgramUniform4ui(mShaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::uvec4 value) const {
@@ -1389,57 +1397,57 @@ inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) const {
     switch(dim) {
         case 1:
-            glProgramUniform1uiv( _shaderProgramHandle, uniformLocation, count, value );
+            glProgramUniform1uiv(mShaderProgramHandle, uniformLocation, count, value );
             break;
         case 2:
-            glProgramUniform2uiv( _shaderProgramHandle, uniformLocation, count, value );
+            glProgramUniform2uiv(mShaderProgramHandle, uniformLocation, count, value );
             break;
         case 3:
-            glProgramUniform3uiv( _shaderProgramHandle, uniformLocation, count, value );
+            glProgramUniform3uiv(mShaderProgramHandle, uniformLocation, count, value );
             break;
         case 4:
-            glProgramUniform4uiv( _shaderProgramHandle, uniformLocation, count, value );
+            glProgramUniform4uiv(mShaderProgramHandle, uniformLocation, count, value );
             break;
         default:
-            fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %i in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformLocation, _shaderProgramHandle);
+            fprintf(stderr, "[ERROR]: invalid dimension %u for uniform %i in Shader Program %u.  Dimension must be [1,4]\n", dim, uniformLocation, mShaderProgramHandle);
             break;
     }
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2 mtx ) const {
-    glProgramUniformMatrix2fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+    glProgramUniformMatrix2fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3 mtx ) const {
-    glProgramUniformMatrix3fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+    glProgramUniformMatrix3fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4 mtx ) const {
-    glProgramUniformMatrix4fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+    glProgramUniformMatrix4fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2x3 mtx ) const {
-    glProgramUniformMatrix2x3fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+    glProgramUniformMatrix2x3fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3x2 mtx ) const {
-    glProgramUniformMatrix3x2fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+    glProgramUniformMatrix3x2fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2x4 mtx ) const {
-    glProgramUniformMatrix2x4fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+    glProgramUniformMatrix2x4fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4x2 mtx ) const {
-    glProgramUniformMatrix4x2fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+    glProgramUniformMatrix4x2fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3x4 mtx ) const {
-    glProgramUniformMatrix3x4fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+    glProgramUniformMatrix3x4fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4x3 mtx ) const {
-    glProgramUniformMatrix4x3fv( _shaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+    glProgramUniformMatrix4x3fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram() {
@@ -1447,14 +1455,14 @@ inline CSCI441::ShaderProgram::ShaderProgram() {
 }
 
 inline void CSCI441::ShaderProgram::_initialize() {
-    _vertexShaderHandle = 0;
-    _tesselationControlShaderHandle = 0;
-    _tesselationEvaluationShaderHandle = 0;
-    _geometryShaderHandle = 0;
-    _fragmentShaderHandle = 0;
-    _shaderProgramHandle = 0;
-    _uniformLocations = nullptr;
-    _attributeLocations = nullptr;
+    mVertexShaderHandle = 0;
+    mTesselationControlShaderHandle = 0;
+    mTesselationEvaluationShaderHandle = 0;
+    mGeometryShaderHandle = 0;
+    mFragmentShaderHandle = 0;
+    mShaderProgramHandle = 0;
+    mpUniformLocationsMap = nullptr;
+    mpAttributeLocationsMap = nullptr;
 }
 
 inline CSCI441::ShaderProgram::~ShaderProgram() {
@@ -1462,23 +1470,23 @@ inline CSCI441::ShaderProgram::~ShaderProgram() {
     int infoLogLength = 0;
     int maxLength = 1000;
 
-    glDeleteProgram( _shaderProgramHandle );
+    glDeleteProgram(mShaderProgramHandle );
 
     // create a buffer of designated length
     char infoLog[maxLength];
 
-    glGetProgramiv( _shaderProgramHandle, GL_DELETE_STATUS, &status );
+    glGetProgramiv(mShaderProgramHandle, GL_DELETE_STATUS, &status );
 
     // get the info log for the vertex/tesselation/geometry/fragment/compute shader
-    glGetProgramInfoLog(_shaderProgramHandle, maxLength, &infoLogLength, infoLog );
+    glGetProgramInfoLog(mShaderProgramHandle, maxLength, &infoLogLength, infoLog );
 
     if(infoLogLength > 0 ) {
         // print info to terminal
-        if( sDEBUG ) printf( "[INFO]: Program Handle %d Delete Status %s: %s\n", _shaderProgramHandle, (status == GL_TRUE ? "Success" : " Error"), infoLog );
+        if( sDEBUG ) printf("[INFO]: Program Handle %d Delete Status %s: %s\n", mShaderProgramHandle, (status == GL_TRUE ? "Success" : " Error"), infoLog );
     }
 
-    delete _uniformLocations;
-    delete _attributeLocations;
+    delete mpUniformLocationsMap;
+    delete mpAttributeLocationsMap;
 }
 
 inline bool CSCI441::ShaderProgram::writeShaderProgramBinaryToFile(const char* BINARY_FILE_NAME) {
@@ -1491,12 +1499,12 @@ inline bool CSCI441::ShaderProgram::writeShaderProgramBinaryToFile(const char* B
 
     // Get the binary length
     GLint length = 0;
-    glGetProgramiv(_shaderProgramHandle, GL_PROGRAM_BINARY_LENGTH, &length);
+    glGetProgramiv(mShaderProgramHandle, GL_PROGRAM_BINARY_LENGTH, &length);
 
     // Retrieve the binary code
     std::vector<GLubyte> buffer(length);
     GLenum format = 0;
-    glGetProgramBinary(_shaderProgramHandle, length, nullptr, &format, buffer.data());
+    glGetProgramBinary(mShaderProgramHandle, length, nullptr, &format, buffer.data());
 
     // Write the binary to a file.
     fprintf(stdout, "[INFO]: Writing to %s, binary format %d\n",BINARY_FILE_NAME, format);
@@ -1535,7 +1543,7 @@ inline CSCI441::ShaderProgram* CSCI441::ShaderProgram::loadShaderProgramFromBina
     }
 
     auto shaderProgram = new CSCI441::ShaderProgram();
-    shaderProgram->_shaderProgramHandle = program;
+    shaderProgram->mShaderProgramHandle = program;
     return shaderProgram;
 }
 

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['h_0',['h',['../struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html#a91a6e0555a84028cc5d46e9f82a17734',1,'CSCI441_INTERNAL::CylinderData']]]
+  ['initialize_0',['initialize',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884',1,'CSCI441::OpenGLEngine']]],
+  ['isdebuggingenabled_1',['isDebuggingEnabled',['../class_c_s_c_i441_1_1_open_g_l_engine.html#abf167becf108ecbefc44f02f166e616b',1,'CSCI441::OpenGLEngine']]]
 ];

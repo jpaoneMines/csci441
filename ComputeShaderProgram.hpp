@@ -61,31 +61,31 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
     }
 
     // get a handle to a shader program
-    _shaderProgramHandle = glCreateProgram();
+    mShaderProgramHandle = glCreateProgram();
 
     // attach the computer fragment shader to the shader program
     if( _computeShaderHandle != 0 ) {
-        glAttachShader( _shaderProgramHandle, _computeShaderHandle );
+        glAttachShader(mShaderProgramHandle, _computeShaderHandle );
     }
 
     // link all the programs together on the GPU
-    glLinkProgram( _shaderProgramHandle );
+    glLinkProgram(mShaderProgramHandle );
 
     if( sDEBUG ) printf( "[INFO]: | Shader Program: %41s", "|\n" );
 
     // check the program log
-    CSCI441_INTERNAL::ShaderUtils::printProgramLog( _shaderProgramHandle );
+    CSCI441_INTERNAL::ShaderUtils::printProgramLog(mShaderProgramHandle );
 
     // detach & delete the vertex and fragment shaders to the shader program
     if( _computeShaderHandle != 0 ) {
-        glDetachShader( _shaderProgramHandle, _computeShaderHandle );
+        glDetachShader(mShaderProgramHandle, _computeShaderHandle );
         glDeleteShader( _computeShaderHandle );
     }
 
     // map uniforms
-    _uniformLocations = new std::map<std::string, GLint>();
+    mpUniformLocationsMap = new std::map<std::string, GLint>();
     GLint numUniforms;
-    glGetProgramiv( _shaderProgramHandle, GL_ACTIVE_UNIFORMS, &numUniforms);
+    glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_UNIFORMS, &numUniforms);
     if( numUniforms > 0 ) {
         for(GLuint i = 0; i < numUniforms; i++) {
             char name[64];
@@ -93,27 +93,27 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
             int actual_length = 0;
             int size = 0;
             GLenum type;
-            glGetActiveUniform( _shaderProgramHandle, i, max_length, &actual_length, &size, &type, name );
+            glGetActiveUniform(mShaderProgramHandle, i, max_length, &actual_length, &size, &type, name );
             GLint location = -1;
             if(size > 1) {
                 for(int j = 0; j < size; j++) {
                     char long_name[64];
                     sprintf(long_name, "%s[%i]", name, j);
-                    location = glGetUniformLocation(_shaderProgramHandle, long_name);
+                    location = glGetUniformLocation(mShaderProgramHandle, long_name);
                 }
             } else {
-                location = glGetUniformLocation(_shaderProgramHandle, name);
+                location = glGetUniformLocation(mShaderProgramHandle, name);
             }
-            _uniformLocations->emplace( name, location );
+            mpUniformLocationsMap->emplace(name, location );
         }
     }
     GLint linkStatus;
-    glGetProgramiv( _shaderProgramHandle, GL_LINK_STATUS, &linkStatus );
+    glGetProgramiv(mShaderProgramHandle, GL_LINK_STATUS, &linkStatus );
 
     /* print shader info for uniforms & attributes */
     if(linkStatus == 1) {
         // print shader info for uniforms & attributes
-        CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(_shaderProgramHandle, false, false, false, false, false,
+        CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(mShaderProgramHandle, false, false, false, false, false,
                                                               _computeShaderHandle != 0, true);
     }
 }

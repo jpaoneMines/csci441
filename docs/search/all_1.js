@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['ambient_0',['ambient',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#a90f9d1c3fd10d0d72323aee2e4284b3c',1,'CSCI441::Materials::Material']]],
-  ['arcballcam_1',['ArcballCam',['../class_c_s_c_i441_1_1_arcball_cam.html',1,'CSCI441']]],
-  ['arcballcam_2ehpp_2',['ArcballCam.hpp',['../_arcball_cam_8hpp.html',1,'']]]
+  ['b_0',['b',['../struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html#a32da8cbaf6326748bb6b0a03c5bbb279',1,'CSCI441_INTERNAL::CylinderData']]]
 ];

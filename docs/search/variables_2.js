@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['b_0',['b',['../struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html#a32da8cbaf6326748bb6b0a03c5bbb279',1,'CSCI441_INTERNAL::CylinderData']]]
+  ['diffuse_0',['diffuse',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#a8e7e3791a3edd0067deade301645bcf3',1,'CSCI441::Materials::Material']]]
 ];

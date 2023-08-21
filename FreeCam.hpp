@@ -46,28 +46,28 @@ namespace CSCI441 {
 
 inline void CSCI441::FreeCam::recomputeOrientation() {
     // compute direction vector based on spherical to cartesian conversion
-    _direction.x =  glm::sin( _theta )*glm::sin( _phi );
-    _direction.y = -glm::cos( _phi );
-    _direction.z = -glm::cos( _theta )*glm::sin( _phi );
+    mCameraDirection.x =  glm::sin(mCameraTheta ) * glm::sin(mCameraPhi );
+    mCameraDirection.y = -glm::cos(mCameraPhi );
+    mCameraDirection.z = -glm::cos(mCameraTheta ) * glm::sin(mCameraPhi );
 
     // and normalize this directional vector!
-    _direction = glm::normalize( _direction );
+    mCameraDirection = glm::normalize(mCameraDirection );
 
     _updateFreeCameraViewMatrix();
 }
 
 inline void CSCI441::FreeCam::moveForward(GLfloat movementFactor) {
-    _position += _direction * movementFactor;
+    mCameraPosition += mCameraDirection * movementFactor;
     _updateFreeCameraViewMatrix();
 }
 
 inline void CSCI441::FreeCam::moveBackward(GLfloat movementFactor) {
-    _position -= _direction * movementFactor;
+    mCameraPosition -= mCameraDirection * movementFactor;
     _updateFreeCameraViewMatrix();
 }
 
 inline void CSCI441::FreeCam::_updateFreeCameraViewMatrix() {
-    setLookAtPoint( _position + _direction );
+    setLookAtPoint(mCameraPosition + mCameraDirection );
     computeViewMatrix();
 }
 

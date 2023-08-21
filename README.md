@@ -7,6 +7,10 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v 4.0.0 - 21 Aug 2023
+- Refactored protected class member naming scheme from _xyz to mXyz
+- Improving web documentation
+
 ## v 3.12.1 - 18 Aug 2023
 - Improving web documentation
 
@@ -22,7 +26,7 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 - Replaced OpenGL3DEngine internal arcball implementation with ArcballCam object
 
 ## v 3.10.1 - 09 Sep 2022
-- Camera::_clampPhi() explicitly checking against floats instead of double
+- Camera::_clampCameraPhi() explicitly checking against floats instead of double
 
 ## v 3.10.0 - 06 Aug 2022
 - Added capability for ShaderProgram to write to/load from binary - if supported by driver

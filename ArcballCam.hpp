@@ -50,32 +50,32 @@ namespace CSCI441 {
 
 inline void CSCI441::ArcballCam::recomputeOrientation() {
     // compute direction vector based on spherical to cartesian conversion
-    _direction.x =  glm::sin( _theta )*glm::sin( _phi ) * _radius;
-    _direction.y = -glm::cos( _phi ) * _radius;
-    _direction.z = -glm::cos( _theta )*glm::sin( _phi ) * _radius;
+    mCameraDirection.x =  glm::sin(mCameraTheta ) * glm::sin(mCameraPhi ) * mCameraRadius;
+    mCameraDirection.y = -glm::cos(mCameraPhi )                                  * mCameraRadius;
+    mCameraDirection.z = -glm::cos(mCameraTheta ) * glm::sin(mCameraPhi ) * mCameraRadius;
 
     _updateArcballCameraViewMatrix();
 }
 
 inline void CSCI441::ArcballCam::moveForward(GLfloat movementFactor) {
-    _radius -= movementFactor;
+    mCameraRadius -= movementFactor;
     _clampRadius();
     recomputeOrientation();
 }
 
 inline void CSCI441::ArcballCam::moveBackward(GLfloat movementFactor) {
-    _radius += movementFactor;
+    mCameraRadius += movementFactor;
     _clampRadius();
     recomputeOrientation();
 }
 
 inline void CSCI441::ArcballCam::_updateArcballCameraViewMatrix() {
-    setPosition( _lookAtPoint + _direction );
+    setPosition(mCameraLookAtPoint + mCameraDirection );
     computeViewMatrix();
 }
 
 inline void CSCI441::ArcballCam::_clampRadius() {
-    _radius = glm::clamp(_radius, _minRadius, _maxRadius);
+    mCameraRadius = glm::clamp(mCameraRadius, _minRadius, _maxRadius);
 }
 
 #endif // CSCI441_ARCBALL_CAM_HPP
