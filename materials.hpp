@@ -11,22 +11,22 @@
 #define CSCI441_MATERIALS_HPP
 
 /// \namespace CSCI441
-/// \desc CSCI441 Helper Functions for OpenGL
+/// CSCI441 Helper Functions for OpenGL
 namespace CSCI441 {
 
     /// \namespace Materials
-    /// \desc Material Helpers for OpenGL
+    /// Material Helpers for OpenGL
     namespace Materials {
 
-        /// \desc Stores material properties used within the Phong Reflectance Model
+        /// Stores material properties used within the Phong Reflectance Model
         struct Material {
-            /// \desc RGBA values for Diffuse (Lambertian) Reflectance
+            /// RGBA values for Diffuse (Lambertian) Reflectance
             GLfloat diffuse[4];
-            /// \desc RGBA values for Specular Reflectance
+            /// RGBA values for Specular Reflectance
             GLfloat specular[4];
-            /// \desc Shininess value to control exponential falloff of Specular Reflectance
+            /// Shininess value to control exponential falloff of Specular Reflectance
             GLfloat shininess;
-            /// \desc RGBA values for Ambient Illumination
+            /// RGBA values for Ambient Illumination
             GLfloat ambient[4];
         };
 

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['h_0',['h',['../struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html#a91a6e0555a84028cc5d46e9f82a17734',1,'CSCI441_INTERNAL::CylinderData']]]
+  ['shininess_0',['shininess',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#a3e272e12faaa70cbcce6927d5c8305ce',1,'CSCI441::Materials::Material']]],
+  ['specular_1',['specular',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#ac1a20c197ba9dd4a9ebbf6f36679f49f',1,'CSCI441::Materials::Material']]]
 ];

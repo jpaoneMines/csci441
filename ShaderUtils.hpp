@@ -24,8 +24,6 @@
 
 //********************************************************************************************************************
 
-/// \namespace CSCI441_INTERNAL
-/// \desc Contains implementations used internally within other library functions/classes.  Not intended to be exposed and used directly (though may be if need arises)
 namespace CSCI441_INTERNAL {
 
     /// \namespace ShaderUtils

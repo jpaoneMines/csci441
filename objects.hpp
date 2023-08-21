@@ -338,29 +338,17 @@ namespace CSCI441_INTERNAL {
     inline std::map< GLfloat, GLuint > _cubeVAOIndexed;
     inline std::map< GLfloat, GLuint > _cubeVBOIndexed;
 
-    /**
-     * @brief stores data necessary to specify a unique cylinder
-     */
+    // stores data necessary to specify a unique cylinder
     struct CylinderData {
-        /**
-         * @brief radius of the base
-         */
+        // radius of the base
         GLfloat b;
-        /**
-         * @brief radius of the top
-         */
+        // radius of the top
         GLfloat t;
-        /**
-         * @brief height
-         */
+        // height
         GLfloat h;
-        /**
-         * @brief number of stacks
-         */
+        // number of stacks
         GLint st;
-        /**
-         * @brief number of slices
-         */
+        // number of slices
         GLint sl;
         bool operator<( const CylinderData rhs ) const {
             if( b < rhs.b ) {
@@ -653,8 +641,6 @@ inline void CSCI441::drawWireTorus( GLfloat innerRadius, GLfloat outerRadius, GL
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 // Internal function rendering implementations
-
-
 
 inline void CSCI441_INTERNAL::deleteObjectVAOs() {
     for(auto iter = _cubeVAO.begin(); iter != _cubeVAO.end(); iter++) {
