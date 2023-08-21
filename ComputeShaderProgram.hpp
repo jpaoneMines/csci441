@@ -16,26 +16,24 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/// \namespace CSCI441
-/// \desc CSCI441 Helper Functions for OpenGL
 namespace CSCI441 {
 
-    /// \class ComputeShaderProgram
-    /// \desc Handles registration and compilation of Compute Shaders
+    /// Handles registration and compilation of Compute Shaders
     /// \note Extends the ShaderProgram class
     class ComputeShaderProgram : public ShaderProgram {
     public:
-        /// \desc Creates a Compute Shader Program
+        /// Creates a Compute Shader Program
         /// \param const char* name of the file corresponding to the compute shader
         explicit ComputeShaderProgram( const char *computeShaderFilename );
 
-        /// \desc dispatches work to the Compute Shader on the GPU
+        /// dispatches work to the Compute Shader on the GPU
         /// \param GLuint number of work groups in X dimension (defaults to 1)
         /// \param GLuint number of work groups in Y dimension (defaults to 1)
         /// \param GLuint number of work groups in Z dimension (defaults to 1)
+        /// \note call after calling ShaderProgram::useProgram()
         void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ);
     private:
-
+        // holds shader program handle
         GLuint _computeShaderHandle;
     };
 }
