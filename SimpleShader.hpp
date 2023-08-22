@@ -462,6 +462,8 @@ inline void CSCI441_INTERNAL::SimpleShader2::setupSimpleShader() {
                                       }";
     const char* fragmentShaders[1] = { fragment_shader_src.c_str() };
 
+    printf( "[INFO]: /--------------------------------------------------------\\\n" );
+
     GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );
     glShaderSource(vertexShaderHandle, 1, vertexShaders, nullptr);
     glCompileShader(vertexShaderHandle);
@@ -634,6 +636,8 @@ inline void CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {
                                           }\n \
                                       }";
     const char* fragmentShaders[1] = { fragment_shader_src.c_str() };
+
+    printf( "[INFO]: /--------------------------------------------------------\\\n" );
 
     GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );
     glShaderSource(vertexShaderHandle, 1, vertexShaders, nullptr);
