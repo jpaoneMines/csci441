@@ -192,22 +192,22 @@ inline void CSCI441::OpenGLEngine::mSetupGLFW()  {
         if(DEBUG) fprintf( stdout, "[INFO]: GLFW %d.%d.%d initialized\n", GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION );
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, mOpenGLMajorVersion );	        // request OpenGL vX.
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, mOpenGLMinorVersion );	        // request OpenGL v.X
-        glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );                  // request forward compatible OpenGL context
-        glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );        // request OpenGL Core Profile context
-        glfwWindowHint( GLFW_DOUBLEBUFFER, GLFW_TRUE );                             // request double buffering
-        glfwWindowHint(GLFW_RESIZABLE, mWindowResizable );		                // set if our window should be able to be resized
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, mOpenGLMinorVersion );	        // request OpenGL v .X
+        glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );                       // request forward compatible OpenGL context
+        glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );             // request OpenGL Core Profile context
+        glfwWindowHint( GLFW_DOUBLEBUFFER, GLFW_TRUE );                              // request double buffering
+        glfwWindowHint(GLFW_RESIZABLE, mWindowResizable );		                    // set if our window should be able to be resized
 
         // create a window for a given size, with a given title
         mpWindow = glfwCreateWindow(mWindowWidth, mWindowHeight, mWindowTitle, nullptr, nullptr );
-        if( !mpWindow ) {						                                // if the window could not be created, NULL is returned
+        if( !mpWindow ) {						                                                // if the window could not be created, NULL is returned
             fprintf( stderr, "[ERROR]: GLFW Window could not be created\n" );
             glfwTerminate();
             mErrorCode = OPENGL_ENGINE_ERROR_GLFW_WINDOW;
         } else {
             if(DEBUG) fprintf( stdout, "[INFO]: GLFW Window created\n" );
-            glfwMakeContextCurrent(mpWindow);		                                // make the created window the current window
-            glfwSwapInterval(1);				                            // update our screen after at least 1 screen refresh
+            glfwMakeContextCurrent(mpWindow);		                                    // make the created window the current window
+            glfwSwapInterval(1);				                                        // update our screen after at least 1 screen refresh
 
             glfwSetWindowUserPointer(mpWindow, (void*)this);
             glfwSetWindowSizeCallback(mpWindow, mWindowResizeCallback);
