@@ -80,7 +80,7 @@ $(function() {
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>CSCI441_INTERNAL {</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_model_material.html">    8</a></span>  <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_model_material.html">ModelMaterial</a> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  <span class="keyword">struct </span>ModelMaterial {</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>      GLfloat ambient[4];</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>      GLfloat diffuse[4];</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>      GLfloat specular[4];</div>
@@ -90,7 +90,7 @@ $(function() {
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>      GLint map_Kd;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>      GLint map_d;</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>      <a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_model_material.html">ModelMaterial</a>() {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>      ModelMaterial() {</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i = 0; i &lt; 3; i++ ) {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>          ambient[i] = 0.0f;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>          diffuse[i] = 0.0f;</div>
@@ -111,7 +111,6 @@ $(function() {
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_MODEL_MATERIAL_H</span></div>
-<div class="ttc" id="astruct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_model_material_html"><div class="ttname"><a href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_model_material.html">CSCI441_INTERNAL::ModelMaterial</a></div><div class="ttdef"><b>Definition:</b> modelMaterial.hpp:8</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

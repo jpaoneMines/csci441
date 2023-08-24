@@ -157,7 +157,7 @@ $(function() {
 <div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="keyword">inline</span> std::map&lt; GLfloat, GLuint &gt; _cubeVBOIndexed;</div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span> </div>
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="comment">// stores data necessary to specify a unique cylinder</span></div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno"><a class="line" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html">  341</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html">CylinderData</a> {</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <span class="keyword">struct </span>CylinderData {</div>
 <div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>        <span class="comment">// radius of the base</span></div>
 <div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        GLfloat b;</div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        <span class="comment">// radius of the top</span></div>
@@ -168,7 +168,7 @@ $(function() {
 <div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        GLint st;</div>
 <div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        <span class="comment">// number of slices</span></div>
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        GLint sl;</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        <span class="keywordtype">bool</span> operator&lt;( <span class="keyword">const</span> <a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html">CylinderData</a> rhs )<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        <span class="keywordtype">bool</span> operator&lt;( <span class="keyword">const</span> CylinderData rhs )<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>            <span class="keywordflow">if</span>( b &lt; rhs.b ) {</div>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(b - rhs.b) &lt;= 0.000001 ) {</div>
@@ -191,14 +191,14 @@ $(function() {
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>        }</div>
 <div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    };</div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    <span class="keywordtype">void</span> generateCylinderVAO( <a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html">CylinderData</a> cylData );</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    <span class="keywordtype">void</span> generateCylinderVAO( CylinderData cylData );</div>
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keyword">inline</span> std::map&lt; CylinderData, GLuint &gt; _cylinderVAO;</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    <span class="keyword">inline</span> std::map&lt; CylinderData, GLuint &gt; _cylinderVBO;</div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno"><a class="line" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_disk_data.html">  379</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_disk_data.html">DiskData</a> {</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <span class="keyword">struct </span>DiskData {</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>        GLfloat i, o, st, sw;</div>
 <div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>        GLint sl, r;</div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>        <span class="keywordtype">bool</span> operator&lt;( <span class="keyword">const</span> <a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_disk_data.html">DiskData</a> rhs )<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>        <span class="keywordtype">bool</span> operator&lt;( <span class="keyword">const</span> DiskData rhs )<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>            <span class="keywordflow">if</span>( i &lt; rhs.i ) {</div>
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(i - rhs.i) &lt;= 0.000001 ) {</div>
@@ -225,14 +225,14 @@ $(function() {
 <div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>        }</div>
 <div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>    };</div>
-<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>    <span class="keywordtype">void</span> generateDiskVAO( <a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_disk_data.html">DiskData</a> diskData );</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>    <span class="keywordtype">void</span> generateDiskVAO( DiskData diskData );</div>
 <div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>    <span class="keyword">inline</span> std::map&lt; DiskData, GLuint &gt; _diskVAO;</div>
 <div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>    <span class="keyword">inline</span> std::map&lt; DiskData, GLuint &gt; _diskVBO;</div>
 <div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span> </div>
-<div class="line"><a id="l00413" name="l00413"></a><span class="lineno"><a class="line" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_sphere_data.html">  413</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_sphere_data.html">SphereData</a> {</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>    <span class="keyword">struct </span>SphereData {</div>
 <div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>        GLfloat r;</div>
 <div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>        GLint st, sl;</div>
-<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>        <span class="keywordtype">bool</span> operator&lt;( <span class="keyword">const</span> <a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_sphere_data.html">SphereData</a> rhs )<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>        <span class="keywordtype">bool</span> operator&lt;( <span class="keyword">const</span> SphereData rhs )<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>            <span class="keywordflow">if</span>( r &lt; rhs.r ) {</div>
 <div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(r - rhs.r) &lt;= 0.000001 ) {</div>
@@ -250,14 +250,14 @@ $(function() {
 <div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span><span class="comment">//          return fabs(r - rhs.r) &lt;= 0.000001 &amp;&amp; st == rhs.st &amp;&amp; sl == rhs.sl;</span></div>
 <div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span><span class="comment">//      }</span></div>
 <div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>    };</div>
-<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>    <span class="keywordtype">void</span> generateSphereVAO( <a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_sphere_data.html">SphereData</a> sphereData );</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>    <span class="keywordtype">void</span> generateSphereVAO( SphereData sphereData );</div>
 <div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>    <span class="keyword">inline</span> std::map&lt; SphereData, GLuint &gt; _sphereVAO;</div>
 <div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>    <span class="keyword">inline</span> std::map&lt; SphereData, GLuint &gt; _sphereVBO;</div>
 <div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span> </div>
-<div class="line"><a id="l00438" name="l00438"></a><span class="lineno"><a class="line" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_torus_data.html">  438</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_torus_data.html">TorusData</a> {</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>    <span class="keyword">struct </span>TorusData {</div>
 <div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>        GLfloat i, o;</div>
 <div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>        GLint s, r;</div>
-<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>        <span class="keywordtype">bool</span> operator&lt;( <span class="keyword">const</span> <a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_torus_data.html">TorusData</a> rhs )<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>        <span class="keywordtype">bool</span> operator&lt;( <span class="keyword">const</span> TorusData rhs )<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span>            <span class="keywordflow">if</span>( i &lt; rhs.i ) {</div>
 <div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(i - rhs.i) &lt;= 0.000001 ) {</div>
@@ -276,7 +276,7 @@ $(function() {
 <div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>        }</div>
 <div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>    };</div>
-<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>    <span class="keywordtype">void</span> generateTorusVAO( <a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_torus_data.html">TorusData</a> torusData );</div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>    <span class="keywordtype">void</span> generateTorusVAO( TorusData torusData );</div>
 <div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>    <span class="keyword">inline</span> std::map&lt; TorusData, GLuint &gt; _torusVAO;</div>
 <div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>    <span class="keyword">inline</span> std::map&lt; TorusData, GLuint &gt; _torusVBO;</div>
 <div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>}</div>
@@ -1243,10 +1243,6 @@ $(function() {
 <div class="ttc" id="anamespace_c_s_c_i441_html_ae34ff8584bceee10de1d70edd7e00057"><div class="ttname"><a href="namespace_c_s_c_i441.html#ae34ff8584bceee10de1d70edd7e00057">CSCI441::drawSolidTeapot</a></div><div class="ttdeci">void drawSolidTeapot(GLfloat size=1.0f)</div><div class="ttdoc">Draws a solid teapot.</div><div class="ttdef"><b>Definition:</b> objects.hpp:612</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html_ae395893ea5678255e0d9ccba746fa7e6"><div class="ttname"><a href="namespace_c_s_c_i441.html#ae395893ea5678255e0d9ccba746fa7e6">CSCI441::drawWirePartialDisk</a></div><div class="ttdeci">void drawWirePartialDisk(GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep)</div><div class="ttdoc">Draws part of a wireframe disk.</div><div class="ttdef"><b>Definition:</b> objects.hpp:584</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html_afff4ae4643d2e394b3f2ce45a1dd663c"><div class="ttname"><a href="namespace_c_s_c_i441.html#afff4ae4643d2e394b3f2ce45a1dd663c">CSCI441::drawWireCylinder</a></div><div class="ttdeci">void drawWireCylinder(GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices)</div><div class="ttdoc">Draws a wireframe open ended cylinder.</div><div class="ttdef"><b>Definition:</b> objects.hpp:543</div></div>
-<div class="ttc" id="astruct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data_html"><div class="ttname"><a href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html">CSCI441_INTERNAL::CylinderData</a></div><div class="ttdef"><b>Definition:</b> objects.hpp:341</div></div>
-<div class="ttc" id="astruct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_disk_data_html"><div class="ttname"><a href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_disk_data.html">CSCI441_INTERNAL::DiskData</a></div><div class="ttdef"><b>Definition:</b> objects.hpp:379</div></div>
-<div class="ttc" id="astruct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_sphere_data_html"><div class="ttname"><a href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_sphere_data.html">CSCI441_INTERNAL::SphereData</a></div><div class="ttdef"><b>Definition:</b> objects.hpp:413</div></div>
-<div class="ttc" id="astruct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_torus_data_html"><div class="ttname"><a href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_torus_data.html">CSCI441_INTERNAL::TorusData</a></div><div class="ttdef"><b>Definition:</b> objects.hpp:438</div></div>
 <div class="ttc" id="ateapot_8hpp_html"><div class="ttname"><a href="teapot_8hpp.html">teapot.hpp</a></div><div class="ttdoc">Helper functions to draw teapot with OpenGL 3.0+.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

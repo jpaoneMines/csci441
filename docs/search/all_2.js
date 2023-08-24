@@ -9,6 +9,5 @@ var searchData=
   ['copytooffset_6',['copyToOffset',['../class_c_s_c_i441_1_1_uniform_buffer_object.html#a93bfc9c16fb2d49f35dc360a9009437b',1,'CSCI441::UniformBufferObject']]],
   ['csci441_7',['CSCI441',['../namespace_c_s_c_i441.html',1,'']]],
   ['csci441_20opengl_20library_8',['CSCI441 OpenGL Library',['../index.html',1,'']]],
-  ['csci441_2ehpp_9',['CSCI441.hpp',['../_c_s_c_i441_8hpp.html',1,'']]],
-  ['cylinderdata_10',['CylinderData',['../struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html',1,'CSCI441_INTERNAL']]]
+  ['csci441_2ehpp_9',['CSCI441.hpp',['../_c_s_c_i441_8hpp.html',1,'']]]
 ];

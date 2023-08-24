@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['diskdata_0',['DiskData',['../struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_disk_data.html',1,'CSCI441_INTERNAL']]]
+  ['fixedcam_0',['FixedCam',['../class_c_s_c_i441_1_1_fixed_cam.html',1,'CSCI441']]],
+  ['freecam_1',['FreeCam',['../class_c_s_c_i441_1_1_free_cam.html',1,'CSCI441']]]
 ];

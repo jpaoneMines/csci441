@@ -29,6 +29,5 @@ var searchData=
   ['simpleshader_2ehpp_26',['SimpleShader.hpp',['../_simple_shader_8hpp.html',1,'']]],
   ['simpleshader2_27',['SimpleShader2',['../namespace_simple_shader2.html',1,'']]],
   ['simpleshader3_28',['SimpleShader3',['../namespace_simple_shader3.html',1,'']]],
-  ['specular_29',['specular',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#ac1a20c197ba9dd4a9ebbf6f36679f49f',1,'CSCI441::Materials::Material']]],
-  ['spheredata_30',['SphereData',['../struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_sphere_data.html',1,'CSCI441_INTERNAL']]]
+  ['specular_29',['specular',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#ac1a20c197ba9dd4a9ebbf6f36679f49f',1,'CSCI441::Materials::Material']]]
 ];

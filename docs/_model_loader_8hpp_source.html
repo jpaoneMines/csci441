@@ -248,7 +248,7 @@ $(function() {
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            std::string materialName = materialIter-&gt;first;</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>            std::vector&lt; std::pair&lt; GLuint, GLuint &gt; &gt; indexStartStop = materialIter-&gt;second;</div>
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>            <a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_model_material.html">CSCI441_INTERNAL::ModelMaterial</a>* material = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>            CSCI441_INTERNAL::ModelMaterial* material = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            <span class="keywordflow">if</span>( _materials.find( materialName ) != _materials.end() )</div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>                material = _materials.find( materialName )-&gt;second;</div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
@@ -838,7 +838,7 @@ $(function() {
 <div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span>        }</div>
 <div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span>    }</div>
 <div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span> </div>
-<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>    <a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_model_material.html">CSCI441_INTERNAL::ModelMaterial</a>* currentMaterial = NULL;</div>
+<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>    CSCI441_INTERNAL::ModelMaterial* currentMaterial = NULL;</div>
 <div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>    std::string materialName;</div>
 <div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span> </div>
 <div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *textureData = NULL;</div>
@@ -863,7 +863,7 @@ $(function() {
 <div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>        <span class="keywordflow">if</span>( !tokens[0].compare( <span class="stringliteral">&quot;#&quot;</span> ) ) {                           <span class="comment">// comment</span></div>
 <div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( !tokens[0].compare( <span class="stringliteral">&quot;newmtl&quot;</span> ) ) {               <span class="comment">//new material</span></div>
 <div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>            <span class="keywordflow">if</span> (INFO) printf( <span class="stringliteral">&quot;[.mtl]: Parsing material %s properties\n&quot;</span>, tokens[1].c_str() );</div>
-<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>            currentMaterial = <span class="keyword">new</span> <a class="code hl_struct" href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_model_material.html">CSCI441_INTERNAL::ModelMaterial</a>();</div>
+<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>            currentMaterial = <span class="keyword">new</span> CSCI441_INTERNAL::ModelMaterial();</div>
 <div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>            materialName = tokens[1];</div>
 <div class="line"><a id="l00888" name="l00888"></a><span class="lineno">  888</span>            _materials.insert( std::pair&lt;std::string, CSCI441_INTERNAL::ModelMaterial*&gt;( materialName, currentMaterial ) );</div>
 <div class="line"><a id="l00889" name="l00889"></a><span class="lineno">  889</span> </div>
@@ -1952,7 +1952,6 @@ $(function() {
 <div class="ttc" id="aclass_c_s_c_i441_1_1_model_loader_html_ab30fbbe152e05c88300f98fa33998102"><div class="ttname"><a href="class_c_s_c_i441_1_1_model_loader.html#ab30fbbe152e05c88300f98fa33998102">CSCI441::ModelLoader::~ModelLoader</a></div><div class="ttdeci">~ModelLoader()</div><div class="ttdoc">Frees memory associated with model on both CPU and GPU.</div><div class="ttdef"><b>Definition:</b> ModelLoader.hpp:192</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_model_loader_html_afd8c5602678127d25348714be53342a5"><div class="ttname"><a href="class_c_s_c_i441_1_1_model_loader.html#afd8c5602678127d25348714be53342a5">CSCI441::ModelLoader::ModelLoader</a></div><div class="ttdeci">ModelLoader()</div><div class="ttdoc">Creates an empty model.</div><div class="ttdef"><b>Definition:</b> ModelLoader.hpp:183</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
-<div class="ttc" id="astruct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_model_material_html"><div class="ttname"><a href="struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_model_material.html">CSCI441_INTERNAL::ModelMaterial</a></div><div class="ttdef"><b>Definition:</b> modelMaterial.hpp:8</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
