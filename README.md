@@ -7,6 +7,9 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v ?.?.? - ?? ??? ????
+- Cleaned up order of includes
+
 ## v 4.1.0 - 24 Aug 2023
 - Improving web documentation using a consistent style
 

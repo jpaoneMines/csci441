@@ -14,27 +14,24 @@
   *	@warning NOTE: This header file depends upon GLEW, glm, stb_image
 */
 
-#ifndef CSCI441_MODELLOADER_HPP
-#define CSCI441_MODELLOADER_HPP
+#ifndef CSCI441_MODEL_LOADER_HPP
+#define CSCI441_MODEL_LOADER_HPP
+
+#include "modelMaterial.hpp"
 
 #include <GL/glew.h>
-
 #include <glm/glm.hpp>
-
 #include <stb_image.h>
 
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
 #include <fstream>
 #include <sstream>
 #include <map>
 #include <string>
 #include <vector>
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-
-#include "modelMaterial.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -1959,4 +1956,4 @@ inline void CSCI441_INTERNAL::flipImageY( int texWidth, int texHeight, int textu
 	}
 }
 
-#endif // __CSCI441_MODELLOADER_HPP__
+#endif // __CSCI441_MODEL_LOADER_HPP__

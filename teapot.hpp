@@ -17,11 +17,11 @@
 #ifndef CSCI441_TEAPOT_HPP
 #define CSCI441_TEAPOT_HPP
 
+#include <GL/glew.h>
+
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>
-
-#include <GL/glew.h>
 
 namespace CSCI441_INTERNAL {
 

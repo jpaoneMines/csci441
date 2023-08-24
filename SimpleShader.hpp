@@ -15,15 +15,14 @@
 #ifndef CSCI441_SIMPLE_SHADER_HPP
 #define CSCI441_SIMPLE_SHADER_HPP
 
-#include <GL/glew.h>
+#include "ShaderUtils.hpp"
+#include "objects.hpp"
 
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 
 #include <string>
 #include <vector>
-
-#include "objects.hpp"
-#include "ShaderUtils.hpp"
 
 //**********************************************************************************
 

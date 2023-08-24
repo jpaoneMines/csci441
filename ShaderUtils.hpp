@@ -18,7 +18,6 @@
 
 #include <cstdio>
 #include <cstring>
-
 #include <fstream>
 #include <string>
 

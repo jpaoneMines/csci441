@@ -5,8 +5,8 @@
 #ifndef CSCI441_OPENGL3D_ENGINE_HPP
 #define CSCI441_OPENGL3D_ENGINE_HPP
 
-#include "OpenGLEngine.hpp"
 #include "ArcballCam.hpp"
+#include "OpenGLEngine.hpp"
 
 #include <glm/glm.hpp>
 

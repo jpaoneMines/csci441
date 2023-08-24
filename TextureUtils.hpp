@@ -15,12 +15,10 @@
 #define CSCI441_TEXTURE_UTILS_HPP
 
 #include <GL/glew.h>
-
 #include <stb_image.h>
 
 #include <cstdio>
 #include <cstring>
-
 #include <string>
 
 //**********************************************************************************

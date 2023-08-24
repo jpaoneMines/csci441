@@ -18,7 +18,6 @@
 #include <glm/glm.hpp>
 
 #include <cstdlib>
-
 #include <fstream>
 #include <map>
 #include <string>
