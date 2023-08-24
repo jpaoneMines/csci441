@@ -15,13 +15,12 @@
 #ifndef CSCI441_OBJECTS_HPP
 #define CSCI441_OBJECTS_HPP
 
-#include <GL/glew.h>
-
-#include <assert.h>   					// for assert()
-#include <math.h>						// for cos(), sin()
-
 #include "teapot.hpp"                   // for teapot()
 
+#include <GL/glew.h>
+
+#include <cassert>   					// for assert()
+#include <cmath>						// for cos(), sin()
 #include <map>							// for map
 
 #ifndef M_PI

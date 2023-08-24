@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.1.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -78,34 +78,76 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_c_s_c_i441_1_1_shader_program_pipeline-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">CSCI441::ShaderProgramPipeline Class Reference</div></div>
+  <div class="headertitle"><div class="title">CSCI441::ShaderProgramPipeline Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Handles registration and compilation of Shader Program Pipelines.  
+ <a href="class_c_s_c_i441_1_1_shader_program_pipeline.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_shader_program_pipeline_8hpp_source.html">ShaderProgramPipeline.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a02f1375729bfe7d1058a61bb82ef2fee"><td class="memItemLeft" align="right" valign="top"><a id="a02f1375729bfe7d1058a61bb82ef2fee" name="a02f1375729bfe7d1058a61bb82ef2fee"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>useProgramStages</b> (GLbitfield programStages, const <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> *shaderProgram)</td></tr>
-<tr class="separator:a02f1375729bfe7d1058a61bb82ef2fee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99e0702bd8b5f2994e1fdf2e600ed2ed"><td class="memItemLeft" align="right" valign="top"><a id="a99e0702bd8b5f2994e1fdf2e600ed2ed" name="a99e0702bd8b5f2994e1fdf2e600ed2ed"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>bindPipeline</b> ()</td></tr>
-<tr class="separator:a99e0702bd8b5f2994e1fdf2e600ed2ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11c86b6719043d227e6db00b8bcbb76d"><td class="memItemLeft" align="right" valign="top"><a id="a11c86b6719043d227e6db00b8bcbb76d" name="a11c86b6719043d227e6db00b8bcbb76d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>printPipelineInfo</b> ()</td></tr>
-<tr class="separator:a11c86b6719043d227e6db00b8bcbb76d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a629628003b39f0ef17b6f4a1c1056a1a"><td class="memItemLeft" align="right" valign="top"><a id="a629628003b39f0ef17b6f4a1c1056a1a" name="a629628003b39f0ef17b6f4a1c1056a1a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ShaderProgramPipeline</b> ()</td></tr>
+<tr class="memdesc:a629628003b39f0ef17b6f4a1c1056a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates a shader program pipeline by generating a shader program pipeline handle <br /></td></tr>
+<tr class="separator:a629628003b39f0ef17b6f4a1c1056a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadebb4f866fa11fd7ab0de033af4b938"><td class="memItemLeft" align="right" valign="top"><a id="aadebb4f866fa11fd7ab0de033af4b938" name="aadebb4f866fa11fd7ab0de033af4b938"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>~ShaderProgramPipeline</b> ()</td></tr>
+<tr class="memdesc:aadebb4f866fa11fd7ab0de033af4b938"><td class="mdescLeft">&#160;</td><td class="mdescRight">deletes a shader program pipeline by deleting the shader program pipeline handle <br /></td></tr>
+<tr class="separator:aadebb4f866fa11fd7ab0de033af4b938"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f69128104b47e7fa989bc4dc3baf09c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program_pipeline.html#a5f69128104b47e7fa989bc4dc3baf09c">useProgramStages</a> (GLbitfield programStages, const <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> *shaderProgram) const</td></tr>
+<tr class="memdesc:a5f69128104b47e7fa989bc4dc3baf09c"><td class="mdescLeft">&#160;</td><td class="mdescRight">adds shader program stages to pipeline  <br /></td></tr>
+<tr class="separator:a5f69128104b47e7fa989bc4dc3baf09c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a905c418e92128996afe42a96d1ab918b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program_pipeline.html#a905c418e92128996afe42a96d1ab918b">bindPipeline</a> () const</td></tr>
+<tr class="memdesc:a905c418e92128996afe42a96d1ab918b"><td class="mdescLeft">&#160;</td><td class="mdescRight">bind shader program pipeline  <br /></td></tr>
+<tr class="separator:a905c418e92128996afe42a96d1ab918b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae34421930e16d361b6b1328f1cc90370"><td class="memItemLeft" align="right" valign="top"><a id="ae34421930e16d361b6b1328f1cc90370" name="ae34421930e16d361b6b1328f1cc90370"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printPipelineInfo</b> () const</td></tr>
+<tr class="memdesc:ae34421930e16d361b6b1328f1cc90370"><td class="mdescLeft">&#160;</td><td class="mdescRight">prints shader program pipeline information to console <br /></td></tr>
+<tr class="separator:ae34421930e16d361b6b1328f1cc90370"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a6b53ab4ee941e25102ca93b7a2b3f577"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program_pipeline.html#a6b53ab4ee941e25102ca93b7a2b3f577">enableDebugMessages</a> ()</td></tr>
+<tr class="memdesc:a6b53ab4ee941e25102ca93b7a2b3f577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables debug messages from Shader Program functions.  <br /></td></tr>
 <tr class="separator:a6b53ab4ee941e25102ca93b7a2b3f577"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb236c9887e0e500b97f622aeddef960"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program_pipeline.html#acb236c9887e0e500b97f622aeddef960">disableDebugMessages</a> ()</td></tr>
+<tr class="memdesc:acb236c9887e0e500b97f622aeddef960"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables debug messages from Shader Program functions.  <br /></td></tr>
 <tr class="separator:acb236c9887e0e500b97f622aeddef960"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>@desc Handles registration and compilation of Shader Program Pipelines </p>
+<div class="textblock"><p>Handles registration and compilation of Shader Program Pipelines. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a905c418e92128996afe42a96d1ab918b" name="a905c418e92128996afe42a96d1ab918b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a905c418e92128996afe42a96d1ab918b">&#9670;&#160;</a></span>bindPipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::ShaderProgramPipeline::bindPipeline </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>bind shader program pipeline </p>
+<dl class="section note"><dt>Note</dt><dd>unbinds any previously used shader programs </dd></dl>
+
+</div>
+</div>
 <a id="acb236c9887e0e500b97f622aeddef960" name="acb236c9887e0e500b97f622aeddef960"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acb236c9887e0e500b97f622aeddef960">&#9670;&#160;</a></span>disableDebugMessages()</h2>
 
@@ -128,8 +170,9 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Disables debug messages from Shader Program functions</p>
-<p>Disables debug messages from Shader Program functions. Debug messages are on by default. </p>
+
+<p>Disables debug messages from Shader Program functions. </p>
+<dl class="section note"><dt>Note</dt><dd>Debug messages are on by default. </dd></dl>
 
 </div>
 </div>
@@ -155,8 +198,55 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Enables debug messages from Shader Program functions</p>
-<p>Enables debug messages from Shader Program functions. Debug messages are on by default. </p>
+
+<p>Enables debug messages from Shader Program functions. </p>
+<dl class="section note"><dt>Note</dt><dd>Debug messages are on by default. </dd></dl>
+
+</div>
+</div>
+<a id="a5f69128104b47e7fa989bc4dc3baf09c" name="a5f69128104b47e7fa989bc4dc3baf09c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f69128104b47e7fa989bc4dc3baf09c">&#9670;&#160;</a></span>useProgramStages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::ShaderProgramPipeline::useProgramStages </td>
+          <td>(</td>
+          <td class="paramtype">GLbitfield&#160;</td>
+          <td class="paramname"><em>programStages</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> *&#160;</td>
+          <td class="paramname"><em>shaderProgram</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>adds shader program stages to pipeline </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">programStages</td><td>stages shader program contains </td></tr>
+    <tr><td class="paramname">shaderProgram</td><td>separable shader program to use within pipeline </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="class_c_s_c_i441_1_1_shader_program.html" title="Handles registration and compilation of Shaders.">ShaderProgram</a> must be separable </dd></dl>
 
 </div>
 </div>

@@ -9,8 +9,8 @@
  *	code that needs to be written.
  */
 
-#ifndef CSCI441_COMPUTESHADERPROGRAM_HPP
-#define CSCI441_COMPUTESHADERPROGRAM_HPP
+#ifndef CSCI441_COMPUTE_SHADER_PROGRAM_HPP
+#define CSCI441_COMPUTE_SHADER_PROGRAM_HPP
 
 #include "ShaderProgram.hpp"
 
@@ -18,22 +18,27 @@
 
 namespace CSCI441 {
 
-    /// Handles registration and compilation of Compute Shaders
-    /// \note Extends the ShaderProgram class
-    class ComputeShaderProgram : public ShaderProgram {
+    /**
+     * @brief Handles registration and compilation of Compute Shaders
+     */
+    class ComputeShaderProgram final : public ShaderProgram {
     public:
-        /// Creates a Compute Shader Program
-        /// \param const char* name of the file corresponding to the compute shader
+        /**
+         * @brief Creates a Compute Shader Program
+         * @param computeShaderFilename name of the file corresponding to the compute shader
+         */
         explicit ComputeShaderProgram( const char *computeShaderFilename );
 
-        /// dispatches work to the Compute Shader on the GPU
-        /// \param GLuint number of work groups in X dimension (defaults to 1)
-        /// \param GLuint number of work groups in Y dimension (defaults to 1)
-        /// \param GLuint number of work groups in Z dimension (defaults to 1)
-        /// \note call after calling ShaderProgram::useProgram()
-        void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ);
+        /**
+         * @brief dispatches work to the Compute Shader on the GPU
+         * @param numGroupsX number of work groups in X dimension (defaults to 1)
+         * @param numGroupsY number of work groups in Y dimension (defaults to 1)
+         * @param numGroupsZ number of work groups in Z dimension (defaults to 1)
+         * @note call after calling ShaderProgram::useProgram()
+         */
+        [[maybe_unused]] void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ);
     private:
-        // holds shader program handle
+        // stores shader program handle
         GLuint _computeShaderHandle;
     };
 }
@@ -118,8 +123,9 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ComputeShaderProgram::dispatchWork(GLuint numGroupsX = 1, GLuint numGroupsY = 1, GLuint numGroupsZ = 1) {
     glDispatchCompute(numGroupsX, numGroupsY, numGroupsZ);
 }
 
-#endif // CSCI441_COMPUTESHADERPROGRAM_HPP
+#endif // CSCI441_COMPUTE_SHADER_PROGRAM_HPP

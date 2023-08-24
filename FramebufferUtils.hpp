@@ -7,6 +7,8 @@
  *
  * These functions, classes, and constants help minimize common
  * code that needs to be written.
+ *
+ * @warning This header file depends upon GLEW
  */
 
 #ifndef CSCI441_FRAMEBUFFER_UTILS_HPP
@@ -18,26 +20,32 @@
 
 //**********************************************************************************
 
-/// \namespace CSCI441::FramebufferUtils
-/// \desc CSCI441 Helper Functions for OpenGL
 namespace CSCI441 {
 
-	/// \namespace FramebufferUtils
-	/// \desc OpenGL Texture Utility functions
+	/**
+	 * @namespace FramebufferUtils
+	 * @brief OpenGL Framebuffer Utility functions
+	 */
 	namespace FramebufferUtils {
 
-	    /// \desc Prints the framebuffer information for the FBO attached to the corresponding target
-	    /// \param target framebuffer target to bind named framebuffer to
-	    /// \param fbo name of a framebuffer object
-		void printFramebufferInfo( GLenum target, GLuint fbo );
+	    /**
+	     * @brief Prints the framebuffer information for the FBO attached to the corresponding target
+	     * @param target framebuffer target to bind named framebuffer to
+	     * @param fbo name of a framebuffer object
+	     */
+        [[maybe_unused]] void printFramebufferInfo( GLenum target, GLuint fbo );
 
-		/// \desc Prints the framebuffer status for the FBO attached to the corresponding target
-		/// \param target framebuffer target to bind named framebuffer to
-		/// \param fbo name of a framebuffer object
-        void printFramebufferStatusMessage( GLenum target, GLuint fbo );
+		/**
+		 * @brief Prints the framebuffer status for the FBO attached to the corresponding target
+		 * @param target framebuffer target to bind named framebuffer to
+		 * @param fbo name of a framebuffer object
+		 */
+        [[maybe_unused]] void printFramebufferStatusMessage( GLenum target, GLuint fbo );
 
-        /// \desc Prints the framebuffer status for the FBO currently attached to the corresponding target
-        /// \param target framebuffer target to check status of bound framebuffer
+        /**
+         * @brief Prints the framebuffer status for the FBO currently attached to the corresponding target
+         * @param target framebuffer target to check status of bound framebuffer
+         */
 		void printFramebufferStatusMessage( GLenum target );
 	}
 }
@@ -46,7 +54,8 @@ namespace CSCI441 {
 //**********************************************************************************
 // Outward facing function implementations
 
-inline void CSCI441::FramebufferUtils::printFramebufferInfo( GLenum target, GLuint fbo ) {
+[[maybe_unused]]
+inline void CSCI441::FramebufferUtils::printFramebufferInfo( const GLenum target, const GLuint fbo ) {
 	int res, i = 0;
 	GLint buffer;
 
@@ -69,7 +78,8 @@ inline void CSCI441::FramebufferUtils::printFramebufferInfo( GLenum target, GLui
 	}
 }
 
-inline void CSCI441::FramebufferUtils::printFramebufferStatusMessage( GLenum target, GLuint fbo ) {
+[[maybe_unused]]
+inline void CSCI441::FramebufferUtils::printFramebufferStatusMessage( const GLenum target, const GLuint fbo ) {
     if(glIsFramebuffer(fbo)) {
         glBindFramebuffer( target, fbo );
         printFramebufferStatusMessage(target);
@@ -78,16 +88,14 @@ inline void CSCI441::FramebufferUtils::printFramebufferStatusMessage( GLenum tar
     }
 }
 
-inline void CSCI441::FramebufferUtils::printFramebufferStatusMessage( GLenum target ) {
+inline void CSCI441::FramebufferUtils::printFramebufferStatusMessage( const GLenum target ) {
 	GLenum status = glCheckFramebufferStatus( target );
 	if( status == GL_FRAMEBUFFER_COMPLETE )
 		printf( "[FBO]: Framebuffer initialized completely!\n" );
 	else {
 		fprintf( stderr, "[FBO]: Framebuffer failed to initialize completely 0x%x.\n", status );
-		switch(status) {
-		case GL_FRAMEBUFFER_COMPLETE:
-		  break;
 
+		switch(status) {
 		case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
           fprintf(stderr, "[FBO]: An attachment could not be bound to framebuffer object!\n");
 		  break;

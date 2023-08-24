@@ -8,9 +8,10 @@
  * These functions, classes, and constants help minimize common
  * code that needs to be written.
  *
- * @warning NOTE: This header file depends upon GLEW
- * @warning NOTE: This header file depends upon GLFW
- * @warning NOTE: This header file depends upon glm
+ * @warning This header file depends upon GLEW
+ * @warning This header file depends upon GLFW
+ * @warning This header file depends upon glm
+ * @warning This header file depends upon stb_image
  *
  */
 
@@ -31,7 +32,7 @@
 #include "ArcballCam.hpp"           // arcball cam implementation
 #include "Camera.hpp"               // abstract Camera class
 #include "ComputeShaderProgram.hpp" // helper class to compile and use compute shaders
-#include "FixedCam.hpp"             // static camera implementation
+#include "FixedCam.hpp"             // static fixed camera implementation
 #include "FramebufferUtils.hpp"     // to query common FBO information
 #include "FreeCam.hpp"              // free cam implementation
 #include "materials.hpp"            // predefined material properties

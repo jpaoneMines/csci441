@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.1.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -110,11 +110,14 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a977832e1ac289852f27ad3d49aa35948"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="teapot_8hpp.html#a977832e1ac289852f27ad3d49aa35948">CSCI441_INTERNAL::teapot</a> (GLfloat size, GLint positionLocation, GLint normalLocation=-1, GLint texCoordLocation=-1)</td></tr>
+<tr class="memitem:a977832e1ac289852f27ad3d49aa35948"><td class="memItemLeft" align="right" valign="top"><a id="a977832e1ac289852f27ad3d49aa35948" name="a977832e1ac289852f27ad3d49aa35948"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441_INTERNAL::teapot</b> (GLfloat size, GLint positionLocation, GLint normalLocation=-1, GLint texCoordLocation=-1)</td></tr>
 <tr class="separator:a977832e1ac289852f27ad3d49aa35948"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae31cb715469970ff096d1b640e3cfd4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="teapot_8hpp.html#ae31cb715469970ff096d1b640e3cfd4e">CSCI441_INTERNAL::setTeapotAttributeLocations</a> (GLint positionLocation, GLint normalLocation=-1, GLint texCoordLocation=-1)</td></tr>
+<tr class="memitem:ae31cb715469970ff096d1b640e3cfd4e"><td class="memItemLeft" align="right" valign="top"><a id="ae31cb715469970ff096d1b640e3cfd4e" name="ae31cb715469970ff096d1b640e3cfd4e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441_INTERNAL::setTeapotAttributeLocations</b> (GLint positionLocation, GLint normalLocation=-1, GLint texCoordLocation=-1)</td></tr>
 <tr class="separator:ae31cb715469970ff096d1b640e3cfd4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ef819c6452f775a349b2e37ca0e3bc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="teapot_8hpp.html#a8ef819c6452f775a349b2e37ca0e3bc5">CSCI441_INTERNAL::teapot</a> ()</td></tr>
+<tr class="memitem:a8ef819c6452f775a349b2e37ca0e3bc5"><td class="memItemLeft" align="right" valign="top"><a id="a8ef819c6452f775a349b2e37ca0e3bc5" name="a8ef819c6452f775a349b2e37ca0e3bc5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441_INTERNAL::teapot</b> ()</td></tr>
 <tr class="separator:a8ef819c6452f775a349b2e37ca0e3bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad70775e8c0a48072102bf4b892d1d35"><td class="memItemLeft" align="right" valign="top"><a id="aad70775e8c0a48072102bf4b892d1d35" name="aad70775e8c0a48072102bf4b892d1d35"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441_INTERNAL::teapot_build_control_points_k</b> (int p, Teapot_Vertex **control_points_k)</td></tr>
@@ -184,142 +187,9 @@ GLint&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441_INTERNAL::te
 <div class="textblock"><p>Helper functions to draw teapot with OpenGL 3.0+. </p>
 <dl class="section warning"><dt>Warning</dt><dd>NOTE: This header file will only work with OpenGL 3.0+</dd></dl>
 <p>From the OpenGL Programming wikibook: <a href="http://en.wikibooks.org/wiki/OpenGL_Programming">http://en.wikibooks.org/wiki/OpenGL_Programming</a> This file is in the public domain. <a href="https://gitlab.com/wikibooks-opengl/modern-tutorials/blob/master/bezier_teapot/teapot.cpp">https://gitlab.com/wikibooks-opengl/modern-tutorials/blob/master/bezier_teapot/teapot.cpp</a> Contributors: Sylvain Beucler</p>
-<p>Modified by Dr. Jeffrey Paone to work in Colorado School of Mines <a class="el" href="namespace_c_s_c_i441.html" title="CSCI441 Helper Functions for OpenGL.">CSCI441</a> course context. </p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="ae31cb715469970ff096d1b640e3cfd4e" name="ae31cb715469970ff096d1b640e3cfd4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae31cb715469970ff096d1b640e3cfd4e">&#9670;&#160;</a></span>setTeapotAttributeLocations()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CSCI441_INTERNAL::setTeapotAttributeLocations </td>
-          <td>(</td>
-          <td class="paramtype">GLint&#160;</td>
-          <td class="paramname"><em>positionLocation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">GLint&#160;</td>
-          <td class="paramname"><em>normalLocation</em> = <code>-1</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">GLint&#160;</td>
-          <td class="paramname"><em>texCoordLocation</em> = <code>-1</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>\desc Enables VBO attribute array locations </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">GLint</td><td>vertex position attribute location within shader program </td></tr>
-    <tr><td class="paramname">GLint</td><td>vertex normal attribute location within shader program (defaults to -1 and unused) </td></tr>
-    <tr><td class="paramname">GLint</td><td>vertex texture coordinate attribute location within shader program (defaults to -1 and unused) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a8ef819c6452f775a349b2e37ca0e3bc5" name="a8ef819c6452f775a349b2e37ca0e3bc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ef819c6452f775a349b2e37ca0e3bc5">&#9670;&#160;</a></span>teapot() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CSCI441_INTERNAL::teapot </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>\desc Draws the Utah teapot as a static collection of Bezier surfaces with position, normal, and texture vertex data </p><dl class="section warning"><dt>Warning</dt><dd>setTeapotAttributeLocations() must be called first </dd></dl>
-
-</div>
-</div>
-<a id="a977832e1ac289852f27ad3d49aa35948" name="a977832e1ac289852f27ad3d49aa35948"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a977832e1ac289852f27ad3d49aa35948">&#9670;&#160;</a></span>teapot() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CSCI441_INTERNAL::teapot </td>
-          <td>(</td>
-          <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">GLint&#160;</td>
-          <td class="paramname"><em>positionLocation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">GLint&#160;</td>
-          <td class="paramname"><em>normalLocation</em> = <code>-1</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">GLint&#160;</td>
-          <td class="paramname"><em>texCoordLocation</em> = <code>-1</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>\desc Draws the Utah teapot as a static collection of Bezier surfaces with position, normal, and texture vertex data </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">GLfloat</td><td>unused (kept for legacy consistency) </td></tr>
-    <tr><td class="paramname">GLint</td><td>vertex position attribute location within shader program </td></tr>
-    <tr><td class="paramname">GLint</td><td>vertex normal attribute location within shader program (defaults to -1 and unused) </td></tr>
-    <tr><td class="paramname">GLint</td><td>vertex texture coordinate attribute location within shader program (defaults to -1 and unused) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-</div><!-- contents -->
+<p>Modified by Dr. Jeffrey Paone to work in Colorado School of Mines <a class="el" href="namespace_c_s_c_i441.html" title="CSCI441 Helper Functions for OpenGL.">CSCI441</a> course context.</p>
+<dl class="section warning"><dt>Warning</dt><dd>This header file depends upon GLEW </dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6

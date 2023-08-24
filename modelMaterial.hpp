@@ -1,5 +1,5 @@
-#ifndef CSCI441_MODELMATERIAL_H
-#define CSCI441_MODELMATERIAL_H
+#ifndef CSCI441_MODEL_MATERIAL_H
+#define CSCI441_MODEL_MATERIAL_H
 
 #include <GL/glew.h>
 
@@ -35,4 +35,4 @@ namespace CSCI441_INTERNAL {
   enum MODEL_TYPE {OBJ, OFF, PLY, STL};
 }
 
-#endif
+#endif // CSCI441_MODEL_MATERIAL_H

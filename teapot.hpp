@@ -10,6 +10,8 @@
  * Contributors: Sylvain Beucler
  *
  * Modified by Dr. Jeffrey Paone to work in Colorado School of Mines CSCI441 course context.
+ *
+ * @warning This header file depends upon GLEW
  */
 
 #ifndef CSCI441_TEAPOT_HPP
@@ -23,23 +25,22 @@
 
 namespace CSCI441_INTERNAL {
 
-    /// \desc Draws the Utah teapot as a static collection of Bezier surfaces with position, normal, and
-    /// texture vertex data
-    /// \param GLfloat unused (kept for legacy consistency)
-    /// \param GLint vertex position attribute location within shader program
-    /// \param GLint vertex normal attribute location within shader program (defaults to -1 and unused)
-    /// \param GLint vertex texture coordinate attribute location within shader program (defaults to -1 and unused)
-    void teapot( GLfloat size, GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1);
+    // Draws the Utah teapot as a static collection of Bezier surfaces with position, normal, and texture vertex data
+    // GLfloat unused (kept for legacy consistency)
+    // GLint vertex position attribute location within shader program
+    // GLint vertex normal attribute location within shader program (defaults to -1 and unused)
+    // GLint vertex texture coordinate attribute location within shader program (defaults to -1 and unused)
+    [[maybe_unused]] void teapot( GLfloat size, GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1);
 
-    /// \desc Enables VBO attribute array locations
-    /// \param GLint vertex position attribute location within shader program
-    /// \param GLint vertex normal attribute location within shader program (defaults to -1 and unused)
-    /// \param GLint vertex texture coordinate attribute location within shader program (defaults to -1 and unused)
+    // Enables VBO attribute array locations
+    // GLint vertex position attribute location within shader program
+    // GLint vertex normal attribute location within shader program (defaults to -1 and unused)
+    // GLint vertex texture coordinate attribute location within shader program (defaults to -1 and unused)
     void setTeapotAttributeLocations(GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1);
 
-    /// \desc Draws the Utah teapot as a static collection of Bezier surfaces with position, normal, and
-    /// texture vertex data
-    /// \warning setTeapotAttributeLocations() must be called first
+    // Draws the Utah teapot as a static collection of Bezier surfaces with position, normal, and
+    // texture vertex data
+    // setTeapotAttributeLocations() must be called first
     void teapot();
 
     //************************************************************************************************
@@ -416,9 +417,9 @@ namespace CSCI441_INTERNAL {
             teapot_build_control_points_k(p, control_points_k);
 
             for (int ru = 0; ru <= TEAPOT_RES_U - 1; ru++) {
-                GLfloat u = 1.0f * ru / (TEAPOT_RES_U - 1);
+                GLfloat u = 1.0f * (GLfloat) ru / (TEAPOT_RES_U - 1);
                 for (int rv = 0; rv <= TEAPOT_RES_V - 1; rv++) {
-                    GLfloat v = 1.0f * rv / (TEAPOT_RES_V - 1);
+                    GLfloat v = 1.0f * (GLfloat) rv / (TEAPOT_RES_V - 1);
                     teapot_vertices[                    p * TEAPOT_RES_U * TEAPOT_RES_V                                       + ru * TEAPOT_RES_V + rv ] = teapot_compute_position(control_points_k, u, v);
                     teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V     + p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv ] = teapot_compute_normal(control_points_k, u, v);
                     teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 2 + p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv ] = teapot_compute_texture(teapot_vertices[p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv]);
@@ -448,60 +449,60 @@ namespace CSCI441_INTERNAL {
 
     }
 
-    inline void teapot_build_control_points_k(int p, Teapot_Vertex** control_points_k) {
+    inline void teapot_build_control_points_k(const int p, Teapot_Vertex** const control_points_k) {
         for (int i = 0; i <= TEAPOT_PATCH_DIMENSION; i++)
             for (int j = 0; j <= TEAPOT_PATCH_DIMENSION; j++)
                 control_points_k[i][j] = teapot_cp_vertices[teapot_patches[p][i][j] - 1];
     }
 
-    inline Teapot_Vertex teapot_compute_position(Teapot_Vertex** control_points_k, GLfloat u, GLfloat v) {
-        Teapot_Vertex result = {0.0f, 0.0f, 0.0f };
+    inline Teapot_Vertex teapot_compute_position(Teapot_Vertex** const control_points_k, const GLfloat u, const GLfloat v) {
+        Teapot_Vertex position = {0.0f, 0.0f, 0.0f };
         for (int i = 0; i <= TEAPOT_PATCH_DIMENSION; i++) {
             GLfloat poly_i = teapot_bernstein_polynomial(i, TEAPOT_PATCH_DIMENSION, u);
             for (int j = 0; j <= TEAPOT_PATCH_DIMENSION; j++) {
                 GLfloat poly_j = teapot_bernstein_polynomial(j, TEAPOT_PATCH_DIMENSION, v);
-                result.x += poly_i * poly_j * control_points_k[i][j].x;
-                result.y += poly_i * poly_j * control_points_k[i][j].y;
-                result.z += poly_i * poly_j * control_points_k[i][j].z;
+                position.x += poly_i * poly_j * control_points_k[i][j].x;
+                position.y += poly_i * poly_j * control_points_k[i][j].y;
+                position.z += poly_i * poly_j * control_points_k[i][j].z;
             }
         }
-        return result;
+        return position;
     }
 
     // TODO compute normal based on partial derivatives of surface patch
-    inline Teapot_Vertex teapot_compute_normal(Teapot_Vertex** control_points_k, GLfloat u, GLfloat v) {
-        Teapot_Vertex result = {0.0f, 0.0f, 0.0f };
+    inline Teapot_Vertex teapot_compute_normal(Teapot_Vertex** const control_points_k, const GLfloat u, const GLfloat v) {
+        Teapot_Vertex normal = {0.0f, 0.0f, 0.0f };
         for (int i = 0; i <= TEAPOT_PATCH_DIMENSION; i++) {
             GLfloat poly_i = teapot_bernstein_polynomial(i, TEAPOT_PATCH_DIMENSION, u);
             for (int j = 0; j <= TEAPOT_PATCH_DIMENSION; j++) {
                 GLfloat poly_j = teapot_bernstein_polynomial(j, TEAPOT_PATCH_DIMENSION, v);
-                result.x += poly_i * poly_j * control_points_k[i][j].x;
-                result.y += poly_i * poly_j * control_points_k[i][j].y;
-                result.z += poly_i * poly_j * control_points_k[i][j].z;
+                normal.x += poly_i * poly_j * control_points_k[i][j].x;
+                normal.y += poly_i * poly_j * control_points_k[i][j].y;
+                normal.z += poly_i * poly_j * control_points_k[i][j].z;
             }
         }
-        return result;
+        return normal;
     }
 
-    inline Teapot_Vertex teapot_compute_texture(Teapot_Vertex position) {
-        Teapot_Vertex result = {0.0f, 0.0f, 0.0f};
+    inline Teapot_Vertex teapot_compute_texture(const Teapot_Vertex position) {
+        Teapot_Vertex textureCoordinate = {0.0f, 0.0f, 0.0f};
         const GLfloat PI = 3.14159265f;
         GLfloat theta = atan2(position.y, position.x);
-        result.x = (theta+PI) / (2.0f*PI);
-        result.y = position.z / 3.15f;
-        return result;
+        textureCoordinate.x = (theta + PI) / (2.0f * PI);
+        textureCoordinate.y = position.z / 3.15f;
+        return textureCoordinate;
     }
 
-    inline GLfloat teapot_bernstein_polynomial(int i, int n, GLfloat u) {
-        return teapot_binomial_coefficient(i, n) * powf(u, i) * powf(1 - u, n - i);
+    inline GLfloat teapot_bernstein_polynomial(const int i, const int n, const GLfloat u) {
+        return teapot_binomial_coefficient(i, n) * powf(u, (GLfloat)i) * powf(1 - u, (GLfloat)(n - i));
     }
 
-    inline GLfloat teapot_binomial_coefficient(int i, int n) {
+    inline GLfloat teapot_binomial_coefficient(const int i, const int n) {
         assert(i >= 0);
         assert(n >= 0);
         return 1.0f * (GLfloat) teapot_factorial(n) / (GLfloat)(teapot_factorial(i) * teapot_factorial(n - i));
     }
-    inline int teapot_factorial(int n) {
+    inline int teapot_factorial(const int n) {
         assert(n >= 0);
         int result = 1;
         for (int i = n; i > 1; i--)
@@ -528,7 +529,8 @@ namespace CSCI441_INTERNAL {
         return 1;
     }
 
-    inline void teapot( GLfloat size, GLint positionLocation, GLint normalLocation, GLint texCoordLocation ) {
+    [[maybe_unused]]
+    inline void teapot( const GLfloat size, const GLint positionLocation, const GLint normalLocation, const GLint texCoordLocation ) {
         if( !teapot_built ) {
             teapot_init_resources();
         }
@@ -538,7 +540,7 @@ namespace CSCI441_INTERNAL {
         teapot();
     }
 
-    inline void setTeapotAttributeLocations(GLint positionLocation, GLint normalLocation, GLint texCoordLocation) {
+    inline void setTeapotAttributeLocations(const GLint positionLocation, const GLint normalLocation, const GLint texCoordLocation) {
         if( !teapot_built ) {
             teapot_init_resources();
         }

@@ -11,8 +11,8 @@
  * @warning NOTE: This header file depends upon GLEW
  */
 
-#ifndef CSCI441_SHADEREUTILS_HPP
-#define CSCI441_SHADEREUTILS_HPP
+#ifndef CSCI441_SHADER_UTILS_HPP
+#define CSCI441_SHADER_UTILS_HPP
 
 #include <GL/glew.h>
 
@@ -24,93 +24,93 @@
 
 //********************************************************************************************************************
 
-namespace CSCI441_INTERNAL {
+namespace CSCI441_INTERNAL::ShaderUtils {
+    static bool sDEBUG = true;
 
-    /// \namespace ShaderUtils
-    /// \desc Utility Functions for working with Shaders, Shader Programs, and Program Pipelines
-	namespace ShaderUtils {
-		static bool sDEBUG = true;
+    // Enables console output
+    [[maybe_unused]] void enableDebugMessages();
 
-		/// \desc Enables console output
-		void enableDebugMessages();
+    // Disables console output
+    [[maybe_unused]] void disableDebugMessages();
 
-		/// \desc Disables console output
-		void disableDebugMessages();
+    // Converts a GLenum data type variable to the string name of the associated value
+    // GLenum data type
+    // const char* name of data type
+    const char* GLSL_type_to_string( GLenum type );
 
-		/// \desc Converts a GLenum data type variable to the string name of the associated value
-		/// \param GLenum data type
-		/// \return const char* name of data type
-		const char* GLSL_type_to_string( GLenum type );
+    // Converts a GLenum shader type variable to the string name of the associated value
+    // GLenum shader type
+    // const char* name of shader type
+    const char* GL_shader_type_to_string( GLenum type );
 
-        /// \desc Converts a GLenum shader type variable to the string name of the associated value
-        /// \param GLenum shader type
-        /// \return const char* name of shader type
-		const char* GL_shader_type_to_string( GLenum type );
+    // Converts a GLenum primitive type variable to the string name of the associated value
+    // GLenum primitive type
+    // const char* name of primitive type
+    const char* GL_primitive_type_to_string( GLenum type );
 
-        /// \desc Converts a GLenum primitive type variable to the string name of the associated value
-        /// \param GLenum primitive type
-        /// \return const char* name of primitive type
-		const char* GL_primitive_type_to_string( GLenum type );
+    // Reads the contents of a text file to a character array
+    // const char* filename of shader file to read in
+    // char*& character array to store the contents of the file.  Will allocate memory and populate within the function
+    // bool true if file was successfully opened and read.  false otherwise
+    bool readTextFromFile( const char* filename, char* &output );
 
-		/// \desc Reads the contents of a text file to a character array
-		/// \param const char* filename of shader file to read in
-		/// \param char*& character array to store the contents of the file.  Will allocate memory and populate within the function
-		/// \return bool true if file was successfully opened and read.  false otherwise
-		bool readTextFromFile( const char* filename, char* &output );
+    // Reads the contents of a text file and compiles the associated shader type
+    // const char* filename of shader file to read in
+    // GLenum type of shader file corresponds to
+    // GLuint shader handle if compilation successful.  -1 otherwise
+    GLuint compileShader( const char *filename, GLenum shaderType );
 
-        /// \desc Reads the contents of a text file and compiles the associated shader type
-        /// \param const char* filename of shader file to read in
-        /// \param GLenum type of shader file corresponds to
-        /// \return GLuint shader handle if compilation successful.  -1 otherwise
-		GLuint compileShader( const char *filename, GLenum shaderType );
+    // Prints the shader log for the associated Shader handle
+    void printShaderLog( GLuint shaderHandle );
 
-		/// \desc Prints the shader log for the associated Shader handle
-		void printShaderLog( GLuint shaderHandle );
+    // Prints the shader log for the associated Shader Program handle
+    void printProgramLog( GLuint programHandle );
 
-        /// \desc Prints the shader log for the associated Shader Program handle
-		void printProgramLog( GLuint programHandle );
+    // Prints the shader log for the associated Program Pipeline handle
+    void printProgramPipelineLog( GLuint pipelineHandle );
 
-        /// \desc Prints the shader log for the associated Program Pipeline handle
-		void printProgramPipelineLog( GLuint pipelineHandle );
+    // Prints subroutine information from a Shader program
+    // GLuint Shader Program handle to inspect
+    // GLenum Shader Stage to inspect
+    // GLboolean if opening output line should be printed to console
+    GLboolean printSubroutineInfo(GLuint programHandle, GLenum shaderStage, GLboolean printHeader );
 
-		/// \desc Prints subroutine information from a Shader program
-		/// \param GLuint Shader Program handle to inspect
-		/// \param GLenum Shader Stage to inspect
-		/// \param GLboolean if opening output line should be printed to console
-		GLboolean printSubroutineInfo(GLuint programHandle, GLenum shaderStage, GLboolean printHeader );
-
-		/// \desc Uses Shader Program introspection to print contents of Shader Program
-		/// \param GLuint Shader Program handle to inspect
-		/// \param GLboolean if Shader Program contains a vertex shader
-		/// \param GLboolean if Shader Program contains a tessellation control shader
-		/// \param GLboolean if Shader Program contains a tessellation evaluation shader
-		/// \param GLboolean if Shader Program contains a geometry shader
-		/// \param GLboolean if Shader Program contains a fragment shader
-		/// \param GLboolean if Shader Program contains a compute shader
-		/// \param GLboolean if closing output line should be printed to console (defaults to true)
-		void printShaderProgramInfo( GLuint programHandle,
-                                     GLboolean hasVertexShader,
-                                     GLboolean hasTessControlShader, GLboolean hasTessEvalShader,
-                                     GLboolean hasGeometryShader,
-                                     GLboolean hasFragmentShader,
-                                     GLboolean hasComputeShader,
-                                     GLboolean useLastNewLine );
-	}
+    // Uses Shader Program introspection to print contents of Shader Program
+    // GLuint Shader Program handle to inspect
+    // GLboolean if Shader Program contains a vertex shader
+    // GLboolean if Shader Program contains a tessellation control shader
+    // GLboolean if Shader Program contains a tessellation evaluation shader
+    // GLboolean if Shader Program contains a geometry shader
+    // GLboolean if Shader Program contains a fragment shader
+    // GLboolean if Shader Program contains a compute shader
+    // GLboolean if closing output line should be printed to console (defaults to true)
+    void printShaderProgramInfo( GLuint programHandle,
+                                 GLboolean hasVertexShader,
+                                 GLboolean hasTessControlShader, GLboolean hasTessEvalShader,
+                                 GLboolean hasGeometryShader,
+                                 GLboolean hasFragmentShader,
+                                 GLboolean hasComputeShader,
+                                 GLboolean useLastNewLine );
 }
 
 //********************************************************************************************************************
 
+[[maybe_unused]]
 inline void CSCI441_INTERNAL::ShaderUtils::enableDebugMessages() {
 	sDEBUG = true;
 }
 
+[[maybe_unused]]
 inline void CSCI441_INTERNAL::ShaderUtils::disableDebugMessages() {
 	sDEBUG = false;
 }
 
 //********************************************************************************************************************
 
-inline bool CSCI441_INTERNAL::ShaderUtils::readTextFromFile(const char *filename, char* &output){
+inline bool CSCI441_INTERNAL::ShaderUtils::readTextFromFile(
+        const char *filename,
+        char* &output
+){
     std::string buf = std::string("");
     std::string line;
 
@@ -132,7 +132,9 @@ inline bool CSCI441_INTERNAL::ShaderUtils::readTextFromFile(const char *filename
 	return true;
 }
 
-inline const char* CSCI441_INTERNAL::ShaderUtils::GLSL_type_to_string(GLenum type) {
+inline const char* CSCI441_INTERNAL::ShaderUtils::GLSL_type_to_string(
+        const GLenum type
+) {
     switch(type) {
         case GL_FLOAT:                                      return "float";
         case GL_FLOAT_VEC2:                                 return "vec2";
@@ -242,38 +244,44 @@ inline const char* CSCI441_INTERNAL::ShaderUtils::GLSL_type_to_string(GLenum typ
     return "other data type";
 }
 
-inline const char* CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(GLenum type) {
+inline const char* CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(
+        const GLenum type
+) {
   switch(type) {
-    case GL_VERTEX_SHADER: return "Vertex Shader";
-    case GL_TESS_CONTROL_SHADER: return "Tess Ctrl Shader";
+    case GL_VERTEX_SHADER:          return "Vertex Shader";
+    case GL_TESS_CONTROL_SHADER:    return "Tess Ctrl Shader";
     case GL_TESS_EVALUATION_SHADER: return "Tess Eval Shader";
-    case GL_GEOMETRY_SHADER: return "Geometry Shader";
-    case GL_FRAGMENT_SHADER: return "Fragment Shader";
-    case GL_COMPUTE_SHADER: return "Compute Shader";
+    case GL_GEOMETRY_SHADER:        return "Geometry Shader";
+    case GL_FRAGMENT_SHADER:        return "Fragment Shader";
+    case GL_COMPUTE_SHADER:         return "Compute Shader";
     default: break;
   }
   return "other shader type";
 }
 
-inline const char* CSCI441_INTERNAL::ShaderUtils::GL_primitive_type_to_string(GLenum type) {
+inline const char* CSCI441_INTERNAL::ShaderUtils::GL_primitive_type_to_string(
+        const GLenum type
+) {
     switch(type) {
-        case GL_POINTS: return "Points";
-        case GL_LINES: return "Lines";
-        case GL_LINE_STRIP: return "Line Strip";
-        case GL_LINE_LOOP: return "Line Loop";
-        case GL_LINES_ADJACENCY: return "Line Adjacency";
-        case GL_TRIANGLES: return "Triangles";
-        case GL_TRIANGLE_STRIP: return "Triangle Strip";
-        case GL_TRIANGLES_ADJACENCY: return "Triangle Adjacency";
-        case GL_PATCHES: return "Patches";
+        case GL_POINTS:                 return "Points";
+        case GL_LINES:                  return "Lines";
+        case GL_LINE_STRIP:             return "Line Strip";
+        case GL_LINE_LOOP:              return "Line Loop";
+        case GL_LINES_ADJACENCY:        return "Line Adjacency";
+        case GL_TRIANGLES:              return "Triangles";
+        case GL_TRIANGLE_STRIP:         return "Triangle Strip";
+        case GL_TRIANGLES_ADJACENCY:    return "Triangle Adjacency";
+        case GL_PATCHES:                return "Patches";
         default: break;
     }
     return "other primitive type";
 }
 
-inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog( GLuint shaderHandle ) {
+inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog(
+        const GLuint shaderHandle
+) {
 	int status;
-    int infologLength = 0;
+    int infoLogLength = 0;
     int maxLength;
 
     // check if the handle is to a vertex/fragment shader
@@ -287,9 +295,9 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog( GLuint shaderHandle )
     	if( sDEBUG ) printf( "[INFO]: |   Shader  Handle %2d: Compile%-26s |\n", shaderHandle, (status == 1 ? "d Successfully" : "r Error") );
 
         // get the info log for the vertex/tesselation/geometry/fragment/compute shader
-        glGetShaderInfoLog(  shaderHandle, maxLength, &infologLength, infoLog );
+        glGetShaderInfoLog(shaderHandle, maxLength, &infoLogLength, infoLog );
 
-        if( infologLength > 0 ) {
+        if(infoLogLength > 0 ) {
 			// print info to terminal
         	if( sDEBUG ) printf( "[INFO]: |   Shader Handle %d: %s\n", shaderHandle, infoLog );
         }
@@ -298,9 +306,11 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog( GLuint shaderHandle )
 	}
 }
 
-inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog( GLuint programHandle ) {
+inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog(
+        const GLuint programHandle
+) {
 	int status;
-    int infologLength = 0;
+    int infoLogLength = 0;
     int maxLength;
 
     // check if the handle is to a vertex/fragment shader
@@ -314,9 +324,9 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog( GLuint programHandle
     	if( sDEBUG ) printf("[INFO]: |   Program Handle %2d: Linke%-28s |\n", programHandle, (status == 1 ? "d Successfully" : "r Error") );
 
         // get the info log for the vertex/tesselation/geometry/fragment/compute shader
-        glGetProgramInfoLog(  programHandle, maxLength, &infologLength, infoLog );
+        glGetProgramInfoLog(programHandle, maxLength, &infoLogLength, infoLog );
 
-        if( infologLength > 0 ) {
+        if(infoLogLength > 0 ) {
 			// print info to terminal
         	if( sDEBUG ) printf( "[INFO]: |   Program Handle %d: %s\n", programHandle, infoLog );
         }
@@ -325,7 +335,9 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog( GLuint programHandle
 	}
 }
 
-inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog( GLuint pipelineHandle ) {
+inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog(
+        const GLuint pipelineHandle
+) {
     // check if the handle is to a shader program pipeline
     if( glIsProgramPipeline( pipelineHandle ) ) {
         int infoLogLength;
@@ -348,7 +360,11 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog( GLuint pipel
 	}
 }
 
-inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo(GLuint programHandle, GLenum shaderStage, GLboolean printHeader ) {
+inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo(
+        const GLuint programHandle,
+        const GLenum shaderStage,
+        const GLboolean printHeader
+) {
 	int params, params2;
 	int *params3;
 
@@ -390,7 +406,16 @@ inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo(GLuint progr
 	return !headerPrinted;
 }
 
-inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(GLuint programHandle, GLboolean hasVertexShader, GLboolean hasTessControlShader, GLboolean hasTessEvalShader, GLboolean hasGeometryShader, GLboolean hasFragmentShader, GLboolean hasComputeShader, GLboolean useLastNewLine = true ) {
+inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
+        const GLuint programHandle,
+        const GLboolean hasVertexShader,
+        const GLboolean hasTessControlShader,
+        const GLboolean hasTessEvalShader,
+        const GLboolean hasGeometryShader,
+        const GLboolean hasFragmentShader,
+        const GLboolean hasComputeShader,
+        const GLboolean useLastNewLine = true
+) {
     GLint major, minor;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
@@ -762,7 +787,10 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(GLuint program
     if(useLastNewLine) printf( "[INFO]: \\--------------------------------------------------------/\n\n");
 }
 
-inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader( const char *filename, GLenum shaderType ) {
+inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader(
+        const char *filename,
+        const GLenum shaderType
+) {
 	GLuint shaderHandle = glCreateShader( shaderType );	char *shaderString;
 
     // read in each text file and store the contents in a string
@@ -787,4 +815,4 @@ inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader( const char *filename
 	}
 }
 
-#endif // CSCI441_SHADEREUTILS_HPP
+#endif // CSCI441_SHADER_UTILS_HPP

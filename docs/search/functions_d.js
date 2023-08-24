@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['_7ecamera_0',['~Camera',['../class_c_s_c_i441_1_1_camera.html#a812c4b551be79e31f634eb6b41ae2315',1,'CSCI441::Camera']]],
-  ['_7emodelloader_1',['~ModelLoader',['../class_c_s_c_i441_1_1_model_loader.html#ab30fbbe152e05c88300f98fa33998102',1,'CSCI441::ModelLoader']]],
-  ['_7eshaderprogram_2',['~ShaderProgram',['../class_c_s_c_i441_1_1_shader_program.html#a64b295be7ca8f309dfc085f8c0cf631a',1,'CSCI441::ShaderProgram']]],
-  ['_7euniformbufferobject_3',['~UniformBufferObject',['../class_c_s_c_i441_1_1_uniform_buffer_object.html#a25509246b1331ac2c1792ee7500e9c01',1,'CSCI441::UniformBufferObject']]]
+  ['uniformbufferobject_0',['UniformBufferObject',['../class_c_s_c_i441_1_1_uniform_buffer_object.html#a5730d2ceda99e2fa6d4965ce70c662ac',1,'CSCI441::UniformBufferObject::UniformBufferObject()=delete'],['../class_c_s_c_i441_1_1_uniform_buffer_object.html#a82ecc51521c3031a85312446877486d1',1,'CSCI441::UniformBufferObject::UniformBufferObject(const char *UNIFORM_BLOCK_NAME, std::initializer_list&lt; const char * &gt; uniformNamesList)']]],
+  ['updatevertexarray_1',['updateVertexArray',['../_simple_shader_8hpp.html#af8afb4034245ed9b2f6070a82c98f544',1,'CSCI441::SimpleShader2::updateVertexArray(GLuint VAOD, const std::vector&lt; glm::vec2 &gt; &amp;VERTEX_POINTS, const std::vector&lt; glm::vec3 &gt; &amp;VERTEX_COLORS)'],['../_simple_shader_8hpp.html#adf7fca77ee0cd0ea0ca94bb25eea59ac',1,'CSCI441::SimpleShader2::updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[])'],['../_simple_shader_8hpp.html#ae50f6b189e08ad262665887bab4d005f',1,'CSCI441::SimpleShader3::updateVertexArray(GLuint VAOD, const std::vector&lt; glm::vec3 &gt; &amp;VERTEX_POINTS, const std::vector&lt; glm::vec3 &gt; &amp;VERTEX_NORMALS)'],['../_simple_shader_8hpp.html#a3bfb9535afbbb689671b370d1eea388c',1,'CSCI441::SimpleShader3::updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[])']]],
+  ['useprogram_2',['useProgram',['../class_c_s_c_i441_1_1_shader_program.html#acfba7621a9707151ee5dfdb6124bdc08',1,'CSCI441::ShaderProgram']]],
+  ['useprogramstages_3',['useProgramStages',['../class_c_s_c_i441_1_1_shader_program_pipeline.html#a5f69128104b47e7fa989bc4dc3baf09c',1,'CSCI441::ShaderProgramPipeline']]]
 ];

@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.1.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -77,9 +77,12 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_c_s_c_i441_1_1_free_cam-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">CSCI441::FreeCam Class Reference</div></div>
+  <div class="headertitle"><div class="title">CSCI441::FreeCam Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A camera that implements a <a class="el" href="class_c_s_c_i441_1_1_free_cam.html" title="A camera that implements a FreeCam camera model.">FreeCam</a> camera model.  
+ <a href="class_c_s_c_i441_1_1_free_cam.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_free_cam_8hpp_source.html">FreeCam.hpp</a>&gt;</code></p>
 <div class="dynheader">
@@ -88,17 +91,20 @@ Inheritance diagram for CSCI441::FreeCam:</div>
  <div class="center">
   <img src="class_c_s_c_i441_1_1_free_cam.png" usemap="#CSCI441::FreeCam_map" alt=""/>
   <map id="CSCI441::FreeCam_map" name="CSCI441::FreeCam_map">
-<area href="class_c_s_c_i441_1_1_camera.html" alt="CSCI441::Camera" shape="rect" coords="0,0,120,24"/>
+<area href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:" alt="CSCI441::Camera" shape="rect" coords="0,0,120,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aea185b8dad3bcbdc81fd12f322ee357a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a">recomputeOrientation</a> () final</td></tr>
+<tr class="memdesc:aea185b8dad3bcbdc81fd12f322ee357a"><td class="mdescLeft">&#160;</td><td class="mdescRight">converts spherical theta &amp; phi to cartesian x,y,z direction vector  <br /></td></tr>
 <tr class="separator:aea185b8dad3bcbdc81fd12f322ee357a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6477c2e4e7734f313f3b03f832450c5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a6477c2e4e7734f313f3b03f832450c5f">moveForward</a> (GLfloat movementFactor) final</td></tr>
+<tr class="memdesc:a6477c2e4e7734f313f3b03f832450c5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's position by the adding the camera's direction to the camera's position  <br /></td></tr>
 <tr class="separator:a6477c2e4e7734f313f3b03f832450c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9538c96b3167b01c3d5481de848dafec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a9538c96b3167b01c3d5481de848dafec">moveBackward</a> (GLfloat movementFactor) final</td></tr>
+<tr class="memdesc:a9538c96b3167b01c3d5481de848dafec"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's position by the adding the camera's negative direction to the camera's position  <br /></td></tr>
 <tr class="separator:a9538c96b3167b01c3d5481de848dafec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_c_s_c_i441_1_1_camera"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_c_s_c_i441_1_1_camera')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></td></tr>
 <tr class="memitem:a812c4b551be79e31f634eb6b41ae2315 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a812c4b551be79e31f634eb6b41ae2315" name="a812c4b551be79e31f634eb6b41ae2315"></a>
@@ -106,60 +112,72 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~Camera</b> ()=def
 <tr class="memdesc:a812c4b551be79e31f634eb6b41ae2315 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">properly destroy concrete children <br /></td></tr>
 <tr class="separator:a812c4b551be79e31f634eb6b41ae2315 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a507ca14a9c56993a11f381de2367d2bb inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a507ca14a9c56993a11f381de2367d2bb">recomputeOrientation</a> ()=0</td></tr>
+<tr class="memdesc:a507ca14a9c56993a11f381de2367d2bb inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses theta, phi, &amp; radius to update the camera's view matrix parameters. The camera orientation is controlled via spherical coordinates and this method would orient and/or position the camera in cartesian coordinates.  <br /></td></tr>
 <tr class="separator:a507ca14a9c56993a11f381de2367d2bb inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabd8040c8f3ab9dae28ed396c632b94a inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#aabd8040c8f3ab9dae28ed396c632b94a">moveForward</a> (GLfloat movementFactor)=0</td></tr>
+<tr class="memdesc:aabd8040c8f3ab9dae28ed396c632b94a inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">steps forward along the camera's view  <br /></td></tr>
 <tr class="separator:aabd8040c8f3ab9dae28ed396c632b94a inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d44bf0b6b8f73cba73c510988519676 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a2d44bf0b6b8f73cba73c510988519676">moveBackward</a> (GLfloat movementFactor)=0</td></tr>
+<tr class="memdesc:a2d44bf0b6b8f73cba73c510988519676 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">steps backward along the camera's view  <br /></td></tr>
 <tr class="separator:a2d44bf0b6b8f73cba73c510988519676 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefb6d39b085ffa3ab185048c91bab056 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#aefb6d39b085ffa3ab185048c91bab056">rotate</a> (GLfloat dTheta, GLfloat dPhi)</td></tr>
+<tr class="memdesc:aefb6d39b085ffa3ab185048c91bab056 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">rotates the camera's POV by adding to theta &amp; phi then ensuring phi stays within the (0, pi) range and finally calls through to <a class="el" href="class_c_s_c_i441_1_1_camera.html#a507ca14a9c56993a11f381de2367d2bb" title="Uses theta, phi, &amp; radius to update the camera&#39;s view matrix parameters. The camera orientation is co...">recomputeOrientation()</a> to update the view parameters after the rotation  <br /></td></tr>
 <tr class="separator:aefb6d39b085ffa3ab185048c91bab056 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ed16fb3b9a25234dc21a996f885d92e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a7ed16fb3b9a25234dc21a996f885d92e" name="a7ed16fb3b9a25234dc21a996f885d92e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>computeViewMatrix</b> ()</td></tr>
 <tr class="memdesc:a7ed16fb3b9a25234dc21a996f885d92e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates the View Matrix based on the position, lookAt point, and up vector <br /></td></tr>
 <tr class="separator:a7ed16fb3b9a25234dc21a996f885d92e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a358f8072f4b0f984a6764b3609df5717 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a358f8072f4b0f984a6764b3609df5717" name="a358f8072f4b0f984a6764b3609df5717"></a>
-glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><b>getViewMatrix</b> ()</td></tr>
-<tr class="memdesc:a358f8072f4b0f984a6764b3609df5717 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current view matrix <br /></td></tr>
+<tr class="memitem:a358f8072f4b0f984a6764b3609df5717 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a358f8072f4b0f984a6764b3609df5717">getViewMatrix</a> ()</td></tr>
+<tr class="memdesc:a358f8072f4b0f984a6764b3609df5717 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current view matrix for the associated camera  <br /></td></tr>
 <tr class="separator:a358f8072f4b0f984a6764b3609df5717 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b6c129340babd754222090e434f487e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a3b6c129340babd754222090e434f487e" name="a3b6c129340babd754222090e434f487e"></a>
-glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><b>getPosition</b> () const</td></tr>
-<tr class="memdesc:a3b6c129340babd754222090e434f487e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current camera position in world space <br /></td></tr>
+<tr class="memitem:a3b6c129340babd754222090e434f487e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a3b6c129340babd754222090e434f487e">getPosition</a> () const</td></tr>
+<tr class="memdesc:a3b6c129340babd754222090e434f487e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current camera position in world space  <br /></td></tr>
 <tr class="separator:a3b6c129340babd754222090e434f487e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab52326e0cbe97b5e68b7da2cea7ec512 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="ab52326e0cbe97b5e68b7da2cea7ec512" name="ab52326e0cbe97b5e68b7da2cea7ec512"></a>
-glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><b>getLookAtPoint</b> () const</td></tr>
-<tr class="memdesc:ab52326e0cbe97b5e68b7da2cea7ec512 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current lookAt point in world space <br /></td></tr>
+<tr class="memitem:ab52326e0cbe97b5e68b7da2cea7ec512 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#ab52326e0cbe97b5e68b7da2cea7ec512">getLookAtPoint</a> () const</td></tr>
+<tr class="memdesc:ab52326e0cbe97b5e68b7da2cea7ec512 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current lookAt point in world space  <br /></td></tr>
 <tr class="separator:ab52326e0cbe97b5e68b7da2cea7ec512 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7048a119c897abf05168b49a1534adfd inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a7048a119c897abf05168b49a1534adfd" name="a7048a119c897abf05168b49a1534adfd"></a>
-glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><b>getUpVector</b> () const</td></tr>
-<tr class="memdesc:a7048a119c897abf05168b49a1534adfd inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current up vector in world space <br /></td></tr>
+<tr class="memitem:a7048a119c897abf05168b49a1534adfd inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a7048a119c897abf05168b49a1534adfd">getUpVector</a> () const</td></tr>
+<tr class="memdesc:a7048a119c897abf05168b49a1534adfd inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current up vector in world space  <br /></td></tr>
 <tr class="separator:a7048a119c897abf05168b49a1534adfd inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae521b33f2ac9174455842db2f0780949 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="ae521b33f2ac9174455842db2f0780949" name="ae521b33f2ac9174455842db2f0780949"></a>
-GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>getTheta</b> () const</td></tr>
-<tr class="memdesc:ae521b33f2ac9174455842db2f0780949 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current theta value in radians <br /></td></tr>
+<tr class="memitem:ae521b33f2ac9174455842db2f0780949 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">GLfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#ae521b33f2ac9174455842db2f0780949">getTheta</a> () const</td></tr>
+<tr class="memdesc:ae521b33f2ac9174455842db2f0780949 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current theta value in radians  <br /></td></tr>
 <tr class="separator:ae521b33f2ac9174455842db2f0780949 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3069ac83e9cdc8153d3770d9136bd496 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a3069ac83e9cdc8153d3770d9136bd496" name="a3069ac83e9cdc8153d3770d9136bd496"></a>
-GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>getPhi</b> () const</td></tr>
-<tr class="memdesc:a3069ac83e9cdc8153d3770d9136bd496 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current phi value in radians <br /></td></tr>
+<tr class="memitem:a3069ac83e9cdc8153d3770d9136bd496 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">GLfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a3069ac83e9cdc8153d3770d9136bd496">getPhi</a> () const</td></tr>
+<tr class="memdesc:a3069ac83e9cdc8153d3770d9136bd496 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current phi value in radians  <br /></td></tr>
 <tr class="separator:a3069ac83e9cdc8153d3770d9136bd496 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81f0069fe27dfeb53a1f293404cc6d25 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a81f0069fe27dfeb53a1f293404cc6d25">setPosition</a> (glm::vec3 pos)</td></tr>
-<tr class="separator:a81f0069fe27dfeb53a1f293404cc6d25 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dd05dba693c36f27d23fee37a9d1a9b inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a7dd05dba693c36f27d23fee37a9d1a9b">setLookAtPoint</a> (glm::vec3 lookAt)</td></tr>
-<tr class="separator:a7dd05dba693c36f27d23fee37a9d1a9b inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4338ac7c7fc68f7d1688473bc69f2e66 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a4338ac7c7fc68f7d1688473bc69f2e66">setUpVector</a> (glm::vec3 up)</td></tr>
-<tr class="separator:a4338ac7c7fc68f7d1688473bc69f2e66 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12bbf47ca619531c61228b6b461f8ab7 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a12bbf47ca619531c61228b6b461f8ab7">setTheta</a> (GLfloat t)</td></tr>
-<tr class="separator:a12bbf47ca619531c61228b6b461f8ab7 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32a7a4604599f33e4559ca3b3c1041a8 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a32a7a4604599f33e4559ca3b3c1041a8">setPhi</a> (GLfloat p)</td></tr>
-<tr class="separator:a32a7a4604599f33e4559ca3b3c1041a8 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38ffedfb5b1976dd129ebc8efa5ba33f inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a38ffedfb5b1976dd129ebc8efa5ba33f">setRadius</a> (GLfloat r)</td></tr>
-<tr class="separator:a38ffedfb5b1976dd129ebc8efa5ba33f inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6a2f9dc52e142776703cc3f1734d20e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">GLfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#af6a2f9dc52e142776703cc3f1734d20e">getRadius</a> () const</td></tr>
+<tr class="memdesc:af6a2f9dc52e142776703cc3f1734d20e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current radius in world space  <br /></td></tr>
+<tr class="separator:af6a2f9dc52e142776703cc3f1734d20e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dba26bf19358ad7ed4eceaad7169480 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a9dba26bf19358ad7ed4eceaad7169480">setPosition</a> (const glm::vec3 pos)</td></tr>
+<tr class="memdesc:a9dba26bf19358ad7ed4eceaad7169480 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the camera's position in world space  <br /></td></tr>
+<tr class="separator:a9dba26bf19358ad7ed4eceaad7169480 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b61c87de5f2ce2df85b1150b168dd47 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a5b61c87de5f2ce2df85b1150b168dd47">setLookAtPoint</a> (const glm::vec3 lookAt)</td></tr>
+<tr class="memdesc:a5b61c87de5f2ce2df85b1150b168dd47 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the camera's lookAt point in world space  <br /></td></tr>
+<tr class="separator:a5b61c87de5f2ce2df85b1150b168dd47 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f2df8ef683b23ed2bda0143ac7ab6d1 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a1f2df8ef683b23ed2bda0143ac7ab6d1">setUpVector</a> (const glm::vec3 up)</td></tr>
+<tr class="memdesc:a1f2df8ef683b23ed2bda0143ac7ab6d1 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the camera's up vector in world space  <br /></td></tr>
+<tr class="separator:a1f2df8ef683b23ed2bda0143ac7ab6d1 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92674a2ec747840c8ac6f2226755b9dd inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a92674a2ec747840c8ac6f2226755b9dd">setTheta</a> (const GLfloat t)</td></tr>
+<tr class="memdesc:a92674a2ec747840c8ac6f2226755b9dd inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the camera's theta angle in radians  <br /></td></tr>
+<tr class="separator:a92674a2ec747840c8ac6f2226755b9dd inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43dc923dd91a34c2209bae0c64ce30c3 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a43dc923dd91a34c2209bae0c64ce30c3">setPhi</a> (const GLfloat p)</td></tr>
+<tr class="memdesc:a43dc923dd91a34c2209bae0c64ce30c3 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the camera's phi angle in radians  <br /></td></tr>
+<tr class="separator:a43dc923dd91a34c2209bae0c64ce30c3 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9d148da53177b4db6fb903bb3a8eaa8 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#ae9d148da53177b4db6fb903bb3a8eaa8">setRadius</a> (const GLfloat r)</td></tr>
+<tr class="memdesc:ae9d148da53177b4db6fb903bb3a8eaa8 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the camera's radius in world space  <br /></td></tr>
+<tr class="separator:ae9d148da53177b4db6fb903bb3a8eaa8 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_class_c_s_c_i441_1_1_camera"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_c_s_c_i441_1_1_camera')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></td></tr>
+<tr class="memitem:a2b44075a51d0d334a6a8c0742e42f040 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a2b44075a51d0d334a6a8c0742e42f040" name="a2b44075a51d0d334a6a8c0742e42f040"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> ()</td></tr>
+<tr class="memdesc:a2b44075a51d0d334a6a8c0742e42f040 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a default camera at the origin, looking down the negative Z axis oriented with the world coordinate system <br /></td></tr>
+<tr class="separator:a2b44075a51d0d334a6a8c0742e42f040 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_c_s_c_i441_1_1_camera"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_c_s_c_i441_1_1_camera')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></td></tr>
 <tr class="memitem:a9004f565dbd3dcdc85e7d6c966b0f145 inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a9004f565dbd3dcdc85e7d6c966b0f145" name="a9004f565dbd3dcdc85e7d6c966b0f145"></a>
 glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><b>mViewMatrix</b></td></tr>
-<tr class="memdesc:a9004f565dbd3dcdc85e7d6c966b0f145 inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores the View Matrix corresponding to the inverse of the <a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a>'s Matrix <br /></td></tr>
+<tr class="memdesc:a9004f565dbd3dcdc85e7d6c966b0f145 inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores the View Matrix corresponding to the inverse of the <a class="el" href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:">Camera</a>'s Matrix <br /></td></tr>
 <tr class="separator:a9004f565dbd3dcdc85e7d6c966b0f145 inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6998145025c85d22770c07abd1cd47a3 inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a6998145025c85d22770c07abd1cd47a3" name="a6998145025c85d22770c07abd1cd47a3"></a>
 glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraPosition</b></td></tr>
@@ -191,7 +209,8 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 <tr class="separator:ae288c2ef288ac5532335e5859966410f inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A camera that implements a <a class="el" href="class_c_s_c_i441_1_1_free_cam.html">FreeCam</a> camera model. </p><dl class="section note"><dt>Note</dt><dd>camera direction is controlled by setting theta &amp; phi and rotating the camera </dd></dl>
+<div class="textblock"><p>A camera that implements a <a class="el" href="class_c_s_c_i441_1_1_free_cam.html" title="A camera that implements a FreeCam camera model.">FreeCam</a> camera model. </p>
+<dl class="section note"><dt>Note</dt><dd>camera direction is controlled by setting theta &amp; phi and rotating the camera </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a9538c96b3167b01c3d5481de848dafec" name="a9538c96b3167b01c3d5481de848dafec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9538c96b3167b01c3d5481de848dafec">&#9670;&#160;</a></span>moveBackward()</h2>
@@ -216,7 +235,9 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   </tr>
 </table>
 </div><div class="memdoc">
-<p>updates the camera's position by the adding the camera's negative direction to the camera's position </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>updates the camera's position by the adding the camera's negative direction to the camera's position </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">movementFactor</td><td>distance factor to scale the movement step </td></tr>
   </table>
@@ -251,7 +272,9 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   </tr>
 </table>
 </div><div class="memdoc">
-<p>updates the camera's position by the adding the camera's direction to the camera's position </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>updates the camera's position by the adding the camera's direction to the camera's position </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">movementFactor</td><td>distance factor to scale the movement step </td></tr>
   </table>
@@ -285,7 +308,11 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   </tr>
 </table>
 </div><div class="memdoc">
-<p>converts spherical theta &amp; phi to cartesian x,y,z direction vector </p><dl class="section note"><dt>Note</dt><dd>sets the camera's direction vector to point outward from a sphere centered at the camera's position and updates the camera's look at point to be a point on the sphere offset from the camera's position. internally sets the camera's view matrix </dd></dl>
+
+<p>converts spherical theta &amp; phi to cartesian x,y,z direction vector </p>
+<dl class="section note"><dt>Note</dt><dd>sets the camera's direction vector to point outward from a sphere centered at the camera's position and updates the camera's look at point to be a point on the sphere offset from the camera's position. </dd>
+<dd>
+internally sets the camera's view matrix </dd></dl>
 
 <p>Implements <a class="el" href="class_c_s_c_i441_1_1_camera.html#a507ca14a9c56993a11f381de2367d2bb">CSCI441::Camera</a>.</p>
 

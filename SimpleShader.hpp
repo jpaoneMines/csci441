@@ -12,8 +12,8 @@
  *	@warning NOTE: This header file depends upon GLEW
  */
 
-#ifndef CSCI441_SIMPLESHADER_H
-#define CSCI441_SIMPLESHADER_H
+#ifndef CSCI441_SIMPLE_SHADER_HPP
+#define CSCI441_SIMPLE_SHADER_HPP
 
 #include <GL/glew.h>
 
@@ -25,205 +25,229 @@
 #include "objects.hpp"
 #include "ShaderUtils.hpp"
 
-////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************
 
-/** @namespace CSCI441
- * @brief CSCI441 Helper Functions for OpenGL
- */
 namespace CSCI441 {
-    /** @namespace SimpleShader2
-     * @brief CSCI441 Helper Functions for OpenGL Shaders
+
+    /**
+     * @namespace SimpleShader2
+     * @brief Abstracts the process of working with a 2D shader program
      */
     namespace SimpleShader2 {
-        /** @desc turns on Flat Shading
-         * 
+        /**
+         * @brief turns on Flat Shading
          * @warning must call prior to setupSimpleShader
          */
-        void enableFlatShading();
-        /** @desc turns on Smooth Shading
-         * 
+        [[maybe_unused]] void enableFlatShading();
+        /**
+         * @brief turns on Smooth Shading
          * @warning must call prior to setupSimpleShader
          */
-        void enableSmoothShading();
-
-        /** @desc Registers a simple Gouraud shader for 2-Dimensional drawing
-         *
-         */
-        void setupSimpleShader();
+        [[maybe_unused]] void enableSmoothShading();
 
         /**
-         *
+         * @brief Registers a simple Gouraud shader for 2-Dimensional drawing
+         */
+        [[maybe_unused]] void setupSimpleShader();
+
+        /**
+         * @brief registers the associated vertex locations and colors with the GPU
          * @param VERTEX_POINTS vector of vertex (x,y) locations
          * @param VERTEX_COLORS vector of vertex (r,g,b) colors
-         * @return generated Vertex Array Object Descriptor (vaod)
+         * @returns generated Vertex Array Object Descriptor (vaod)
          */
-        GLuint registerVertexArray(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
-        /** @desc Updates GL_ARRAY_BUFFER for the corresponding VAO
-         *
-         * @desc Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
+        [[maybe_unused]] GLuint registerVertexArray(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
+        /**
+         * @brief Updates GL_ARRAY_BUFFER for the corresponding VAO
+         * @brief Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
          * VAO.  The data is copied in to the GL_ARRAY_BUFFER VBO for this VAO.  When function completes, the passed
          * VAO is currently bound.
-         *
          * @warning Requires that the same number of vertex points, or less, are passed as when the VAO was registered
-         *
          * @param VAOD Vertex Array Object Descriptor
          * @param VERTEX_POINTS vector of vertex (x,y) locations
          * @param VERTEX_COLORS vector of vertex (r,g,b) colors
          */
-        void updateVertexArray(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
+        [[maybe_unused]] void updateVertexArray(GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
 
         /**
-         *
+         * @brief registers the associated vertex locations and colors with the GPU
          * @param NUM_POINTS number of points in each array
          * @param VERTEX_POINTS array of vertex (x,y) locations
          * @param VERTEX_COLORS array of vertex (r,g,b) colors
-         * @return generated Vertex Array Object Descriptor (vaod)
+         * @returns generated Vertex Array Object Descriptor (vaod)
          */
-        GLuint registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
-        /** @desc Updates GL_ARRAY_BUFFER for the corresponding VAO
-         *
-         * @desc Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
+        [[maybe_unused]] GLuint registerVertexArray(GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
+        /**
+         * @brief Updates GL_ARRAY_BUFFER for the corresponding VAO
+         * @brief Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
          * VAO.  The data is copied in to the GL_ARRAY_BUFFER VBO for this VAO.  When function completes, the passed
          * VAO is currently bound.
-         *
          * @warning Requires that the same number of vertex points, or less, are passed as when the VAO was registered
-         *
          * @param VAOD Vertex Array Object Descriptor
          * @param NUM_POINTS number of points in each array
          * @param VERTEX_POINTS vector of vertex (x,y) locations
          * @param VERTEX_COLORS vector of vertex (r,g,b) colors
          */
-        void updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
+        [[maybe_unused]] void updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
 
-        /** @desc Sets the Projection Matrix
-         *
-         * @param PROJECTION_MATRIX
+        /**
+         * @brief Sets the Projection Matrix
+         * @param PROJECTION_MATRIX homogeneous projection matrix to set
          */
-        void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
+        [[maybe_unused]] void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
 
-        /** @desc Pushes a transformation to the stack and updates our model matrix
-         *
-         * @param TRANSFORMATION_MATRIX
+        /**
+         * @brief Pushes a transformation to the stack and updates our model matrix
+         * @param TRANSFORMATION_MATRIX homogeneous transformation to stack on model matrix
          */
-        void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
+        [[maybe_unused]] void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
 
-        /** @desc Pops the last transformation off the stack and updates our model matrix
+        /**
+         * @brief Pops the last transformation off the stack and updates our model matrix
          * by the inverse of the last transformation
          */
-        void popTransformation();
+        [[maybe_unused]] void popTransformation();
 
-        /** @desc Sets the model matrix back to the identity matrix and clears the
+        /**
+         * @brief Sets the model matrix back to the identity matrix and clears the
          * transformation stack
          */
-        void resetTransformationMatrix();
+        [[maybe_unused]] void resetTransformationMatrix();
 
-        void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
+        /**
+         * @brief loads associated VAO, drawing given primitive made up of corresponding number of vertices
+         * @param PRIMITIVE_TYPE primitive type to use
+         * @param VAOD VAO to load
+         * @param VERTEX_COUNT number of vertices to draw
+         */
+        [[maybe_unused]] void draw(GLint PRIMITIVE_TYPE, GLuint VAOD, GLuint VERTEX_COUNT);
     }
 
+    /**
+     * @namespace SimpleShader3
+     * @brief Abstracts the process of working with a 3D shader program
+     */
     namespace SimpleShader3 {
-        /** @desc turns on Flat Shading
-         *
+        /**
+         * @brief turns on Flat Shading
          * @warning must call prior to setupSimpleShader
          */
-        void enableFlatShading();
-        /** @desc turns on Smooth Shading
-         *
+        [[maybe_unused]] void enableFlatShading();
+        /**
+         * @brief turns on Smooth Shading
          * @warning must call prior to setupSimpleShader
          */
-        void enableSmoothShading();
-
-        /** @desc Registers a simple Gouraud Shader with Lambertian Illumination for 3-Dimensional drawing
-         *
-         */
-        void setupSimpleShader();
+        [[maybe_unused]] void enableSmoothShading();
 
         /**
-         *
-         * @param VERTEX_POINTS vector of vertex (x,y,z) locations
-         * @param VERTEX_NORMALS vector of vertex (x,y,z) normals
-         * @return generated Vertex Array Object Descriptor (vaod)
+         * @brief Registers a simple Gouraud Shader with Lambertian Illumination for 3-Dimensional drawing
          */
-        GLuint registerVertexArray(const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS);
-
-        /** @desc Updates GL_ARRAY_BUFFER for the corresponding VAO
-         *
-         * @desc Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
-         * VAO.  The data is copied in to the GL_ARRAY_BUFFER VBO for this VAO.  When function completes, the passed
-         * VAO is currently bound.
-         *
-         * @warning Requires that the same number of vertex points, or less, are passed as when the VAO was registered
-         *
-         * @param VAOD Vertex Array Object Descriptor
-         * @param VERTEX_POINTS vector of vertex (x,y,z) locations
-         * @param VERTEX_COLORS vector of vertex (r,g,b) colors
-         */
-        void updateVertexArray(const GLuint VAOD, const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS);
+        [[maybe_unused]] void setupSimpleShader();
 
         /**
-         * @param NUM_POINTS number of points in each array
-         * @param VERTEX_POINTS array of vertex (x,y,z) locations
-         * @param VERTEX_NORMALS array of vertex (x,y,z) normals
+         * @brief registers the associated vertex locations and colors with the GPU
+         * @param VERTEX_POINTS vector of vertex (x,y,z) locations in object space
+         * @param VERTEX_NORMALS vector of vertex (x,y,z) normals in object space
          * @return generated Vertex Array Object Descriptor (vaod)
          */
-        GLuint registerVertexArray(const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
-        /** @desc Updates GL_ARRAY_BUFFER for the corresponding VAO
-         *
-         * @desc Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
+        [[maybe_unused]] GLuint registerVertexArray(const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS);
+
+        /**
+         * @brief Updates GL_ARRAY_BUFFER for the corresponding VAO
+         * @brief Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
          * VAO.  The data is copied in to the GL_ARRAY_BUFFER VBO for this VAO.  When function completes, the passed
          * VAO is currently bound.
-         *
          * @warning Requires that the same number of vertex points, or less, are passed as when the VAO was registered
-         *
+         * @param VAOD Vertex Array Object Descriptor
+         * @param VERTEX_POINTS vector of vertex (x,y,z) locations in object space
+         * @param VERTEX_NORMALS vector of vertex (x,y,z) normals in object space
+         */
+        [[maybe_unused]] void updateVertexArray(GLuint VAOD, const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS);
+
+        /**
+         * @brief registers the associated vertex locations and colors with the GPU
+         * @param NUM_POINTS number of points in each array
+         * @param VERTEX_POINTS array of vertex (x,y,z) locations in object space
+         * @param VERTEX_NORMALS array of vertex (x,y,z) normals in object space
+         * @return generated Vertex Array Object Descriptor (vaod)
+         */
+        [[maybe_unused]] GLuint registerVertexArray(GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
+        /**
+         * @brief Updates GL_ARRAY_BUFFER for the corresponding VAO
+         * @brief Copies the data for the vertex positions and colors from CPU RAM to the GPU for the already registered
+         * VAO.  The data is copied in to the GL_ARRAY_BUFFER VBO for this VAO.  When function completes, the passed
+         * VAO is currently bound.
+         * @warning Requires that the same number of vertex points, or less, are passed as when the VAO was registered
          * @param VAOD Vertex Array Object Descriptor
          * @param NUM_POINTS number of points in each array
-         * @param VERTEX_POINTS vector of vertex (x,y,z) locations
-         * @param VERTEX_COLORS vector of vertex (r,g,b) colors
+         * @param VERTEX_POINTS array of vertex (x,y,z) locations in object space
+         * @param VERTEX_NORMALS array of vertex (x,y,z) normals in object space
          */
-        void updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
+        [[maybe_unused]] void updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
 
-        /** @desc Sets the Projection Matrix
-         *
-         * @param PROJECTION_MATRIX
+        /**
+         * @brief Sets the Projection Matrix
+         * @param PROJECTION_MATRIX homogeneous projection matrix to set
          */
-        void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
-        /** @desc Sets the View Matrix
-         *
-         * @param VIEW_MATRIX
+        [[maybe_unused]] void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
+        /**
+         * @brief Sets the View Matrix
+         * @param VIEW_MATRIX homogeneous view matrix to set
          */
-        void setViewMatrix(const glm::mat4& VIEW_MATRIX);
+        [[maybe_unused]] void setViewMatrix(const glm::mat4& VIEW_MATRIX);
 
-        void setLightPosition(const glm::vec3& LIGHT_POSITION);
-        void setLightColor(const glm::vec3& LIGHT_COLOR);
-        void setMaterialColor(const glm::vec3& MATERIAL_COLOR);
-
-        /** @desc Pushes a transformation to the stack and updates our model matrix
-         *
-         * @param TRANSFORMATION_MATRIX
+        /**
+         * @brief sets position of single global light in world space
+         * @param LIGHT_POSITION position of light in world space
          */
-        void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
+        [[maybe_unused]] void setLightPosition(const glm::vec3& LIGHT_POSITION);
+        /**
+         * @brief sets color of single global light
+         * @param LIGHT_COLOR light color in RGB space
+         */
+        [[maybe_unused]] void setLightColor(const glm::vec3& LIGHT_COLOR);
+        /**
+         * @brief sets current diffuse material color to apply to object
+         * @param MATERIAL_COLOR diffuse material color in RGB space
+         */
+        [[maybe_unused]] void setMaterialColor(const glm::vec3& MATERIAL_COLOR);
 
-        /** @desc Pops the last transformation off the stack and updates our model matrix
+        /**
+         * @brief Pushes a transformation to the stack and updates our model matrix
+         * @param TRANSFORMATION_MATRIX transformation to stack on model matrix
+         */
+        [[maybe_unused]] void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
+
+        /**
+         * @brief Pops the last transformation off the stack and updates our model matrix
          * by the inverse of the last transformation
          */
-        void popTransformation();
+        [[maybe_unused]] void popTransformation();
 
-        /** @desc Sets the model matrix back to the identity matrix and clears the
+        /**
+         * @brief Sets the model matrix back to the identity matrix and clears the
          * transformation stack
          */
-        void resetTransformationMatrix();
+        [[maybe_unused]] void resetTransformationMatrix();
 
-        /** @desc turns on lighting and applies Phong Illumination to fragment
-         *
+        /**
+         * @brief turns on lighting and applies Phong Illumination to fragment
          * @warning must call after to setupSimpleShader
          */
-        void enableLighting();
-        /** @desc turns off lighting and applies material color to fragment
-         *
+        [[maybe_unused]] void enableLighting();
+        /**
+         * @brief turns off lighting and applies material color to fragment
          * @warning must call after to setupSimpleShader
          */
-        void disableLighting();
+        [[maybe_unused]] void disableLighting();
 
-        void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
+        /**
+         * @brief loads associated VAO, drawing given primitive made up of corresponding number of vertices
+         * @param PRIMITIVE_TYPE primitive type to use
+         * @param VAOD VAO to load
+         * @param VERTEX_COUNT number of vertices to draw
+         */
+        [[maybe_unused]] void draw(GLint PRIMITIVE_TYPE, GLuint VAOD, GLuint VERTEX_COUNT);
     }
 }
 
@@ -236,13 +260,13 @@ namespace CSCI441_INTERNAL {
         void enableFlatShading();
         void enableSmoothShading();
         void setupSimpleShader();
-        GLuint registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
-        void updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
+        GLuint registerVertexArray(GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
+        void updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
         void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
         void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
         void popTransformation();
         void resetTransformationMatrix();
-        void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
+        void draw(GLint PRIMITIVE_TYPE, GLuint VAOD, GLuint VERTEX_COUNT);
 
         inline GLboolean smoothShading = true;
         inline GLint shaderProgramHandle = -1;
@@ -260,8 +284,8 @@ namespace CSCI441_INTERNAL {
         void enableFlatShading();
         void enableSmoothShading();
         void setupSimpleShader();
-        GLuint registerVertexArray(const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
-        void updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
+        GLuint registerVertexArray(GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
+        void updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
         void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
         void setViewMatrix(const glm::mat4& VIEW_MATRIX);
         void setLightPosition(const glm::vec3& LIGHT_POSITION);
@@ -273,7 +297,7 @@ namespace CSCI441_INTERNAL {
         void setNormalMatrix();
         void enableLighting();
         void disableLighting();
-        void draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT);
+        void draw(GLint PRIMITIVE_TYPE, GLuint VAOD, GLuint VERTEX_COUNT);
 
         inline GLboolean smoothShading = true;
         inline GLint shaderProgramHandle = -1;
@@ -298,122 +322,154 @@ namespace CSCI441_INTERNAL {
 ////////////////////////////////////////////////////////////////////////////////////
 // Outward facing function implementations
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader2::enableFlatShading() {
     CSCI441_INTERNAL::SimpleShader2::enableFlatShading();
 }
+
+[[maybe_unused]]
 inline void CSCI441::SimpleShader2::enableSmoothShading() {
     CSCI441_INTERNAL::SimpleShader2::enableSmoothShading();
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader2::setupSimpleShader() {
     CSCI441_INTERNAL::SimpleShader2::setupSimpleShader();
 }
 
+[[maybe_unused]]
 inline GLuint CSCI441::SimpleShader2::registerVertexArray(const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
     return CSCI441_INTERNAL::SimpleShader2::registerVertexArray(VERTEX_POINTS.size(), &VERTEX_POINTS[0], &VERTEX_COLORS[0]);
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader2::updateVertexArray(const GLuint VAOD, const std::vector<glm::vec2>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
     CSCI441_INTERNAL::SimpleShader2::updateVertexArray(VAOD, VERTEX_POINTS.size(), &VERTEX_POINTS[0], &VERTEX_COLORS[0]);
 }
 
+[[maybe_unused]]
 inline GLuint CSCI441::SimpleShader2::registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]) {
     return CSCI441_INTERNAL::SimpleShader2::registerVertexArray(NUM_POINTS, VERTEX_POINTS, VERTEX_COLORS);
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader2::updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]) {
     CSCI441_INTERNAL::SimpleShader2::updateVertexArray(VAOD, NUM_POINTS, VERTEX_POINTS, VERTEX_COLORS);
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader2::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
     CSCI441_INTERNAL::SimpleShader2::setProjectionMatrix(PROJECTION_MATRIX);
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader2::pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX) {
     CSCI441_INTERNAL::SimpleShader2::pushTransformation(TRANSFORMATION_MATRIX);
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader2::popTransformation() {
     CSCI441_INTERNAL::SimpleShader2::popTransformation();
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader2::resetTransformationMatrix() {
     CSCI441_INTERNAL::SimpleShader2::resetTransformationMatrix();
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader2::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
     CSCI441_INTERNAL::SimpleShader2::draw(PRIMITIVE_TYPE, VAOD, VERTEX_COUNT);
 }
 
 //---------------------------------------------------------------------------------------------------------------------
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::enableFlatShading() {
     CSCI441_INTERNAL::SimpleShader3::enableFlatShading();
 }
+
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::enableSmoothShading() {
     CSCI441_INTERNAL::SimpleShader3::enableSmoothShading();
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::setupSimpleShader() {
     CSCI441_INTERNAL::SimpleShader3::setupSimpleShader();
 }
 
+[[maybe_unused]]
 inline GLuint CSCI441::SimpleShader3::registerVertexArray(const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS) {
     return CSCI441_INTERNAL::SimpleShader3::registerVertexArray(VERTEX_POINTS.size(), &VERTEX_POINTS[0], &VERTEX_NORMALS[0]);
 }
 
-inline void CSCI441::SimpleShader3::updateVertexArray(const GLuint VAOD, const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_COLORS) {
-    CSCI441_INTERNAL::SimpleShader3::updateVertexArray(VAOD, VERTEX_POINTS.size(), &VERTEX_POINTS[0], &VERTEX_COLORS[0]);
+[[maybe_unused]]
+inline void CSCI441::SimpleShader3::updateVertexArray(const GLuint VAOD, const std::vector<glm::vec3>& VERTEX_POINTS, const std::vector<glm::vec3>& VERTEX_NORMALS) {
+    CSCI441_INTERNAL::SimpleShader3::updateVertexArray(VAOD, VERTEX_POINTS.size(), &VERTEX_POINTS[0], &VERTEX_NORMALS[0]);
 }
 
+[[maybe_unused]]
 inline GLuint CSCI441::SimpleShader3::registerVertexArray(const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]) {
     return CSCI441_INTERNAL::SimpleShader3::registerVertexArray(NUM_POINTS, VERTEX_POINTS, VERTEX_NORMALS);
 }
 
-inline void CSCI441::SimpleShader3::updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]) {
-    CSCI441_INTERNAL::SimpleShader3::updateVertexArray(VAOD, NUM_POINTS, VERTEX_POINTS, VERTEX_COLORS);
+[[maybe_unused]]
+inline void CSCI441::SimpleShader3::updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]) {
+    CSCI441_INTERNAL::SimpleShader3::updateVertexArray(VAOD, NUM_POINTS, VERTEX_POINTS, VERTEX_NORMALS);
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
     CSCI441_INTERNAL::SimpleShader3::setProjectionMatrix(PROJECTION_MATRIX);
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::setViewMatrix(const glm::mat4& VIEW_MATRIX) {
     CSCI441_INTERNAL::SimpleShader3::setViewMatrix(VIEW_MATRIX);
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::setLightPosition(const glm::vec3& LIGHT_POSITION) {
     CSCI441_INTERNAL::SimpleShader3::setLightPosition(LIGHT_POSITION);
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::setLightColor(const glm::vec3& LIGHT_COLOR) {
     CSCI441_INTERNAL::SimpleShader3::setLightColor(LIGHT_COLOR);
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::setMaterialColor(const glm::vec3& MATERIAL_COLOR) {
     CSCI441_INTERNAL::SimpleShader3::setMaterialColor(MATERIAL_COLOR);
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX) {
     CSCI441_INTERNAL::SimpleShader3::pushTransformation(TRANSFORMATION_MATRIX);
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::popTransformation() {
     CSCI441_INTERNAL::SimpleShader3::popTransformation();
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::resetTransformationMatrix() {
     CSCI441_INTERNAL::SimpleShader3::resetTransformationMatrix();
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::enableLighting() {
     CSCI441_INTERNAL::SimpleShader3::enableLighting();
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::disableLighting() {
     CSCI441_INTERNAL::SimpleShader3::disableLighting();
 }
 
+[[maybe_unused]]
 inline void CSCI441::SimpleShader3::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
     CSCI441_INTERNAL::SimpleShader3::draw(PRIMITIVE_TYPE, VAOD, VERTEX_COUNT);
 }
@@ -717,11 +773,11 @@ inline GLuint CSCI441_INTERNAL::SimpleShader3::registerVertexArray(const GLuint 
     return vaod;
 }
 
-inline void CSCI441_INTERNAL::SimpleShader3::updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]) {
+inline void CSCI441_INTERNAL::SimpleShader3::updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]) {
     glBindVertexArray(VAOD);
     glBindBuffer(GL_ARRAY_BUFFER, VAOD);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat)*NUM_POINTS*3, VERTEX_POINTS);
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat)*NUM_POINTS*3, sizeof(GLfloat)*NUM_POINTS*3, VERTEX_COLORS);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat)*NUM_POINTS*3, sizeof(GLfloat)*NUM_POINTS*3, VERTEX_NORMALS);
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
@@ -809,4 +865,4 @@ inline void CSCI441_INTERNAL::SimpleShader3::draw(const GLint PRIMITIVE_TYPE, co
     glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);
 }
 
-#endif //__CSCI441_SIMPLESHADER_H__
+#endif //__CSCI441_SIMPLE_SHADER_HPP__

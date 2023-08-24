@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.1.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -209,22 +209,22 @@ $(function() {
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="keywordflow">if</span>(DEBUG) fprintf( stdout, <span class="stringliteral">&quot;[INFO]: GLFW %d.%d.%d initialized\n&quot;</span>, GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION );</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, mOpenGLMajorVersion );           <span class="comment">// request OpenGL vX.</span></div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, mOpenGLMinorVersion );           <span class="comment">// request OpenGL v.X</span></div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );                  <span class="comment">// request forward compatible OpenGL context</span></div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );        <span class="comment">// request OpenGL Core Profile context</span></div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        glfwWindowHint( GLFW_DOUBLEBUFFER, GLFW_TRUE );                             <span class="comment">// request double buffering</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        glfwWindowHint(GLFW_RESIZABLE, mWindowResizable );                      <span class="comment">// set if our window should be able to be resized</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, mOpenGLMinorVersion );           <span class="comment">// request OpenGL v .X</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );                       <span class="comment">// request forward compatible OpenGL context</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );             <span class="comment">// request OpenGL Core Profile context</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        glfwWindowHint( GLFW_DOUBLEBUFFER, GLFW_TRUE );                              <span class="comment">// request double buffering</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        glfwWindowHint(GLFW_RESIZABLE, mWindowResizable );                          <span class="comment">// set if our window should be able to be resized</span></div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        <span class="comment">// create a window for a given size, with a given title</span></div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        mpWindow = glfwCreateWindow(mWindowWidth, mWindowHeight, mWindowTitle, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span> );</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordflow">if</span>( !mpWindow ) {                                                       <span class="comment">// if the window could not be created, NULL is returned</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordflow">if</span>( !mpWindow ) {                                                                       <span class="comment">// if the window could not be created, NULL is returned</span></div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            fprintf( stderr, <span class="stringliteral">&quot;[ERROR]: GLFW Window could not be created\n&quot;</span> );</div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            glfwTerminate();</div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>            mErrorCode = OPENGL_ENGINE_ERROR_GLFW_WINDOW;</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            <span class="keywordflow">if</span>(DEBUG) fprintf( stdout, <span class="stringliteral">&quot;[INFO]: GLFW Window created\n&quot;</span> );</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            glfwMakeContextCurrent(mpWindow);                                       <span class="comment">// make the created window the current window</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            glfwSwapInterval(1);                                            <span class="comment">// update our screen after at least 1 screen refresh</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            glfwMakeContextCurrent(mpWindow);                                           <span class="comment">// make the created window the current window</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            glfwSwapInterval(1);                                                        <span class="comment">// update our screen after at least 1 screen refresh</span></div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            glfwSetWindowUserPointer(mpWindow, (<span class="keywordtype">void</span>*)<span class="keyword">this</span>);</div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            glfwSetWindowSizeCallback(mpWindow, mWindowResizeCallback);</div>

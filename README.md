@@ -7,6 +7,9 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v 4.1.0 - 24 Aug 2023
+- Improving web documentation using a consistent style
+
 ## v 4.0.0 - 21 Aug 2023
 - Refactored protected class member naming scheme from _xyz to mXyz
 - Improving web documentation

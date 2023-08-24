@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.1.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -85,6 +85,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Handles registration and compilation of Shaders.  
+ <a href="class_c_s_c_i441_1_1_shader_program.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_shader_program_8hpp_source.html">ShaderProgram.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CSCI441::ShaderProgram:</div>
@@ -92,88 +95,126 @@ Inheritance diagram for CSCI441::ShaderProgram:</div>
  <div class="center">
   <img src="class_c_s_c_i441_1_1_shader_program.png" usemap="#CSCI441::ShaderProgram_map" alt=""/>
   <map id="CSCI441::ShaderProgram_map" name="CSCI441::ShaderProgram_map">
-<area href="class_c_s_c_i441_1_1_compute_shader_program.html" alt="CSCI441::ComputeShaderProgram" shape="rect" coords="0,56,206,80"/>
+<area href="class_c_s_c_i441_1_1_compute_shader_program.html" title="Handles registration and compilation of Compute Shaders." alt="CSCI441::ComputeShaderProgram" shape="rect" coords="0,56,206,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0f51bed7fb1b24075b96be6c7a490f8d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a0f51bed7fb1b24075b96be6c7a490f8d">ShaderProgram</a> (const char *vertexShaderFilename, const char *fragmentShaderFilename)</td></tr>
+<tr class="memdesc:a0f51bed7fb1b24075b96be6c7a490f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a Shader Program using a Vertex Shader and Fragment Shader.  <br /></td></tr>
 <tr class="separator:a0f51bed7fb1b24075b96be6c7a490f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bccd25c9e53c8975541060882f6fc73"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a2bccd25c9e53c8975541060882f6fc73">ShaderProgram</a> (const char *vertexShaderFilename, const char *fragmentShaderFilename, const bool isSeparable)</td></tr>
-<tr class="separator:a2bccd25c9e53c8975541060882f6fc73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af84f1b0fa63aa03ea8291bab32d63069"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#af84f1b0fa63aa03ea8291bab32d63069">ShaderProgram</a> (const char *vertexShaderFilename, const char *fragmentShaderFilename, bool isSeparable)</td></tr>
+<tr class="memdesc:af84f1b0fa63aa03ea8291bab32d63069"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a Shader Program using a Vertex Shader and Fragment Shader.  <br /></td></tr>
+<tr class="separator:af84f1b0fa63aa03ea8291bab32d63069"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af561da1984872a47dba91e30a5aec14d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#af561da1984872a47dba91e30a5aec14d">ShaderProgram</a> (const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename)</td></tr>
+<tr class="memdesc:af561da1984872a47dba91e30a5aec14d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader.  <br /></td></tr>
 <tr class="separator:af561da1984872a47dba91e30a5aec14d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01c5fd980b526eb58a8d06042db1c34f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a01c5fd980b526eb58a8d06042db1c34f">ShaderProgram</a> (const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, const bool isSeparable)</td></tr>
+<tr class="memdesc:a01c5fd980b526eb58a8d06042db1c34f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader.  <br /></td></tr>
 <tr class="separator:a01c5fd980b526eb58a8d06042db1c34f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd18599e84cde305494daa39dc751fd1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#afd18599e84cde305494daa39dc751fd1">ShaderProgram</a> (const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename)</td></tr>
+<tr class="memdesc:afd18599e84cde305494daa39dc751fd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader.  <br /></td></tr>
 <tr class="separator:afd18599e84cde305494daa39dc751fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bc13539254794e2b8117957b1c6f666"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a5bc13539254794e2b8117957b1c6f666">ShaderProgram</a> (const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename, const bool isSeparable)</td></tr>
+<tr class="memdesc:a5bc13539254794e2b8117957b1c6f666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader.  <br /></td></tr>
 <tr class="separator:a5bc13539254794e2b8117957b1c6f666"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d1750c87ea740caf05dac2816a6b800"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a1d1750c87ea740caf05dac2816a6b800">ShaderProgram</a> (const char *vertexShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename)</td></tr>
+<tr class="memdesc:a1d1750c87ea740caf05dac2816a6b800"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader.  <br /></td></tr>
 <tr class="separator:a1d1750c87ea740caf05dac2816a6b800"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36f39ace9a8a0d6b7618a0b3329812c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a36f39ace9a8a0d6b7618a0b3329812c8">ShaderProgram</a> (const char *vertexShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, const bool isSeparable)</td></tr>
+<tr class="memdesc:a36f39ace9a8a0d6b7618a0b3329812c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader.  <br /></td></tr>
 <tr class="separator:a36f39ace9a8a0d6b7618a0b3329812c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0507eed42c8ac60ab70e30d337047ad7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a0507eed42c8ac60ab70e30d337047ad7">ShaderProgram</a> (const char **shaderFilenames, const bool vertexPresent, const bool tessellationPresent, const bool geometryPresent, const bool fragmentPresent, const bool isSeparable)</td></tr>
+<tr class="memdesc:a0507eed42c8ac60ab70e30d337047ad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a Shader Program using any combination of shaders. Intended to be used to create separable programs but can be used as an alternative to the above overloaded constructors to explicitly state which shaders are present.  <br /></td></tr>
 <tr class="separator:a0507eed42c8ac60ab70e30d337047ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64b295be7ca8f309dfc085f8c0cf631a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a64b295be7ca8f309dfc085f8c0cf631a">~ShaderProgram</a> ()</td></tr>
+<tr class="memdesc:a64b295be7ca8f309dfc085f8c0cf631a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clean up memory associated with the Shader Program.  <br /></td></tr>
 <tr class="separator:a64b295be7ca8f309dfc085f8c0cf631a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a834479cd61cf4fc2e972268068fe08"><td class="memItemLeft" align="right" valign="top"><a id="a0a834479cd61cf4fc2e972268068fe08" name="a0a834479cd61cf4fc2e972268068fe08"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>writeShaderProgramBinaryToFile</b> (const char *BINARY_FILE_NAME)</td></tr>
 <tr class="separator:a0a834479cd61cf4fc2e972268068fe08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7c797a98a2a846e3166138fb82a2df5"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ae7c797a98a2a846e3166138fb82a2df5">getUniformLocation</a> (const char *uniformName) const</td></tr>
+<tr class="memdesc:ae7c797a98a2a846e3166138fb82a2df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the location of the given uniform in this shader program.  <br /></td></tr>
 <tr class="separator:ae7c797a98a2a846e3166138fb82a2df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69bb415bb630b193ffddda6452fbf4f5"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a69bb415bb630b193ffddda6452fbf4f5">getUniformBlockIndex</a> (const char *uniformBlockName) const</td></tr>
+<tr class="memdesc:a69bb415bb630b193ffddda6452fbf4f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the given uniform block in this shader program.  <br /></td></tr>
 <tr class="separator:a69bb415bb630b193ffddda6452fbf4f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5a02cba527f6bd9ebfd09d4232c2200"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ab5a02cba527f6bd9ebfd09d4232c2200">getUniformBlockSize</a> (const char *uniformBlockName) const</td></tr>
+<tr class="memdesc:ab5a02cba527f6bd9ebfd09d4232c2200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the given uniform block in this shader program.  <br /></td></tr>
 <tr class="separator:ab5a02cba527f6bd9ebfd09d4232c2200"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2abd075dbc72d2b2169843d93ee6da80"><td class="memItemLeft" align="right" valign="top">GLubyte *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a2abd075dbc72d2b2169843d93ee6da80">getUniformBlockBuffer</a> (const char *uniformBlockName) const</td></tr>
+<tr class="memdesc:a2abd075dbc72d2b2169843d93ee6da80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an allocated buffer for the given uniform block in this shader program.  <br /></td></tr>
 <tr class="separator:a2abd075dbc72d2b2169843d93ee6da80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad28a05c4040c5891120696347b7982fd"><td class="memItemLeft" align="right" valign="top">GLint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ad28a05c4040c5891120696347b7982fd">getUniformBlockOffsets</a> (const char *uniformBlockName) const</td></tr>
+<tr class="memdesc:ad28a05c4040c5891120696347b7982fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an array of offsets into the buffer for the given uniform block in this shader program.  <br /></td></tr>
 <tr class="separator:ad28a05c4040c5891120696347b7982fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5b914c0eb5e7df1a30770967dd3f6fc"><td class="memItemLeft" align="right" valign="top">GLint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ad5b914c0eb5e7df1a30770967dd3f6fc">getUniformBlockOffsets</a> (const char *uniformBlockName, const char *names[]) const</td></tr>
+<tr class="memdesc:ad5b914c0eb5e7df1a30770967dd3f6fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an array of offsets into the buffer for the given uniform block and names in this shader program.  <br /></td></tr>
 <tr class="separator:ad5b914c0eb5e7df1a30770967dd3f6fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72ce0d5cd4176fc67b1debde03cfe843"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a72ce0d5cd4176fc67b1debde03cfe843">setUniformBlockBinding</a> (const char *uniformBlockName, GLuint binding) const</td></tr>
+<tr class="memdesc:a72ce0d5cd4176fc67b1debde03cfe843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the binding point for the given uniform block in this shader program.  <br /></td></tr>
 <tr class="separator:a72ce0d5cd4176fc67b1debde03cfe843"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ecb2ef4cab5279246d03b912cfde30f"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a8ecb2ef4cab5279246d03b912cfde30f">getAttributeLocation</a> (const char *attributeName) const</td></tr>
+<tr class="memdesc:a8ecb2ef4cab5279246d03b912cfde30f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the location of the given attribute in this shader program.  <br /></td></tr>
 <tr class="separator:a8ecb2ef4cab5279246d03b912cfde30f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc34bf3045b7ba28fa6f87199723255f"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#acc34bf3045b7ba28fa6f87199723255f">getSubroutineIndex</a> (GLenum shaderStage, const char *subroutineName) const</td></tr>
+<tr class="memdesc:acc34bf3045b7ba28fa6f87199723255f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the given subroutine for a shader stage in this shader program.  <br /></td></tr>
 <tr class="separator:acc34bf3045b7ba28fa6f87199723255f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ccd92bbb8ef9481e15ab38155cc7bd7"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a1ccd92bbb8ef9481e15ab38155cc7bd7">getImageBinding</a> (const char *imageName) const</td></tr>
+<tr class="memdesc:a1ccd92bbb8ef9481e15ab38155cc7bd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the binding point for the corresponding image uniform.  <br /></td></tr>
 <tr class="separator:a1ccd92bbb8ef9481e15ab38155cc7bd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1aa968b3875840d268da7c726b5a961"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ad1aa968b3875840d268da7c726b5a961">getShaderStorageBlockBinding</a> (const char *ssboName) const</td></tr>
+<tr class="memdesc:ad1aa968b3875840d268da7c726b5a961"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the binding point for the corresponding shader storage block.  <br /></td></tr>
 <tr class="separator:ad1aa968b3875840d268da7c726b5a961"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01b1a56c6446e20e512323a0eb5d3ab8"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a01b1a56c6446e20e512323a0eb5d3ab8">getAtomicCounterBufferBinding</a> (const char *atomicName) const</td></tr>
+<tr class="memdesc:a01b1a56c6446e20e512323a0eb5d3ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the binding point for the corresponding atomic counter buffer.  <br /></td></tr>
 <tr class="separator:a01b1a56c6446e20e512323a0eb5d3ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae59ddc4fb4ab3d43aca205bde49d651d"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ae59ddc4fb4ab3d43aca205bde49d651d">getAtomicCounterBufferOffset</a> (const char *atomicName) const</td></tr>
+<tr class="memdesc:ae59ddc4fb4ab3d43aca205bde49d651d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the offset into the buffer for the corresponding atomic counter buffer.  <br /></td></tr>
 <tr class="separator:ae59ddc4fb4ab3d43aca205bde49d651d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c55a80fde12ecce1e46998d556a0214"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a4c55a80fde12ecce1e46998d556a0214">getAtomicCounterBufferSize</a> (const char *atomicName) const</td></tr>
+<tr class="memdesc:a4c55a80fde12ecce1e46998d556a0214"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the full buffer size for the corresponding atomic counter buffer.  <br /></td></tr>
 <tr class="separator:a4c55a80fde12ecce1e46998d556a0214"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a5a13dfa0f1f393495506ebb874d446"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a7a5a13dfa0f1f393495506ebb874d446">getNumUniforms</a> () const</td></tr>
+<tr class="memdesc:a7a5a13dfa0f1f393495506ebb874d446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of active uniforms in this shader program.  <br /></td></tr>
 <tr class="separator:a7a5a13dfa0f1f393495506ebb874d446"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc156c820eefbe6cf342530f75163496"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#adc156c820eefbe6cf342530f75163496">getNumUniformBlocks</a> () const</td></tr>
+<tr class="memdesc:adc156c820eefbe6cf342530f75163496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of active uniform blocks in this shader program.  <br /></td></tr>
 <tr class="separator:adc156c820eefbe6cf342530f75163496"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a956d9589698cf10b4c080cd3153d4f62"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a956d9589698cf10b4c080cd3153d4f62">getNumAttributes</a> () const</td></tr>
+<tr class="memdesc:a956d9589698cf10b4c080cd3153d4f62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of active attributes in this shader program.  <br /></td></tr>
 <tr class="separator:a956d9589698cf10b4c080cd3153d4f62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1eee7ca13c9b16bd345ab1815859ef16"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a1eee7ca13c9b16bd345ab1815859ef16">getShaderProgramHandle</a> () const</td></tr>
+<tr class="memdesc:a1eee7ca13c9b16bd345ab1815859ef16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the handle for this shader program.  <br /></td></tr>
 <tr class="separator:a1eee7ca13c9b16bd345ab1815859ef16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfba7621a9707151ee5dfdb6124bdc08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#acfba7621a9707151ee5dfdb6124bdc08">useProgram</a> () const</td></tr>
+<tr class="memitem:acfba7621a9707151ee5dfdb6124bdc08"><td class="memItemLeft" align="right" valign="top"><a id="acfba7621a9707151ee5dfdb6124bdc08" name="acfba7621a9707151ee5dfdb6124bdc08"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>useProgram</b> () const</td></tr>
+<tr class="memdesc:acfba7621a9707151ee5dfdb6124bdc08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Shader Program to be active. <br /></td></tr>
 <tr class="separator:acfba7621a9707151ee5dfdb6124bdc08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98fda6314e0e02a04bdefe04495ec2ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a98fda6314e0e02a04bdefe04495ec2ff">setProgramUniform</a> (const char *uniformName, GLfloat v0) const</td></tr>
+<tr class="memdesc:a98fda6314e0e02a04bdefe04495ec2ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one float  <br /></td></tr>
 <tr class="separator:a98fda6314e0e02a04bdefe04495ec2ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ac5645f7c02d34c84f3e175cc3e9890"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a3ac5645f7c02d34c84f3e175cc3e9890">setProgramUniform</a> (const char *uniformName, GLfloat v0, GLfloat v1) const</td></tr>
+<tr class="memdesc:a3ac5645f7c02d34c84f3e175cc3e9890"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two floats  <br /></td></tr>
 <tr class="separator:a3ac5645f7c02d34c84f3e175cc3e9890"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a415883931e7c76174aaa6b0701abaa56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a415883931e7c76174aaa6b0701abaa56">setProgramUniform</a> (const char *uniformName, glm::vec2 value) const</td></tr>
+<tr class="memdesc:a415883931e7c76174aaa6b0701abaa56"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two floats  <br /></td></tr>
 <tr class="separator:a415883931e7c76174aaa6b0701abaa56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a342254fef9657a7292c042abf7addd94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a342254fef9657a7292c042abf7addd94">setProgramUniform</a> (const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2) const</td></tr>
+<tr class="memdesc:a342254fef9657a7292c042abf7addd94"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three floats  <br /></td></tr>
 <tr class="separator:a342254fef9657a7292c042abf7addd94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5272588eaa46eaa65629d7122d7622ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a5272588eaa46eaa65629d7122d7622ce">setProgramUniform</a> (const char *uniformName, glm::vec3 value) const</td></tr>
+<tr class="memdesc:a5272588eaa46eaa65629d7122d7622ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three floats  <br /></td></tr>
 <tr class="separator:a5272588eaa46eaa65629d7122d7622ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dfdd79595cd121fc4d9fa2c83febcd8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a6dfdd79595cd121fc4d9fa2c83febcd8">setProgramUniform</a> (const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const</td></tr>
+<tr class="memdesc:a6dfdd79595cd121fc4d9fa2c83febcd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four floats  <br /></td></tr>
 <tr class="separator:a6dfdd79595cd121fc4d9fa2c83febcd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f3888fd7eb674d952a2998a0337a886"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a7f3888fd7eb674d952a2998a0337a886">setProgramUniform</a> (const char *uniformName, glm::vec4 value) const</td></tr>
+<tr class="memdesc:a7f3888fd7eb674d952a2998a0337a886"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four floats  <br /></td></tr>
 <tr class="separator:a7f3888fd7eb674d952a2998a0337a886"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2b5407d8fca8ed4aef3e03e6dba83df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ad2b5407d8fca8ed4aef3e03e6dba83df">setProgramUniform</a> (const char *uniformName, GLuint dim, GLsizei count, const GLfloat *value) const</td></tr>
+<tr class="memdesc:ad2b5407d8fca8ed4aef3e03e6dba83df"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of floats  <br /></td></tr>
 <tr class="separator:ad2b5407d8fca8ed4aef3e03e6dba83df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1f23f5d49fda704ff1d0682c11ce2d4"><td class="memItemLeft" align="right" valign="top"><a id="ab1f23f5d49fda704ff1d0682c11ce2d4" name="ab1f23f5d49fda704ff1d0682c11ce2d4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setProgramUniform</b> (const char *uniformName, GLint v0) const</td></tr>
@@ -353,8 +394,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setProgramUniform</b>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aa7cf75ce6605ac1f6ca660f98b88ebba"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aa7cf75ce6605ac1f6ca660f98b88ebba">enableDebugMessages</a> ()</td></tr>
+<tr class="memdesc:aa7cf75ce6605ac1f6ca660f98b88ebba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables debug messages from Shader Program functions.  <br /></td></tr>
 <tr class="separator:aa7cf75ce6605ac1f6ca660f98b88ebba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9358a3f05e8432707d8ec89d1cd9d248"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a9358a3f05e8432707d8ec89d1cd9d248">disableDebugMessages</a> ()</td></tr>
+<tr class="memdesc:a9358a3f05e8432707d8ec89d1cd9d248"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables debug messages from Shader Program functions.  <br /></td></tr>
 <tr class="separator:a9358a3f05e8432707d8ec89d1cd9d248"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1566ee033344561a85325c05c175015b"><td class="memItemLeft" align="right" valign="top"><a id="a1566ee033344561a85325c05c175015b" name="a1566ee033344561a85325c05c175015b"></a>
 static <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>loadShaderProgramFromBinaryFile</b> (const char *BINARY_FILE_NAME, GLenum format)</td></tr>
@@ -406,7 +449,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
 <tr class="separator:a7f391cfbedd306d3e5d9ae47ff01bc4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>@desc Handles registration and compilation of Shaders </p>
+<div class="textblock"><p>Handles registration and compilation of Shaders. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0f51bed7fb1b24075b96be6c7a490f8d" name="a0f51bed7fb1b24075b96be6c7a490f8d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0f51bed7fb1b24075b96be6c7a490f8d">&#9670;&#160;</a></span>ShaderProgram() <span class="overload">[1/9]</span></h2>
@@ -441,19 +484,20 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Creates a Shader Program using a Vertex Shader and Fragment Shader</p>
+
+<p>Creates a Shader Program using a Vertex Shader and Fragment Shader. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">const</td><td>char* vertexShaderFilename - name of the file corresponding to the vertex shader </td></tr>
-    <tr><td class="paramname">const</td><td>char* fragmentShaderFilename - name of the file corresponding to the fragment shader </td></tr>
+    <tr><td class="paramname">vertexShaderFilename</td><td>name of the file corresponding to the vertex shader </td></tr>
+    <tr><td class="paramname">fragmentShaderFilename</td><td>name of the file corresponding to the fragment shader </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a2bccd25c9e53c8975541060882f6fc73" name="a2bccd25c9e53c8975541060882f6fc73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bccd25c9e53c8975541060882f6fc73">&#9670;&#160;</a></span>ShaderProgram() <span class="overload">[2/9]</span></h2>
+<a id="af84f1b0fa63aa03ea8291bab32d63069" name="af84f1b0fa63aa03ea8291bab32d63069"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af84f1b0fa63aa03ea8291bab32d63069">&#9670;&#160;</a></span>ShaderProgram() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -476,7 +520,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bool&#160;</td>
+          <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>isSeparable</em>&#160;</td>
         </tr>
         <tr>
@@ -491,7 +535,8 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Creates a Shader Program using a Vertex Shader and Fragment Shader</p>
+
+<p>Creates a Shader Program using a Vertex Shader and Fragment Shader. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vertexShaderFilename</td><td>name of the file corresponding to the vertex shader </td></tr>
@@ -554,7 +599,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader </p><pre class="fragment">@param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
+
+<p>Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader. </p>
+<pre class="fragment">@param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
 @param const char* tesselationControlShaderFilename - name of the file corresponding to the tesselation control shader
 @param const char* tesselationEvaluationShaderFilename - name of the file corresponding to the tesselation evaluation shader
 @param const char* geometryShaderFilename - name of the file corresponding to the geometry shader
@@ -619,7 +666,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader </p><pre class="fragment">@param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
+
+<p>Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader. </p>
+<pre class="fragment">@param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
 @param const char* tesselationControlShaderFilename - name of the file corresponding to the tesselation control shader
 @param const char* tesselationEvaluationShaderFilename - name of the file corresponding to the tesselation evaluation shader
 @param const char* geometryShaderFilename - name of the file corresponding to the geometry shader
@@ -678,7 +727,8 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader</p>
+
+<p>Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* vertexShaderFilename - name of the file corresponding to the vertex shader </td></tr>
@@ -742,7 +792,8 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader</p>
+
+<p>Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* vertexShaderFilename - name of the file corresponding to the vertex shader </td></tr>
@@ -795,7 +846,8 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader</p>
+
+<p>Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* vertexShaderFilename - name of the file corresponding to the vertex shader </td></tr>
@@ -852,7 +904,8 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader</p>
+
+<p>Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* vertexShaderFilename - name of the file corresponding to the vertex shader </td></tr>
@@ -922,7 +975,8 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Creates a Shader Program using any combination of shaders. Intended to be used to create separable programs but can be used as an alternative to the above overloaded constructors to explicitly state which shaders are present.</p>
+
+<p>Creates a Shader Program using any combination of shaders. Intended to be used to create separable programs but can be used as an alternative to the above overloaded constructors to explicitly state which shaders are present. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char **shaderFilenames - an array of filenames corresponding to all the shaders. size must be equal to the sum of true shaders present, with two for the tessellation shader</td></tr>
@@ -959,7 +1013,8 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Clean up memory associated with the Shader Program </p>
+
+<p>Clean up memory associated with the Shader Program. </p>
 
 </div>
 </div>
@@ -986,8 +1041,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Disables debug messages from Shader Program functions</p>
-<p>Disables debug messages from Shader Program functions. Debug messages are on by default. </p>
+
+<p>Disables debug messages from Shader Program functions. </p>
+<dl class="section note"><dt>Note</dt><dd>Debug messages are on by default. </dd></dl>
 
 </div>
 </div>
@@ -1013,8 +1069,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Enables debug messages from Shader Program functions</p>
-<p>Enables debug messages from Shader Program functions. Debug messages are on by default. </p>
+
+<p>Enables debug messages from Shader Program functions. </p>
+<dl class="section note"><dt>Note</dt><dd>Debug messages are on by default. </dd></dl>
 
 </div>
 </div>
@@ -1041,7 +1098,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the binding point for the corresponding atomic counter buffer </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Returns the binding point for the corresponding atomic counter buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">atomicName</td><td></td></tr>
   </table>
@@ -1074,7 +1133,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the offset into the buffer for the corresponding atomic counter buffer </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Returns the offset into the buffer for the corresponding atomic counter buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">atomicName</td><td></td></tr>
   </table>
@@ -1107,7 +1168,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the full buffer size for the corresponding atomic counter buffer </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Returns the full buffer size for the corresponding atomic counter buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">atomicName</td><td></td></tr>
   </table>
@@ -1140,7 +1203,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the location of the given attribute in this shader program </p><dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the attribute is not found </dd></dl>
+
+<p>Returns the location of the given attribute in this shader program. </p>
+<dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the attribute is not found </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* attributeName - name of the attribute to get the location for </td></tr>
@@ -1174,7 +1239,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the binding point for the corresponding image uniform </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Returns the binding point for the corresponding image uniform. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">imageName</td><td></td></tr>
   </table>
@@ -1206,7 +1273,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the number of active attributes in this shader program </p><dl class="section return"><dt>Returns</dt><dd>GLuint - number of active attributes in this shader program </dd></dl>
+
+<p>Returns the number of active attributes in this shader program. </p>
+<dl class="section return"><dt>Returns</dt><dd>GLuint - number of active attributes in this shader program </dd></dl>
 
 </div>
 </div>
@@ -1232,7 +1301,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the number of active uniform blocks in this shader program </p><dl class="section return"><dt>Returns</dt><dd>GLuint - number of active uniform blocks in this shader program </dd></dl>
+
+<p>Returns the number of active uniform blocks in this shader program. </p>
+<dl class="section return"><dt>Returns</dt><dd>GLuint - number of active uniform blocks in this shader program </dd></dl>
 
 </div>
 </div>
@@ -1258,7 +1329,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the number of active uniforms in this shader program </p><dl class="section return"><dt>Returns</dt><dd>GLuint - number of active uniforms in this shader program </dd></dl>
+
+<p>Returns the number of active uniforms in this shader program. </p>
+<dl class="section return"><dt>Returns</dt><dd>GLuint - number of active uniforms in this shader program </dd></dl>
 
 </div>
 </div>
@@ -1284,7 +1357,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the handle for this shader program </p><dl class="section return"><dt>Returns</dt><dd>GLuint - handle for this shader program </dd></dl>
+
+<p>Returns the handle for this shader program. </p>
+<dl class="section return"><dt>Returns</dt><dd>GLuint - handle for this shader program </dd></dl>
 
 </div>
 </div>
@@ -1311,7 +1386,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the binding point for the corresponding shader storage block </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Returns the binding point for the corresponding shader storage block. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ssboName</td><td></td></tr>
   </table>
@@ -1354,7 +1431,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the index of the given subroutine for a shader stage in this shader program </p><dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the subroutine is not found </dd></dl>
+
+<p>Returns the index of the given subroutine for a shader stage in this shader program. </p>
+<dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the subroutine is not found </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">GLenum</td><td>shaderStage - stage of the shader program to get the subroutine for. Allowable values: GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, GL_FRAGMENT_SHADER </td></tr>
@@ -1389,7 +1468,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns an allocated buffer for the given uniform block in this shader program </p><dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
+
+<p>Returns an allocated buffer for the given uniform block in this shader program. </p>
+<dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* uniformBlockName - name of the uniform block to allocate a buffer for </td></tr>
@@ -1423,7 +1504,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the index of the given uniform block in this shader program </p><dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
+
+<p>Returns the index of the given uniform block in this shader program. </p>
+<dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* uniformBlockName - name of the uniform block to get the index for </td></tr>
@@ -1457,7 +1540,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns an array of offsets into the buffer for the given uniform block in this shader program </p><dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
+
+<p>Returns an array of offsets into the buffer for the given uniform block in this shader program. </p>
+<dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* uniformBlockName - name of the uniform block to return offsets for </td></tr>
@@ -1501,7 +1586,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns an array of offsets into the buffer for the given uniform block and names in this shader program </p><dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
+
+<p>Returns an array of offsets into the buffer for the given uniform block and names in this shader program. </p>
+<dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* uniformBlockName - name of the uniform block to return offsets for </td></tr>
@@ -1536,7 +1623,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the size of the given uniform block in this shader program </p><dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
+
+<p>Returns the size of the given uniform block in this shader program. </p>
+<dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* uniformBlockName - name of the uniform block to get the size for </td></tr>
@@ -1570,7 +1659,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Returns the location of the given uniform in this shader program </p><dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform is not found </dd></dl>
+
+<p>Returns the location of the given uniform in this shader program. </p>
+<dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform is not found </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* uniformName - name of the uniform to get the location for </td></tr>
@@ -1614,7 +1705,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc sets the program uniform consisting of one float </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>sets the program uniform consisting of one float </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uniformName</td><td>name of the uniform as a string </td></tr>
     <tr><td class="paramname">v0</td><td>value to set </td></tr>
@@ -1663,7 +1756,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc sets the program uniform consisting of two floats </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>sets the program uniform consisting of two floats </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uniformName</td><td>name of the uniform as a string </td></tr>
     <tr><td class="paramname">v0</td><td>value to set </td></tr>
@@ -1719,7 +1814,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc sets the program uniform consisting of three floats </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>sets the program uniform consisting of three floats </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uniformName</td><td>name of the uniform as a string </td></tr>
     <tr><td class="paramname">v0</td><td>value to set </td></tr>
@@ -1782,7 +1879,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc sets the program uniform consisting of four floats </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>sets the program uniform consisting of four floats </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uniformName</td><td>name of the uniform as a string </td></tr>
     <tr><td class="paramname">v0</td><td>value to set </td></tr>
@@ -1828,7 +1927,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc sets the program uniform consisting of two floats </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>sets the program uniform consisting of two floats </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uniformName</td><td>name of the uniform as a string </td></tr>
     <tr><td class="paramname">value</td><td>value to set </td></tr>
@@ -1871,7 +1972,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc sets the program uniform consisting of three floats </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>sets the program uniform consisting of three floats </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uniformName</td><td>name of the uniform as a string </td></tr>
     <tr><td class="paramname">value</td><td>value to set </td></tr>
@@ -1914,7 +2017,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc sets the program uniform consisting of four floats </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>sets the program uniform consisting of four floats </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uniformName</td><td>name of the uniform as a string </td></tr>
     <tr><td class="paramname">value</td><td>value to set </td></tr>
@@ -1969,7 +2074,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc sets the program uniform consisting of floats </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>sets the program uniform consisting of floats </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uniformName</td><td>name of the uniform as a string </td></tr>
     <tr><td class="paramname">dim</td><td>dimension (number of components) for each value </td></tr>
@@ -2014,7 +2121,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Set the binding point for the given uniform block in this shader program </p><dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
+
+<p>Set the binding point for the given uniform block in this shader program. </p>
+<dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* uniformBlockName - name of the uniform block to bind </td></tr>
@@ -2022,32 +2131,6 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>sDEBUG</b> = t
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="acfba7621a9707151ee5dfdb6124bdc08" name="acfba7621a9707151ee5dfdb6124bdc08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfba7621a9707151ee5dfdb6124bdc08">&#9670;&#160;</a></span>useProgram()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CSCI441::ShaderProgram::useProgram </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>@desc Sets the Shader Program to be active </p>
 
 </div>
 </div>

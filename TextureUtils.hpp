@@ -6,10 +6,13 @@
  *
  *	These functions, classes, and constants help minimize common
  *	code that needs to be written.
+ *
+ *	@warning This header file depends upon GLEW
+ *	@warning This header file depends upon stb_image
  */
 
-#ifndef CSCI441_TEXTUREUTILS_HPP
-#define CSCI441_TEXTUREUTILS_HPP
+#ifndef CSCI441_TEXTURE_UTILS_HPP
+#define CSCI441_TEXTURE_UTILS_HPP
 
 #include <GL/glew.h>
 
@@ -22,66 +25,75 @@
 
 //**********************************************************************************
 
-/// \namespace CSCI441
-/// \desc CSCI441 Helper Functions for OpenGL
 namespace CSCI441 {
-	/// \namespace TextureUtils
-	/// \desc OpenGL Texture Utility functions
+
+	/**
+	 * @namespace TextureUtils
+	 * @brief OpenGL Texture Utility functions
+	 */
 	namespace TextureUtils {
 
-		/// \brief loads a PPM into memory
-		/// \desc This function reads an ASCII PPM, returning true if the function succeeds and
-		/// false if it fails. If it succeeds, the variables imageWidth and
-		/// imageHeight will hold the width and height of the read image, respectively.<br><br>
-		/// It's not terribly robust.<br><br>
-		/// Returns the image as an unsigned character array containing
-		/// imageWidth*imageHeight*3 entries (for that many bytes of storage).
-		/// \warning This function expects imageData to be UNALLOCATED, and will allocate
-		/// memory itself. If the function fails (returns false), imageData
-		/// will be set to NULL and any allocated memory will be automatically deallocated.
-		/// \param[in] const char* filename of the image to load
-		/// \param[out] int will contain the image width upon successful completion
-		/// \param[out] int will contain the image height upon successful completion
-		/// \param[out] unsigned char* will contain the RGB data upon successful completion
-		/// \pre imageData is unallocated
-		/// \return bool - true if loading succeeded, false otherwise
+        /**
+		 * @brief loads a PPM into memory
+		 * @brief This function reads an ASCII PPM, returning true if the function succeeds and
+		 * false if it fails. If it succeeds, the variables imageWidth and
+		 * imageHeight will hold the width and height of the read image, respectively.<br><br>
+		 * Returns the image as an unsigned character array containing
+		 * imageWidth*imageHeight*3 entries (for that many bytes of storage).
+		 * @warning This function expects imageData to be UNALLOCATED, and will allocate
+		 * memory itself. If the function fails (returns false), imageData
+		 * will be set to NULL and any allocated memory will be automatically deallocated.
+		 * @param[in] filename name of the image to load
+		 * @param[out] imageWidth will contain the image width upon successful completion
+		 * @param[out] imageHeight will contain the image height upon successful completion
+		 * @param[out] imageData will contain the RGB data upon successful completion
+		 * @pre imageData is unallocated
+		 * @returns true if loading succeeded, false otherwise
+         * @note it's not terribly robust
+         */
 		bool loadPPM( const char *filename, int &imageWidth, int &imageHeight, unsigned char* &imageData );
 
-		/// \brief loads and registers a texture into memory returning a texture handle
-        /// \desc Calls through to loadAndRegister2DTexture()
-        /// \param const char* name of texture to load
-        /// \param GLint minification filter to apply (default: GL_LINEAR)
-        /// \param GLint magnification filter to apply (default: GL_LINEAR)
-        /// \param GLint wrapping to apply to S coordinate (default: GL_REPEAT)
-        /// \param GLint wrapping to apply to T coordinate (default: GL_REPEAT)
-        /// \return GLuint texture handle corresponding to the texture
-		GLuint loadAndRegisterTexture( const char *filename,
+        /**
+		 * @brief loads and registers a texture into memory returning a texture handle
+         * @note Calls through to loadAndRegister2DTexture()
+         * @param filename name of texture to load
+         * @param minFilter minification filter to apply (default: GL_LINEAR)
+         * @param mag magnification filter to apply (default: GL_LINEAR)
+         * @param wrapS wrapping to apply to S coordinate (default: GL_REPEAT)
+         * @param wrapT wrapping to apply to T coordinate (default: GL_REPEAT)
+         * @returns texture handle corresponding to the texture
+         */
+		[[maybe_unused]] GLuint loadAndRegisterTexture( const char *filename,
                                        GLint minFilter = GL_LINEAR,
                                        GLint magFilter = GL_LINEAR,
                                        GLint wrapS = GL_REPEAT,
                                        GLint wrapT = GL_REPEAT );
 
-		/// \brief loads and registers a texture into memory returning a texture handle
-		/// \desc This function loads a texture into memory and registers the texture with
-		/// OpenGL.  The provided minification and magnification filters are set for
-		/// the texture.  The texture coordinate wrapping parameters are also set.
-		/// \param const char* name of texture to load
-		/// \param GLint minification filter to apply (default: GL_LINEAR)
-		/// \param GLint magnification filter to apply (default: GL_LINEAR)
-		/// \param GLint wrapping to apply to S coordinate (default: GL_REPEAT)
-		/// \param GLint wrapping to apply to T coordinate (default: GL_REPEAT)
-		/// \return GLuint texture handle corresponding to the texture
+        /**
+		 * @brief loads and registers a texture into memory returning a texture handle
+		 * @brief This function loads a texture into memory and registers the texture with
+		 * OpenGL.  The provided minification and magnification filters are set for
+		 * the texture.  The texture coordinate wrapping parameters are also set.
+		 * @param filename name of texture to load
+		 * @param minFilter minification filter to apply (default: GL_LINEAR)
+		 * @param magFilter magnification filter to apply (default: GL_LINEAR)
+		 * @param wrapS wrapping to apply to S coordinate (default: GL_REPEAT)
+		 * @param wrapT wrapping to apply to T coordinate (default: GL_REPEAT)
+		 * @returns texture handle corresponding to the texture
+         */
 		GLuint loadAndRegister2DTexture( const char *filename,
                                          GLint minFilter = GL_LINEAR,
                                          GLint magFilter = GL_LINEAR,
                                          GLint wrapS = GL_REPEAT,
                                          GLint wrapT = GL_REPEAT );
 
-		/// \desc loads a texture into memory of a cube face
-		/// \param GLint face of the Cube Map to load the texture to
-		/// \param const char* filename of image to load texture from
-		/// \warning Cube Map must be bound as active texture before calling
-        void loadCubeMapFaceTexture(const GLint CUBE_MAP_FACE, const char* FILENAME);
+        /**
+		 * @brief loads a texture into memory of a cube face
+		 * @param cubeMapFace face of the Cube Map to load the texture to
+		 * @param filename name of image to load texture from
+		 * @warning Cube Map must be bound as active texture before calling
+         */
+        [[maybe_unused]] void loadCubeMapFaceTexture(GLint cubeMapFace, const char* filename);
 	}
 }
 
@@ -129,11 +141,12 @@ inline bool CSCI441::TextureUtils::loadPPM( const char *filename, int &imageWidt
     return true;
 }
 
-inline GLuint CSCI441::TextureUtils::loadAndRegisterTexture( const char *filename, GLint minFilter, GLint magFilter, GLint wrapS, GLint wrapT ) {
+[[maybe_unused]]
+inline GLuint CSCI441::TextureUtils::loadAndRegisterTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT ) {
 	return loadAndRegister2DTexture( filename, minFilter, magFilter, wrapS, wrapT );
 }
 
-inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filename, GLint minFilter, GLint magFilter, GLint wrapS, GLint wrapT ) {
+inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT ) {
     int imageWidth, imageHeight, imageChannels;
     GLuint texHandle = 0;
     stbi_set_flip_vertically_on_load(true);
@@ -164,17 +177,18 @@ inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filen
 	return texHandle;
 }
 
-inline void CSCI441::TextureUtils::loadCubeMapFaceTexture(const GLint CUBE_MAP_FACE, const char* FILENAME) {
+[[maybe_unused]]
+inline void CSCI441::TextureUtils::loadCubeMapFaceTexture(const GLint cubeMapFace, const char* FILENAME) {
     int imageWidth, imageHeight, imageChannels;
     unsigned char *data = stbi_load( FILENAME, &imageWidth, &imageHeight, &imageChannels, 0);
 
     if( data ) {
         const GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);
-        glTexImage2D(CUBE_MAP_FACE, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(cubeMapFace, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);
         stbi_image_free(data);
     } else {
         fprintf( stderr, "[ERROR]: CSCI441::TextureUtils::loadCubeMapFaceTexture(): Could not load texture map \"%s\"\n", FILENAME );
     }
 }
 
-#endif // CSCI441_TEXTUREUTILS_HPP
+#endif // CSCI441_TEXTURE_UTILS_HPP

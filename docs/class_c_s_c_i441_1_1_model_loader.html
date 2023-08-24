@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.1.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -78,7 +78,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_c_s_c_i441_1_1_model_loader-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">CSCI441::ModelLoader Class Reference</div></div>
+  <div class="headertitle"><div class="title">CSCI441::ModelLoader Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -89,69 +89,59 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afd8c5602678127d25348714be53342a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#afd8c5602678127d25348714be53342a5">ModelLoader</a> ()</td></tr>
+<tr class="memitem:afd8c5602678127d25348714be53342a5"><td class="memItemLeft" align="right" valign="top"><a id="afd8c5602678127d25348714be53342a5" name="afd8c5602678127d25348714be53342a5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ModelLoader</b> ()</td></tr>
+<tr class="memdesc:afd8c5602678127d25348714be53342a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty model. <br /></td></tr>
 <tr class="separator:afd8c5602678127d25348714be53342a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1223befa1c79f54b33a48a13efd8f639"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a1223befa1c79f54b33a48a13efd8f639">ModelLoader</a> (const char *filename)</td></tr>
+<tr class="memdesc:a1223befa1c79f54b33a48a13efd8f639"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a model from the given file.  <br /></td></tr>
 <tr class="separator:a1223befa1c79f54b33a48a13efd8f639"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab30fbbe152e05c88300f98fa33998102"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#ab30fbbe152e05c88300f98fa33998102">~ModelLoader</a> ()</td></tr>
+<tr class="memitem:ab30fbbe152e05c88300f98fa33998102"><td class="memItemLeft" align="right" valign="top"><a id="ab30fbbe152e05c88300f98fa33998102" name="ab30fbbe152e05c88300f98fa33998102"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>~ModelLoader</b> ()</td></tr>
+<tr class="memdesc:ab30fbbe152e05c88300f98fa33998102"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees memory associated with model on both CPU and GPU. <br /></td></tr>
 <tr class="separator:ab30fbbe152e05c88300f98fa33998102"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ee2d1efb2279540d9d89885ed173ac0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a2ee2d1efb2279540d9d89885ed173ac0">loadModelFile</a> (const char *filename, bool INFO=true, bool ERRORS=true)</td></tr>
+<tr class="memdesc:a2ee2d1efb2279540d9d89885ed173ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a model from the given file.  <br /></td></tr>
 <tr class="separator:a2ee2d1efb2279540d9d89885ed173ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a219e23f5fdc0efccb4a49138da240197"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a219e23f5fdc0efccb4a49138da240197">setAttributeLocations</a> (GLint positionLocation, GLint normalLocation=-1, GLint texCoordLocation=-1) const</td></tr>
+<tr class="memdesc:a219e23f5fdc0efccb4a49138da240197"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables VBO attribute array locations.  <br /></td></tr>
 <tr class="separator:a219e23f5fdc0efccb4a49138da240197"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fb084faddc03520932564e627490654"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a8fb084faddc03520932564e627490654">draw</a> (GLuint shaderProgramHandle, GLint matDiffLocation=-1, GLint matSpecLocation=-1, GLint matShinLocation=-1, GLint matAmbLocation=-1, GLenum diffuseTexture=GL_TEXTURE0) const</td></tr>
+<tr class="memdesc:a8fb084faddc03520932564e627490654"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders a model.  <br /></td></tr>
 <tr class="separator:a8fb084faddc03520932564e627490654"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae033d75ebda399f07ad10c71523de40"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#aae033d75ebda399f07ad10c71523de40">getNumberOfVertices</a> () const</td></tr>
+<tr class="memdesc:aae033d75ebda399f07ad10c71523de40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of vertices the model is made up of. This value corresponds to the size of the Vertices, TexCoords, and Normals arrays.  <br /></td></tr>
 <tr class="separator:aae033d75ebda399f07ad10c71523de40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c2d76360ed4fb7b31bf49aa8d9e35c7"><td class="memItemLeft" align="right" valign="top">GLfloat *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a5c2d76360ed4fb7b31bf49aa8d9e35c7">getVertices</a> () const</td></tr>
+<tr class="memdesc:a5c2d76360ed4fb7b31bf49aa8d9e35c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the vertex array that makes up the model mesh. For use with VBOs.  <br /></td></tr>
 <tr class="separator:a5c2d76360ed4fb7b31bf49aa8d9e35c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98b9c1bc899975fcbf0710a018b2c121"><td class="memItemLeft" align="right" valign="top">GLfloat *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a98b9c1bc899975fcbf0710a018b2c121">getTexCoords</a> () const</td></tr>
+<tr class="memdesc:a98b9c1bc899975fcbf0710a018b2c121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the texture coordinates array that corresponds to the model mesh. For use with VBOs.  <br /></td></tr>
 <tr class="separator:a98b9c1bc899975fcbf0710a018b2c121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8efabf9b18c039ee93367ab33d092b4e"><td class="memItemLeft" align="right" valign="top">GLfloat *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a8efabf9b18c039ee93367ab33d092b4e">getNormals</a> () const</td></tr>
+<tr class="memdesc:a8efabf9b18c039ee93367ab33d092b4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the normal array that corresponds to the model mesh. For use with VBOs.  <br /></td></tr>
 <tr class="separator:a8efabf9b18c039ee93367ab33d092b4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5adfe3130cc2b28713b72a58c5252bcc"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a5adfe3130cc2b28713b72a58c5252bcc">getNumberOfIndices</a> () const</td></tr>
+<tr class="memdesc:a5adfe3130cc2b28713b72a58c5252bcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of indices to draw the model. This value corresponds to the size of the Indices array.  <br /></td></tr>
 <tr class="separator:a5adfe3130cc2b28713b72a58c5252bcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98736116c5ac6c2fc9b89b1b1b79923c"><td class="memItemLeft" align="right" valign="top">GLuint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a98736116c5ac6c2fc9b89b1b1b79923c">getIndices</a> () const</td></tr>
+<tr class="memdesc:a98736116c5ac6c2fc9b89b1b1b79923c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the index array that dictates the order to draw the model mesh. For use with IBOs.  <br /></td></tr>
 <tr class="separator:a98736116c5ac6c2fc9b89b1b1b79923c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a202848314c149e59b5211858ff082072"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a202848314c149e59b5211858ff082072">enableAutoGenerateNormals</a> ()</td></tr>
+<tr class="memdesc:a202848314c149e59b5211858ff082072"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable autogeneration of vertex normals.  <br /></td></tr>
 <tr class="separator:a202848314c149e59b5211858ff082072"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf1ec38a0f551569ccf1a47af2a561f3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#aaf1ec38a0f551569ccf1a47af2a561f3">disableAutoGenerateNormals</a> ()</td></tr>
+<tr class="memdesc:aaf1ec38a0f551569ccf1a47af2a561f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable autogeneration of vertex normals.  <br /></td></tr>
 <tr class="separator:aaf1ec38a0f551569ccf1a47af2a561f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Loads object models from file and renders using VBOs/VAOs. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="afd8c5602678127d25348714be53342a5" name="afd8c5602678127d25348714be53342a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd8c5602678127d25348714be53342a5">&#9670;&#160;</a></span>ModelLoader() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">CSCI441::ModelLoader::ModelLoader </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>@desc Creates an empty model </p>
-
-</div>
-</div>
 <a id="a1223befa1c79f54b33a48a13efd8f639" name="a1223befa1c79f54b33a48a13efd8f639"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1223befa1c79f54b33a48a13efd8f639">&#9670;&#160;</a></span>ModelLoader() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1223befa1c79f54b33a48a13efd8f639">&#9670;&#160;</a></span>ModelLoader()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -173,38 +163,14 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Loads a model from the given file </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Loads a model from the given file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* filename - file to load model from </td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="ab30fbbe152e05c88300f98fa33998102" name="ab30fbbe152e05c88300f98fa33998102"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab30fbbe152e05c88300f98fa33998102">&#9670;&#160;</a></span>~ModelLoader()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">CSCI441::ModelLoader::~ModelLoader </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>@desc Frees memory associated with model on both CPU and GPU </p>
 
 </div>
 </div>
@@ -231,7 +197,8 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Disable autogeneration of vertex normals</p>
+
+<p>Disable autogeneration of vertex normals. </p>
 <p>If an object model does not contain vertex normal data, then normals will be computed based on the cross product of vertex winding order.</p>
 <dl class="section note"><dt>Note</dt><dd>Must be called prior to loading in a model from file </dd>
 <dd>
@@ -296,7 +263,9 @@ No normals are generated by default </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Renders a model </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Renders a model. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">GLint</td><td>shaderProgramHandle - shader program handle that </td></tr>
     <tr><td class="paramname">GLint</td><td>matDiffLocation - uniform location of material diffuse component </td></tr>
@@ -333,7 +302,8 @@ No normals are generated by default </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Enable autogeneration of vertex normals</p>
+
+<p>Enable autogeneration of vertex normals. </p>
 <p>If an object model does not contain vertex normal data, then normals will be computed based on the cross product of vertex winding order.</p>
 <dl class="section note"><dt>Note</dt><dd>Must be called prior to loading in a model from file </dd>
 <dd>
@@ -363,7 +333,9 @@ No normals are generated by default </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Return the index array that dictates the order to draw the model mesh. For use with IBOs </p><dl class="section return"><dt>Returns</dt><dd>GLuint* indices - pointer to the index array </dd></dl>
+
+<p>Return the index array that dictates the order to draw the model mesh. For use with IBOs. </p>
+<dl class="section return"><dt>Returns</dt><dd>GLuint* indices - pointer to the index array </dd></dl>
 
 </div>
 </div>
@@ -389,7 +361,9 @@ No normals are generated by default </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Return the normal array that corresponds to the model mesh. For use with VBOs </p><dl class="section return"><dt>Returns</dt><dd>GLfloat* normals - pointer to the normal array </dd></dl>
+
+<p>Return the normal array that corresponds to the model mesh. For use with VBOs. </p>
+<dl class="section return"><dt>Returns</dt><dd>GLfloat* normals - pointer to the normal array </dd></dl>
 
 </div>
 </div>
@@ -415,7 +389,9 @@ No normals are generated by default </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Return the number of indices to draw the model. This value corresponds to the size of the Indices array. </p><dl class="section return"><dt>Returns</dt><dd>GLuint numIndices - the number of indices when drawing the model </dd></dl>
+
+<p>Return the number of indices to draw the model. This value corresponds to the size of the Indices array. </p>
+<dl class="section return"><dt>Returns</dt><dd>GLuint numIndices - the number of indices when drawing the model </dd></dl>
 
 </div>
 </div>
@@ -441,7 +417,9 @@ No normals are generated by default </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Return the number of vertices the model is made up of. This value corresponds to the size of the Vertices, TexCoords, and Normals arrays. </p><dl class="section return"><dt>Returns</dt><dd>GLuint numVertices - the number of vertices within the model </dd></dl>
+
+<p>Return the number of vertices the model is made up of. This value corresponds to the size of the Vertices, TexCoords, and Normals arrays. </p>
+<dl class="section return"><dt>Returns</dt><dd>GLuint numVertices - the number of vertices within the model </dd></dl>
 
 </div>
 </div>
@@ -467,7 +445,9 @@ No normals are generated by default </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Return the texture coordinates array that corresponds to the model mesh. For use with VBOs </p><dl class="section return"><dt>Returns</dt><dd>GLfloat* texCoords - pointer to texture coordinate array </dd></dl>
+
+<p>Return the texture coordinates array that corresponds to the model mesh. For use with VBOs. </p>
+<dl class="section return"><dt>Returns</dt><dd>GLfloat* texCoords - pointer to texture coordinate array </dd></dl>
 
 </div>
 </div>
@@ -493,7 +473,9 @@ No normals are generated by default </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Return the vertex array that makes up the model mesh. For use with VBOs </p><dl class="section return"><dt>Returns</dt><dd>GLfloat* vertices - pointer to vertex array </dd></dl>
+
+<p>Return the vertex array that makes up the model mesh. For use with VBOs. </p>
+<dl class="section return"><dt>Returns</dt><dd>GLfloat* vertices - pointer to vertex array </dd></dl>
 
 </div>
 </div>
@@ -536,7 +518,9 @@ No normals are generated by default </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Loads a model from the given file </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Loads a model from the given file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">const</td><td>char* filename - file to load model from </td></tr>
     <tr><td class="paramname">bool</td><td>INFO - flag to control if informational messages should be displayed </td></tr>
@@ -587,7 +571,9 @@ No normals are generated by default </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@desc Enables VBO attribute array locations </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Enables VBO attribute array locations. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">GLint</td><td>positionLocation - attribute location of vertex position </td></tr>
     <tr><td class="paramname">GLint</td><td>normalLocation - attribute location of vertex normal </td></tr>

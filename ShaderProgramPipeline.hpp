@@ -8,49 +8,68 @@
  *	code that needs to be written.
  */
 
-#ifndef CSCI441_SHADERPROGRAMPIPELINE_H
-#define CSCI441_SHADERPROGRAMPIPELINE_H
+#ifndef CSCI441_SHADER_PROGRAM_PIPELINE_HPP
+#define CSCI441_SHADER_PROGRAM_PIPELINE_HPP
 
 #include "ShaderProgram.hpp"
 
-#include <stdlib.h>
+#include <cstdlib>
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/** @namespace CSCI441
-  * @brief CSCI441 Helper Functions for OpenGL
-	*/
 namespace CSCI441 {
 
-    /** @class ShaderProgramPipeline
-        * @desc Handles registration and compilation of Shader Program Pipelines
-        */
-    class ShaderProgramPipeline {
+    /**
+     * @class ShaderProgramPipeline
+     * @brief Handles registration and compilation of Shader Program Pipelines
+     */
+    class [[maybe_unused]] ShaderProgramPipeline final {
     public:
-        /** @desc Enables debug messages from Shader Program functions
-          *
-            * Enables debug messages from Shader Program functions.  Debug messages are on by default.
-          */
-        static void enableDebugMessages();
-        /** @desc Disables debug messages from Shader Program functions
-          *
-            * Disables debug messages from Shader Program functions.  Debug messages are on by default.
-          */
-        static void disableDebugMessages();
+        /**
+         * @brief Enables debug messages from Shader Program functions
+         * @note Debug messages are on by default.
+         */
+        [[maybe_unused]] static void enableDebugMessages();
+        /**
+         * @brief Disables debug messages from Shader Program functions
+         * @note Debug messages are on by default.
+         */
+        [[maybe_unused]] static void disableDebugMessages();
 
+        /**
+         * @brief creates a shader program pipeline by generating a
+         * shader program pipeline handle
+         */
         ShaderProgramPipeline();
+        /**
+         * @brief deletes a shader program pipeline by deleting the
+         * shader program pipeline handle
+         */
         ~ShaderProgramPipeline();
 
-        void useProgramStages( GLbitfield programStages, const ShaderProgram *shaderProgram );
+        /**
+         * @brief adds shader program stages to pipeline
+         * @param programStages stages shader program contains
+         * @param shaderProgram separable shader program to use within pipeline
+         * @note ShaderProgram must be separable
+         */
+        [[maybe_unused]] void useProgramStages( GLbitfield programStages, const ShaderProgram *shaderProgram ) const;
 
-        void bindPipeline();
+        /**
+         * @brief bind shader program pipeline
+         * @note unbinds any previously used shader programs
+         */
+        [[maybe_unused]] void bindPipeline() const;
 
-        void printPipelineInfo();
+        /**
+         * @brief prints shader program pipeline information to console
+         */
+        [[maybe_unused]] void printPipelineInfo() const;
 
     private:
         static bool sDEBUG;
 
-        GLuint _pipelineHandle;
+        GLuint _pipelineHandle{};
     };
 }
 
@@ -58,9 +77,12 @@ namespace CSCI441 {
 
 inline bool CSCI441::ShaderProgramPipeline::sDEBUG = true;
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgramPipeline::enableDebugMessages() {
     sDEBUG = true;
 }
+
+[[maybe_unused]]
 inline void CSCI441::ShaderProgramPipeline::disableDebugMessages() {
     sDEBUG = false;
 }
@@ -70,19 +92,22 @@ inline CSCI441::ShaderProgramPipeline::ShaderProgramPipeline() {
 }
 
 inline CSCI441::ShaderProgramPipeline::~ShaderProgramPipeline() {
-    
+    glDeleteProgramPipelines(1, &_pipelineHandle);
 }
 
-inline void CSCI441::ShaderProgramPipeline::useProgramStages( GLbitfield programStages, const ShaderProgram *shaderProgram ) {
+[[maybe_unused]]
+inline void CSCI441::ShaderProgramPipeline::useProgramStages( const GLbitfield programStages, const ShaderProgram * const shaderProgram ) const {
     glUseProgramStages( _pipelineHandle, programStages, shaderProgram->getShaderProgramHandle() );
 }
 
-inline void CSCI441::ShaderProgramPipeline::bindPipeline() {
+[[maybe_unused]]
+inline void CSCI441::ShaderProgramPipeline::bindPipeline() const {
     glUseProgram(0);    // unuse any existing program that may have previously been used.  programs override pipelines
     glBindProgramPipeline( _pipelineHandle );
 }
 
-inline void CSCI441::ShaderProgramPipeline::printPipelineInfo() {
+[[maybe_unused]]
+inline void CSCI441::ShaderProgramPipeline::printPipelineInfo() const {
     if( sDEBUG ) {
         printf( "\n[INFO]: /--------------------------------------------------------\\\n");
         printf( "[INFO]: | Program Pipeline:                                      |\n");
@@ -110,4 +135,4 @@ inline void CSCI441::ShaderProgramPipeline::printPipelineInfo() {
     }
 }
 
-#endif
+#endif// CSCI441_SHADER_PROGRAM_PIPELINE_HPP

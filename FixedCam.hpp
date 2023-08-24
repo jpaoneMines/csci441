@@ -1,6 +1,6 @@
 /**
  * @file FixedCam.hpp
- * @brief Includes all CSCI 441 class helper files
+ * @brief Concrete Fixed Camera implementation that can be position, oriented, and never moved
  * @author Dr. Jeffrey Paone
  *
  * @copyright MIT License Copyright (c) 2021 Dr. Jeffrey Paone
@@ -9,32 +9,35 @@
  * code that needs to be written.
  */
 
-#ifndef CSCI441_FIXED_CAMERA_HPP
-#define CSCI441_FIXED_CAMERA_HPP
+#ifndef CSCI441_FIXED_CAM_HPP
+#define CSCI441_FIXED_CAM_HPP
 
-#include <CSCI441/Camera.hpp>
+#include "Camera.hpp"
 
 namespace CSCI441 {
-    /// A camera that can be positioned and oriented but never moved or rotated.
-    /// \note Must position via setPosition()
-    /// \note Must orient via setLookAtPoint()
-    class FixedCam : public CSCI441::Camera {
+
+    /**
+     * @brief A camera that can be positioned and oriented but never moved or rotated
+     * @note Must position via setPosition()
+     * @note Must orient via setLookAtPoint()
+     */
+    class FixedCam final : public CSCI441::Camera {
     public:
-        /// does nothing
-        void recomputeOrientation() final;
-        /// does nothing
-        /// \param unused does nothing
-        void moveForward(GLfloat unused) final;
-        /// does nothing
-        /// \param unused does nothing
-        void moveBackward(GLfloat unused) final;
+        /**
+         * @brief does nothing
+         */
+        void recomputeOrientation() final {};
+        /**
+         * @brief does nothing
+         * @param unused does nothing
+         */
+        void moveForward(const GLfloat unused) final {};
+        /**
+         * @brief does nothing
+         * @param unused does nothing
+         */
+        void moveBackward(const GLfloat unused) final {};
     };
 }
 
-inline void CSCI441::FixedCam::recomputeOrientation() {}
-
-inline void CSCI441::FixedCam::moveForward(GLfloat unused) {}
-
-inline void CSCI441::FixedCam::moveBackward(GLfloat unused) {}
-
-#endif // CSCI441_FIXED_CAMERA_HPP
+#endif // CSCI441_FIXED_CAM_HPP
