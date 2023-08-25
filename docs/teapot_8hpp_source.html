@@ -106,10 +106,10 @@ $(function() {
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="comment">//************************************************************************************************</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="comment">//************************************************************************************************</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#define TEAPOT_NUMBER_PATCHES 28</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#define TEAPOT_PATCH_DIMENSION 3</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#define TEAPOT_RES_U 10</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#define TEAPOT_RES_V 10</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> TEAPOT_NUMBER_PATCHES = 28;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> TEAPOT_PATCH_DIMENSION = 3;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> TEAPOT_RES_U = 10;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> TEAPOT_RES_V = 10;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">inline</span> GLuint teapot_vao;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">inline</span> GLuint teapot_vbo, teapot_ibo;</div>
@@ -469,16 +469,16 @@ $(function() {
 <div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span> </div>
 <div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> teapot_build_teapot() {</div>
 <div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>        <span class="comment">// Vertices</span></div>
-<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> p = 0; p &lt; TEAPOT_NUMBER_PATCHES; p++) {</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> p = 0; p &lt; TEAPOT_NUMBER_PATCHES; p++) {</div>
 <div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>            <span class="keyword">auto</span> control_points_k = (Teapot_Vertex**)malloc(<span class="keyword">sizeof</span>(Teapot_Vertex*) * (TEAPOT_PATCH_DIMENSION + 1));</div>
-<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; TEAPOT_PATCH_DIMENSION + 1; i++)</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>            <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; TEAPOT_PATCH_DIMENSION + 1; i++)</div>
 <div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>                control_points_k[i] = (Teapot_Vertex*)malloc(<span class="keyword">sizeof</span>(Teapot_Vertex) * (TEAPOT_PATCH_DIMENSION + 1));</div>
 <div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span> </div>
 <div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>            teapot_build_control_points_k(p, control_points_k);</div>
 <div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span> </div>
-<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ru = 0; ru &lt;= TEAPOT_RES_U - 1; ru++) {</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ru = 0; ru &lt;= TEAPOT_RES_U - 1; ru++) {</div>
 <div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>                GLfloat u = 1.0f * (GLfloat) ru / (TEAPOT_RES_U - 1);</div>
-<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> rv = 0; rv &lt;= TEAPOT_RES_V - 1; rv++) {</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>                <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rv = 0; rv &lt;= TEAPOT_RES_V - 1; rv++) {</div>
 <div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>                    GLfloat v = 1.0f * (GLfloat) rv / (TEAPOT_RES_V - 1);</div>
 <div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>                    teapot_vertices[                    p * TEAPOT_RES_U * TEAPOT_RES_V                                       + ru * TEAPOT_RES_V + rv ] = teapot_compute_position(control_points_k, u, v);</div>
 <div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>                    teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V     + p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv ] = teapot_compute_normal(control_points_k, u, v);</div>
@@ -489,9 +489,9 @@ $(function() {
 <div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span> </div>
 <div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>        <span class="comment">// Elements</span></div>
 <div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>        <span class="keywordtype">int</span> n = 0;</div>
-<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> p = 0; p &lt; TEAPOT_NUMBER_PATCHES; p++)</div>
-<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ru = 0; ru &lt; TEAPOT_RES_U - 1; ru++)</div>
-<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> rv = 0; rv &lt; TEAPOT_RES_V - 1; rv++) {</div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> p = 0; p &lt; TEAPOT_NUMBER_PATCHES; p++)</div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ru = 0; ru &lt; TEAPOT_RES_U - 1; ru++)</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>                <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rv = 0; rv &lt; TEAPOT_RES_V - 1; rv++) {</div>
 <div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>                    <span class="comment">// 1 square ABCD = 2 triangles ABC + CDA</span></div>
 <div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>                    GLushort a = p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv      ;</div>
 <div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>                    GLushort b = p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + (rv + 1);</div>
@@ -510,16 +510,16 @@ $(function() {
 <div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>    }</div>
 <div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span> </div>
 <div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> teapot_build_control_points_k(<span class="keyword">const</span> <span class="keywordtype">int</span> p, Teapot_Vertex** <span class="keyword">const</span> control_points_k) {</div>
-<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt;= TEAPOT_PATCH_DIMENSION; i++)</div>
-<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt;= TEAPOT_PATCH_DIMENSION; j++)</div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt;= TEAPOT_PATCH_DIMENSION; i++)</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j = 0; j &lt;= TEAPOT_PATCH_DIMENSION; j++)</div>
 <div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span>                control_points_k[i][j] = teapot_cp_vertices[teapot_patches[p][i][j] - 1];</div>
 <div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>    }</div>
 <div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span> </div>
 <div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>    <span class="keyword">inline</span> Teapot_Vertex teapot_compute_position(Teapot_Vertex** <span class="keyword">const</span> control_points_k, <span class="keyword">const</span> GLfloat u, <span class="keyword">const</span> GLfloat v) {</div>
 <div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>        Teapot_Vertex position = {0.0f, 0.0f, 0.0f };</div>
-<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt;= TEAPOT_PATCH_DIMENSION; i++) {</div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt;= TEAPOT_PATCH_DIMENSION; i++) {</div>
 <div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>            GLfloat poly_i = teapot_bernstein_polynomial(i, TEAPOT_PATCH_DIMENSION, u);</div>
-<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt;= TEAPOT_PATCH_DIMENSION; j++) {</div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j = 0; j &lt;= TEAPOT_PATCH_DIMENSION; j++) {</div>
 <div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>                GLfloat poly_j = teapot_bernstein_polynomial(j, TEAPOT_PATCH_DIMENSION, v);</div>
 <div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>                position.x += poly_i * poly_j * control_points_k[i][j].x;</div>
 <div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>                position.y += poly_i * poly_j * control_points_k[i][j].y;</div>
@@ -532,9 +532,9 @@ $(function() {
 <div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span>    <span class="comment">// TODO compute normal based on partial derivatives of surface patch</span></div>
 <div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>    <span class="keyword">inline</span> Teapot_Vertex teapot_compute_normal(Teapot_Vertex** <span class="keyword">const</span> control_points_k, <span class="keyword">const</span> GLfloat u, <span class="keyword">const</span> GLfloat v) {</div>
 <div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span>        Teapot_Vertex normal = {0.0f, 0.0f, 0.0f };</div>
-<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt;= TEAPOT_PATCH_DIMENSION; i++) {</div>
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt;= TEAPOT_PATCH_DIMENSION; i++) {</div>
 <div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span>            GLfloat poly_i = teapot_bernstein_polynomial(i, TEAPOT_PATCH_DIMENSION, u);</div>
-<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt;= TEAPOT_PATCH_DIMENSION; j++) {</div>
+<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span>            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j = 0; j &lt;= TEAPOT_PATCH_DIMENSION; j++) {</div>
 <div class="line"><a id="l00478" name="l00478"></a><span class="lineno">  478</span>                GLfloat poly_j = teapot_bernstein_polynomial(j, TEAPOT_PATCH_DIMENSION, v);</div>
 <div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span>                normal.x += poly_i * poly_j * control_points_k[i][j].x;</div>
 <div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span>                normal.y += poly_i * poly_j * control_points_k[i][j].y;</div>

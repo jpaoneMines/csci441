@@ -267,36 +267,41 @@ namespace CSCI441 {
 
         /**
          * @brief Returns the binding point for the corresponding image uniform
-         * @param imageName
-         * @return
+         * @param imageName name of the image to get binding point for
+         * @return binding point for image
+         * @note Prints an error message to standard error stream if the image is not found
          */
-        GLint getImageBinding(const char* imageName) const;
+        [[maybe_unused]] GLint getImageBinding(const char* imageName) const;
 
         /**
          * @brief Returns the binding point for the corresponding shader storage block
-         * @param ssboName
-         * @return
+         * @param ssboName name of the shader storage block to get binding point for
+         * @return binding point for shader storage block
+         * @note Prints an error message to standard error stream if the shader storage block is not found
          */
-        GLint getShaderStorageBlockBinding(const char* ssboName) const;
+        [[maybe_unused]] GLint getShaderStorageBlockBinding(const char* ssboName) const;
 
         /**
          * @brief Returns the binding point for the corresponding atomic counter buffer
-         * @param atomicName
-         * @return
+         * @param atomicName name of the atomic counter buffer to get size for
+         * @return binding point of atomic counter buffer
+         * @note Prints an error message to standard error stream if the atomic counter is not found
          */
-        GLint getAtomicCounterBufferBinding(const char* atomicName) const;
+        [[maybe_unused]] GLint getAtomicCounterBufferBinding(const char* atomicName) const;
         /**
          * @brief Returns the offset into the buffer for the corresponding atomic counter buffer
-         * @param atomicName
-         * @return
+         * @param atomicName name of the atomic counter buffer to get size for
+         * @return offset of atomic counter buffer
+         * @note Prints an error message to standard error stream if the atomic counter is not found
          */
-        GLint getAtomicCounterBufferOffset(const char* atomicName) const;
+        [[maybe_unused]] GLint getAtomicCounterBufferOffset(const char* atomicName) const;
         /**
          * @brief Returns the full buffer size for the corresponding atomic counter buffer
-         * @param atomicName
-         * @return
+         * @param atomicName name of the atomic counter buffer to get size for
+         * @return size of atomic counter buffer
+         * @note Prints an error message to standard error stream if the atomic counter is not found
          */
-        GLint getAtomicCounterBufferSize(const char* atomicName) const;
+        [[maybe_unused]] GLint getAtomicCounterBufferSize(const char* atomicName) const;
 
         /**
          * @brief Returns the number of active uniforms in this shader program
