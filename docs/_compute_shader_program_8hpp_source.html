@@ -104,42 +104,42 @@ $(function() {
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">if</span>( sDEBUG ) printf( <span class="stringliteral">&quot;\n[INFO]: /--------------------------------------------------------\\\n&quot;</span>);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">if</span>( <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a7f391cfbedd306d3e5d9ae47ff01bc4c">sDEBUG</a> ) printf( <span class="stringliteral">&quot;\n[INFO]: /--------------------------------------------------------\\\n&quot;</span>);</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// compile each one of our shaders</span></div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">if</span>( strcmp( computeShaderFilename, <span class="stringliteral">&quot;&quot;</span> ) != 0 ) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">if</span>( sDEBUG ) printf( <span class="stringliteral">&quot;[INFO]: | Compute Shader: %38s |\n&quot;</span>, computeShaderFilename );</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">if</span>( <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a7f391cfbedd306d3e5d9ae47ff01bc4c">sDEBUG</a> ) printf( <span class="stringliteral">&quot;[INFO]: | Compute Shader: %38s |\n&quot;</span>, computeShaderFilename );</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        _computeShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader( computeShaderFilename, GL_COMPUTE_SHADER );</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        _computeShaderHandle = 0;</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    }</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="comment">// get a handle to a shader program</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    mShaderProgramHandle = glCreateProgram();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a> = glCreateProgram();</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="comment">// attach the computer fragment shader to the shader program</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">if</span>( _computeShaderHandle != 0 ) {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        glAttachShader(mShaderProgramHandle, _computeShaderHandle );</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        glAttachShader(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, _computeShaderHandle );</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="comment">// link all the programs together on the GPU</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    glLinkProgram(mShaderProgramHandle );</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    glLinkProgram(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a> );</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">if</span>( sDEBUG ) printf( <span class="stringliteral">&quot;[INFO]: | Shader Program: %41s&quot;</span>, <span class="stringliteral">&quot;|\n&quot;</span> );</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">if</span>( <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a7f391cfbedd306d3e5d9ae47ff01bc4c">sDEBUG</a> ) printf( <span class="stringliteral">&quot;[INFO]: | Shader Program: %41s&quot;</span>, <span class="stringliteral">&quot;|\n&quot;</span> );</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">// check the program log</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    CSCI441_INTERNAL::ShaderUtils::printProgramLog(mShaderProgramHandle );</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    CSCI441_INTERNAL::ShaderUtils::printProgramLog(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a> );</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="comment">// detach &amp; delete the vertex and fragment shaders to the shader program</span></div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">if</span>( _computeShaderHandle != 0 ) {</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        glDetachShader(mShaderProgramHandle, _computeShaderHandle );</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        glDetachShader(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, _computeShaderHandle );</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        glDeleteShader( _computeShaderHandle );</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="comment">// map uniforms</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    mpUniformLocationsMap = <span class="keyword">new</span> std::map&lt;std::string, GLint&gt;();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a2630cbd8ccf9c3c3b8d169e6d76d144c">mpUniformLocationsMap</a> = <span class="keyword">new</span> std::map&lt;std::string, GLint&gt;();</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    GLint numUniforms;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_UNIFORMS, &amp;numUniforms);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    glGetProgramiv(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_ACTIVE_UNIFORMS, &amp;numUniforms);</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">if</span>( numUniforms &gt; 0 ) {</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">for</span>(GLuint i = 0; i &lt; numUniforms; i++) {</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordtype">char</span> name[64];</div>
@@ -147,27 +147,27 @@ $(function() {
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            <span class="keywordtype">int</span> actual_length = 0;</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            <span class="keywordtype">int</span> size = 0;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            GLenum type;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            glGetActiveUniform(mShaderProgramHandle, i, max_length, &amp;actual_length, &amp;size, &amp;type, name );</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            glGetActiveUniform(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, i, max_length, &amp;actual_length, &amp;size, &amp;type, name );</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            GLint location = -1;</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            <span class="keywordflow">if</span>(size &gt; 1) {</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> j = 0; j &lt; size; j++) {</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                    <span class="keywordtype">char</span> long_name[64];</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                    sprintf(long_name, <span class="stringliteral">&quot;%s[%i]&quot;</span>, name, j);</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                    location = glGetUniformLocation(mShaderProgramHandle, long_name);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                    location = glGetUniformLocation(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, long_name);</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                }</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                location = glGetUniformLocation(mShaderProgramHandle, name);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                location = glGetUniformLocation(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, name);</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            }</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            mpUniformLocationsMap-&gt;emplace(name, location );</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a2630cbd8ccf9c3c3b8d169e6d76d144c">mpUniformLocationsMap</a>-&gt;emplace(name, location );</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        }</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    GLint linkStatus;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    glGetProgramiv(mShaderProgramHandle, GL_LINK_STATUS, &amp;linkStatus );</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    glGetProgramiv(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_LINK_STATUS, &amp;linkStatus );</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="comment">/* print shader info for uniforms &amp; attributes */</span></div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">if</span>(linkStatus == 1) {</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="comment">// print shader info for uniforms &amp; attributes</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(mShaderProgramHandle, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>,</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                                                              _computeShaderHandle != 0, <span class="keyword">true</span>);</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    }</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}</div>
@@ -183,6 +183,9 @@ $(function() {
 <div class="ttc" id="aclass_c_s_c_i441_1_1_compute_shader_program_html_a549bc6c5ca95c6817917ab1286503303"><div class="ttname"><a href="class_c_s_c_i441_1_1_compute_shader_program.html#a549bc6c5ca95c6817917ab1286503303">CSCI441::ComputeShaderProgram::ComputeShaderProgram</a></div><div class="ttdeci">ComputeShaderProgram(const char *computeShaderFilename)</div><div class="ttdoc">Creates a Compute Shader Program.</div><div class="ttdef"><b>Definition:</b> ComputeShaderProgram.hpp:48</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_compute_shader_program_html_a9343b72b40396f369da312af5de30ba3"><div class="ttname"><a href="class_c_s_c_i441_1_1_compute_shader_program.html#a9343b72b40396f369da312af5de30ba3">CSCI441::ComputeShaderProgram::dispatchWork</a></div><div class="ttdeci">void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ)</div><div class="ttdoc">dispatches work to the Compute Shader on the GPU</div><div class="ttdef"><b>Definition:</b> ComputeShaderProgram.hpp:127</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a></div><div class="ttdoc">Handles registration and compilation of Shaders.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:34</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a1ca04557dfe47741b5813c8a6a055b9e"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">CSCI441::ShaderProgram::mShaderProgramHandle</a></div><div class="ttdeci">GLuint mShaderProgramHandle</div><div class="ttdoc">handle to the shader program</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:809</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a2630cbd8ccf9c3c3b8d169e6d76d144c"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a2630cbd8ccf9c3c3b8d169e6d76d144c">CSCI441::ShaderProgram::mpUniformLocationsMap</a></div><div class="ttdeci">std::map&lt; std::string, GLint &gt; * mpUniformLocationsMap</div><div class="ttdoc">caches locations of uniform names within shader program</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:814</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a7f391cfbedd306d3e5d9ae47ff01bc4c"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a7f391cfbedd306d3e5d9ae47ff01bc4c">CSCI441::ShaderProgram::sDEBUG</a></div><div class="ttdeci">static bool sDEBUG</div><div class="ttdoc">if DEBUG information should be printed or not</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:783</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

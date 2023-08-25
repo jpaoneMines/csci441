@@ -44,7 +44,6 @@ namespace CSCI441 {
          */
         [[maybe_unused]] static void disableDebugMessages();
 
-
         /**
          * @brief Creates a Shader Program using a Vertex Shader and Fragment Shader
          * @param vertexShaderFilename name of the file corresponding to the vertex shader
@@ -64,168 +63,192 @@ namespace CSCI441 {
                        const char *fragmentShaderFilename,
                        bool isSeparable );
 
-        /** @brief Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader
-              *
-              * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
-              * @param const char* tesselationControlShaderFilename - name of the file corresponding to the tesselation control shader
-              * @param const char* tesselationEvaluationShaderFilename - name of the file corresponding to the tesselation evaluation shader
-              * @param const char* geometryShaderFilename - name of the file corresponding to the geometry shader
-              * @param const char* fragmentShaderFilename - name of the file corresponding to the fragment shader
-              */
-        ShaderProgram( const char *vertexShaderFilename,
-                       const char *tesselationControlShaderFilename,
-                       const char *tesselationEvaluationShaderFilename,
-                       const char *geometryShaderFilename,
-                       const char *fragmentShaderFilename );
-
-        /** @brief Creates a Shader Program using a Vertex Shader, Tesselation Shader, Geometry Shader, and Fragment Shader
-              *
-              * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
-              * @param const char* tesselationControlShaderFilename - name of the file corresponding to the tesselation control shader
-              * @param const char* tesselationEvaluationShaderFilename - name of the file corresponding to the tesselation evaluation shader
-              * @param const char* geometryShaderFilename - name of the file corresponding to the geometry shader
-              * @param const char* fragmentShaderFilename - name of the file corresponding to the fragment shader
-         * @param const bool isSeparable - if program is separable
-              */
-        ShaderProgram( const char *vertexShaderFilename,
-                       const char *tesselationControlShaderFilename,
-                       const char *tesselationEvaluationShaderFilename,
-                       const char *geometryShaderFilename,
-                       const char *fragmentShaderFilename,
-                       const bool isSeparable );
-
-        /** @brief Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader
-             *
-             * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
-             * @param const char* tesselationControlShaderFilename - name of the file corresponding to the tesselation control shader
-             * @param const char* tesselationEvaluationShaderFilename - name of the file corresponding to the tesselation evaluation shader
-             * @param const char* fragmentShaderFilename - name of the file corresponding to the fragment shader
-             */
-        ShaderProgram( const char *vertexShaderFilename,
-                       const char *tesselationControlShaderFilename,
-                       const char *tesselationEvaluationShaderFilename,
-                       const char *fragmentShaderFilename );
-
-        /** @brief Creates a Shader Program using a Vertex Shader, Tesselation Shader, and Fragment Shader
-             *
-             * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
-             * @param const char* tesselationControlShaderFilename - name of the file corresponding to the tesselation control shader
-             * @param const char* tesselationEvaluationShaderFilename - name of the file corresponding to the tesselation evaluation shader
-             * @param const char* fragmentShaderFilename - name of the file corresponding to the fragment shader
-             * @param const bool isSeparable - if program is separable
-             */
-        ShaderProgram( const char *vertexShaderFilename,
-                       const char *tesselationControlShaderFilename,
-                       const char *tesselationEvaluationShaderFilename,
-                       const char *fragmentShaderFilename,
-                       const bool isSeparable);
-
-        /** @brief Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader
-          *
-            * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
-            * @param const char* geometryShaderFilename - name of the file corresponding to the geometry shader
-            * @param const char* fragmentShaderFilename - name of the file corresponding to the fragment shader
-            */
-        ShaderProgram( const char *vertexShaderFilename,
-                       const char *geometryShaderFilename,
-                       const char *fragmentShaderFilename );
-
-        /** @brief Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader
-          *
-            * @param const char* vertexShaderFilename - name of the file corresponding to the vertex shader
-            * @param const char* geometryShaderFilename - name of the file corresponding to the geometry shader
-            * @param const char* fragmentShaderFilename - name of the file corresponding to the fragment shader
-             * @param const bool isSeparable - if program is separable
-            */
-        ShaderProgram( const char *vertexShaderFilename,
-                       const char *geometryShaderFilename,
-                       const char *fragmentShaderFilename,
-                       const bool isSeparable );
-
-        /** @brief Creates a Shader Program using any combination of shaders.  Intended to be used to create separable programs
-         * but can be used as an alternative to the above overloaded constructors to explicitly state which shaders are present.
-         *
-         * @param const char **shaderFilenames - an array of filenames corresponding to all the shaders.  size must be equal to
-         * the sum of true shaders present, with two for the tessellation shader
-         *
-         * @param const bool vertexPresent - if vertex shader is present
-         * @param const bool tessellationPresent - if tessellation shader is present
-         * @param const bool geometryPresent - if geometry shader is present
-         * @param const bool fragmentPresent - if fragment shader is present
-         * @param const bool isSeparable - if program is separable
+        /** @brief Creates a Shader Program using a Vertex Shader, Tessellation Shader, Geometry Shader, and Fragment Shader
+         * @param vertexShaderFilename name of the file corresponding to the vertex shader
+         * @param tessellationControlShaderFilename name of the file corresponding to the tessellation control shader
+         * @param tessellationEvaluationShaderFilename name of the file corresponding to the tessellation evaluation shader
+         * @param geometryShaderFilename name of the file corresponding to the geometry shader
+         * @param fragmentShaderFilename name of the file corresponding to the fragment shader
          */
-        ShaderProgram( const char **shaderFilenames,
-                       const bool vertexPresent, const bool tessellationPresent, const bool geometryPresent, const bool fragmentPresent,
-                       const bool isSeparable );
+        [[maybe_unused]]
+        ShaderProgram( const char *vertexShaderFilename,
+                       const char *tessellationControlShaderFilename,
+                       const char *tessellationEvaluationShaderFilename,
+                       const char *geometryShaderFilename,
+                       const char *fragmentShaderFilename );
 
-        /** @brief Clean up memory associated with the Shader Program
-             */
+        /**
+         * @brief Creates a Shader Program using a Vertex Shader, Tessellation Shader, Geometry Shader, and Fragment Shader
+         * @param vertexShaderFilename name of the file corresponding to the vertex shader
+         * @param tessellationControlShaderFilename name of the file corresponding to the tessellation control shader
+         * @param tessellationEvaluationShaderFilename name of the file corresponding to the tessellation evaluation shader
+         * @param geometryShaderFilename name of the file corresponding to the geometry shader
+         * @param fragmentShaderFilename name of the file corresponding to the fragment shader
+         * @param isSeparable if program is separable
+         */
+        [[maybe_unused]]
+        ShaderProgram( const char *vertexShaderFilename,
+                       const char *tessellationControlShaderFilename,
+                       const char *tessellationEvaluationShaderFilename,
+                       const char *geometryShaderFilename,
+                       const char *fragmentShaderFilename,
+                       bool isSeparable );
+
+        /**
+         * @brief Creates a Shader Program using a Vertex Shader, Tessellation Shader, and Fragment Shader
+         * @param vertexShaderFilename name of the file corresponding to the vertex shader
+         * @param tessellationControlShaderFilename name of the file corresponding to the tessellation control shader
+         * @param tessellationEvaluationShaderFilename name of the file corresponding to the tessellation evaluation shader
+         * @param fragmentShaderFilename name of the file corresponding to the fragment shader
+         */
+        [[maybe_unused]]
+        ShaderProgram( const char *vertexShaderFilename,
+                       const char *tessellationControlShaderFilename,
+                       const char *tessellationEvaluationShaderFilename,
+                       const char *fragmentShaderFilename );
+
+        /**
+         * @brief Creates a Shader Program using a Vertex Shader, Tessellation Shader, and Fragment Shader
+         * @param vertexShaderFilename name of the file corresponding to the vertex shader
+         * @param tessellationControlShaderFilename name of the file corresponding to the tessellation control shader
+         * @param tessellationEvaluationShaderFilename name of the file corresponding to the tessellation evaluation shader
+         * @param fragmentShaderFilename name of the file corresponding to the fragment shader
+         * @param isSeparable if program is separable
+         */
+        [[maybe_unused]]
+        ShaderProgram( const char *vertexShaderFilename,
+                       const char *tessellationControlShaderFilename,
+                       const char *tessellationEvaluationShaderFilename,
+                       const char *fragmentShaderFilename,
+                       bool isSeparable);
+
+        /**
+         * @brief Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader
+         * @param vertexShaderFilename name of the file corresponding to the vertex shader
+         * @param geometryShaderFilename name of the file corresponding to the geometry shader
+         * @param fragmentShaderFilename name of the file corresponding to the fragment shader
+         */
+        ShaderProgram( const char *vertexShaderFilename,
+                       const char *geometryShaderFilename,
+                       const char *fragmentShaderFilename );
+
+        /**
+         * @brief Creates a Shader Program using a Vertex Shader, Geometry Shader, and Fragment Shader
+         * @param vertexShaderFilename name of the file corresponding to the vertex shader
+         * @param geometryShaderFilename name of the file corresponding to the geometry shader
+         * @param fragmentShaderFilename name of the file corresponding to the fragment shader
+         * @param isSeparable if program is separable
+         */
+        [[maybe_unused]]
+        ShaderProgram( const char *vertexShaderFilename,
+                       const char *geometryShaderFilename,
+                       const char *fragmentShaderFilename,
+                       bool isSeparable );
+
+        /**
+         * @brief Creates a Shader Program using any combination of shaders.  Intended to be used to create separable programs
+         * but can be used as an alternative to the above overloaded constructors to explicitly state which shaders are present.
+         * @param shaderFilenames an array of filenames corresponding to all the shaders.  size must be equal to the sum of true shaders present, with two for the tessellation shader
+         * @param vertexPresent if vertex shader is present
+         * @param tessellationPresent if tessellation shader is present
+         * @param geometryPresent if geometry shader is present
+         * @param fragmentPresent if fragment shader is present
+         * @param isSeparable if program is separable
+         */
+        [[maybe_unused]]
+        ShaderProgram( const char **shaderFilenames,
+                       bool vertexPresent, bool tessellationPresent, bool geometryPresent, bool fragmentPresent,
+                       bool isSeparable );
+
+        /**
+         * @brief Clean up memory associated with the Shader Program
+         */
         ~ShaderProgram();
 
-        bool writeShaderProgramBinaryToFile(const char* BINARY_FILE_NAME);
+        /**
+         * @brief writes precompiled shader program binary to external file
+         * @param BINARY_FILE_NAME filename to write shader program binary to
+         * @return true if write succeeded, false otherwise
+         */
+        bool writeShaderProgramBinaryToFile(const char* BINARY_FILE_NAME) const;
 
+        /**
+         * @brief loads precompiled shader program binary from external file
+         * @param BINARY_FILE_NAME filename to read shader program binary from
+         * @param format format of binary data
+         * @return true if read succeeded, false otherwise
+         */
         static ShaderProgram* loadShaderProgramFromBinaryFile(const char* BINARY_FILE_NAME, GLenum format);
 
-        /** @brief Returns the location of the given uniform in this shader program
-          * @note Prints an error message to standard error stream if the uniform is not found
-            * @param const char* uniformName - name of the uniform to get the location for
-          * @return GLint - location of the given uniform in this shader program
-          */
+        /**
+         * @brief Returns the location of the given uniform in this shader program
+         * @param uniformName name of the uniform to get the location for
+         * @return location of the given uniform in this shader program
+         * @note Prints an error message to standard error stream if the uniform is not found
+         */
         GLint getUniformLocation( const char *uniformName ) const;
 
-        /** @brief Returns the index of the given uniform block in this shader program
-          * @note Prints an error message to standard error stream if the uniform block is not found
-            * @param const char* uniformBlockName - name of the uniform block to get the index for
-          * @return GLint - index of the given uniform block in this shader program
-          */
+        /**
+         * @brief Returns the index of the given uniform block in this shader program
+         * @param uniformBlockName name of the uniform block to get the index for
+         * @return index of the given uniform block in this shader program
+         * @note Prints an error message to standard error stream if the uniform block is not found
+         */
         GLint getUniformBlockIndex( const char *uniformBlockName ) const;
-        /** @brief Returns the size of the given uniform block in this shader program
-          * @note Prints an error message to standard error stream if the uniform block is not found
-            * @param const char* uniformBlockName - name of the uniform block to get the size for
-          * @return GLint - size of the given uniform block in this shader program
-          */
+        /**
+         * @brief Returns the size of the given uniform block in this shader program
+         * @param uniformBlockName - name of the uniform block to get the size for
+         * @return size of the given uniform block in this shader program
+         * @note Prints an error message to standard error stream if the uniform block is not found
+         */
         GLint getUniformBlockSize( const char *uniformBlockName ) const;
-        /** @brief Returns an allocated buffer for the given uniform block in this shader program
-          * @note Prints an error message to standard error stream if the uniform block is not found
-            * @param const char* uniformBlockName - name of the uniform block to allocate a buffer for
-          * @return GLubyte* - allocated buffer for the given uniform block in this shader program
-          */
-        GLubyte* getUniformBlockBuffer( const char *uniformBlockName ) const;
-        /** @brief Returns an array of offsets into the buffer for the given uniform block in this shader program
-          * @note Prints an error message to standard error stream if the uniform block is not found
-            * @param const char* uniformBlockName - name of the uniform block to return offsets for
-          * @return GLint* - array of offsets for the given uniform block in this shader program
-          */
-        GLint* getUniformBlockOffsets( const char *uniformBlockName ) const;
-        /** @brief Returns an array of offsets into the buffer for the given uniform block and names in this shader program
-          * @note Prints an error message to standard error stream if the uniform block is not found
-            * @param const char* uniformBlockName - name of the uniform block to return offsets for
-            * @param const char* names[] - names of the uniform block components to get offsets for
-          * @return GLint* - array of offsets for the given uniform block in this shader program
-          */
-        GLint* getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) const;
-        /** @brief Set the binding point for the given uniform block in this shader program
-          * @note Prints an error message to standard error stream if the uniform block is not found
-            * @param const char* uniformBlockName - name of the uniform block to bind
-            * @param GLuint binding               - binding point for this uniform block
-          */
+        /**
+         * @brief Returns an allocated buffer for the given uniform block in this shader program
+         * @param uniformBlockName name of the uniform block to allocate a buffer for
+         * @return allocated buffer for the given uniform block in this shader program
+         * @note Prints an error message to standard error stream if the uniform block is not found
+         */
+        [[maybe_unused]] GLubyte* getUniformBlockBuffer( const char *uniformBlockName ) const;
+        /**
+         * @brief Returns an array of offsets into the buffer for the given uniform block in this shader program
+         * @param uniformBlockName name of the uniform block to return offsets for
+         * @return array of offsets for the given uniform block in this shader program
+         * @note Prints an error message to standard error stream if the uniform block is not found
+         */
+        [[maybe_unused]] GLint* getUniformBlockOffsets( const char *uniformBlockName ) const;
+        /**
+         * @brief Returns an array of offsets into the buffer for the given uniform block and names in this shader program
+         * @param uniformBlockName name of the uniform block to return offsets for
+         * @param names names of the uniform block components to get offsets for
+         * @return array of offsets for the given uniform block in this shader program
+         * @note Prints an error message to standard error stream if the uniform block is not found
+         */
+        [[maybe_unused]] GLint* getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) const;
+        /**
+         * @brief Set the binding point for the given uniform block in this shader program
+         * @param uniformBlockName name of the uniform block to bind
+         * @param binding point for this uniform block
+         * @note Prints an error message to standard error stream if the uniform block is not found
+         */
         void setUniformBlockBinding( const char *uniformBlockName, GLuint binding ) const;
 
-        /** @brief Returns the location of the given attribute in this shader program
-          * @note Prints an error message to standard error stream if the attribute is not found
-          * @param const char* attributeName - name of the attribute to get the location for
-          * @return GLint - location of the given attribute in this shader program
-          */
-        GLint getAttributeLocation( const char *attributeName ) const;
+        /**
+         * @brief Returns the location of the given attribute in this shader program
+         * @param attributeName name of the attribute to get the location for
+         * @return location of the given attribute in this shader program
+         * @note Prints an error message to standard error stream if the attribute is not found
+         */
+        [[maybe_unused]] GLint getAttributeLocation( const char *attributeName ) const;
 
-        /** @brief Returns the index of the given subroutine for a shader stage in this shader program
-          * @note Prints an error message to standard error stream if the subroutine is not found
-            * @param GLenum shaderStage         - stage of the shader program to get the subroutine for.
-            *   Allowable values: GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, GL_FRAGMENT_SHADER
-            * @param const char* subroutineName - name of the subroutine to get the location for
-          * @return GLuint - index of the given subroutine for the shader stage in this shader program
-          */
-        GLuint getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) const;
+        /**
+         * @brief Returns the index of the given subroutine for a shader stage in this shader program
+         * @param shaderStage stage of the shader program to get the subroutine for.
+         *   Allowable values: GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, GL_FRAGMENT_SHADER
+         * @param subroutineName name of the subroutine to get the location for
+         * @return index of the given subroutine for the shader stage in this shader program
+         * @note Prints an error message to standard error stream if the subroutine is not found
+         */
+        [[maybe_unused]] GLuint getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) const;
 
         /**
          * @brief Returns the binding point for the corresponding image uniform
@@ -260,47 +283,128 @@ namespace CSCI441 {
          */
         GLint getAtomicCounterBufferSize(const char* atomicName) const;
 
-        /** @brief Returns the number of active uniforms in this shader program
-          * @return GLuint - number of active uniforms in this shader program
-          */
-        [[nodiscard]] GLuint getNumUniforms() const;
-        /** @brief Returns the number of active uniform blocks in this shader program
-          * @return GLuint - number of active uniform blocks in this shader program
-          */
-        [[nodiscard]] GLuint getNumUniformBlocks() const;
-        /** @brief Returns the number of active attributes in this shader program
-          * @return GLuint - number of active attributes in this shader program
-          */
-        [[nodiscard]] GLuint getNumAttributes() const;
+        /**
+         * @brief Returns the number of active uniforms in this shader program
+         * @return number of active uniforms in this shader program
+         */
+        [[maybe_unused]] [[nodiscard]] GLuint getNumUniforms() const;
+        /**
+         * @brief Returns the number of active uniform blocks in this shader program
+         * @return number of active uniform blocks in this shader program
+         */
+        [[maybe_unused]] [[nodiscard]] GLuint getNumUniformBlocks() const;
+        /**
+         * @brief Returns the number of active attributes in this shader program
+         * @return number of active attributes in this shader program
+         */
+        [[maybe_unused]] [[nodiscard]] GLuint getNumAttributes() const;
 
-        /** @brief Returns the handle for this shader program
-          * @return GLuint - handle for this shader program
-          */
+        /**
+         * @brief Returns the handle for this shader program
+         * @return handle for this shader program
+         */
         [[nodiscard]] GLuint getShaderProgramHandle() const;
 
-        /** @brief Sets the Shader Program to be active
-          */
-        void useProgram() const;
+        /**
+         * @brief Sets the Shader Program to be active
+         */
+        [[maybe_unused]] void useProgram() const;
 
         /**
          * @brief sets the program uniform consisting of one float
          * @param uniformName name of the uniform as a string
          * @param v0 value to set
          */
-        void setProgramUniform(const char* uniformName, GLfloat v0) const;
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLfloat v0) const;
+        /**
+         * @brief sets the program uniform consisting of one integer
+         * @param uniformName name of the uniform as a string
+         * @param v0 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLint v0) const;
+        /**
+         * @brief sets the program uniform consisting of one unsigned integer
+         * @param uniformName name of the uniform as a string
+         * @param v0 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint v0) const;
+        /**
+         * @brief sets the program uniform consisting of one 2x2 matrix
+         * @param uniformName name of the uniform as a string
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat2 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 3x3 matrix
+         * @param uniformName name of the uniform as a string
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat3 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 4x4 matrix
+         * @param uniformName name of the uniform as a string
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat4 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 2x3 matrix
+         * @param uniformName name of the uniform as a string
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat2x3 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 3x2 matrix
+         * @param uniformName name of the uniform as a string
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat3x2 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 2x4 matrix
+         * @param uniformName name of the uniform as a string
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat2x4 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 4x2 matrix
+         * @param uniformName name of the uniform as a string
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat4x2 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 3x4 matrix
+         * @param uniformName name of the uniform as a string
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat3x4 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 4x3 matrix
+         * @param uniformName name of the uniform as a string
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat4x3 mtx) const;
+
         /**
          * @brief sets the program uniform consisting of two floats
          * @param uniformName name of the uniform as a string
          * @param v0 value to set
          * @param v1 value to set
          */
-        void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1) const;
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1) const;
         /**
-         * @brief sets the program uniform consisting of two floats
+         * @brief sets the program uniform consisting of two integers
          * @param uniformName name of the uniform as a string
-         * @param value value to set
+         * @param v0 value to set
+         * @param v1 value to set
          */
-        void setProgramUniform(const char* uniformName, glm::vec2 value) const;
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLint v0, GLint v1) const;
+        /**
+         * @brief sets the program uniform consisting of two unsigned integers
+         * @param uniformName name of the uniform as a string
+         * @param v0 value to set
+         * @param v1 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1) const;
+
         /**
          * @brief sets the program uniform consisting of three floats
          * @param uniformName name of the uniform as a string
@@ -308,13 +412,24 @@ namespace CSCI441 {
          * @param v1 value to set
          * @param v2 value to set
          */
-        void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2) const;
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2) const;
         /**
-         * @brief sets the program uniform consisting of three floats
+         * @brief sets the program uniform consisting of three integers
          * @param uniformName name of the uniform as a string
-         * @param value value to set
+         * @param v0 value to set
+         * @param v1 value to set
+         * @param v2 value to set
          */
-        void setProgramUniform(const char* uniformName, glm::vec3 value) const;
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2) const;
+        /**
+         * @brief sets the program uniform consisting of three unsigned integers
+         * @param uniformName name of the uniform as a string
+         * @param v0 value to set
+         * @param v1 value to set
+         * @param v2 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2) const;
+
         /**
          * @brief sets the program uniform consisting of four floats
          * @param uniformName name of the uniform as a string
@@ -323,13 +438,83 @@ namespace CSCI441 {
          * @param v2 value to set
          * @param v3 value to set
          */
-        void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const;
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const;
+        /**
+         * @brief sets the program uniform consisting of four integers
+         * @param uniformName name of the uniform as a string
+         * @param v0 value to set
+         * @param v1 value to set
+         * @param v2 value to set
+         * @param v3 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2, GLint v3) const;
+        /**
+         * @brief sets the program uniform consisting of four unsigned integers
+         * @param uniformName name of the uniform as a string
+         * @param v0 value to set
+         * @param v1 value to set
+         * @param v2 value to set
+         * @param v3 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3) const;
+
+        /**
+         * @brief sets the program uniform consisting of two floats
+         * @param uniformName name of the uniform as a string
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::vec2 value) const;
+        /**
+         * @brief sets the program uniform consisting of two integers
+         * @param uniformName name of the uniform as a string
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::ivec2 value) const;
+        /**
+         * @brief sets the program uniform consisting of two unsigned integers
+         * @param uniformName name of the uniform as a string
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::uvec2 value) const;
+
+        /**
+         * @brief sets the program uniform consisting of three floats
+         * @param uniformName name of the uniform as a string
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::vec3 value) const;
+        /**
+         * @brief sets the program uniform consisting of three integers
+         * @param uniformName name of the uniform as a string
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::ivec3 value) const;
+        /**
+         * @brief sets the program uniform consisting of three unsigned integers
+         * @param uniformName name of the uniform as a string
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::uvec3 value) const;
+
         /**
          * @brief sets the program uniform consisting of four floats
          * @param uniformName name of the uniform as a string
          * @param value value to set
          */
-        void setProgramUniform(const char* uniformName, glm::vec4 value) const;
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::vec4 value) const;
+        /**
+         * @brief sets the program uniform consisting of four integers
+         * @param uniformName name of the uniform as a string
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::ivec4 value) const;
+        /**
+         * @brief sets the program uniform consisting of four unsigned integers
+         * @param uniformName name of the uniform as a string
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::uvec4 value) const;
+
         /**
          * @brief sets the program uniform consisting of floats
          * @param uniformName name of the uniform as a string
@@ -337,89 +522,317 @@ namespace CSCI441 {
          * @param count number of values in array
          * @param value array of values (array size is equal to dim*count)
          */
-        void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) const;
-        void setProgramUniform(const char* uniformName, GLint v0) const;
-        void setProgramUniform(const char* uniformName, GLint v0, GLint v1) const;
-        void setProgramUniform(const char* uniformName, glm::ivec2 value) const;
-        void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2) const;
-        void setProgramUniform(const char* uniformName, glm::ivec3 value) const;
-        void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2, GLint v3) const;
-        void setProgramUniform(const char* uniformName, glm::ivec4 value) const;
-        void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value) const;
-        void setProgramUniform(const char* uniformName, GLuint v0) const;
-        void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1) const;
-        void setProgramUniform(const char* uniformName, glm::uvec2 value) const;
-        void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2) const;
-        void setProgramUniform(const char* uniformName, glm::uvec3 value) const;
-        void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3) const;
-        void setProgramUniform(const char* uniformName, glm::uvec4 value) const;
-        void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value) const;
-        void setProgramUniform(const char* uniformName, glm::mat2 mtx) const;
-        void setProgramUniform(const char* uniformName, glm::mat3 mtx) const;
-        void setProgramUniform(const char* uniformName, glm::mat4 mtx) const;
-        void setProgramUniform(const char* uniformName, glm::mat2x3 mtx) const;
-        void setProgramUniform(const char* uniformName, glm::mat3x2 mtx) const;
-        void setProgramUniform(const char* uniformName, glm::mat2x4 mtx) const;
-        void setProgramUniform(const char* uniformName, glm::mat4x2 mtx) const;
-        void setProgramUniform(const char* uniformName, glm::mat3x4 mtx) const;
-        void setProgramUniform(const char* uniformName, glm::mat4x3 mtx) const;
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) const;
+        /**
+         * @brief sets the program uniform consisting of integers
+         * @param uniformName name of the uniform as a string
+         * @param dim dimension (number of components) for each value
+         * @param count number of values in array
+         * @param value array of values (array size is equal to dim*count)
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value) const;
+        /**
+         * @brief sets the program uniform consisting of unsigned integers
+         * @param uniformName name of the uniform as a string
+         * @param dim dimension (number of components) for each value
+         * @param count number of values in array
+         * @param value array of values (array size is equal to dim*count)
+         */
+        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value) const;
 
-        void setProgramUniform(GLint uniformLocation, GLfloat v0) const;
-        void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1) const;
-        void setProgramUniform(GLint uniformLocation, glm::vec2 value) const;
-        void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2) const;
-        void setProgramUniform(GLint uniformLocation, glm::vec3 value) const;
-        void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const;
-        void setProgramUniform(GLint uniformLocation, glm::vec4 value) const;
+        /**
+         * @brief sets the program uniform consisting of one float
+         * @param uniformLocation location of the uniform
+         * @param v0 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLfloat v0) const;
+        /**
+         * @brief sets the program uniform consisting of one integer
+         * @param uniformLocation location of the uniform
+         * @param v0 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLint v0) const;
+        /**
+         * @brief sets the program uniform consisting of one unsigned integer
+         * @param uniformLocation location of the uniform
+         * @param v0 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLuint v0) const;
+        /**
+         * @brief sets the program uniform consisting of one 2x2 matrix
+         * @param uniformLocation location of the uniform
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat2 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 3x3 matrix
+         * @param uniformLocation location of the uniform
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat3 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 4x4 matrix
+         * @param uniformLocation location of the uniform
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat4 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 2x3 matrix
+         * @param uniformLocation location of the uniform
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat2x3 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 3x2 matrix
+         * @param uniformLocation location of the uniform
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat3x2 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 2x4 matrix
+         * @param uniformLocation location of the uniform
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat2x4 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 4x2 matrix
+         * @param uniformLocation location of the uniform
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat4x2 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 3x4 matrix
+         * @param uniformLocation location of the uniform
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat3x4 mtx) const;
+        /**
+         * @brief sets the program uniform consisting of one 4x3 matrix
+         * @param uniformLocation location of the uniform
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat4x3 mtx) const;
+
+        /**
+         * @brief sets the program uniform consisting of two floats
+         * @param uniformLocation location of the uniform
+         * @param v0 value to set
+         * @param v1 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1) const;
+        /**
+         * @brief sets the program uniform consisting of two integers
+         * @param uniformLocation location of the uniform
+         * @param v0 value to set
+         * @param v1 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1) const;
+        /**
+         * @brief sets the program uniform consisting of two unsigned integers
+         * @param uniformLocation location of the uniform
+         * @param v0 value to set
+         * @param v1 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1) const;
+
+        /**
+         * @brief sets the program uniform consisting of three floats
+         * @param uniformLocation location of the uniform
+         * @param v0 value to set
+         * @param v1 value to set
+         * @param v2 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2) const;
+        /**
+         * @brief sets the program uniform consisting of three integers
+         * @param uniformLocation location of the uniform
+         * @param v0 value to set
+         * @param v1 value to set
+         * @param v2 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2) const;
+        /**
+         * @brief sets the program uniform consisting of three unsigned integers
+         * @param uniformLocation location of the uniform
+         * @param v0 value to set
+         * @param v1 value to set
+         * @param v2 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2) const;
+
+        /**
+         * @brief sets the program uniform consisting of four floats
+         * @param uniformLocation location of the uniform
+         * @param v0 value to set
+         * @param v1 value to set
+         * @param v2 value to set
+         * @param v3 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const;
+        /**
+         * @brief sets the program uniform consisting of four integers
+         * @param uniformLocation location of the uniform
+         * @param v0 value to set
+         * @param v1 value to set
+         * @param v2 value to set
+         * @param v3 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3) const;
+        /**
+         * @brief sets the program uniform consisting of four unsigned integers
+         * @param uniformLocation location of the uniform
+         * @param v0 value to set
+         * @param v1 value to set
+         * @param v2 value to set
+         * @param v3 value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3) const;
+
+        /**
+         * @brief sets the program uniform consisting of two floats
+         * @param uniformLocation location of the uniform
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::vec2 value) const;
+        /**
+         * @brief sets the program uniform consisting of two integers
+         * @param uniformLocation location of the uniform
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::ivec2 value) const;
+        /**
+         * @brief sets the program uniform consisting of two unsigned integers
+         * @param uniformLocation location of the uniform
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::uvec2 value) const;
+
+        /**
+         * @brief sets the program uniform consisting of three floats
+         * @param uniformLocation location of the uniform
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::vec3 value) const;
+        /**
+         * @brief sets the program uniform consisting of three integers
+         * @param uniformLocation location of the uniform
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::ivec3 value) const;
+        /**
+         * @brief sets the program uniform consisting of three unsigned integers
+         * @param uniformLocation location of the uniform
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::uvec3 value) const;
+
+        /**
+         * @brief sets the program uniform consisting of four floats
+         * @param uniformLocation location of the uniform
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::vec4 value) const;
+        /**
+         * @brief sets the program uniform consisting of four integers
+         * @param uniformLocation location of the uniform
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::ivec4 value) const;
+        /**
+         * @brief sets the program uniform consisting of four unsigned integers
+         * @param uniformLocation location of the uniform
+         * @param value value to set
+         */
+        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::uvec4 value) const;
+
+        /**
+         * @brief sets the program uniform consisting of floats
+         * @param uniformLocation location of the uniform
+         * @param dim dimension (number of components) for each value
+         * @param count number of values in array
+         * @param value array of values (array size is equal to dim*count)
+         */
         void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value) const;
-        void setProgramUniform(GLint uniformLocation, GLint v0) const;
-        void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1) const;
-        void setProgramUniform(GLint uniformLocation, glm::ivec2 value) const;
-        void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2) const;
-        void setProgramUniform(GLint uniformLocation, glm::ivec3 value) const;
-        void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3) const;
-        void setProgramUniform(GLint uniformLocation, glm::ivec4 value) const;
+        /**
+         * @brief sets the program uniform consisting of integers
+         * @param uniformLocation location of the uniform
+         * @param dim dimension (number of components) for each value
+         * @param count number of values in array
+         * @param value array of values (array size is equal to dim*count)
+         */
         void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value) const;
-        void setProgramUniform(GLint uniformLocation, GLuint v0) const;
-        void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1) const;
-        void setProgramUniform(GLint uniformLocation, glm::uvec2 value) const;
-        void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2) const;
-        void setProgramUniform(GLint uniformLocation, glm::uvec3 value) const;
-        void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3) const;
-        void setProgramUniform(GLint uniformLocation, glm::uvec4 value) const;
+        /**
+         * @brief sets the program uniform consisting of unsigned integers
+         * @param uniformLocation location of the uniform
+         * @param dim dimension (number of components) for each value
+         * @param count number of values in array
+         * @param value array of values (array size is equal to dim*count)
+         */
         void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) const;
-        void setProgramUniform(GLint uniformLocation, glm::mat2 mtx) const;
-        void setProgramUniform(GLint uniformLocation, glm::mat3 mtx) const;
-        void setProgramUniform(GLint uniformLocation, glm::mat4 mtx) const;
-        void setProgramUniform(GLint uniformLocation, glm::mat2x3 mtx) const;
-        void setProgramUniform(GLint uniformLocation, glm::mat3x2 mtx) const;
-        void setProgramUniform(GLint uniformLocation, glm::mat2x4 mtx) const;
-        void setProgramUniform(GLint uniformLocation, glm::mat4x2 mtx) const;
-        void setProgramUniform(GLint uniformLocation, glm::mat3x4 mtx) const;
-        void setProgramUniform(GLint uniformLocation, glm::mat4x3 mtx) const;
 
     protected:
+        /**
+         * @brief creates an empty shader program object
+         */
         ShaderProgram();
 
+        /**
+         * @brief if DEBUG information should be printed or not
+         * @note defaults to true
+         */
         static bool sDEBUG;
 
+        /**
+         * @brief handle to the vertex shader stage
+         */
         GLuint mVertexShaderHandle;
-        GLuint mTesselationControlShaderHandle;
-        GLuint mTesselationEvaluationShaderHandle;
+        /**
+         * @brief handle to the tessellation control shader stage
+         */
+        GLuint mTessellationControlShaderHandle;
+        /**
+         * @brief handle to the tessellation evaluation shader stage
+         */
+        GLuint mTessellationEvaluationShaderHandle;
+        /**
+         * @brief handle to the geometry shader stage
+         */
         GLuint mGeometryShaderHandle;
+        /**
+         * @brief handle to the fragment shader stage
+         */
         GLuint mFragmentShaderHandle;
 
+        /**
+         * @brief handle to the shader program
+         */
         GLuint mShaderProgramHandle;
 
+        /**
+         * @brief caches locations of uniform names within shader program
+         */
         std::map<std::string, GLint> *mpUniformLocationsMap;
+        /**
+         * @brief caches locations of attribute names within shader program
+         */
         std::map<std::string, GLint> *mpAttributeLocationsMap;
 
+        /**
+         * @brief registers a shader program with the GPU
+         * @param vertexShaderFilename vertex shader filename to load from text file
+         * @param tessellationControlShaderFilename tessellation control shader filename to load from text file
+         * @param tessellationEvaluationShaderFilename tessellation evaluation shader filename to load from text file
+         * @param geometryShaderFilename geometry shader filename to load from text file
+         * @param fragmentShaderFilename fragment shader filename to load from text file
+         * @param isSeparable if shader program is separable
+         * @return true if shader program handle could be created, false otherwise
+         */
         bool mRegisterShaderProgram(const char *vertexShaderFilename,
-                                    const char *tesselationControlShaderFilename,
-                                    const char *tesselationEvaluationShaderFilename,
+                                    const char *tessellationControlShaderFilename,
+                                    const char *tessellationEvaluationShaderFilename,
                                     const char *geometryShaderFilename,
                                     const char *fragmentShaderFilename,
-                                    const bool isSeparable );
+                                    bool isSeparable );
 
         [[nodiscard]] GLint* mGetUniformBlockOffsets(GLint uniformBlockIndex ) const;
         [[nodiscard]] GLint* mGetUniformBlockOffsets(GLint uniformBlockIndex, const char *names[] ) const;
@@ -434,9 +847,12 @@ namespace CSCI441 {
 
 inline bool CSCI441::ShaderProgram::sDEBUG = true;
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::enableDebugMessages() {
     sDEBUG = true;
 }
+
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::disableDebugMessages() {
     sDEBUG = false;
 }
@@ -446,32 +862,37 @@ inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, 
     mRegisterShaderProgram(vertexShaderFilename, "", "", "", fragmentShaderFilename, false);
 }
 
+[[maybe_unused]]
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *fragmentShaderFilename, const bool isSeparable ) {
     _initialize();
     mRegisterShaderProgram(vertexShaderFilename, "", "", "", fragmentShaderFilename, isSeparable);
 }
 
-inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename ) {
+[[maybe_unused]]
+inline CSCI441::ShaderProgram::ShaderProgram(const char *vertexShaderFilename, const char *tessellationControlShaderFilename, const char *tessellationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename ) {
     _initialize();
-    mRegisterShaderProgram(vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename,
+    mRegisterShaderProgram(vertexShaderFilename, tessellationControlShaderFilename, tessellationEvaluationShaderFilename,
                            geometryShaderFilename, fragmentShaderFilename, false);
 }
 
-inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
+[[maybe_unused]]
+inline CSCI441::ShaderProgram::ShaderProgram(const char *vertexShaderFilename, const char *tessellationControlShaderFilename, const char *tessellationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
     _initialize();
-    mRegisterShaderProgram(vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename,
+    mRegisterShaderProgram(vertexShaderFilename, tessellationControlShaderFilename, tessellationEvaluationShaderFilename,
                            geometryShaderFilename, fragmentShaderFilename, isSeparable);
 }
 
-inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename ) {
+[[maybe_unused]]
+inline CSCI441::ShaderProgram::ShaderProgram(const char *vertexShaderFilename, const char *tessellationControlShaderFilename, const char *tessellationEvaluationShaderFilename, const char *fragmentShaderFilename ) {
     _initialize();
-    mRegisterShaderProgram(vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename,
+    mRegisterShaderProgram(vertexShaderFilename, tessellationControlShaderFilename, tessellationEvaluationShaderFilename,
                            "", fragmentShaderFilename, false);
 }
 
-inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
+[[maybe_unused]]
+inline CSCI441::ShaderProgram::ShaderProgram(const char *vertexShaderFilename, const char *tessellationControlShaderFilename, const char *tessellationEvaluationShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
     _initialize();
-    mRegisterShaderProgram(vertexShaderFilename, tesselationControlShaderFilename, tesselationEvaluationShaderFilename,
+    mRegisterShaderProgram(vertexShaderFilename, tessellationControlShaderFilename, tessellationEvaluationShaderFilename,
                            "", fragmentShaderFilename, isSeparable);
 }
 
@@ -480,11 +901,13 @@ inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, 
     mRegisterShaderProgram(vertexShaderFilename, "", "", geometryShaderFilename, fragmentShaderFilename, false);
 }
 
+[[maybe_unused]]
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable  ) {
     _initialize();
     mRegisterShaderProgram(vertexShaderFilename, "", "", geometryShaderFilename, fragmentShaderFilename, isSeparable);
 }
 
+[[maybe_unused]]
 inline CSCI441::ShaderProgram::ShaderProgram( const char **shaderFilenames,
                                        const bool vertexPresent, const bool tessellationPresent, const bool geometryPresent, const bool fragmentPresent,
                                        const bool isSeparable ) {
@@ -574,7 +997,7 @@ inline CSCI441::ShaderProgram::ShaderProgram( const char **shaderFilenames,
     }
 }
 
-inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexShaderFilename, const char *tesselationControlShaderFilename, const char *tesselationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, const bool isSeparable ) {
+inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexShaderFilename, const char *tessellationControlShaderFilename, const char *tessellationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, const bool isSeparable ) {
     GLint major, minor;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
@@ -589,28 +1012,28 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexSha
         mVertexShaderHandle = 0;
     }
 
-    if( strcmp( tesselationControlShaderFilename, "" ) != 0 ) {
-        if( sDEBUG ) printf( "[INFO]: | Tess Control Shader: %33s |\n", tesselationControlShaderFilename );
+    if(strcmp(tessellationControlShaderFilename, "" ) != 0 ) {
+        if( sDEBUG ) printf("[INFO]: | Tess Control Shader: %33s |\n", tessellationControlShaderFilename );
         if( major < 4 ) {
-            printf( "[ERROR]:|   TESSELATION SHADER NOT SUPPORTED!!  UPGRADE TO v4.0+ |\n" );
-            mTesselationControlShaderHandle = 0;
+            printf( "[ERROR]:|   TESSELLATION SHADER NOT SUPPORTED!! UPGRADE TO v4.0+ |\n" );
+            mTessellationControlShaderHandle = 0;
         } else {
-            mTesselationControlShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(tesselationControlShaderFilename, GL_TESS_CONTROL_SHADER );
+            mTessellationControlShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(tessellationControlShaderFilename, GL_TESS_CONTROL_SHADER );
         }
     } else {
-        mTesselationControlShaderHandle = 0;
+        mTessellationControlShaderHandle = 0;
     }
 
-    if( strcmp( tesselationEvaluationShaderFilename, "" ) != 0 ) {
-        if( sDEBUG ) printf( "[INFO]: | Tess Evaluation Shader: %30s |\n", tesselationEvaluationShaderFilename );
+    if(strcmp(tessellationEvaluationShaderFilename, "" ) != 0 ) {
+        if( sDEBUG ) printf("[INFO]: | Tess Evaluation Shader: %30s |\n", tessellationEvaluationShaderFilename );
         if( major < 4 ) {
-            printf( "[ERROR]:|   TESSELATION SHADER NOT SUPPORTED!!  UPGRADE TO v4.0+ |\n" );
-            mTesselationEvaluationShaderHandle = 0;
+            printf( "[ERROR]:|   TESSELLATION SHADER NOT SUPPORTED!! UPGRADE TO v4.0+ |\n" );
+            mTessellationEvaluationShaderHandle = 0;
         } else {
-            mTesselationEvaluationShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(tesselationEvaluationShaderFilename, GL_TESS_EVALUATION_SHADER );
+            mTessellationEvaluationShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(tessellationEvaluationShaderFilename, GL_TESS_EVALUATION_SHADER );
         }
     } else {
-        mTesselationEvaluationShaderHandle = 0;
+        mTessellationEvaluationShaderHandle = 0;
     }
 
     if( strcmp( geometryShaderFilename, "" ) != 0 ) {
@@ -643,11 +1066,11 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexSha
     if(mVertexShaderHandle != 0 ) {
         glAttachShader(mShaderProgramHandle, mVertexShaderHandle );
     }
-    if(mTesselationControlShaderHandle != 0 ) {
-        glAttachShader(mShaderProgramHandle, mTesselationControlShaderHandle );
+    if(mTessellationControlShaderHandle != 0 ) {
+        glAttachShader(mShaderProgramHandle, mTessellationControlShaderHandle );
     }
-    if(mTesselationEvaluationShaderHandle != 0 ) {
-        glAttachShader(mShaderProgramHandle, mTesselationEvaluationShaderHandle );
+    if(mTessellationEvaluationShaderHandle != 0 ) {
+        glAttachShader(mShaderProgramHandle, mTessellationEvaluationShaderHandle );
     }
     if(mGeometryShaderHandle != 0 ) {
         glAttachShader(mShaderProgramHandle, mGeometryShaderHandle );
@@ -669,13 +1092,13 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexSha
         glDetachShader(mShaderProgramHandle, mVertexShaderHandle );
         glDeleteShader(mVertexShaderHandle );
     }
-    if(mTesselationControlShaderHandle != 0 ) {
-        glDetachShader(mShaderProgramHandle, mTesselationControlShaderHandle );
-        glDeleteShader(mTesselationControlShaderHandle );
+    if(mTessellationControlShaderHandle != 0 ) {
+        glDetachShader(mShaderProgramHandle, mTessellationControlShaderHandle );
+        glDeleteShader(mTessellationControlShaderHandle );
     }
-    if(mTesselationEvaluationShaderHandle != 0 ) {
-        glDetachShader(mShaderProgramHandle, mTesselationEvaluationShaderHandle );
-        glDeleteShader(mTesselationEvaluationShaderHandle );
+    if(mTessellationEvaluationShaderHandle != 0 ) {
+        glDetachShader(mShaderProgramHandle, mTessellationEvaluationShaderHandle );
+        glDeleteShader(mTessellationEvaluationShaderHandle );
     }
     if(mGeometryShaderHandle != 0 ) {
         glDetachShader(mShaderProgramHandle, mGeometryShaderHandle );
@@ -749,8 +1172,8 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexSha
     /* print shader info for uniforms & attributes */
     if(linkStatus == 1) {
         CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(mShaderProgramHandle, mVertexShaderHandle != 0,
-                                                              mTesselationControlShaderHandle != 0,
-                                                              mTesselationEvaluationShaderHandle != 0,
+                                                              mTessellationControlShaderHandle != 0,
+                                                              mTessellationEvaluationShaderHandle != 0,
                                                               mGeometryShaderHandle != 0, mFragmentShaderHandle != 0,
                                                               false, true);
     }
@@ -778,6 +1201,7 @@ inline GLint CSCI441::ShaderProgram::getUniformBlockSize( const char *uniformBlo
     return blockSize;
 }
 
+[[maybe_unused]]
 inline GLubyte* CSCI441::ShaderProgram::getUniformBlockBuffer( const char *uniformBlockName ) const {
     GLubyte *blockBuffer;
 
@@ -788,10 +1212,12 @@ inline GLubyte* CSCI441::ShaderProgram::getUniformBlockBuffer( const char *unifo
     return blockBuffer;
 }
 
+[[maybe_unused]]
 inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName ) const {
     return mGetUniformBlockOffsets(getUniformBlockIndex(uniformBlockName));
 }
 
+[[maybe_unused]]
 inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) const {
     return mGetUniformBlockOffsets(getUniformBlockIndex(uniformBlockName), names);
 }
@@ -824,6 +1250,7 @@ inline void CSCI441::ShaderProgram::setUniformBlockBinding( const char *uniformB
     glUniformBlockBinding(mShaderProgramHandle, getUniformBlockIndex(uniformBlockName), binding );
 }
 
+[[maybe_unused]]
 inline GLint CSCI441::ShaderProgram::getAttributeLocation( const char *attributeName ) const {
     auto attribIter = mpAttributeLocationsMap->find(attributeName);
     if(attribIter == mpAttributeLocationsMap->end() ) {
@@ -833,6 +1260,7 @@ inline GLint CSCI441::ShaderProgram::getAttributeLocation( const char *attribute
     return attribIter->second;
 }
 
+[[maybe_unused]]
 inline GLuint CSCI441::ShaderProgram::getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) const {
     GLuint subroutineIndex = glGetSubroutineIndex(mShaderProgramHandle, shaderStage, subroutineName );
     if( subroutineIndex == GL_INVALID_INDEX )
@@ -841,8 +1269,9 @@ inline GLuint CSCI441::ShaderProgram::getSubroutineIndex( GLenum shaderStage, co
 }
 
 // images are opaque types that are not considered program resources
+[[maybe_unused]]
 inline GLint CSCI441::ShaderProgram::getImageBinding(const char* imageName) const {
-    GLuint imageLoc = getUniformLocation(imageName);
+    GLint imageLoc = getUniformLocation(imageName);
 
     if(imageLoc == -1) {
         fprintf(stderr, "[ERROR]: Could not find image \"%s\" for Shader Program %u\n", imageName, mShaderProgramHandle);
@@ -855,6 +1284,7 @@ inline GLint CSCI441::ShaderProgram::getImageBinding(const char* imageName) cons
     return bindingPoint;
 }
 
+[[maybe_unused]]
 inline GLint CSCI441::ShaderProgram::getShaderStorageBlockBinding(const char* ssboName) const {
     GLuint ssboIndex = glGetProgramResourceIndex(mShaderProgramHandle, GL_SHADER_STORAGE_BLOCK, ssboName);
 
@@ -871,6 +1301,7 @@ inline GLint CSCI441::ShaderProgram::getShaderStorageBlockBinding(const char* ss
     return results[0];
 }
 
+[[maybe_unused]]
 inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferBinding(const char* atomicName) const {
     GLuint uniformIndex = glGetProgramResourceIndex(mShaderProgramHandle, GL_UNIFORM, atomicName);
 
@@ -887,6 +1318,7 @@ inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferBinding(const char* a
     return binding;
 }
 
+[[maybe_unused]]
 inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferOffset(const char* atomicName) const {
     GLuint uniformIndex = glGetProgramResourceIndex(mShaderProgramHandle, GL_UNIFORM, atomicName);
 
@@ -900,6 +1332,7 @@ inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferOffset(const char* at
     return offset;
 }
 
+[[maybe_unused]]
 inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferSize(const char* atomicName) const {
     GLuint uniformIndex = glGetProgramResourceIndex(mShaderProgramHandle, GL_UNIFORM, atomicName);
 
@@ -916,18 +1349,21 @@ inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferSize(const char* atom
     return bufferSize;
 }
 
+[[maybe_unused]]
 inline GLuint CSCI441::ShaderProgram::getNumUniforms() const {
     int numUniform = 0;
     glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_UNIFORMS, &numUniform );
     return numUniform;
 }
 
+[[maybe_unused]]
 inline GLuint CSCI441::ShaderProgram::getNumUniformBlocks() const {
     int numUniformBlocks = 0;
     glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_UNIFORM_BLOCKS, &numUniformBlocks );
     return numUniformBlocks;
 }
 
+[[maybe_unused]]
 inline GLuint CSCI441::ShaderProgram::getNumAttributes() const {
     int numAttr = 0;
     glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_ATTRIBUTES, &numAttr );
@@ -938,10 +1374,12 @@ inline GLuint CSCI441::ShaderProgram::getShaderProgramHandle() const {
     return mShaderProgramHandle;
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::useProgram() const {
     glUseProgram(mShaderProgramHandle );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0 ) const  {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -951,6 +1389,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1 ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -960,10 +1399,12 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::vec2 value ) const {
     setProgramUniform( uniformName, 2, 1, &value[0] );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2 ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -973,10 +1414,12 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::vec3 value ) const {
     setProgramUniform( uniformName, 3, 1, &value[0] );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -986,6 +1429,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::vec4 value ) const {
     setProgramUniform( uniformName, 4, 1, &value[0] );
 }
@@ -1015,6 +1459,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, G
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0 ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1024,6 +1469,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1 ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1033,6 +1479,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::ivec2 value) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1042,6 +1489,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, g
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1, GLint v2 ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1051,6 +1499,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::ivec3 value) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1060,6 +1509,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, g
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLint v0, GLint v1, GLint v2, GLint v3 ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1069,6 +1519,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::ivec4 value) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1078,6 +1529,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, g
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1103,6 +1555,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, G
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0 ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1112,6 +1565,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1 ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1121,6 +1575,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::uvec2 value) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1130,6 +1585,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, g
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2 ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1139,6 +1595,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::uvec3 value) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1148,6 +1605,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, g
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1157,6 +1615,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, glm::uvec4 value) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1166,6 +1625,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, g
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1191,6 +1651,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform(const char* uniformName, G
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2 mtx ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1200,6 +1661,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3 mtx ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1209,6 +1671,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4 mtx ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1218,6 +1681,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2x3 mtx ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1227,6 +1691,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3x2 mtx ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1236,6 +1701,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat2x4 mtx ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1245,6 +1711,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4x2 mtx ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1254,6 +1721,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat3x4 mtx ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1263,6 +1731,7 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, glm::mat4x3 mtx ) const {
     auto uniformIter = mpUniformLocationsMap->find(uniformName);
     if(uniformIter != mpUniformLocationsMap->end()) {
@@ -1272,30 +1741,37 @@ inline void CSCI441::ShaderProgram::setProgramUniform( const char *uniformName, 
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0 ) const {
     glProgramUniform1f(mShaderProgramHandle, uniformLocation, v0 );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1 ) const {
     glProgramUniform2f(mShaderProgramHandle, uniformLocation, v0, v1 );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec2 value ) const {
     setProgramUniform( uniformLocation, 2, 1, &value[0] );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2 ) const {
     glProgramUniform3f(mShaderProgramHandle, uniformLocation, v0, v1, v2 );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec3 value ) const {
     setProgramUniform( uniformLocation, 3, 1, &value[0] );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 ) const {
     glProgramUniform4f(mShaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::vec4 value ) const {
     setProgramUniform( uniformLocation, 4, 1, &value[0] );
 }
@@ -1320,30 +1796,37 @@ inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLu
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0 ) const {
     glProgramUniform1i(mShaderProgramHandle, uniformLocation, v0 );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1 ) const {
     glProgramUniform2i(mShaderProgramHandle, uniformLocation, v0, v1 );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::ivec2 value) const {
     setProgramUniform(uniformLocation, 2, 1, &value[0]);
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2 ) const {
     glProgramUniform3i(mShaderProgramHandle, uniformLocation, v0, v1, v2 );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::ivec3 value) const {
     setProgramUniform(uniformLocation, 3, 1, &value[0]);
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3 ) const {
     glProgramUniform4i(mShaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::ivec4 value) const {
     setProgramUniform(uniformLocation, 4, 1, &value[0]);
 }
@@ -1368,30 +1851,37 @@ inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLu
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0 ) const {
     glProgramUniform1ui(mShaderProgramHandle, uniformLocation, v0 );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1 ) const {
     glProgramUniform2ui(mShaderProgramHandle, uniformLocation, v0, v1 );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::uvec2 value) const {
     setProgramUniform(uniformLocation, 2, 1, &value[0]);
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2 ) const {
     glProgramUniform3ui(mShaderProgramHandle, uniformLocation, v0, v1, v2 );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::uvec3 value) const {
     setProgramUniform(uniformLocation, 3, 1, &value[0]);
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3 ) const {
     glProgramUniform4ui(mShaderProgramHandle, uniformLocation, v0, v1, v2, v3 );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, glm::uvec4 value) const {
     setProgramUniform(uniformLocation, 4, 1, &value[0]);
 }
@@ -1416,38 +1906,47 @@ inline void CSCI441::ShaderProgram::setProgramUniform(GLint uniformLocation, GLu
     }
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2 mtx ) const {
     glProgramUniformMatrix2fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3 mtx ) const {
     glProgramUniformMatrix3fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4 mtx ) const {
     glProgramUniformMatrix4fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2x3 mtx ) const {
     glProgramUniformMatrix2x3fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3x2 mtx ) const {
     glProgramUniformMatrix3x2fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat2x4 mtx ) const {
     glProgramUniformMatrix2x4fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4x2 mtx ) const {
     glProgramUniformMatrix4x2fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat3x4 mtx ) const {
     glProgramUniformMatrix3x4fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
 
+[[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4x3 mtx ) const {
     glProgramUniformMatrix4x3fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
 }
@@ -1458,8 +1957,8 @@ inline CSCI441::ShaderProgram::ShaderProgram() {
 
 inline void CSCI441::ShaderProgram::_initialize() {
     mVertexShaderHandle = 0;
-    mTesselationControlShaderHandle = 0;
-    mTesselationEvaluationShaderHandle = 0;
+    mTessellationControlShaderHandle = 0;
+    mTessellationEvaluationShaderHandle = 0;
     mGeometryShaderHandle = 0;
     mFragmentShaderHandle = 0;
     mShaderProgramHandle = 0;
@@ -1479,7 +1978,7 @@ inline CSCI441::ShaderProgram::~ShaderProgram() {
 
     glGetProgramiv(mShaderProgramHandle, GL_DELETE_STATUS, &status );
 
-    // get the info log for the vertex/tesselation/geometry/fragment/compute shader
+    // get the info log for the vertex/tessellation/geometry/fragment/compute shader
     glGetProgramInfoLog(mShaderProgramHandle, maxLength, &infoLogLength, infoLog );
 
     if(infoLogLength > 0 ) {
@@ -1491,7 +1990,7 @@ inline CSCI441::ShaderProgram::~ShaderProgram() {
     delete mpAttributeLocationsMap;
 }
 
-inline bool CSCI441::ShaderProgram::writeShaderProgramBinaryToFile(const char* BINARY_FILE_NAME) {
+inline bool CSCI441::ShaderProgram::writeShaderProgramBinaryToFile(const char* BINARY_FILE_NAME) const {
     GLint formats = 0;
     glGetIntegerv(GL_NUM_PROGRAM_BINARY_FORMATS, &formats);
     if( formats < 1 ) {
