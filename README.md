@@ -7,6 +7,10 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v 4.3.0 - 25 Aug 2023
+- Improved and consistent web documentation using a consistent style for all public facing classes and members, methods, and namespaces
+- Minor performance improvements
+
 ## v 4.2.0 - 25 Aug 2023
 - setupGLEW() and cleanupGLEW() made private members of OpenGLEngine
 - Improving web documentation using a consistent style
