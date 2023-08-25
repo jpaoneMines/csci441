@@ -204,10 +204,10 @@ inline void CSCI441::ModelLoader::_init() {
 	_hasVertexTexCoords = false;
 	_hasVertexNormals = false;
 
-	_vertices = NULL;
-	_texCoords = NULL;
-	_normals = NULL;
-	_indices = NULL;
+	_vertices = nullptr;
+	_texCoords = nullptr;
+	_normals = nullptr;
+	_indices = nullptr;
 
 	glGenVertexArrays( 1, &_vaod );
 	glGenBuffers( 2, _vbods );
@@ -345,17 +345,17 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
-		if( tokens.size() < 1 ) continue;
+		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
-		if( !tokens[0].compare( "#" ) || tokens[0].find_first_of("#") == 0 ) {								// comment ignore
-		} else if( !tokens[0].compare( "o" ) ) {						// object name ignore
+		if( tokens[0] == "#"  || tokens[0].find_first_of("#") == 0 ) {								// comment ignore
+		} else if( tokens[0] == "o" ) {						// object name ignore
 			numObjects++;
-		} else if( !tokens[0].compare( "g" ) ) {						// polygon group name ignore
+		} else if( tokens[0] == "g" ) {						// polygon group name ignore
 			numGroups++;
-		} else if( !tokens[0].compare( "mtllib" ) ) {					// material library
+		} else if( tokens[0] == "mtllib" ) {					// material library
 			_loadMTLFile( tokens[1].c_str(), INFO, ERRORS );
-		} else if( !tokens[0].compare( "v" ) ) {						//vertex
+		} else if( tokens[0] == "v" ) {						//vertex
 			numVertices++;
 
 			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
@@ -368,11 +368,11 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			if( y > maxY ) maxY = y;
 			if( z < minZ ) minZ = z;
 			if( z > maxZ ) maxZ = z;
-		} else if( !tokens.at(0).compare( "vn" ) ) {                    //vertex normal
+		} else if( tokens[0] == "vn" ) {                    //vertex normal
 			numNormals++;
-		} else if( !tokens.at(0).compare( "vt" ) ) {                    //vertex tex coord
+		} else if( tokens[0] == "vt" ) {                    //vertex tex coord
 			numTexCoords++;
-		} else if( !tokens.at(0).compare( "f" ) ) {                     //face!
+		} else if( tokens[0] == "f" ) {                     //face!
 
 			//now, faces can be either quads or triangles (or maybe more?)
 			//split the string on spaces to get the number of verts+attrs.
@@ -446,6 +446,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 					case 10000:	printf("[.obj]: scanning %s...|", _filename);	break;
 					case 15000:	printf("[.obj]: scanning %s.../", _filename);	break;
 					case 20000:	printf("[.obj]: scanning %s...-", _filename);	break;
+                    default: break;
 				}
 				fflush(stdout);
 			}
@@ -510,17 +511,18 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
-		if( tokens.size() < 1 ) continue;
+		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
-		if( !tokens[0].compare( "#" ) || tokens[0].find_first_of("#") == 0 ) {								// comment ignore
-		} else if( !tokens[0].compare( "o" ) ) {						// object name ignore
+		if( tokens[0] == "#" || tokens[0].find_first_of("#") == 0 ) {								// comment ignore
 
-		} else if( !tokens[0].compare( "g" ) ) {						// polygon group name ignore
+		} else if( tokens[0] == "o" ) {						// object name ignore
 
-		} else if( !tokens[0].compare( "mtllib" ) ) {					// material library
+		} else if( tokens[0] == "g" ) {						// polygon group name ignore
 
-		} else if( !tokens[0].compare( "usemtl" ) ) {					// use material library
+		} else if( tokens[0] == "mtllib" ) {					// material library
+
+		} else if( tokens[0] == "usemtl" ) {					// use material library
 			if( currentMaterial == "default" && indicesSeen == 0 ) {
 				_materialIndexStartStop.clear();
 			} else {
@@ -533,9 +535,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			} else {
 				_materialIndexStartStop.find( currentMaterial )->second.push_back( std::pair< GLuint, GLuint >( indicesSeen, -1 ) );
 			}
-		} else if( !tokens[0].compare( "s" ) ) {						// smooth shading
+		} else if( tokens[0] == "s" ) {						// smooth shading
 
-		} else if( !tokens[0].compare( "v" ) ) {						//vertex
+		} else if( tokens[0] == "v" ) {						//vertex
 			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
 				     y = (GLfloat) atof( tokens[2].c_str() ),
 				     z = (GLfloat) atof( tokens[3].c_str() );
@@ -545,7 +547,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			v[vSeen*3 + 2] = z;
 
 			vSeen++;
-		} else if( !tokens.at(0).compare( "vn" ) ) {                    //vertex normal
+		} else if( tokens[0] == "vn" ) {                    //vertex normal
 			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
 				     y = (GLfloat) atof( tokens[2].c_str() ),
 				     z = (GLfloat) atof( tokens[3].c_str() );
@@ -555,7 +557,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			vn[vnSeen*3 + 2] = z;
 
 			vnSeen++;
-		} else if( !tokens.at(0).compare( "vt" ) ) {                    //vertex tex coord
+		} else if( tokens[0] == "vt" ) {                    //vertex tex coord
 			GLfloat s = (GLfloat) atof( tokens[1].c_str() ),
 						 t = (GLfloat) atof( tokens[2].c_str() );
 
@@ -563,7 +565,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			vt[vtSeen*2 + 1] = t;
 
 			vtSeen++;
-		} else if( !tokens.at(0).compare( "f" ) ) {                     //face!
+		} else if( tokens[0] == "f" ) {                     //face!
 
 			//now, faces can be either quads or triangles (or maybe more?)
 			//split the string on spaces to get the number of verts+attrs.
@@ -796,6 +798,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 					case 10000:	printf("[.obj]: parsing %s...|", _filename);	break;
 					case 15000:	printf("[.obj]: parsing %s.../", _filename);	break;
 					case 20000:	printf("[.obj]: parsing %s...-", _filename);	break;
+                    default: break;
 				}
 				fflush(stdout);
 			}
@@ -859,11 +862,11 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 		}
 	}
 
-	CSCI441_INTERNAL::ModelMaterial* currentMaterial = NULL;
+	CSCI441_INTERNAL::ModelMaterial* currentMaterial = nullptr;
 	std::string materialName;
 
-	unsigned char *textureData = NULL;
-	unsigned char *maskData = NULL;
+	unsigned char *textureData = nullptr;
+	unsigned char *maskData = nullptr;
 	unsigned char *fullData;
 	int texWidth, texHeight, textureChannels = 1, maskChannels = 1;
 	GLuint textureHandle = 0;
@@ -878,49 +881,49 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		std::vector< std::string > tokens = _tokenizeString( line, " /" );
-		if( tokens.size() < 1 ) continue;
+		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
-		if( !tokens[0].compare( "#" ) ) {							// comment
-		} else if( !tokens[0].compare( "newmtl" ) ) {				//new material
+		if( tokens[0] == "#" ) {							// comment
+		} else if( tokens[0] == "newmtl" ) {				//new material
 			if (INFO) printf( "[.mtl]: Parsing material %s properties\n", tokens[1].c_str() );
 			currentMaterial = new CSCI441_INTERNAL::ModelMaterial();
 			materialName = tokens[1];
 			_materials.insert( std::pair<std::string, CSCI441_INTERNAL::ModelMaterial*>( materialName, currentMaterial ) );
 
 			textureHandle = 0;
-			textureData = NULL;
-			maskData = NULL;
+			textureData = nullptr;
+			maskData = nullptr;
 			textureChannels = 1;
 			maskChannels = 1;
 
 			numMaterials++;
-		} else if( !tokens[0].compare( "Ka" ) ) {					// ambient component
+		} else if( tokens[0] == "Ka" ) {					// ambient component
 			currentMaterial->ambient[0] = atof( tokens[1].c_str() );
 			currentMaterial->ambient[1] = atof( tokens[2].c_str() );
 			currentMaterial->ambient[2] = atof( tokens[3].c_str() );
-		} else if( !tokens[0].compare( "Kd" ) ) {					// diffuse component
+		} else if( tokens[0] == "Kd" ) {					// diffuse component
 			currentMaterial->diffuse[0] = atof( tokens[1].c_str() );
 			currentMaterial->diffuse[1] = atof( tokens[2].c_str() );
 			currentMaterial->diffuse[2] = atof( tokens[3].c_str() );
-		} else if( !tokens[0].compare( "Ks" ) ) {					// specular component
+		} else if( tokens[0] == "Ks" ) {					// specular component
 			currentMaterial->specular[0] = atof( tokens[1].c_str() );
 			currentMaterial->specular[1] = atof( tokens[2].c_str() );
 			currentMaterial->specular[2] = atof( tokens[3].c_str() );
-		} else if( !tokens[0].compare( "Ke" ) ) {					// emissive component
+		} else if( tokens[0] == "Ke" ) {					// emissive component
 			currentMaterial->emissive[0] = atof( tokens[1].c_str() );
 			currentMaterial->emissive[1] = atof( tokens[2].c_str() );
 			currentMaterial->emissive[2] = atof( tokens[3].c_str() );
-		} else if( !tokens[0].compare( "Ns" ) ) {					// shininess component
+		} else if( tokens[0] == "Ns" ) {					// shininess component
 			currentMaterial->shininess = atof( tokens[1].c_str() );
-		} else if( !tokens[0].compare( "Tr" )
-					|| !tokens[0].compare( "d" ) ) {					// transparency component - Tr or d can be used depending on the format
+		} else if( tokens[0] == "Tr"
+					|| tokens[0] == "d" ) {					// transparency component - Tr or d can be used depending on the format
 			currentMaterial->ambient[3] = atof( tokens[1].c_str() );
 			currentMaterial->diffuse[3] = atof( tokens[1].c_str() );
 			currentMaterial->specular[3] = atof( tokens[1].c_str() );
-		} else if( !tokens[0].compare( "illum" ) ) {				    // illumination type component
+		} else if( tokens[0] == "illum" ) {				    // illumination type component
 			// TODO ?
-		} else if( !tokens[0].compare( "map_Kd" ) ) {				// diffuse color texture map
+		} else if( tokens[0] == "map_Kd" ) {				// diffuse color texture map
 			if( imageHandles.find( tokens[1] ) != imageHandles.end() ) {
 				// _textureHandles->insert( pair< string, GLuint >( materialName, imageHandles.find( tokens[1] )->second ) );
 				currentMaterial->map_Kd = imageHandles.find( tokens[1] )->second;
@@ -937,7 +940,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 				} else {
 					if (INFO) printf( "[.mtl]: TextureMap:\t%s\tSize: %dx%d\tColors: %d\n", tokens[1].c_str(), texWidth, texHeight, textureChannels );
 
-					if( maskData == NULL ) {
+					if( maskData == nullptr ) {
 						if( textureHandle == 0 ) {
 							glGenTextures( 1, &textureHandle );
 							imageHandles.insert( std::pair<std::string, GLuint>( tokens[1], textureHandle ) );
@@ -981,7 +984,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 					}
 				}
 			}
-		} else if( !tokens[0].compare( "map_d" ) ) {				// alpha texture map
+		} else if( tokens[0] == "map_d" ) {				// alpha texture map
 			if( imageHandles.find( tokens[1] ) != imageHandles.end() ) {
 				// _textureHandles->insert( pair< string, GLuint >( materialName, imageHandles.find( tokens[1] )->second ) );
 				currentMaterial->map_d = imageHandles.find( tokens[1] )->second;
@@ -998,7 +1001,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 				} else {
 					if (INFO) printf( "[.mtl]: AlphaMap:  \t%s\tSize: %dx%d\tColors: %d\n", tokens[1].c_str(), texWidth, texHeight, maskChannels );
 
-					if( textureData != NULL ) {
+					if( textureData != nullptr ) {
 						fullData = CSCI441_INTERNAL::createTransparentTexture( textureData, maskData, texWidth, texHeight, textureChannels, maskChannels );
 
 						if( textureHandle == 0 )
@@ -1016,18 +1019,18 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 					}
 				}
 			}
-		} else if( !tokens[0].compare( "map_Ka" ) ) {				// ambient color texture map
+		} else if( tokens[0] == "map_Ka" ) {				// ambient color texture map
 
-		} else if( !tokens[0].compare( "map_Ks" ) ) {				// specular color texture map
+		} else if( tokens[0] == "map_Ks" ) {				// specular color texture map
 
-		} else if( !tokens[0].compare( "map_Ns" ) ) {				// specular highlight map (shininess map)
+		} else if( tokens[0] == "map_Ns" ) {				// specular highlight map (shininess map)
 
-		} else if( !tokens[0].compare( "Ni" ) ) {						// optical density / index of refraction
+		} else if( tokens[0] == "Ni" ) {						// optical density / index of refraction
 
-		} else if( !tokens[0].compare( "Tf" ) ) {						// transmission filter
+		} else if( tokens[0] == "Tf" ) {						// transmission filter
 
-		} else if( !tokens[0].compare( "bump" )
-					|| !tokens[0].compare( "map_bump" ) ) {				// bump map
+		} else if( tokens[0] == "bump"
+					|| tokens[0] == "map_bump" ) {				// bump map
 
 		} else {
 			if (INFO) printf( "[.mtl]: ignoring line: %s\n", line.c_str() );
