@@ -7,5 +7,13 @@ var searchData=
   ['mcameraradius_4',['mCameraRadius',['../class_c_s_c_i441_1_1_camera.html#ae288c2ef288ac5532335e5859966410f',1,'CSCI441::Camera']]],
   ['mcameratheta_5',['mCameraTheta',['../class_c_s_c_i441_1_1_camera.html#a5ad4e41129076d226dbc1e41f79b1776',1,'CSCI441::Camera']]],
   ['mcameraupvector_6',['mCameraUpVector',['../class_c_s_c_i441_1_1_camera.html#ad80e6c470628dee16753170cc7ca6f6f',1,'CSCI441::Camera']]],
-  ['mviewmatrix_7',['mViewMatrix',['../class_c_s_c_i441_1_1_camera.html#a9004f565dbd3dcdc85e7d6c966b0f145',1,'CSCI441::Camera']]]
+  ['merrorcode_7',['mErrorCode',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a8fce100a379c8298d6a65001018aeff3',1,'CSCI441::OpenGLEngine']]],
+  ['mopenglmajorversion_8',['mOpenGLMajorVersion',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a163b512667c14260cf432dea9ad61e15',1,'CSCI441::OpenGLEngine']]],
+  ['mopenglminorversion_9',['mOpenGLMinorVersion',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a0f8edec5537a058dd1fa1952426d0f4a',1,'CSCI441::OpenGLEngine']]],
+  ['mpwindow_10',['mpWindow',['../class_c_s_c_i441_1_1_open_g_l_engine.html#abf23f7676630ddb9e20e548701d5d892',1,'CSCI441::OpenGLEngine']]],
+  ['mviewmatrix_11',['mViewMatrix',['../class_c_s_c_i441_1_1_camera.html#a9004f565dbd3dcdc85e7d6c966b0f145',1,'CSCI441::Camera']]],
+  ['mwindowheight_12',['mWindowHeight',['../class_c_s_c_i441_1_1_open_g_l_engine.html#aaadbb956e0f118c18895adfc5ab76a01',1,'CSCI441::OpenGLEngine']]],
+  ['mwindowresizable_13',['mWindowResizable',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a5d7eff405db5721345bf06b1178e4102',1,'CSCI441::OpenGLEngine']]],
+  ['mwindowtitle_14',['mWindowTitle',['../class_c_s_c_i441_1_1_open_g_l_engine.html#aa079c2374e6f4f68fe0e963b839809d6',1,'CSCI441::OpenGLEngine']]],
+  ['mwindowwidth_15',['mWindowWidth',['../class_c_s_c_i441_1_1_open_g_l_engine.html#ae428647eee31a7288e7ce035838b6f4d',1,'CSCI441::OpenGLEngine']]]
 ];

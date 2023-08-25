@@ -85,6 +85,10 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract Class to run an OpenGL application. The following methods must be overridden:<br  />
+  
+ <a href="class_c_s_c_i441_1_1_open_g_l_engine.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_open_g_l_engine_8hpp_source.html">OpenGLEngine.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CSCI441::OpenGLEngine:</div>
@@ -99,26 +103,27 @@ Inheritance diagram for CSCI441::OpenGLEngine:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a20e62bf4168a3f252cdecc9413088884"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884">initialize</a> ()</td></tr>
+<tr class="memdesc:a20e62bf4168a3f252cdecc9413088884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, GLEW, OpenGL, Shader Programs, Buffer Objects, Textures, and any Scene information.  <br /></td></tr>
 <tr class="separator:a20e62bf4168a3f252cdecc9413088884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91a8498d1ab372a8d312720aa6df43f6"><td class="memItemLeft" align="right" valign="top"><a id="a91a8498d1ab372a8d312720aa6df43f6" name="a91a8498d1ab372a8d312720aa6df43f6"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> ()=0</td></tr>
 <tr class="memdesc:a91a8498d1ab372a8d312720aa6df43f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiate the draw loop. <br /></td></tr>
 <tr class="separator:a91a8498d1ab372a8d312720aa6df43f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a22d9d1ed576a697c79ec43aa92aff8e3">shutdown</a> ()</td></tr>
+<tr class="memdesc:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleanup everything needed for OpenGL Rendering. This includes freeing memory for data used in: any Scene information, Textures, Buffer Objects, Shader Programs, OpenGL, GLEW, GLFW.  <br /></td></tr>
 <tr class="separator:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93ba383761d389fb0a06e5ca102ee720"><td class="memItemLeft" align="right" valign="top"><a id="a93ba383761d389fb0a06e5ca102ee720" name="a93ba383761d389fb0a06e5ca102ee720"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>turnDebuggingOn</b> () noexcept</td></tr>
-<tr class="memdesc:a93ba383761d389fb0a06e5ca102ee720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable logging to command line. <br /></td></tr>
+<tr class="memitem:a93ba383761d389fb0a06e5ca102ee720"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a93ba383761d389fb0a06e5ca102ee720">turnDebuggingOn</a> () noexcept</td></tr>
+<tr class="memdesc:a93ba383761d389fb0a06e5ca102ee720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable logging to command line.  <br /></td></tr>
 <tr class="separator:a93ba383761d389fb0a06e5ca102ee720"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1aeee3b7b3f6de881bc2ddc69d14ce26"><td class="memItemLeft" align="right" valign="top"><a id="a1aeee3b7b3f6de881bc2ddc69d14ce26" name="a1aeee3b7b3f6de881bc2ddc69d14ce26"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>turnDebuggingOff</b> () noexcept</td></tr>
-<tr class="memdesc:a1aeee3b7b3f6de881bc2ddc69d14ce26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable logging to command line. <br /></td></tr>
+<tr class="memitem:a1aeee3b7b3f6de881bc2ddc69d14ce26"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1aeee3b7b3f6de881bc2ddc69d14ce26">turnDebuggingOff</a> () noexcept</td></tr>
+<tr class="memdesc:a1aeee3b7b3f6de881bc2ddc69d14ce26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable logging to command line.  <br /></td></tr>
 <tr class="separator:a1aeee3b7b3f6de881bc2ddc69d14ce26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf167becf108ecbefc44f02f166e616b"><td class="memItemLeft" align="right" valign="top"><a id="abf167becf108ecbefc44f02f166e616b" name="abf167becf108ecbefc44f02f166e616b"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isDebuggingEnabled</b> () noexcept</td></tr>
-<tr class="memdesc:abf167becf108ecbefc44f02f166e616b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if logging is enable. <br /></td></tr>
-<tr class="separator:abf167becf108ecbefc44f02f166e616b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cd76e61ffc4d81ee2d45dda3084584f"><td class="memItemLeft" align="right" valign="top"><a id="a0cd76e61ffc4d81ee2d45dda3084584f" name="a0cd76e61ffc4d81ee2d45dda3084584f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isDebuggingEnabled</b> () const noexcept</td></tr>
+<tr class="memdesc:a0cd76e61ffc4d81ee2d45dda3084584f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if logging is enabled. <br /></td></tr>
+<tr class="separator:a0cd76e61ffc4d81ee2d45dda3084584f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b752dcd2a3f5e0f5c5c8ee5ee92cea3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a7b752dcd2a3f5e0f5c5c8ee5ee92cea3">setCurrentWindowSize</a> (const int WINDOW_WIDTH, const int WINDOW_HEIGHT)</td></tr>
+<tr class="memdesc:a7b752dcd2a3f5e0f5c5c8ee5ee92cea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the new window size.  <br /></td></tr>
 <tr class="separator:a7b752dcd2a3f5e0f5c5c8ee5ee92cea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a111ee821133523134e131830598e5b4a"><td class="memItemLeft" align="right" valign="top"><a id="a111ee821133523134e131830598e5b4a" name="a111ee821133523134e131830598e5b4a"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>getWindowHeight</b> () const noexcept</td></tr>
@@ -136,126 +141,218 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>getWindow</b>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setWindowShouldClose</b> ()</td></tr>
 <tr class="memdesc:a82e741d0dd915e786b7a03f9e18c74f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tell our engine's window to close. <br /></td></tr>
 <tr class="separator:a82e741d0dd915e786b7a03f9e18c74f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e11c6445e1133d33e37a2d52d85e4f1"><td class="memItemLeft" align="right" valign="top"><a id="a1e11c6445e1133d33e37a2d52d85e4f1" name="a1e11c6445e1133d33e37a2d52d85e4f1"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>getError</b> () noexcept</td></tr>
-<tr class="memdesc:a1e11c6445e1133d33e37a2d52d85e4f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return current value of error code and clear the error code. <br /></td></tr>
-<tr class="separator:a1e11c6445e1133d33e37a2d52d85e4f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aa868ad5f361567274f5c324dde6ee4"><td class="memItemLeft" align="right" valign="top"><a id="a4aa868ad5f361567274f5c324dde6ee4" name="a4aa868ad5f361567274f5c324dde6ee4"></a>
+unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>getError</b> () noexcept</td></tr>
+<tr class="memdesc:a4aa868ad5f361567274f5c324dde6ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return current value of error code and clear the error code back to no error. <br /></td></tr>
+<tr class="separator:a4aa868ad5f361567274f5c324dde6ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:ae9990c99024ec7bff2585a31092ee092"><td class="memItemLeft" align="right" valign="top"><a id="ae9990c99024ec7bff2585a31092ee092" name="ae9990c99024ec7bff2585a31092ee092"></a>
-static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_NO_ERROR</b> = 0</td></tr>
-<tr class="separator:ae9990c99024ec7bff2585a31092ee092"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd23a58d56c03968ab0d29df6aa4233e"><td class="memItemLeft" align="right" valign="top"><a id="abd23a58d56c03968ab0d29df6aa4233e" name="abd23a58d56c03968ab0d29df6aa4233e"></a>
-static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_GLFW_INIT</b> = 1</td></tr>
-<tr class="separator:abd23a58d56c03968ab0d29df6aa4233e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0276a6f0e28328f1e6260e5c43b854f5"><td class="memItemLeft" align="right" valign="top"><a id="a0276a6f0e28328f1e6260e5c43b854f5" name="a0276a6f0e28328f1e6260e5c43b854f5"></a>
-static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_GLFW_WINDOW</b> = 2</td></tr>
-<tr class="separator:a0276a6f0e28328f1e6260e5c43b854f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb7940af5dbedc8d09519e33c213dfe3"><td class="memItemLeft" align="right" valign="top"><a id="adb7940af5dbedc8d09519e33c213dfe3" name="adb7940af5dbedc8d09519e33c213dfe3"></a>
-static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_GLEW_INIT</b> = 3</td></tr>
-<tr class="separator:adb7940af5dbedc8d09519e33c213dfe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb35689e3b45f820ca3a2375702c3e34"><td class="memItemLeft" align="right" valign="top"><a id="abb35689e3b45f820ca3a2375702c3e34" name="abb35689e3b45f820ca3a2375702c3e34"></a>
-static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_UNKNOWN</b> = 4</td></tr>
-<tr class="separator:abb35689e3b45f820ca3a2375702c3e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae60b27ecf37fabf9cfc0c324c3741d04"><td class="memItemLeft" align="right" valign="top"><a id="ae60b27ecf37fabf9cfc0c324c3741d04" name="ae60b27ecf37fabf9cfc0c324c3741d04"></a>
-static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_LAST</b> = OPENGL_ENGINE_ERROR_UNKNOWN</td></tr>
-<tr class="separator:ae60b27ecf37fabf9cfc0c324c3741d04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0708a53dbdca7f3314ca18bad602e3d4"><td class="memItemLeft" align="right" valign="top"><a id="a0708a53dbdca7f3314ca18bad602e3d4" name="a0708a53dbdca7f3314ca18bad602e3d4"></a>
+static const unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_NO_ERROR</b> = 0</td></tr>
+<tr class="memdesc:a0708a53dbdca7f3314ca18bad602e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">no error is present, everything is currently working <br /></td></tr>
+<tr class="separator:a0708a53dbdca7f3314ca18bad602e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79da34ad6fc7f1f1884703416e2337c3"><td class="memItemLeft" align="right" valign="top"><a id="a79da34ad6fc7f1f1884703416e2337c3" name="a79da34ad6fc7f1f1884703416e2337c3"></a>
+static const unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_GLFW_INIT</b> = 1</td></tr>
+<tr class="memdesc:a79da34ad6fc7f1f1884703416e2337c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">an error occurred while initializing GLFW <br /></td></tr>
+<tr class="separator:a79da34ad6fc7f1f1884703416e2337c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6d69ce8bc3096b791bf6a379213b01d"><td class="memItemLeft" align="right" valign="top"><a id="aa6d69ce8bc3096b791bf6a379213b01d" name="aa6d69ce8bc3096b791bf6a379213b01d"></a>
+static const unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_GLFW_WINDOW</b> = 2</td></tr>
+<tr class="memdesc:aa6d69ce8bc3096b791bf6a379213b01d"><td class="mdescLeft">&#160;</td><td class="mdescRight">an error occurred while creating the GLFW window <br /></td></tr>
+<tr class="separator:aa6d69ce8bc3096b791bf6a379213b01d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbbcfe2d4535ac5d77974b4a3fd249b4"><td class="memItemLeft" align="right" valign="top"><a id="adbbcfe2d4535ac5d77974b4a3fd249b4" name="adbbcfe2d4535ac5d77974b4a3fd249b4"></a>
+static const unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_GLEW_INIT</b> = 3</td></tr>
+<tr class="memdesc:adbbcfe2d4535ac5d77974b4a3fd249b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">an error occurred while initializing GLEW <br /></td></tr>
+<tr class="separator:adbbcfe2d4535ac5d77974b4a3fd249b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46ff78b4ba524547eb6abeb5b8a541c0"><td class="memItemLeft" align="right" valign="top"><a id="a46ff78b4ba524547eb6abeb5b8a541c0" name="a46ff78b4ba524547eb6abeb5b8a541c0"></a>
+static const unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_UNKNOWN</b> = 4</td></tr>
+<tr class="memdesc:a46ff78b4ba524547eb6abeb5b8a541c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">a new error that does not correspond to a predefined scenario has occurred <br /></td></tr>
+<tr class="separator:a46ff78b4ba524547eb6abeb5b8a541c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49b735def707602096aca9f810edaf57"><td class="memItemLeft" align="right" valign="top"><a id="a49b735def707602096aca9f810edaf57" name="a49b735def707602096aca9f810edaf57"></a>
+static const unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_LAST</b> = <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a46ff78b4ba524547eb6abeb5b8a541c0">OPENGL_ENGINE_ERROR_UNKNOWN</a></td></tr>
+<tr class="memdesc:a49b735def707602096aca9f810edaf57"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores the error code number of the last possible error, this corresponds to the max error code value. <br /></td></tr>
+<tr class="separator:a49b735def707602096aca9f810edaf57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafe1900642cc13eadd84850850d595c3"><td class="memItemLeft" align="right" valign="top"><a id="aafe1900642cc13eadd84850850d595c3" name="aafe1900642cc13eadd84850850d595c3"></a>
+static const unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_SIZE</b> = <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a49b735def707602096aca9f810edaf57">OPENGL_ENGINE_ERROR_LAST</a> + 1</td></tr>
+<tr class="memdesc:aafe1900642cc13eadd84850850d595c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores the number of unique error codes that can be generated <br /></td></tr>
+<tr class="separator:aafe1900642cc13eadd84850850d595c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ac2bec1b3b54b574d0206f49f4d761e83"><td class="memItemLeft" align="right" valign="top"><a id="ac2bec1b3b54b574d0206f49f4d761e83" name="ac2bec1b3b54b574d0206f49f4d761e83"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>OpenGLEngine</b> (const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION, const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const char *WINDOW_TITLE, const int WINDOW_RESIZABLE=GLFW_FALSE)</td></tr>
-<tr class="separator:ac2bec1b3b54b574d0206f49f4d761e83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56119378cd0268c056dc1c925ca2b470"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a56119378cd0268c056dc1c925ca2b470">OpenGLEngine</a> (int OPENGL_MAJOR_VERSION, int OPENGL_MINOR_VERSION, int WINDOW_WIDTH, int WINDOW_HEIGHT, const char *WINDOW_TITLE, bool WINDOW_RESIZABLE=GLFW_FALSE)</td></tr>
+<tr class="memdesc:a56119378cd0268c056dc1c925ca2b470"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes our OpenGL Engine by setting the OpenGL context and GLFW window parameters  <br /></td></tr>
+<tr class="separator:a56119378cd0268c056dc1c925ca2b470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9ccaca4981c588c874cb70329cb9cb8"><td class="memItemLeft" align="right" valign="top"><a id="ad9ccaca4981c588c874cb70329cb9cb8" name="ad9ccaca4981c588c874cb70329cb9cb8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>~OpenGLEngine</b> ()</td></tr>
+<tr class="memdesc:ad9ccaca4981c588c874cb70329cb9cb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">cleans up our OpenGL Engine by destroying the OpenGL context, GLFW window, and cleaning up all GPU resources <br /></td></tr>
+<tr class="separator:ad9ccaca4981c588c874cb70329cb9cb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb69657b6166b852dcd3cd96d14ac9a2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aeb69657b6166b852dcd3cd96d14ac9a2">mSetupGLFW</a> ()</td></tr>
+<tr class="memdesc:aeb69657b6166b852dcd3cd96d14ac9a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to setup everything GLFW related. This includes the OpenGL context and our window.<br  />
+<br  />
+ By default, completes the following steps in order:<br  />
+  <br /></td></tr>
 <tr class="separator:aeb69657b6166b852dcd3cd96d14ac9a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a437a35fcb0d9207bbb7b2eeced4d1257"><td class="memItemLeft" align="right" valign="top"><a id="a437a35fcb0d9207bbb7b2eeced4d1257" name="a437a35fcb0d9207bbb7b2eeced4d1257"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mSetupGLEW</b> ()</td></tr>
-<tr class="separator:a437a35fcb0d9207bbb7b2eeced4d1257"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0027c22f89579c16f5ee45d473a470d3"><td class="memItemLeft" align="right" valign="top"><a id="a0027c22f89579c16f5ee45d473a470d3" name="a0027c22f89579c16f5ee45d473a470d3"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mSetupOpenGL</b> ()=0</td></tr>
+<tr class="memitem:a0027c22f89579c16f5ee45d473a470d3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a0027c22f89579c16f5ee45d473a470d3">mSetupOpenGL</a> ()=0</td></tr>
+<tr class="memdesc:a0027c22f89579c16f5ee45d473a470d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to enable specific OpenGL features  <br /></td></tr>
 <tr class="separator:a0027c22f89579c16f5ee45d473a470d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8281273cadfa571c7271ddcb2a85f2e"><td class="memItemLeft" align="right" valign="top"><a id="ab8281273cadfa571c7271ddcb2a85f2e" name="ab8281273cadfa571c7271ddcb2a85f2e"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mSetupShaders</b> ()</td></tr>
+<tr class="memitem:ab8281273cadfa571c7271ddcb2a85f2e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ab8281273cadfa571c7271ddcb2a85f2e">mSetupShaders</a> ()</td></tr>
+<tr class="memdesc:ab8281273cadfa571c7271ddcb2a85f2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to register any shaders with the GPU  <br /></td></tr>
 <tr class="separator:ab8281273cadfa571c7271ddcb2a85f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0dd244f89a9b1302509a348c7e74394"><td class="memItemLeft" align="right" valign="top"><a id="ad0dd244f89a9b1302509a348c7e74394" name="ad0dd244f89a9b1302509a348c7e74394"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mSetupBuffers</b> ()</td></tr>
+<tr class="memitem:ad0dd244f89a9b1302509a348c7e74394"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ad0dd244f89a9b1302509a348c7e74394">mSetupBuffers</a> ()</td></tr>
+<tr class="memdesc:ad0dd244f89a9b1302509a348c7e74394"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to register any buffer objects with the GPU  <br /></td></tr>
 <tr class="separator:ad0dd244f89a9b1302509a348c7e74394"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e67b86e0ea4e5f46b2d18ffa7cfab7f"><td class="memItemLeft" align="right" valign="top"><a id="a2e67b86e0ea4e5f46b2d18ffa7cfab7f" name="a2e67b86e0ea4e5f46b2d18ffa7cfab7f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mSetupTextures</b> ()</td></tr>
+<tr class="memitem:a2e67b86e0ea4e5f46b2d18ffa7cfab7f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a2e67b86e0ea4e5f46b2d18ffa7cfab7f">mSetupTextures</a> ()</td></tr>
+<tr class="memdesc:a2e67b86e0ea4e5f46b2d18ffa7cfab7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to register any textures with the GPU  <br /></td></tr>
 <tr class="separator:a2e67b86e0ea4e5f46b2d18ffa7cfab7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af55b52fa0357f2d53eeb0c344c4b70e5"><td class="memItemLeft" align="right" valign="top"><a id="af55b52fa0357f2d53eeb0c344c4b70e5" name="af55b52fa0357f2d53eeb0c344c4b70e5"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mSetupScene</b> ()</td></tr>
+<tr class="memitem:af55b52fa0357f2d53eeb0c344c4b70e5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#af55b52fa0357f2d53eeb0c344c4b70e5">mSetupScene</a> ()</td></tr>
+<tr class="memdesc:af55b52fa0357f2d53eeb0c344c4b70e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to setup any scene specific information  <br /></td></tr>
 <tr class="separator:af55b52fa0357f2d53eeb0c344c4b70e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc423914e8bc5518a9be0f45f328664e"><td class="memItemLeft" align="right" valign="top"><a id="adc423914e8bc5518a9be0f45f328664e" name="adc423914e8bc5518a9be0f45f328664e"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mCleanupGLFW</b> ()</td></tr>
-<tr class="separator:adc423914e8bc5518a9be0f45f328664e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab48658f88682f08c027dc6a29750feea"><td class="memItemLeft" align="right" valign="top"><a id="ab48658f88682f08c027dc6a29750feea" name="ab48658f88682f08c027dc6a29750feea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mCleanupGLEW</b> ()</td></tr>
-<tr class="separator:ab48658f88682f08c027dc6a29750feea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6d4ff8b9d60381fc78cba8ad21eb166"><td class="memItemLeft" align="right" valign="top"><a id="ae6d4ff8b9d60381fc78cba8ad21eb166" name="ae6d4ff8b9d60381fc78cba8ad21eb166"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mCleanupOpenGL</b> ()</td></tr>
-<tr class="separator:ae6d4ff8b9d60381fc78cba8ad21eb166"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a454bb86bbad5810352c976a3c6da53ee"><td class="memItemLeft" align="right" valign="top"><a id="a454bb86bbad5810352c976a3c6da53ee" name="a454bb86bbad5810352c976a3c6da53ee"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mCleanupShaders</b> ()</td></tr>
-<tr class="separator:a454bb86bbad5810352c976a3c6da53ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a390f132c8592268d6a845b23e52ec587"><td class="memItemLeft" align="right" valign="top"><a id="a390f132c8592268d6a845b23e52ec587" name="a390f132c8592268d6a845b23e52ec587"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mCleanupBuffers</b> ()</td></tr>
-<tr class="separator:a390f132c8592268d6a845b23e52ec587"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a557d64c66539960e8c8125cebb3d0a2a"><td class="memItemLeft" align="right" valign="top"><a id="a557d64c66539960e8c8125cebb3d0a2a" name="a557d64c66539960e8c8125cebb3d0a2a"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mCleanupTextures</b> ()</td></tr>
-<tr class="separator:a557d64c66539960e8c8125cebb3d0a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cffe78bca54dec27398073ad32b7cc7"><td class="memItemLeft" align="right" valign="top"><a id="a3cffe78bca54dec27398073ad32b7cc7" name="a3cffe78bca54dec27398073ad32b7cc7"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mCleanupScene</b> ()</td></tr>
+<tr class="memitem:a3cffe78bca54dec27398073ad32b7cc7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a3cffe78bca54dec27398073ad32b7cc7">mCleanupScene</a> ()</td></tr>
+<tr class="memdesc:a3cffe78bca54dec27398073ad32b7cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to cleanup any scene specific information  <br /></td></tr>
 <tr class="separator:a3cffe78bca54dec27398073ad32b7cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a557d64c66539960e8c8125cebb3d0a2a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a557d64c66539960e8c8125cebb3d0a2a">mCleanupTextures</a> ()</td></tr>
+<tr class="memdesc:a557d64c66539960e8c8125cebb3d0a2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to cleanup any textures from the GPU  <br /></td></tr>
+<tr class="separator:a557d64c66539960e8c8125cebb3d0a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a390f132c8592268d6a845b23e52ec587"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a390f132c8592268d6a845b23e52ec587">mCleanupBuffers</a> ()</td></tr>
+<tr class="memdesc:a390f132c8592268d6a845b23e52ec587"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to cleanup any buffer objects from the GPU  <br /></td></tr>
+<tr class="separator:a390f132c8592268d6a845b23e52ec587"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a454bb86bbad5810352c976a3c6da53ee"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a454bb86bbad5810352c976a3c6da53ee">mCleanupShaders</a> ()</td></tr>
+<tr class="memdesc:a454bb86bbad5810352c976a3c6da53ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to cleanup any shaders from the GPU  <br /></td></tr>
+<tr class="separator:a454bb86bbad5810352c976a3c6da53ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6d4ff8b9d60381fc78cba8ad21eb166"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ae6d4ff8b9d60381fc78cba8ad21eb166">mCleanupOpenGL</a> ()</td></tr>
+<tr class="memdesc:ae6d4ff8b9d60381fc78cba8ad21eb166"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to cleanup any specific OpenGL features  <br /></td></tr>
+<tr class="separator:ae6d4ff8b9d60381fc78cba8ad21eb166"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc423914e8bc5518a9be0f45f328664e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#adc423914e8bc5518a9be0f45f328664e">mCleanupGLFW</a> ()</td></tr>
+<tr class="memdesc:adc423914e8bc5518a9be0f45f328664e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the associated GLFW window and terminates the GLFW instance.  <br /></td></tr>
+<tr class="separator:adc423914e8bc5518a9be0f45f328664e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:af1073d1252f20c4f305905fcc3dacc07"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#af1073d1252f20c4f305905fcc3dacc07">mErrorCallback</a> (int error, const char *DESCRIPTION)</td></tr>
+<tr class="memitem:af1073d1252f20c4f305905fcc3dacc07"><td class="memItemLeft" align="right" valign="top"><a id="af1073d1252f20c4f305905fcc3dacc07" name="af1073d1252f20c4f305905fcc3dacc07"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>mErrorCallback</b> (int error, const char *DESCRIPTION)</td></tr>
+<tr class="memdesc:af1073d1252f20c4f305905fcc3dacc07"><td class="mdescLeft">&#160;</td><td class="mdescRight">We will register this function as GLFW's error callback. When an error within OpenGL occurs, GLFW will tell us by calling this function. We can then print this info to the terminal to alert the user. <br /></td></tr>
 <tr class="separator:af1073d1252f20c4f305905fcc3dacc07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6ba4d0b8b561fe2129d1edc0be7420e"><td class="memItemLeft" align="right" valign="top"><a id="ae6ba4d0b8b561fe2129d1edc0be7420e" name="ae6ba4d0b8b561fe2129d1edc0be7420e"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>mWindowResizeCallback</b> (GLFWwindow *window, int width, int height)</td></tr>
-<tr class="separator:ae6ba4d0b8b561fe2129d1edc0be7420e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3561ad6dfca7fef3d8eab0c32213d0ec"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a3561ad6dfca7fef3d8eab0c32213d0ec">mWindowResizeCallback</a> (GLFWwindow *pWindow, int width, int height)</td></tr>
+<tr class="separator:a3561ad6dfca7fef3d8eab0c32213d0ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a07ffcf7e4e3539b0d674d13b58383a0e"><td class="memItemLeft" align="right" valign="top"><a id="a07ffcf7e4e3539b0d674d13b58383a0e" name="a07ffcf7e4e3539b0d674d13b58383a0e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>DEBUG</b></td></tr>
+<tr class="memitem:a07ffcf7e4e3539b0d674d13b58383a0e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a07ffcf7e4e3539b0d674d13b58383a0e">DEBUG</a></td></tr>
+<tr class="memdesc:a07ffcf7e4e3539b0d674d13b58383a0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">if information should be printed to console while running  <br /></td></tr>
 <tr class="separator:a07ffcf7e4e3539b0d674d13b58383a0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fce100a379c8298d6a65001018aeff3"><td class="memItemLeft" align="right" valign="top"><a id="a8fce100a379c8298d6a65001018aeff3" name="a8fce100a379c8298d6a65001018aeff3"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>mErrorCode</b></td></tr>
+<tr class="memdesc:a8fce100a379c8298d6a65001018aeff3"><td class="mdescLeft">&#160;</td><td class="mdescRight">tracks the current status of the OpenGL engine via error codes <br /></td></tr>
 <tr class="separator:a8fce100a379c8298d6a65001018aeff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a163b512667c14260cf432dea9ad61e15"><td class="memItemLeft" align="right" valign="top"><a id="a163b512667c14260cf432dea9ad61e15" name="a163b512667c14260cf432dea9ad61e15"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>mOpenGLMajorVersion</b></td></tr>
+<tr class="memitem:a163b512667c14260cf432dea9ad61e15"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a163b512667c14260cf432dea9ad61e15">mOpenGLMajorVersion</a></td></tr>
+<tr class="memdesc:a163b512667c14260cf432dea9ad61e15"><td class="mdescLeft">&#160;</td><td class="mdescRight">the major version of the requested OpenGL context  <br /></td></tr>
 <tr class="separator:a163b512667c14260cf432dea9ad61e15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f8edec5537a058dd1fa1952426d0f4a"><td class="memItemLeft" align="right" valign="top"><a id="a0f8edec5537a058dd1fa1952426d0f4a" name="a0f8edec5537a058dd1fa1952426d0f4a"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>mOpenGLMinorVersion</b></td></tr>
+<tr class="memitem:a0f8edec5537a058dd1fa1952426d0f4a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a0f8edec5537a058dd1fa1952426d0f4a">mOpenGLMinorVersion</a></td></tr>
+<tr class="memdesc:a0f8edec5537a058dd1fa1952426d0f4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">the minor version of the requested OpenGL context  <br /></td></tr>
 <tr class="separator:a0f8edec5537a058dd1fa1952426d0f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae428647eee31a7288e7ce035838b6f4d"><td class="memItemLeft" align="right" valign="top"><a id="ae428647eee31a7288e7ce035838b6f4d" name="ae428647eee31a7288e7ce035838b6f4d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>mWindowWidth</b></td></tr>
+<tr class="memitem:ae428647eee31a7288e7ce035838b6f4d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ae428647eee31a7288e7ce035838b6f4d">mWindowWidth</a></td></tr>
+<tr class="memdesc:ae428647eee31a7288e7ce035838b6f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">the window width of the requested GLFW window  <br /></td></tr>
 <tr class="separator:ae428647eee31a7288e7ce035838b6f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaadbb956e0f118c18895adfc5ab76a01"><td class="memItemLeft" align="right" valign="top"><a id="aaadbb956e0f118c18895adfc5ab76a01" name="aaadbb956e0f118c18895adfc5ab76a01"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>mWindowHeight</b></td></tr>
+<tr class="memitem:aaadbb956e0f118c18895adfc5ab76a01"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aaadbb956e0f118c18895adfc5ab76a01">mWindowHeight</a></td></tr>
+<tr class="memdesc:aaadbb956e0f118c18895adfc5ab76a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">the window height of the requested GLFW window  <br /></td></tr>
 <tr class="separator:aaadbb956e0f118c18895adfc5ab76a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bd9db3f77ab90255b0dd2265c69b49f"><td class="memItemLeft" align="right" valign="top"><a id="a2bd9db3f77ab90255b0dd2265c69b49f" name="a2bd9db3f77ab90255b0dd2265c69b49f"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>mWindowResizable</b></td></tr>
-<tr class="separator:a2bd9db3f77ab90255b0dd2265c69b49f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d7eff405db5721345bf06b1178e4102"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5d7eff405db5721345bf06b1178e4102">mWindowResizable</a></td></tr>
+<tr class="memdesc:a5d7eff405db5721345bf06b1178e4102"><td class="mdescLeft">&#160;</td><td class="mdescRight">if the GLFW window can be resized while open  <br /></td></tr>
+<tr class="separator:a5d7eff405db5721345bf06b1178e4102"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa079c2374e6f4f68fe0e963b839809d6"><td class="memItemLeft" align="right" valign="top"><a id="aa079c2374e6f4f68fe0e963b839809d6" name="aa079c2374e6f4f68fe0e963b839809d6"></a>
 char *&#160;</td><td class="memItemRight" valign="bottom"><b>mWindowTitle</b></td></tr>
+<tr class="memdesc:aa079c2374e6f4f68fe0e963b839809d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">the title of the GLFW window <br /></td></tr>
 <tr class="separator:aa079c2374e6f4f68fe0e963b839809d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf23f7676630ddb9e20e548701d5d892"><td class="memItemLeft" align="right" valign="top"><a id="abf23f7676630ddb9e20e548701d5d892" name="abf23f7676630ddb9e20e548701d5d892"></a>
 GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWindow</b></td></tr>
+<tr class="memdesc:abf23f7676630ddb9e20e548701d5d892"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to the GLFW window object <br /></td></tr>
 <tr class="separator:abf23f7676630ddb9e20e548701d5d892"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract Class to run an OpenGL application. The following methods must be overridden:<br  />
-</p><ul>
-<li><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a91a8498d1ab372a8d312720aa6df43f6" title="Initiate the draw loop.">run()</a><br  />
+ </p>
+<ul>
+<li><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a0027c22f89579c16f5ee45d473a470d3" title="override to enable specific OpenGL features">mSetupOpenGL()</a><br  />
 </li>
-<li>mSetupOpenGL()<br  />
+<li><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a91a8498d1ab372a8d312720aa6df43f6" title="Initiate the draw loop.">run()</a><br  />
  </li>
 </ul>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a56119378cd0268c056dc1c925ca2b470" name="a56119378cd0268c056dc1c925ca2b470"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56119378cd0268c056dc1c925ca2b470">&#9670;&#160;</a></span>OpenGLEngine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">CSCI441::OpenGLEngine::OpenGLEngine </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>OPENGL_MAJOR_VERSION</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>OPENGL_MINOR_VERSION</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINDOW_WIDTH</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINDOW_HEIGHT</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>WINDOW_TITLE</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>WINDOW_RESIZABLE</em> = <code>GLFW_FALSE</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>initializes our OpenGL Engine by setting the OpenGL context and GLFW window parameters </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OPENGL_MAJOR_VERSION</td><td>OpenGL Major version to request context of (for example 4.X) </td></tr>
+    <tr><td class="paramname">OPENGL_MINOR_VERSION</td><td>OpenGL Minor version to request context of (for example X.1) </td></tr>
+    <tr><td class="paramname">WINDOW_WIDTH</td><td>width of window to request creation of </td></tr>
+    <tr><td class="paramname">WINDOW_HEIGHT</td><td>height of window to request creation of </td></tr>
+    <tr><td class="paramname">WINDOW_TITLE</td><td>title to place on window bar </td></tr>
+    <tr><td class="paramname">WINDOW_RESIZABLE</td><td>if window should be resizable or not (defaults to false) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>does not actually create the context nor the window at this time. To do so, call the <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884" title="Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, GLEW,...">initialize()</a> method after the object has been created </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a20e62bf4168a3f252cdecc9413088884" name="a20e62bf4168a3f252cdecc9413088884"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a20e62bf4168a3f252cdecc9413088884">&#9670;&#160;</a></span>initialize()</h2>
 
@@ -278,12 +375,14 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWindow</b><
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, GLEW, OpenGL, Shader Programs, Buffer Objects, Textures, and any Scene information </p><dl class="section warning"><dt>Warning</dt><dd>If this method is overridden, then the parent implementation must be called first as part of the derived implementation </dd></dl>
+
+<p>Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, GLEW, OpenGL, Shader Programs, Buffer Objects, Textures, and any Scene information. </p>
+<dl class="section warning"><dt>Warning</dt><dd>If this method is overridden, then the parent implementation must be called first as part of the derived implementation </dd></dl>
 
 </div>
 </div>
-<a id="af1073d1252f20c4f305905fcc3dacc07" name="af1073d1252f20c4f305905fcc3dacc07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1073d1252f20c4f305905fcc3dacc07">&#9670;&#160;</a></span>mErrorCallback()</h2>
+<a id="a390f132c8592268d6a845b23e52ec587" name="a390f132c8592268d6a845b23e52ec587"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a390f132c8592268d6a845b23e52ec587">&#9670;&#160;</a></span>mCleanupBuffers()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,30 +391,192 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWindow</b><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void CSCI441::OpenGLEngine::mErrorCallback </td>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::mCleanupBuffers </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>error</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>DESCRIPTION</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>We will register this function as GLFW's error callback. When an error within GLFW occurs, GLFW will tell us by calling this function. We can then print this info to the terminal to alert the user. </p>
+
+<p>override to cleanup any buffer objects from the GPU </p>
+<dl class="section note"><dt>Note</dt><dd>called after textures have been cleaned up and prior to shaders, OpenGL, or GLFW being cleaned </dd></dl>
+
+</div>
+</div>
+<a id="adc423914e8bc5518a9be0f45f328664e" name="adc423914e8bc5518a9be0f45f328664e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc423914e8bc5518a9be0f45f328664e">&#9670;&#160;</a></span>mCleanupGLFW()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::OpenGLEngine::mCleanupGLFW </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the associated GLFW window and terminates the GLFW instance. </p>
+<dl class="section warning"><dt>Warning</dt><dd>If this method is overridden, then the parent implementation must be called last as part of the derived implementation </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>final cleanup method to be called </dd></dl>
+
+</div>
+</div>
+<a id="ae6d4ff8b9d60381fc78cba8ad21eb166" name="ae6d4ff8b9d60381fc78cba8ad21eb166"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6d4ff8b9d60381fc78cba8ad21eb166">&#9670;&#160;</a></span>mCleanupOpenGL()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::mCleanupOpenGL </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override to cleanup any specific OpenGL features </p>
+<dl class="section note"><dt>Note</dt><dd>called after shaders have been cleaned and prior to GLFW being cleaned </dd></dl>
+
+</div>
+</div>
+<a id="a3cffe78bca54dec27398073ad32b7cc7" name="a3cffe78bca54dec27398073ad32b7cc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cffe78bca54dec27398073ad32b7cc7">&#9670;&#160;</a></span>mCleanupScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::mCleanupScene </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override to cleanup any scene specific information </p>
+<dl class="section note"><dt>Note</dt><dd>first cleanup method to be called </dd></dl>
+
+</div>
+</div>
+<a id="a454bb86bbad5810352c976a3c6da53ee" name="a454bb86bbad5810352c976a3c6da53ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a454bb86bbad5810352c976a3c6da53ee">&#9670;&#160;</a></span>mCleanupShaders()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::mCleanupShaders </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override to cleanup any shaders from the GPU </p>
+<dl class="section note"><dt>Note</dt><dd>called after buffer objects have been cleaned up and prior to OpenGL or GLFW being cleaned </dd></dl>
+
+</div>
+</div>
+<a id="a557d64c66539960e8c8125cebb3d0a2a" name="a557d64c66539960e8c8125cebb3d0a2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a557d64c66539960e8c8125cebb3d0a2a">&#9670;&#160;</a></span>mCleanupTextures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::mCleanupTextures </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override to cleanup any textures from the GPU </p>
+<dl class="section note"><dt>Note</dt><dd>called after scene cleanup and prior to any other cleanup processes </dd></dl>
+
+</div>
+</div>
+<a id="ad0dd244f89a9b1302509a348c7e74394" name="ad0dd244f89a9b1302509a348c7e74394"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0dd244f89a9b1302509a348c7e74394">&#9670;&#160;</a></span>mSetupBuffers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::mSetupBuffers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override to register any buffer objects with the GPU </p>
+<dl class="section note"><dt>Note</dt><dd>called after shaders are setup and prior to textures or scene setup has been performed </dd>
+<dd>
+If overridden, then it is likely that mCleanupBuffers should be overridden as well </dd></dl>
 
 </div>
 </div>
@@ -341,10 +602,12 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWindow</b><
   </tr>
 </table>
 </div><div class="memdoc">
+
 <p>Used to setup everything GLFW related. This includes the OpenGL context and our window.<br  />
 <br  />
  By default, completes the following steps in order:<br  />
-</p><ul>
+ </p>
+<ul>
 <li>sets error callback<br  />
 </li>
 <li>initializes GLFW<br  />
@@ -361,9 +624,183 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWindow</b><
 </li>
 <li>makes the window the current context<br  />
 </li>
-<li>sets the swap interval to 1 <dl class="section note"><dt>Note</dt><dd>This method should be overridden if any additional callbacks need to be registered. When registering additional callbacks, the parent implementation must be called first and then the additional callbacks may be registered as desired. </dd></dl>
+<li>sets the swap interval to 1 <dl class="section note"><dt>Note</dt><dd>This method should be overridden if any additional callbacks need to be registered. When registering additional callbacks, the parent implementation must be called first and then the additional callbacks may be registered as desired. </dd>
+<dd>
+If overridden, then it is likely that mCleanupGLFW should be overridden as well </dd>
+<dd>
+Sets mErrorCode if process does not complete successfully </dd></dl>
 </li>
 </ul>
+
+</div>
+</div>
+<a id="a0027c22f89579c16f5ee45d473a470d3" name="a0027c22f89579c16f5ee45d473a470d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0027c22f89579c16f5ee45d473a470d3">&#9670;&#160;</a></span>mSetupOpenGL()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::mSetupOpenGL </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override to enable specific OpenGL features </p>
+<dl class="section note"><dt>Note</dt><dd>called after GLFW window is created and OpenGL context is created and prior to any other shader, buffer, texture, or scene setup has been performed </dd>
+<dd>
+If overridden, then it is likely that mCleanupOpenGL should be overridden as well </dd></dl>
+
+</div>
+</div>
+<a id="af55b52fa0357f2d53eeb0c344c4b70e5" name="af55b52fa0357f2d53eeb0c344c4b70e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af55b52fa0357f2d53eeb0c344c4b70e5">&#9670;&#160;</a></span>mSetupScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::mSetupScene </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override to setup any scene specific information </p>
+<dl class="section note"><dt>Note</dt><dd>final setup method to be called </dd>
+<dd>
+If overridden, then it is likely that mCleanupScene should be overridden as well </dd></dl>
+
+</div>
+</div>
+<a id="ab8281273cadfa571c7271ddcb2a85f2e" name="ab8281273cadfa571c7271ddcb2a85f2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8281273cadfa571c7271ddcb2a85f2e">&#9670;&#160;</a></span>mSetupShaders()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::mSetupShaders </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override to register any shaders with the GPU </p>
+<dl class="section note"><dt>Note</dt><dd>called after OpenGL features are setup and prior to buffers, textures, or scene setup has been performed </dd>
+<dd>
+If overridden, then it is likely that mCleanupShaders should be overridden as well </dd></dl>
+
+</div>
+</div>
+<a id="a2e67b86e0ea4e5f46b2d18ffa7cfab7f" name="a2e67b86e0ea4e5f46b2d18ffa7cfab7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e67b86e0ea4e5f46b2d18ffa7cfab7f">&#9670;&#160;</a></span>mSetupTextures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::mSetupTextures </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override to register any textures with the GPU </p>
+<dl class="section note"><dt>Note</dt><dd>called after buffer objects are setup and prior to scene setup has been performed </dd>
+<dd>
+If overridden, then it is likely that mCleanupTextures should be overridden as well </dd></dl>
+
+</div>
+</div>
+<a id="a3561ad6dfca7fef3d8eab0c32213d0ec" name="a3561ad6dfca7fef3d8eab0c32213d0ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3561ad6dfca7fef3d8eab0c32213d0ec">&#9670;&#160;</a></span>mWindowResizeCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::OpenGLEngine::mWindowResizeCallback </td>
+          <td>(</td>
+          <td class="paramtype">GLFWwindow *&#160;</td>
+          <td class="paramname"><em>pWindow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>callback called when GLFW pWindow is resized. internally updated mWindowWidth and mWindowHeight to new values </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pWindow</td><td>pointer to the window that was resized </td></tr>
+    <tr><td class="paramname">width</td><td>new width of the window </td></tr>
+    <tr><td class="paramname">height</td><td>new height of the window </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -400,7 +837,9 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWindow</b><
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Set the new window size </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Set the new window size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">WINDOW_WIDTH</td><td>width of the new window </td></tr>
     <tr><td class="paramname">WINDOW_HEIGHT</td><td>height of the new window </td></tr>
@@ -433,7 +872,216 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWindow</b><
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Cleanup everything needed for OpenGL Rendering. This includes freeing memory for data used in: any Scene information, Textures, Buffer Objects, Shader Programs, OpenGL, GLEW, GLFW </p><dl class="section warning"><dt>Warning</dt><dd>If this method is overridden, then the parent implementation must be called last as part of the derived implementation </dd></dl>
+
+<p>Cleanup everything needed for OpenGL Rendering. This includes freeing memory for data used in: any Scene information, Textures, Buffer Objects, Shader Programs, OpenGL, GLEW, GLFW. </p>
+<dl class="section warning"><dt>Warning</dt><dd>If this method is overridden, then the parent implementation must be called last as part of the derived implementation </dd></dl>
+
+</div>
+</div>
+<a id="a1aeee3b7b3f6de881bc2ddc69d14ce26" name="a1aeee3b7b3f6de881bc2ddc69d14ce26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aeee3b7b3f6de881bc2ddc69d14ce26">&#9670;&#160;</a></span>turnDebuggingOff()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::OpenGLEngine::turnDebuggingOff </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Disable logging to command line. </p>
+<dl class="section note"><dt>Note</dt><dd>Enabled by default </dd></dl>
+
+</div>
+</div>
+<a id="a93ba383761d389fb0a06e5ca102ee720" name="a93ba383761d389fb0a06e5ca102ee720"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93ba383761d389fb0a06e5ca102ee720">&#9670;&#160;</a></span>turnDebuggingOn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::OpenGLEngine::turnDebuggingOn </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enable logging to command line. </p>
+<dl class="section note"><dt>Note</dt><dd>Enabled by default </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a07ffcf7e4e3539b0d674d13b58383a0e" name="a07ffcf7e4e3539b0d674d13b58383a0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07ffcf7e4e3539b0d674d13b58383a0e">&#9670;&#160;</a></span>DEBUG</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CSCI441::OpenGLEngine::DEBUG</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>if information should be printed to console while running </p>
+<dl class="section note"><dt>Note</dt><dd>defaults to true </dd></dl>
+
+</div>
+</div>
+<a id="a163b512667c14260cf432dea9ad61e15" name="a163b512667c14260cf432dea9ad61e15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a163b512667c14260cf432dea9ad61e15">&#9670;&#160;</a></span>mOpenGLMajorVersion</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CSCI441::OpenGLEngine::mOpenGLMajorVersion</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the major version of the requested OpenGL context </p>
+<dl class="section note"><dt>Note</dt><dd>may not correspond to the actual OpenGL context created </dd></dl>
+
+</div>
+</div>
+<a id="a0f8edec5537a058dd1fa1952426d0f4a" name="a0f8edec5537a058dd1fa1952426d0f4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f8edec5537a058dd1fa1952426d0f4a">&#9670;&#160;</a></span>mOpenGLMinorVersion</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CSCI441::OpenGLEngine::mOpenGLMinorVersion</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the minor version of the requested OpenGL context </p>
+<dl class="section note"><dt>Note</dt><dd>may not correspond to the actual OpenGL context created </dd></dl>
+
+</div>
+</div>
+<a id="aaadbb956e0f118c18895adfc5ab76a01" name="aaadbb956e0f118c18895adfc5ab76a01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaadbb956e0f118c18895adfc5ab76a01">&#9670;&#160;</a></span>mWindowHeight</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CSCI441::OpenGLEngine::mWindowHeight</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the window height of the requested GLFW window </p>
+<dl class="section note"><dt>Note</dt><dd>may not correspond to the actual GLFW window created </dd></dl>
+
+</div>
+</div>
+<a id="a5d7eff405db5721345bf06b1178e4102" name="a5d7eff405db5721345bf06b1178e4102"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d7eff405db5721345bf06b1178e4102">&#9670;&#160;</a></span>mWindowResizable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CSCI441::OpenGLEngine::mWindowResizable</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>if the GLFW window can be resized while open </p>
+<dl class="section note"><dt>Note</dt><dd>by default false </dd></dl>
+
+</div>
+</div>
+<a id="ae428647eee31a7288e7ce035838b6f4d" name="ae428647eee31a7288e7ce035838b6f4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae428647eee31a7288e7ce035838b6f4d">&#9670;&#160;</a></span>mWindowWidth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CSCI441::OpenGLEngine::mWindowWidth</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the window width of the requested GLFW window </p>
+<dl class="section note"><dt>Note</dt><dd>may not correspond to the actual GLFW window created </dd></dl>
 
 </div>
 </div>
