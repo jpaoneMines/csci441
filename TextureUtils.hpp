@@ -56,7 +56,7 @@ namespace CSCI441 {
          * @note Calls through to loadAndRegister2DTexture()
          * @param filename name of texture to load
          * @param minFilter minification filter to apply (default: GL_LINEAR)
-         * @param mag magnification filter to apply (default: GL_LINEAR)
+         * @param magFilter magnification filter to apply (default: GL_LINEAR)
          * @param wrapS wrapping to apply to S coordinate (default: GL_REPEAT)
          * @param wrapT wrapping to apply to T coordinate (default: GL_REPEAT)
          * @returns texture handle corresponding to the texture

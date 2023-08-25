@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['debug_0',['DEBUG',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a07ffcf7e4e3539b0d674d13b58383a0e',1,'CSCI441::OpenGLEngine']]],
-  ['diffuse_1',['diffuse',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#a8e7e3791a3edd0067deade301645bcf3',1,'CSCI441::Materials::Material']]]
+  ['black_5fplastic_0',['BLACK_PLASTIC',['../materials_8hpp.html#af358ae99cc1727574a20e153560fb7dc',1,'CSCI441::Materials']]],
+  ['black_5frubber_1',['BLACK_RUBBER',['../materials_8hpp.html#a1dc470fa6fd76bb3f87ccb1c8e8c05f7',1,'CSCI441::Materials']]],
+  ['brass_2',['BRASS',['../materials_8hpp.html#ae844683034383853c444af003ff3dd76',1,'CSCI441::Materials']]],
+  ['bronze_3',['BRONZE',['../materials_8hpp.html#aab72be324f57668e06a27f1f5c79787e',1,'CSCI441::Materials']]],
+  ['bronze_5fpolished_4',['BRONZE_POLISHED',['../materials_8hpp.html#aba5004378a77fafc29894ebe34b21529',1,'CSCI441::Materials']]]
 ];

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['shininess_0',['shininess',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#a3e272e12faaa70cbcce6927d5c8305ce',1,'CSCI441::Materials::Material']]],
-  ['sl_1',['sl',['../struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html#aa98f835c514b9f41b060e81f1668a77d',1,'CSCI441_INTERNAL::CylinderData']]],
-  ['specular_2',['specular',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#ac1a20c197ba9dd4a9ebbf6f36679f49f',1,'CSCI441::Materials::Material']]],
-  ['st_3',['st',['../struct_c_s_c_i441___i_n_t_e_r_n_a_l_1_1_cylinder_data.html#a6b26c85aa6410edf742af1b145c74790',1,'CSCI441_INTERNAL::CylinderData']]]
+  ['gold_0',['GOLD',['../materials_8hpp.html#a658d05b9cf5a1a0330bee1f71b58df5e',1,'CSCI441::Materials']]],
+  ['gold_5fpolished_1',['GOLD_POLISHED',['../materials_8hpp.html#a32e8684c083dab4c06034e6cc32d4a09',1,'CSCI441::Materials']]],
+  ['green_5fplastic_2',['GREEN_PLASTIC',['../materials_8hpp.html#ae8c48973f7de0ef30f684950b40f5bff',1,'CSCI441::Materials']]],
+  ['green_5frubber_3',['GREEN_RUBBER',['../materials_8hpp.html#a088858efb21b9f3c9beb72dab1c4c3b5',1,'CSCI441::Materials']]]
 ];

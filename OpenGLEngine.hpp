@@ -23,6 +23,7 @@
 namespace CSCI441 {
 
     /**
+     * @class OpenGLEngine
      * @brief Abstract Class to run an OpenGL application.  The following methods
      * must be overridden:<br>
      *  - mSetupOpenGL()<br>
