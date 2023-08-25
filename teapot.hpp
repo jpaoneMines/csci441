@@ -46,10 +46,10 @@ namespace CSCI441_INTERNAL {
     //************************************************************************************************
     //************************************************************************************************
 
-#define TEAPOT_NUMBER_PATCHES 28
-#define TEAPOT_PATCH_DIMENSION 3
-#define TEAPOT_RES_U 10
-#define TEAPOT_RES_V 10
+    const unsigned int TEAPOT_NUMBER_PATCHES = 28;
+    const unsigned int TEAPOT_PATCH_DIMENSION = 3;
+    const unsigned int TEAPOT_RES_U = 10;
+    const unsigned int TEAPOT_RES_V = 10;
 
     inline GLuint teapot_vao;
     inline GLuint teapot_vbo, teapot_ibo;
@@ -409,16 +409,16 @@ namespace CSCI441_INTERNAL {
 
     inline void teapot_build_teapot() {
         // Vertices
-        for (int p = 0; p < TEAPOT_NUMBER_PATCHES; p++) {
+        for (unsigned int p = 0; p < TEAPOT_NUMBER_PATCHES; p++) {
             auto control_points_k = (Teapot_Vertex**)malloc(sizeof(Teapot_Vertex*) * (TEAPOT_PATCH_DIMENSION + 1));
-            for(int i = 0; i < TEAPOT_PATCH_DIMENSION + 1; i++)
+            for(unsigned int i = 0; i < TEAPOT_PATCH_DIMENSION + 1; i++)
                 control_points_k[i] = (Teapot_Vertex*)malloc(sizeof(Teapot_Vertex) * (TEAPOT_PATCH_DIMENSION + 1));
 
             teapot_build_control_points_k(p, control_points_k);
 
-            for (int ru = 0; ru <= TEAPOT_RES_U - 1; ru++) {
+            for (unsigned int ru = 0; ru <= TEAPOT_RES_U - 1; ru++) {
                 GLfloat u = 1.0f * (GLfloat) ru / (TEAPOT_RES_U - 1);
-                for (int rv = 0; rv <= TEAPOT_RES_V - 1; rv++) {
+                for (unsigned int rv = 0; rv <= TEAPOT_RES_V - 1; rv++) {
                     GLfloat v = 1.0f * (GLfloat) rv / (TEAPOT_RES_V - 1);
                     teapot_vertices[                    p * TEAPOT_RES_U * TEAPOT_RES_V                                       + ru * TEAPOT_RES_V + rv ] = teapot_compute_position(control_points_k, u, v);
                     teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V     + p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv ] = teapot_compute_normal(control_points_k, u, v);
@@ -429,9 +429,9 @@ namespace CSCI441_INTERNAL {
 
         // Elements
         int n = 0;
-        for (int p = 0; p < TEAPOT_NUMBER_PATCHES; p++)
-            for (int ru = 0; ru < TEAPOT_RES_U - 1; ru++)
-                for (int rv = 0; rv < TEAPOT_RES_V - 1; rv++) {
+        for (unsigned int p = 0; p < TEAPOT_NUMBER_PATCHES; p++)
+            for (unsigned int ru = 0; ru < TEAPOT_RES_U - 1; ru++)
+                for (unsigned int rv = 0; rv < TEAPOT_RES_V - 1; rv++) {
                     // 1 square ABCD = 2 triangles ABC + CDA
                     GLushort a = p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv      ;
                     GLushort b = p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + (rv + 1);
@@ -450,16 +450,16 @@ namespace CSCI441_INTERNAL {
     }
 
     inline void teapot_build_control_points_k(const int p, Teapot_Vertex** const control_points_k) {
-        for (int i = 0; i <= TEAPOT_PATCH_DIMENSION; i++)
-            for (int j = 0; j <= TEAPOT_PATCH_DIMENSION; j++)
+        for (unsigned int i = 0; i <= TEAPOT_PATCH_DIMENSION; i++)
+            for (unsigned int j = 0; j <= TEAPOT_PATCH_DIMENSION; j++)
                 control_points_k[i][j] = teapot_cp_vertices[teapot_patches[p][i][j] - 1];
     }
 
     inline Teapot_Vertex teapot_compute_position(Teapot_Vertex** const control_points_k, const GLfloat u, const GLfloat v) {
         Teapot_Vertex position = {0.0f, 0.0f, 0.0f };
-        for (int i = 0; i <= TEAPOT_PATCH_DIMENSION; i++) {
+        for (unsigned int i = 0; i <= TEAPOT_PATCH_DIMENSION; i++) {
             GLfloat poly_i = teapot_bernstein_polynomial(i, TEAPOT_PATCH_DIMENSION, u);
-            for (int j = 0; j <= TEAPOT_PATCH_DIMENSION; j++) {
+            for (unsigned int j = 0; j <= TEAPOT_PATCH_DIMENSION; j++) {
                 GLfloat poly_j = teapot_bernstein_polynomial(j, TEAPOT_PATCH_DIMENSION, v);
                 position.x += poly_i * poly_j * control_points_k[i][j].x;
                 position.y += poly_i * poly_j * control_points_k[i][j].y;
@@ -472,9 +472,9 @@ namespace CSCI441_INTERNAL {
     // TODO compute normal based on partial derivatives of surface patch
     inline Teapot_Vertex teapot_compute_normal(Teapot_Vertex** const control_points_k, const GLfloat u, const GLfloat v) {
         Teapot_Vertex normal = {0.0f, 0.0f, 0.0f };
-        for (int i = 0; i <= TEAPOT_PATCH_DIMENSION; i++) {
+        for (unsigned int i = 0; i <= TEAPOT_PATCH_DIMENSION; i++) {
             GLfloat poly_i = teapot_bernstein_polynomial(i, TEAPOT_PATCH_DIMENSION, u);
-            for (int j = 0; j <= TEAPOT_PATCH_DIMENSION; j++) {
+            for (unsigned int j = 0; j <= TEAPOT_PATCH_DIMENSION; j++) {
                 GLfloat poly_j = teapot_bernstein_polynomial(j, TEAPOT_PATCH_DIMENSION, v);
                 normal.x += poly_i * poly_j * control_points_k[i][j].x;
                 normal.y += poly_i * poly_j * control_points_k[i][j].y;
