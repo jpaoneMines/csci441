@@ -151,7 +151,7 @@ namespace CSCI441 {
          * @brief cleans up our OpenGL Engine by destroying the OpenGL context, GLFW window, and cleaning up
          * all GPU resources
          */
-        ~OpenGLEngine();
+        virtual ~OpenGLEngine();
 
         /**
          * @brief if information should be printed to console while running
