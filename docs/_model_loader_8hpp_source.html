@@ -919,7 +919,7 @@ $(function() {
 <div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span>                } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span>                    <span class="keywordflow">if</span> (INFO) printf( <span class="stringliteral">&quot;[.mtl]: TextureMap:\t%s\tSize: %dx%d\tColors: %d\n&quot;</span>, tokens[1].c_str(), texWidth, texHeight, textureChannels );</div>
 <div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span> </div>
-<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span>                    <span class="keywordflow">if</span>( maskData == NULL ) {</div>
+<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span>                    <span class="keywordflow">if</span>( maskData == <span class="keyword">nullptr</span> ) {</div>
 <div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span>                        <span class="keywordflow">if</span>( textureHandle == 0 ) {</div>
 <div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span>                            glGenTextures( 1, &amp;textureHandle );</div>
 <div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>                            imageHandles.insert( std::pair&lt;std::string, GLuint&gt;( tokens[1], textureHandle ) );</div>
@@ -980,7 +980,7 @@ $(function() {
 <div class="line"><a id="l01001" name="l01001"></a><span class="lineno"> 1001</span>                } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l01002" name="l01002"></a><span class="lineno"> 1002</span>                    <span class="keywordflow">if</span> (INFO) printf( <span class="stringliteral">&quot;[.mtl]: AlphaMap:  \t%s\tSize: %dx%d\tColors: %d\n&quot;</span>, tokens[1].c_str(), texWidth, texHeight, maskChannels );</div>
 <div class="line"><a id="l01003" name="l01003"></a><span class="lineno"> 1003</span> </div>
-<div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span>                    <span class="keywordflow">if</span>( textureData != NULL ) {</div>
+<div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span>                    <span class="keywordflow">if</span>( textureData != <span class="keyword">nullptr</span> ) {</div>
 <div class="line"><a id="l01005" name="l01005"></a><span class="lineno"> 1005</span>                        fullData = CSCI441_INTERNAL::createTransparentTexture( textureData, maskData, texWidth, texHeight, textureChannels, maskChannels );</div>
 <div class="line"><a id="l01006" name="l01006"></a><span class="lineno"> 1006</span> </div>
 <div class="line"><a id="l01007" name="l01007"></a><span class="lineno"> 1007</span>                        <span class="keywordflow">if</span>( textureHandle == 0 )</div>

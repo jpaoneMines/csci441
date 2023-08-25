@@ -63,7 +63,7 @@ namespace CSCI441 {
 
         /**
          * @brief copies the value pointed to by addr to the corresponding location within the UBO as denoted by the uniform name
-         * @param uniformName name of the uniform within the block to copy value to
+         * @param UNIFORM_NAME name of the uniform within the block to copy value to
          * @param addr starting address of source to copy from
          * @param len length of buffer to copy
          */
