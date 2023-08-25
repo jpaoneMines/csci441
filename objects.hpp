@@ -29,180 +29,166 @@
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-/** @namespace CSCI441
+/**
+ * @namespace CSCI441
  * @brief CSCI441 Helper Functions for OpenGL
  */
 namespace CSCI441 {
-    /**	@brief Sets the attribute locations for vertex positions, normals, and texture coordinates
-     *
-     * Needs to be called after a shader program is being used and before drawing geometry
-     *
-     * @param GLint positionLocation - location of the vertex position attribute
-     * @param GLint normalLocation	 - location of the vertex normal attribute
-     * @param GLint texCoordLocation - location of the vertex texture coordinate attribute
+    /**
+     * @brief Sets the attribute locations for vertex positions, normals, and texture coordinates
+     * @param positionLocation location of the vertex position attribute
+     * @param normalLocation location of the vertex normal attribute
+     * @param texCoordLocation location of the vertex texture coordinate attribute
+     * @note Needs to be called after a shader program is being used and before drawing geometry
      */
     void setVertexAttributeLocations( GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1 );
 
-    /** @brief deletes the VAOs stored for all object types
-     *
+    /**
+     * @brief deletes the VAOs stored for all object types
      */
-    void deleteObjectVAOs();
+    [[maybe_unused]] void deleteObjectVAOs();
 
-    /** @brief deletes the VBOs stored for all object types
-     *
+    /**
+     * @brief deletes the VBOs stored for all object types
      */
-    void deleteObjectVBOs();
+    [[maybe_unused]] void deleteObjectVBOs();
 
-    /**	@brief Draws a solid cone
-     *
-     * Cone is oriented along the y-axis with the origin along the base of the cone
-     *
-     * @param GLfloat base   - radius of the base of the cone
-     * @param GLfloat height - height of the cone from the base to the tip
-     * @param GLint stacks   - resolution of the number of steps rotated around the central axis of the cone
-     * @param GLint slices   - resolution of the number of steps to take along the height
+    /**
+     * @brief Draws a solid cone
+     * @param base radius of the base of the cone
+     * @param height height of the cone from the base to the tip
+     * @param stacks resolution of the number of steps rotated around the central axis of the cone
+     * @param slices resolution of the number of steps to take along the height
      * @pre base must be greater than zero
      * @pre height must be greater than zero
      * @pre stacks must be greater than zero
      * @pre slices must be greater than two
+     * @note Cone is oriented along the y-axis with the origin along the base of the cone
      */
-    void drawSolidCone( GLfloat base, GLfloat height, GLint stacks, GLint slices );
-    /**	@brief Draws a wireframe cone
-     *
-     * Cone is oriented along the y-axis with the origin along the base of the cone
-     *
-     * @param GLfloat base   - radius of the base of the cone
-     * @param GLfloat height - height of the cone from the base to the tip
-     * @param GLint stacks   - resolution of the number of steps rotated around the central axis of the cone
-     * @param GLint slices   - resolution of the number of steps to take along the height
+    [[maybe_unused]] void drawSolidCone( GLfloat base, GLfloat height, GLint stacks, GLint slices );
+    /**
+     * @brief Draws a wireframe cone
+     * @param base radius of the base of the cone
+     * @param height height of the cone from the base to the tip
+     * @param stacks resolution of the number of steps rotated around the central axis of the cone
+     * @param slices resolution of the number of steps to take along the height
      * @pre base must be greater than zero
      * @pre height must be greater than zero
      * @pre stacks must be greater than zero
      * @pre slices must be greater than two
+     * @note Cone is oriented along the y-axis with the origin along the base of the cone
      */
-    void drawWireCone( GLfloat base, GLfloat height, GLint stacks, GLint slices );
+    [[maybe_unused]] void drawWireCone( GLfloat base, GLfloat height, GLint stacks, GLint slices );
 
-    /** @brief Calls through to drawSolidCubeIndexed()
-     *
-     * @param GLfloat sideLength - length of the edge of the cube
+    /**
+     * @brief Calls through to drawSolidCubeIndexed()
+     * @param sideLength length of the edge of the cube
      * @pre sideLength must be greater than zero
      */
-    void drawSolidCube( GLfloat sideLength );
-    /** @brief Draws a solid cube with normals aligned with cube face
-     *
-     * The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
-     *
-     * @param GLfloat sideLength - length of the edge of the cube
+    [[maybe_unused]] void drawSolidCube( GLfloat sideLength );
+    /**
+     * @brief Draws a solid cube with normals aligned with cube face
+     * @param sideLength length of the edge of the cube
      * @pre sideLength must be greater than zero
+     * @note The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
      */
     void drawSolidCubeFlat( GLfloat sideLength );
-    /** @brief Draws a solid cube
-     *
-     * The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
-     *
-     * @param GLfloat sideLength - length of the edge of the cube
+    /**
+     * @brief Draws a solid cube
+     * @param sideLength length of the edge of the cube
      * @pre sideLength must be greater than zero
+     * @note The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
      */
     void drawSolidCubeIndexed( GLfloat sideLength );
-    /** @brief Draws a solid textured cube.  Calls through to drawSolidCubeFlat()
-     *
-     * The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
-     *
-     * @param GLfloat sideLength - length of the edge of the cube
+    /**
+     * @brief Draws a solid textured cube.  Calls through to drawSolidCubeFlat()
+     * @param sideLength length of the edge of the cube
      * @pre sideLength must be greater than zero
+     * @note The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
      */
-    void drawSolidCubeTextured( GLfloat sideLength );
-    /** @brief Draws a wireframe cube
-     *
-     * The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
-     *
-     * @param GLfloat sideLength - length of the edge of the cube
+    [[maybe_unused]] void drawSolidCubeTextured( GLfloat sideLength );
+    /**
+     * @brief Draws a wireframe cube
+     * @param sideLength length of the edge of the cube
      * @pre sideLength must be greater than zero
+     * @note The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
      */
-    void drawWireCube( GLfloat sideLength );
+    [[maybe_unused]] void drawWireCube( GLfloat sideLength );
 
     /**
      * @brief Draws a cube with 3D Texture Coordinates to map a cubemap texture to it
-     *
-     * The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
-     *
-     * @param GLflaot sideLength - length of the edge of the cube
+     * @param sideLength length of the edge of the cube
      * @pre sideLength must be greater than zero
+     * @note The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
      */
-    void drawCubeMap( GLfloat sideLength );
+    [[maybe_unused]] void drawCubeMap( GLfloat sideLength );
 
-    /**	@brief Draws a solid open ended cylinder
-     *
-     * Cylinder is oriented along the y-axis with the origin along the base
-     *
-     * @param GLfloat base   - radius of the base of the cylinder
-     * @param GLfloat top    - radius of the top of the cylinder
-     * @param GLfloat height - height of the cylinder from the base to the top
-     * @param GLint stacks   - resolution of the number of steps rotated around the central axis of the cylinder
-     * @param GLint slices   - resolution of the number of steps to take along the height
+    /**
+     * @brief Draws a solid open ended cylinder
+     * @param base radius of the base of the cylinder
+     * @param top radius of the top of the cylinder
+     * @param height height of the cylinder from the base to the top
+     * @param stacks resolution of the number of steps rotated around the central axis of the cylinder
+     * @param slices resolution of the number of steps to take along the height
      * @pre either: (1) base is greater than zero and top is greater than or equal to zero or (2) base is greater than or equal to zero and top is greater than zero
      * @pre height must be greater than zero
      * @pre stacks must be greater than zero
      * @pre slices must be greater than two
+     * @note Cylinder is oriented along the y-axis with the origin along the base
      */
-    void drawSolidCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices );
-    /**	@brief Draws a wireframe open ended cylinder
-     *
-     * Cylinder is oriented along the y-axis with the origin along the base
-     *
-     * @param GLfloat base   - radius of the base of the cylinder
-     * @param GLfloat top    - radius of the top of the cylinder
-     * @param GLfloat height - height of the cylinder from the base to the top
-     * @param GLint stacks   - resolution of the number of steps rotated around the central axis of the cylinder
-     * @param GLint slices   - resolution of the number of steps to take along the height
+    [[maybe_unused]] void drawSolidCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices );
+    /**
+     * @brief Draws a wireframe open ended cylinder
+     * @param base radius of the base of the cylinder
+     * @param top radius of the top of the cylinder
+     * @param height height of the cylinder from the base to the top
+     * @param stacks resolution of the number of steps rotated around the central axis of the cylinder
+     * @param slices resolution of the number of steps to take along the height
      * @pre either: (1) base is greater than zero and top is greater than or equal to zero or (2) base is greater than or equal to zero and top is greater than zero
      * @pre height must be greater than zero
      * @pre stacks must be greater than zero
      * @pre slices must be greater than two
+     * @note Cylinder is oriented along the y-axis with the origin along the base
      */
-    void drawWireCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices );
+    [[maybe_unused]] void drawWireCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices );
 
-    /** @brief Draws a solid disk
-     *
-     * Disk is drawn in the XY plane with the origin at its center
-     *
-     * @param GLfloat inner - equivalent to the width of the disk
-     * @param GLfloat outer - radius from the center of the disk to the center of the ring
-     * @param GLint slices  - resolution of the number of steps rotated along the disk
-     * @param GLint rings   - resolution of the number of steps to take along the disk width
+    /**
+     * @brief Draws a solid disk
+     * @param inner equivalent to the width of the disk
+     * @param outer radius from the center of the disk to the center of the ring
+     * @param slices resolution of the number of steps rotated along the disk
+     * @param rings resolution of the number of steps to take along the disk width
      * @pre inner is greater than or equal to zero
      * @pre outer is greater than zero
      * @pre outer is greater than inner
      * @pre slices is greater than two
      * @pre rings is greater than zero
+     * @note Disk is drawn in the XY plane with the origin at its center
      */
-    void drawSolidDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings );
-    /** @brief Draws a wireframe disk
-     *
-     * Disk is drawn in the XY plane with the origin at its center
-     *
-     * @param GLfloat inner - equivalent to the width of the disk
-     * @param GLfloat outer - radius from the center of the disk to the center of the ring
-     * @param GLint slices  - resolution of the number of steps rotated along the disk
-     * @param GLint rings   - resolution of the number of steps to take along the disk width
+    [[maybe_unused]] void drawSolidDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings );
+    /**
+     * @brief Draws a wireframe disk
+     * @param inner equivalent to the width of the disk
+     * @param outer radius from the center of the disk to the center of the ring
+     * @param slices resolution of the number of steps rotated along the disk
+     * @param rings resolution of the number of steps to take along the disk width
      * @pre inner is greater than or equal to zero
      * @pre outer is greater than zero
      * @pre outer is greater than inner
      * @pre slices is greater than two
      * @pre rings is greater than zero
+     * @note Disk is drawn in the XY plane with the origin at its center
      */
-    void drawWireDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings );
+    [[maybe_unused]] void drawWireDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings );
 
-    /** @brief Draws part of a solid disk
-     *
-     * Disk is drawn in the XY plane with the origin at its center
-     *
-     * @param GLfloat inner - equivalent to the width of the disk
-     * @param GLfloat outer - radius from the center of the disk to the center of the ring
-     * @param GLint stacks  - resolution of the number of steps rotated along the disk
-     * @param GLint rings   - resolution of the number of steps to take along the disk width
-     * @param GLfloat start - angle in degrees to start the disk at
-     * @param GLfloat sweep - distance in degrees to rotate through
+    /**
+     * @brief Draws part of a solid disk
+     * @param inner equivalent to the width of the disk
+     * @param outer radius from the center of the disk to the center of the ring
+     * @param slices resolution of the number of steps rotated along the disk
+     * @param rings resolution of the number of steps to take along the disk width
+     * @param start angle in degrees to start the disk at
+     * @param sweep distance in degrees to rotate through
      * @pre inner is greater than or equal to zero
      * @pre outer is greater than zero
      * @pre outer is greater than inner
@@ -210,18 +196,17 @@ namespace CSCI441 {
      * @pre rings is greater than zero
      * @pre start is between [0, 360]
      * @pre sweep is between [0, 360]
+     * @note Disk is drawn in the XY plane with the origin at its center
      */
-    void drawSolidPartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep );
-    /** @brief Draws part of a wireframe disk
-     *
-     * Disk is drawn in the XY plane with the origin at its center
-     *
-     * @param GLfloat inner - equivalent to the width of the disk
-     * @param GLfloat outer - radius from the center of the disk to the center of the ring
-     * @param GLint stacks  - resolution of the number of steps rotated along the disk
-     * @param GLint rings   - resolution of the number of steps to take along the disk width
-     * @param GLfloat start - angle in degrees to start the disk at
-     * @param GLfloat sweep - distance in degrees to rotate through
+    [[maybe_unused]] void drawSolidPartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep );
+    /**
+     * @brief Draws part of a wireframe disk
+     * @param inner equivalent to the width of the disk
+     * @param outer radius from the center of the disk to the center of the ring
+     * @param slices resolution of the number of steps rotated along the disk
+     * @param rings resolution of the number of steps to take along the disk width
+     * @param start angle in degrees to start the disk at
+     * @param sweep distance in degrees to rotate through
      * @pre inner is greater than or equal to zero
      * @pre outer is greater than zero
      * @pre outer is greater than inner
@@ -229,81 +214,74 @@ namespace CSCI441 {
      * @pre rings is greater than zero
      * @pre start is between [0, 360]
      * @pre sweep is between [0, 360]
+     * @note Disk is drawn in the XY plane with the origin at its center
      */
-    void drawWirePartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep );
+    [[maybe_unused]] void drawWirePartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep );
 
-    /** @brief Draws a solid sphere
-     *
-     * Origin is at the center of the sphere
-     *
-     * @param GLfloat radius - radius of the sphere
-     * @param GLint stacks   - resolution of the number of steps to take along theta (rotate around Y-axis)
-     * @param GLint slices   - resolution of the number of steps to take along phi (rotate around X- or Z-axis)
+    /**
+     * @brief Draws a solid sphere
+     * @param radius radius of the sphere
+     * @param stacks resolution of the number of steps to take along theta (rotate around Y-axis)
+     * @param slices resolution of the number of steps to take along phi (rotate around X- or Z-axis)
      * @pre radius must be greater than 0
      * @pre stacks must be greater than 2
      * @pre slices must be greater than 2
+     * @note Origin is at the center of the sphere
      */
-    void drawSolidSphere( GLfloat radius, GLint stacks, GLint slices );
-    /** @brief Draws a wireframe sphere
-     *
-     * Origin is at the center of the sphere
-     *
-     * @param GLfloat radius - radius of the sphere
-     * @param GLint stacks   - resolution of the number of steps to take along theta (rotate around Y-axis)
-     * @param GLint slices   - resolution of the number of steps to take along phi (rotate around X- or Z-axis)
+    [[maybe_unused]] void drawSolidSphere( GLfloat radius, GLint stacks, GLint slices );
+    /**
+     * @brief Draws a wireframe sphere
+     * @param radius radius of the sphere
+     * @param stacks resolution of the number of steps to take along theta (rotate around Y-axis)
+     * @param slices resolution of the number of steps to take along phi (rotate around X- or Z-axis)
      * @pre radius must be greater than 0
      * @pre stacks must be greater than 2
      * @pre slices must be greater than 2
+     * @note Origin is at the center of the sphere
      */
-    void drawWireSphere( GLfloat radius, GLint stacks, GLint slices );
+    [[maybe_unused]] void drawWireSphere( GLfloat radius, GLint stacks, GLint slices );
 
-    /** @brief Draws a solid teapot
-     *
-     * Oriented with spout and handle running along X-axis, cap and bottom along Y-axis.  Origin is at the
-     * center of the teapot
-     *
-     * @param GLfloat size - scale of the teapot
+    /**
+     * @brief Draws a solid teapot
+     * @param size scale of the teapot (defaults to 1.0f)
      * @pre size must be greater than zero
+     * @note Oriented with spout and handle running along X-axis, cap and bottom along Y-axis.  Origin is at the center of the teapot
      */
-    void drawSolidTeapot( GLfloat size = 1.0f );
-    /** @brief Draws a wireframe teapot
-     *
-     * Oriented with spout and handle running along X-axis, cap and bottom along Y-axis.  Origin is at the
-     * center of the teapot
-     *
-     * @param GLfloat size - scale of the teapot
+    [[maybe_unused]] void drawSolidTeapot( GLfloat size = 1.0f );
+    /**
+     * @brief Draws a wireframe teapot
+     * @param size scale of the teapot (defaults to 1.0f)
      * @pre size must be greater than zero
+     * @note Oriented with spout and handle running along X-axis, cap and bottom along Y-axis.  Origin is at the center of the teapot
      */
-    void drawWireTeapot( GLfloat size = 1.0f );
+    [[maybe_unused]] void drawWireTeapot( GLfloat size = 1.0f );
 
-    /** @brief Draws a solid torus
-     *
-     * Torus is oriented in the XY-plane with the origin at its center
-     *
-     * @param innerRadius - equivalent to the width of the torus ring
-     * @param outerRadius - radius from the center of the torus to the center of the ring
-     * @param sides       - resolution of steps to take around the band of the ring
-     * @param rings       - resolution of steps to take around the torus
+    /**
+     * @brief Draws a solid torus
+     * @param innerRadius equivalent to the width of the torus ring
+     * @param outerRadius radius from the center of the torus to the center of the ring
+     * @param sides resolution of steps to take around the band of the ring
+     * @param rings resolution of steps to take around the torus
      * @pre innerRadius must be greater than zero
      * @pre outerRadius must be greater than zero
      * @pre sides must be greater than two
      * @pre rings must be greater than two
+     * @note Torus is oriented in the XY-plane with the origin at its center
      */
-    void drawSolidTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings );
-    /** @brief Draws a wireframe torus
-     *
-     * Torus is oriented in the XY-plane with the origin at its center
-     *
-     * @param innerRadius - equivalent to the width of the torus ring
-     * @param outerRadius - radius from the center of the torus to the center of the ring
-     * @param sides       - resolution of steps to take around the band of the ring
-     * @param rings       - resolution of steps to take around the torus
+    [[maybe_unused]] void drawSolidTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings );
+    /**
+     * @brief Draws a wireframe torus
+     * @param innerRadius equivalent to the width of the torus ring
+     * @param outerRadius radius from the center of the torus to the center of the ring
+     * @param sides resolution of steps to take around the band of the ring
+     * @param rings resolution of steps to take around the torus
      * @pre innerRadius must be greater than zero
      * @pre outerRadius must be greater than zero
      * @pre sides must be greater than two
      * @pre rings must be greater than two
+     * @note Torus is oriented in the XY-plane with the origin at its center
      */
-    void drawWireTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings );
+    [[maybe_unused]] void drawWireTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
