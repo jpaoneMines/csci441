@@ -225,6 +225,21 @@ namespace CSCI441 {
          */
         [[maybe_unused]] GLint* getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) const;
         /**
+         * @brief Returns an array of offsets into the buffer for the given uniform block in this shader program
+         * @param uniformBlockIndex index uniform block to return offsets for
+         * @return array of offsets for the given uniform block in this shader program
+         * @note Prints an error message to standard error stream if the uniform block is not found
+         */
+        [[nodiscard]] GLint* getUniformBlockOffsets(GLint uniformBlockIndex ) const;
+        /**
+         * @brief Returns an array of offsets into the buffer for the given uniform block and names in this shader program
+         * @param uniformBlockIndex index uniform block to return offsets for
+         * @param names names of the uniform block components to get offsets for
+         * @return array of offsets for the given uniform block in this shader program
+         * @note Prints an error message to standard error stream if the uniform block is not found
+         */
+        [[nodiscard]] GLint* getUniformBlockOffsets(GLint uniformBlockIndex, const char *names[] ) const;
+        /**
          * @brief Set the binding point for the given uniform block in this shader program
          * @param uniformBlockName name of the uniform block to bind
          * @param binding point for this uniform block
@@ -834,9 +849,6 @@ namespace CSCI441 {
                                     const char *fragmentShaderFilename,
                                     bool isSeparable );
 
-        [[nodiscard]] GLint* mGetUniformBlockOffsets(GLint uniformBlockIndex ) const;
-        [[nodiscard]] GLint* mGetUniformBlockOffsets(GLint uniformBlockIndex, const char *names[] ) const;
-
     private:
         void _initialize();
     };
@@ -1214,15 +1226,15 @@ inline GLubyte* CSCI441::ShaderProgram::getUniformBlockBuffer( const char *unifo
 
 [[maybe_unused]]
 inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName ) const {
-    return mGetUniformBlockOffsets(getUniformBlockIndex(uniformBlockName));
+    return getUniformBlockOffsets(getUniformBlockIndex(uniformBlockName));
 }
 
 [[maybe_unused]]
 inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) const {
-    return mGetUniformBlockOffsets(getUniformBlockIndex(uniformBlockName), names);
+    return getUniformBlockOffsets(getUniformBlockIndex(uniformBlockName), names);
 }
 
-inline GLint* CSCI441::ShaderProgram::mGetUniformBlockOffsets(GLint uniformBlockIndex ) const {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets(GLint uniformBlockIndex ) const {
     GLint numUniforms;
     glGetActiveUniformBlockiv(mShaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
 
@@ -1234,7 +1246,7 @@ inline GLint* CSCI441::ShaderProgram::mGetUniformBlockOffsets(GLint uniformBlock
     return offsets;
 }
 
-inline GLint* CSCI441::ShaderProgram::mGetUniformBlockOffsets(GLint uniformBlockIndex, const char *names[] ) const {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets(GLint uniformBlockIndex, const char *names[] ) const {
     GLint numUniforms;
     glGetActiveUniformBlockiv(mShaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
 

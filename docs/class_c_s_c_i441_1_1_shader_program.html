@@ -153,6 +153,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad5b914c0eb5e7df1a30770967dd3f6fc"><td class="memItemLeft" align="right" valign="top">GLint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ad5b914c0eb5e7df1a30770967dd3f6fc">getUniformBlockOffsets</a> (const char *uniformBlockName, const char *names[]) const</td></tr>
 <tr class="memdesc:ad5b914c0eb5e7df1a30770967dd3f6fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an array of offsets into the buffer for the given uniform block and names in this shader program.  <br /></td></tr>
 <tr class="separator:ad5b914c0eb5e7df1a30770967dd3f6fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac248b7cd2202c15984ab63cc3badc618"><td class="memItemLeft" align="right" valign="top">GLint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ac248b7cd2202c15984ab63cc3badc618">getUniformBlockOffsets</a> (GLint uniformBlockIndex) const</td></tr>
+<tr class="memdesc:ac248b7cd2202c15984ab63cc3badc618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an array of offsets into the buffer for the given uniform block in this shader program.  <br /></td></tr>
+<tr class="separator:ac248b7cd2202c15984ab63cc3badc618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23afe4cdeb3aa65652118d06c2190be1"><td class="memItemLeft" align="right" valign="top">GLint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a23afe4cdeb3aa65652118d06c2190be1">getUniformBlockOffsets</a> (GLint uniformBlockIndex, const char *names[]) const</td></tr>
+<tr class="memdesc:a23afe4cdeb3aa65652118d06c2190be1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an array of offsets into the buffer for the given uniform block and names in this shader program.  <br /></td></tr>
+<tr class="separator:a23afe4cdeb3aa65652118d06c2190be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72ce0d5cd4176fc67b1debde03cfe843"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a72ce0d5cd4176fc67b1debde03cfe843">setUniformBlockBinding</a> (const char *uniformBlockName, GLuint binding) const</td></tr>
 <tr class="memdesc:a72ce0d5cd4176fc67b1debde03cfe843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the binding point for the given uniform block in this shader program.  <br /></td></tr>
 <tr class="separator:a72ce0d5cd4176fc67b1debde03cfe843"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -413,12 +419,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a68c44e53f27169aeeb510a711de2cf54"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a68c44e53f27169aeeb510a711de2cf54">mRegisterShaderProgram</a> (const char *vertexShaderFilename, const char *tessellationControlShaderFilename, const char *tessellationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable)</td></tr>
 <tr class="memdesc:a68c44e53f27169aeeb510a711de2cf54"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a shader program with the GPU  <br /></td></tr>
 <tr class="separator:a68c44e53f27169aeeb510a711de2cf54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affc74c6f9a0e21073e73b3823aeb2d2a"><td class="memItemLeft" align="right" valign="top"><a id="affc74c6f9a0e21073e73b3823aeb2d2a" name="affc74c6f9a0e21073e73b3823aeb2d2a"></a>
-GLint *&#160;</td><td class="memItemRight" valign="bottom"><b>mGetUniformBlockOffsets</b> (GLint uniformBlockIndex) const</td></tr>
-<tr class="separator:affc74c6f9a0e21073e73b3823aeb2d2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2632e1c32f88e61bf91796e6a2b4d18c"><td class="memItemLeft" align="right" valign="top"><a id="a2632e1c32f88e61bf91796e6a2b4d18c" name="a2632e1c32f88e61bf91796e6a2b4d18c"></a>
-GLint *&#160;</td><td class="memItemRight" valign="bottom"><b>mGetUniformBlockOffsets</b> (GLint uniformBlockIndex, const char *names[]) const</td></tr>
-<tr class="separator:a2632e1c32f88e61bf91796e6a2b4d18c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -1509,7 +1509,7 @@ Static Protected Attributes</h2></td></tr>
 </div>
 </div>
 <a id="ad28a05c4040c5891120696347b7982fd" name="ad28a05c4040c5891120696347b7982fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad28a05c4040c5891120696347b7982fd">&#9670;&#160;</a></span>getUniformBlockOffsets() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad28a05c4040c5891120696347b7982fd">&#9670;&#160;</a></span>getUniformBlockOffsets() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1545,7 +1545,7 @@ Static Protected Attributes</h2></td></tr>
 </div>
 </div>
 <a id="ad5b914c0eb5e7df1a30770967dd3f6fc" name="ad5b914c0eb5e7df1a30770967dd3f6fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5b914c0eb5e7df1a30770967dd3f6fc">&#9670;&#160;</a></span>getUniformBlockOffsets() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5b914c0eb5e7df1a30770967dd3f6fc">&#9670;&#160;</a></span>getUniformBlockOffsets() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1582,6 +1582,89 @@ Static Protected Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uniformBlockName</td><td>name of the uniform block to return offsets for </td></tr>
+    <tr><td class="paramname">names</td><td>names of the uniform block components to get offsets for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array of offsets for the given uniform block in this shader program </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
+
+</div>
+</div>
+<a id="ac248b7cd2202c15984ab63cc3badc618" name="ac248b7cd2202c15984ab63cc3badc618"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac248b7cd2202c15984ab63cc3badc618">&#9670;&#160;</a></span>getUniformBlockOffsets() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLint * CSCI441::ShaderProgram::getUniformBlockOffsets </td>
+          <td>(</td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>uniformBlockIndex</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns an array of offsets into the buffer for the given uniform block in this shader program. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uniformBlockIndex</td><td>index uniform block to return offsets for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array of offsets for the given uniform block in this shader program </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
+
+</div>
+</div>
+<a id="a23afe4cdeb3aa65652118d06c2190be1" name="a23afe4cdeb3aa65652118d06c2190be1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23afe4cdeb3aa65652118d06c2190be1">&#9670;&#160;</a></span>getUniformBlockOffsets() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLint * CSCI441::ShaderProgram::getUniformBlockOffsets </td>
+          <td>(</td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>uniformBlockIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>names</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns an array of offsets into the buffer for the given uniform block and names in this shader program. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uniformBlockIndex</td><td>index uniform block to return offsets for </td></tr>
     <tr><td class="paramname">names</td><td>names of the uniform block components to get offsets for </td></tr>
   </table>
   </dd>
