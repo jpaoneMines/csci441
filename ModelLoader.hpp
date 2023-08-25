@@ -37,106 +37,107 @@
 
 namespace CSCI441 {
 
-	/** @class ModelLoader
+	/**
+	 * @class ModelLoader
      * @brief Loads object models from file and renders using VBOs/VAOs
      */
 	class ModelLoader final {
 	public:
-		/** @brief Creates an empty model
-			*/
+		/**
+		 * @brief Creates an empty model
+         */
 		ModelLoader();
-		/** @brief Loads a model from the given file
-			* @param const char* filename	- file to load model from
-			*/
-		explicit ModelLoader( const char* filename );
-		/** @brief Frees memory associated with model on both CPU and GPU
-			*/
+		/**
+		 * @brief Loads a model from the given file
+         * @param filename file to load model from
+         */
+		[[maybe_unused]] explicit ModelLoader( const char* filename );
+		/**
+		 * @brief Frees memory associated with model on both CPU and GPU
+		 */
 		~ModelLoader();
 
-		/** @brief Loads a model from the given file
-			* @param const char* filename	- file to load model from
-			* @param bool INFO						- flag to control if informational messages should be displayed
-			* @param bool ERRORS					- flag to control if error messages should be displayed
-			* @return true if load succeeded, false otherwise
-			*/
+		/**
+		 * @brief Loads a model from the given file
+         * @param filename file to load model from
+         * @param INFO flag to control if informational messages should be displayed
+         * @param ERRORS flag to control if error messages should be displayed
+         * @return true if load succeeded, false otherwise
+         */
 		bool loadModelFile( const char* filename, bool INFO = true, bool ERRORS = true );
 
 		/**
 		 * @brief Enables VBO attribute array locations
-		 * @param GLint positionLocation	- attribute location of vertex position
-         * @param GLint normalLocation		- attribute location of vertex normal
-         * @param GLint texCoordLocation	- attribute location of vertex texture coordinate
+		 * @param positionLocation attribute location of vertex position
+         * @param normalLocation attribute location of vertex normal
+         * @param texCoordLocation attribute location of vertex texture coordinate
 		 */
-		void setAttributeLocations(GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1) const;
+        [[maybe_unused]] void setAttributeLocations(GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1) const;
 
-        /** @brief Renders a model
-         * @param GLint shaderProgramHandle - shader program handle that
-            * @param GLint matDiffLocation	- uniform location of material diffuse component
-            * @param GLint matSpecLocation	- uniform location of material specular component
-            * @param GLint matShinLocation	- uniform location of material shininess component
-            * @param GLint matAmbLocation		- uniform location of material ambient component
-            * @param GLenum diffuseTexture	- texture number to bind diffuse texture map to
-            * @return true if draw succeeded, false otherwise
-            */
-        bool draw( GLuint shaderProgramHandle,
+        /**
+         * @brief Renders a model
+         * @param shaderProgramHandle shader program handle that
+         * @param matDiffLocation uniform location of material diffuse component
+         * @param matSpecLocation uniform location of material specular component
+         * @param matShinLocation uniform location of material shininess component
+         * @param matAmbLocation uniform location of material ambient component
+         * @param diffuseTexture texture number to bind diffuse texture map to
+         * @return true if draw succeeded, false otherwise
+         */
+        [[maybe_unused]] [[nodiscard]] bool draw( GLuint shaderProgramHandle,
                    GLint matDiffLocation = -1, GLint matSpecLocation = -1, GLint matShinLocation = -1, GLint matAmbLocation = -1,
                    GLenum diffuseTexture = GL_TEXTURE0 ) const;
 
         /**
-         * @brief Return the number of vertices the model is made up of.  This value corresponds
-         * to the size of the Vertices, TexCoords, and Normals arrays.
-         * @return GLuint numVertices - the number of vertices within the model
+         * @brief Return the number of vertices the model is made up of.  This value corresponds to the size of the Vertices, TexCoords, and Normals arrays.
+         * @return the number of vertices within the model
          */
-        GLuint getNumberOfVertices() const;
+        [[maybe_unused]] [[nodiscard]] GLuint getNumberOfVertices() const;
 		/**
 		 * @brief Return the vertex array that makes up the model mesh.
-		 * For use with VBOs
-		 * @return GLfloat* vertices - pointer to vertex array
+		 * @return pointer to vertex array
+		 * @note For use with VBOs
 		 */
-		GLfloat* getVertices() const;
+        [[maybe_unused]] [[nodiscard]] GLfloat* getVertices() const;
 		/**
 		 * @brief Return the texture coordinates array that corresponds to the model mesh.
-		 * For use with VBOs
-		 * @return GLfloat* texCoords - pointer to texture coordinate array
+		 * @return pointer to texture coordinate array
+		 * @note For use with VBOs
 		 */
-		GLfloat* getTexCoords() const;
+        [[maybe_unused]] [[nodiscard]] GLfloat* getTexCoords() const;
 		/**
 		 * @brief Return the normal array that corresponds to the model mesh.
-		 * For use with VBOs
-		 * @return GLfloat* normals - pointer to the normal array
+		 * @return pointer to the normal array
+		 * @note For use with VBOs
 		 */
-		GLfloat* getNormals() const;
+        [[maybe_unused]] [[nodiscard]] GLfloat* getNormals() const;
         /**
-         * @brief Return the number of indices to draw the model.  This value corresponds
-         * to the size of the Indices array.
-         * @return GLuint numIndices - the number of indices when drawing the model
+         * @brief Return the number of indices to draw the model.  This value corresponds to the size of the Indices array.
+         * @return the number of indices when drawing the model
          */
-        GLuint getNumberOfIndices() const;
+        [[maybe_unused]] [[nodiscard]] GLuint getNumberOfIndices() const;
 		/**
 		 * @brief Return the index array that dictates the order to draw the model mesh.
-		 * For use with IBOs
-		 * @return GLuint* indices - pointer to the index array
+		 * @return pointer to the index array
+		 * @note For use with IBOs
 		 */
-		GLuint* getIndices() const;
+        [[maybe_unused]] [[nodiscard]] GLuint* getIndices() const;
 
-		/** @brief Enable autogeneration of vertex normals
-		  *
-			* If an object model does not contain vertex normal data, then normals will
-			* be computed based on the cross product of vertex winding order.
-		    *
-			* @note Must be called prior to loading in a model from file
-		    * @note No normals are generated by default
-			*/
-		static void enableAutoGenerateNormals();
-		/** @brief Disable autogeneration of vertex normals
-		  *
-			* If an object model does not contain vertex normal data, then normals will
-			* be computed based on the cross product of vertex winding order.
-		  *
-			* @note Must be called prior to loading in a model from file
-			* @note No normals are generated by default
-			*/
-		static void disableAutoGenerateNormals();
+		/**
+		 * @brief Enable auto-generation of vertex normals
+         * @warning Must be called prior to loading in a model from file
+         * @note If an object model does not contain vertex normal data, then normals will be computed based on the cross product of vertex winding order.
+         * @note No normals are generated by default
+         * @note To disable, call disableAutoGenerateNormals
+         */
+		[[maybe_unused]] static void enableAutoGenerateNormals();
+		/**
+		 * @brief Disable auto-generation of vertex normals
+         * @warning Must be called prior to loading in a model from file
+         * @note No normals are generated by default
+         * @note To enable, call enableAutoGenerateNormals
+         */
+		[[maybe_unused]] static void disableAutoGenerateNormals();
 
 	private:
 		void _init();
