@@ -56,6 +56,13 @@ namespace CSCI441 {
         [[maybe_unused]] void useProgramStages( GLbitfield programStages, const ShaderProgram *shaderProgram ) const;
 
         /**
+         * @brief adds shader program stages to pipeline
+         * @param shaderProgram separable shader program to use within pipeline
+         * @note ShaderProgram must be separable
+         */
+        [[maybe_unused]] void useProgramStages( const ShaderProgram *shaderProgram ) const;
+
+        /**
          * @brief bind shader program pipeline
          * @note unbinds any previously used shader programs
          */
@@ -98,6 +105,11 @@ inline CSCI441::ShaderProgramPipeline::~ShaderProgramPipeline() {
 [[maybe_unused]]
 inline void CSCI441::ShaderProgramPipeline::useProgramStages( const GLbitfield programStages, const ShaderProgram * const shaderProgram ) const {
     glUseProgramStages( _pipelineHandle, programStages, shaderProgram->getShaderProgramHandle() );
+}
+
+[[maybe_unused]]
+inline void CSCI441::ShaderProgramPipeline::useProgramStages( const ShaderProgram * const shaderProgram ) const {
+    glUseProgramStages( _pipelineHandle, shaderProgram->getProgramStages(), shaderProgram->getShaderProgramHandle() );
 }
 
 [[maybe_unused]]

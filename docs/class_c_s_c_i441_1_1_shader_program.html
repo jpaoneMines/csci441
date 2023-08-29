@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.3.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.4.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -397,6 +397,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>useProgram</b> () con
 <tr class="memitem:a34afe7b7ca8b2cb775a0ab2e27ca4cf7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a34afe7b7ca8b2cb775a0ab2e27ca4cf7">setProgramUniform</a> (GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) const</td></tr>
 <tr class="memdesc:a34afe7b7ca8b2cb775a0ab2e27ca4cf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of unsigned integers  <br /></td></tr>
 <tr class="separator:a34afe7b7ca8b2cb775a0ab2e27ca4cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0647c2993274266ca65fad408c3c2afc"><td class="memItemLeft" align="right" valign="top">GLbitfield&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a0647c2993274266ca65fad408c3c2afc">getProgramStages</a> () const</td></tr>
+<tr class="memdesc:a0647c2993274266ca65fad408c3c2afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns a single value corresponding to which shader stages are present in this shader program  <br /></td></tr>
+<tr class="separator:a0647c2993274266ca65fad408c3c2afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -1327,6 +1330,34 @@ Static Protected Attributes</h2></td></tr>
 
 <p>Returns the number of active uniforms in this shader program. </p>
 <dl class="section return"><dt>Returns</dt><dd>number of active uniforms in this shader program </dd></dl>
+
+</div>
+</div>
+<a id="a0647c2993274266ca65fad408c3c2afc" name="a0647c2993274266ca65fad408c3c2afc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0647c2993274266ca65fad408c3c2afc">&#9670;&#160;</a></span>getProgramStages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLbitfield CSCI441::ShaderProgram::getProgramStages </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns a single value corresponding to which shader stages are present in this shader program </p>
+<dl class="section return"><dt>Returns</dt><dd>bitfield of shader stages </dd></dl>
 
 </div>
 </div>

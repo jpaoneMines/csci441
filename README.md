@@ -7,6 +7,9 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v 4.4.0 - 29 Aug 2023
+- ShaderProgram::getProgramStages() returns GLbitfield of shader stages
+
 ## v 4.3.0 - 25 Aug 2023
 - Improved and consistent web documentation using a consistent style for all public facing classes and members, methods, and namespaces
 - Minor performance improvements

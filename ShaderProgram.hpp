@@ -790,6 +790,12 @@ namespace CSCI441 {
          */
         void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) const;
 
+        /**
+         * @brief returns a single value corresponding to which shader stages are present in this shader program
+         * @return bitfield of shader stages
+         */
+        [[maybe_unused]] [[nodiscard]] GLbitfield getProgramStages() const;
+
     protected:
         /**
          * @brief creates an empty shader program object
@@ -1966,6 +1972,17 @@ inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, gl
 [[maybe_unused]]
 inline void CSCI441::ShaderProgram::setProgramUniform( GLint uniformLocation, glm::mat4x3 mtx ) const {
     glProgramUniformMatrix4x3fv(mShaderProgramHandle, uniformLocation, 1, GL_FALSE, &mtx[0][0] );
+}
+
+[[maybe_unused]]
+inline GLbitfield CSCI441::ShaderProgram::getProgramStages() const {
+    GLbitfield shaderBits = 0;
+    if( mVertexShaderHandle != 0                 ) shaderBits |= GL_VERTEX_SHADER_BIT;
+    if( mTessellationControlShaderHandle != 0    ) shaderBits |= GL_TESS_CONTROL_SHADER_BIT;
+    if( mTessellationEvaluationShaderHandle != 0 ) shaderBits |= GL_TESS_EVALUATION_SHADER_BIT;
+    if( mGeometryShaderHandle != 0               ) shaderBits |= GL_GEOMETRY_SHADER_BIT;
+    if( mFragmentShaderHandle != 0               ) shaderBits |= GL_FRAGMENT_SHADER_BIT;
+    return shaderBits;
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram() {
