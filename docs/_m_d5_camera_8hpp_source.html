@@ -80,65 +80,92 @@ $(function() {
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_c_s_c_i441.html">CSCI441</a> {</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_camera.html">    8</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_c_s_c_i441_1_1_m_d5_camera.html">MD5Camera</a> final : <span class="keyword">public</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a> {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_m_d5_camera.html">MD5Camera</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* MD5CAMERA_FILE);</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014">   12</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014">recomputeOrientation</a>() final {}</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_camera.html#a1484b36acde080697559058717d23ec3">moveForward</a>(GLfloat unused) <span class="keyword">final</span>;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_camera.html#a5327ca5b6ecf52974510758ba57627e5">moveBackward</a>(GLfloat unused) <span class="keyword">final</span>;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keyword">struct </span>Frame {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            glm::vec3 cameraPosition;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            glm::vec3 cameraQuaternion;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            GLfloat fieldOfView;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        };</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        GLuint _frameRate;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        GLuint _numFrames;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        GLuint _numCuts;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        GLuint* _cutPositions;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        Frame* _frames;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        GLuint _currentFrameIndex;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        GLuint _currentCutIndex;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordtype">void</span> _updateCameraPositionForCurrentFrame();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    };</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">inline</span> CSCI441::MD5Camera::MD5Camera(<span class="keyword">const</span> <span class="keywordtype">char</span> *MD5CAMERA_FILE) {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    _currentFrameIndex = 0;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    _currentCutIndex = 0;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_camera.html#a1484b36acde080697559058717d23ec3">   40</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_camera.html#a1484b36acde080697559058717d23ec3">CSCI441::MD5Camera::moveForward</a>(<span class="keyword">const</span> GLfloat unused) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="comment">// advance to next frame</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    _currentFrameIndex++;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// TODO clamp to current cut ? loop ? advance ?</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    _updateCameraPositionForCurrentFrame();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_camera.html#a5327ca5b6ecf52974510758ba57627e5">   47</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_camera.html#a5327ca5b6ecf52974510758ba57627e5">CSCI441::MD5Camera::moveBackward</a>(<span class="keyword">const</span> GLfloat unused) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="comment">// go to prior frame</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    _currentFrameIndex--;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">// TODO clamp to current cut ?</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    _updateCameraPositionForCurrentFrame();</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_camera.html">   12</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_c_s_c_i441_1_1_m_d5_camera.html">MD5Camera</a> final : <span class="keyword">public</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_m_d5_camera.html">MD5Camera</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* MD5CAMERA_FILE, GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014">   25</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014">recomputeOrientation</a>() final {}</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_camera.html#a1484b36acde080697559058717d23ec3">moveForward</a>(GLfloat unused) <span class="keyword">final</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_camera.html#a5327ca5b6ecf52974510758ba57627e5">moveBackward</a>(GLfloat unused) <span class="keyword">final</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keyword">struct </span>Frame {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            glm::vec3 cameraPosition;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            glm::vec3 cameraQuaternion;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            GLfloat fieldOfView;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        };</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        GLuint _frameRate;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        GLuint _numFrames;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        GLuint _numCuts;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        GLuint* _cutPositions;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        Frame* _frames;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        GLuint _currentFrameIndex;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        GLuint _currentCutIndex;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordtype">void</span> _updateCameraAttributesForCurrentFrame();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="comment">// vertical field of view stored in degrees</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        GLfloat _fovy;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        GLfloat _aspectRatio;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        GLfloat _nearClipPlane;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        GLfloat _farClipPlane;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    };</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441::MD5Camera::_updateCameraPositionForCurrentFrame() {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    setPosition( _frames[_currentFrameIndex].cameraPosition );</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// TODO set look at point</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="comment">// TODO set up vector</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#endif</span><span class="comment">//CSCI441_MD5_CAMERA_HPP</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_camera.html#a8ddb76cefd17baa5fafda65e891944d8">   54</a></span><span class="keyword">inline</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_camera.html#a8ddb76cefd17baa5fafda65e891944d8">CSCI441::MD5Camera::MD5Camera</a>(</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> MD5CAMERA_FILE,</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">const</span> GLfloat fovy,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keyword">const</span> GLfloat aspectRatio,</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">const</span> GLfloat nearClipPlane,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keyword">const</span> GLfloat farClipPlane</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>) : _fovy(fovy),</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    _aspectRatio(aspectRatio),</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    _nearClipPlane(nearClipPlane),</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    _farClipPlane(farClipPlane)</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>{</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    _currentFrameIndex = 0;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    _currentCutIndex = 0;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a64b74b2c979a3a05afa42434c0000d42">mProjectionMatrix</a> = glm::perspective(_fovy, _aspectRatio, _nearClipPlane, _farClipPlane);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_camera.html#a1484b36acde080697559058717d23ec3">   70</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_camera.html#a1484b36acde080697559058717d23ec3">CSCI441::MD5Camera::moveForward</a>(<span class="keyword">const</span> GLfloat unused) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="comment">// advance to next frame</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    _currentFrameIndex++;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="comment">// TODO clamp to current cut ? loop ? advance ?</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    _updateCameraAttributesForCurrentFrame();</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_camera.html#a5327ca5b6ecf52974510758ba57627e5">   77</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_camera.html#a5327ca5b6ecf52974510758ba57627e5">CSCI441::MD5Camera::moveBackward</a>(<span class="keyword">const</span> GLfloat unused) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="comment">// go to prior frame</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    _currentFrameIndex--;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">// TODO clamp to current cut ?</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    _updateCameraAttributesForCurrentFrame();</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441::MD5Camera::_updateCameraAttributesForCurrentFrame() {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="comment">// get and set camera position for current frame</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    setPosition( _frames[_currentFrameIndex].cameraPosition );</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="comment">// get and set camera orientation for current frame</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="comment">// TODO compute W of quarternion</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="comment">// TODO set look at point</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment">// TODO set up vector</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">// get and set field of view for perspective projection matrix</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    _fovy = _frames[_currentFrameIndex].fieldOfView;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    mProjectionMatrix = glm::perspective(_fovy, _aspectRatio, _nearClipPlane, _farClipPlane);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>}</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#endif</span><span class="comment">//CSCI441_MD5_CAMERA_HPP</span></div>
 <div class="ttc" id="a_camera_8hpp_html"><div class="ttname"><a href="_camera_8hpp.html">Camera.hpp</a></div><div class="ttdoc">Abstract Camera class to be placed (position and orientation) within our scene.</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></div><div class="ttdoc">Abstract Class to represent a synthetic camera. The following methods must be overridden:</div><div class="ttdef"><b>Definition:</b> Camera.hpp:35</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_camera.html">CSCI441::MD5Camera</a></div><div class="ttdef"><b>Definition:</b> MD5Camera.hpp:8</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_camera_html_a1484b36acde080697559058717d23ec3"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_camera.html#a1484b36acde080697559058717d23ec3">CSCI441::MD5Camera::moveForward</a></div><div class="ttdeci">void moveForward(GLfloat unused) final</div><div class="ttdoc">steps forward along the camera's view</div><div class="ttdef"><b>Definition:</b> MD5Camera.hpp:40</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_camera_html_a5327ca5b6ecf52974510758ba57627e5"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_camera.html#a5327ca5b6ecf52974510758ba57627e5">CSCI441::MD5Camera::moveBackward</a></div><div class="ttdeci">void moveBackward(GLfloat unused) final</div><div class="ttdoc">steps backward along the camera's view</div><div class="ttdef"><b>Definition:</b> MD5Camera.hpp:47</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_camera_html_a9c25fd07e39defa9a9885b0a139ca014"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014">CSCI441::MD5Camera::recomputeOrientation</a></div><div class="ttdeci">void recomputeOrientation() final</div><div class="ttdoc">Uses theta, phi, &amp; radius to update the camera's view matrix parameters. The camera orientation is co...</div><div class="ttdef"><b>Definition:</b> MD5Camera.hpp:12</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_camera_html_a64b74b2c979a3a05afa42434c0000d42"><div class="ttname"><a href="class_c_s_c_i441_1_1_camera.html#a64b74b2c979a3a05afa42434c0000d42">CSCI441::Camera::mProjectionMatrix</a></div><div class="ttdeci">glm::mat4 mProjectionMatrix</div><div class="ttdoc">stores the Projection Matrix</div><div class="ttdef"><b>Definition:</b> Camera.hpp:162</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_camera.html">CSCI441::MD5Camera</a></div><div class="ttdoc">A camera that implements the MD5Camera specification.</div><div class="ttdef"><b>Definition:</b> MD5Camera.hpp:12</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_camera_html_a1484b36acde080697559058717d23ec3"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_camera.html#a1484b36acde080697559058717d23ec3">CSCI441::MD5Camera::moveForward</a></div><div class="ttdeci">void moveForward(GLfloat unused) final</div><div class="ttdoc">steps forward along the camera's view</div><div class="ttdef"><b>Definition:</b> MD5Camera.hpp:70</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_camera_html_a5327ca5b6ecf52974510758ba57627e5"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_camera.html#a5327ca5b6ecf52974510758ba57627e5">CSCI441::MD5Camera::moveBackward</a></div><div class="ttdeci">void moveBackward(GLfloat unused) final</div><div class="ttdoc">steps backward along the camera's view</div><div class="ttdef"><b>Definition:</b> MD5Camera.hpp:77</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_camera_html_a8ddb76cefd17baa5fafda65e891944d8"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_camera.html#a8ddb76cefd17baa5fafda65e891944d8">CSCI441::MD5Camera::MD5Camera</a></div><div class="ttdeci">MD5Camera(const char *MD5CAMERA_FILE, GLfloat fovy=45.0f, GLfloat aspectRatio=1.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</div><div class="ttdef"><b>Definition:</b> MD5Camera.hpp:54</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_camera_html_a9c25fd07e39defa9a9885b0a139ca014"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014">CSCI441::MD5Camera::recomputeOrientation</a></div><div class="ttdeci">void recomputeOrientation() final</div><div class="ttdoc">Uses theta, phi, &amp; radius to update the camera's view matrix parameters. The camera orientation is co...</div><div class="ttdef"><b>Definition:</b> MD5Camera.hpp:25</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

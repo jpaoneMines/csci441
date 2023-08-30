@@ -81,6 +81,11 @@ $(function() {
   <div class="headertitle"><div class="title">CSCI441::MD5Camera Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A camera that implements the <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html" title="A camera that implements the MD5Camera specification.">MD5Camera</a> specification.  
+ <a href="class_c_s_c_i441_1_1_m_d5_camera.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_m_d5_camera_8hpp_source.html">MD5Camera.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CSCI441::MD5Camera:</div>
 <div class="dyncontent">
@@ -93,9 +98,8 @@ Inheritance diagram for CSCI441::MD5Camera:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a49cf3518867dbbf787c037f4386c7715"><td class="memItemLeft" align="right" valign="top"><a id="a49cf3518867dbbf787c037f4386c7715" name="a49cf3518867dbbf787c037f4386c7715"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>MD5Camera</b> (const char *MD5CAMERA_FILE)</td></tr>
-<tr class="separator:a49cf3518867dbbf787c037f4386c7715"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ddb76cefd17baa5fafda65e891944d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a8ddb76cefd17baa5fafda65e891944d8">MD5Camera</a> (const char *MD5CAMERA_FILE, GLfloat fovy=45.0f, GLfloat aspectRatio=1.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</td></tr>
+<tr class="separator:a8ddb76cefd17baa5fafda65e891944d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c25fd07e39defa9a9885b0a139ca014"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014">recomputeOrientation</a> () final</td></tr>
 <tr class="memdesc:a9c25fd07e39defa9a9885b0a139ca014"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses theta, phi, &amp; radius to update the camera's view matrix parameters. The camera orientation is controlled via spherical coordinates and this method would orient and/or position the camera in cartesian coordinates.  <br /></td></tr>
 <tr class="separator:a9c25fd07e39defa9a9885b0a139ca014"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -214,6 +218,75 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 <tr class="memdesc:ae288c2ef288ac5532335e5859966410f inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">spherical magnitude for direction in world space <br /></td></tr>
 <tr class="separator:ae288c2ef288ac5532335e5859966410f inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A camera that implements the <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html" title="A camera that implements the MD5Camera specification.">MD5Camera</a> specification. </p>
+<dl class="section note"><dt>Note</dt><dd>camera direction is controlled by file contents </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8ddb76cefd17baa5fafda65e891944d8" name="a8ddb76cefd17baa5fafda65e891944d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ddb76cefd17baa5fafda65e891944d8">&#9670;&#160;</a></span>MD5Camera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">CSCI441::MD5Camera::MD5Camera </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>MD5CAMERA_FILE</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>fovy</em> = <code>45.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>aspectRatio</em> = <code>1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>nearClipPlane</em> = <code>0.001f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>farClipPlane</em> = <code>1000.0f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>creates a <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html" title="A camera that implements the MD5Camera specification.">MD5Camera</a> object with the specified initial perspective projection </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MD5CAMERA_FILE</td><td>filename of .md5camera file to load </td></tr>
+    <tr><td class="paramname">fovy</td><td>vertical field of view (defaults to 45.0f) </td></tr>
+    <tr><td class="paramname">aspectRatio</td><td>aspect ratio of view plane (defaults to 1.0f) </td></tr>
+    <tr><td class="paramname">nearClipPlane</td><td>near z clip plane (defaults to 0.001f) </td></tr>
+    <tr><td class="paramname">farClipPlane</td><td>far z clip plane (defaults to 1000.0f) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>field of view specified in degrees </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a5327ca5b6ecf52974510758ba57627e5" name="a5327ca5b6ecf52974510758ba57627e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5327ca5b6ecf52974510758ba57627e5">&#9670;&#160;</a></span>moveBackward()</h2>
