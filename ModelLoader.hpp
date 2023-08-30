@@ -316,7 +316,7 @@ inline GLuint* CSCI441::ModelLoader::getIndices() const { return _indices; }
 inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	bool result = true;
 
-	if (INFO ) printf( "[.obj]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=- \n", _filename );
+	if ( INFO ) printf( "[.obj]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=- \n", _filename );
 
 	time_t start, end;
 	time(&start);
