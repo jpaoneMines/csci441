@@ -1,6 +1,6 @@
 /**
  * @file ArcballCam.hpp
- * @brief Concrete Arcball Camera implementation
+ * @brief Concrete Arcball Camera implementation with Perspective Projection
  * @author Dr. Jeffrey Paone
  *
  * @copyright MIT License Copyright (c) 2021 Dr. Jeffrey Paone
@@ -23,11 +23,16 @@ namespace CSCI441 {
     class ArcballCam final : public CSCI441::Camera {
     public:
         /**
-         * @brief initializes the Arcball Camera and sets the minimum/maximum radius the camera can zoom through
+         * @brief initializes the Arcball Camera and sets the minimum/maximum radius the camera can zoom through as well as the perspective projection
          * @param minRadius minimum radius (zoom) for camera - defaults to 2.0 world space units
          * @param maxRadius maximum radius (zoom) for camera - defaults to 30.0 world space units
+         * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
+         * @param fovy vertical field of view (defaults to 45.0f)
+         * @param nearClipPlane near z clip plane (defaults to 0.001f)
+         * @param farClipPlane far z clip plane (defaults to 1000.0f)
+         * @note field of view specified in degrees
          */
-        explicit ArcballCam(const GLfloat minRadius = 2.0f, const GLfloat maxRadius = 30.0f) : _minRadius(minRadius), _maxRadius(maxRadius) {}
+        explicit ArcballCam(GLfloat minRadius = 2.0f, GLfloat maxRadius = 30.0f, GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);
 
         /**
          * @brief converts spherical theta & phi to cartesian x,y,z direction vector
@@ -62,7 +67,30 @@ namespace CSCI441 {
         GLfloat _minRadius;
         // maximum allowable radius of camera
         GLfloat _maxRadius;
+
+        // vertical field of view stored in degrees
+        GLfloat _fovy;
+        GLfloat _aspectRatio;
+        GLfloat _nearClipPlane;
+        GLfloat _farClipPlane;
     };
+}
+
+inline CSCI441::ArcballCam::ArcballCam(
+        const GLfloat minRadius,
+        const GLfloat maxRadius,
+        const GLfloat fovy,
+        const GLfloat aspectRatio,
+        const GLfloat nearClipPlane,
+        const GLfloat farClipPlane
+) : _minRadius(minRadius),
+    _maxRadius(maxRadius),
+    _fovy(fovy),
+    _aspectRatio(aspectRatio),
+    _nearClipPlane(nearClipPlane),
+    _farClipPlane(farClipPlane)
+{
+    mProjectionMatrix = glm::perspective(_fovy, _aspectRatio, _nearClipPlane, _farClipPlane);
 }
 
 inline void CSCI441::ArcballCam::recomputeOrientation() {

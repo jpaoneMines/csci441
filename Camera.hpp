@@ -78,10 +78,15 @@ namespace CSCI441 {
         void computeViewMatrix() { mViewMatrix = glm::lookAt(mCameraPosition, mCameraLookAtPoint, mCameraUpVector ); }
 
         /**
+         * @brief returns the current projection matrix for the associated camera
+         * @returns homogeneous projection matrix
+         */
+         [[maybe_unused]] [[nodiscard]] glm::mat4 getProjectionMatrix() const { return mProjectionMatrix; }
+        /**
          * @brief returns the current view matrix for the associated camera
          * @returns homogeneous view matrix
          */
-        [[maybe_unused]] [[nodiscard]] glm::mat4 getViewMatrix() { return mViewMatrix; }
+        [[maybe_unused]] [[nodiscard]] glm::mat4 getViewMatrix() const { return mViewMatrix; }
         /**
          * @brief returns the current camera position in world space
          * @returns homogeneous world space point
@@ -152,6 +157,11 @@ namespace CSCI441 {
         Camera();
 
         /**
+         * @brief stores the Projection Matrix
+         */
+         glm::mat4 mProjectionMatrix;
+
+        /**
          * @brief stores the View Matrix corresponding to the inverse of the Camera's Matrix
          */
         glm::mat4 mViewMatrix;
@@ -194,6 +204,7 @@ namespace CSCI441 {
 }
 
 inline CSCI441::Camera::Camera() :
+        mProjectionMatrix( glm::mat4(1.0f) ),
         mViewMatrix( glm::mat4(1.0f) ),
         mCameraPosition( glm::vec3(0.0f, 0.0f, 0.0f ) ),
         mCameraDirection( glm::vec3(0.0f, 0.0f, -1.0f ) ),

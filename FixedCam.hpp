@@ -1,6 +1,6 @@
 /**
  * @file FixedCam.hpp
- * @brief Concrete Fixed Camera implementation that can be position, oriented, and never moved
+ * @brief Concrete Fixed Camera implementation with Perspective Projection that can be positioned, oriented, and never moved
  * @author Dr. Jeffrey Paone
  *
  * @copyright MIT License Copyright (c) 2021 Dr. Jeffrey Paone
@@ -24,6 +24,16 @@ namespace CSCI441 {
     class FixedCam final : public CSCI441::Camera {
     public:
         /**
+         * creates a FixedCam object with the specified perspective projection
+         * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
+         * @param fovy vertical field of view (defaults to 45.0f)
+         * @param nearClipPlane near z clip plane (defaults to 0.001f)
+         * @param farClipPlane far z clip plane (defaults to 1000.0f)
+         * @note field of view specified in degrees
+         */
+        explicit FixedCam(GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);
+
+        /**
          * @brief does nothing
          */
         void recomputeOrientation() final {};
@@ -37,7 +47,27 @@ namespace CSCI441 {
          * @param unused does nothing
          */
         void moveBackward(const GLfloat unused) final {};
+
+    private:
+        // vertical field of view stored in degrees
+        GLfloat _fovy;
+        GLfloat _aspectRatio;
+        GLfloat _nearClipPlane;
+        GLfloat _farClipPlane;
     };
+}
+
+inline CSCI441::FixedCam::FixedCam(
+        const GLfloat fovy,
+        const GLfloat aspectRatio,
+        const GLfloat nearClipPlane,
+        const GLfloat farClipPlane
+) : _fovy(fovy),
+    _aspectRatio(aspectRatio),
+    _nearClipPlane(nearClipPlane),
+    _farClipPlane(farClipPlane)
+{
+    mProjectionMatrix = glm::perspective(_fovy, _aspectRatio, _nearClipPlane, _farClipPlane);
 }
 
 #endif // CSCI441_FIXED_CAM_HPP

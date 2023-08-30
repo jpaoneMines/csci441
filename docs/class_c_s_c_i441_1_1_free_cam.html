@@ -97,6 +97,8 @@ Inheritance diagram for CSCI441::FreeCam:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a454c9fbfb2b35aa1703620b5adc5de9a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a454c9fbfb2b35aa1703620b5adc5de9a">FreeCam</a> (GLfloat fovy=45.0f, GLfloat aspectRatio=1.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</td></tr>
+<tr class="separator:a454c9fbfb2b35aa1703620b5adc5de9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea185b8dad3bcbdc81fd12f322ee357a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a">recomputeOrientation</a> () final</td></tr>
 <tr class="memdesc:aea185b8dad3bcbdc81fd12f322ee357a"><td class="mdescLeft">&#160;</td><td class="mdescRight">converts spherical theta &amp; phi to cartesian x,y,z direction vector  <br /></td></tr>
 <tr class="separator:aea185b8dad3bcbdc81fd12f322ee357a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,9 +129,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~Camera</b> ()=def
 void&#160;</td><td class="memItemRight" valign="bottom"><b>computeViewMatrix</b> ()</td></tr>
 <tr class="memdesc:a7ed16fb3b9a25234dc21a996f885d92e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates the View Matrix based on the position, lookAt point, and up vector <br /></td></tr>
 <tr class="separator:a7ed16fb3b9a25234dc21a996f885d92e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a358f8072f4b0f984a6764b3609df5717 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a358f8072f4b0f984a6764b3609df5717">getViewMatrix</a> ()</td></tr>
-<tr class="memdesc:a358f8072f4b0f984a6764b3609df5717 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current view matrix for the associated camera  <br /></td></tr>
-<tr class="separator:a358f8072f4b0f984a6764b3609df5717 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c67bf74277a997af68ad1b172b0e372 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a0c67bf74277a997af68ad1b172b0e372">getProjectionMatrix</a> () const</td></tr>
+<tr class="memdesc:a0c67bf74277a997af68ad1b172b0e372 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current projection matrix for the associated camera  <br /></td></tr>
+<tr class="separator:a0c67bf74277a997af68ad1b172b0e372 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b52c14f0688b3b689239f3bd6028331 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a8b52c14f0688b3b689239f3bd6028331">getViewMatrix</a> () const</td></tr>
+<tr class="memdesc:a8b52c14f0688b3b689239f3bd6028331 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current view matrix for the associated camera  <br /></td></tr>
+<tr class="separator:a8b52c14f0688b3b689239f3bd6028331 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b6c129340babd754222090e434f487e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a3b6c129340babd754222090e434f487e">getPosition</a> () const</td></tr>
 <tr class="memdesc:a3b6c129340babd754222090e434f487e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current camera position in world space  <br /></td></tr>
 <tr class="separator:a3b6c129340babd754222090e434f487e inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,6 +180,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a2b44075a51d0d334a6a8c0742e42f040 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a default camera at the origin, looking down the negative Z axis oriented with the world coordinate system <br /></td></tr>
 <tr class="separator:a2b44075a51d0d334a6a8c0742e42f040 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_c_s_c_i441_1_1_camera"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_c_s_c_i441_1_1_camera')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></td></tr>
+<tr class="memitem:a64b74b2c979a3a05afa42434c0000d42 inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a64b74b2c979a3a05afa42434c0000d42" name="a64b74b2c979a3a05afa42434c0000d42"></a>
+glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><b>mProjectionMatrix</b></td></tr>
+<tr class="memdesc:a64b74b2c979a3a05afa42434c0000d42 inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores the Projection Matrix <br /></td></tr>
+<tr class="separator:a64b74b2c979a3a05afa42434c0000d42 inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9004f565dbd3dcdc85e7d6c966b0f145 inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a9004f565dbd3dcdc85e7d6c966b0f145" name="a9004f565dbd3dcdc85e7d6c966b0f145"></a>
 glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><b>mViewMatrix</b></td></tr>
 <tr class="memdesc:a9004f565dbd3dcdc85e7d6c966b0f145 inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores the View Matrix corresponding to the inverse of the <a class="el" href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:">Camera</a>'s Matrix <br /></td></tr>
@@ -211,7 +220,66 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A camera that implements a <a class="el" href="class_c_s_c_i441_1_1_free_cam.html" title="A camera that implements a FreeCam camera model.">FreeCam</a> camera model. </p>
 <dl class="section note"><dt>Note</dt><dd>camera direction is controlled by setting theta &amp; phi and rotating the camera </dd></dl>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a454c9fbfb2b35aa1703620b5adc5de9a" name="a454c9fbfb2b35aa1703620b5adc5de9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a454c9fbfb2b35aa1703620b5adc5de9a">&#9670;&#160;</a></span>FreeCam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">CSCI441::FreeCam::FreeCam </td>
+          <td>(</td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>fovy</em> = <code>45.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>aspectRatio</em> = <code>1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>nearClipPlane</em> = <code>0.001f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>farClipPlane</em> = <code>1000.0f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>creates a <a class="el" href="class_c_s_c_i441_1_1_free_cam.html" title="A camera that implements a FreeCam camera model.">FreeCam</a> object with the specified perspective projection </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">aspectRatio</td><td>aspect ratio of view plane (defaults to 1.0f) </td></tr>
+    <tr><td class="paramname">fovy</td><td>vertical field of view (defaults to 45.0f) </td></tr>
+    <tr><td class="paramname">nearClipPlane</td><td>near z clip plane (defaults to 0.001f) </td></tr>
+    <tr><td class="paramname">farClipPlane</td><td>far z clip plane (defaults to 1000.0f) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>field of view specified in degrees </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a9538c96b3167b01c3d5481de848dafec" name="a9538c96b3167b01c3d5481de848dafec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9538c96b3167b01c3d5481de848dafec">&#9670;&#160;</a></span>moveBackward()</h2>
 

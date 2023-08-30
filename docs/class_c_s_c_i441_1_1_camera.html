@@ -94,9 +94,10 @@ Inheritance diagram for CSCI441::Camera:</div>
  <div class="center">
   <img src="class_c_s_c_i441_1_1_camera.png" usemap="#CSCI441::Camera_map" alt=""/>
   <map id="CSCI441::Camera_map" name="CSCI441::Camera_map">
-<area href="class_c_s_c_i441_1_1_arcball_cam.html" title="A camera that implements an ArcBall camera model." alt="CSCI441::ArcballCam" shape="rect" coords="0,56,134,80"/>
-<area href="class_c_s_c_i441_1_1_fixed_cam.html" title="A camera that can be positioned and oriented but never moved or rotated." alt="CSCI441::FixedCam" shape="rect" coords="144,56,278,80"/>
-<area href="class_c_s_c_i441_1_1_free_cam.html" title="A camera that implements a FreeCam camera model." alt="CSCI441::FreeCam" shape="rect" coords="288,56,422,80"/>
+<area href="class_c_s_c_i441_1_1_arcball_cam.html" title="A camera that implements an ArcBall camera model." alt="CSCI441::ArcballCam" shape="rect" coords="0,56,139,80"/>
+<area href="class_c_s_c_i441_1_1_fixed_cam.html" title="A camera that can be positioned and oriented but never moved or rotated." alt="CSCI441::FixedCam" shape="rect" coords="149,56,288,80"/>
+<area href="class_c_s_c_i441_1_1_free_cam.html" title="A camera that implements a FreeCam camera model." alt="CSCI441::FreeCam" shape="rect" coords="298,56,437,80"/>
+<area href="class_c_s_c_i441_1_1_m_d5_camera.html" alt="CSCI441::MD5Camera" shape="rect" coords="447,56,586,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -122,9 +123,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~Camera</b> ()=def
 void&#160;</td><td class="memItemRight" valign="bottom"><b>computeViewMatrix</b> ()</td></tr>
 <tr class="memdesc:a7ed16fb3b9a25234dc21a996f885d92e"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates the View Matrix based on the position, lookAt point, and up vector <br /></td></tr>
 <tr class="separator:a7ed16fb3b9a25234dc21a996f885d92e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a358f8072f4b0f984a6764b3609df5717"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a358f8072f4b0f984a6764b3609df5717">getViewMatrix</a> ()</td></tr>
-<tr class="memdesc:a358f8072f4b0f984a6764b3609df5717"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current view matrix for the associated camera  <br /></td></tr>
-<tr class="separator:a358f8072f4b0f984a6764b3609df5717"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c67bf74277a997af68ad1b172b0e372"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a0c67bf74277a997af68ad1b172b0e372">getProjectionMatrix</a> () const</td></tr>
+<tr class="memdesc:a0c67bf74277a997af68ad1b172b0e372"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current projection matrix for the associated camera  <br /></td></tr>
+<tr class="separator:a0c67bf74277a997af68ad1b172b0e372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b52c14f0688b3b689239f3bd6028331"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a8b52c14f0688b3b689239f3bd6028331">getViewMatrix</a> () const</td></tr>
+<tr class="memdesc:a8b52c14f0688b3b689239f3bd6028331"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current view matrix for the associated camera  <br /></td></tr>
+<tr class="separator:a8b52c14f0688b3b689239f3bd6028331"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b6c129340babd754222090e434f487e"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a3b6c129340babd754222090e434f487e">getPosition</a> () const</td></tr>
 <tr class="memdesc:a3b6c129340babd754222090e434f487e"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current camera position in world space  <br /></td></tr>
 <tr class="separator:a3b6c129340babd754222090e434f487e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,6 +175,10 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:a64b74b2c979a3a05afa42434c0000d42"><td class="memItemLeft" align="right" valign="top"><a id="a64b74b2c979a3a05afa42434c0000d42" name="a64b74b2c979a3a05afa42434c0000d42"></a>
+glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><b>mProjectionMatrix</b></td></tr>
+<tr class="memdesc:a64b74b2c979a3a05afa42434c0000d42"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores the Projection Matrix <br /></td></tr>
+<tr class="separator:a64b74b2c979a3a05afa42434c0000d42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9004f565dbd3dcdc85e7d6c966b0f145"><td class="memItemLeft" align="right" valign="top"><a id="a9004f565dbd3dcdc85e7d6c966b0f145" name="a9004f565dbd3dcdc85e7d6c966b0f145"></a>
 glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><b>mViewMatrix</b></td></tr>
 <tr class="memdesc:a9004f565dbd3dcdc85e7d6c966b0f145"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores the View Matrix corresponding to the inverse of the <a class="el" href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:">Camera</a>'s Matrix <br /></td></tr>
@@ -299,6 +307,34 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 
 </div>
 </div>
+<a id="a0c67bf74277a997af68ad1b172b0e372" name="a0c67bf74277a997af68ad1b172b0e372"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c67bf74277a997af68ad1b172b0e372">&#9670;&#160;</a></span>getProjectionMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::mat4 CSCI441::Camera::getProjectionMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns the current projection matrix for the associated camera </p>
+<dl class="section return"><dt>Returns</dt><dd>homogeneous projection matrix </dd></dl>
+
+</div>
+</div>
 <a id="af6a2f9dc52e142776703cc3f1734d20e" name="af6a2f9dc52e142776703cc3f1734d20e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6a2f9dc52e142776703cc3f1734d20e">&#9670;&#160;</a></span>getRadius()</h2>
 
@@ -383,8 +419,8 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 
 </div>
 </div>
-<a id="a358f8072f4b0f984a6764b3609df5717" name="a358f8072f4b0f984a6764b3609df5717"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a358f8072f4b0f984a6764b3609df5717">&#9670;&#160;</a></span>getViewMatrix()</h2>
+<a id="a8b52c14f0688b3b689239f3bd6028331" name="a8b52c14f0688b3b689239f3bd6028331"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b52c14f0688b3b689239f3bd6028331">&#9670;&#160;</a></span>getViewMatrix()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -396,7 +432,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
           <td class="memname">glm::mat4 CSCI441::Camera::getViewMatrix </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -443,7 +479,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a2a13d007a757a4fcd0fece0963359beb">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#aaeb9f7a5c9ab3a08a11687f1fd7234e2">CSCI441::ArcballCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a9538c96b3167b01c3d5481de848dafec">CSCI441::FreeCam</a>.</p>
+<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a2a13d007a757a4fcd0fece0963359beb">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#aaeb9f7a5c9ab3a08a11687f1fd7234e2">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a9538c96b3167b01c3d5481de848dafec">CSCI441::FreeCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a5327ca5b6ecf52974510758ba57627e5">CSCI441::MD5Camera</a>.</p>
 
 </div>
 </div>
@@ -479,7 +515,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a9bca71cef49c85697c44e3731d4e3d25">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a5e618322522a711de4d22ff0331e8db2">CSCI441::ArcballCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a6477c2e4e7734f313f3b03f832450c5f">CSCI441::FreeCam</a>.</p>
+<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a9bca71cef49c85697c44e3731d4e3d25">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a5e618322522a711de4d22ff0331e8db2">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a6477c2e4e7734f313f3b03f832450c5f">CSCI441::FreeCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a1484b36acde080697559058717d23ec3">CSCI441::MD5Camera</a>.</p>
 
 </div>
 </div>
@@ -508,7 +544,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 
 <p>Uses theta, phi, &amp; radius to update the camera's view matrix parameters. The camera orientation is controlled via spherical coordinates and this method would orient and/or position the camera in cartesian coordinates. </p>
 
-<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a37be99738bfbd423573dcd298cf69784">CSCI441::FixedCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a">CSCI441::FreeCam</a>.</p>
+<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a37be99738bfbd423573dcd298cf69784">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a">CSCI441::FreeCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014">CSCI441::MD5Camera</a>.</p>
 
 </div>
 </div>

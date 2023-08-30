@@ -1,6 +1,6 @@
 /**
  * @file FreeCam.hpp
- * @brief Concrete Free Cam Implementation
+ * @brief Concrete Free Cam Implementation with Perspective Projection
  * @author Dr. Jeffrey Paone
  *
  * @copyright MIT License Copyright (c) 2021 Dr. Jeffrey Paone
@@ -22,6 +22,16 @@ namespace CSCI441 {
      */
     class FreeCam final : public CSCI441::Camera {
     public:
+        /**
+         * creates a FreeCam object with the specified perspective projection
+         * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
+         * @param fovy vertical field of view (defaults to 45.0f)
+         * @param nearClipPlane near z clip plane (defaults to 0.001f)
+         * @param farClipPlane far z clip plane (defaults to 1000.0f)
+         * @note field of view specified in degrees
+         */
+        explicit FreeCam(GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);
+
         /**
          * @brief converts spherical theta & phi to cartesian x,y,z direction vector
          * @note sets the camera's direction vector to point outward from a sphere centered
@@ -48,7 +58,26 @@ namespace CSCI441 {
     private:
         // updates the look at point and recalculates the view matrix
         void _updateFreeCameraViewMatrix();
+
+        // vertical field of view stored in degrees
+        GLfloat _fovy;
+        GLfloat _aspectRatio;
+        GLfloat _nearClipPlane;
+        GLfloat _farClipPlane;
     };
+}
+
+inline CSCI441::FreeCam::FreeCam(
+        const GLfloat fovy,
+        const GLfloat aspectRatio,
+        const GLfloat nearClipPlane,
+        const GLfloat farClipPlane
+) : _fovy(fovy),
+    _aspectRatio(aspectRatio),
+    _nearClipPlane(nearClipPlane),
+    _farClipPlane(farClipPlane)
+{
+    mProjectionMatrix = glm::perspective(_fovy, _aspectRatio, _nearClipPlane, _farClipPlane);
 }
 
 inline void CSCI441::FreeCam::recomputeOrientation() {
