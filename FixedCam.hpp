@@ -25,8 +25,8 @@ namespace CSCI441 {
     public:
         /**
          * creates a FixedCam object with the specified perspective projection
-         * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
          * @param fovy vertical field of view (defaults to 45.0f)
+         * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
          * @param nearClipPlane near z clip plane (defaults to 0.001f)
          * @param farClipPlane far z clip plane (defaults to 1000.0f)
          * @note field of view specified in degrees

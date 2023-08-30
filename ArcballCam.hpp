@@ -26,8 +26,8 @@ namespace CSCI441 {
          * @brief initializes the Arcball Camera and sets the minimum/maximum radius the camera can zoom through as well as the perspective projection
          * @param minRadius minimum radius (zoom) for camera - defaults to 2.0 world space units
          * @param maxRadius maximum radius (zoom) for camera - defaults to 30.0 world space units
-         * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
          * @param fovy vertical field of view (defaults to 45.0f)
+         * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
          * @param nearClipPlane near z clip plane (defaults to 0.001f)
          * @param farClipPlane far z clip plane (defaults to 1000.0f)
          * @note field of view specified in degrees
