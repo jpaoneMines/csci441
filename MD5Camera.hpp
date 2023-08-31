@@ -16,6 +16,11 @@ namespace CSCI441 {
     class MD5Camera final : public CSCI441::Camera {
     public:
         /**
+         * @note must create camera object from parameterized constructor
+         */
+        MD5Camera() = delete;
+
+        /**
          * creates a MD5Camera object with the specified initial perspective projection
          * @param MD5CAMERA_FILE filename of .md5camera file to load
          * @param fovy vertical field of view (defaults to 45.0f)
@@ -26,7 +31,9 @@ namespace CSCI441 {
          * @param ERRORS if file loading errors should be printed to standard error (defaults to true)
          * @note field of view specified in degrees
          */
-        MD5Camera(const char* MD5CAMERA_FILE, GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f, GLboolean INFO = true, GLboolean ERRORS = true);
+        explicit MD5Camera(const char* MD5CAMERA_FILE, GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f, GLboolean INFO = true, GLboolean ERRORS = true);
+
+        ~MD5Camera() final;
 
         void recomputeOrientation() final {}
         void moveForward(GLfloat unused) final;
@@ -70,13 +77,25 @@ inline CSCI441::MD5Camera::MD5Camera(
 ) : _fovy(fovy),
     _aspectRatio(aspectRatio),
     _nearClipPlane(nearClipPlane),
-    _farClipPlane(farClipPlane)
+    _farClipPlane(farClipPlane),
+    _frameRate(60),
+    _numFrames(0),
+    _numCuts(0),
+    _cutPositions(nullptr),
+    _frames(nullptr),
+    _currentFrameIndex(0),
+    _currentCutIndex(0)
 {
     _currentFrameIndex = 0;
     _currentCutIndex = 0;
     mProjectionMatrix = glm::perspective(_fovy, _aspectRatio, _nearClipPlane, _farClipPlane);
 
     _loadMD5CameraFromFile(MD5CAMERA_FILE, INFO, ERRORS);
+}
+
+inline CSCI441::MD5Camera::~MD5Camera() {
+    free( _frames );
+    free( _cutPositions );
 }
 
 inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
@@ -96,13 +115,14 @@ inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
         return false;
     }
 
-    std::string sectionLabel, commandLineStr;
+    std::string sectionLabel, commandLineStr, brace;
+    int md5version;
+    Frame frame = { glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 45.0f };
 
     // MD5Version 10
-    int md5version;
     md5CameraFile >> sectionLabel >> md5version;
     if(sectionLabel != "MD5Version" || md5version != 10) {
-        if (ERRORS) fprintf(stderr, "[.md5camera]: [ERROR]: improper MD5Camera version found \"%s %d\"\n", sectionLabel.c_str(), md5version );
+        if (ERRORS) fprintf (stderr, "[.md5camera]: [ERROR]: improper MD5Camera version found \"%s %d\"\n", sectionLabel.c_str(), md5version );
         if ( INFO ) fprintf( stdout, "[.md5camera]: -=-=-=-=-=-=-=-  END  %s Info -=-=-=-=-=-=-=- \n", MD5CAMERA_FILE );
         return false;
     }
@@ -111,28 +131,51 @@ inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
     md5CameraFile >> sectionLabel;
     getline(md5CameraFile, commandLineStr);
 
-    // numFrames <integer>
-    md5CameraFile >> sectionLabel >> _numFrames;
-    // frameRate <integer>
-    md5CameraFile >> sectionLabel >> _frameRate;
-    // numCuts <integer>
-    md5CameraFile >> sectionLabel >> _numCuts;
-
-    // TODO sections
-    // cuts {
-    //   [frameNumber]
-    //   [frameNumber]
-    // }
-
-    // camera {
-    //   ( [x] [y] [z] ) ( [orientation] ) [FOV]
-    // }
+    for(unsigned short i = 0; i < 5; i++) {
+        md5CameraFile >> sectionLabel;
+        if(sectionLabel == "numFrames") {
+             // numFrames <integer>
+             md5CameraFile >> _numFrames;
+            _frames = (Frame*)malloc(sizeof(Frame) * _numFrames);
+        } else if(sectionLabel == "frameRate") {
+            // frameRate <integer>
+            md5CameraFile >> sectionLabel >> _frameRate;
+        } else if(sectionLabel == "numCuts") {
+            // numCuts <integer>
+            md5CameraFile >> sectionLabel >> _numCuts;
+            _cutPositions = (GLuint*)malloc(sizeof(GLuint) * _numCuts);
+        } else if(sectionLabel == "cuts") {
+            // cuts {
+            //   [frameNumber]
+            //   [frameNumber]
+            // }
+            md5CameraFile >> brace;
+            for(unsigned int cutNumber = 0; cutNumber < _numCuts; cutNumber++) {
+                md5CameraFile >> _cutPositions[cutNumber];
+            }
+            md5CameraFile >> brace;
+            _currentFrameIndex = _cutPositions[_currentCutIndex];
+        } else if(sectionLabel == "camera") {
+            // camera {
+            //   ( [x] [y] [z] ) ( [orientation] ) [FOV]
+            // }
+            md5CameraFile >> brace;
+            for(unsigned int frameNumber = 0; frameNumber < _numFrames; frameNumber++) {
+                md5CameraFile >> brace >> frame.cameraPosition.x >> frame.cameraPosition.y >> frame.cameraPosition.z >> brace;
+                md5CameraFile >> brace >> frame.cameraQuaternion.x >> frame.cameraQuaternion.y >> frame.cameraQuaternion.z >> brace;
+                md5CameraFile >> frame.fieldOfView;
+            }
+            md5CameraFile >> brace;
+        } else {
+            if (ERRORS) fprintf( stderr, "[.md5camera]: [ERROR]: unknown section label found \"%s\"\n", sectionLabel.c_str() );
+            if ( INFO ) fprintf( stdout, "[.md5camera]: -=-=-=-=-=-=-=-  END  %s Info -=-=-=-=-=-=-=- \n", MD5CAMERA_FILE );
+            return false;
+        }
+    }
 
     if (INFO) {
         printf( "[.md5camera]: Camera Stats:\n" );
-        printf( "[.md5camera]: Num Frames:\t%u\n", _numFrames );
-        printf( "[.md5camera]: Frame Rate:\t%u\n", _frameRate );
-        printf( "[.md5camera]: Num Cuts:  \t%u\n", _numCuts );
+        printf( "[.md5camera]: Num Frames:\t%u\tFrame Rate:\t%u\tNum Cuts:  \t%u\n", _numFrames, _frameRate, _numCuts );
     }
 
     time(&end);
@@ -156,7 +199,7 @@ inline void CSCI441::MD5Camera::moveForward(const GLfloat unused) {
 inline void CSCI441::MD5Camera::moveBackward(const GLfloat unused) {
     // go to prior frame
     _currentFrameIndex--;
-    // TODO clamp to current cut ?
+    // TODO clamp to current cut ? loop ? unadvance ?
     _updateCameraAttributesForCurrentFrame();
 }
 
