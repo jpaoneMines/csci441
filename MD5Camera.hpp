@@ -49,15 +49,15 @@ namespace CSCI441 {
          * @param MD5CAMERA_FILE filename of .md5camera file to load
          * @param advancementStrategy what to do after last frame of cut - one of RUN_SINGLE_CUT, LOOP_SINGLE_CUT, RUN_ALL_CUTS, LOOP_ALL_CUTS
          * @param firstCutToRun index of first cut scene to run (defaults to 0)
-         * @param fovy vertical field of view (defaults to 45.0f)
          * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
+         * @param fovy vertical field of view (defaults to 45.0f)
          * @param nearClipPlane near z clip plane (defaults to 0.001f)
          * @param farClipPlane far z clip plane (defaults to 1000.0f)
          * @param INFO if file loading information should be printed to standard out (defaults to true)
          * @param ERRORS if file loading errors should be printed to standard error (defaults to true)
          * @note field of view specified in degrees
          */
-        explicit MD5Camera(const char* MD5CAMERA_FILE, AdvancementStrategy advancementStrategy, GLuint firstCutToRun = 0, GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f, GLboolean INFO = true, GLboolean ERRORS = true);
+        explicit MD5Camera(const char* MD5CAMERA_FILE, AdvancementStrategy advancementStrategy, GLuint firstCutToRun = 0, GLfloat aspectRatio = 1.0f, GLfloat fovy = 45.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f, GLboolean INFO = true, GLboolean ERRORS = true);
 
         ~MD5Camera() final;
 
@@ -99,8 +99,8 @@ inline CSCI441::MD5Camera::MD5Camera(
         const char * const MD5CAMERA_FILE,
         const AdvancementStrategy advancementStrategy,
         const GLuint firstCutToRun,
-        const GLfloat fovy,
         const GLfloat aspectRatio,
+        const GLfloat fovy,
         const GLfloat nearClipPlane,
         const GLfloat farClipPlane,
         const GLboolean INFO,

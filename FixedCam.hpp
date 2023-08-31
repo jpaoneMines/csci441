@@ -25,13 +25,13 @@ namespace CSCI441 {
     public:
         /**
          * creates a FixedCam object with the specified perspective projection
-         * @param fovy vertical field of view (defaults to 45.0f)
          * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
+         * @param fovy vertical field of view (defaults to 45.0f)
          * @param nearClipPlane near z clip plane (defaults to 0.001f)
          * @param farClipPlane far z clip plane (defaults to 1000.0f)
          * @note field of view specified in degrees
          */
-        explicit FixedCam(GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);
+        explicit FixedCam(GLfloat aspectRatio = 1.0f, GLfloat fovy = 45.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);
 
         /**
          * @brief does nothing
@@ -58,8 +58,8 @@ namespace CSCI441 {
 }
 
 inline CSCI441::FixedCam::FixedCam(
-        const GLfloat fovy,
         const GLfloat aspectRatio,
+        const GLfloat fovy,
         const GLfloat nearClipPlane,
         const GLfloat farClipPlane
 ) : _fovy(fovy),

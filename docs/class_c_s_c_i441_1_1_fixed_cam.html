@@ -97,8 +97,8 @@ Inheritance diagram for CSCI441::FixedCam:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3d0afdfff6a379a45b7900073ea47d66"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a3d0afdfff6a379a45b7900073ea47d66">FixedCam</a> (GLfloat fovy=45.0f, GLfloat aspectRatio=1.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</td></tr>
-<tr class="separator:a3d0afdfff6a379a45b7900073ea47d66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae086114d2c9a4b0feb88b27a315a537d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#ae086114d2c9a4b0feb88b27a315a537d">FixedCam</a> (GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</td></tr>
+<tr class="separator:ae086114d2c9a4b0feb88b27a315a537d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37be99738bfbd423573dcd298cf69784"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a37be99738bfbd423573dcd298cf69784">recomputeOrientation</a> () final</td></tr>
 <tr class="memdesc:a37be99738bfbd423573dcd298cf69784"><td class="mdescLeft">&#160;</td><td class="mdescRight">does nothing  <br /></td></tr>
 <tr class="separator:a37be99738bfbd423573dcd298cf69784"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -223,8 +223,8 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 <dd>
 Must orient via <a class="el" href="class_c_s_c_i441_1_1_camera.html#a5b61c87de5f2ce2df85b1150b168dd47" title="sets the camera&#39;s lookAt point in world space">setLookAtPoint()</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3d0afdfff6a379a45b7900073ea47d66" name="a3d0afdfff6a379a45b7900073ea47d66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d0afdfff6a379a45b7900073ea47d66">&#9670;&#160;</a></span>FixedCam()</h2>
+<a id="ae086114d2c9a4b0feb88b27a315a537d" name="ae086114d2c9a4b0feb88b27a315a537d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae086114d2c9a4b0feb88b27a315a537d">&#9670;&#160;</a></span>FixedCam()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,13 +236,13 @@ Must orient via <a class="el" href="class_c_s_c_i441_1_1_camera.html#a5b61c87de5
           <td class="memname">CSCI441::FixedCam::FixedCam </td>
           <td>(</td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>fovy</em> = <code>45.0f</code>, </td>
+          <td class="paramname"><em>aspectRatio</em> = <code>1.0f</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>aspectRatio</em> = <code>1.0f</code>, </td>
+          <td class="paramname"><em>fovy</em> = <code>45.0f</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -270,8 +270,8 @@ Must orient via <a class="el" href="class_c_s_c_i441_1_1_camera.html#a5b61c87de5
 </div><div class="memdoc">
 <p>creates a <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html" title="A camera that can be positioned and oriented but never moved or rotated.">FixedCam</a> object with the specified perspective projection </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fovy</td><td>vertical field of view (defaults to 45.0f) </td></tr>
     <tr><td class="paramname">aspectRatio</td><td>aspect ratio of view plane (defaults to 1.0f) </td></tr>
+    <tr><td class="paramname">fovy</td><td>vertical field of view (defaults to 45.0f) </td></tr>
     <tr><td class="paramname">nearClipPlane</td><td>near z clip plane (defaults to 0.001f) </td></tr>
     <tr><td class="paramname">farClipPlane</td><td>far z clip plane (defaults to 1000.0f) </td></tr>
   </table>

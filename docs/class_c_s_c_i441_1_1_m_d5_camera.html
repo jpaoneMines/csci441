@@ -111,8 +111,8 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad633aee2aae7d5796550ecb1f3dbbb25"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#ad633aee2aae7d5796550ecb1f3dbbb25">MD5Camera</a> ()=delete</td></tr>
 <tr class="separator:ad633aee2aae7d5796550ecb1f3dbbb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a207f1158eac763286ce59a283461fd78"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a207f1158eac763286ce59a283461fd78">MD5Camera</a> (const char *MD5CAMERA_FILE, <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4">AdvancementStrategy</a> advancementStrategy, GLuint firstCutToRun=0, GLfloat fovy=45.0f, GLfloat aspectRatio=1.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f, GLboolean INFO=true, GLboolean ERRORS=true)</td></tr>
-<tr class="separator:a207f1158eac763286ce59a283461fd78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7310a29edd4756d10074c8594a19c765"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a7310a29edd4756d10074c8594a19c765">MD5Camera</a> (const char *MD5CAMERA_FILE, <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4">AdvancementStrategy</a> advancementStrategy, GLuint firstCutToRun=0, GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f, GLboolean INFO=true, GLboolean ERRORS=true)</td></tr>
+<tr class="separator:a7310a29edd4756d10074c8594a19c765"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c25fd07e39defa9a9885b0a139ca014"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014">recomputeOrientation</a> () final</td></tr>
 <tr class="memdesc:a9c25fd07e39defa9a9885b0a139ca014"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses theta, phi, &amp; radius to update the camera's view matrix parameters. The camera orientation is controlled via spherical coordinates and this method would orient and/or position the camera in cartesian coordinates.  <br /></td></tr>
 <tr class="separator:a9c25fd07e39defa9a9885b0a139ca014"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -288,8 +288,8 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 
 </div>
 </div>
-<a id="a207f1158eac763286ce59a283461fd78" name="a207f1158eac763286ce59a283461fd78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a207f1158eac763286ce59a283461fd78">&#9670;&#160;</a></span>MD5Camera() <span class="overload">[2/2]</span></h2>
+<a id="a7310a29edd4756d10074c8594a19c765" name="a7310a29edd4756d10074c8594a19c765"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7310a29edd4756d10074c8594a19c765">&#9670;&#160;</a></span>MD5Camera() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -319,13 +319,13 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>fovy</em> = <code>45.0f</code>, </td>
+          <td class="paramname"><em>aspectRatio</em> = <code>1.0f</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>aspectRatio</em> = <code>1.0f</code>, </td>
+          <td class="paramname"><em>fovy</em> = <code>45.0f</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -368,8 +368,8 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
     <tr><td class="paramname">MD5CAMERA_FILE</td><td>filename of .md5camera file to load </td></tr>
     <tr><td class="paramname">advancementStrategy</td><td>what to do after last frame of cut - one of RUN_SINGLE_CUT, LOOP_SINGLE_CUT, RUN_ALL_CUTS, LOOP_ALL_CUTS </td></tr>
     <tr><td class="paramname">firstCutToRun</td><td>index of first cut scene to run (defaults to 0) </td></tr>
-    <tr><td class="paramname">fovy</td><td>vertical field of view (defaults to 45.0f) </td></tr>
     <tr><td class="paramname">aspectRatio</td><td>aspect ratio of view plane (defaults to 1.0f) </td></tr>
+    <tr><td class="paramname">fovy</td><td>vertical field of view (defaults to 45.0f) </td></tr>
     <tr><td class="paramname">nearClipPlane</td><td>near z clip plane (defaults to 0.001f) </td></tr>
     <tr><td class="paramname">farClipPlane</td><td>far z clip plane (defaults to 1000.0f) </td></tr>
     <tr><td class="paramname">INFO</td><td>if file loading information should be printed to standard out (defaults to true) </td></tr>

@@ -97,9 +97,9 @@ Inheritance diagram for CSCI441::ArcballCam:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a57912f4f1fc1a40a723ccfa604319523"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a57912f4f1fc1a40a723ccfa604319523">ArcballCam</a> (GLfloat minRadius=2.0f, GLfloat maxRadius=30.0f, GLfloat fovy=45.0f, GLfloat aspectRatio=1.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</td></tr>
-<tr class="memdesc:a57912f4f1fc1a40a723ccfa604319523"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes the Arcball <a class="el" href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:">Camera</a> and sets the minimum/maximum radius the camera can zoom through as well as the perspective projection  <br /></td></tr>
-<tr class="separator:a57912f4f1fc1a40a723ccfa604319523"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbacdaa920532f83d39e34c87d4324e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#adbacdaa920532f83d39e34c87d4324e2">ArcballCam</a> (GLfloat minRadius=2.0f, GLfloat maxRadius=30.0f, GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</td></tr>
+<tr class="memdesc:adbacdaa920532f83d39e34c87d4324e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes the Arcball <a class="el" href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:">Camera</a> and sets the minimum/maximum radius the camera can zoom through as well as the perspective projection  <br /></td></tr>
+<tr class="separator:adbacdaa920532f83d39e34c87d4324e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05be1d4f9916e124258810d8f1d2b7e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">recomputeOrientation</a> () final</td></tr>
 <tr class="memdesc:a05be1d4f9916e124258810d8f1d2b7e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">converts spherical theta &amp; phi to cartesian x,y,z direction vector  <br /></td></tr>
 <tr class="separator:a05be1d4f9916e124258810d8f1d2b7e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -222,8 +222,8 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 <div class="textblock"><p>A camera that implements an ArcBall camera model. </p>
 <dl class="section note"><dt>Note</dt><dd>camera direction is controlled by setting theta &amp; phi and rotating the camera </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a57912f4f1fc1a40a723ccfa604319523" name="a57912f4f1fc1a40a723ccfa604319523"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57912f4f1fc1a40a723ccfa604319523">&#9670;&#160;</a></span>ArcballCam()</h2>
+<a id="adbacdaa920532f83d39e34c87d4324e2" name="adbacdaa920532f83d39e34c87d4324e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbacdaa920532f83d39e34c87d4324e2">&#9670;&#160;</a></span>ArcballCam()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -247,13 +247,13 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>fovy</em> = <code>45.0f</code>, </td>
+          <td class="paramname"><em>aspectRatio</em> = <code>1.0f</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>aspectRatio</em> = <code>1.0f</code>, </td>
+          <td class="paramname"><em>fovy</em> = <code>45.0f</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -285,8 +285,8 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   <table class="params">
     <tr><td class="paramname">minRadius</td><td>minimum radius (zoom) for camera - defaults to 2.0 world space units </td></tr>
     <tr><td class="paramname">maxRadius</td><td>maximum radius (zoom) for camera - defaults to 30.0 world space units </td></tr>
-    <tr><td class="paramname">fovy</td><td>vertical field of view (defaults to 45.0f) </td></tr>
     <tr><td class="paramname">aspectRatio</td><td>aspect ratio of view plane (defaults to 1.0f) </td></tr>
+    <tr><td class="paramname">fovy</td><td>vertical field of view (defaults to 45.0f) </td></tr>
     <tr><td class="paramname">nearClipPlane</td><td>near z clip plane (defaults to 0.001f) </td></tr>
     <tr><td class="paramname">farClipPlane</td><td>far z clip plane (defaults to 1000.0f) </td></tr>
   </table>

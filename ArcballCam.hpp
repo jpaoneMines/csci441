@@ -26,13 +26,13 @@ namespace CSCI441 {
          * @brief initializes the Arcball Camera and sets the minimum/maximum radius the camera can zoom through as well as the perspective projection
          * @param minRadius minimum radius (zoom) for camera - defaults to 2.0 world space units
          * @param maxRadius maximum radius (zoom) for camera - defaults to 30.0 world space units
-         * @param fovy vertical field of view (defaults to 45.0f)
          * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
+         * @param fovy vertical field of view (defaults to 45.0f)
          * @param nearClipPlane near z clip plane (defaults to 0.001f)
          * @param farClipPlane far z clip plane (defaults to 1000.0f)
          * @note field of view specified in degrees
          */
-        explicit ArcballCam(GLfloat minRadius = 2.0f, GLfloat maxRadius = 30.0f, GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);
+        explicit ArcballCam(GLfloat minRadius = 2.0f, GLfloat maxRadius = 30.0f, GLfloat aspectRatio = 1.0f, GLfloat fovy = 45.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);
 
         /**
          * @brief converts spherical theta & phi to cartesian x,y,z direction vector
@@ -79,14 +79,14 @@ namespace CSCI441 {
 inline CSCI441::ArcballCam::ArcballCam(
         const GLfloat minRadius,
         const GLfloat maxRadius,
-        const GLfloat fovy,
         const GLfloat aspectRatio,
+        const GLfloat fovy,
         const GLfloat nearClipPlane,
         const GLfloat farClipPlane
 ) : _minRadius(minRadius),
     _maxRadius(maxRadius),
-    _fovy(fovy),
     _aspectRatio(aspectRatio),
+    _fovy(fovy),
     _nearClipPlane(nearClipPlane),
     _farClipPlane(farClipPlane)
 {
