@@ -15,6 +15,8 @@ namespace CSCI441 {
      */
     class MD5Camera final : public CSCI441::Camera {
     public:
+        enum AdvanceStrategy { RUN_SINGLE_CUT, LOOP_SINGLE_CUT, RUN_ALL_CUTS, LOOP_ALL_CUTS };
+
         /**
          * @note must create camera object from parameterized constructor
          */
@@ -23,6 +25,8 @@ namespace CSCI441 {
         /**
          * creates a MD5Camera object with the specified initial perspective projection
          * @param MD5CAMERA_FILE filename of .md5camera file to load
+         * @param advanceStrategy what to do after last frame of cut - one of RUN_SINGLE_CUT, LOOP_SINGLE_CUT, RUN_ALL_CUTS, LOOP_ALL_CUTS
+         * @param firstCutToRun index of first cut scene to run (defaults to 0)
          * @param fovy vertical field of view (defaults to 45.0f)
          * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
          * @param nearClipPlane near z clip plane (defaults to 0.001f)
@@ -31,7 +35,7 @@ namespace CSCI441 {
          * @param ERRORS if file loading errors should be printed to standard error (defaults to true)
          * @note field of view specified in degrees
          */
-        explicit MD5Camera(const char* MD5CAMERA_FILE, GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f, GLboolean INFO = true, GLboolean ERRORS = true);
+        explicit MD5Camera(const char* MD5CAMERA_FILE, AdvanceStrategy advanceStrategy, GLuint firstCutToRun = 0, GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f, GLboolean INFO = true, GLboolean ERRORS = true);
 
         ~MD5Camera() final;
 
@@ -55,6 +59,7 @@ namespace CSCI441 {
         Frame* _frames;
         GLuint _currentFrameIndex;
         GLuint _currentCutIndex;
+        AdvanceStrategy _advancementStrategy;
 
         void _updateCameraAttributesForCurrentFrame();
 
@@ -68,6 +73,8 @@ namespace CSCI441 {
 
 inline CSCI441::MD5Camera::MD5Camera(
         const char * const MD5CAMERA_FILE,
+        const AdvanceStrategy advanceStrategy,
+        const GLuint firstCutToRun,
         const GLfloat fovy,
         const GLfloat aspectRatio,
         const GLfloat nearClipPlane,
@@ -84,7 +91,8 @@ inline CSCI441::MD5Camera::MD5Camera(
     _cutPositions(nullptr),
     _frames(nullptr),
     _currentFrameIndex(0),
-    _currentCutIndex(0)
+    _currentCutIndex(firstCutToRun),
+    _advancementStrategy(advanceStrategy)
 {
     _currentFrameIndex = 0;
     _currentCutIndex = 0;
@@ -139,10 +147,10 @@ inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
             _frames = (Frame*)malloc(sizeof(Frame) * _numFrames);
         } else if(sectionLabel == "frameRate") {
             // frameRate <integer>
-            md5CameraFile >> sectionLabel >> _frameRate;
+            md5CameraFile >> _frameRate;
         } else if(sectionLabel == "numCuts") {
             // numCuts <integer>
-            md5CameraFile >> sectionLabel >> _numCuts;
+            md5CameraFile >> _numCuts;
             _cutPositions = (GLuint*)malloc(sizeof(GLuint) * _numCuts);
         } else if(sectionLabel == "cuts") {
             // cuts {
@@ -190,9 +198,52 @@ inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
 }
 
 inline void CSCI441::MD5Camera::moveForward(const GLfloat unused) {
-    // advance to next frame
-    _currentFrameIndex++;
-    // TODO clamp to current cut ? loop ? advance ?
+    // clamp to current cut ? loop ? advance ?
+
+    // check if current frame is at end of overall list of frames
+    if( _currentFrameIndex == _numFrames - 1) {
+        switch(_advancementStrategy) {
+        case LOOP_ALL_CUTS:
+            // go back to start of all cuts
+            _currentCutIndex = 0;
+        case LOOP_SINGLE_CUT:
+            // go to start of current cut
+            _currentFrameIndex = _cutPositions[ _currentCutIndex ];
+            break;
+
+        case RUN_SINGLE_CUT:
+        case RUN_ALL_CUTS:
+            // do nothing, at end and not looping
+            break;
+        }
+    }
+    // check if in last cut, but can't be at the end of the last cut because then we'd be at the end of the overall frames
+    else if( _currentCutIndex == _numCuts - 1 ) {
+        _currentFrameIndex++;
+    }
+    // otherwise not on final overall frame and not in the last cut
+    else {
+        // check if at end of current cut
+        if( _currentFrameIndex == _cutPositions[_currentCutIndex + 1] - 1 ) {
+            switch(_advancementStrategy) {
+            case RUN_ALL_CUTS:
+            case LOOP_ALL_CUTS:
+                // go to next cut
+                _currentCutIndex++;
+            case LOOP_SINGLE_CUT:
+                // go to start of current cut
+                _currentFrameIndex = _cutPositions[ _currentCutIndex ];
+                break;
+
+            case RUN_SINGLE_CUT:
+                // do nothing, at end and not looping nor advancing
+                break;
+            }
+        } else {
+            // in the middle of a cut, move forward
+            _currentFrameIndex++;
+        }
+    }
     _updateCameraAttributesForCurrentFrame();
 }
 
