@@ -208,7 +208,7 @@ inline void CSCI441::MD5Camera::_updateCameraAttributesForCurrentFrame() {
     setPosition( _frames[_currentFrameIndex].cameraPosition );
 
     // get and set camera orientation for current frame
-    // compute W of quarternion
+    // compute W of quaternion
     glm::vec4 q = glm::vec4(_frames[_currentFrameIndex].cameraQuaternion, 0.0f);
     GLfloat t = 1.0f - (q.x * q.x) - (q.y * q.y) - (q.z * q.z);
     if (t < 0.0f)
