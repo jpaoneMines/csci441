@@ -205,19 +205,47 @@ inline void CSCI441::MD5Camera::moveBackward(const GLfloat unused) {
 
 inline void CSCI441::MD5Camera::_updateCameraAttributesForCurrentFrame() {
     // get and set camera position for current frame
-    setPosition( _frames[_currentFrameIndex].cameraPosition );
+    mCameraPosition = _frames[_currentFrameIndex].cameraPosition;
 
     // get and set camera orientation for current frame
     // compute W of quaternion
-    glm::vec4 q = glm::vec4(_frames[_currentFrameIndex].cameraQuaternion, 0.0f);
+    glm::vec4 q(_frames[_currentFrameIndex].cameraQuaternion, 0.0f);
     GLfloat t = 1.0f - (q.x * q.x) - (q.y * q.y) - (q.z * q.z);
     if (t < 0.0f)
         q.w = 0.0f;
     else
         q.w = -glm::sqrt(t);
 
-    // TODO set look at point
-    // TODO set up vector
+    // set direction and look at point
+    glm::vec3 defaultCameraDirection(0.0f, 0.0f, -1.0f);
+    glm::vec4 inverse(-q.x, -q.y, -q.z, q.w);
+    glm::normalize(inverse);
+
+    glm::vec4 tmp( (q.w * defaultCameraDirection.x) + (q.y * defaultCameraDirection.z) - (q.z * defaultCameraDirection.y),
+                   (q.w * defaultCameraDirection.y) + (q.z * defaultCameraDirection.x) - (q.x * defaultCameraDirection.z),
+                   (q.w * defaultCameraDirection.z) + (q.x * defaultCameraDirection.y) - (q.y * defaultCameraDirection.x),
+                   -(q.w * defaultCameraDirection.x) - (q.y * defaultCameraDirection.y) - (q.z * defaultCameraDirection.z) );
+    glm::vec4 rotatedCameraDirection( (tmp.x * inverse.w) + (tmp.w * inverse.x) + (tmp.y * inverse.z) - (tmp.z * inverse.y),
+                                      (tmp.y * inverse.w) + (tmp.w * inverse.y) + (tmp.z * inverse.x) - (tmp.x * inverse.z),
+                                      (tmp.z * inverse.w) + (tmp.w * inverse.z) + (tmp.x * inverse.y) - (tmp.y * inverse.x),
+                                      (tmp.w * inverse.w) - (tmp.x * inverse.x) - (tmp.y * inverse.y) - (tmp.z * inverse.z) );
+    mCameraDirection = glm::vec3( rotatedCameraDirection.x, rotatedCameraDirection.y, rotatedCameraDirection.z );
+    mCameraLookAtPoint = mCameraPosition + mCameraDirection;
+
+    // set up vector
+    glm::vec3 defaultCameraUpVector(0.0f, 1.0f, 0.0f);
+    glm::vec4 tmp2( (q.w * defaultCameraUpVector.x) + (q.y * defaultCameraUpVector.z) - (q.z * defaultCameraUpVector.y),
+                    (q.w * defaultCameraUpVector.y) + (q.z * defaultCameraUpVector.x) - (q.x * defaultCameraUpVector.z),
+                    (q.w * defaultCameraUpVector.z) + (q.x * defaultCameraUpVector.y) - (q.y * defaultCameraUpVector.x),
+                    -(q.w * defaultCameraUpVector.x) - (q.y * defaultCameraUpVector.y) - (q.z * defaultCameraUpVector.z) );
+    glm::vec4 rotatedCameraUpVector(  (tmp.x * inverse.w) + (tmp.w * inverse.x) + (tmp.y * inverse.z) - (tmp.z * inverse.y),
+                                      (tmp.y * inverse.w) + (tmp.w * inverse.y) + (tmp.z * inverse.x) - (tmp.x * inverse.z),
+                                      (tmp.z * inverse.w) + (tmp.w * inverse.z) + (tmp.x * inverse.y) - (tmp.y * inverse.x),
+                                      (tmp.w * inverse.w) - (tmp.x * inverse.x) - (tmp.y * inverse.y) - (tmp.z * inverse.z) );
+    mCameraUpVector = glm::vec3(rotatedCameraUpVector.x, rotatedCameraUpVector.y, rotatedCameraUpVector.z);
+
+    // compute and set view matrix
+    computeViewMatrix();
 
     // get and set field of view for perspective projection matrix
     _fovy = _frames[_currentFrameIndex].fieldOfView;
