@@ -96,20 +96,27 @@ inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
         return false;
     }
 
-    std::string md5versionStr;
+    std::string sectionLabel, commandLineStr;
+
+    // MD5Version 10
     int md5version;
-    md5CameraFile >> md5versionStr >> md5version;
-    if(md5versionStr != "MD5Version" || md5version != 10) {
-        if (ERRORS) fprintf( stderr, "[.md5camera]: [ERROR]: improper MD5Camera version found \"%s %d\"\n", md5versionStr.c_str(), md5version );
+    md5CameraFile >> sectionLabel >> md5version;
+    if(sectionLabel != "MD5Version" || md5version != 10) {
+        if (ERRORS) fprintf(stderr, "[.md5camera]: [ERROR]: improper MD5Camera version found \"%s %d\"\n", sectionLabel.c_str(), md5version );
         if ( INFO ) fprintf( stdout, "[.md5camera]: -=-=-=-=-=-=-=-  END  %s Info -=-=-=-=-=-=-=- \n", MD5CAMERA_FILE );
         return false;
     }
 
-    // TODO read - commandline "string"
+    // commandline "string"
+    md5CameraFile >> sectionLabel;
+    getline(md5CameraFile, commandLineStr);
 
-    // TODO read - numFrames <integer>
-    // TODO read - frameRate <integer>
-    // TODO read - numCuts <integer>
+    // numFrames <integer>
+    md5CameraFile >> sectionLabel >> _numFrames;
+    // frameRate <integer>
+    md5CameraFile >> sectionLabel >> _frameRate;
+    // numCuts <integer>
+    md5CameraFile >> sectionLabel >> _numCuts;
 
     // TODO sections
     // cuts {
