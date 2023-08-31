@@ -57,21 +57,41 @@ namespace CSCI441 {
         void moveBackward(GLfloat movementFactor) final;
 
     private:
-        // updates the camera position and recalculates the view matrix
+        /**
+         * @brief updates the camera position and recalculates the view matrix
+         */
         void _updateArcballCameraViewMatrix();
 
-        // keeps the current camera radius within the range (_minRadius, _maxRadius)
+        /**
+         * @brief keeps the current camera radius within the range (_minRadius, _maxRadius)
+         */
         void _clampRadius();
 
-        // minimum allowable radius of camera
+        /**
+         * @brief minimum allowable radius of camera
+         */
         GLfloat _minRadius;
-        // maximum allowable radius of camera
+        /**
+         * @brief maximum allowable radius of camera
+         */
         GLfloat _maxRadius;
 
-        // vertical field of view stored in degrees
+        /**
+         * @brief vertical field of view
+         * @note stored in degrees
+         */
         GLfloat _fovy;
+        /**
+         * @brief aspect ratio of view plane
+         */
         GLfloat _aspectRatio;
+        /**
+         * @brief near Z clipping plane
+         */
         GLfloat _nearClipPlane;
+        /**
+         * @brief far Z clipping plane
+         */
         GLfloat _farClipPlane;
     };
 }

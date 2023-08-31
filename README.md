@@ -7,6 +7,12 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v 4.5.0 - 31 Aug 2023
+- Camera stores projection matrix along with view matrix
+  - ArcballCam, FixedCam, FreeCam operate with perspective projections
+- MD5Camera class loads and steps through frames of md5camera file 
+  - MD5Camera operates with perspective projection
+
 ## v 4.4.0 - 29 Aug 2023
 - ShaderProgram::getProgramStages() returns GLbitfield of shader stages
 
