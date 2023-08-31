@@ -8,5 +8,7 @@ var searchData=
   ['resettransformationmatrix_5',['resetTransformationMatrix',['../_simple_shader_8hpp.html#a681036a52d58f3cc9381ebe9c6b1c3f6',1,'CSCI441::SimpleShader2::resetTransformationMatrix()'],['../_simple_shader_8hpp.html#a8b806aac138bb83636eb6b20014500d8',1,'CSCI441::SimpleShader3::resetTransformationMatrix()']]],
   ['rotate_6',['rotate',['../class_c_s_c_i441_1_1_camera.html#aefb6d39b085ffa3ab185048c91bab056',1,'CSCI441::Camera']]],
   ['ruby_7',['RUBY',['../materials_8hpp.html#a028dd743db5d58febd0ed1edca7f79a9',1,'CSCI441::Materials']]],
-  ['run_8',['run',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a91a8498d1ab372a8d312720aa6df43f6',1,'CSCI441::OpenGLEngine']]]
+  ['run_8',['run',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a91a8498d1ab372a8d312720aa6df43f6',1,'CSCI441::OpenGLEngine']]],
+  ['run_5fall_5fcuts_9',['RUN_ALL_CUTS',['../class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a64c93cabe474422bf63a7dcb23482e24',1,'CSCI441::MD5Camera']]],
+  ['run_5fsingle_5fcut_10',['RUN_SINGLE_CUT',['../class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a5b50e46f30585ad3235bc8e6fe90cf59',1,'CSCI441::MD5Camera']]]
 ];

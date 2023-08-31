@@ -78,6 +78,8 @@ var menudata={children:[
 {text:"d",url:"functions_vars.html#index_d"},
 {text:"m",url:"functions_vars.html#index_m"},
 {text:"o",url:"functions_vars.html#index_o"},
-{text:"s",url:"functions_vars.html#index_s"}]}]}]},
+{text:"s",url:"functions_vars.html#index_s"}]},
+{text:"Enumerations",url:"functions_enum.html"},
+{text:"Enumerator",url:"functions_eval.html"}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"}]}]}

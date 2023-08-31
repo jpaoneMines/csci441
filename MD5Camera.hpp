@@ -15,7 +15,29 @@ namespace CSCI441 {
      */
     class MD5Camera final : public CSCI441::Camera {
     public:
-        enum AdvanceStrategy { RUN_SINGLE_CUT, LOOP_SINGLE_CUT, RUN_ALL_CUTS, LOOP_ALL_CUTS };
+        /**
+         * @brief what to do when the end of a cut is reached
+         */
+        enum AdvancementStrategy {
+            /**
+             * @brief run through just the initial specified cut, stop when end is reached
+             */
+            RUN_SINGLE_CUT,
+            /**
+             * @brief run through just the initial specified cut, looping back to the beginning when the end is reached
+             */
+            LOOP_SINGLE_CUT,
+            /**
+             * @brief run through all cuts beginning at initial specified cut, advancing to next cut when the end of the current
+             * cut is reached and stopping at the end of the last cut
+             */
+            RUN_ALL_CUTS,
+            /**
+             * @brief run through all cuts beginning at initial specified cut, advancing to next cut when the end of the current
+             * cut is reached and looping to the first cut when the last cut is completed
+             */
+            LOOP_ALL_CUTS
+        };
 
         /**
          * @note must create camera object from parameterized constructor
@@ -25,7 +47,7 @@ namespace CSCI441 {
         /**
          * creates a MD5Camera object with the specified initial perspective projection
          * @param MD5CAMERA_FILE filename of .md5camera file to load
-         * @param advanceStrategy what to do after last frame of cut - one of RUN_SINGLE_CUT, LOOP_SINGLE_CUT, RUN_ALL_CUTS, LOOP_ALL_CUTS
+         * @param advancementStrategy what to do after last frame of cut - one of RUN_SINGLE_CUT, LOOP_SINGLE_CUT, RUN_ALL_CUTS, LOOP_ALL_CUTS
          * @param firstCutToRun index of first cut scene to run (defaults to 0)
          * @param fovy vertical field of view (defaults to 45.0f)
          * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
@@ -35,7 +57,7 @@ namespace CSCI441 {
          * @param ERRORS if file loading errors should be printed to standard error (defaults to true)
          * @note field of view specified in degrees
          */
-        explicit MD5Camera(const char* MD5CAMERA_FILE, AdvanceStrategy advanceStrategy, GLuint firstCutToRun = 0, GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f, GLboolean INFO = true, GLboolean ERRORS = true);
+        explicit MD5Camera(const char* MD5CAMERA_FILE, AdvancementStrategy advancementStrategy, GLuint firstCutToRun = 0, GLfloat fovy = 45.0f, GLfloat aspectRatio = 1.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f, GLboolean INFO = true, GLboolean ERRORS = true);
 
         ~MD5Camera() final;
 
@@ -45,6 +67,8 @@ namespace CSCI441 {
 
     private:
         bool _loadMD5CameraFromFile(const char * MD5CAMERA_FILE, GLboolean INFO = true, GLboolean ERRORS = true);
+
+        bool _isInitialized;
 
         struct Frame {
             glm::vec3 cameraPosition;
@@ -59,7 +83,7 @@ namespace CSCI441 {
         Frame* _frames;
         GLuint _currentFrameIndex;
         GLuint _currentCutIndex;
-        AdvanceStrategy _advancementStrategy;
+        AdvancementStrategy _advancementStrategy;
 
         void _updateCameraAttributesForCurrentFrame();
 
@@ -73,7 +97,7 @@ namespace CSCI441 {
 
 inline CSCI441::MD5Camera::MD5Camera(
         const char * const MD5CAMERA_FILE,
-        const AdvanceStrategy advanceStrategy,
+        const AdvancementStrategy advancementStrategy,
         const GLuint firstCutToRun,
         const GLfloat fovy,
         const GLfloat aspectRatio,
@@ -92,13 +116,11 @@ inline CSCI441::MD5Camera::MD5Camera(
     _frames(nullptr),
     _currentFrameIndex(0),
     _currentCutIndex(firstCutToRun),
-    _advancementStrategy(advanceStrategy)
+    _advancementStrategy(advancementStrategy)
 {
-    _currentFrameIndex = 0;
-    _currentCutIndex = 0;
     mProjectionMatrix = glm::perspective(_fovy, _aspectRatio, _nearClipPlane, _farClipPlane);
 
-    _loadMD5CameraFromFile(MD5CAMERA_FILE, INFO, ERRORS);
+    _isInitialized = _loadMD5CameraFromFile(MD5CAMERA_FILE, INFO, ERRORS);
 }
 
 inline CSCI441::MD5Camera::~MD5Camera() {
@@ -198,6 +220,9 @@ inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
 }
 
 inline void CSCI441::MD5Camera::moveForward(const GLfloat unused) {
+    // prevent memory errors by checking if file loaded correctly
+    if( !_isInitialized ) return;
+
     // clamp to current cut ? loop ? advance ?
 
     // check if current frame is at end of overall list of frames
@@ -214,11 +239,12 @@ inline void CSCI441::MD5Camera::moveForward(const GLfloat unused) {
         case RUN_SINGLE_CUT:
         case RUN_ALL_CUTS:
             // do nothing, at end and not looping
-            break;
+            return;
         }
     }
     // check if in last cut, but can't be at the end of the last cut because then we'd be at the end of the overall frames
     else if( _currentCutIndex == _numCuts - 1 ) {
+        // in the middle of the last cut, move forward
         _currentFrameIndex++;
     }
     // otherwise not on final overall frame and not in the last cut
@@ -237,7 +263,7 @@ inline void CSCI441::MD5Camera::moveForward(const GLfloat unused) {
 
             case RUN_SINGLE_CUT:
                 // do nothing, at end and not looping nor advancing
-                break;
+                return;
             }
         } else {
             // in the middle of a cut, move forward
@@ -248,9 +274,63 @@ inline void CSCI441::MD5Camera::moveForward(const GLfloat unused) {
 }
 
 inline void CSCI441::MD5Camera::moveBackward(const GLfloat unused) {
-    // go to prior frame
-    _currentFrameIndex--;
-    // TODO clamp to current cut ? loop ? unadvance ?
+    // prevent memory errors by checking if file loaded correctly
+    if( !_isInitialized ) return;
+
+    // clamp to current cut ? loop ? advance ?
+
+    // check if current frame is at beginning of overall list of frames
+    if( _currentFrameIndex == 0) {
+        switch(_advancementStrategy) {
+            case LOOP_ALL_CUTS:
+                // go back to end of all frames
+                _currentCutIndex = _numFrames-1;
+                break;
+
+            case LOOP_SINGLE_CUT:
+                if( _numCuts == 1 ) {
+                    // go back to end of all frames
+                    _currentCutIndex = _numFrames-1;
+                } else {
+                    // go to end of current cut, which is the frame before the next cut
+                    _currentFrameIndex = _cutPositions[ _currentCutIndex+1 ] - 1;
+                }
+                break;
+
+            case RUN_SINGLE_CUT:
+            case RUN_ALL_CUTS:
+                // do nothing, at end and not looping
+                return;
+        }
+    }
+    // check if in first cut, but can't be at the end of the first cut because then we'd be at the end of the overall frames
+    else if( _currentCutIndex == 0 ) {
+        // in the middle of the first cut, move backward
+        _currentFrameIndex--;
+    }
+    // otherwise not on initial overall frame and not in the first cut
+    else {
+        // check if at beginning of current cut
+        if( _currentFrameIndex == _cutPositions[_currentCutIndex] ) {
+            switch(_advancementStrategy) {
+                case RUN_ALL_CUTS:
+                case LOOP_ALL_CUTS:
+                    // go to previous cut
+                    _currentCutIndex--;
+                case LOOP_SINGLE_CUT:
+                    // go to end of current cut, which is the frame before the next cut
+                    _currentFrameIndex = _cutPositions[ _currentCutIndex+1 ] - 1;
+                    break;
+
+                case RUN_SINGLE_CUT:
+                    // do nothing, at end and not looping nor advancing
+                    return;
+            }
+        } else {
+            // in the middle of a cut, move backward
+            _currentFrameIndex--;
+        }
+    }
     _updateCameraAttributesForCurrentFrame();
 }
 
@@ -269,17 +349,17 @@ inline void CSCI441::MD5Camera::_updateCameraAttributesForCurrentFrame() {
 
     // set direction and look at point
     glm::vec3 defaultCameraDirection(0.0f, 0.0f, -1.0f);
-    glm::vec4 inverse(-q.x, -q.y, -q.z, q.w);
-    glm::normalize(inverse);
+    glm::vec4 inverseQ(-q.x, -q.y, -q.z, q.w);
+    glm::normalize(inverseQ);
 
     glm::vec4 tmp( (q.w * defaultCameraDirection.x) + (q.y * defaultCameraDirection.z) - (q.z * defaultCameraDirection.y),
                    (q.w * defaultCameraDirection.y) + (q.z * defaultCameraDirection.x) - (q.x * defaultCameraDirection.z),
                    (q.w * defaultCameraDirection.z) + (q.x * defaultCameraDirection.y) - (q.y * defaultCameraDirection.x),
                    -(q.w * defaultCameraDirection.x) - (q.y * defaultCameraDirection.y) - (q.z * defaultCameraDirection.z) );
-    glm::vec4 rotatedCameraDirection( (tmp.x * inverse.w) + (tmp.w * inverse.x) + (tmp.y * inverse.z) - (tmp.z * inverse.y),
-                                      (tmp.y * inverse.w) + (tmp.w * inverse.y) + (tmp.z * inverse.x) - (tmp.x * inverse.z),
-                                      (tmp.z * inverse.w) + (tmp.w * inverse.z) + (tmp.x * inverse.y) - (tmp.y * inverse.x),
-                                      (tmp.w * inverse.w) - (tmp.x * inverse.x) - (tmp.y * inverse.y) - (tmp.z * inverse.z) );
+    glm::vec4 rotatedCameraDirection((tmp.x * inverseQ.w) + (tmp.w * inverseQ.x) + (tmp.y * inverseQ.z) - (tmp.z * inverseQ.y),
+                                     (tmp.y * inverseQ.w) + (tmp.w * inverseQ.y) + (tmp.z * inverseQ.x) - (tmp.x * inverseQ.z),
+                                     (tmp.z * inverseQ.w) + (tmp.w * inverseQ.z) + (tmp.x * inverseQ.y) - (tmp.y * inverseQ.x),
+                                     (tmp.w * inverseQ.w) - (tmp.x * inverseQ.x) - (tmp.y * inverseQ.y) - (tmp.z * inverseQ.z) );
     mCameraDirection = glm::vec3( rotatedCameraDirection.x, rotatedCameraDirection.y, rotatedCameraDirection.z );
     mCameraLookAtPoint = mCameraPosition + mCameraDirection;
 
@@ -289,10 +369,10 @@ inline void CSCI441::MD5Camera::_updateCameraAttributesForCurrentFrame() {
                     (q.w * defaultCameraUpVector.y) + (q.z * defaultCameraUpVector.x) - (q.x * defaultCameraUpVector.z),
                     (q.w * defaultCameraUpVector.z) + (q.x * defaultCameraUpVector.y) - (q.y * defaultCameraUpVector.x),
                     -(q.w * defaultCameraUpVector.x) - (q.y * defaultCameraUpVector.y) - (q.z * defaultCameraUpVector.z) );
-    glm::vec4 rotatedCameraUpVector(  (tmp.x * inverse.w) + (tmp.w * inverse.x) + (tmp.y * inverse.z) - (tmp.z * inverse.y),
-                                      (tmp.y * inverse.w) + (tmp.w * inverse.y) + (tmp.z * inverse.x) - (tmp.x * inverse.z),
-                                      (tmp.z * inverse.w) + (tmp.w * inverse.z) + (tmp.x * inverse.y) - (tmp.y * inverse.x),
-                                      (tmp.w * inverse.w) - (tmp.x * inverse.x) - (tmp.y * inverse.y) - (tmp.z * inverse.z) );
+    glm::vec4 rotatedCameraUpVector((tmp.x * inverseQ.w) + (tmp.w * inverseQ.x) + (tmp.y * inverseQ.z) - (tmp.z * inverseQ.y),
+                                    (tmp.y * inverseQ.w) + (tmp.w * inverseQ.y) + (tmp.z * inverseQ.x) - (tmp.x * inverseQ.z),
+                                    (tmp.z * inverseQ.w) + (tmp.w * inverseQ.z) + (tmp.x * inverseQ.y) - (tmp.y * inverseQ.x),
+                                    (tmp.w * inverseQ.w) - (tmp.x * inverseQ.x) - (tmp.y * inverseQ.y) - (tmp.z * inverseQ.z) );
     mCameraUpVector = glm::vec3(rotatedCameraUpVector.x, rotatedCameraUpVector.y, rotatedCameraUpVector.z);
 
     // compute and set view matrix
