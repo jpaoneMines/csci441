@@ -197,8 +197,10 @@ namespace CSCI441 {
         GLfloat mCameraRadius;
 
     private:
-        // keeps phi within the range (0, pi) to prevent the camera from flipping upside down
-        // instead, alter up vector to flip/rotate camera orientation
+        /**
+         * @brief keeps phi within the range (0, pi) to prevent the camera from flipping upside down
+         * @note to invert camera - alter the up vector to flip/rotate camera orientation
+         */
         void _clampCameraPhi();
     };
 }
