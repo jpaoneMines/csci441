@@ -33,6 +33,8 @@
  *
  */
 
+#include "TextureUtils.hpp"
+
 #include <GL/glew.h>
 #include <glm/exponential.hpp>
 #include <glm/ext/quaternion_common.hpp>
@@ -270,12 +272,12 @@ CSCI441::quaternion_multiply_quaternion(
         const glm::quat QA,
         const glm::quat QB
 ) {
-    glm::quat out;
-    out.w = (QA.w * QB.w) - (QA.x * QB.x) - (QA.y * QB.y) - (QA.z * QB.z);
-    out.x = (QA.x * QB.w) + (QA.w * QB.x) + (QA.y * QB.z) - (QA.z * QB.y);
-    out.y = (QA.y * QB.w) + (QA.w * QB.y) + (QA.z * QB.x) - (QA.x * QB.z);
-    out.z = (QA.z * QB.w) + (QA.w * QB.z) + (QA.x * QB.y) - (QA.y * QB.x);
-    return out;
+    return {
+        (QA.w * QB.w) - (QA.x * QB.x) - (QA.y * QB.y) - (QA.z * QB.z),
+        (QA.x * QB.w) + (QA.w * QB.x) + (QA.y * QB.z) - (QA.z * QB.y),
+        (QA.y * QB.w) + (QA.w * QB.y) + (QA.z * QB.x) - (QA.x * QB.z),
+        (QA.z * QB.w) + (QA.w * QB.z) + (QA.x * QB.y) - (QA.y * QB.x)
+    };
 }
 
 inline glm::quat
@@ -283,12 +285,12 @@ CSCI441::quaternion_multiply_vector(
         const glm::quat Q,
         const glm::vec3 V
 ) {
-    glm::quat out;
-    out.w = -(Q.x * V.x) - (Q.y * V.y) - (Q.z * V.z);
-    out.x =  (Q.w * V.x) + (Q.y * V.z) - (Q.z * V.y);
-    out.y =  (Q.w * V.y) + (Q.z * V.x) - (Q.x * V.z);
-    out.z =  (Q.w * V.z) + (Q.x * V.y) - (Q.y * V.x);
-    return out;
+    return {
+        -(Q.x * V.x) - (Q.y * V.y) - (Q.z * V.z),
+         (Q.w * V.x) + (Q.y * V.z) - (Q.z * V.y),
+         (Q.w * V.y) + (Q.z * V.x) - (Q.x * V.z),
+         (Q.w * V.z) + (Q.x * V.y) - (Q.y * V.x)
+    };
 }
 
 inline glm::vec3
@@ -308,38 +310,8 @@ CSCI441::quaternion_rotate_point(
     tmp = quaternion_multiply_vector(Q, IN);
     final = quaternion_multiply_quaternion(tmp, inv);
 
-    glm::vec3 out;
-    out.x = final.x;
-    out.y = final.y;
-    out.z = final.z;
+    glm::vec3 out = {final.x, final.y, final.z};
     return out;
-}
-
-inline GLuint
-loadTexture(
-        const char* FILENAME
-) {
-    GLint imageWidth, imageHeight, imageChannels;
-    GLuint textureHandle = 0;
-    stbi_set_flip_vertically_on_load(false);
-    GLubyte* data = stbi_load( FILENAME, &imageWidth, &imageHeight, &imageChannels, 0);
-
-    if( data ) {
-        glGenTextures(1, &textureHandle);
-        glBindTexture(GL_TEXTURE_2D, textureHandle);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-        const GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);
-        glTexImage2D( GL_TEXTURE_2D, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        printf( "[.md5mesh]: %s texture map read in with handle %d\n", FILENAME, textureHandle);
-    }
-
-    return textureHandle;
 }
 
 inline CSCI441::MD5Model::MD5Model()
@@ -489,46 +461,46 @@ CSCI441::MD5Model::readMD5Model(
                         // diffuse map
                         strcpy(mesh->textures[0].filename, mesh->shader);
                         strcat(mesh->textures[0].filename, ".tga");
-                        mesh->textures[0].texHandle = loadTexture( mesh->textures[0].filename );
+                        mesh->textures[0].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[0].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                         if( mesh->textures[0].texHandle == 0 ) {
                             strcpy(mesh->textures[0].filename, mesh->shader);
                             strcat(mesh->textures[0].filename, "_d.tga");
-                            mesh->textures[0].texHandle = loadTexture( mesh->textures[0].filename );
+                            mesh->textures[0].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[0].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                             if( mesh->textures[0].texHandle == 0 ) {
                                 strcpy(mesh->textures[0].filename, mesh->shader);
                                 strcat(mesh->textures[0].filename, ".png");
-                                mesh->textures[0].texHandle = loadTexture(mesh->textures[0].filename);
+                                mesh->textures[0].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture(mesh->textures[0].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                             }
                         }
 
                         // specular map
                         strcpy(mesh->textures[1].filename, mesh->shader);
                         strcat(mesh->textures[1].filename, "_s.tga");
-                        mesh->textures[1].texHandle = loadTexture( mesh->textures[1].filename );
+                        mesh->textures[1].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[1].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                         if( mesh->textures[1].texHandle == 0 ) {
                             strcpy(mesh->textures[1].filename, mesh->shader);
                             strcat(mesh->textures[1].filename, "_s.png");
-                            mesh->textures[1].texHandle = loadTexture( mesh->textures[1].filename );
+                            mesh->textures[1].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[1].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                         }
 
                         // normal map
                         strcpy(mesh->textures[2].filename, mesh->shader);
                         strcat(mesh->textures[2].filename, "_local.tga");
-                        mesh->textures[2].texHandle = loadTexture( mesh->textures[2].filename );
+                        mesh->textures[2].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[2].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                         if( mesh->textures[2].texHandle == 0 ) {
                             strcpy(mesh->textures[2].filename, mesh->shader);
                             strcat(mesh->textures[2].filename, "_local.png");
-                            mesh->textures[2].texHandle = loadTexture( mesh->textures[2].filename );
+                            mesh->textures[2].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[2].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                         }
 
                         // height map
                         strcpy(mesh->textures[3].filename, mesh->shader);
                         strcat(mesh->textures[3].filename, "_h.tga");
-                        mesh->textures[3].texHandle = loadTexture( mesh->textures[3].filename );
+                        mesh->textures[3].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[3].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                         if( mesh->textures[3].texHandle == 0 ) {
                             strcpy(mesh->textures[3].filename, mesh->shader);
                             strcat(mesh->textures[3].filename, "_h.png");
-                            mesh->textures[3].texHandle = loadTexture( mesh->textures[3].filename );
+                            mesh->textures[3].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[3].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                         }
                     }
                 } else if( sscanf(buff, " numverts %d", &mesh->numVertices) == 1 ) {
