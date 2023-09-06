@@ -39,7 +39,7 @@
 #include <glm/exponential.hpp>
 #include <glm/ext/quaternion_common.hpp>
 #include <glm/ext/quaternion_float.hpp>
-#include <stb_image.h>
+#include <glm/gtx/quaternion.hpp>
 
 #include <cassert>
 #include <cmath>
@@ -48,13 +48,8 @@
 #include <cstring>
 
 namespace CSCI441 {
-    // Quaternion prototypes
-    void quaternion_compute_w(glm::quat &q);
-    glm::quat quaternion_multiply_quaternion(glm::quat QA, glm::quat QB);
-    glm::quat quaternion_multiply_vector(glm::quat Q, glm::vec3 V);
-    glm::vec3 quaternion_rotate_point(glm::quat Q, glm::vec3 IN);
 
-    class MD5Model {
+    class [[maybe_unused]] MD5Model {
     protected:
         // Joint
         struct MD5Joint {
@@ -163,7 +158,7 @@ namespace CSCI441 {
          * @param MD5_MESH_FILE name of file to load mesh from
          * @param MD5_ANIM_FILE name of file to load animation from
          */
-        bool loadMD5Model(const char* MD5_MESH_FILE, const char* MD5_ANIM_FILE = "");
+        [[maybe_unused]] bool loadMD5Model(const char* MD5_MESH_FILE, const char* MD5_ANIM_FILE = "");
 
         /**
          * @brief returns if the MD5 Model has an accompanying animation
@@ -178,15 +173,15 @@ namespace CSCI441 {
          * @returns true if file parsed successfully
          */
         [[nodiscard]] bool readMD5Model(const char* FILENAME);
-        void allocVertexArrays(GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc);
+        [[maybe_unused]]void allocVertexArrays(GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc);
         /**
          * @brief draws all the meshes that make up the model
          */
-        void draw() const;
+        [[maybe_unused]] void draw() const;
         /**
          * @brief draws the skeleton joints (as points) and bones (as lines)
          */
-        void drawSkeleton() const;
+        [[maybe_unused]] void drawSkeleton() const;
 
         // md5anim prototypes
         /**
@@ -256,64 +251,6 @@ namespace CSCI441 {
 
 //----------------------------------------------------------------------------------------------------
 
-// Basic quaternion operations.
-inline void
-CSCI441::quaternion_compute_w(
-        glm::quat &q
-) {
-    GLfloat t = 1.0f - (q.x * q.x) - (q.y * q.y) - (q.z * q.z);
-
-    if( t < 0.0f )  q.w = 0.0f;
-    else            q.w = -glm::sqrt(t);
-}
-
-inline glm::quat
-CSCI441::quaternion_multiply_quaternion(
-        const glm::quat QA,
-        const glm::quat QB
-) {
-    return {
-        (QA.w * QB.w) - (QA.x * QB.x) - (QA.y * QB.y) - (QA.z * QB.z),
-        (QA.x * QB.w) + (QA.w * QB.x) + (QA.y * QB.z) - (QA.z * QB.y),
-        (QA.y * QB.w) + (QA.w * QB.y) + (QA.z * QB.x) - (QA.x * QB.z),
-        (QA.z * QB.w) + (QA.w * QB.z) + (QA.x * QB.y) - (QA.y * QB.x)
-    };
-}
-
-inline glm::quat
-CSCI441::quaternion_multiply_vector(
-        const glm::quat Q,
-        const glm::vec3 V
-) {
-    return {
-        -(Q.x * V.x) - (Q.y * V.y) - (Q.z * V.z),
-         (Q.w * V.x) + (Q.y * V.z) - (Q.z * V.y),
-         (Q.w * V.y) + (Q.z * V.x) - (Q.x * V.z),
-         (Q.w * V.z) + (Q.x * V.y) - (Q.y * V.x)
-    };
-}
-
-inline glm::vec3
-CSCI441::quaternion_rotate_point(
-        const glm::quat Q,
-        const glm::vec3 IN
-) {
-    glm::quat tmp, inv, final;
-
-    inv.x = -Q.x;
-    inv.y = -Q.y;
-    inv.z = -Q.z;
-    inv.w =  Q.w;
-
-    glm::normalize(inv);
-
-    tmp = quaternion_multiply_vector(Q, IN);
-    final = quaternion_multiply_quaternion(tmp, inv);
-
-    glm::vec3 out = {final.x, final.y, final.z};
-    return out;
-}
-
 inline CSCI441::MD5Model::MD5Model()
 {
     _baseSkeleton = nullptr;
@@ -343,6 +280,7 @@ inline CSCI441::MD5Model::~MD5Model()
 }
 
 // load our MD5 model
+[[maybe_unused]]
 inline bool
 CSCI441::MD5Model::loadMD5Model(
         const char* MD5_MESH_FILE,
@@ -427,7 +365,7 @@ CSCI441::MD5Model::readMD5Model(
                            &joint->orientation[0],&joint->orientation[1], &joint->orientation[2]) == 8
                         ) {
                     // Compute the w component
-                    quaternion_compute_w(joint->orientation);
+                    joint->orientation.w = glm::extractRealComponent(joint->orientation);
                 }
             }
         } else if( strncmp(buff, "mesh {", 6) == 0 ) {
@@ -607,6 +545,7 @@ CSCI441::MD5Model::_freeModel()
     _meshes = nullptr;
 }
 
+[[maybe_unused]]
 inline void
 CSCI441::MD5Model::draw() const
 {
@@ -643,7 +582,7 @@ CSCI441::MD5Model::_prepareMesh(
 
             // Calculate transformed vertex for this weight
             glm::vec3 weightedVertex;
-            weightedVertex = quaternion_rotate_point(joint->orientation, weight->position);
+            weightedVertex = glm::rotate(joint->orientation, glm::vec4(weight->position, 0.0f));
 
             // The sum of all weight->bias should be 1.0
             finalVertex.x += (joint->position.x + weightedVertex.x) * weight->bias;
@@ -678,6 +617,7 @@ CSCI441::MD5Model::_drawMesh(
     glDrawElements(GL_TRIANGLES, pMESH->numTriangles * 3, GL_UNSIGNED_INT, (void*)nullptr );
 }
 
+[[maybe_unused]]
 inline void
 CSCI441::MD5Model::allocVertexArrays(
         GLuint vPosAttribLoc,
@@ -745,6 +685,7 @@ CSCI441::MD5Model::_freeVertexArrays()
 }
 
 // Draw the skeleton as lines and points (for joints).
+[[maybe_unused]]
 inline void
 CSCI441::MD5Model::drawSkeleton() const
 {
@@ -870,7 +811,7 @@ CSCI441::MD5Model::_buildFrameSkeleton(
         }
 
         // Compute orientation quaternion's w value
-        quaternion_compute_w(animatedOrientation);
+        animatedOrientation.w = glm::extractRealComponent(animatedOrientation);
 
         // NOTE: we assume that this joint's parent has
         // already been calculated, i.e. joint's ID should
@@ -890,13 +831,13 @@ CSCI441::MD5Model::_buildFrameSkeleton(
             glm::vec3 rotatedPosition; // Rotated position
 
             // Add positions
-            rotatedPosition = quaternion_rotate_point(parentJoint->orientation, animatedPosition);
+            rotatedPosition = glm::rotate(parentJoint->orientation, glm::vec4(animatedPosition, 0.0f));
             thisJoint->position[0] = rotatedPosition[0] + parentJoint->position[0];
             thisJoint->position[1] = rotatedPosition[1] + parentJoint->position[1];
             thisJoint->position[2] = rotatedPosition[2] + parentJoint->position[2];
 
             // Concatenate rotations
-            thisJoint->orientation = quaternion_multiply_quaternion(parentJoint->orientation, animatedOrientation);
+            thisJoint->orientation = parentJoint->orientation * animatedOrientation;
             glm::normalize(thisJoint->orientation);
         }
     }
@@ -990,7 +931,7 @@ CSCI441::MD5Model::readMD5Anim(
                            &baseFrame[i].position[0], &baseFrame[i].position[1], &baseFrame[i].position[2],
                            &baseFrame[i].orientation[0], &baseFrame[i].orientation[1], &baseFrame[i].orientation[2]) == 6 ) {
                     // Compute the w component
-                    quaternion_compute_w( baseFrame[i].orientation );
+                    baseFrame[i].orientation.w = glm::extractRealComponent(baseFrame[i].orientation);
                 }
             }
         } else if( sscanf(buff, " frame %d", &frame_index) == 1 ) {
@@ -1081,7 +1022,6 @@ CSCI441::MD5Model::_interpolateSkeletons(GLfloat interp)
 
         // Spherical linear interpolation for orientation
         _skeleton[i].orientation = glm::slerp(skeletonA[i].orientation, skeletonB[i].orientation, interp);
-//        quaternion_slerp(skeletonA[i].orientation, skeletonB[i].orientation, interp, _skeleton[i].orientation);
     }
 }
 
