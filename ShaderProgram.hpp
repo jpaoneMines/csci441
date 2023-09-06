@@ -165,6 +165,10 @@ namespace CSCI441 {
          */
         ~ShaderProgram();
 
+        // do not allow shader programs to be copied
+        ShaderProgram(const ShaderProgram&) = delete;
+        ShaderProgram& operator=(const ShaderProgram&) = delete;
+
         /**
          * @brief writes precompiled shader program binary to external file
          * @param BINARY_FILE_NAME filename to write shader program binary to

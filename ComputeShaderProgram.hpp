@@ -29,6 +29,10 @@ namespace CSCI441 {
          */
         explicit ComputeShaderProgram( const char *computeShaderFilename );
 
+        // do not allow programs to be copied
+        ComputeShaderProgram(const ComputeShaderProgram&) = delete;
+        ComputeShaderProgram& operator=(const ComputeShaderProgram&) = delete;
+
         /**
          * @brief dispatches work to the Compute Shader on the GPU
          * @param numGroupsX number of work groups in X dimension (defaults to 1)
