@@ -78,7 +78,7 @@ namespace CSCI441 {
 
         // Vertex
         struct MD5Vertex {
-            glm::vec2 st = {0.0f, 0.0f};
+            glm::vec2 texCoord = {0.0f, 0.0f};
 
             GLint start = 0; // start weight
             GLint count = 0; // weight count
@@ -115,6 +115,7 @@ namespace CSCI441 {
             MD5Triangle *triangles = nullptr;
             MD5Weight *weights = nullptr;
             MD5Texture textures[4];
+            enum TextureMap { DIFFUSE, SPECULAR, NORMAL, HEIGHT };
 
             GLint numVertices = 0;
             GLint numTriangles = 0;
@@ -397,48 +398,48 @@ CSCI441::MD5Model::readMD5Model(
                     // there was a shader name
                     if( j > 0 ) {
                         // diffuse map
-                        strcpy(mesh->textures[0].filename, mesh->shader);
-                        strcat(mesh->textures[0].filename, ".tga");
-                        mesh->textures[0].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[0].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
-                        if( mesh->textures[0].texHandle == 0 ) {
-                            strcpy(mesh->textures[0].filename, mesh->shader);
-                            strcat(mesh->textures[0].filename, "_d.tga");
-                            mesh->textures[0].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[0].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
-                            if( mesh->textures[0].texHandle == 0 ) {
-                                strcpy(mesh->textures[0].filename, mesh->shader);
-                                strcat(mesh->textures[0].filename, ".png");
-                                mesh->textures[0].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture(mesh->textures[0].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                        strcpy(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, mesh->shader);
+                        strcat(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, ".tga");
+                        mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                        if( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle == 0 ) {
+                            strcpy(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, mesh->shader);
+                            strcat(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, "_d.tga");
+                            mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                            if( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle == 0 ) {
+                                strcpy(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, mesh->shader);
+                                strcat(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, ".png");
+                                mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                             }
                         }
 
                         // specular map
-                        strcpy(mesh->textures[1].filename, mesh->shader);
-                        strcat(mesh->textures[1].filename, "_s.tga");
-                        mesh->textures[1].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[1].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
-                        if( mesh->textures[1].texHandle == 0 ) {
-                            strcpy(mesh->textures[1].filename, mesh->shader);
-                            strcat(mesh->textures[1].filename, "_s.png");
-                            mesh->textures[1].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[1].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                        strcpy(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, mesh->shader);
+                        strcat(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, "_s.tga");
+                        mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                        if( mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle == 0 ) {
+                            strcpy(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, mesh->shader);
+                            strcat(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, "_s.png");
+                            mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                         }
 
                         // normal map
-                        strcpy(mesh->textures[2].filename, mesh->shader);
-                        strcat(mesh->textures[2].filename, "_local.tga");
-                        mesh->textures[2].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[2].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
-                        if( mesh->textures[2].texHandle == 0 ) {
-                            strcpy(mesh->textures[2].filename, mesh->shader);
-                            strcat(mesh->textures[2].filename, "_local.png");
-                            mesh->textures[2].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[2].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                        strcpy(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, mesh->shader);
+                        strcat(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, "_local.tga");
+                        mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                        if( mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle == 0 ) {
+                            strcpy(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, mesh->shader);
+                            strcat(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, "_local.png");
+                            mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                         }
 
                         // height map
-                        strcpy(mesh->textures[3].filename, mesh->shader);
-                        strcat(mesh->textures[3].filename, "_h.tga");
-                        mesh->textures[3].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[3].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
-                        if( mesh->textures[3].texHandle == 0 ) {
-                            strcpy(mesh->textures[3].filename, mesh->shader);
-                            strcat(mesh->textures[3].filename, "_h.png");
-                            mesh->textures[3].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[3].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                        strcpy(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, mesh->shader);
+                        strcat(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, "_h.tga");
+                        mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                        if( mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle == 0 ) {
+                            strcpy(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, mesh->shader);
+                            strcat(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, "_h.png");
+                            mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
                         }
                     }
                 } else if( sscanf(buff, " numverts %d", &mesh->numVertices) == 1 ) {
@@ -474,8 +475,8 @@ CSCI441::MD5Model::readMD5Model(
                                   &idata[0], &idata[1]) == 5
                         ) {
                     // Copy vertex data
-                    mesh->vertices[vert_index].st.s = fdata[0];
-                    mesh->vertices[vert_index].st.t = fdata[1];
+                    mesh->vertices[vert_index].texCoord.s = fdata[0];
+                    mesh->vertices[vert_index].texCoord.t = fdata[1];
                     mesh->vertices[vert_index].start = idata[0];
                     mesh->vertices[vert_index].count = idata[1];
                 } else if( sscanf(buff, " tri %d %d %d %d",
@@ -594,8 +595,8 @@ CSCI441::MD5Model::_prepareMesh(
         _vertexArray[i].y = finalVertex.y;
         _vertexArray[i].z = finalVertex.z;
 
-        _texelArray[i].s = pMESH->vertices[i].st.s;
-        _texelArray[i].t = pMESH->vertices[i].st.t;
+        _texelArray[i].s = pMESH->vertices[i].texCoord.s;
+        _texelArray[i].t = pMESH->vertices[i].texCoord.t;
     }
 
     glBindVertexArray(_vao );
@@ -611,7 +612,7 @@ CSCI441::MD5Model::_drawMesh(
         const MD5Mesh *pMESH
 ) const {
     // Bind Diffuse Map
-    glBindTexture(GL_TEXTURE_2D, pMESH->textures[0].texHandle );
+    glBindTexture(GL_TEXTURE_2D, pMESH->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle );
 
     glBindVertexArray(_vao );
     glDrawElements(GL_TRIANGLES, pMESH->numTriangles * 3, GL_UNSIGNED_INT, (void*)nullptr );
