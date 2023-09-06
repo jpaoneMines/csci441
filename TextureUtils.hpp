@@ -59,13 +59,15 @@ namespace CSCI441 {
          * @param magFilter magnification filter to apply (default: GL_LINEAR)
          * @param wrapS wrapping to apply to S coordinate (default: GL_REPEAT)
          * @param wrapT wrapping to apply to T coordinate (default: GL_REPEAT)
+         * @param flipOnY flip the image along the vertical on load (default: GL_TRUE)
          * @returns texture handle corresponding to the texture
          */
 		[[maybe_unused]] GLuint loadAndRegisterTexture( const char *filename,
                                        GLint minFilter = GL_LINEAR,
                                        GLint magFilter = GL_LINEAR,
                                        GLint wrapS = GL_REPEAT,
-                                       GLint wrapT = GL_REPEAT );
+                                       GLint wrapT = GL_REPEAT,
+                                       GLboolean flipOnY = GL_TRUE );
 
         /**
 		 * @brief loads and registers a texture into memory returning a texture handle
@@ -77,13 +79,15 @@ namespace CSCI441 {
 		 * @param magFilter magnification filter to apply (default: GL_LINEAR)
 		 * @param wrapS wrapping to apply to S coordinate (default: GL_REPEAT)
 		 * @param wrapT wrapping to apply to T coordinate (default: GL_REPEAT)
+         * * @param flipOnY flip the image along the vertical on load (default: GL_TRUE)
 		 * @returns texture handle corresponding to the texture
          */
 		GLuint loadAndRegister2DTexture( const char *filename,
                                          GLint minFilter = GL_LINEAR,
                                          GLint magFilter = GL_LINEAR,
                                          GLint wrapS = GL_REPEAT,
-                                         GLint wrapT = GL_REPEAT );
+                                         GLint wrapT = GL_REPEAT,
+                                         GLboolean flipOnY = GL_TRUE );
 
         /**
 		 * @brief loads a texture into memory of a cube face
@@ -140,14 +144,14 @@ inline bool CSCI441::TextureUtils::loadPPM( const char *filename, int &imageWidt
 }
 
 [[maybe_unused]]
-inline GLuint CSCI441::TextureUtils::loadAndRegisterTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT ) {
-	return loadAndRegister2DTexture( filename, minFilter, magFilter, wrapS, wrapT );
+inline GLuint CSCI441::TextureUtils::loadAndRegisterTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT, const GLboolean flipOnY ) {
+	return loadAndRegister2DTexture( filename, minFilter, magFilter, wrapS, wrapT, flipOnY );
 }
 
-inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT ) {
+inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT, const GLboolean flipOnY ) {
     int imageWidth, imageHeight, imageChannels;
     GLuint texHandle = 0;
-    stbi_set_flip_vertically_on_load(true);
+    stbi_set_flip_vertically_on_load(flipOnY);
     unsigned char *data = stbi_load( filename, &imageWidth, &imageHeight, &imageChannels, 0);
 
 	if( !data ) {

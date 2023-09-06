@@ -92,121 +92,123 @@ $(function() {
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8">loadPPM</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> *filename, <span class="keywordtype">int</span> &amp;imageWidth, <span class="keywordtype">int</span> &amp;imageHeight, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* &amp;imageData );</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        [[maybe_unused]] GLuint <a class="code hl_function" href="_texture_utils_8hpp.html#a1b3eaf6583ec3e581dbd514a525162a1">loadAndRegisterTexture</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> *filename,</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                                       GLint minFilter = GL_LINEAR,</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                                       GLint magFilter = GL_LINEAR,</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                                       GLint wrapS = GL_REPEAT,</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                                       GLint wrapT = GL_REPEAT );</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        GLuint <a class="code hl_function" href="_texture_utils_8hpp.html#aa8b481c9cb79f954a876e2b805e8f4f4">loadAndRegister2DTexture</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> *filename,</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                                         GLint minFilter = GL_LINEAR,</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                                         GLint magFilter = GL_LINEAR,</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                                         GLint wrapS = GL_REPEAT,</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                                         GLint wrapT = GL_REPEAT );</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        [[maybe_unused]] <span class="keywordtype">void</span> <a class="code hl_function" href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">loadCubeMapFaceTexture</a>(GLint cubeMapFace, <span class="keyword">const</span> <span class="keywordtype">char</span>* filename);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    }</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>}</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">//**********************************************************************************</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment">// Outward facing function implementations</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8">  101</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8">CSCI441::TextureUtils::loadPPM</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> *filename, <span class="keywordtype">int</span> &amp;imageWidth, <span class="keywordtype">int</span> &amp;imageHeight, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* &amp;imageData ) {</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    FILE *fp = fopen(filename, <span class="stringliteral">&quot;r&quot;</span>);</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordtype">int</span> temp, maxValue;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    fscanf(fp, <span class="stringliteral">&quot;P%d&quot;</span>, &amp;temp);</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">if</span>(temp != 3) {</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: CSCI441::TextureUtils::loadPPM(): PPM file is not of correct format! (Must be P3, is P%d.)\n&quot;</span>, temp);</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        fclose(fp);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    }</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="comment">//got the file header right...</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    fscanf(fp, <span class="stringliteral">&quot;%d&quot;</span>, &amp;imageWidth);</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    fscanf(fp, <span class="stringliteral">&quot;%d&quot;</span>, &amp;imageHeight);</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    fscanf(fp, <span class="stringliteral">&quot;%d&quot;</span>, &amp;maxValue);</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="comment">//now that we know how big it is, allocate the buffer...</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    imageData = <span class="keyword">new</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>[imageWidth*imageHeight*3];</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">if</span>(!imageData) {</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: CSCI441::TextureUtils::loadPPM(): couldn&#39;t allocate image memory. Dimensions: %d x %d.\n&quot;</span>, imageWidth, imageHeight);</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        fclose(fp);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    }</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="comment">//and read the data in.</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> j = 0; j &lt; imageHeight; j++) {</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; imageWidth; i++) {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <span class="keywordtype">int</span> r, g, b;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            fscanf(fp, <span class="stringliteral">&quot;%d&quot;</span>, &amp;r);</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            fscanf(fp, <span class="stringliteral">&quot;%d&quot;</span>, &amp;g);</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            fscanf(fp, <span class="stringliteral">&quot;%d&quot;</span>, &amp;b);</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            imageData[(j*imageWidth+i)*3+0] = r;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            imageData[(j*imageWidth+i)*3+1] = g;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            imageData[(j*imageWidth+i)*3+2] = b;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        }</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    }</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    fclose(fp);</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>}</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        [[maybe_unused]] GLuint <a class="code hl_function" href="_texture_utils_8hpp.html#adc6581e9556adc3d91a13025114459e6">loadAndRegisterTexture</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> *filename,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                                       GLint minFilter = GL_LINEAR,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                                       GLint magFilter = GL_LINEAR,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                                       GLint wrapS = GL_REPEAT,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                                       GLint wrapT = GL_REPEAT,</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                                       GLboolean flipOnY = GL_TRUE );</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        GLuint <a class="code hl_function" href="_texture_utils_8hpp.html#acbdd12232038cfb57b7793aca9a7c2b2">loadAndRegister2DTexture</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> *filename,</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                                         GLint minFilter = GL_LINEAR,</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                                         GLint magFilter = GL_LINEAR,</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                                         GLint wrapS = GL_REPEAT,</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                                         GLint wrapT = GL_REPEAT,</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                                         GLboolean flipOnY = GL_TRUE );</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        [[maybe_unused]] <span class="keywordtype">void</span> <a class="code hl_function" href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">loadCubeMapFaceTexture</a>(GLint cubeMapFace, <span class="keyword">const</span> <span class="keywordtype">char</span>* filename);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">//**********************************************************************************</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment">// Outward facing function implementations</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8">  105</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8">CSCI441::TextureUtils::loadPPM</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> *filename, <span class="keywordtype">int</span> &amp;imageWidth, <span class="keywordtype">int</span> &amp;imageHeight, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* &amp;imageData ) {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    FILE *fp = fopen(filename, <span class="stringliteral">&quot;r&quot;</span>);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordtype">int</span> temp, maxValue;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    fscanf(fp, <span class="stringliteral">&quot;P%d&quot;</span>, &amp;temp);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">if</span>(temp != 3) {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: CSCI441::TextureUtils::loadPPM(): PPM file is not of correct format! (Must be P3, is P%d.)\n&quot;</span>, temp);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        fclose(fp);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="comment">//got the file header right...</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    fscanf(fp, <span class="stringliteral">&quot;%d&quot;</span>, &amp;imageWidth);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    fscanf(fp, <span class="stringliteral">&quot;%d&quot;</span>, &amp;imageHeight);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    fscanf(fp, <span class="stringliteral">&quot;%d&quot;</span>, &amp;maxValue);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="comment">//now that we know how big it is, allocate the buffer...</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    imageData = <span class="keyword">new</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>[imageWidth*imageHeight*3];</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordflow">if</span>(!imageData) {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: CSCI441::TextureUtils::loadPPM(): couldn&#39;t allocate image memory. Dimensions: %d x %d.\n&quot;</span>, imageWidth, imageHeight);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        fclose(fp);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="comment">//and read the data in.</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> j = 0; j &lt; imageHeight; j++) {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; imageWidth; i++) {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            <span class="keywordtype">int</span> r, g, b;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            fscanf(fp, <span class="stringliteral">&quot;%d&quot;</span>, &amp;r);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            fscanf(fp, <span class="stringliteral">&quot;%d&quot;</span>, &amp;g);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            fscanf(fp, <span class="stringliteral">&quot;%d&quot;</span>, &amp;b);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            imageData[(j*imageWidth+i)*3+0] = r;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            imageData[(j*imageWidth+i)*3+1] = g;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            imageData[(j*imageWidth+i)*3+2] = b;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    }</div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>[[maybe_unused]]</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="_texture_utils_8hpp.html#a1b3eaf6583ec3e581dbd514a525162a1">  143</a></span><span class="keyword">inline</span> GLuint <a class="code hl_function" href="_texture_utils_8hpp.html#a1b3eaf6583ec3e581dbd514a525162a1">CSCI441::TextureUtils::loadAndRegisterTexture</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> *filename, <span class="keyword">const</span> GLint minFilter, <span class="keyword">const</span> GLint magFilter, <span class="keyword">const</span> GLint wrapS, <span class="keyword">const</span> GLint wrapT ) {</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="_texture_utils_8hpp.html#aa8b481c9cb79f954a876e2b805e8f4f4">loadAndRegister2DTexture</a>( filename, minFilter, magFilter, wrapS, wrapT );</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>}</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="_texture_utils_8hpp.html#aa8b481c9cb79f954a876e2b805e8f4f4">  147</a></span><span class="keyword">inline</span> GLuint <a class="code hl_function" href="_texture_utils_8hpp.html#aa8b481c9cb79f954a876e2b805e8f4f4">CSCI441::TextureUtils::loadAndRegister2DTexture</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> *filename, <span class="keyword">const</span> GLint minFilter, <span class="keyword">const</span> GLint magFilter, <span class="keyword">const</span> GLint wrapS, <span class="keyword">const</span> GLint wrapT ) {</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordtype">int</span> imageWidth, imageHeight, imageChannels;</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    GLuint texHandle = 0;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    stbi_set_flip_vertically_on_load(<span class="keyword">true</span>);</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data = stbi_load( filename, &amp;imageWidth, &amp;imageHeight, &amp;imageChannels, 0);</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordflow">if</span>( !data ) {</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keywordflow">if</span>( strstr(filename, <span class="stringliteral">&quot;.ppm&quot;</span>) != NULL ) {</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            <a class="code hl_function" href="_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8">loadPPM</a>(filename, imageWidth, imageHeight, data);</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            imageChannels = 3;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        }</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="keywordflow">if</span>( !data ) {</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            printf( <span class="stringliteral">&quot;[ERROR]: CSCI441::TextureUtils::loadAndRegister2DTexture(): Could not load texture \&quot;%s\&quot;\n&quot;</span>, filename );</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            <span class="keywordflow">return</span> texHandle;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    fclose(fp);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>}</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>[[maybe_unused]]</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="_texture_utils_8hpp.html#adc6581e9556adc3d91a13025114459e6">  147</a></span><span class="keyword">inline</span> GLuint <a class="code hl_function" href="_texture_utils_8hpp.html#adc6581e9556adc3d91a13025114459e6">CSCI441::TextureUtils::loadAndRegisterTexture</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> *filename, <span class="keyword">const</span> GLint minFilter, <span class="keyword">const</span> GLint magFilter, <span class="keyword">const</span> GLint wrapS, <span class="keyword">const</span> GLint wrapT, <span class="keyword">const</span> GLboolean flipOnY ) {</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="_texture_utils_8hpp.html#acbdd12232038cfb57b7793aca9a7c2b2">loadAndRegister2DTexture</a>( filename, minFilter, magFilter, wrapS, wrapT, flipOnY );</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>}</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="_texture_utils_8hpp.html#acbdd12232038cfb57b7793aca9a7c2b2">  151</a></span><span class="keyword">inline</span> GLuint <a class="code hl_function" href="_texture_utils_8hpp.html#acbdd12232038cfb57b7793aca9a7c2b2">CSCI441::TextureUtils::loadAndRegister2DTexture</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> *filename, <span class="keyword">const</span> GLint minFilter, <span class="keyword">const</span> GLint magFilter, <span class="keyword">const</span> GLint wrapS, <span class="keyword">const</span> GLint wrapT, <span class="keyword">const</span> GLboolean flipOnY ) {</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordtype">int</span> imageWidth, imageHeight, imageChannels;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    GLuint texHandle = 0;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    stbi_set_flip_vertically_on_load(flipOnY);</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data = stbi_load( filename, &amp;imageWidth, &amp;imageHeight, &amp;imageChannels, 0);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordflow">if</span>( !data ) {</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="keywordflow">if</span>( strstr(filename, <span class="stringliteral">&quot;.ppm&quot;</span>) != NULL ) {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            <a class="code hl_function" href="_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8">loadPPM</a>(filename, imageWidth, imageHeight, data);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            imageChannels = 3;</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        }</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    }</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    glGenTextures(1, &amp;texHandle );</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    glBindTexture(   GL_TEXTURE_2D,  texHandle );</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_MIN_FILTER, minFilter );</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_MAG_FILTER, magFilter );</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_S,     wrapS );</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_T,     wrapT );</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keyword">const</span> GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    glTexImage2D( GL_TEXTURE_2D, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    glGenerateMipmap(GL_TEXTURE_2D);</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    printf( <span class="stringliteral">&quot;[INFO]: Successfully loaded texture \&quot;%s\&quot; with handle %d\n&quot;</span>, filename, texHandle );</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keywordflow">return</span> texHandle;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>}</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>[[maybe_unused]]</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">  179</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">CSCI441::TextureUtils::loadCubeMapFaceTexture</a>(<span class="keyword">const</span> GLint cubeMapFace, <span class="keyword">const</span> <span class="keywordtype">char</span>* FILENAME) {</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keywordtype">int</span> imageWidth, imageHeight, imageChannels;</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data = stbi_load( FILENAME, &amp;imageWidth, &amp;imageHeight, &amp;imageChannels, 0);</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keywordflow">if</span>( data ) {</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        <span class="keyword">const</span> GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        glTexImage2D(cubeMapFace, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        stbi_image_free(data);</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        fprintf( stderr, <span class="stringliteral">&quot;[ERROR]: CSCI441::TextureUtils::loadCubeMapFaceTexture(): Could not load texture map \&quot;%s\&quot;\n&quot;</span>, FILENAME );</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    }</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>}</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_TEXTURE_UTILS_HPP</span></div>
-<div class="ttc" id="a_texture_utils_8hpp_html_a1b3eaf6583ec3e581dbd514a525162a1"><div class="ttname"><a href="_texture_utils_8hpp.html#a1b3eaf6583ec3e581dbd514a525162a1">CSCI441::TextureUtils::loadAndRegisterTexture</a></div><div class="ttdeci">GLuint loadAndRegisterTexture(const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT)</div><div class="ttdoc">loads and registers a texture into memory returning a texture handle</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:143</div></div>
-<div class="ttc" id="a_texture_utils_8hpp_html_a1c32bc9d6e247f7b8a9b8b8b23b605d1"><div class="ttname"><a href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">CSCI441::TextureUtils::loadCubeMapFaceTexture</a></div><div class="ttdeci">void loadCubeMapFaceTexture(GLint cubeMapFace, const char *filename)</div><div class="ttdoc">loads a texture into memory of a cube face</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:179</div></div>
-<div class="ttc" id="a_texture_utils_8hpp_html_a4059995665c90622a8fec7b4a4c358c8"><div class="ttname"><a href="_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8">CSCI441::TextureUtils::loadPPM</a></div><div class="ttdeci">bool loadPPM(const char *filename, int &amp;imageWidth, int &amp;imageHeight, unsigned char *&amp;imageData)</div><div class="ttdoc">loads a PPM into memory</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:101</div></div>
-<div class="ttc" id="a_texture_utils_8hpp_html_aa8b481c9cb79f954a876e2b805e8f4f4"><div class="ttname"><a href="_texture_utils_8hpp.html#aa8b481c9cb79f954a876e2b805e8f4f4">CSCI441::TextureUtils::loadAndRegister2DTexture</a></div><div class="ttdeci">GLuint loadAndRegister2DTexture(const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT)</div><div class="ttdoc">loads and registers a texture into memory returning a texture handle</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:147</div></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keywordflow">if</span>( !data ) {</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            printf( <span class="stringliteral">&quot;[ERROR]: CSCI441::TextureUtils::loadAndRegister2DTexture(): Could not load texture \&quot;%s\&quot;\n&quot;</span>, filename );</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            <span class="keywordflow">return</span> texHandle;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        }</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    }</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    glGenTextures(1, &amp;texHandle );</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    glBindTexture(   GL_TEXTURE_2D,  texHandle );</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_MIN_FILTER, minFilter );</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_MAG_FILTER, magFilter );</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_S,     wrapS );</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_T,     wrapT );</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keyword">const</span> GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    glTexImage2D( GL_TEXTURE_2D, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    glGenerateMipmap(GL_TEXTURE_2D);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    printf( <span class="stringliteral">&quot;[INFO]: Successfully loaded texture \&quot;%s\&quot; with handle %d\n&quot;</span>, filename, texHandle );</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">return</span> texHandle;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>}</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>[[maybe_unused]]</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">  183</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">CSCI441::TextureUtils::loadCubeMapFaceTexture</a>(<span class="keyword">const</span> GLint cubeMapFace, <span class="keyword">const</span> <span class="keywordtype">char</span>* FILENAME) {</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordtype">int</span> imageWidth, imageHeight, imageChannels;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data = stbi_load( FILENAME, &amp;imageWidth, &amp;imageHeight, &amp;imageChannels, 0);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordflow">if</span>( data ) {</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <span class="keyword">const</span> GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        glTexImage2D(cubeMapFace, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        stbi_image_free(data);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        fprintf( stderr, <span class="stringliteral">&quot;[ERROR]: CSCI441::TextureUtils::loadCubeMapFaceTexture(): Could not load texture map \&quot;%s\&quot;\n&quot;</span>, FILENAME );</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    }</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>}</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_TEXTURE_UTILS_HPP</span></div>
+<div class="ttc" id="a_texture_utils_8hpp_html_a1c32bc9d6e247f7b8a9b8b8b23b605d1"><div class="ttname"><a href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">CSCI441::TextureUtils::loadCubeMapFaceTexture</a></div><div class="ttdeci">void loadCubeMapFaceTexture(GLint cubeMapFace, const char *filename)</div><div class="ttdoc">loads a texture into memory of a cube face</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:183</div></div>
+<div class="ttc" id="a_texture_utils_8hpp_html_a4059995665c90622a8fec7b4a4c358c8"><div class="ttname"><a href="_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8">CSCI441::TextureUtils::loadPPM</a></div><div class="ttdeci">bool loadPPM(const char *filename, int &amp;imageWidth, int &amp;imageHeight, unsigned char *&amp;imageData)</div><div class="ttdoc">loads a PPM into memory</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:105</div></div>
+<div class="ttc" id="a_texture_utils_8hpp_html_acbdd12232038cfb57b7793aca9a7c2b2"><div class="ttname"><a href="_texture_utils_8hpp.html#acbdd12232038cfb57b7793aca9a7c2b2">CSCI441::TextureUtils::loadAndRegister2DTexture</a></div><div class="ttdeci">GLuint loadAndRegister2DTexture(const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT, GLboolean flipOnY=GL_TRUE)</div><div class="ttdoc">loads and registers a texture into memory returning a texture handle</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:151</div></div>
+<div class="ttc" id="a_texture_utils_8hpp_html_adc6581e9556adc3d91a13025114459e6"><div class="ttname"><a href="_texture_utils_8hpp.html#adc6581e9556adc3d91a13025114459e6">CSCI441::TextureUtils::loadAndRegisterTexture</a></div><div class="ttdeci">GLuint loadAndRegisterTexture(const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT, GLboolean flipOnY=GL_TRUE)</div><div class="ttdoc">loads and registers a texture into memory returning a texture handle</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:147</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 <div class="ttc" id="anamespace_texture_utils_html"><div class="ttname"><a href="namespace_texture_utils.html">TextureUtils</a></div><div class="ttdoc">OpenGL Texture Utility functions.</div></div>
 </div><!-- fragment --></div><!-- contents -->

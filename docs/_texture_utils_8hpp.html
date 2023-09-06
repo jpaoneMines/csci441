@@ -101,12 +101,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a4059995665c90622a8fec7b4a4c358c8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8">CSCI441::TextureUtils::loadPPM</a> (const char *filename, int &amp;imageWidth, int &amp;imageHeight, unsigned char *&amp;imageData)</td></tr>
 <tr class="memdesc:a4059995665c90622a8fec7b4a4c358c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads a PPM into memory  <br /></td></tr>
 <tr class="separator:a4059995665c90622a8fec7b4a4c358c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b3eaf6583ec3e581dbd514a525162a1"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_texture_utils_8hpp.html#a1b3eaf6583ec3e581dbd514a525162a1">CSCI441::TextureUtils::loadAndRegisterTexture</a> (const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT)</td></tr>
-<tr class="memdesc:a1b3eaf6583ec3e581dbd514a525162a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads and registers a texture into memory returning a texture handle  <br /></td></tr>
-<tr class="separator:a1b3eaf6583ec3e581dbd514a525162a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8b481c9cb79f954a876e2b805e8f4f4"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_texture_utils_8hpp.html#aa8b481c9cb79f954a876e2b805e8f4f4">CSCI441::TextureUtils::loadAndRegister2DTexture</a> (const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT)</td></tr>
-<tr class="memdesc:aa8b481c9cb79f954a876e2b805e8f4f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads and registers a texture into memory returning a texture handle  <br /></td></tr>
-<tr class="separator:aa8b481c9cb79f954a876e2b805e8f4f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc6581e9556adc3d91a13025114459e6"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_texture_utils_8hpp.html#adc6581e9556adc3d91a13025114459e6">CSCI441::TextureUtils::loadAndRegisterTexture</a> (const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT, GLboolean flipOnY=GL_TRUE)</td></tr>
+<tr class="memdesc:adc6581e9556adc3d91a13025114459e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads and registers a texture into memory returning a texture handle  <br /></td></tr>
+<tr class="separator:adc6581e9556adc3d91a13025114459e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbdd12232038cfb57b7793aca9a7c2b2"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_texture_utils_8hpp.html#acbdd12232038cfb57b7793aca9a7c2b2">CSCI441::TextureUtils::loadAndRegister2DTexture</a> (const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT, GLboolean flipOnY=GL_TRUE)</td></tr>
+<tr class="memdesc:acbdd12232038cfb57b7793aca9a7c2b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads and registers a texture into memory returning a texture handle  <br /></td></tr>
+<tr class="separator:acbdd12232038cfb57b7793aca9a7c2b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c32bc9d6e247f7b8a9b8b8b23b605d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">CSCI441::TextureUtils::loadCubeMapFaceTexture</a> (GLint cubeMapFace, const char *filename)</td></tr>
 <tr class="memdesc:a1c32bc9d6e247f7b8a9b8b8b23b605d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads a texture into memory of a cube face  <br /></td></tr>
 <tr class="separator:a1c32bc9d6e247f7b8a9b8b8b23b605d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,8 +120,8 @@ Functions</h2></td></tr>
 <dd>
 This header file depends upon stb_image </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="aa8b481c9cb79f954a876e2b805e8f4f4" name="aa8b481c9cb79f954a876e2b805e8f4f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8b481c9cb79f954a876e2b805e8f4f4">&#9670;&#160;</a></span>loadAndRegister2DTexture()</h2>
+<a id="acbdd12232038cfb57b7793aca9a7c2b2" name="acbdd12232038cfb57b7793aca9a7c2b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbdd12232038cfb57b7793aca9a7c2b2">&#9670;&#160;</a></span>loadAndRegister2DTexture()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,7 +157,13 @@ This header file depends upon stb_image </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLint&#160;</td>
-          <td class="paramname"><em>wrapT</em> = <code>GL_REPEAT</code>&#160;</td>
+          <td class="paramname"><em>wrapT</em> = <code>GL_REPEAT</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLboolean&#160;</td>
+          <td class="paramname"><em>flipOnY</em> = <code>GL_TRUE</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -179,7 +185,11 @@ This header file depends upon stb_image </dd></dl>
     <tr><td class="paramname">minFilter</td><td>minification filter to apply (default: GL_LINEAR) </td></tr>
     <tr><td class="paramname">magFilter</td><td>magnification filter to apply (default: GL_LINEAR) </td></tr>
     <tr><td class="paramname">wrapS</td><td>wrapping to apply to S coordinate (default: GL_REPEAT) </td></tr>
-    <tr><td class="paramname">wrapT</td><td>wrapping to apply to T coordinate (default: GL_REPEAT) </td></tr>
+    <tr><td class="paramname">wrapT</td><td>wrapping to apply to T coordinate (default: GL_REPEAT)<ul>
+<li></li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">flipOnY</td><td>flip the image along the vertical on load (default: GL_TRUE) </td></tr>
   </table>
   </dd>
 </dl>
@@ -187,8 +197,8 @@ This header file depends upon stb_image </dd></dl>
 
 </div>
 </div>
-<a id="a1b3eaf6583ec3e581dbd514a525162a1" name="a1b3eaf6583ec3e581dbd514a525162a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b3eaf6583ec3e581dbd514a525162a1">&#9670;&#160;</a></span>loadAndRegisterTexture()</h2>
+<a id="adc6581e9556adc3d91a13025114459e6" name="adc6581e9556adc3d91a13025114459e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc6581e9556adc3d91a13025114459e6">&#9670;&#160;</a></span>loadAndRegisterTexture()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,7 +234,13 @@ This header file depends upon stb_image </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLint&#160;</td>
-          <td class="paramname"><em>wrapT</em> = <code>GL_REPEAT</code>&#160;</td>
+          <td class="paramname"><em>wrapT</em> = <code>GL_REPEAT</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLboolean&#160;</td>
+          <td class="paramname"><em>flipOnY</em> = <code>GL_TRUE</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -248,6 +264,7 @@ This header file depends upon stb_image </dd></dl>
     <tr><td class="paramname">magFilter</td><td>magnification filter to apply (default: GL_LINEAR) </td></tr>
     <tr><td class="paramname">wrapS</td><td>wrapping to apply to S coordinate (default: GL_REPEAT) </td></tr>
     <tr><td class="paramname">wrapT</td><td>wrapping to apply to T coordinate (default: GL_REPEAT) </td></tr>
+    <tr><td class="paramname">flipOnY</td><td>flip the image along the vertical on load (default: GL_TRUE) </td></tr>
   </table>
   </dd>
 </dl>
