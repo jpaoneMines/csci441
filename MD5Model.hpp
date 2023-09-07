@@ -315,9 +315,13 @@ namespace CSCI441 {
          */
         MD5Model();
         /**
-         * @breif deallocates any used memory on the CPU and GPU
+         * @brief deallocates any used memory on the CPU and GPU
          */
         ~MD5Model();
+
+        // do not allow MD5 models to be copied
+        MD5Model(const MD5Model&) = delete;
+        MD5Model& operator=(const MD5Model&) = delete;
 
         /**
          * @brief loads a corresponding md5mesh and md5anim file to the object

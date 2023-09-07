@@ -7,6 +7,9 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v 4.6.1 - 06 Sep 2023
+- Cannot copy MD5 Models
+
 ## v 4.6.0 - 06 Sep 2023
 - Created MD5Model class to load, display, and animate md5mesh + md5anim files
 - Deleted copy constructor and copy assignment operator for ShaderProgram and ComputeShaderProgram to prevent shader program objects from being copied and then deallocated on the GPU
