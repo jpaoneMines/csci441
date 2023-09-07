@@ -8,6 +8,7 @@
  * supports texturing
  *
  * Doom3's md5mesh viewer with animation.  Mesh and Animation declaration
+ * See http://tfc.duke.free.fr/coding/md5-specs-en.html for more details
  *
  * Copyright (c) 2005-2007 David HENRY
  *
@@ -49,98 +50,262 @@
 
 namespace CSCI441 {
 
+    /**
+     * @brief stores a Doom3 MD5 Mesh + Animation
+     */
     class [[maybe_unused]] MD5Model {
     protected:
-        // Joint
+        // md5mesh types
+        /**
+         * @brief a joint of the MD5 Skeleton
+         */
         struct MD5Joint {
+            /**
+             * @brief a non-existent joint.  used to identify joints at the root of a skeleton
+             */
             static const GLint NULL_JOINT = -1;
-
+            /**
+             * @brief joint identifier
+             */
             char name[256] = "";
+            /**
+             * @brief index of the parent joint on skeletal tree
+             */
             GLint parent = NULL_JOINT;
-
+            /**
+             * @brief position of the joint in object space
+             */
             glm::vec3 position = {0.0f, 0.0f, 0.0f};
+            /**
+             * @brief joint orientation expressed as a quaternion in object space
+             */
             glm::quat orientation = {0.0f, 0.0f, 0.0f, 0.0f};
         };
 
-        // Joint info
-        struct MD5JointInfo {
-            char name[256] = "";
-            GLint parent = MD5Joint::NULL_JOINT;
-            GLuint flags = 0;
-            GLint startIndex = 0;
-        };
-
-        // Base frame joint
-        struct MD5BaseFrameJoint {
-            glm::vec3 position = {0.0f, 0.0f, 0.0f};
-            glm::quat orientation = {0.0f, 0.0f, 0.0f, 0.0f};
-        };
-
-        // Vertex
+        /**
+         * @brief a vertex on the mesh
+         */
         struct MD5Vertex {
+            /**
+             * @brief texture coordinate for vertex
+             */
             glm::vec2 texCoord = {0.0f, 0.0f};
-
-            GLint start = 0; // start weight
-            GLint count = 0; // weight count
+            /**
+             * @brief index of starting weight
+             */
+            GLint start = 0;
+            /**
+             * @brief number of weights that determine vertex's position
+             */
+            GLint count = 0;
         };
 
-        // Triangle
+        /**
+         * @brief a triangle on the mesh
+         */
         struct MD5Triangle {
+            /**
+             * @brief vertex indices that make up triangle
+             */
             GLint index[3] = {0};
         };
 
-        // Weight
+        /**
+         * the weight for a mesh vertex
+         */
         struct MD5Weight {
-            GLint joint = 0;
+            /**
+             * @brief index of joint the weight depends on
+             */
+            GLint joint = MD5Joint::NULL_JOINT;
+            /**
+             * @brief contribution of the weight
+             */
             GLfloat bias = 0.f;
-
+            /**
+             * @brief weight's position in object space
+             */
             glm::vec3 position = {0.0f, 0.0f, 0.0f};
         };
 
-        // Texture Handles
+        /**
+         * texture handle for the model
+         */
         struct MD5Texture {
+            /**
+             * @brief handle of texture stored on the GPU
+             */
             GLuint texHandle = 0;
+            /**
+             * @brief filename texture was loaded from
+             */
             char filename[512] = "";
         };
 
-        // Bounding box
-        struct MD5BoundingBox {
-            glm::vec3 min = {0.0f, 0.0f, 0.0f};
-            glm::vec3 max = {0.0f, 0.0f, 0.0f};
-        };
-
-        // MD5 mesh
+        /**
+         * @brief mesh that comprises the model's skin
+         */
         struct MD5Mesh {
+            /**
+             * @brief array of vertices comprising the mesh
+             */
             MD5Vertex *vertices = nullptr;
+            /**
+             * @brief array triangles comprising the mesh
+             */
             MD5Triangle *triangles = nullptr;
+            /**
+             * @brief array of weights to determine vertex position based on joint positions
+             */
             MD5Weight *weights = nullptr;
+            /**
+             * @brief texture map array
+             */
             MD5Texture textures[4];
-            enum TextureMap { DIFFUSE, SPECULAR, NORMAL, HEIGHT };
+            /**
+             * @brief named entities for different texture maps applied to the model
+             */
+            enum TextureMap {
+                /**
+                 * @brief diffuse map
+                 */
+                DIFFUSE,
+                /**
+                 * @brief specular map
+                 */
+                SPECULAR,
+                /**
+                 * @brief normal map
+                 */
+                NORMAL,
+                /**
+                 * @brief height map
+                 */
+                HEIGHT
+            };
 
+            /**
+             * @brief number of vertices in the mesh vertex array
+             */
             GLint numVertices = 0;
+            /**
+             * @brief number of triangles in the mesh triangle array
+             */
             GLint numTriangles = 0;
+            /**
+             * @brief number of weights in the mesh weight array
+             */
             GLint numWeights = 0;
 
+            /**
+             * @brief base filename for all textures applied to mesh
+             */
             char shader[512] = "";
         };
 
-        // Animation data
+        // md5anim types
+        /**
+         * @brief information pertaining to each animation joint
+         */
+        struct MD5JointInfo {
+            /**
+             * @brief joint identifier
+             */
+            char name[256] = "";
+            /**
+             * @brief index of parent joint on skeletal tree
+             */
+            GLint parent = MD5Joint::NULL_JOINT;
+            /**
+             * @brief bit flags denoted how to compute the skeleton of a frame for this joint
+             */
+            GLuint flags = 0;
+            /**
+             * @brief index of starting parameter
+             */
+            GLint startIndex = 0;
+        };
+
+        /**
+         * @brief base frame joint
+         */
+        struct MD5BaseFrameJoint {
+            /**
+             * @brief position of the joint in object space
+             */
+            glm::vec3 position = {0.0f, 0.0f, 0.0f};
+            /**
+             * @brief joint orientation expressed as a quaternion in object space
+             */
+            glm::quat orientation = {0.0f, 0.0f, 0.0f, 0.0f};
+        };
+
+        /**
+         * @brief bounding box containing the model during animation
+         * @note can be useful for computing AABB or OBB for frustum culling and basic collision detection
+         */
+        struct MD5BoundingBox {
+            /**
+             * @brief minimum dimension bound
+             */
+            glm::vec3 min = {0.0f, 0.0f, 0.0f};
+            /**
+             * @brief maximum dimension bound
+             */
+            glm::vec3 max = {0.0f, 0.0f, 0.0f};
+        };
+
+        /**
+         * @brief stores an entire animation sequence for a given MD5 Model
+         */
         struct MD5Animation {
+            /**
+             * @brief number of frames in the animation
+             */
             GLint numFrames = 0;
+            /**
+             * @brief number of joints of the frame skeletons
+             * @note must be the same as the number of joints on the model the animation is applied to
+             */
             GLint numJoints = 0;
+            /**
+             * @brief number of frames per second to draw for the animation
+             * @note duration of a frame can be computed by inverting the frame rate
+             */
             GLint frameRate = 0;
 
+            /**
+             * @brief skeletal pose for each frame
+             */
             MD5Joint **skeletonFrames = nullptr;
+            /**
+             * @brief bounding box for each frame
+             */
             MD5BoundingBox *boundingBoxes = nullptr;
         };
 
-        // Animation info
-        struct MD5AnimationInfo {
+        /**
+         * @brief stores state of current animation frame
+         */
+        struct MD5AnimationState {
+            /**
+             * @brief index of current frame model is in
+             */
             GLint currFrame = 0;
+            /**
+             * @brief index of next frame model will move to
+             */
             GLint nextFrame = 0;
 
-            GLfloat lastTime = 0.0;
-            GLfloat maxTime = 0.0;
+            /**
+             * @brief time of last frame interpolation
+             */
+            GLfloat lastTime = 0.0f;
+            /**
+             * @brief duration of a single frame
+             * @note equivalent to inverse of frame rate
+             */
+            GLfloat maxTime = 0.0f;
         };
 
     public:
@@ -158,6 +323,7 @@ namespace CSCI441 {
          * @brief loads a corresponding md5mesh and md5anim file to the object
          * @param MD5_MESH_FILE name of file to load mesh from
          * @param MD5_ANIM_FILE name of file to load animation from
+         * @returns true if both mesh and animation loaded successfully and are compatible
          */
         [[maybe_unused]] bool loadMD5Model(const char* MD5_MESH_FILE, const char* MD5_ANIM_FILE = "");
 
@@ -174,6 +340,14 @@ namespace CSCI441 {
          * @returns true if file parsed successfully
          */
         [[nodiscard]] bool readMD5Model(const char* FILENAME);
+        /**
+         * @brief binds model VBOs to attribute pointer locations
+         * @param vPosAttribLoc location of vertex position attribute
+         * @param vColorAttribLoc location of vertex color attribute
+         * @param vTexCoordAttribLoc location of vertex texture coordinate attribute
+         * @note color attribute used when drawing the skeleton
+         * @note texCoord attribute used when drawing the mesh
+         */
         [[maybe_unused]]void allocVertexArrays(GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc);
         /**
          * @brief draws all the meshes that make up the model
@@ -219,21 +393,21 @@ namespace CSCI441 {
         GLuint _skeletonVBO;
 
         /**
-         * @brief the MD5 animation sequence
-         */
-        MD5Animation _animation;
-        /**
-         * @brief the MD5 skeletal bone/joint data
+         * @brief the MD5 skeletal joint data
          */
         MD5Joint* _skeleton;
         /**
-         * @brief the MD5 animation frames
+         * @brief the MD5 animation frame sequence
          */
-        MD5AnimationInfo _animationInfo;
+        MD5Animation _animation;
         /**
          * @brief flag stating if the loaded MD5 model has a corresponding animation or not
          */
         bool _isAnimated;
+        /**
+         * @brief current animation frame state
+         */
+        MD5AnimationState _animationInfo;
 
         void _prepareMesh(const MD5Mesh* pMESH) const;
         void _drawMesh(const MD5Mesh* pMESH) const;
@@ -269,7 +443,7 @@ inline CSCI441::MD5Model::MD5Model()
     _skeletonVBO = 0;
     _animation = MD5Animation();
     _skeleton = nullptr;
-    _animationInfo = MD5AnimationInfo();
+    _animationInfo = MD5AnimationState();
     _isAnimated = false;
 }
 
@@ -824,22 +998,18 @@ CSCI441::MD5Model::_buildFrameSkeleton(
         strcpy (thisJoint->name, pJOINT_INFOS[i].name);
 
         // Has parent?
-        if( thisJoint->parent < 0 ) {
+        if( thisJoint->parent == MD5Joint::NULL_JOINT ) {
             thisJoint->position = animatedPosition;
             thisJoint->orientation = animatedOrientation;
         } else {
             MD5Joint *parentJoint = &pSkeletonFrame[parent];
-            glm::vec3 rotatedPosition; // Rotated position
+            glm::vec3 rotatedPosition = glm::rotate(parentJoint->orientation, glm::vec4(animatedPosition, 0.0f));
 
             // Add positions
-            rotatedPosition = glm::rotate(parentJoint->orientation, glm::vec4(animatedPosition, 0.0f));
-            thisJoint->position[0] = rotatedPosition[0] + parentJoint->position[0];
-            thisJoint->position[1] = rotatedPosition[1] + parentJoint->position[1];
-            thisJoint->position[2] = rotatedPosition[2] + parentJoint->position[2];
+            thisJoint->position = parentJoint->position + rotatedPosition;
 
             // Concatenate rotations
-            thisJoint->orientation = parentJoint->orientation * animatedOrientation;
-            glm::normalize(thisJoint->orientation);
+            thisJoint->orientation = glm::normalize( glm::cross(parentJoint->orientation, animatedOrientation) );
         }
     }
 }
@@ -855,7 +1025,7 @@ CSCI441::MD5Model::readMD5Anim(
     GLfloat *animFrameData = nullptr;
     GLint version;
     GLint numAnimatedComponents;
-    GLint frame_index;
+    GLint frameIndex;
     GLint i;
 
     printf( "[.md5anim]: about to read %s\n", filename );
@@ -935,14 +1105,14 @@ CSCI441::MD5Model::readMD5Anim(
                     baseFrame[i].orientation.w = glm::extractRealComponent(baseFrame[i].orientation);
                 }
             }
-        } else if( sscanf(buff, " frame %d", &frame_index) == 1 ) {
+        } else if(sscanf(buff, " frame %d", &frameIndex) == 1 ) {
             // Read frame data
             for(i = 0; i < numAnimatedComponents; ++i)
                 fscanf( fp, "%f", &animFrameData[i] );
 
             // Build frame _skeleton from the collected data
             _buildFrameSkeleton(jointInfos, baseFrame, animFrameData,
-                                _animation.skeletonFrames[frame_index],
+                                _animation.skeletonFrames[frameIndex],
                                 _animation.numJoints);
         }
     }
@@ -967,8 +1137,8 @@ CSCI441::MD5Model::readMD5Anim(
     _animationInfo.currFrame = 0;
     _animationInfo.nextFrame = 1;
 
-    _animationInfo.lastTime = 0;
-    _animationInfo.maxTime = 1.0 / _animation.frameRate;
+    _animationInfo.lastTime = 0.0f;
+    _animationInfo.maxTime = 1.0f / (GLfloat)_animation.frameRate;
 
     // Allocate memory for animated _skeleton
     _skeleton = new MD5Joint[_animation.numJoints];

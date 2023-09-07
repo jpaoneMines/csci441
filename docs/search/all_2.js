@@ -10,9 +10,11 @@ var searchData=
   ['copper_5fpolished_7',['COPPER_POLISHED',['../materials_8hpp.html#a849c50b5a4971339cdef8d0f3956860a',1,'CSCI441::Materials']]],
   ['copytobuffer_8',['copyToBuffer',['../class_c_s_c_i441_1_1_uniform_buffer_object.html#ab640cb7aec972a4b4a0a7d4b88a36ab7',1,'CSCI441::UniformBufferObject']]],
   ['copytooffset_9',['copyToOffset',['../class_c_s_c_i441_1_1_uniform_buffer_object.html#a93bfc9c16fb2d49f35dc360a9009437b',1,'CSCI441::UniformBufferObject']]],
-  ['csci441_10',['CSCI441',['../namespace_c_s_c_i441.html',1,'']]],
-  ['csci441_20opengl_20library_11',['CSCI441 OpenGL Library',['../index.html',1,'']]],
-  ['csci441_2ehpp_12',['CSCI441.hpp',['../_c_s_c_i441_8hpp.html',1,'']]],
-  ['cyan_5fplastic_13',['CYAN_PLASTIC',['../materials_8hpp.html#a487bc05f5ef7e9b9ceb18caebc79b60d',1,'CSCI441::Materials']]],
-  ['cyan_5frubber_14',['CYAN_RUBBER',['../materials_8hpp.html#a7df26dad811b68a771c6c2a68fa527e3',1,'CSCI441::Materials']]]
+  ['count_10',['count',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_vertex.html#af333c48deed340a6b120444e29ed745d',1,'CSCI441::MD5Model::MD5Vertex']]],
+  ['csci441_11',['CSCI441',['../namespace_c_s_c_i441.html',1,'']]],
+  ['csci441_20opengl_20library_12',['CSCI441 OpenGL Library',['../index.html',1,'']]],
+  ['csci441_2ehpp_13',['CSCI441.hpp',['../_c_s_c_i441_8hpp.html',1,'']]],
+  ['currframe_14',['currFrame',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_state.html#a0b9d60c921f4dceb3c77160471b3b4e7',1,'CSCI441::MD5Model::MD5AnimationState']]],
+  ['cyan_5fplastic_15',['CYAN_PLASTIC',['../materials_8hpp.html#a487bc05f5ef7e9b9ceb18caebc79b60d',1,'CSCI441::Materials']]],
+  ['cyan_5frubber_16',['CYAN_RUBBER',['../materials_8hpp.html#a7df26dad811b68a771c6c2a68fa527e3',1,'CSCI441::Materials']]]
 ];

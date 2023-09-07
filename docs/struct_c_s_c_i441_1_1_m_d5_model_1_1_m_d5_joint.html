@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.5.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.6.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -81,29 +81,41 @@ $(function() {
   <div class="headertitle"><div class="title">CSCI441::MD5Model::MD5Joint Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>a joint of the MD5 Skeleton  
+ <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_m_d5_model_8hpp_source.html">MD5Model.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:addefe6f2aa455381c5f33983fe46ebe6"><td class="memItemLeft" align="right" valign="top"><a id="addefe6f2aa455381c5f33983fe46ebe6" name="addefe6f2aa455381c5f33983fe46ebe6"></a>
 char&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> [256] = &quot;&quot;</td></tr>
+<tr class="memdesc:addefe6f2aa455381c5f33983fe46ebe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">joint identifier <br /></td></tr>
 <tr class="separator:addefe6f2aa455381c5f33983fe46ebe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6466c704cae1b11935bf5f38fe87f8b"><td class="memItemLeft" align="right" valign="top"><a id="af6466c704cae1b11935bf5f38fe87f8b" name="af6466c704cae1b11935bf5f38fe87f8b"></a>
-GLint&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b> = NULL_JOINT</td></tr>
+GLint&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b> = <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint.html#a741ccc79e9393fb1271e1de52b40315e">NULL_JOINT</a></td></tr>
+<tr class="memdesc:af6466c704cae1b11935bf5f38fe87f8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of the parent joint on skeletal tree <br /></td></tr>
 <tr class="separator:af6466c704cae1b11935bf5f38fe87f8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79403b1de185693640a5fc4af74fb597"><td class="memItemLeft" align="right" valign="top"><a id="a79403b1de185693640a5fc4af74fb597" name="a79403b1de185693640a5fc4af74fb597"></a>
 glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><b>position</b> = {0.0f, 0.0f, 0.0f}</td></tr>
+<tr class="memdesc:a79403b1de185693640a5fc4af74fb597"><td class="mdescLeft">&#160;</td><td class="mdescRight">position of the joint in object space <br /></td></tr>
 <tr class="separator:a79403b1de185693640a5fc4af74fb597"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8241b253bffeb340246e81264608220"><td class="memItemLeft" align="right" valign="top"><a id="ad8241b253bffeb340246e81264608220" name="ad8241b253bffeb340246e81264608220"></a>
 glm::quat&#160;</td><td class="memItemRight" valign="bottom"><b>orientation</b> = {0.0f, 0.0f, 0.0f, 0.0f}</td></tr>
+<tr class="memdesc:ad8241b253bffeb340246e81264608220"><td class="mdescLeft">&#160;</td><td class="mdescRight">joint orientation expressed as a quaternion in object space <br /></td></tr>
 <tr class="separator:ad8241b253bffeb340246e81264608220"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a741ccc79e9393fb1271e1de52b40315e"><td class="memItemLeft" align="right" valign="top"><a id="a741ccc79e9393fb1271e1de52b40315e" name="a741ccc79e9393fb1271e1de52b40315e"></a>
 static const GLint&#160;</td><td class="memItemRight" valign="bottom"><b>NULL_JOINT</b> = -1</td></tr>
+<tr class="memdesc:a741ccc79e9393fb1271e1de52b40315e"><td class="mdescLeft">&#160;</td><td class="mdescRight">a non-existent joint. used to identify joints at the root of a skeleton <br /></td></tr>
 <tr class="separator:a741ccc79e9393fb1271e1de52b40315e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>a joint of the MD5 Skeleton </p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="_m_d5_model_8hpp_source.html">MD5Model.hpp</a></li>
 </ul>
 </div><!-- contents -->

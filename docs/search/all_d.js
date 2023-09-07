@@ -1,16 +1,18 @@
 var searchData=
 [
-  ['readmd5anim_0',['readMD5Anim',['../class_c_s_c_i441_1_1_m_d5_model.html#a9a0d5630539276f1bbd1d2bcac44f89f',1,'CSCI441::MD5Model']]],
-  ['readmd5model_1',['readMD5Model',['../class_c_s_c_i441_1_1_m_d5_model.html#a3e01d573a7b2517f1f4eec30322912ec',1,'CSCI441::MD5Model']]],
-  ['readme_2',['README',['../md__r_e_a_d_m_e.html',1,'']]],
-  ['reb_5frubber_3',['REB_RUBBER',['../materials_8hpp.html#af8cd2b41a30a2fcbf7574c6d7ae198be',1,'CSCI441::Materials']]],
-  ['recomputeorientation_4',['recomputeOrientation',['../class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4',1,'CSCI441::ArcballCam::recomputeOrientation()'],['../class_c_s_c_i441_1_1_camera.html#a507ca14a9c56993a11f381de2367d2bb',1,'CSCI441::Camera::recomputeOrientation()'],['../class_c_s_c_i441_1_1_fixed_cam.html#a37be99738bfbd423573dcd298cf69784',1,'CSCI441::FixedCam::recomputeOrientation()'],['../class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a',1,'CSCI441::FreeCam::recomputeOrientation()'],['../class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014',1,'CSCI441::MD5Camera::recomputeOrientation()']]],
-  ['red_5fplastic_5',['RED_PLASTIC',['../materials_8hpp.html#a44753088547c760fcf101201e0182995',1,'CSCI441::Materials']]],
-  ['registervertexarray_6',['registerVertexArray',['../_simple_shader_8hpp.html#afb63e717bd675127f0d0862917786201',1,'CSCI441::SimpleShader2::registerVertexArray(const std::vector&lt; glm::vec2 &gt; &amp;VERTEX_POINTS, const std::vector&lt; glm::vec3 &gt; &amp;VERTEX_COLORS)'],['../_simple_shader_8hpp.html#ae3fa408f66a824140da91a76c7ef3ca5',1,'CSCI441::SimpleShader2::registerVertexArray(GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[])'],['../_simple_shader_8hpp.html#ae8feb5ea7fa481f3df923dc33ce5d071',1,'CSCI441::SimpleShader3::registerVertexArray(const std::vector&lt; glm::vec3 &gt; &amp;VERTEX_POINTS, const std::vector&lt; glm::vec3 &gt; &amp;VERTEX_NORMALS)'],['../_simple_shader_8hpp.html#a1f5eda020c9d18e23731fc29ffee5ad4',1,'CSCI441::SimpleShader3::registerVertexArray(GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[])']]],
-  ['resettransformationmatrix_7',['resetTransformationMatrix',['../_simple_shader_8hpp.html#a681036a52d58f3cc9381ebe9c6b1c3f6',1,'CSCI441::SimpleShader2::resetTransformationMatrix()'],['../_simple_shader_8hpp.html#a8b806aac138bb83636eb6b20014500d8',1,'CSCI441::SimpleShader3::resetTransformationMatrix()']]],
-  ['rotate_8',['rotate',['../class_c_s_c_i441_1_1_camera.html#aefb6d39b085ffa3ab185048c91bab056',1,'CSCI441::Camera']]],
-  ['ruby_9',['RUBY',['../materials_8hpp.html#a028dd743db5d58febd0ed1edca7f79a9',1,'CSCI441::Materials']]],
-  ['run_10',['run',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a91a8498d1ab372a8d312720aa6df43f6',1,'CSCI441::OpenGLEngine']]],
-  ['run_5fall_5fcuts_11',['RUN_ALL_CUTS',['../class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a64c93cabe474422bf63a7dcb23482e24',1,'CSCI441::MD5Camera']]],
-  ['run_5fsingle_5fcut_12',['RUN_SINGLE_CUT',['../class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a5b50e46f30585ad3235bc8e6fe90cf59',1,'CSCI441::MD5Camera']]]
+  ['objects_2ehpp_0',['objects.hpp',['../objects_8hpp.html',1,'']]],
+  ['obsidian_1',['OBSIDIAN',['../materials_8hpp.html#a7ccd7cb6c9dadf1b1637d29126100536',1,'CSCI441::Materials']]],
+  ['opengl3dengine_2',['OpenGL3DEngine',['../class_c_s_c_i441_1_1_open_g_l3_d_engine.html',1,'CSCI441::OpenGL3DEngine'],['../class_c_s_c_i441_1_1_open_g_l3_d_engine.html#a86eaa8f6ce78dcc2e44b6519e7031a53',1,'CSCI441::OpenGL3DEngine::OpenGL3DEngine()']]],
+  ['opengl_5fengine_5ferror_5fglew_5finit_3',['OPENGL_ENGINE_ERROR_GLEW_INIT',['../class_c_s_c_i441_1_1_open_g_l_engine.html#adbbcfe2d4535ac5d77974b4a3fd249b4',1,'CSCI441::OpenGLEngine']]],
+  ['opengl_5fengine_5ferror_5fglfw_5finit_4',['OPENGL_ENGINE_ERROR_GLFW_INIT',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a79da34ad6fc7f1f1884703416e2337c3',1,'CSCI441::OpenGLEngine']]],
+  ['opengl_5fengine_5ferror_5fglfw_5fwindow_5',['OPENGL_ENGINE_ERROR_GLFW_WINDOW',['../class_c_s_c_i441_1_1_open_g_l_engine.html#aa6d69ce8bc3096b791bf6a379213b01d',1,'CSCI441::OpenGLEngine']]],
+  ['opengl_5fengine_5ferror_5flast_6',['OPENGL_ENGINE_ERROR_LAST',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a49b735def707602096aca9f810edaf57',1,'CSCI441::OpenGLEngine']]],
+  ['opengl_5fengine_5ferror_5fno_5ferror_7',['OPENGL_ENGINE_ERROR_NO_ERROR',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a0708a53dbdca7f3314ca18bad602e3d4',1,'CSCI441::OpenGLEngine']]],
+  ['opengl_5fengine_5ferror_5fsize_8',['OPENGL_ENGINE_ERROR_SIZE',['../class_c_s_c_i441_1_1_open_g_l_engine.html#aafe1900642cc13eadd84850850d595c3',1,'CSCI441::OpenGLEngine']]],
+  ['opengl_5fengine_5ferror_5funknown_9',['OPENGL_ENGINE_ERROR_UNKNOWN',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a46ff78b4ba524547eb6abeb5b8a541c0',1,'CSCI441::OpenGLEngine']]],
+  ['openglengine_10',['OpenGLEngine',['../class_c_s_c_i441_1_1_open_g_l_engine.html',1,'CSCI441::OpenGLEngine'],['../class_c_s_c_i441_1_1_open_g_l_engine.html#a56119378cd0268c056dc1c925ca2b470',1,'CSCI441::OpenGLEngine::OpenGLEngine()']]],
+  ['openglengine_2ehpp_11',['OpenGLEngine.hpp',['../_open_g_l_engine_8hpp.html',1,'']]],
+  ['openglutils_12',['OpenGLUtils',['../namespace_open_g_l_utils.html',1,'']]],
+  ['openglutils_2ehpp_13',['OpenGLUtils.hpp',['../_open_g_l_utils_8hpp.html',1,'']]],
+  ['orientation_14',['orientation',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint.html#ad8241b253bffeb340246e81264608220',1,'CSCI441::MD5Model::MD5Joint::orientation()'],['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_base_frame_joint.html#a13f542d6eeb290af3e754a7daf4c7d66',1,'CSCI441::MD5Model::MD5BaseFrameJoint::orientation()']]]
 ];

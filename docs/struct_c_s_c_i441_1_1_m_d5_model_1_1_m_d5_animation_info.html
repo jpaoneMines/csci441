@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CSCI441 OpenGL Library: CSCI441::MD5Model::MD5AnimationInfo Struct Reference</title>
+<title>CSCI441 OpenGL Library: CSCI441::MD5Model::MD5AnimationState Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.5.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.6.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -70,32 +70,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespace_c_s_c_i441.html">CSCI441</a></li><li class="navelem"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html">MD5Model</a></li><li class="navelem"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_info.html">MD5AnimationInfo</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_c_s_c_i441.html">CSCI441</a></li><li class="navelem"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html">MD5Model</a></li><li class="navelem"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_info.html">MD5AnimationState</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_info-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">CSCI441::MD5Model::MD5AnimationInfo Struct Reference</div></div>
+  <div class="headertitle"><div class="title">CSCI441::MD5Model::MD5AnimationState Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>stores state of current animation frame  
+ <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_info.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_m_d5_model_8hpp_source.html">MD5Model.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a8b73872fa737a07560758c43718187c6"><td class="memItemLeft" align="right" valign="top"><a id="a8b73872fa737a07560758c43718187c6" name="a8b73872fa737a07560758c43718187c6"></a>
 GLint&#160;</td><td class="memItemRight" valign="bottom"><b>currFrame</b> = 0</td></tr>
+<tr class="memdesc:a8b73872fa737a07560758c43718187c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of current frame model is in <br /></td></tr>
 <tr class="separator:a8b73872fa737a07560758c43718187c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1240552d47a988a8651fbe5d38a89df"><td class="memItemLeft" align="right" valign="top"><a id="af1240552d47a988a8651fbe5d38a89df" name="af1240552d47a988a8651fbe5d38a89df"></a>
 GLint&#160;</td><td class="memItemRight" valign="bottom"><b>nextFrame</b> = 0</td></tr>
+<tr class="memdesc:af1240552d47a988a8651fbe5d38a89df"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of next frame model will move to <br /></td></tr>
 <tr class="separator:af1240552d47a988a8651fbe5d38a89df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9ac5273863f419e74cdfec09cea723a"><td class="memItemLeft" align="right" valign="top"><a id="ab9ac5273863f419e74cdfec09cea723a" name="ab9ac5273863f419e74cdfec09cea723a"></a>
-GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>lastTime</b> = 0.0</td></tr>
+GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>lastTime</b> = 0.0f</td></tr>
+<tr class="memdesc:ab9ac5273863f419e74cdfec09cea723a"><td class="mdescLeft">&#160;</td><td class="mdescRight">time of last frame interpolation <br /></td></tr>
 <tr class="separator:ab9ac5273863f419e74cdfec09cea723a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6556102b381fffb59eb67bbd9f31d890"><td class="memItemLeft" align="right" valign="top"><a id="a6556102b381fffb59eb67bbd9f31d890" name="a6556102b381fffb59eb67bbd9f31d890"></a>
-GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>maxTime</b> = 0.0</td></tr>
+<tr class="memitem:a6556102b381fffb59eb67bbd9f31d890"><td class="memItemLeft" align="right" valign="top">GLfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_info.html#a6556102b381fffb59eb67bbd9f31d890">maxTime</a> = 0.0f</td></tr>
+<tr class="memdesc:a6556102b381fffb59eb67bbd9f31d890"><td class="mdescLeft">&#160;</td><td class="mdescRight">duration of a single frame  <br /></td></tr>
 <tr class="separator:a6556102b381fffb59eb67bbd9f31d890"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>stores state of current animation frame </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a6556102b381fffb59eb67bbd9f31d890" name="a6556102b381fffb59eb67bbd9f31d890"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6556102b381fffb59eb67bbd9f31d890">&#9670;&#160;</a></span>maxTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLfloat CSCI441::MD5Model::MD5AnimationState::maxTime = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>duration of a single frame </p>
+<dl class="section note"><dt>Note</dt><dd>equivalent to inverse of frame rate </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="_m_d5_model_8hpp_source.html">MD5Model.hpp</a></li>
 </ul>

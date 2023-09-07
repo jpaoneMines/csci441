@@ -2,7 +2,7 @@ var searchData=
 [
   ['material_0',['Material',['../struct_c_s_c_i441_1_1_materials_1_1_material.html',1,'CSCI441::Materials']]],
   ['md5animation_1',['MD5Animation',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation.html',1,'CSCI441::MD5Model']]],
-  ['md5animationinfo_2',['MD5AnimationInfo',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_info.html',1,'CSCI441::MD5Model']]],
+  ['md5animationstate_2',['MD5AnimationState',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_state.html',1,'CSCI441::MD5Model']]],
   ['md5baseframejoint_3',['MD5BaseFrameJoint',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_base_frame_joint.html',1,'CSCI441::MD5Model']]],
   ['md5boundingbox_4',['MD5BoundingBox',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_bounding_box.html',1,'CSCI441::MD5Model']]],
   ['md5camera_5',['MD5Camera',['../class_c_s_c_i441_1_1_m_d5_camera.html',1,'CSCI441']]],

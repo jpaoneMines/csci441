@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.5.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.6.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -75,39 +75,92 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">CSCI441::MD5Model::MD5Mesh Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>mesh that comprises the model's skin  
+ <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_m_d5_model_8hpp_source.html">MD5Model.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a1de339786389dba8d236be547720c68b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html#a1de339786389dba8d236be547720c68b">TextureMap</a> { <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html#a1de339786389dba8d236be547720c68ba55a7e98f249fcfa91f1036a4250c82d4">DIFFUSE</a>
+, <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html#a1de339786389dba8d236be547720c68ba6648381d85831c8fbb04ab219d2085e6">SPECULAR</a>
+, <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html#a1de339786389dba8d236be547720c68ba9eb5680a00902c8c326b5b9f4aecdbfb">NORMAL</a>
+, <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html#a1de339786389dba8d236be547720c68bad0ab2196b08ba931649582ffb08659de">HEIGHT</a>
+ }</td></tr>
+<tr class="memdesc:a1de339786389dba8d236be547720c68b"><td class="mdescLeft">&#160;</td><td class="mdescRight">named entities for different texture maps applied to the model  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html#a1de339786389dba8d236be547720c68b">More...</a><br /></td></tr>
+<tr class="separator:a1de339786389dba8d236be547720c68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:aa158c3a9d7fee48447892195dcedc969"><td class="memItemLeft" align="right" valign="top"><a id="aa158c3a9d7fee48447892195dcedc969" name="aa158c3a9d7fee48447892195dcedc969"></a>
 <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_vertex.html">MD5Vertex</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>vertices</b> = nullptr</td></tr>
+<tr class="memdesc:aa158c3a9d7fee48447892195dcedc969"><td class="mdescLeft">&#160;</td><td class="mdescRight">array of vertices comprising the mesh <br /></td></tr>
 <tr class="separator:aa158c3a9d7fee48447892195dcedc969"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72062140cb92e90afc9f85dc606ae9d0"><td class="memItemLeft" align="right" valign="top"><a id="a72062140cb92e90afc9f85dc606ae9d0" name="a72062140cb92e90afc9f85dc606ae9d0"></a>
 <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>triangles</b> = nullptr</td></tr>
+<tr class="memdesc:a72062140cb92e90afc9f85dc606ae9d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">array triangles comprising the mesh <br /></td></tr>
 <tr class="separator:a72062140cb92e90afc9f85dc606ae9d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aead9a4fa733453d8a475e95b8a7e2f99"><td class="memItemLeft" align="right" valign="top"><a id="aead9a4fa733453d8a475e95b8a7e2f99" name="aead9a4fa733453d8a475e95b8a7e2f99"></a>
 <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_weight.html">MD5Weight</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>weights</b> = nullptr</td></tr>
+<tr class="memdesc:aead9a4fa733453d8a475e95b8a7e2f99"><td class="mdescLeft">&#160;</td><td class="mdescRight">array of weights to determine vertex position based on joint positions <br /></td></tr>
 <tr class="separator:aead9a4fa733453d8a475e95b8a7e2f99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60b6a8e0c1c486d8be61d5d6baf11374"><td class="memItemLeft" align="right" valign="top"><a id="a60b6a8e0c1c486d8be61d5d6baf11374" name="a60b6a8e0c1c486d8be61d5d6baf11374"></a>
 <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_texture.html">MD5Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><b>textures</b> [4]</td></tr>
+<tr class="memdesc:a60b6a8e0c1c486d8be61d5d6baf11374"><td class="mdescLeft">&#160;</td><td class="mdescRight">texture map array <br /></td></tr>
 <tr class="separator:a60b6a8e0c1c486d8be61d5d6baf11374"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6cd722ee156c65b7404f4d16f7c796ce"><td class="memItemLeft" align="right" valign="top"><a id="a6cd722ee156c65b7404f4d16f7c796ce" name="a6cd722ee156c65b7404f4d16f7c796ce"></a>
 GLint&#160;</td><td class="memItemRight" valign="bottom"><b>numVertices</b> = 0</td></tr>
+<tr class="memdesc:a6cd722ee156c65b7404f4d16f7c796ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of vertices in the mesh vertex array <br /></td></tr>
 <tr class="separator:a6cd722ee156c65b7404f4d16f7c796ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e90dd1cad5fb64b3ec1cb6fdba6626c"><td class="memItemLeft" align="right" valign="top"><a id="a0e90dd1cad5fb64b3ec1cb6fdba6626c" name="a0e90dd1cad5fb64b3ec1cb6fdba6626c"></a>
 GLint&#160;</td><td class="memItemRight" valign="bottom"><b>numTriangles</b> = 0</td></tr>
+<tr class="memdesc:a0e90dd1cad5fb64b3ec1cb6fdba6626c"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of triangles in the mesh triangle array <br /></td></tr>
 <tr class="separator:a0e90dd1cad5fb64b3ec1cb6fdba6626c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae45d50654b5900da6fc400e6738d343"><td class="memItemLeft" align="right" valign="top"><a id="aae45d50654b5900da6fc400e6738d343" name="aae45d50654b5900da6fc400e6738d343"></a>
 GLint&#160;</td><td class="memItemRight" valign="bottom"><b>numWeights</b> = 0</td></tr>
+<tr class="memdesc:aae45d50654b5900da6fc400e6738d343"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of weights in the mesh weight array <br /></td></tr>
 <tr class="separator:aae45d50654b5900da6fc400e6738d343"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff46de5dd0c948f1da601a0e3f9639f7"><td class="memItemLeft" align="right" valign="top"><a id="aff46de5dd0c948f1da601a0e3f9639f7" name="aff46de5dd0c948f1da601a0e3f9639f7"></a>
 char&#160;</td><td class="memItemRight" valign="bottom"><b>shader</b> [512] = &quot;&quot;</td></tr>
+<tr class="memdesc:aff46de5dd0c948f1da601a0e3f9639f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">base filename for all textures applied to mesh <br /></td></tr>
 <tr class="separator:aff46de5dd0c948f1da601a0e3f9639f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>mesh that comprises the model's skin </p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a1de339786389dba8d236be547720c68b" name="a1de339786389dba8d236be547720c68b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1de339786389dba8d236be547720c68b">&#9670;&#160;</a></span>TextureMap</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html#a1de339786389dba8d236be547720c68b">CSCI441::MD5Model::MD5Mesh::TextureMap</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>named entities for different texture maps applied to the model </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1de339786389dba8d236be547720c68ba55a7e98f249fcfa91f1036a4250c82d4" name="a1de339786389dba8d236be547720c68ba55a7e98f249fcfa91f1036a4250c82d4"></a>DIFFUSE&#160;</td><td class="fielddoc"><p>diffuse map </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1de339786389dba8d236be547720c68ba6648381d85831c8fbb04ab219d2085e6" name="a1de339786389dba8d236be547720c68ba6648381d85831c8fbb04ab219d2085e6"></a>SPECULAR&#160;</td><td class="fielddoc"><p>specular map </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1de339786389dba8d236be547720c68ba9eb5680a00902c8c326b5b9f4aecdbfb" name="a1de339786389dba8d236be547720c68ba9eb5680a00902c8c326b5b9f4aecdbfb"></a>NORMAL&#160;</td><td class="fielddoc"><p>normal map </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1de339786389dba8d236be547720c68bad0ab2196b08ba931649582ffb08659de" name="a1de339786389dba8d236be547720c68bad0ab2196b08ba931649582ffb08659de"></a>HEIGHT&#160;</td><td class="fielddoc"><p>height map </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="_m_d5_model_8hpp_source.html">MD5Model.hpp</a></li>
 </ul>

@@ -7,6 +7,11 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v 4.6.0 - ?? Sep 2023
+- Created MD5Model class to load, display, and animate md5mesh + md5anim files
+- Deleted copy constructor and copy assignment operator for ShaderProgram and ComputeShaderProgram to prevent shader program objects from being copied and then deallocated on the GPU
+- TextureUtils::loadAndRegisterTexture() now has a trailing parameter to specify if the image should be flipped when loaded or not (defaults to flip = true)
+
 ## v 4.5.0 - 31 Aug 2023
 - Camera stores projection matrix along with view matrix
   - ArcballCam, FixedCam, FreeCam operate with perspective projections

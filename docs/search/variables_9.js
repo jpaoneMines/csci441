@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['pearl_0',['PEARL',['../materials_8hpp.html#af2e71c996375b55da0f80445f9a083f1',1,'CSCI441::Materials']]],
-  ['pewter_1',['PEWTER',['../materials_8hpp.html#ae77557a331802f6228ef6c5dd21320af',1,'CSCI441::Materials']]]
+  ['lasttime_0',['lastTime',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_state.html#adf49659d1d428a4e505ef70e11e8e119',1,'CSCI441::MD5Model::MD5AnimationState']]]
 ];
