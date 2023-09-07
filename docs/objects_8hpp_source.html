@@ -159,29 +159,29 @@ $(function() {
 <div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <span class="comment">// stores data necessary to specify a unique cylinder</span></div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    <span class="keyword">struct </span>CylinderData {</div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        <span class="comment">// radius of the base</span></div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        GLfloat b;</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        GLfloat radiusBase;</div>
 <div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        <span class="comment">// radius of the top</span></div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        GLfloat t;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        GLfloat top;</div>
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        <span class="comment">// height</span></div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        GLfloat h;</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        GLfloat height;</div>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        <span class="comment">// number of stacks</span></div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        GLint st;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        GLint stacks;</div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        <span class="comment">// number of slices</span></div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        GLint sl;</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        GLint slices;</div>
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        <span class="keywordtype">bool</span> operator&lt;( <span class="keyword">const</span> CylinderData rhs )<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>            <span class="keywordflow">if</span>( b &lt; rhs.b ) {</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>            <span class="keywordflow">if</span>( radiusBase &lt; rhs.radiusBase ) {</div>
 <div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(b - rhs.b) &lt;= 0.000001 ) {</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>                <span class="keywordflow">if</span>( t &lt; rhs.t ) {</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(radiusBase - rhs.radiusBase) &lt;= 0.000001 ) {</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>                <span class="keywordflow">if</span>( top &lt; rhs.top ) {</div>
 <div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>                    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(t - rhs.t) &lt;= 0.000001 ) {</div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>                    <span class="keywordflow">if</span>( h &lt; rhs.h ) {</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(top - rhs.top) &lt;= 0.000001 ) {</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>                    <span class="keywordflow">if</span>( height &lt; rhs.height ) {</div>
 <div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>                        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>                    } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(h - rhs.h) &lt;= 0.000001 ) {</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>                        <span class="keywordflow">if</span>( st &lt; rhs.st ) {</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>                    } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(height - rhs.height) &lt;= 0.000001 ) {</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>                        <span class="keywordflow">if</span>( stacks &lt; rhs.stacks ) {</div>
 <div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>                            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( st == rhs.st ) {</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>                            <span class="keywordflow">if</span>( sl &lt; rhs.sl ) {</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( stacks == rhs.stacks ) {</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>                            <span class="keywordflow">if</span>( slices &lt; rhs.slices ) {</div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>                                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>                            }</div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>                        }</div>
@@ -196,25 +196,25 @@ $(function() {
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    <span class="keyword">inline</span> std::map&lt; CylinderData, GLuint &gt; _cylinderVBO;</div>
 <div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
 <div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <span class="keyword">struct </span>DiskData {</div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>        GLfloat i, o, st, sw;</div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>        GLint sl, r;</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>        GLfloat innerRadius, outerRadius, startAngle, sweepAngle;</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>        GLint slices, radius;</div>
 <div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>        <span class="keywordtype">bool</span> operator&lt;( <span class="keyword">const</span> DiskData rhs )<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>            <span class="keywordflow">if</span>( i &lt; rhs.i ) {</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>            <span class="keywordflow">if</span>( innerRadius &lt; rhs.innerRadius ) {</div>
 <div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(i - rhs.i) &lt;= 0.000001 ) {</div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>                <span class="keywordflow">if</span>( o &lt; rhs.o ) {</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(innerRadius - rhs.innerRadius) &lt;= 0.000001 ) {</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>                <span class="keywordflow">if</span>( outerRadius &lt; rhs.outerRadius ) {</div>
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>                    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(o - rhs.o) &lt;= 0.000001 ) {</div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>                    <span class="keywordflow">if</span>( st &lt; rhs.st ) {</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(outerRadius - rhs.outerRadius) &lt;= 0.000001 ) {</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>                    <span class="keywordflow">if</span>( startAngle &lt; rhs.startAngle ) {</div>
 <div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>                        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>                    } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(st - rhs.st) &lt;= 0.000001 ) {</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>                        <span class="keywordflow">if</span>( sw &lt; rhs.sw ) {</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>                    } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(startAngle - rhs.startAngle) &lt;= 0.000001 ) {</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>                        <span class="keywordflow">if</span>( sweepAngle &lt; rhs.sweepAngle ) {</div>
 <div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>                            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(sw - rhs.sw) &lt;= 0.000001 ) {</div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>                            <span class="keywordflow">if</span>( sl &lt; rhs.sl ) {</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(sweepAngle - rhs.sweepAngle) &lt;= 0.000001 ) {</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>                            <span class="keywordflow">if</span>( slices &lt; rhs.slices ) {</div>
 <div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>                                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( sl == rhs.sl ) {</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>                                <span class="keywordflow">if</span>( r &lt; rhs.r ) {</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( slices == rhs.slices ) {</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>                                <span class="keywordflow">if</span>( radius &lt; rhs.radius ) {</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>                                    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>                                }</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>                            }</div>
@@ -230,16 +230,16 @@ $(function() {
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    <span class="keyword">inline</span> std::map&lt; DiskData, GLuint &gt; _diskVBO;</div>
 <div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span> </div>
 <div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>    <span class="keyword">struct </span>SphereData {</div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>        GLfloat r;</div>
-<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>        GLint st, sl;</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>        GLfloat radius;</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>        GLint stacks, slices;</div>
 <div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>        <span class="keywordtype">bool</span> operator&lt;( <span class="keyword">const</span> SphereData rhs )<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>            <span class="keywordflow">if</span>( r &lt; rhs.r ) {</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>            <span class="keywordflow">if</span>( radius &lt; rhs.radius ) {</div>
 <div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(r - rhs.r) &lt;= 0.000001 ) {</div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>                <span class="keywordflow">if</span>( st &lt; rhs.st ) {</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(radius - rhs.radius) &lt;= 0.000001 ) {</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>                <span class="keywordflow">if</span>( stacks &lt; rhs.stacks ) {</div>
 <div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>                    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( st == rhs.st ) {</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>                    <span class="keywordflow">if</span>( sl &lt; rhs.sl ) {</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( stacks == rhs.stacks ) {</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>                    <span class="keywordflow">if</span>( slices &lt; rhs.slices ) {</div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>                        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>                    }</div>
 <div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>                }</div>
@@ -247,7 +247,7 @@ $(function() {
 <div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>        }</div>
 <div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span><span class="comment">//      bool operator==(const SphereData rhs) const {</span></div>
-<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span><span class="comment">//          return fabs(r - rhs.r) &lt;= 0.000001 &amp;&amp; st == rhs.st &amp;&amp; sl == rhs.sl;</span></div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span><span class="comment">//          return fabs(radius - rhs.radius) &lt;= 0.000001 &amp;&amp; stacks == rhs.stacks &amp;&amp; slices == rhs.slices;</span></div>
 <div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span><span class="comment">//      }</span></div>
 <div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>    };</div>
 <div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>    <span class="keywordtype">void</span> generateSphereVAO( SphereData sphereData );</div>
@@ -255,19 +255,19 @@ $(function() {
 <div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>    <span class="keyword">inline</span> std::map&lt; SphereData, GLuint &gt; _sphereVBO;</div>
 <div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span> </div>
 <div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>    <span class="keyword">struct </span>TorusData {</div>
-<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>        GLfloat i, o;</div>
-<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>        GLint s, r;</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>        GLfloat innerRadius, outerRadius;</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>        GLint sides, rings;</div>
 <div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>        <span class="keywordtype">bool</span> operator&lt;( <span class="keyword">const</span> TorusData rhs )<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>            <span class="keywordflow">if</span>( i &lt; rhs.i ) {</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>            <span class="keywordflow">if</span>( innerRadius &lt; rhs.innerRadius ) {</div>
 <div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(i - rhs.i) &lt;= 0.000001 ) {</div>
-<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>                <span class="keywordflow">if</span>( o &lt; rhs.o ) {</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(innerRadius - rhs.innerRadius) &lt;= 0.000001 ) {</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>                <span class="keywordflow">if</span>( outerRadius &lt; rhs.outerRadius ) {</div>
 <div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>                    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(o - rhs.o) &lt;= 0.000001 ) {</div>
-<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>                    <span class="keywordflow">if</span>( s &lt; rhs.s ) {</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( fabs(outerRadius - rhs.outerRadius) &lt;= 0.000001 ) {</div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>                    <span class="keywordflow">if</span>( sides &lt; rhs.sides ) {</div>
 <div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>                        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>                    } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( s == rhs.s ) {</div>
-<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>                        <span class="keywordflow">if</span>( r &lt; rhs.r ) {</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>                    } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( sides == rhs.sides ) {</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>                        <span class="keywordflow">if</span>( rings &lt; rhs.rings ) {</div>
 <div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>                            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>                        }</div>
 <div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>                    }</div>
@@ -568,7 +568,7 @@ $(function() {
 <div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>        CSCI441_INTERNAL::generateCylinderVAO( cylData );</div>
 <div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    }</div>
 <div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span> </div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> numVertices = cylData.st * (cylData.sl+1) * 2;</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> numVertices = cylData.stacks * (cylData.slices + 1) * 2;</div>
 <div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span> </div>
 <div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>    GLint currentPolygonMode[2];</div>
 <div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>    glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);</div>
@@ -862,10 +862,10 @@ $(function() {
 <div class="line"><a id="l01025" name="l01025"></a><span class="lineno"> 1025</span>    glGenBuffers( 1, &amp;vbod );</div>
 <div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span>    glBindBuffer( GL_ARRAY_BUFFER, vbod );</div>
 <div class="line"><a id="l01027" name="l01027"></a><span class="lineno"> 1027</span> </div>
-<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> numVertices = cylData.st * (cylData.sl+1) * 2;</div>
+<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> numVertices = cylData.stacks * (cylData.slices + 1) * 2;</div>
 <div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span> </div>
-<div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span>    GLfloat sliceStep = 2.0f * M_PI / cylData.sl;</div>
-<div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span>    GLfloat stackStep = cylData.h / cylData.st;</div>
+<div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span>    GLfloat sliceStep = 2.0f * M_PI / cylData.slices;</div>
+<div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span>    GLfloat stackStep = cylData.height / cylData.stacks;</div>
 <div class="line"><a id="l01032" name="l01032"></a><span class="lineno"> 1032</span> </div>
 <div class="line"><a id="l01033" name="l01033"></a><span class="lineno"> 1033</span>    <span class="keyword">auto</span> vertices = (GLfloat*)malloc(<span class="keyword">sizeof</span>(GLfloat)*numVertices*3);</div>
 <div class="line"><a id="l01034" name="l01034"></a><span class="lineno"> 1034</span>    <span class="keyword">auto</span> texCoords = (GLfloat*)malloc(<span class="keyword">sizeof</span>(GLfloat)*numVertices*2);</div>
@@ -873,17 +873,17 @@ $(function() {
 <div class="line"><a id="l01036" name="l01036"></a><span class="lineno"> 1036</span> </div>
 <div class="line"><a id="l01037" name="l01037"></a><span class="lineno"> 1037</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> idx = 0;</div>
 <div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span> </div>
-<div class="line"><a id="l01039" name="l01039"></a><span class="lineno"> 1039</span>    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> stackNum = 0; stackNum &lt; cylData.st; stackNum++ ) {</div>
-<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span>        GLfloat botRadius = cylData.b*(cylData.st-stackNum)/cylData.st + cylData.t*stackNum/cylData.st;</div>
-<div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span>        GLfloat topRadius = cylData.b*(cylData.st-stackNum-1)/cylData.st + cylData.t*(stackNum+1)/cylData.st;</div>
+<div class="line"><a id="l01039" name="l01039"></a><span class="lineno"> 1039</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> stackNum = 0; stackNum &lt; cylData.stacks; stackNum++ ) {</div>
+<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span>        GLfloat botRadius = cylData.radiusBase * (cylData.stacks - stackNum) / cylData.stacks + cylData.top * stackNum / cylData.stacks;</div>
+<div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span>        GLfloat topRadius = cylData.radiusBase * (cylData.stacks - stackNum - 1) / cylData.stacks + cylData.top * (stackNum + 1) / cylData.stacks;</div>
 <div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span> </div>
-<div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span>        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> sliceNum = 0; sliceNum &lt;= cylData.sl; sliceNum++ ) {</div>
+<div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> sliceNum = 0; sliceNum &lt;= cylData.slices; sliceNum++ ) {</div>
 <div class="line"><a id="l01044" name="l01044"></a><span class="lineno"> 1044</span>            normals[ idx*3 + 0 ] = glm::cos( sliceNum * sliceStep );</div>
 <div class="line"><a id="l01045" name="l01045"></a><span class="lineno"> 1045</span>            normals[ idx*3 + 1 ] = 0.0f;</div>
 <div class="line"><a id="l01046" name="l01046"></a><span class="lineno"> 1046</span>            normals[ idx*3 + 2 ] = glm::sin( sliceNum * sliceStep );</div>
 <div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span> </div>
-<div class="line"><a id="l01048" name="l01048"></a><span class="lineno"> 1048</span>            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / cylData.sl;</div>
-<div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span>            texCoords[ idx*2 + 1 ] = (GLfloat)stackNum / cylData.st;</div>
+<div class="line"><a id="l01048" name="l01048"></a><span class="lineno"> 1048</span>            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / cylData.slices;</div>
+<div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span>            texCoords[ idx*2 + 1 ] = (GLfloat)stackNum / cylData.stacks;</div>
 <div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span> </div>
 <div class="line"><a id="l01051" name="l01051"></a><span class="lineno"> 1051</span>            vertices[ idx*3 + 0 ] = glm::cos( sliceNum * sliceStep )*botRadius;</div>
 <div class="line"><a id="l01052" name="l01052"></a><span class="lineno"> 1052</span>            vertices[ idx*3 + 1 ] = stackNum * stackStep;</div>
@@ -895,8 +895,8 @@ $(function() {
 <div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span>            normals[ idx*3 + 1 ] = 0.0f;</div>
 <div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span>            normals[ idx*3 + 2 ] = glm::sin( sliceNum * sliceStep );</div>
 <div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span> </div>
-<div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span>            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / cylData.sl;</div>
-<div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span>            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum+1) / cylData.st;</div>
+<div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span>            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / cylData.slices;</div>
+<div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span>            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum+1) / cylData.stacks;</div>
 <div class="line"><a id="l01063" name="l01063"></a><span class="lineno"> 1063</span> </div>
 <div class="line"><a id="l01064" name="l01064"></a><span class="lineno"> 1064</span>            vertices[ idx*3 + 0 ] = glm::cos( sliceNum * sliceStep )*topRadius;</div>
 <div class="line"><a id="l01065" name="l01065"></a><span class="lineno"> 1065</span>            vertices[ idx*3 + 1 ] = (stackNum+1) * stackStep;</div>
@@ -928,10 +928,10 @@ $(function() {
 <div class="line"><a id="l01091" name="l01091"></a><span class="lineno"> 1091</span>    glGenBuffers( 1, &amp;vbod );</div>
 <div class="line"><a id="l01092" name="l01092"></a><span class="lineno"> 1092</span>    glBindBuffer( GL_ARRAY_BUFFER, vbod );</div>
 <div class="line"><a id="l01093" name="l01093"></a><span class="lineno"> 1093</span> </div>
-<div class="line"><a id="l01094" name="l01094"></a><span class="lineno"> 1094</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> numVertices = diskData.r * (diskData.sl+1) * 2;</div>
+<div class="line"><a id="l01094" name="l01094"></a><span class="lineno"> 1094</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> numVertices = diskData.radius * (diskData.slices + 1) * 2;</div>
 <div class="line"><a id="l01095" name="l01095"></a><span class="lineno"> 1095</span> </div>
-<div class="line"><a id="l01096" name="l01096"></a><span class="lineno"> 1096</span>    GLfloat sliceStep = diskData.sw / diskData.sl;</div>
-<div class="line"><a id="l01097" name="l01097"></a><span class="lineno"> 1097</span>    GLfloat ringStep = (diskData.o - diskData.i) / diskData.r;</div>
+<div class="line"><a id="l01096" name="l01096"></a><span class="lineno"> 1096</span>    GLfloat sliceStep = diskData.sweepAngle / diskData.slices;</div>
+<div class="line"><a id="l01097" name="l01097"></a><span class="lineno"> 1097</span>    GLfloat ringStep = (diskData.outerRadius - diskData.innerRadius) / diskData.radius;</div>
 <div class="line"><a id="l01098" name="l01098"></a><span class="lineno"> 1098</span> </div>
 <div class="line"><a id="l01099" name="l01099"></a><span class="lineno"> 1099</span>    <span class="keyword">auto</span> vertices = (GLfloat*)malloc(<span class="keyword">sizeof</span>(GLfloat)*numVertices*3);</div>
 <div class="line"><a id="l01100" name="l01100"></a><span class="lineno"> 1100</span>    <span class="keyword">auto</span> texCoords = (GLfloat*)malloc(<span class="keyword">sizeof</span>(GLfloat)*numVertices*2);</div>
@@ -939,18 +939,18 @@ $(function() {
 <div class="line"><a id="l01102" name="l01102"></a><span class="lineno"> 1102</span> </div>
 <div class="line"><a id="l01103" name="l01103"></a><span class="lineno"> 1103</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> idx = 0;</div>
 <div class="line"><a id="l01104" name="l01104"></a><span class="lineno"> 1104</span> </div>
-<div class="line"><a id="l01105" name="l01105"></a><span class="lineno"> 1105</span>    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> ringNum = 0; ringNum &lt; diskData.r; ringNum++ ) {</div>
-<div class="line"><a id="l01106" name="l01106"></a><span class="lineno"> 1106</span>        GLfloat currRadius = diskData.i + ringNum*ringStep;</div>
-<div class="line"><a id="l01107" name="l01107"></a><span class="lineno"> 1107</span>        GLfloat nextRadius = diskData.i + (ringNum+1)*ringStep;</div>
+<div class="line"><a id="l01105" name="l01105"></a><span class="lineno"> 1105</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> ringNum = 0; ringNum &lt; diskData.radius; ringNum++ ) {</div>
+<div class="line"><a id="l01106" name="l01106"></a><span class="lineno"> 1106</span>        GLfloat currRadius = diskData.innerRadius + ringNum * ringStep;</div>
+<div class="line"><a id="l01107" name="l01107"></a><span class="lineno"> 1107</span>        GLfloat nextRadius = diskData.innerRadius + (ringNum + 1) * ringStep;</div>
 <div class="line"><a id="l01108" name="l01108"></a><span class="lineno"> 1108</span> </div>
-<div class="line"><a id="l01109" name="l01109"></a><span class="lineno"> 1109</span>        GLfloat theta = diskData.st;</div>
-<div class="line"><a id="l01110" name="l01110"></a><span class="lineno"> 1110</span>        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i = 0; i &lt;= diskData.sl; i++, theta += sliceStep ) {</div>
+<div class="line"><a id="l01109" name="l01109"></a><span class="lineno"> 1109</span>        GLfloat theta = diskData.startAngle;</div>
+<div class="line"><a id="l01110" name="l01110"></a><span class="lineno"> 1110</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt;= diskData.slices; i++, theta += sliceStep ) {</div>
 <div class="line"><a id="l01111" name="l01111"></a><span class="lineno"> 1111</span>            normals[ idx*3 + 0 ] = 0.0f;</div>
 <div class="line"><a id="l01112" name="l01112"></a><span class="lineno"> 1112</span>            normals[ idx*3 + 1 ] = 0.0f;</div>
 <div class="line"><a id="l01113" name="l01113"></a><span class="lineno"> 1113</span>            normals[ idx*3 + 2 ] = 1.0f;</div>
 <div class="line"><a id="l01114" name="l01114"></a><span class="lineno"> 1114</span> </div>
-<div class="line"><a id="l01115" name="l01115"></a><span class="lineno"> 1115</span>            texCoords[ idx*2 + 0 ] = glm::cos(theta)*(currRadius/diskData.o);</div>
-<div class="line"><a id="l01116" name="l01116"></a><span class="lineno"> 1116</span>            texCoords[ idx*2 + 1 ] = glm::sin(theta)*(currRadius/diskData.o);</div>
+<div class="line"><a id="l01115" name="l01115"></a><span class="lineno"> 1115</span>            texCoords[ idx*2 + 0 ] = glm::cos(theta)*(currRadius/diskData.outerRadius);</div>
+<div class="line"><a id="l01116" name="l01116"></a><span class="lineno"> 1116</span>            texCoords[ idx*2 + 1 ] = glm::sin(theta)*(currRadius/diskData.outerRadius);</div>
 <div class="line"><a id="l01117" name="l01117"></a><span class="lineno"> 1117</span> </div>
 <div class="line"><a id="l01118" name="l01118"></a><span class="lineno"> 1118</span>            vertices[ idx*3 + 0 ] = glm::cos(theta)*currRadius;</div>
 <div class="line"><a id="l01119" name="l01119"></a><span class="lineno"> 1119</span>            vertices[ idx*3 + 1 ] = glm::sin(theta)*currRadius;</div>
@@ -962,8 +962,8 @@ $(function() {
 <div class="line"><a id="l01125" name="l01125"></a><span class="lineno"> 1125</span>            normals[ idx*3 + 1 ] = 0.0f;</div>
 <div class="line"><a id="l01126" name="l01126"></a><span class="lineno"> 1126</span>            normals[ idx*3 + 2 ] = 1.0f;</div>
 <div class="line"><a id="l01127" name="l01127"></a><span class="lineno"> 1127</span> </div>
-<div class="line"><a id="l01128" name="l01128"></a><span class="lineno"> 1128</span>            texCoords[ idx*2 + 0 ] = glm::cos(theta)*(nextRadius/diskData.o);</div>
-<div class="line"><a id="l01129" name="l01129"></a><span class="lineno"> 1129</span>            texCoords[ idx*2 + 1 ] = glm::sin(theta)*(nextRadius/diskData.o);</div>
+<div class="line"><a id="l01128" name="l01128"></a><span class="lineno"> 1128</span>            texCoords[ idx*2 + 0 ] = glm::cos(theta)*(nextRadius/diskData.outerRadius);</div>
+<div class="line"><a id="l01129" name="l01129"></a><span class="lineno"> 1129</span>            texCoords[ idx*2 + 1 ] = glm::sin(theta)*(nextRadius/diskData.outerRadius);</div>
 <div class="line"><a id="l01130" name="l01130"></a><span class="lineno"> 1130</span> </div>
 <div class="line"><a id="l01131" name="l01131"></a><span class="lineno"> 1131</span>            vertices[ idx*3 + 0 ] = glm::cos(theta)*nextRadius;</div>
 <div class="line"><a id="l01132" name="l01132"></a><span class="lineno"> 1132</span>            vertices[ idx*3 + 1 ] = glm::sin(theta)*nextRadius;</div>
@@ -995,10 +995,10 @@ $(function() {
 <div class="line"><a id="l01158" name="l01158"></a><span class="lineno"> 1158</span>    glGenBuffers( 1, &amp;vbod );</div>
 <div class="line"><a id="l01159" name="l01159"></a><span class="lineno"> 1159</span>    glBindBuffer( GL_ARRAY_BUFFER, vbod );</div>
 <div class="line"><a id="l01160" name="l01160"></a><span class="lineno"> 1160</span> </div>
-<div class="line"><a id="l01161" name="l01161"></a><span class="lineno"> 1161</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> numVertices = (sphereData.sl + 2)*2 + ((sphereData.st - 2)*(sphereData.sl+1))*2;</div>
+<div class="line"><a id="l01161" name="l01161"></a><span class="lineno"> 1161</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> numVertices = (sphereData.slices + 2) * 2 + ((sphereData.stacks - 2) * (sphereData.slices + 1)) * 2;</div>
 <div class="line"><a id="l01162" name="l01162"></a><span class="lineno"> 1162</span> </div>
-<div class="line"><a id="l01163" name="l01163"></a><span class="lineno"> 1163</span>    GLfloat sliceStep = 2.0f * M_PI / sphereData.sl;</div>
-<div class="line"><a id="l01164" name="l01164"></a><span class="lineno"> 1164</span>    GLfloat stackStep = M_PI / sphereData.st;</div>
+<div class="line"><a id="l01163" name="l01163"></a><span class="lineno"> 1163</span>    GLfloat sliceStep = 2.0f * M_PI / sphereData.slices;</div>
+<div class="line"><a id="l01164" name="l01164"></a><span class="lineno"> 1164</span>    GLfloat stackStep = M_PI / sphereData.stacks;</div>
 <div class="line"><a id="l01165" name="l01165"></a><span class="lineno"> 1165</span> </div>
 <div class="line"><a id="l01166" name="l01166"></a><span class="lineno"> 1166</span>    <span class="keyword">auto</span> vertices = (GLfloat*)malloc(<span class="keyword">sizeof</span>(GLfloat)*numVertices*3);</div>
 <div class="line"><a id="l01167" name="l01167"></a><span class="lineno"> 1167</span>    <span class="keyword">auto</span> texCoords = (GLfloat*)malloc(<span class="keyword">sizeof</span>(GLfloat)*numVertices*2);</div>
@@ -1007,8 +1007,8 @@ $(function() {
 <div class="line"><a id="l01170" name="l01170"></a><span class="lineno"> 1170</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> idx = 0;</div>
 <div class="line"><a id="l01171" name="l01171"></a><span class="lineno"> 1171</span> </div>
 <div class="line"><a id="l01172" name="l01172"></a><span class="lineno"> 1172</span>    <span class="comment">// sphere top</span></div>
-<div class="line"><a id="l01173" name="l01173"></a><span class="lineno"> 1173</span>    GLfloat phi = stackStep * sphereData.st;</div>
-<div class="line"><a id="l01174" name="l01174"></a><span class="lineno"> 1174</span>    GLfloat phiNext = stackStep * (sphereData.st-1);</div>
+<div class="line"><a id="l01173" name="l01173"></a><span class="lineno"> 1173</span>    GLfloat phi = stackStep * sphereData.stacks;</div>
+<div class="line"><a id="l01174" name="l01174"></a><span class="lineno"> 1174</span>    GLfloat phiNext = stackStep * (sphereData.stacks - 1);</div>
 <div class="line"><a id="l01175" name="l01175"></a><span class="lineno"> 1175</span> </div>
 <div class="line"><a id="l01176" name="l01176"></a><span class="lineno"> 1176</span>    normals[ idx*3 + 0 ] = 0.0f;</div>
 <div class="line"><a id="l01177" name="l01177"></a><span class="lineno"> 1177</span>    normals[ idx*3 + 1 ] = 1.0f;</div>
@@ -1018,46 +1018,46 @@ $(function() {
 <div class="line"><a id="l01181" name="l01181"></a><span class="lineno"> 1181</span>    texCoords[ idx*2 + 1 ] = 1.0f;</div>
 <div class="line"><a id="l01182" name="l01182"></a><span class="lineno"> 1182</span> </div>
 <div class="line"><a id="l01183" name="l01183"></a><span class="lineno"> 1183</span>    vertices[ idx*3 + 0 ] = 0.0f;</div>
-<div class="line"><a id="l01184" name="l01184"></a><span class="lineno"> 1184</span>    vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.r;</div>
+<div class="line"><a id="l01184" name="l01184"></a><span class="lineno"> 1184</span>    vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.radius;</div>
 <div class="line"><a id="l01185" name="l01185"></a><span class="lineno"> 1185</span>    vertices[ idx*3 + 2 ] = 0.0f;</div>
 <div class="line"><a id="l01186" name="l01186"></a><span class="lineno"> 1186</span> </div>
 <div class="line"><a id="l01187" name="l01187"></a><span class="lineno"> 1187</span>    idx++;</div>
 <div class="line"><a id="l01188" name="l01188"></a><span class="lineno"> 1188</span> </div>
-<div class="line"><a id="l01189" name="l01189"></a><span class="lineno"> 1189</span>    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> sliceNum = 0; sliceNum &lt;= sphereData.sl; sliceNum++ ) {</div>
+<div class="line"><a id="l01189" name="l01189"></a><span class="lineno"> 1189</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> sliceNum = 0; sliceNum &lt;= sphereData.slices; sliceNum++ ) {</div>
 <div class="line"><a id="l01190" name="l01190"></a><span class="lineno"> 1190</span>        GLfloat theta = sliceStep * sliceNum;</div>
 <div class="line"><a id="l01191" name="l01191"></a><span class="lineno"> 1191</span> </div>
 <div class="line"><a id="l01192" name="l01192"></a><span class="lineno"> 1192</span>        normals[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext );</div>
 <div class="line"><a id="l01193" name="l01193"></a><span class="lineno"> 1193</span>        normals[ idx*3 + 1 ] = -glm::cos( phiNext );</div>
 <div class="line"><a id="l01194" name="l01194"></a><span class="lineno"> 1194</span>        normals[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext );</div>
 <div class="line"><a id="l01195" name="l01195"></a><span class="lineno"> 1195</span> </div>
-<div class="line"><a id="l01196" name="l01196"></a><span class="lineno"> 1196</span>        texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.sl;</div>
+<div class="line"><a id="l01196" name="l01196"></a><span class="lineno"> 1196</span>        texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.slices;</div>
 <div class="line"><a id="l01197" name="l01197"></a><span class="lineno"> 1197</span>        texCoords[ idx*2 + 1 ] = 1.0f;</div>
 <div class="line"><a id="l01198" name="l01198"></a><span class="lineno"> 1198</span> </div>
-<div class="line"><a id="l01199" name="l01199"></a><span class="lineno"> 1199</span>        vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.r;</div>
-<div class="line"><a id="l01200" name="l01200"></a><span class="lineno"> 1200</span>        vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.r;</div>
-<div class="line"><a id="l01201" name="l01201"></a><span class="lineno"> 1201</span>        vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.r;</div>
+<div class="line"><a id="l01199" name="l01199"></a><span class="lineno"> 1199</span>        vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;</div>
+<div class="line"><a id="l01200" name="l01200"></a><span class="lineno"> 1200</span>        vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.radius;</div>
+<div class="line"><a id="l01201" name="l01201"></a><span class="lineno"> 1201</span>        vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.radius;</div>
 <div class="line"><a id="l01202" name="l01202"></a><span class="lineno"> 1202</span> </div>
 <div class="line"><a id="l01203" name="l01203"></a><span class="lineno"> 1203</span>        idx++;</div>
 <div class="line"><a id="l01204" name="l01204"></a><span class="lineno"> 1204</span>    }</div>
 <div class="line"><a id="l01205" name="l01205"></a><span class="lineno"> 1205</span> </div>
 <div class="line"><a id="l01206" name="l01206"></a><span class="lineno"> 1206</span>    <span class="comment">// sphere stacks</span></div>
-<div class="line"><a id="l01207" name="l01207"></a><span class="lineno"> 1207</span>    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> stackNum = 1; stackNum &lt; sphereData.st-1; stackNum++ ) {</div>
+<div class="line"><a id="l01207" name="l01207"></a><span class="lineno"> 1207</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> stackNum = 1; stackNum &lt; sphereData.stacks - 1; stackNum++ ) {</div>
 <div class="line"><a id="l01208" name="l01208"></a><span class="lineno"> 1208</span>        phi = stackStep * stackNum;</div>
 <div class="line"><a id="l01209" name="l01209"></a><span class="lineno"> 1209</span>        phiNext = stackStep * (stackNum + 1);</div>
 <div class="line"><a id="l01210" name="l01210"></a><span class="lineno"> 1210</span> </div>
-<div class="line"><a id="l01211" name="l01211"></a><span class="lineno"> 1211</span>        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> sliceNum = sphereData.sl; sliceNum &gt;= 0; sliceNum-- ) {</div>
+<div class="line"><a id="l01211" name="l01211"></a><span class="lineno"> 1211</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> sliceNum = sphereData.slices; sliceNum &gt;= 0; sliceNum-- ) {</div>
 <div class="line"><a id="l01212" name="l01212"></a><span class="lineno"> 1212</span>            GLfloat theta = sliceStep * sliceNum;</div>
 <div class="line"><a id="l01213" name="l01213"></a><span class="lineno"> 1213</span> </div>
 <div class="line"><a id="l01214" name="l01214"></a><span class="lineno"> 1214</span>            normals[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phi );</div>
 <div class="line"><a id="l01215" name="l01215"></a><span class="lineno"> 1215</span>            normals[ idx*3 + 1 ] = -glm::cos( phi );</div>
 <div class="line"><a id="l01216" name="l01216"></a><span class="lineno"> 1216</span>            normals[ idx*3 + 2 ] =  glm::sin( theta )*glm::sin( phi );</div>
 <div class="line"><a id="l01217" name="l01217"></a><span class="lineno"> 1217</span> </div>
-<div class="line"><a id="l01218" name="l01218"></a><span class="lineno"> 1218</span>            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.sl;</div>
-<div class="line"><a id="l01219" name="l01219"></a><span class="lineno"> 1219</span>            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum-1) / (sphereData.st-2);</div>
+<div class="line"><a id="l01218" name="l01218"></a><span class="lineno"> 1218</span>            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.slices;</div>
+<div class="line"><a id="l01219" name="l01219"></a><span class="lineno"> 1219</span>            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum-1) / (sphereData.stacks - 2);</div>
 <div class="line"><a id="l01220" name="l01220"></a><span class="lineno"> 1220</span> </div>
-<div class="line"><a id="l01221" name="l01221"></a><span class="lineno"> 1221</span>            vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phi )*sphereData.r;</div>
-<div class="line"><a id="l01222" name="l01222"></a><span class="lineno"> 1222</span>            vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.r;</div>
-<div class="line"><a id="l01223" name="l01223"></a><span class="lineno"> 1223</span>            vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phi )*sphereData.r;</div>
+<div class="line"><a id="l01221" name="l01221"></a><span class="lineno"> 1221</span>            vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phi )*sphereData.radius;</div>
+<div class="line"><a id="l01222" name="l01222"></a><span class="lineno"> 1222</span>            vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.radius;</div>
+<div class="line"><a id="l01223" name="l01223"></a><span class="lineno"> 1223</span>            vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phi )*sphereData.radius;</div>
 <div class="line"><a id="l01224" name="l01224"></a><span class="lineno"> 1224</span> </div>
 <div class="line"><a id="l01225" name="l01225"></a><span class="lineno"> 1225</span>            idx++;</div>
 <div class="line"><a id="l01226" name="l01226"></a><span class="lineno"> 1226</span> </div>
@@ -1065,12 +1065,12 @@ $(function() {
 <div class="line"><a id="l01228" name="l01228"></a><span class="lineno"> 1228</span>            normals[ idx*3 + 1 ] = -glm::cos( phiNext );</div>
 <div class="line"><a id="l01229" name="l01229"></a><span class="lineno"> 1229</span>            normals[ idx*3 + 2 ] =  glm::sin( theta )*glm::sin( phiNext );</div>
 <div class="line"><a id="l01230" name="l01230"></a><span class="lineno"> 1230</span> </div>
-<div class="line"><a id="l01231" name="l01231"></a><span class="lineno"> 1231</span>            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.sl;</div>
-<div class="line"><a id="l01232" name="l01232"></a><span class="lineno"> 1232</span>            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum) / (sphereData.st-2);</div>
+<div class="line"><a id="l01231" name="l01231"></a><span class="lineno"> 1231</span>            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.slices;</div>
+<div class="line"><a id="l01232" name="l01232"></a><span class="lineno"> 1232</span>            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum) / (sphereData.stacks - 2);</div>
 <div class="line"><a id="l01233" name="l01233"></a><span class="lineno"> 1233</span> </div>
-<div class="line"><a id="l01234" name="l01234"></a><span class="lineno"> 1234</span>            vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.r;</div>
-<div class="line"><a id="l01235" name="l01235"></a><span class="lineno"> 1235</span>            vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.r;</div>
-<div class="line"><a id="l01236" name="l01236"></a><span class="lineno"> 1236</span>            vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.r;</div>
+<div class="line"><a id="l01234" name="l01234"></a><span class="lineno"> 1234</span>            vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;</div>
+<div class="line"><a id="l01235" name="l01235"></a><span class="lineno"> 1235</span>            vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.radius;</div>
+<div class="line"><a id="l01236" name="l01236"></a><span class="lineno"> 1236</span>            vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.radius;</div>
 <div class="line"><a id="l01237" name="l01237"></a><span class="lineno"> 1237</span> </div>
 <div class="line"><a id="l01238" name="l01238"></a><span class="lineno"> 1238</span>            idx++;</div>
 <div class="line"><a id="l01239" name="l01239"></a><span class="lineno"> 1239</span>        }</div>
@@ -1088,24 +1088,24 @@ $(function() {
 <div class="line"><a id="l01251" name="l01251"></a><span class="lineno"> 1251</span>    texCoords[ idx*2 + 1 ] = 0.0f;</div>
 <div class="line"><a id="l01252" name="l01252"></a><span class="lineno"> 1252</span> </div>
 <div class="line"><a id="l01253" name="l01253"></a><span class="lineno"> 1253</span>    vertices[ idx*3 + 0 ] = 0.0f;</div>
-<div class="line"><a id="l01254" name="l01254"></a><span class="lineno"> 1254</span>    vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.r;</div>
+<div class="line"><a id="l01254" name="l01254"></a><span class="lineno"> 1254</span>    vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.radius;</div>
 <div class="line"><a id="l01255" name="l01255"></a><span class="lineno"> 1255</span>    vertices[ idx*3 + 2 ] = 0.0f;</div>
 <div class="line"><a id="l01256" name="l01256"></a><span class="lineno"> 1256</span> </div>
 <div class="line"><a id="l01257" name="l01257"></a><span class="lineno"> 1257</span>    idx++;</div>
 <div class="line"><a id="l01258" name="l01258"></a><span class="lineno"> 1258</span> </div>
-<div class="line"><a id="l01259" name="l01259"></a><span class="lineno"> 1259</span>    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> sliceNum = sphereData.sl; sliceNum &gt;= 0; sliceNum-- ) {</div>
+<div class="line"><a id="l01259" name="l01259"></a><span class="lineno"> 1259</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> sliceNum = sphereData.slices; sliceNum &gt;= 0; sliceNum-- ) {</div>
 <div class="line"><a id="l01260" name="l01260"></a><span class="lineno"> 1260</span>        GLfloat theta = sliceStep * sliceNum;</div>
 <div class="line"><a id="l01261" name="l01261"></a><span class="lineno"> 1261</span> </div>
 <div class="line"><a id="l01262" name="l01262"></a><span class="lineno"> 1262</span>        normals[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext );</div>
 <div class="line"><a id="l01263" name="l01263"></a><span class="lineno"> 1263</span>        normals[ idx*3 + 1 ] = -glm::cos( phiNext );</div>
 <div class="line"><a id="l01264" name="l01264"></a><span class="lineno"> 1264</span>        normals[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext );</div>
 <div class="line"><a id="l01265" name="l01265"></a><span class="lineno"> 1265</span> </div>
-<div class="line"><a id="l01266" name="l01266"></a><span class="lineno"> 1266</span>        texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.sl;</div>
+<div class="line"><a id="l01266" name="l01266"></a><span class="lineno"> 1266</span>        texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.slices;</div>
 <div class="line"><a id="l01267" name="l01267"></a><span class="lineno"> 1267</span>        texCoords[ idx*2 + 1 ] = 0.0f;</div>
 <div class="line"><a id="l01268" name="l01268"></a><span class="lineno"> 1268</span> </div>
-<div class="line"><a id="l01269" name="l01269"></a><span class="lineno"> 1269</span>        vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.r;</div>
-<div class="line"><a id="l01270" name="l01270"></a><span class="lineno"> 1270</span>        vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.r;</div>
-<div class="line"><a id="l01271" name="l01271"></a><span class="lineno"> 1271</span>        vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.r;</div>
+<div class="line"><a id="l01269" name="l01269"></a><span class="lineno"> 1269</span>        vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;</div>
+<div class="line"><a id="l01270" name="l01270"></a><span class="lineno"> 1270</span>        vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.radius;</div>
+<div class="line"><a id="l01271" name="l01271"></a><span class="lineno"> 1271</span>        vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.radius;</div>
 <div class="line"><a id="l01272" name="l01272"></a><span class="lineno"> 1272</span> </div>
 <div class="line"><a id="l01273" name="l01273"></a><span class="lineno"> 1273</span>        idx++;</div>
 <div class="line"><a id="l01274" name="l01274"></a><span class="lineno"> 1274</span>    }</div>
@@ -1132,7 +1132,7 @@ $(function() {
 <div class="line"><a id="l01295" name="l01295"></a><span class="lineno"> 1295</span>    glGenBuffers( 1, &amp;vbod );</div>
 <div class="line"><a id="l01296" name="l01296"></a><span class="lineno"> 1296</span>    glBindBuffer( GL_ARRAY_BUFFER, vbod );</div>
 <div class="line"><a id="l01297" name="l01297"></a><span class="lineno"> 1297</span> </div>
-<div class="line"><a id="l01298" name="l01298"></a><span class="lineno"> 1298</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> numVertices = torusData.s * 4 * torusData.r;</div>
+<div class="line"><a id="l01298" name="l01298"></a><span class="lineno"> 1298</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> numVertices = torusData.sides * 4 * torusData.rings;</div>
 <div class="line"><a id="l01299" name="l01299"></a><span class="lineno"> 1299</span> </div>
 <div class="line"><a id="l01300" name="l01300"></a><span class="lineno"> 1300</span>    <span class="keyword">auto</span> vertices = (GLfloat*)malloc(<span class="keyword">sizeof</span>(GLfloat)*numVertices*3);</div>
 <div class="line"><a id="l01301" name="l01301"></a><span class="lineno"> 1301</span>    <span class="keyword">auto</span> texCoords = (GLfloat*)malloc(<span class="keyword">sizeof</span>(GLfloat)*numVertices*2);</div>
@@ -1140,14 +1140,14 @@ $(function() {
 <div class="line"><a id="l01303" name="l01303"></a><span class="lineno"> 1303</span> </div>
 <div class="line"><a id="l01304" name="l01304"></a><span class="lineno"> 1304</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> idx = 0;</div>
 <div class="line"><a id="l01305" name="l01305"></a><span class="lineno"> 1305</span> </div>
-<div class="line"><a id="l01306" name="l01306"></a><span class="lineno"> 1306</span>    GLfloat sideStep = 2.0f * M_PI / torusData.s;</div>
-<div class="line"><a id="l01307" name="l01307"></a><span class="lineno"> 1307</span>    GLfloat ringStep = 2.0f * M_PI / torusData.r;</div>
+<div class="line"><a id="l01306" name="l01306"></a><span class="lineno"> 1306</span>    GLfloat sideStep = 2.0f * M_PI / torusData.sides;</div>
+<div class="line"><a id="l01307" name="l01307"></a><span class="lineno"> 1307</span>    GLfloat ringStep = 2.0f * M_PI / torusData.rings;</div>
 <div class="line"><a id="l01308" name="l01308"></a><span class="lineno"> 1308</span> </div>
-<div class="line"><a id="l01309" name="l01309"></a><span class="lineno"> 1309</span>    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> ringNum = 0; ringNum &lt; torusData.r; ringNum++ ) {</div>
+<div class="line"><a id="l01309" name="l01309"></a><span class="lineno"> 1309</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> ringNum = 0; ringNum &lt; torusData.rings; ringNum++ ) {</div>
 <div class="line"><a id="l01310" name="l01310"></a><span class="lineno"> 1310</span>        GLfloat currTheta = ringStep * ringNum;</div>
 <div class="line"><a id="l01311" name="l01311"></a><span class="lineno"> 1311</span>        GLfloat nextTheta = ringStep * (ringNum+1);</div>
 <div class="line"><a id="l01312" name="l01312"></a><span class="lineno"> 1312</span> </div>
-<div class="line"><a id="l01313" name="l01313"></a><span class="lineno"> 1313</span>        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> sideNum = 0; sideNum &lt; torusData.s; sideNum++ ) {</div>
+<div class="line"><a id="l01313" name="l01313"></a><span class="lineno"> 1313</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> sideNum = 0; sideNum &lt; torusData.sides; sideNum++ ) {</div>
 <div class="line"><a id="l01314" name="l01314"></a><span class="lineno"> 1314</span>            GLfloat currPhi = sideStep * sideNum;</div>
 <div class="line"><a id="l01315" name="l01315"></a><span class="lineno"> 1315</span>            GLfloat nextPhi = sideStep * (sideNum+1);</div>
 <div class="line"><a id="l01316" name="l01316"></a><span class="lineno"> 1316</span> </div>
@@ -1155,12 +1155,12 @@ $(function() {
 <div class="line"><a id="l01318" name="l01318"></a><span class="lineno"> 1318</span>            normals[ idx*3 + 1 ] = glm::cos( currPhi ) * glm::sin( currTheta );</div>
 <div class="line"><a id="l01319" name="l01319"></a><span class="lineno"> 1319</span>            normals[ idx*3 + 2 ] = glm::sin( currPhi );</div>
 <div class="line"><a id="l01320" name="l01320"></a><span class="lineno"> 1320</span> </div>
-<div class="line"><a id="l01321" name="l01321"></a><span class="lineno"> 1321</span>            texCoords[ idx*2 + 0 ] = (GLfloat)sideNum / torusData.s;</div>
-<div class="line"><a id="l01322" name="l01322"></a><span class="lineno"> 1322</span>            texCoords[ idx*2 + 1 ] = (GLfloat)ringNum / torusData.r;</div>
+<div class="line"><a id="l01321" name="l01321"></a><span class="lineno"> 1321</span>            texCoords[ idx*2 + 0 ] = (GLfloat)sideNum / torusData.sides;</div>
+<div class="line"><a id="l01322" name="l01322"></a><span class="lineno"> 1322</span>            texCoords[ idx*2 + 1 ] = (GLfloat)ringNum / torusData.rings;</div>
 <div class="line"><a id="l01323" name="l01323"></a><span class="lineno"> 1323</span> </div>
-<div class="line"><a id="l01324" name="l01324"></a><span class="lineno"> 1324</span>            vertices[ idx*3 + 0 ] = ( torusData.o + torusData.i * glm::cos( currPhi ) ) * glm::cos( currTheta );</div>
-<div class="line"><a id="l01325" name="l01325"></a><span class="lineno"> 1325</span>            vertices[ idx*3 + 1 ] = ( torusData.o + torusData.i * glm::cos( currPhi ) ) * glm::sin( currTheta );</div>
-<div class="line"><a id="l01326" name="l01326"></a><span class="lineno"> 1326</span>            vertices[ idx*3 + 2 ] = torusData.i * glm::sin( currPhi );</div>
+<div class="line"><a id="l01324" name="l01324"></a><span class="lineno"> 1324</span>            vertices[ idx*3 + 0 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::cos(currTheta );</div>
+<div class="line"><a id="l01325" name="l01325"></a><span class="lineno"> 1325</span>            vertices[ idx*3 + 1 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::sin(currTheta );</div>
+<div class="line"><a id="l01326" name="l01326"></a><span class="lineno"> 1326</span>            vertices[ idx*3 + 2 ] = torusData.innerRadius * glm::sin(currPhi );</div>
 <div class="line"><a id="l01327" name="l01327"></a><span class="lineno"> 1327</span> </div>
 <div class="line"><a id="l01328" name="l01328"></a><span class="lineno"> 1328</span>            idx++;</div>
 <div class="line"><a id="l01329" name="l01329"></a><span class="lineno"> 1329</span> </div>
@@ -1168,12 +1168,12 @@ $(function() {
 <div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span>            normals[ idx*3 + 1 ] = glm::cos( currPhi ) * glm::sin( nextTheta );</div>
 <div class="line"><a id="l01332" name="l01332"></a><span class="lineno"> 1332</span>            normals[ idx*3 + 2 ] = glm::sin( currPhi );</div>
 <div class="line"><a id="l01333" name="l01333"></a><span class="lineno"> 1333</span> </div>
-<div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span>            texCoords[ idx*2 + 0 ] = (GLfloat)sideNum / torusData.s;</div>
-<div class="line"><a id="l01335" name="l01335"></a><span class="lineno"> 1335</span>            texCoords[ idx*2 + 1 ] = (GLfloat)(ringNum+1) / torusData.r;</div>
+<div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span>            texCoords[ idx*2 + 0 ] = (GLfloat)sideNum / torusData.sides;</div>
+<div class="line"><a id="l01335" name="l01335"></a><span class="lineno"> 1335</span>            texCoords[ idx*2 + 1 ] = (GLfloat)(ringNum+1) / torusData.rings;</div>
 <div class="line"><a id="l01336" name="l01336"></a><span class="lineno"> 1336</span> </div>
-<div class="line"><a id="l01337" name="l01337"></a><span class="lineno"> 1337</span>            vertices[ idx*3 + 0 ] = ( torusData.o + torusData.i * glm::cos( currPhi ) ) * glm::cos( nextTheta );</div>
-<div class="line"><a id="l01338" name="l01338"></a><span class="lineno"> 1338</span>            vertices[ idx*3 + 1 ] = ( torusData.o + torusData.i * glm::cos( currPhi ) ) * glm::sin( nextTheta );</div>
-<div class="line"><a id="l01339" name="l01339"></a><span class="lineno"> 1339</span>            vertices[ idx*3 + 2 ] = torusData.i * glm::sin( currPhi );</div>
+<div class="line"><a id="l01337" name="l01337"></a><span class="lineno"> 1337</span>            vertices[ idx*3 + 0 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::cos(nextTheta );</div>
+<div class="line"><a id="l01338" name="l01338"></a><span class="lineno"> 1338</span>            vertices[ idx*3 + 1 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::sin(nextTheta );</div>
+<div class="line"><a id="l01339" name="l01339"></a><span class="lineno"> 1339</span>            vertices[ idx*3 + 2 ] = torusData.innerRadius * glm::sin(currPhi );</div>
 <div class="line"><a id="l01340" name="l01340"></a><span class="lineno"> 1340</span> </div>
 <div class="line"><a id="l01341" name="l01341"></a><span class="lineno"> 1341</span>            idx++;</div>
 <div class="line"><a id="l01342" name="l01342"></a><span class="lineno"> 1342</span> </div>
@@ -1181,12 +1181,12 @@ $(function() {
 <div class="line"><a id="l01344" name="l01344"></a><span class="lineno"> 1344</span>            normals[ idx*3 + 1 ] = glm::cos( nextPhi ) * glm::sin( currTheta );</div>
 <div class="line"><a id="l01345" name="l01345"></a><span class="lineno"> 1345</span>            normals[ idx*3 + 2 ] = glm::sin( nextPhi );</div>
 <div class="line"><a id="l01346" name="l01346"></a><span class="lineno"> 1346</span> </div>
-<div class="line"><a id="l01347" name="l01347"></a><span class="lineno"> 1347</span>            texCoords[ idx*2 + 0 ] = (GLfloat)(sideNum+1) / torusData.s;</div>
-<div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span>            texCoords[ idx*2 + 1 ] = (GLfloat)ringNum / torusData.r;</div>
+<div class="line"><a id="l01347" name="l01347"></a><span class="lineno"> 1347</span>            texCoords[ idx*2 + 0 ] = (GLfloat)(sideNum+1) / torusData.sides;</div>
+<div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span>            texCoords[ idx*2 + 1 ] = (GLfloat)ringNum / torusData.rings;</div>
 <div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span> </div>
-<div class="line"><a id="l01350" name="l01350"></a><span class="lineno"> 1350</span>            vertices[ idx*3 + 0 ] = ( torusData.o + torusData.i * glm::cos( nextPhi ) ) * glm::cos( currTheta );</div>
-<div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span>            vertices[ idx*3 + 1 ] = ( torusData.o + torusData.i * glm::cos( nextPhi ) ) * glm::sin( currTheta );</div>
-<div class="line"><a id="l01352" name="l01352"></a><span class="lineno"> 1352</span>            vertices[ idx*3 + 2 ] = torusData.i * glm::sin( nextPhi );</div>
+<div class="line"><a id="l01350" name="l01350"></a><span class="lineno"> 1350</span>            vertices[ idx*3 + 0 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::cos(currTheta );</div>
+<div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span>            vertices[ idx*3 + 1 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::sin(currTheta );</div>
+<div class="line"><a id="l01352" name="l01352"></a><span class="lineno"> 1352</span>            vertices[ idx*3 + 2 ] = torusData.innerRadius * glm::sin(nextPhi );</div>
 <div class="line"><a id="l01353" name="l01353"></a><span class="lineno"> 1353</span> </div>
 <div class="line"><a id="l01354" name="l01354"></a><span class="lineno"> 1354</span>            idx++;</div>
 <div class="line"><a id="l01355" name="l01355"></a><span class="lineno"> 1355</span> </div>
@@ -1194,12 +1194,12 @@ $(function() {
 <div class="line"><a id="l01357" name="l01357"></a><span class="lineno"> 1357</span>            normals[ idx*3 + 1 ] = glm::cos( nextPhi ) * glm::sin( nextTheta );</div>
 <div class="line"><a id="l01358" name="l01358"></a><span class="lineno"> 1358</span>            normals[ idx*3 + 2 ] = glm::sin( nextPhi );</div>
 <div class="line"><a id="l01359" name="l01359"></a><span class="lineno"> 1359</span> </div>
-<div class="line"><a id="l01360" name="l01360"></a><span class="lineno"> 1360</span>            texCoords[ idx*2 + 0 ] = (GLfloat)(sideNum+1) / torusData.s;</div>
-<div class="line"><a id="l01361" name="l01361"></a><span class="lineno"> 1361</span>            texCoords[ idx*2 + 1 ] = (GLfloat)(ringNum+1) / torusData.r;</div>
+<div class="line"><a id="l01360" name="l01360"></a><span class="lineno"> 1360</span>            texCoords[ idx*2 + 0 ] = (GLfloat)(sideNum+1) / torusData.sides;</div>
+<div class="line"><a id="l01361" name="l01361"></a><span class="lineno"> 1361</span>            texCoords[ idx*2 + 1 ] = (GLfloat)(ringNum+1) / torusData.rings;</div>
 <div class="line"><a id="l01362" name="l01362"></a><span class="lineno"> 1362</span> </div>
-<div class="line"><a id="l01363" name="l01363"></a><span class="lineno"> 1363</span>            vertices[ idx*3 + 0 ] = ( torusData.o + torusData.i * glm::cos( nextPhi ) ) * glm::cos( nextTheta );</div>
-<div class="line"><a id="l01364" name="l01364"></a><span class="lineno"> 1364</span>            vertices[ idx*3 + 1 ] = ( torusData.o + torusData.i * glm::cos( nextPhi ) ) * glm::sin( nextTheta );</div>
-<div class="line"><a id="l01365" name="l01365"></a><span class="lineno"> 1365</span>            vertices[ idx*3 + 2 ] = torusData.i * glm::sin( nextPhi );</div>
+<div class="line"><a id="l01363" name="l01363"></a><span class="lineno"> 1363</span>            vertices[ idx*3 + 0 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::cos(nextTheta );</div>
+<div class="line"><a id="l01364" name="l01364"></a><span class="lineno"> 1364</span>            vertices[ idx*3 + 1 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::sin(nextTheta );</div>
+<div class="line"><a id="l01365" name="l01365"></a><span class="lineno"> 1365</span>            vertices[ idx*3 + 2 ] = torusData.innerRadius * glm::sin(nextPhi );</div>
 <div class="line"><a id="l01366" name="l01366"></a><span class="lineno"> 1366</span> </div>
 <div class="line"><a id="l01367" name="l01367"></a><span class="lineno"> 1367</span>            idx++;</div>
 <div class="line"><a id="l01368" name="l01368"></a><span class="lineno"> 1368</span>        }</div>

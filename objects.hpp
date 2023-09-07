@@ -318,29 +318,29 @@ namespace CSCI441_INTERNAL {
     // stores data necessary to specify a unique cylinder
     struct CylinderData {
         // radius of the base
-        GLfloat b;
+        GLfloat radiusBase;
         // radius of the top
-        GLfloat t;
+        GLfloat top;
         // height
-        GLfloat h;
+        GLfloat height;
         // number of stacks
-        GLint st;
+        GLint stacks;
         // number of slices
-        GLint sl;
+        GLint slices;
         bool operator<( const CylinderData rhs ) const {
-            if( b < rhs.b ) {
+            if( radiusBase < rhs.radiusBase ) {
                 return true;
-            } else if( fabs(b - rhs.b) <= 0.000001 ) {
-                if( t < rhs.t ) {
+            } else if( fabs(radiusBase - rhs.radiusBase) <= 0.000001 ) {
+                if( top < rhs.top ) {
                     return true;
-                } else if( fabs(t - rhs.t) <= 0.000001 ) {
-                    if( h < rhs.h ) {
+                } else if( fabs(top - rhs.top) <= 0.000001 ) {
+                    if( height < rhs.height ) {
                         return true;
-                    } else if( fabs(h - rhs.h) <= 0.000001 ) {
-                        if( st < rhs.st ) {
+                    } else if( fabs(height - rhs.height) <= 0.000001 ) {
+                        if( stacks < rhs.stacks ) {
                             return true;
-                        } else if( st == rhs.st ) {
-                            if( sl < rhs.sl ) {
+                        } else if( stacks == rhs.stacks ) {
+                            if( slices < rhs.slices ) {
                                 return true;
                             }
                         }
@@ -355,25 +355,25 @@ namespace CSCI441_INTERNAL {
     inline std::map< CylinderData, GLuint > _cylinderVBO;
 
     struct DiskData {
-        GLfloat i, o, st, sw;
-        GLint sl, r;
+        GLfloat innerRadius, outerRadius, startAngle, sweepAngle;
+        GLint slices, radius;
         bool operator<( const DiskData rhs ) const {
-            if( i < rhs.i ) {
+            if( innerRadius < rhs.innerRadius ) {
                 return true;
-            } else if( fabs(i - rhs.i) <= 0.000001 ) {
-                if( o < rhs.o ) {
+            } else if( fabs(innerRadius - rhs.innerRadius) <= 0.000001 ) {
+                if( outerRadius < rhs.outerRadius ) {
                     return true;
-                } else if( fabs(o - rhs.o) <= 0.000001 ) {
-                    if( st < rhs.st ) {
+                } else if( fabs(outerRadius - rhs.outerRadius) <= 0.000001 ) {
+                    if( startAngle < rhs.startAngle ) {
                         return true;
-                    } else if( fabs(st - rhs.st) <= 0.000001 ) {
-                        if( sw < rhs.sw ) {
+                    } else if( fabs(startAngle - rhs.startAngle) <= 0.000001 ) {
+                        if( sweepAngle < rhs.sweepAngle ) {
                             return true;
-                        } else if( fabs(sw - rhs.sw) <= 0.000001 ) {
-                            if( sl < rhs.sl ) {
+                        } else if( fabs(sweepAngle - rhs.sweepAngle) <= 0.000001 ) {
+                            if( slices < rhs.slices ) {
                                 return true;
-                            } else if( sl == rhs.sl ) {
-                                if( r < rhs.r ) {
+                            } else if( slices == rhs.slices ) {
+                                if( radius < rhs.radius ) {
                                     return true;
                                 }
                             }
@@ -389,16 +389,16 @@ namespace CSCI441_INTERNAL {
     inline std::map< DiskData, GLuint > _diskVBO;
 
     struct SphereData {
-        GLfloat r;
-        GLint st, sl;
+        GLfloat radius;
+        GLint stacks, slices;
         bool operator<( const SphereData rhs ) const {
-            if( r < rhs.r ) {
+            if( radius < rhs.radius ) {
                 return true;
-            } else if( fabs(r - rhs.r) <= 0.000001 ) {
-                if( st < rhs.st ) {
+            } else if( fabs(radius - rhs.radius) <= 0.000001 ) {
+                if( stacks < rhs.stacks ) {
                     return true;
-                } else if( st == rhs.st ) {
-                    if( sl < rhs.sl ) {
+                } else if( stacks == rhs.stacks ) {
+                    if( slices < rhs.slices ) {
                         return true;
                     }
                 }
@@ -406,7 +406,7 @@ namespace CSCI441_INTERNAL {
             return false;
         }
 //		bool operator==(const SphereData rhs) const {
-//			return fabs(r - rhs.r) <= 0.000001 && st == rhs.st && sl == rhs.sl;
+//			return fabs(radius - rhs.radius) <= 0.000001 && stacks == rhs.stacks && slices == rhs.slices;
 //		}
     };
     void generateSphereVAO( SphereData sphereData );
@@ -414,19 +414,19 @@ namespace CSCI441_INTERNAL {
     inline std::map< SphereData, GLuint > _sphereVBO;
 
     struct TorusData {
-        GLfloat i, o;
-        GLint s, r;
+        GLfloat innerRadius, outerRadius;
+        GLint sides, rings;
         bool operator<( const TorusData rhs ) const {
-            if( i < rhs.i ) {
+            if( innerRadius < rhs.innerRadius ) {
                 return true;
-            } else if( fabs(i - rhs.i) <= 0.000001 ) {
-                if( o < rhs.o ) {
+            } else if( fabs(innerRadius - rhs.innerRadius) <= 0.000001 ) {
+                if( outerRadius < rhs.outerRadius ) {
                     return true;
-                } else if( fabs(o - rhs.o) <= 0.000001 ) {
-                    if( s < rhs.s ) {
+                } else if( fabs(outerRadius - rhs.outerRadius) <= 0.000001 ) {
+                    if( sides < rhs.sides ) {
                         return true;
-                    } else if( s == rhs.s ) {
-                        if( r < rhs.r ) {
+                    } else if( sides == rhs.sides ) {
+                        if( rings < rhs.rings ) {
                             return true;
                         }
                     }
@@ -731,7 +731,7 @@ inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat h
         CSCI441_INTERNAL::generateCylinderVAO( cylData );
     }
 
-    unsigned long int numVertices = cylData.st * (cylData.sl+1) * 2;
+    unsigned long int numVertices = cylData.stacks * (cylData.slices + 1) * 2;
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -1025,10 +1025,10 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    unsigned long int numVertices = cylData.st * (cylData.sl+1) * 2;
+    unsigned long int numVertices = cylData.stacks * (cylData.slices + 1) * 2;
 
-    GLfloat sliceStep = 2.0f * M_PI / cylData.sl;
-    GLfloat stackStep = cylData.h / cylData.st;
+    GLfloat sliceStep = 2.0f * M_PI / cylData.slices;
+    GLfloat stackStep = cylData.height / cylData.stacks;
 
     auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
     auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
@@ -1036,17 +1036,17 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
 
     unsigned long int idx = 0;
 
-    for( int stackNum = 0; stackNum < cylData.st; stackNum++ ) {
-        GLfloat botRadius = cylData.b*(cylData.st-stackNum)/cylData.st + cylData.t*stackNum/cylData.st;
-        GLfloat topRadius = cylData.b*(cylData.st-stackNum-1)/cylData.st + cylData.t*(stackNum+1)/cylData.st;
+    for(int stackNum = 0; stackNum < cylData.stacks; stackNum++ ) {
+        GLfloat botRadius = cylData.radiusBase * (cylData.stacks - stackNum) / cylData.stacks + cylData.top * stackNum / cylData.stacks;
+        GLfloat topRadius = cylData.radiusBase * (cylData.stacks - stackNum - 1) / cylData.stacks + cylData.top * (stackNum + 1) / cylData.stacks;
 
-        for( int sliceNum = 0; sliceNum <= cylData.sl; sliceNum++ ) {
+        for(int sliceNum = 0; sliceNum <= cylData.slices; sliceNum++ ) {
             normals[ idx*3 + 0 ] = glm::cos( sliceNum * sliceStep );
             normals[ idx*3 + 1 ] = 0.0f;
             normals[ idx*3 + 2 ] = glm::sin( sliceNum * sliceStep );
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / cylData.sl;
-            texCoords[ idx*2 + 1 ] = (GLfloat)stackNum / cylData.st;
+            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / cylData.slices;
+            texCoords[ idx*2 + 1 ] = (GLfloat)stackNum / cylData.stacks;
 
             vertices[ idx*3 + 0 ] = glm::cos( sliceNum * sliceStep )*botRadius;
             vertices[ idx*3 + 1 ] = stackNum * stackStep;
@@ -1058,8 +1058,8 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
             normals[ idx*3 + 1 ] = 0.0f;
             normals[ idx*3 + 2 ] = glm::sin( sliceNum * sliceStep );
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / cylData.sl;
-            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum+1) / cylData.st;
+            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / cylData.slices;
+            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum+1) / cylData.stacks;
 
             vertices[ idx*3 + 0 ] = glm::cos( sliceNum * sliceStep )*topRadius;
             vertices[ idx*3 + 1 ] = (stackNum+1) * stackStep;
@@ -1091,10 +1091,10 @@ inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    unsigned long int numVertices = diskData.r * (diskData.sl+1) * 2;
+    unsigned long int numVertices = diskData.radius * (diskData.slices + 1) * 2;
 
-    GLfloat sliceStep = diskData.sw / diskData.sl;
-    GLfloat ringStep = (diskData.o - diskData.i) / diskData.r;
+    GLfloat sliceStep = diskData.sweepAngle / diskData.slices;
+    GLfloat ringStep = (diskData.outerRadius - diskData.innerRadius) / diskData.radius;
 
     auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
     auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
@@ -1102,18 +1102,18 @@ inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
 
     unsigned long int idx = 0;
 
-    for( int ringNum = 0; ringNum < diskData.r; ringNum++ ) {
-        GLfloat currRadius = diskData.i + ringNum*ringStep;
-        GLfloat nextRadius = diskData.i + (ringNum+1)*ringStep;
+    for(int ringNum = 0; ringNum < diskData.radius; ringNum++ ) {
+        GLfloat currRadius = diskData.innerRadius + ringNum * ringStep;
+        GLfloat nextRadius = diskData.innerRadius + (ringNum + 1) * ringStep;
 
-        GLfloat theta = diskData.st;
-        for( int i = 0; i <= diskData.sl; i++, theta += sliceStep ) {
+        GLfloat theta = diskData.startAngle;
+        for(int i = 0; i <= diskData.slices; i++, theta += sliceStep ) {
             normals[ idx*3 + 0 ] = 0.0f;
             normals[ idx*3 + 1 ] = 0.0f;
             normals[ idx*3 + 2 ] = 1.0f;
 
-            texCoords[ idx*2 + 0 ] = glm::cos(theta)*(currRadius/diskData.o);
-            texCoords[ idx*2 + 1 ] = glm::sin(theta)*(currRadius/diskData.o);
+            texCoords[ idx*2 + 0 ] = glm::cos(theta)*(currRadius/diskData.outerRadius);
+            texCoords[ idx*2 + 1 ] = glm::sin(theta)*(currRadius/diskData.outerRadius);
 
             vertices[ idx*3 + 0 ] = glm::cos(theta)*currRadius;
             vertices[ idx*3 + 1 ] = glm::sin(theta)*currRadius;
@@ -1125,8 +1125,8 @@ inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
             normals[ idx*3 + 1 ] = 0.0f;
             normals[ idx*3 + 2 ] = 1.0f;
 
-            texCoords[ idx*2 + 0 ] = glm::cos(theta)*(nextRadius/diskData.o);
-            texCoords[ idx*2 + 1 ] = glm::sin(theta)*(nextRadius/diskData.o);
+            texCoords[ idx*2 + 0 ] = glm::cos(theta)*(nextRadius/diskData.outerRadius);
+            texCoords[ idx*2 + 1 ] = glm::sin(theta)*(nextRadius/diskData.outerRadius);
 
             vertices[ idx*3 + 0 ] = glm::cos(theta)*nextRadius;
             vertices[ idx*3 + 1 ] = glm::sin(theta)*nextRadius;
@@ -1158,10 +1158,10 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    unsigned long int numVertices = (sphereData.sl + 2)*2 + ((sphereData.st - 2)*(sphereData.sl+1))*2;
+    unsigned long int numVertices = (sphereData.slices + 2) * 2 + ((sphereData.stacks - 2) * (sphereData.slices + 1)) * 2;
 
-    GLfloat sliceStep = 2.0f * M_PI / sphereData.sl;
-    GLfloat stackStep = M_PI / sphereData.st;
+    GLfloat sliceStep = 2.0f * M_PI / sphereData.slices;
+    GLfloat stackStep = M_PI / sphereData.stacks;
 
     auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
     auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
@@ -1170,8 +1170,8 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
     unsigned long int idx = 0;
 
     // sphere top
-    GLfloat phi = stackStep * sphereData.st;
-    GLfloat phiNext = stackStep * (sphereData.st-1);
+    GLfloat phi = stackStep * sphereData.stacks;
+    GLfloat phiNext = stackStep * (sphereData.stacks - 1);
 
     normals[ idx*3 + 0 ] = 0.0f;
     normals[ idx*3 + 1 ] = 1.0f;
@@ -1181,46 +1181,46 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
     texCoords[ idx*2 + 1 ] = 1.0f;
 
     vertices[ idx*3 + 0 ] = 0.0f;
-    vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.r;
+    vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.radius;
     vertices[ idx*3 + 2 ] = 0.0f;
 
     idx++;
 
-    for( int sliceNum = 0; sliceNum <= sphereData.sl; sliceNum++ ) {
+    for(int sliceNum = 0; sliceNum <= sphereData.slices; sliceNum++ ) {
         GLfloat theta = sliceStep * sliceNum;
 
         normals[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext );
         normals[ idx*3 + 1 ] = -glm::cos( phiNext );
         normals[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext );
 
-        texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.sl;
+        texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.slices;
         texCoords[ idx*2 + 1 ] = 1.0f;
 
-        vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.r;
-        vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.r;
-        vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.r;
+        vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;
+        vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.radius;
+        vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.radius;
 
         idx++;
     }
 
     // sphere stacks
-    for( int stackNum = 1; stackNum < sphereData.st-1; stackNum++ ) {
+    for(int stackNum = 1; stackNum < sphereData.stacks - 1; stackNum++ ) {
         phi = stackStep * stackNum;
         phiNext = stackStep * (stackNum + 1);
 
-        for( int sliceNum = sphereData.sl; sliceNum >= 0; sliceNum-- ) {
+        for(int sliceNum = sphereData.slices; sliceNum >= 0; sliceNum-- ) {
             GLfloat theta = sliceStep * sliceNum;
 
             normals[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phi );
             normals[ idx*3 + 1 ] = -glm::cos( phi );
             normals[ idx*3 + 2 ] =  glm::sin( theta )*glm::sin( phi );
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.sl;
-            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum-1) / (sphereData.st-2);
+            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.slices;
+            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum-1) / (sphereData.stacks - 2);
 
-            vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phi )*sphereData.r;
-            vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.r;
-            vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phi )*sphereData.r;
+            vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phi )*sphereData.radius;
+            vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.radius;
+            vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phi )*sphereData.radius;
 
             idx++;
 
@@ -1228,12 +1228,12 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
             normals[ idx*3 + 1 ] = -glm::cos( phiNext );
             normals[ idx*3 + 2 ] =  glm::sin( theta )*glm::sin( phiNext );
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.sl;
-            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum) / (sphereData.st-2);
+            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.slices;
+            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum) / (sphereData.stacks - 2);
 
-            vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.r;
-            vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.r;
-            vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.r;
+            vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;
+            vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.radius;
+            vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.radius;
 
             idx++;
         }
@@ -1251,24 +1251,24 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
     texCoords[ idx*2 + 1 ] = 0.0f;
 
     vertices[ idx*3 + 0 ] = 0.0f;
-    vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.r;
+    vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.radius;
     vertices[ idx*3 + 2 ] = 0.0f;
 
     idx++;
 
-    for( int sliceNum = sphereData.sl; sliceNum >= 0; sliceNum-- ) {
+    for(int sliceNum = sphereData.slices; sliceNum >= 0; sliceNum-- ) {
         GLfloat theta = sliceStep * sliceNum;
 
         normals[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext );
         normals[ idx*3 + 1 ] = -glm::cos( phiNext );
         normals[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext );
 
-        texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.sl;
+        texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / sphereData.slices;
         texCoords[ idx*2 + 1 ] = 0.0f;
 
-        vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.r;
-        vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.r;
-        vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.r;
+        vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;
+        vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.radius;
+        vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.radius;
 
         idx++;
     }
@@ -1295,7 +1295,7 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    unsigned long int numVertices = torusData.s * 4 * torusData.r;
+    unsigned long int numVertices = torusData.sides * 4 * torusData.rings;
 
     auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
     auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
@@ -1303,14 +1303,14 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
 
     unsigned long int idx = 0;
 
-    GLfloat sideStep = 2.0f * M_PI / torusData.s;
-    GLfloat ringStep = 2.0f * M_PI / torusData.r;
+    GLfloat sideStep = 2.0f * M_PI / torusData.sides;
+    GLfloat ringStep = 2.0f * M_PI / torusData.rings;
 
-    for( int ringNum = 0; ringNum < torusData.r; ringNum++ ) {
+    for(int ringNum = 0; ringNum < torusData.rings; ringNum++ ) {
         GLfloat currTheta = ringStep * ringNum;
         GLfloat nextTheta = ringStep * (ringNum+1);
 
-        for( int sideNum = 0; sideNum < torusData.s; sideNum++ ) {
+        for(int sideNum = 0; sideNum < torusData.sides; sideNum++ ) {
             GLfloat currPhi = sideStep * sideNum;
             GLfloat nextPhi = sideStep * (sideNum+1);
 
@@ -1318,12 +1318,12 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
             normals[ idx*3 + 1 ] = glm::cos( currPhi ) * glm::sin( currTheta );
             normals[ idx*3 + 2 ] = glm::sin( currPhi );
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)sideNum / torusData.s;
-            texCoords[ idx*2 + 1 ] = (GLfloat)ringNum / torusData.r;
+            texCoords[ idx*2 + 0 ] = (GLfloat)sideNum / torusData.sides;
+            texCoords[ idx*2 + 1 ] = (GLfloat)ringNum / torusData.rings;
 
-            vertices[ idx*3 + 0 ] = ( torusData.o + torusData.i * glm::cos( currPhi ) ) * glm::cos( currTheta );
-            vertices[ idx*3 + 1 ] = ( torusData.o + torusData.i * glm::cos( currPhi ) ) * glm::sin( currTheta );
-            vertices[ idx*3 + 2 ] = torusData.i * glm::sin( currPhi );
+            vertices[ idx*3 + 0 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::cos(currTheta );
+            vertices[ idx*3 + 1 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::sin(currTheta );
+            vertices[ idx*3 + 2 ] = torusData.innerRadius * glm::sin(currPhi );
 
             idx++;
 
@@ -1331,12 +1331,12 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
             normals[ idx*3 + 1 ] = glm::cos( currPhi ) * glm::sin( nextTheta );
             normals[ idx*3 + 2 ] = glm::sin( currPhi );
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)sideNum / torusData.s;
-            texCoords[ idx*2 + 1 ] = (GLfloat)(ringNum+1) / torusData.r;
+            texCoords[ idx*2 + 0 ] = (GLfloat)sideNum / torusData.sides;
+            texCoords[ idx*2 + 1 ] = (GLfloat)(ringNum+1) / torusData.rings;
 
-            vertices[ idx*3 + 0 ] = ( torusData.o + torusData.i * glm::cos( currPhi ) ) * glm::cos( nextTheta );
-            vertices[ idx*3 + 1 ] = ( torusData.o + torusData.i * glm::cos( currPhi ) ) * glm::sin( nextTheta );
-            vertices[ idx*3 + 2 ] = torusData.i * glm::sin( currPhi );
+            vertices[ idx*3 + 0 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::cos(nextTheta );
+            vertices[ idx*3 + 1 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::sin(nextTheta );
+            vertices[ idx*3 + 2 ] = torusData.innerRadius * glm::sin(currPhi );
 
             idx++;
 
@@ -1344,12 +1344,12 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
             normals[ idx*3 + 1 ] = glm::cos( nextPhi ) * glm::sin( currTheta );
             normals[ idx*3 + 2 ] = glm::sin( nextPhi );
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)(sideNum+1) / torusData.s;
-            texCoords[ idx*2 + 1 ] = (GLfloat)ringNum / torusData.r;
+            texCoords[ idx*2 + 0 ] = (GLfloat)(sideNum+1) / torusData.sides;
+            texCoords[ idx*2 + 1 ] = (GLfloat)ringNum / torusData.rings;
 
-            vertices[ idx*3 + 0 ] = ( torusData.o + torusData.i * glm::cos( nextPhi ) ) * glm::cos( currTheta );
-            vertices[ idx*3 + 1 ] = ( torusData.o + torusData.i * glm::cos( nextPhi ) ) * glm::sin( currTheta );
-            vertices[ idx*3 + 2 ] = torusData.i * glm::sin( nextPhi );
+            vertices[ idx*3 + 0 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::cos(currTheta );
+            vertices[ idx*3 + 1 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::sin(currTheta );
+            vertices[ idx*3 + 2 ] = torusData.innerRadius * glm::sin(nextPhi );
 
             idx++;
 
@@ -1357,12 +1357,12 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
             normals[ idx*3 + 1 ] = glm::cos( nextPhi ) * glm::sin( nextTheta );
             normals[ idx*3 + 2 ] = glm::sin( nextPhi );
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)(sideNum+1) / torusData.s;
-            texCoords[ idx*2 + 1 ] = (GLfloat)(ringNum+1) / torusData.r;
+            texCoords[ idx*2 + 0 ] = (GLfloat)(sideNum+1) / torusData.sides;
+            texCoords[ idx*2 + 1 ] = (GLfloat)(ringNum+1) / torusData.rings;
 
-            vertices[ idx*3 + 0 ] = ( torusData.o + torusData.i * glm::cos( nextPhi ) ) * glm::cos( nextTheta );
-            vertices[ idx*3 + 1 ] = ( torusData.o + torusData.i * glm::cos( nextPhi ) ) * glm::sin( nextTheta );
-            vertices[ idx*3 + 2 ] = torusData.i * glm::sin( nextPhi );
+            vertices[ idx*3 + 0 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::cos(nextTheta );
+            vertices[ idx*3 + 1 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::sin(nextTheta );
+            vertices[ idx*3 + 2 ] = torusData.innerRadius * glm::sin(nextPhi );
 
             idx++;
         }
