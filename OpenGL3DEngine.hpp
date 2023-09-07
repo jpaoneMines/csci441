@@ -29,6 +29,15 @@ namespace CSCI441 {
     class OpenGL3DEngine : public OpenGLEngine {
     public:
         /**
+         * @brief do not allow engines to be copied
+         */
+        OpenGL3DEngine(const OpenGL3DEngine&) = delete;
+        /**
+        * @brief do not allow engines to be copied
+        */
+        OpenGL3DEngine& operator=(const OpenGL3DEngine&) = delete;
+
+        /**
          * @brief the status of the left mouse button being down
          * @return true if left mouse button is currently being pressed, false otherwise
          */

@@ -46,6 +46,15 @@ namespace CSCI441 {
         ~UniformBufferObject();
 
         /**
+         * @brief do not allow UBOs to be copied
+         */
+        UniformBufferObject(const UniformBufferObject&) = delete;
+        /**
+         * @brief do not allow UBOs to be copied
+         */
+        UniformBufferObject& operator=(const UniformBufferObject&) = delete;
+
+        /**
          * @brief creates the UBO and allocates memory on both the CPU & GPU.  binds the UBO and the
          * uniform block for the provided ShaderProgram to the same binding point.
          * @param shaderProgram ShaderProgram object that utilizes the uniformBlock

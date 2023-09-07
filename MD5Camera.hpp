@@ -59,6 +59,8 @@ namespace CSCI441 {
          */
         explicit MD5Camera(const char* MD5CAMERA_FILE, AdvancementStrategy advancementStrategy, GLuint firstCutToRun = 0, GLfloat aspectRatio = 1.0f, GLfloat fovy = 45.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f, GLboolean INFO = true, GLboolean ERRORS = true);
 
+        MD5Camera(const MD5Camera&);
+        MD5Camera& operator=(const MD5Camera&);
         ~MD5Camera() final;
 
         void recomputeOrientation() final {}
@@ -67,8 +69,10 @@ namespace CSCI441 {
 
     private:
         bool _loadMD5CameraFromFile(const char * MD5CAMERA_FILE, GLboolean INFO = true, GLboolean ERRORS = true);
+        void _copy(const MD5Camera&);
+        void _free();
 
-        bool _isInitialized;
+        bool _isInitialized{};
 
         struct Frame {
             glm::vec3 cameraPosition;
@@ -76,22 +80,22 @@ namespace CSCI441 {
             GLfloat fieldOfView;
         };
 
-        GLuint _frameRate;
-        GLuint _numFrames;
-        GLuint _numCuts;
-        GLuint* _cutPositions;
-        Frame* _frames;
-        GLuint _currentFrameIndex;
-        GLuint _currentCutIndex;
+        GLuint _frameRate{};
+        GLuint _numFrames{};
+        GLuint _numCuts{};
+        GLuint* _cutPositions{};
+        Frame* _frames{};
+        GLuint _currentFrameIndex{};
+        GLuint _currentCutIndex{};
         AdvancementStrategy _advancementStrategy;
 
         void _updateCameraAttributesForCurrentFrame();
 
         // vertical field of view stored in degrees
-        GLfloat _fovy;
-        GLfloat _aspectRatio;
-        GLfloat _nearClipPlane;
-        GLfloat _farClipPlane;
+        GLfloat _fovy{};
+        GLfloat _aspectRatio{};
+        GLfloat _nearClipPlane{};
+        GLfloat _farClipPlane{};
     };
 }
 
@@ -123,10 +127,69 @@ inline CSCI441::MD5Camera::MD5Camera(
     _isInitialized = _loadMD5CameraFromFile(MD5CAMERA_FILE, INFO, ERRORS);
 }
 
+[[maybe_unused]]
+inline CSCI441::MD5Camera::MD5Camera(
+    const MD5Camera& OTHER
+) : Camera(OTHER),
+    _fovy(45.0f),
+    _aspectRatio(1.0f),
+    _nearClipPlane(0.001f),
+    _farClipPlane(1000.0f),
+    _frameRate(60),
+    _numFrames(0),
+    _numCuts(0),
+    _cutPositions(nullptr),
+    _frames(nullptr),
+    _currentFrameIndex(0),
+    _currentCutIndex(0),
+    _advancementStrategy(RUN_SINGLE_CUT)
+{
+    this->_copy(OTHER);
+}
+
+inline CSCI441::MD5Camera& CSCI441::MD5Camera::operator=(const MD5Camera& OTHER) {
+    // guard against self-assignment
+    if(this != &OTHER) {
+        this->_free();
+        this->_copy(OTHER);
+    }
+    return *this;
+}
+
 inline CSCI441::MD5Camera::~MD5Camera() {
+    this->_free();
+}
+
+inline void CSCI441::MD5Camera::_copy(const MD5Camera& OTHER) {
+    _fovy = OTHER._fovy;
+    _aspectRatio = OTHER._aspectRatio;
+    _nearClipPlane = OTHER._nearClipPlane;
+    _farClipPlane = OTHER._farClipPlane;
+    _frameRate = OTHER._frameRate;
+    _currentFrameIndex = OTHER._currentFrameIndex;
+    _currentCutIndex = OTHER._currentCutIndex;
+    _advancementStrategy = OTHER._advancementStrategy;
+    mProjectionMatrix = OTHER.mProjectionMatrix;
+    _isInitialized = OTHER._isInitialized;
+
+    _numCuts = OTHER._numCuts;
+    _cutPositions = new GLuint[_numCuts];
+    for(unsigned int i = 0; i < _numCuts; i++) {
+        _cutPositions[i] = OTHER._cutPositions[i];
+    }
+
+    _numFrames = OTHER._numFrames;
+    _frames = new Frame[_numFrames];
+    for(unsigned int i = 0; i < _numFrames; i++) {
+        _frames[i] = OTHER._frames[i];
+    }
+}
+
+inline void CSCI441::MD5Camera::_free() {
     free( _frames );
     free( _cutPositions );
 }
+
 
 inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
         const char * const MD5CAMERA_FILE,

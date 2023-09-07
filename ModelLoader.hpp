@@ -57,6 +57,15 @@ namespace CSCI441 {
 		 */
 		~ModelLoader();
 
+        /**
+         * @brief do not allow models to be copied
+         */
+        ModelLoader(const ModelLoader&) = delete;
+        /**
+         * @brief do not allow models to be copied
+         */
+        ModelLoader& operator=(const ModelLoader&) = delete;
+
 		/**
 		 * @brief Loads a model from the given file
          * @param filename file to load model from

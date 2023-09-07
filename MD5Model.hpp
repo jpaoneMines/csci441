@@ -319,8 +319,13 @@ namespace CSCI441 {
          */
         ~MD5Model();
 
-        // do not allow MD5 models to be copied
+        /**
+         * @brief do not allow MD5 models to be copied
+         */
         MD5Model(const MD5Model&) = delete;
+        /**
+         * @brief do not allow MD5 models to be copied
+         */
         MD5Model& operator=(const MD5Model&) = delete;
 
         /**

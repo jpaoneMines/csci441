@@ -10,10 +10,10 @@ namespace CSCI441_INTERNAL {
       GLfloat diffuse[4];
       GLfloat specular[4];
       GLfloat shininess;
-      GLfloat emissive[4];
+      [[maybe_unused]] GLfloat emissive[4];
 
       GLint map_Kd;
-      GLint map_d;
+      [[maybe_unused]] GLint map_d;
 
       ModelMaterial() {
         for( int i = 0; i < 3; i++ ) {

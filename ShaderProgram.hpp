@@ -163,10 +163,15 @@ namespace CSCI441 {
         /**
          * @brief Clean up memory associated with the Shader Program
          */
-        ~ShaderProgram();
+        virtual ~ShaderProgram();
 
-        // do not allow shader programs to be copied
+        /**
+         * @brief do not allow shader programs to be copied
+         */
         ShaderProgram(const ShaderProgram&) = delete;
+        /**
+         * @brief do not allow shader programs to be copied
+         */
         ShaderProgram& operator=(const ShaderProgram&) = delete;
 
         /**

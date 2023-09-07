@@ -32,6 +32,15 @@ namespace CSCI441 {
     class OpenGLEngine {
     public:
         /**
+         * @brief do not allow engines to be copied
+         */
+        OpenGLEngine(const OpenGLEngine&) = delete;
+        /**
+        * @brief do not allow engines to be copied
+        */
+        OpenGLEngine& operator=(const OpenGLEngine&) = delete;
+
+        /**
          * @brief Initialize everything needed for OpenGL Rendering.  This includes
          * in order: GLFW, GLEW, OpenGL, Shader Programs, Buffer Objects, Textures,
          * and any Scene information

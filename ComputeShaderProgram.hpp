@@ -29,8 +29,18 @@ namespace CSCI441 {
          */
         explicit ComputeShaderProgram( const char *computeShaderFilename );
 
-        // do not allow programs to be copied
+        /**
+         * @brief Clean up memory associated with the Compute Shader Program
+         */
+        ~ComputeShaderProgram() final = default;
+
+        /**
+         * @brief do not allow shader programs to be copied
+         */
         ComputeShaderProgram(const ComputeShaderProgram&) = delete;
+        /**
+         * @brief do not allow shader programs to be copied
+         */
         ComputeShaderProgram& operator=(const ComputeShaderProgram&) = delete;
 
         /**
@@ -41,9 +51,6 @@ namespace CSCI441 {
          * @note call after calling ShaderProgram::useProgram()
          */
         [[maybe_unused]] void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ);
-    private:
-        // stores shader program handle
-        GLuint _computeShaderHandle;
     };
 }
 
@@ -61,20 +68,23 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
 
     if( sDEBUG ) printf( "\n[INFO]: /--------------------------------------------------------\\\n");
 
+    // stores shader program handle
+    GLuint computeShaderHandle;
+
     // compile each one of our shaders
     if( strcmp( computeShaderFilename, "" ) != 0 ) {
         if( sDEBUG ) printf( "[INFO]: | Compute Shader: %38s |\n", computeShaderFilename );
-        _computeShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader( computeShaderFilename, GL_COMPUTE_SHADER );
+        computeShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(computeShaderFilename, GL_COMPUTE_SHADER );
     } else {
-        _computeShaderHandle = 0;
+        computeShaderHandle = 0;
     }
 
     // get a handle to a shader program
     mShaderProgramHandle = glCreateProgram();
 
     // attach the computer fragment shader to the shader program
-    if( _computeShaderHandle != 0 ) {
-        glAttachShader(mShaderProgramHandle, _computeShaderHandle );
+    if(computeShaderHandle != 0 ) {
+        glAttachShader(mShaderProgramHandle, computeShaderHandle );
     }
 
     // link all the programs together on the GPU
@@ -86,9 +96,9 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
     CSCI441_INTERNAL::ShaderUtils::printProgramLog(mShaderProgramHandle );
 
     // detach & delete the vertex and fragment shaders to the shader program
-    if( _computeShaderHandle != 0 ) {
-        glDetachShader(mShaderProgramHandle, _computeShaderHandle );
-        glDeleteShader( _computeShaderHandle );
+    if(computeShaderHandle != 0 ) {
+        glDetachShader(mShaderProgramHandle, computeShaderHandle );
+        glDeleteShader(computeShaderHandle );
     }
 
     // map uniforms
@@ -123,7 +133,7 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
     if(linkStatus == 1) {
         // print shader info for uniforms & attributes
         CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(mShaderProgramHandle, false, false, false, false, false,
-                                                              _computeShaderHandle != 0, true);
+                                                              computeShaderHandle != 0, true);
     }
 }
 

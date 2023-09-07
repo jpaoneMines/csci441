@@ -48,6 +48,15 @@ namespace CSCI441 {
         ~ShaderProgramPipeline();
 
         /**
+         * @brief do not allow shader program pipelines to be copied
+         */
+        ShaderProgramPipeline(const ShaderProgramPipeline&) = delete;
+        /**
+        * @brief do not allow shader program pipelines to be copied
+        */
+        ShaderProgramPipeline& operator=(const ShaderProgramPipeline&) = delete;
+
+        /**
          * @brief adds shader program stages to pipeline
          * @param programStages stages shader program contains
          * @param shaderProgram separable shader program to use within pipeline
