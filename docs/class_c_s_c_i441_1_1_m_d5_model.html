@@ -125,6 +125,7 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a647116079ef9d541b40268d7f8a22b54"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a647116079ef9d541b40268d7f8a22b54">MD5Model</a> ()</td></tr>
+<tr class="memdesc:a647116079ef9d541b40268d7f8a22b54"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes an empty MD5 Model  <br /></td></tr>
 <tr class="separator:a647116079ef9d541b40268d7f8a22b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeaf15af7fb507f9d3ead30e1157fe1de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#aeaf15af7fb507f9d3ead30e1157fe1de">~MD5Model</a> ()</td></tr>
 <tr class="separator:aeaf15af7fb507f9d3ead30e1157fe1de"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,8 +150,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drawSkeleton</b> () c
 <tr class="memdesc:af6769fe5752e9594a54325e8a3ef7e0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">draws the skeleton joints (as points) and bones (as lines) <br /></td></tr>
 <tr class="separator:af6769fe5752e9594a54325e8a3ef7e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a0d5630539276f1bbd1d2bcac44f89f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a9a0d5630539276f1bbd1d2bcac44f89f">readMD5Anim</a> (const char *filename)</td></tr>
+<tr class="memdesc:a9a0d5630539276f1bbd1d2bcac44f89f"><td class="mdescLeft">&#160;</td><td class="mdescRight">reads in an animation sequence from an external file  <br /></td></tr>
 <tr class="separator:a9a0d5630539276f1bbd1d2bcac44f89f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f543c02e8352463961ebacc982d990c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a9f543c02e8352463961ebacc982d990c">animate</a> (GLfloat dt)</td></tr>
+<tr class="memdesc:a9f543c02e8352463961ebacc982d990c"><td class="mdescLeft">&#160;</td><td class="mdescRight">advances the model forward in its animation sequence the corresponding amount of time based on frame rate  <br /></td></tr>
 <tr class="separator:a9f543c02e8352463961ebacc982d990c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -178,7 +181,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drawSkeleton</b> () c
   </tr>
 </table>
 </div><div class="memdoc">
-<p>initializes an empty MD5 Model </p><dl class="section note"><dt>Note</dt><dd>need to call <a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a57f46990ad43586e863846633803ac70" title="loads a corresponding md5mesh and md5anim file to the object">loadMD5Model()</a> or <a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a3e01d573a7b2517f1f4eec30322912ec" title="parses md5mesh file and allocates corresponding mesh data">readMD5Model()</a> after construction to actually load in a mesh file </dd></dl>
+
+<p>initializes an empty MD5 Model </p>
+<dl class="section note"><dt>Note</dt><dd>need to call <a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a57f46990ad43586e863846633803ac70" title="loads a corresponding md5mesh and md5anim file to the object">loadMD5Model()</a> or <a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a3e01d573a7b2517f1f4eec30322912ec" title="parses md5mesh file and allocates corresponding mesh data">readMD5Model()</a> after construction to actually load in a mesh file </dd></dl>
 
 </div>
 </div>
@@ -204,7 +209,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drawSkeleton</b> () c
   </tr>
 </table>
 </div><div class="memdoc">
-<p>deallocates any used memory on the CPU and GPU </p>
+<p>@breif deallocates any used memory on the CPU and GPU </p>
 
 </div>
 </div>
@@ -287,7 +292,9 @@ texCoord attribute used when drawing the mesh </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>advances the model forward in its animation sequence the corresponding amount of time based on frame rate </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>advances the model forward in its animation sequence the corresponding amount of time based on frame rate </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dt</td><td>delta time since last frame </td></tr>
   </table>
@@ -393,7 +400,9 @@ texCoord attribute used when drawing the mesh </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>reads in an animation sequence from an external file </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>reads in an animation sequence from an external file </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>*.md5anim file to open </td></tr>
   </table>

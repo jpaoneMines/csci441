@@ -310,12 +310,12 @@ namespace CSCI441 {
 
     public:
         /**
-         * initializes an empty MD5 Model
+         * @brief initializes an empty MD5 Model
          * @note need to call loadMD5Model() or readMD5Model() after construction to actually load in a mesh file
          */
         MD5Model();
         /**
-         * deallocates any used memory on the CPU and GPU
+         * @breif deallocates any used memory on the CPU and GPU
          */
         ~MD5Model();
 
@@ -360,13 +360,13 @@ namespace CSCI441 {
 
         // md5anim prototypes
         /**
-         * reads in an animation sequence from an external file
+         * @brief reads in an animation sequence from an external file
          * @param filename *.md5anim file to open
          * @returns true iff mesh and animation are compatible
          */
         [[nodiscard]] bool readMD5Anim(const char* filename);
         /**
-         * advances the model forward in its animation sequence the corresponding amount of time based on frame rate
+         * @brief advances the model forward in its animation sequence the corresponding amount of time based on frame rate
          * @param dt delta time since last frame
          */
         void animate(GLfloat dt);
