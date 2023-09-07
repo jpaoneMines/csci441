@@ -129,7 +129,7 @@ namespace CSCI441 {
         };
 
         /**
-         * texture handle for the model
+         * @brief texture handle for the model
          */
         struct MD5Texture {
             /**
