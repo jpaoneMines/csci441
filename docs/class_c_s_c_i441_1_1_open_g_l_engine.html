@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.6.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.7.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -102,6 +102,14 @@ Inheritance diagram for CSCI441::OpenGLEngine:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a65dd75e0bfc33c4c665253402713216f"><td class="memItemLeft" align="right" valign="top"><a id="a65dd75e0bfc33c4c665253402713216f" name="a65dd75e0bfc33c4c665253402713216f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>OpenGLEngine</b> (const <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html">OpenGLEngine</a> &amp;)=delete</td></tr>
+<tr class="memdesc:a65dd75e0bfc33c4c665253402713216f"><td class="mdescLeft">&#160;</td><td class="mdescRight">do not allow engines to be copied <br /></td></tr>
+<tr class="separator:a65dd75e0bfc33c4c665253402713216f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c4c3fbb1559c437f75eb97ea791c39c"><td class="memItemLeft" align="right" valign="top"><a id="a0c4c3fbb1559c437f75eb97ea791c39c" name="a0c4c3fbb1559c437f75eb97ea791c39c"></a>
+<a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html">OpenGLEngine</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html">OpenGLEngine</a> &amp;)=delete</td></tr>
+<tr class="memdesc:a0c4c3fbb1559c437f75eb97ea791c39c"><td class="mdescLeft">&#160;</td><td class="mdescRight">do not allow engines to be copied <br /></td></tr>
+<tr class="separator:a0c4c3fbb1559c437f75eb97ea791c39c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20e62bf4168a3f252cdecc9413088884"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884">initialize</a> ()</td></tr>
 <tr class="memdesc:a20e62bf4168a3f252cdecc9413088884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, GLEW, OpenGL, Shader Programs, Buffer Objects, Textures, and any Scene information.  <br /></td></tr>
 <tr class="separator:a20e62bf4168a3f252cdecc9413088884"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,39 +120,39 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> ()=0<
 <tr class="memitem:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a22d9d1ed576a697c79ec43aa92aff8e3">shutdown</a> ()</td></tr>
 <tr class="memdesc:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleanup everything needed for OpenGL Rendering. This includes freeing memory for data used in: any Scene information, Textures, Buffer Objects, Shader Programs, OpenGL, GLEW, GLFW.  <br /></td></tr>
 <tr class="separator:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93ba383761d389fb0a06e5ca102ee720"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a93ba383761d389fb0a06e5ca102ee720">turnDebuggingOn</a> () noexcept</td></tr>
-<tr class="memdesc:a93ba383761d389fb0a06e5ca102ee720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable logging to command line.  <br /></td></tr>
-<tr class="separator:a93ba383761d389fb0a06e5ca102ee720"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1aeee3b7b3f6de881bc2ddc69d14ce26"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1aeee3b7b3f6de881bc2ddc69d14ce26">turnDebuggingOff</a> () noexcept</td></tr>
-<tr class="memdesc:a1aeee3b7b3f6de881bc2ddc69d14ce26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable logging to command line.  <br /></td></tr>
-<tr class="separator:a1aeee3b7b3f6de881bc2ddc69d14ce26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cd76e61ffc4d81ee2d45dda3084584f"><td class="memItemLeft" align="right" valign="top"><a id="a0cd76e61ffc4d81ee2d45dda3084584f" name="a0cd76e61ffc4d81ee2d45dda3084584f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isDebuggingEnabled</b> () const noexcept</td></tr>
-<tr class="memdesc:a0cd76e61ffc4d81ee2d45dda3084584f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if logging is enabled. <br /></td></tr>
-<tr class="separator:a0cd76e61ffc4d81ee2d45dda3084584f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b752dcd2a3f5e0f5c5c8ee5ee92cea3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a7b752dcd2a3f5e0f5c5c8ee5ee92cea3">setCurrentWindowSize</a> (const int WINDOW_WIDTH, const int WINDOW_HEIGHT)</td></tr>
-<tr class="memdesc:a7b752dcd2a3f5e0f5c5c8ee5ee92cea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the new window size.  <br /></td></tr>
-<tr class="separator:a7b752dcd2a3f5e0f5c5c8ee5ee92cea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a111ee821133523134e131830598e5b4a"><td class="memItemLeft" align="right" valign="top"><a id="a111ee821133523134e131830598e5b4a" name="a111ee821133523134e131830598e5b4a"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getWindowHeight</b> () const noexcept</td></tr>
-<tr class="memdesc:a111ee821133523134e131830598e5b4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the height of the window. <br /></td></tr>
-<tr class="separator:a111ee821133523134e131830598e5b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd2a98230167748325c132c08cbd44a4"><td class="memItemLeft" align="right" valign="top"><a id="abd2a98230167748325c132c08cbd44a4" name="abd2a98230167748325c132c08cbd44a4"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getWindowWidth</b> () const noexcept</td></tr>
-<tr class="memdesc:abd2a98230167748325c132c08cbd44a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the width of the window. <br /></td></tr>
-<tr class="separator:abd2a98230167748325c132c08cbd44a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ae32805f099d76a28d7e486ae19e76b"><td class="memItemLeft" align="right" valign="top"><a id="a8ae32805f099d76a28d7e486ae19e76b" name="a8ae32805f099d76a28d7e486ae19e76b"></a>
-GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>getWindow</b> () const noexcept</td></tr>
-<tr class="memdesc:a8ae32805f099d76a28d7e486ae19e76b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the window object. <br /></td></tr>
-<tr class="separator:a8ae32805f099d76a28d7e486ae19e76b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82e741d0dd915e786b7a03f9e18c74f7"><td class="memItemLeft" align="right" valign="top"><a id="a82e741d0dd915e786b7a03f9e18c74f7" name="a82e741d0dd915e786b7a03f9e18c74f7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setWindowShouldClose</b> ()</td></tr>
-<tr class="memdesc:a82e741d0dd915e786b7a03f9e18c74f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tell our engine's window to close. <br /></td></tr>
-<tr class="separator:a82e741d0dd915e786b7a03f9e18c74f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4aa868ad5f361567274f5c324dde6ee4"><td class="memItemLeft" align="right" valign="top"><a id="a4aa868ad5f361567274f5c324dde6ee4" name="a4aa868ad5f361567274f5c324dde6ee4"></a>
-unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>getError</b> () noexcept</td></tr>
-<tr class="memdesc:a4aa868ad5f361567274f5c324dde6ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return current value of error code and clear the error code back to no error. <br /></td></tr>
-<tr class="separator:a4aa868ad5f361567274f5c324dde6ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c4db87b2fc822713b5cd1557964ebf4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a6c4db87b2fc822713b5cd1557964ebf4">turnDebuggingOn</a> () noexcept final</td></tr>
+<tr class="memdesc:a6c4db87b2fc822713b5cd1557964ebf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable logging to command line.  <br /></td></tr>
+<tr class="separator:a6c4db87b2fc822713b5cd1557964ebf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac04998aae94ca2ed91d85296accb2b51"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ac04998aae94ca2ed91d85296accb2b51">turnDebuggingOff</a> () noexcept final</td></tr>
+<tr class="memdesc:ac04998aae94ca2ed91d85296accb2b51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable logging to command line.  <br /></td></tr>
+<tr class="separator:ac04998aae94ca2ed91d85296accb2b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33b5f2ee125f2c52e0badd71984d9842"><td class="memItemLeft" align="right" valign="top"><a id="a33b5f2ee125f2c52e0badd71984d9842" name="a33b5f2ee125f2c52e0badd71984d9842"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isDebuggingEnabled</b> () const noexcept final</td></tr>
+<tr class="memdesc:a33b5f2ee125f2c52e0badd71984d9842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if logging is enabled. <br /></td></tr>
+<tr class="separator:a33b5f2ee125f2c52e0badd71984d9842"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cab5dfa1632f7dc805edbe5313bd69f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1cab5dfa1632f7dc805edbe5313bd69f">setCurrentWindowSize</a> (const int WINDOW_WIDTH, const int WINDOW_HEIGHT) final</td></tr>
+<tr class="memdesc:a1cab5dfa1632f7dc805edbe5313bd69f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the new window size.  <br /></td></tr>
+<tr class="separator:a1cab5dfa1632f7dc805edbe5313bd69f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30662e0c1e3e63d9ae37ca74e2392223"><td class="memItemLeft" align="right" valign="top"><a id="a30662e0c1e3e63d9ae37ca74e2392223" name="a30662e0c1e3e63d9ae37ca74e2392223"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getWindowHeight</b> () const noexcept final</td></tr>
+<tr class="memdesc:a30662e0c1e3e63d9ae37ca74e2392223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the height of the window. <br /></td></tr>
+<tr class="separator:a30662e0c1e3e63d9ae37ca74e2392223"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb0f51fbd8524cd577684e46d9b4c2d5"><td class="memItemLeft" align="right" valign="top"><a id="acb0f51fbd8524cd577684e46d9b4c2d5" name="acb0f51fbd8524cd577684e46d9b4c2d5"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getWindowWidth</b> () const noexcept final</td></tr>
+<tr class="memdesc:acb0f51fbd8524cd577684e46d9b4c2d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the width of the window. <br /></td></tr>
+<tr class="separator:acb0f51fbd8524cd577684e46d9b4c2d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb261c4b30d2726e458a684240a2cdcd"><td class="memItemLeft" align="right" valign="top"><a id="afb261c4b30d2726e458a684240a2cdcd" name="afb261c4b30d2726e458a684240a2cdcd"></a>
+virtual GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>getWindow</b> () const noexcept final</td></tr>
+<tr class="memdesc:afb261c4b30d2726e458a684240a2cdcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the window object. <br /></td></tr>
+<tr class="separator:afb261c4b30d2726e458a684240a2cdcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf7a8a6f8545e87540f97639702446ba"><td class="memItemLeft" align="right" valign="top"><a id="aaf7a8a6f8545e87540f97639702446ba" name="aaf7a8a6f8545e87540f97639702446ba"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setWindowShouldClose</b> () final</td></tr>
+<tr class="memdesc:aaf7a8a6f8545e87540f97639702446ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tell our engine's window to close. <br /></td></tr>
+<tr class="separator:aaf7a8a6f8545e87540f97639702446ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a4e2be9f67d7512704bcb0fcc16229e"><td class="memItemLeft" align="right" valign="top"><a id="a2a4e2be9f67d7512704bcb0fcc16229e" name="a2a4e2be9f67d7512704bcb0fcc16229e"></a>
+virtual unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>getError</b> () noexcept final</td></tr>
+<tr class="memdesc:a2a4e2be9f67d7512704bcb0fcc16229e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return current value of error code and clear the error code back to no error. <br /></td></tr>
+<tr class="separator:a2a4e2be9f67d7512704bcb0fcc16229e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -804,8 +812,8 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
 
 </div>
 </div>
-<a id="a7b752dcd2a3f5e0f5c5c8ee5ee92cea3" name="a7b752dcd2a3f5e0f5c5c8ee5ee92cea3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b752dcd2a3f5e0f5c5c8ee5ee92cea3">&#9670;&#160;</a></span>setCurrentWindowSize()</h2>
+<a id="a1cab5dfa1632f7dc805edbe5313bd69f" name="a1cab5dfa1632f7dc805edbe5313bd69f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cab5dfa1632f7dc805edbe5313bd69f">&#9670;&#160;</a></span>setCurrentWindowSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -814,7 +822,7 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void CSCI441::OpenGLEngine::setCurrentWindowSize </td>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::setCurrentWindowSize </td>
           <td>(</td>
           <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>WINDOW_WIDTH</em>, </td>
@@ -833,7 +841,7 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -878,8 +886,8 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
 
 </div>
 </div>
-<a id="a1aeee3b7b3f6de881bc2ddc69d14ce26" name="a1aeee3b7b3f6de881bc2ddc69d14ce26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1aeee3b7b3f6de881bc2ddc69d14ce26">&#9670;&#160;</a></span>turnDebuggingOff()</h2>
+<a id="ac04998aae94ca2ed91d85296accb2b51" name="ac04998aae94ca2ed91d85296accb2b51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac04998aae94ca2ed91d85296accb2b51">&#9670;&#160;</a></span>turnDebuggingOff()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -888,7 +896,7 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void CSCI441::OpenGLEngine::turnDebuggingOff </td>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::turnDebuggingOff </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -896,7 +904,7 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -906,8 +914,8 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
 
 </div>
 </div>
-<a id="a93ba383761d389fb0a06e5ca102ee720" name="a93ba383761d389fb0a06e5ca102ee720"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93ba383761d389fb0a06e5ca102ee720">&#9670;&#160;</a></span>turnDebuggingOn()</h2>
+<a id="a6c4db87b2fc822713b5cd1557964ebf4" name="a6c4db87b2fc822713b5cd1557964ebf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c4db87b2fc822713b5cd1557964ebf4">&#9670;&#160;</a></span>turnDebuggingOn()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -916,7 +924,7 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void CSCI441::OpenGLEngine::turnDebuggingOn </td>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::turnDebuggingOn </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -924,7 +932,7 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

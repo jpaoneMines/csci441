@@ -7,6 +7,10 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v 4.7.0 - 07 Sep 2023
+- Big3 implemented on classes as appropriate
+- Classes and methods open/close as appropriate
+
 ## v 4.6.1 - 06 Sep 2023
 - Cannot copy MD5 Models
 
