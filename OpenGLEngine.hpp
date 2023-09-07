@@ -65,16 +65,16 @@ namespace CSCI441 {
          * @brief Enable logging to command line
          * @note Enabled by default
          */
-        [[maybe_unused]] void turnDebuggingOn() noexcept { DEBUG = true; }
+        [[maybe_unused]] virtual void turnDebuggingOn() noexcept final { DEBUG = true; }
         /**
          * @brief Disable logging to command line
          * @note Enabled by default
          */
-        void turnDebuggingOff() noexcept { DEBUG = false; }
+        virtual void turnDebuggingOff() noexcept final { DEBUG = false; }
         /**
          * @brief Returns if logging is enabled
          */
-        [[maybe_unused]] [[nodiscard]] bool isDebuggingEnabled() const noexcept { return DEBUG; }
+        [[maybe_unused]] [[nodiscard]] virtual bool isDebuggingEnabled() const noexcept final { return DEBUG; }
 
         /**
          * @brief Set the new window size
@@ -84,29 +84,29 @@ namespace CSCI441 {
          * has been resized this function is used to update the data members storing the current
          * window size.
          */
-        void setCurrentWindowSize(const int WINDOW_WIDTH, const int WINDOW_HEIGHT) { mWindowWidth = WINDOW_WIDTH; mWindowHeight = WINDOW_HEIGHT; }
+        virtual void setCurrentWindowSize(const int WINDOW_WIDTH, const int WINDOW_HEIGHT) final { mWindowWidth = WINDOW_WIDTH; mWindowHeight = WINDOW_HEIGHT; }
         /**
          * @brief Return the height of the window
          */
-        [[maybe_unused]] [[nodiscard]] int getWindowHeight() const noexcept { return mWindowHeight; }
+        [[maybe_unused]] [[nodiscard]] virtual int getWindowHeight() const noexcept final { return mWindowHeight; }
         /**
          * @brief Return the width of the window
          */
-        [[maybe_unused]] [[nodiscard]] int getWindowWidth() const noexcept { return mWindowWidth; }
+        [[maybe_unused]] [[nodiscard]] virtual int getWindowWidth() const noexcept final { return mWindowWidth; }
         /**
          * @brief Return the window object
          */
-        [[maybe_unused]] [[nodiscard]] GLFWwindow* getWindow() const noexcept { return mpWindow; }
+        [[maybe_unused]] [[nodiscard]] virtual GLFWwindow* getWindow() const noexcept final { return mpWindow; }
 
         /**
          * @brief Tell our engine's window to close
          */
-        [[maybe_unused]] void setWindowShouldClose() { glfwSetWindowShouldClose(mpWindow, GLFW_TRUE); }
+        [[maybe_unused]] virtual void setWindowShouldClose() final { glfwSetWindowShouldClose(mpWindow, GLFW_TRUE); }
 
         /**
          * @brief Return current value of error code and clear the error code back to no error
          */
-        [[nodiscard]] unsigned short getError() noexcept {
+        [[nodiscard]] virtual unsigned short getError() noexcept final {
             unsigned short storedErrorCode = mErrorCode;  // store current error code
             mErrorCode = OPENGL_ENGINE_ERROR_NO_ERROR;  // reset error code
             return storedErrorCode;                     // return previously stored error code

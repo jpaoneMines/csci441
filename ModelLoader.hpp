@@ -41,7 +41,7 @@ namespace CSCI441 {
 	 * @class ModelLoader
      * @brief Loads object models from file and renders using VBOs/VAOs
      */
-	class ModelLoader final {
+	class [[maybe_unused]] ModelLoader final {
 	public:
 		/**
 		 * @brief Creates an empty model

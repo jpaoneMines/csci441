@@ -40,7 +40,7 @@ namespace CSCI441 {
         };
 
         /**
-         * @note must create camera object from parameterized constructor
+         * @brief must create camera object from parameterized constructor
          */
         MD5Camera() = delete;
 
@@ -59,8 +59,18 @@ namespace CSCI441 {
          */
         explicit MD5Camera(const char* MD5CAMERA_FILE, AdvancementStrategy advancementStrategy, GLuint firstCutToRun = 0, GLfloat aspectRatio = 1.0f, GLfloat fovy = 45.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f, GLboolean INFO = true, GLboolean ERRORS = true);
 
+        /**
+         * @brief deep copy another MD5Camera
+         */
         MD5Camera(const MD5Camera&);
+        /**
+         * @brief deep copy another MD5Camera
+         * @return
+         */
         MD5Camera& operator=(const MD5Camera&);
+        /**
+         * @brief delete cuts and frames
+         */
         ~MD5Camera() final;
 
         void recomputeOrientation() final {}

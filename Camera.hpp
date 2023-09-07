@@ -75,43 +75,43 @@ namespace CSCI441 {
         /**
          * @brief creates the View Matrix based on the position, lookAt point, and up vector
          */
-        void computeViewMatrix() { mViewMatrix = glm::lookAt(mCameraPosition, mCameraLookAtPoint, mCameraUpVector ); }
+        virtual void computeViewMatrix() final { mViewMatrix = glm::lookAt(mCameraPosition, mCameraLookAtPoint, mCameraUpVector ); }
 
         /**
          * @brief returns the current projection matrix for the associated camera
          * @returns homogeneous projection matrix
          */
-         [[maybe_unused]] [[nodiscard]] glm::mat4 getProjectionMatrix() const { return mProjectionMatrix; }
+         [[maybe_unused]] [[nodiscard]] virtual glm::mat4 getProjectionMatrix() const final { return mProjectionMatrix; }
         /**
          * @brief returns the current view matrix for the associated camera
          * @returns homogeneous view matrix
          */
-        [[maybe_unused]] [[nodiscard]] glm::mat4 getViewMatrix() const { return mViewMatrix; }
+        [[maybe_unused]] [[nodiscard]] virtual glm::mat4 getViewMatrix() const final { return mViewMatrix; }
         /**
          * @brief returns the current camera position in world space
          * @returns homogeneous world space point
          */
-        [[nodiscard]] glm::vec3 getPosition() const { return mCameraPosition; }
+        [[nodiscard]] virtual glm::vec3 getPosition() const final { return mCameraPosition; }
         /**
          * @brief returns the current lookAt point in world space
          * @returns homogeneous world space point
          */
-        [[nodiscard]] glm::vec3 getLookAtPoint() const { return mCameraLookAtPoint; }
+        [[nodiscard]] virtual glm::vec3 getLookAtPoint() const final { return mCameraLookAtPoint; }
         /**
          * @brief returns the current up vector in world space
          * @returns homogeneous world space vector
          */
-        [[nodiscard]] glm::vec3 getUpVector() const { return mCameraUpVector; }
+        [[nodiscard]] virtual glm::vec3 getUpVector() const final { return mCameraUpVector; }
         /**
          * @brief returns the current theta value in radians
          * @returns spherical theta coordinate
          */
-        [[nodiscard]] GLfloat getTheta() const { return mCameraTheta; }
+        [[nodiscard]] virtual GLfloat getTheta() const final { return mCameraTheta; }
         /**
          * @brief returns the current phi value in radians
          * @returns spherical phi coordinate
          */
-        [[nodiscard]] GLfloat getPhi() const { return mCameraPhi; }
+        [[nodiscard]] virtual GLfloat getPhi() const final { return mCameraPhi; }
         /**
          * @brief returns the current radius in world space
          * @returns spherical radius coordinate
@@ -122,32 +122,32 @@ namespace CSCI441 {
          * @brief sets the camera's position in world space
          * @param pos the new camera world space position
          */
-        void setPosition( const glm::vec3 pos ) { mCameraPosition = pos; }
+        virtual void setPosition( const glm::vec3 pos ) final { mCameraPosition = pos; }
         /**
          * @brief sets the camera's lookAt point in world space
          * @param lookAt the new camera world space lookAt point
          */
-        void setLookAtPoint( const glm::vec3 lookAt ) { mCameraLookAtPoint = lookAt; }
+        virtual void setLookAtPoint( const glm::vec3 lookAt ) final { mCameraLookAtPoint = lookAt; }
         /**
          * @brief sets the camera's up vector in world space
          * @param up the new camera world space up vector
          */
-        void setUpVector( const glm::vec3 up ) { mCameraUpVector = up; }
+        virtual void setUpVector( const glm::vec3 up ) final { mCameraUpVector = up; }
         /**
          * @brief sets the camera's theta angle in radians
          * @param t the new camera theta angle in radians
          */
-        void setTheta( const GLfloat t ) { mCameraTheta = t; }
+        virtual void setTheta( const GLfloat t ) final { mCameraTheta = t; }
         /**
          * @brief sets the camera's phi angle in radians
          * @param p the new camera phi angle in radians
          */
-        void setPhi( const GLfloat p ) { mCameraPhi = p; }
+        virtual void setPhi( const GLfloat p ) final { mCameraPhi = p; }
         /**
          * @brief sets the camera's radius in world space
          * @param r the new camera radius in world space
          */
-        void setRadius( const GLfloat r ) { mCameraRadius = r; }
+        virtual void setRadius( const GLfloat r ) final { mCameraRadius = r; }
 
     protected:
         /**

@@ -41,40 +41,40 @@ namespace CSCI441 {
          * @brief the status of the left mouse button being down
          * @return true if left mouse button is currently being pressed, false otherwise
          */
-        [[maybe_unused]] [[nodiscard]] GLboolean isLeftMouseDown() const noexcept { return mIsLeftMouseDown; }
+        [[maybe_unused]] [[nodiscard]] virtual GLboolean isLeftMouseDown() const noexcept final { return mIsLeftMouseDown; }
         /**
          * @brief set the status of the left mouse button being down
          * @param isDown set to true if the left mouse button is currently being pressed, false otherwise
          */
-        [[maybe_unused]] void setLeftMouseDown(GLboolean isDown) { mIsLeftMouseDown = isDown; }
+        [[maybe_unused]] virtual void setLeftMouseDown(GLboolean isDown) final { mIsLeftMouseDown = isDown; }
 
         /**
          * @brief the status of either shift key being down
          * @return true if either shift key is currently being pressed, false otherwise
          */
-        [[maybe_unused]] [[nodiscard]] GLboolean isShiftDown() const noexcept { return mIsShiftDown; }
+        [[maybe_unused]] [[nodiscard]] virtual GLboolean isShiftDown() const noexcept final { return mIsShiftDown; }
         /**
          * @brief set the status of the shift keys being down
          * @param isDown set to true if either shift key is currently being pressed, false otherwise
          */
-        [[maybe_unused]] void setShiftDown(GLboolean isDown) { mIsShiftDown = isDown; }
+        [[maybe_unused]] virtual void setShiftDown(GLboolean isDown) final { mIsShiftDown = isDown; }
 
         /**
          * @brief the location of the mouse within the window
          * @return (x, y) coordinate in screen space of the mouse
          */
-        [[maybe_unused]] [[nodiscard]] glm::vec2 getMousePosition() const noexcept { return mMousePosition; }
+        [[maybe_unused]] [[nodiscard]] virtual glm::vec2 getMousePosition() const noexcept final { return mMousePosition; }
         /**
          * @brief set the location of the mouse within the window
          * @param mousePos (x, y) coordinate in screen space of the mouse
          */
-        [[maybe_unused]] void setMousePosition(glm::vec2 mousePos) { mMousePosition = mousePos; }
+        [[maybe_unused]] virtual void setMousePosition(glm::vec2 mousePos) final { mMousePosition = mousePos; }
 
         /**
          * @brief sets the object space position of the arcball camera in spherical world coordinates
          * @param angles (theta, phi, radius) spherical object space coordinate
          */
-        [[maybe_unused]] void setArcballCameraAngles( glm::vec3 angles ) {
+        [[maybe_unused]] virtual void setArcballCameraAngles( glm::vec3 angles ) final {
             mpArcballCamera->setTheta(angles[0] );
             mpArcballCamera->setPhi(angles[1] );
             mpArcballCamera->setRadius(angles[2] );
@@ -84,35 +84,35 @@ namespace CSCI441 {
          * @brief the world space position the arcball camera is located at
          * @return (x, y, z) world space position of the arcball camera
          */
-        [[maybe_unused]] [[nodiscard]] glm::vec3 getArcballCameraEyePoint() const noexcept { return mpArcballCamera->getPosition(); }
+        [[maybe_unused]] [[nodiscard]] virtual glm::vec3 getArcballCameraEyePoint() const noexcept final { return mpArcballCamera->getPosition(); }
 
         /**
          * @brief the world space position the arcball camera is looking at and thus centered around
          * @return (x, y, z) world space position the arcball is looking at and centered around
          */
-        [[maybe_unused]] [[nodiscard]] glm::vec3 getArcballCameraLookAtPoint() const noexcept { return mpArcballCamera->getLookAtPoint(); }
+        [[maybe_unused]] [[nodiscard]] virtual glm::vec3 getArcballCameraLookAtPoint() const noexcept final { return mpArcballCamera->getLookAtPoint(); }
         /**
          * @brief set the world space position the arcball camera is looking at and thus centered around
          * @param lookAtPoint (x, y, z) world space position the arcball is looking at and centered around
          */
-        [[maybe_unused]] void setArcballCameraLookAtPoint( glm::vec3 lookAtPoint ) { mpArcballCamera->setLookAtPoint(lookAtPoint); }
+        [[maybe_unused]] virtual void setArcballCameraLookAtPoint( glm::vec3 lookAtPoint ) final { mpArcballCamera->setLookAtPoint(lookAtPoint); }
 
         /**
          * @brief the world space vector the arcball camera is oriented upwards along
          * @return &lt;x, y, z&gt; world space vector the arcball is oriented upwards along
          */
-        [[maybe_unused]] [[nodiscard]] glm::vec3 getArcballCameraUpVector() const noexcept { return mpArcballCamera->getUpVector(); }
+        [[maybe_unused]] [[nodiscard]] virtual glm::vec3 getArcballCameraUpVector() const noexcept final { return mpArcballCamera->getUpVector(); }
         /**
          * @brief sets the world space vector the arcball camera is oriented upwards along
          * @param upVector &lt;x, y, z&gt; world space vector the arcball is oriented upwards along
          */
-        [[maybe_unused]] void setArcballCameraUpVector( glm::vec3 upVector ) { mpArcballCamera->setUpVector(upVector); }
+        [[maybe_unused]] virtual void setArcballCameraUpVector( glm::vec3 upVector ) final { mpArcballCamera->setUpVector(upVector); }
 
         /**
          * @brief moves the arcball spherical object space coordinate by the associated amounts
          * @param angleAdditions (theta, phi, radius) to add to existing spherical object space coordinate
          */
-        [[maybe_unused]] void addToArcballCameraAngles( glm::vec3 angleAdditions ) {
+        [[maybe_unused]] virtual void addToArcballCameraAngles( glm::vec3 angleAdditions ) final {
             mpArcballCamera->setTheta(mpArcballCamera->getTheta() + angleAdditions[0] );
             mpArcballCamera->setPhi(mpArcballCamera->getPhi() + angleAdditions[1] );
             mpArcballCamera->moveBackward(angleAdditions[2] );
@@ -121,7 +121,7 @@ namespace CSCI441 {
         /**
          * @brief recomputes the arcball camera's world space position
          */
-        [[maybe_unused]] void updateArcballCameraDirection() {
+        [[maybe_unused]] virtual void updateArcballCameraDirection() final {
             mpArcballCamera->recomputeOrientation();
         }
 

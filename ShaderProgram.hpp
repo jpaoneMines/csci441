@@ -179,7 +179,7 @@ namespace CSCI441 {
          * @param BINARY_FILE_NAME filename to write shader program binary to
          * @return true if write succeeded, false otherwise
          */
-        bool writeShaderProgramBinaryToFile(const char* BINARY_FILE_NAME) const;
+        virtual bool writeShaderProgramBinaryToFile(const char* BINARY_FILE_NAME) const final;
 
         /**
          * @brief loads precompiled shader program binary from external file
@@ -195,7 +195,7 @@ namespace CSCI441 {
          * @return location of the given uniform in this shader program
          * @note Prints an error message to standard error stream if the uniform is not found
          */
-        GLint getUniformLocation( const char *uniformName ) const;
+        virtual GLint getUniformLocation( const char *uniformName ) const final;
 
         /**
          * @brief Returns the index of the given uniform block in this shader program
@@ -203,28 +203,28 @@ namespace CSCI441 {
          * @return index of the given uniform block in this shader program
          * @note Prints an error message to standard error stream if the uniform block is not found
          */
-        GLint getUniformBlockIndex( const char *uniformBlockName ) const;
+        virtual GLint getUniformBlockIndex( const char *uniformBlockName ) const final;
         /**
          * @brief Returns the size of the given uniform block in this shader program
          * @param uniformBlockName - name of the uniform block to get the size for
          * @return size of the given uniform block in this shader program
          * @note Prints an error message to standard error stream if the uniform block is not found
          */
-        GLint getUniformBlockSize( const char *uniformBlockName ) const;
+        virtual GLint getUniformBlockSize( const char *uniformBlockName ) const final;
         /**
          * @brief Returns an allocated buffer for the given uniform block in this shader program
          * @param uniformBlockName name of the uniform block to allocate a buffer for
          * @return allocated buffer for the given uniform block in this shader program
          * @note Prints an error message to standard error stream if the uniform block is not found
          */
-        [[maybe_unused]] GLubyte* getUniformBlockBuffer( const char *uniformBlockName ) const;
+        [[maybe_unused]] virtual GLubyte* getUniformBlockBuffer( const char *uniformBlockName ) const final;
         /**
          * @brief Returns an array of offsets into the buffer for the given uniform block in this shader program
          * @param uniformBlockName name of the uniform block to return offsets for
          * @return array of offsets for the given uniform block in this shader program
          * @note Prints an error message to standard error stream if the uniform block is not found
          */
-        [[maybe_unused]] GLint* getUniformBlockOffsets( const char *uniformBlockName ) const;
+        [[maybe_unused]] virtual GLint* getUniformBlockOffsets( const char *uniformBlockName ) const final;
         /**
          * @brief Returns an array of offsets into the buffer for the given uniform block and names in this shader program
          * @param uniformBlockName name of the uniform block to return offsets for
@@ -232,14 +232,14 @@ namespace CSCI441 {
          * @return array of offsets for the given uniform block in this shader program
          * @note Prints an error message to standard error stream if the uniform block is not found
          */
-        [[maybe_unused]] GLint* getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) const;
+        [[maybe_unused]] virtual GLint* getUniformBlockOffsets( const char *uniformBlockName, const char *names[] ) const final;
         /**
          * @brief Returns an array of offsets into the buffer for the given uniform block in this shader program
          * @param uniformBlockIndex index uniform block to return offsets for
          * @return array of offsets for the given uniform block in this shader program
          * @note Prints an error message to standard error stream if the uniform block is not found
          */
-        [[nodiscard]] GLint* getUniformBlockOffsets(GLint uniformBlockIndex ) const;
+        [[nodiscard]] virtual GLint* getUniformBlockOffsets(GLint uniformBlockIndex ) const final;
         /**
          * @brief Returns an array of offsets into the buffer for the given uniform block and names in this shader program
          * @param uniformBlockIndex index uniform block to return offsets for
@@ -247,14 +247,14 @@ namespace CSCI441 {
          * @return array of offsets for the given uniform block in this shader program
          * @note Prints an error message to standard error stream if the uniform block is not found
          */
-        [[nodiscard]] GLint* getUniformBlockOffsets(GLint uniformBlockIndex, const char *names[] ) const;
+        [[nodiscard]] virtual GLint* getUniformBlockOffsets(GLint uniformBlockIndex, const char *names[] ) const final;
         /**
          * @brief Set the binding point for the given uniform block in this shader program
          * @param uniformBlockName name of the uniform block to bind
          * @param binding point for this uniform block
          * @note Prints an error message to standard error stream if the uniform block is not found
          */
-        void setUniformBlockBinding( const char *uniformBlockName, GLuint binding ) const;
+        virtual void setUniformBlockBinding( const char *uniformBlockName, GLuint binding ) const final;
 
         /**
          * @brief Returns the location of the given attribute in this shader program
@@ -262,7 +262,7 @@ namespace CSCI441 {
          * @return location of the given attribute in this shader program
          * @note Prints an error message to standard error stream if the attribute is not found
          */
-        [[maybe_unused]] GLint getAttributeLocation( const char *attributeName ) const;
+        [[maybe_unused]] virtual GLint getAttributeLocation( const char *attributeName ) const final;
 
         /**
          * @brief Returns the index of the given subroutine for a shader stage in this shader program
@@ -272,7 +272,7 @@ namespace CSCI441 {
          * @return index of the given subroutine for the shader stage in this shader program
          * @note Prints an error message to standard error stream if the subroutine is not found
          */
-        [[maybe_unused]] GLuint getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) const;
+        [[maybe_unused]] virtual GLuint getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) const final;
 
         /**
          * @brief Returns the binding point for the corresponding image uniform
@@ -280,7 +280,7 @@ namespace CSCI441 {
          * @return binding point for image
          * @note Prints an error message to standard error stream if the image is not found
          */
-        [[maybe_unused]] GLint getImageBinding(const char* imageName) const;
+        [[maybe_unused]] virtual GLint getImageBinding(const char* imageName) const final;
 
         /**
          * @brief Returns the binding point for the corresponding shader storage block
@@ -288,7 +288,7 @@ namespace CSCI441 {
          * @return binding point for shader storage block
          * @note Prints an error message to standard error stream if the shader storage block is not found
          */
-        [[maybe_unused]] GLint getShaderStorageBlockBinding(const char* ssboName) const;
+        [[maybe_unused]] virtual GLint getShaderStorageBlockBinding(const char* ssboName) const final;
 
         /**
          * @brief Returns the binding point for the corresponding atomic counter buffer
@@ -296,121 +296,121 @@ namespace CSCI441 {
          * @return binding point of atomic counter buffer
          * @note Prints an error message to standard error stream if the atomic counter is not found
          */
-        [[maybe_unused]] GLint getAtomicCounterBufferBinding(const char* atomicName) const;
+        [[maybe_unused]] virtual GLint getAtomicCounterBufferBinding(const char* atomicName) const final;
         /**
          * @brief Returns the offset into the buffer for the corresponding atomic counter buffer
          * @param atomicName name of the atomic counter buffer to get size for
          * @return offset of atomic counter buffer
          * @note Prints an error message to standard error stream if the atomic counter is not found
          */
-        [[maybe_unused]] GLint getAtomicCounterBufferOffset(const char* atomicName) const;
+        [[maybe_unused]] virtual GLint getAtomicCounterBufferOffset(const char* atomicName) const final;
         /**
          * @brief Returns the full buffer size for the corresponding atomic counter buffer
          * @param atomicName name of the atomic counter buffer to get size for
          * @return size of atomic counter buffer
          * @note Prints an error message to standard error stream if the atomic counter is not found
          */
-        [[maybe_unused]] GLint getAtomicCounterBufferSize(const char* atomicName) const;
+        [[maybe_unused]] virtual GLint getAtomicCounterBufferSize(const char* atomicName) const final;
 
         /**
          * @brief Returns the number of active uniforms in this shader program
          * @return number of active uniforms in this shader program
          */
-        [[maybe_unused]] [[nodiscard]] GLuint getNumUniforms() const;
+        [[maybe_unused]] [[nodiscard]] virtual GLuint getNumUniforms() const final;
         /**
          * @brief Returns the number of active uniform blocks in this shader program
          * @return number of active uniform blocks in this shader program
          */
-        [[maybe_unused]] [[nodiscard]] GLuint getNumUniformBlocks() const;
+        [[maybe_unused]] [[nodiscard]] virtual GLuint getNumUniformBlocks() const final;
         /**
          * @brief Returns the number of active attributes in this shader program
          * @return number of active attributes in this shader program
          */
-        [[maybe_unused]] [[nodiscard]] GLuint getNumAttributes() const;
+        [[maybe_unused]] [[nodiscard]] virtual GLuint getNumAttributes() const final;
 
         /**
          * @brief Returns the handle for this shader program
          * @return handle for this shader program
          */
-        [[nodiscard]] GLuint getShaderProgramHandle() const;
+        [[nodiscard]] virtual GLuint getShaderProgramHandle() const final;
 
         /**
          * @brief Sets the Shader Program to be active
          */
-        [[maybe_unused]] void useProgram() const;
+        [[maybe_unused]] virtual void useProgram() const final;
 
         /**
          * @brief sets the program uniform consisting of one float
          * @param uniformName name of the uniform as a string
          * @param v0 value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLfloat v0) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLfloat v0) const final;
         /**
          * @brief sets the program uniform consisting of one integer
          * @param uniformName name of the uniform as a string
          * @param v0 value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLint v0) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLint v0) const final;
         /**
          * @brief sets the program uniform consisting of one unsigned integer
          * @param uniformName name of the uniform as a string
          * @param v0 value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint v0) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLuint v0) const final;
         /**
          * @brief sets the program uniform consisting of one 2x2 matrix
          * @param uniformName name of the uniform as a string
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat2 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::mat2 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 3x3 matrix
          * @param uniformName name of the uniform as a string
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat3 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::mat3 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 4x4 matrix
          * @param uniformName name of the uniform as a string
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat4 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::mat4 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 2x3 matrix
          * @param uniformName name of the uniform as a string
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat2x3 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::mat2x3 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 3x2 matrix
          * @param uniformName name of the uniform as a string
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat3x2 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::mat3x2 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 2x4 matrix
          * @param uniformName name of the uniform as a string
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat2x4 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::mat2x4 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 4x2 matrix
          * @param uniformName name of the uniform as a string
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat4x2 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::mat4x2 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 3x4 matrix
          * @param uniformName name of the uniform as a string
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat3x4 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::mat3x4 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 4x3 matrix
          * @param uniformName name of the uniform as a string
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::mat4x3 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::mat4x3 mtx) const final;
 
         /**
          * @brief sets the program uniform consisting of two floats
@@ -418,21 +418,21 @@ namespace CSCI441 {
          * @param v0 value to set
          * @param v1 value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1) const final;
         /**
          * @brief sets the program uniform consisting of two integers
          * @param uniformName name of the uniform as a string
          * @param v0 value to set
          * @param v1 value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLint v0, GLint v1) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLint v0, GLint v1) const final;
         /**
          * @brief sets the program uniform consisting of two unsigned integers
          * @param uniformName name of the uniform as a string
          * @param v0 value to set
          * @param v1 value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1) const final;
 
         /**
          * @brief sets the program uniform consisting of three floats
@@ -441,7 +441,7 @@ namespace CSCI441 {
          * @param v1 value to set
          * @param v2 value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2) const final;
         /**
          * @brief sets the program uniform consisting of three integers
          * @param uniformName name of the uniform as a string
@@ -449,7 +449,7 @@ namespace CSCI441 {
          * @param v1 value to set
          * @param v2 value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2) const final;
         /**
          * @brief sets the program uniform consisting of three unsigned integers
          * @param uniformName name of the uniform as a string
@@ -457,7 +457,7 @@ namespace CSCI441 {
          * @param v1 value to set
          * @param v2 value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2) const final;
 
         /**
          * @brief sets the program uniform consisting of four floats
@@ -467,7 +467,7 @@ namespace CSCI441 {
          * @param v2 value to set
          * @param v3 value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const final;
         /**
          * @brief sets the program uniform consisting of four integers
          * @param uniformName name of the uniform as a string
@@ -476,7 +476,7 @@ namespace CSCI441 {
          * @param v2 value to set
          * @param v3 value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2, GLint v3) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLint v0, GLint v1, GLint v2, GLint v3) const final;
         /**
          * @brief sets the program uniform consisting of four unsigned integers
          * @param uniformName name of the uniform as a string
@@ -485,64 +485,64 @@ namespace CSCI441 {
          * @param v2 value to set
          * @param v3 value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3) const final;
 
         /**
          * @brief sets the program uniform consisting of two floats
          * @param uniformName name of the uniform as a string
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::vec2 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::vec2 value) const final;
         /**
          * @brief sets the program uniform consisting of two integers
          * @param uniformName name of the uniform as a string
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::ivec2 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::ivec2 value) const final;
         /**
          * @brief sets the program uniform consisting of two unsigned integers
          * @param uniformName name of the uniform as a string
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::uvec2 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::uvec2 value) const final;
 
         /**
          * @brief sets the program uniform consisting of three floats
          * @param uniformName name of the uniform as a string
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::vec3 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::vec3 value) const final;
         /**
          * @brief sets the program uniform consisting of three integers
          * @param uniformName name of the uniform as a string
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::ivec3 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::ivec3 value) const final;
         /**
          * @brief sets the program uniform consisting of three unsigned integers
          * @param uniformName name of the uniform as a string
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::uvec3 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::uvec3 value) const final;
 
         /**
          * @brief sets the program uniform consisting of four floats
          * @param uniformName name of the uniform as a string
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::vec4 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::vec4 value) const final;
         /**
          * @brief sets the program uniform consisting of four integers
          * @param uniformName name of the uniform as a string
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::ivec4 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::ivec4 value) const final;
         /**
          * @brief sets the program uniform consisting of four unsigned integers
          * @param uniformName name of the uniform as a string
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, glm::uvec4 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, glm::uvec4 value) const final;
 
         /**
          * @brief sets the program uniform consisting of floats
@@ -551,7 +551,7 @@ namespace CSCI441 {
          * @param count number of values in array
          * @param value array of values (array size is equal to dim*count)
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLfloat *value) const final;
         /**
          * @brief sets the program uniform consisting of integers
          * @param uniformName name of the uniform as a string
@@ -559,7 +559,7 @@ namespace CSCI441 {
          * @param count number of values in array
          * @param value array of values (array size is equal to dim*count)
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLint *value) const final;
         /**
          * @brief sets the program uniform consisting of unsigned integers
          * @param uniformName name of the uniform as a string
@@ -567,80 +567,80 @@ namespace CSCI441 {
          * @param count number of values in array
          * @param value array of values (array size is equal to dim*count)
          */
-        [[maybe_unused]] void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value) const;
+        [[maybe_unused]] virtual void setProgramUniform(const char* uniformName, GLuint dim, GLsizei count, const GLuint *value) const final;
 
         /**
          * @brief sets the program uniform consisting of one float
          * @param uniformLocation location of the uniform
          * @param v0 value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLfloat v0) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, GLfloat v0) const final;
         /**
          * @brief sets the program uniform consisting of one integer
          * @param uniformLocation location of the uniform
          * @param v0 value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLint v0) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, GLint v0) const final;
         /**
          * @brief sets the program uniform consisting of one unsigned integer
          * @param uniformLocation location of the uniform
          * @param v0 value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLuint v0) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, GLuint v0) const final;
         /**
          * @brief sets the program uniform consisting of one 2x2 matrix
          * @param uniformLocation location of the uniform
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat2 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::mat2 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 3x3 matrix
          * @param uniformLocation location of the uniform
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat3 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::mat3 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 4x4 matrix
          * @param uniformLocation location of the uniform
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat4 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::mat4 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 2x3 matrix
          * @param uniformLocation location of the uniform
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat2x3 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::mat2x3 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 3x2 matrix
          * @param uniformLocation location of the uniform
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat3x2 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::mat3x2 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 2x4 matrix
          * @param uniformLocation location of the uniform
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat2x4 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::mat2x4 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 4x2 matrix
          * @param uniformLocation location of the uniform
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat4x2 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::mat4x2 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 3x4 matrix
          * @param uniformLocation location of the uniform
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat3x4 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::mat3x4 mtx) const final;
         /**
          * @brief sets the program uniform consisting of one 4x3 matrix
          * @param uniformLocation location of the uniform
          * @param mtx value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::mat4x3 mtx) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::mat4x3 mtx) const final;
 
         /**
          * @brief sets the program uniform consisting of two floats
@@ -648,21 +648,21 @@ namespace CSCI441 {
          * @param v0 value to set
          * @param v1 value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1) const final;
         /**
          * @brief sets the program uniform consisting of two integers
          * @param uniformLocation location of the uniform
          * @param v0 value to set
          * @param v1 value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1) const final;
         /**
          * @brief sets the program uniform consisting of two unsigned integers
          * @param uniformLocation location of the uniform
          * @param v0 value to set
          * @param v1 value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1) const final;
 
         /**
          * @brief sets the program uniform consisting of three floats
@@ -671,7 +671,7 @@ namespace CSCI441 {
          * @param v1 value to set
          * @param v2 value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2) const final;
         /**
          * @brief sets the program uniform consisting of three integers
          * @param uniformLocation location of the uniform
@@ -679,7 +679,7 @@ namespace CSCI441 {
          * @param v1 value to set
          * @param v2 value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2) const final;
         /**
          * @brief sets the program uniform consisting of three unsigned integers
          * @param uniformLocation location of the uniform
@@ -687,7 +687,7 @@ namespace CSCI441 {
          * @param v1 value to set
          * @param v2 value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2) const final;
 
         /**
          * @brief sets the program uniform consisting of four floats
@@ -697,7 +697,7 @@ namespace CSCI441 {
          * @param v2 value to set
          * @param v3 value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const final;
         /**
          * @brief sets the program uniform consisting of four integers
          * @param uniformLocation location of the uniform
@@ -706,7 +706,7 @@ namespace CSCI441 {
          * @param v2 value to set
          * @param v3 value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, GLint v0, GLint v1, GLint v2, GLint v3) const final;
         /**
          * @brief sets the program uniform consisting of four unsigned integers
          * @param uniformLocation location of the uniform
@@ -715,64 +715,64 @@ namespace CSCI441 {
          * @param v2 value to set
          * @param v3 value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, GLuint v0, GLuint v1, GLuint v2, GLuint v3) const final;
 
         /**
          * @brief sets the program uniform consisting of two floats
          * @param uniformLocation location of the uniform
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::vec2 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::vec2 value) const final;
         /**
          * @brief sets the program uniform consisting of two integers
          * @param uniformLocation location of the uniform
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::ivec2 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::ivec2 value) const final;
         /**
          * @brief sets the program uniform consisting of two unsigned integers
          * @param uniformLocation location of the uniform
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::uvec2 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::uvec2 value) const final;
 
         /**
          * @brief sets the program uniform consisting of three floats
          * @param uniformLocation location of the uniform
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::vec3 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::vec3 value) const final;
         /**
          * @brief sets the program uniform consisting of three integers
          * @param uniformLocation location of the uniform
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::ivec3 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::ivec3 value) const final;
         /**
          * @brief sets the program uniform consisting of three unsigned integers
          * @param uniformLocation location of the uniform
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::uvec3 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::uvec3 value) const final;
 
         /**
          * @brief sets the program uniform consisting of four floats
          * @param uniformLocation location of the uniform
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::vec4 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::vec4 value) const final;
         /**
          * @brief sets the program uniform consisting of four integers
          * @param uniformLocation location of the uniform
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::ivec4 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::ivec4 value) const final;
         /**
          * @brief sets the program uniform consisting of four unsigned integers
          * @param uniformLocation location of the uniform
          * @param value value to set
          */
-        [[maybe_unused]] void setProgramUniform(GLint uniformLocation, glm::uvec4 value) const;
+        [[maybe_unused]] virtual void setProgramUniform(GLint uniformLocation, glm::uvec4 value) const final;
 
         /**
          * @brief sets the program uniform consisting of floats
@@ -781,7 +781,7 @@ namespace CSCI441 {
          * @param count number of values in array
          * @param value array of values (array size is equal to dim*count)
          */
-        void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value) const;
+        virtual void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLfloat *value) const final;
         /**
          * @brief sets the program uniform consisting of integers
          * @param uniformLocation location of the uniform
@@ -789,7 +789,7 @@ namespace CSCI441 {
          * @param count number of values in array
          * @param value array of values (array size is equal to dim*count)
          */
-        void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value) const;
+        virtual void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLint *value) const final;
         /**
          * @brief sets the program uniform consisting of unsigned integers
          * @param uniformLocation location of the uniform
@@ -797,13 +797,13 @@ namespace CSCI441 {
          * @param count number of values in array
          * @param value array of values (array size is equal to dim*count)
          */
-        void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) const;
+        virtual void setProgramUniform(GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) const final;
 
         /**
          * @brief returns a single value corresponding to which shader stages are present in this shader program
          * @return bitfield of shader stages
          */
-        [[maybe_unused]] [[nodiscard]] GLbitfield getProgramStages() const;
+        [[maybe_unused]] [[nodiscard]] virtual GLbitfield getProgramStages() const final;
 
     protected:
         /**
@@ -862,12 +862,12 @@ namespace CSCI441 {
          * @param isSeparable if shader program is separable
          * @return true if shader program handle could be created, false otherwise
          */
-        bool mRegisterShaderProgram(const char *vertexShaderFilename,
-                                    const char *tessellationControlShaderFilename,
-                                    const char *tessellationEvaluationShaderFilename,
-                                    const char *geometryShaderFilename,
-                                    const char *fragmentShaderFilename,
-                                    bool isSeparable );
+        virtual bool mRegisterShaderProgram(const char *vertexShaderFilename,
+                                            const char *tessellationControlShaderFilename,
+                                            const char *tessellationEvaluationShaderFilename,
+                                            const char *geometryShaderFilename,
+                                            const char *fragmentShaderFilename,
+                                            bool isSeparable ) final;
 
     private:
         void _initialize();

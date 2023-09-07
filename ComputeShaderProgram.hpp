@@ -50,7 +50,7 @@ namespace CSCI441 {
          * @param numGroupsZ number of work groups in Z dimension (defaults to 1)
          * @note call after calling ShaderProgram::useProgram()
          */
-        [[maybe_unused]] void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ);
+        [[maybe_unused]] virtual void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ) final;
     };
 }
 
