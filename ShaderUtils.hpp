@@ -288,7 +288,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog(
         glGetShaderiv(  shaderHandle, GL_INFO_LOG_LENGTH, &maxLength );
 
         // create a buffer of designated length
-		char infoLog[maxLength];
+		char* infoLog = new char[maxLength];
 		
 		glGetShaderiv( shaderHandle, GL_COMPILE_STATUS, &status );
     	if( sDEBUG ) printf( "[INFO]: |   Shader  Handle %2d: Compile%-26s |\n", shaderHandle, (status == 1 ? "d Successfully" : "r Error") );
@@ -300,6 +300,8 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog(
 			// print info to terminal
         	if( sDEBUG ) printf( "[INFO]: |   Shader Handle %d: %s\n", shaderHandle, infoLog );
         }
+
+        delete[] infoLog;
     } else {
 		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader                        |\n", shaderHandle );
 	}
@@ -317,7 +319,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog(
         glGetProgramiv(  programHandle, GL_INFO_LOG_LENGTH, &maxLength );
 
         // create a buffer of designated length
-		char infoLog[maxLength];
+		char* infoLog = new char[maxLength];
 		
 		glGetProgramiv( programHandle, GL_LINK_STATUS, &status );
     	if( sDEBUG ) printf("[INFO]: |   Program Handle %2d: Linke%-28s |\n", programHandle, (status == 1 ? "d Successfully" : "r Error") );
@@ -329,6 +331,8 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog(
 			// print info to terminal
         	if( sDEBUG ) printf( "[INFO]: |   Program Handle %d: %s\n", programHandle, infoLog );
         }
+
+        delete[] infoLog;
     } else {
 		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader Program                |\n", programHandle );
 	}
@@ -345,7 +349,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog(
         glGetProgramPipelineiv(  pipelineHandle, GL_INFO_LOG_LENGTH, &maxLength );
 
         // create a buffer of designated length
-		char infoLog[maxLength];
+		char* infoLog = new char[maxLength];
 		
         // get the info log for the shader program pipeline
         glGetProgramPipelineInfoLog(pipelineHandle, maxLength, &infoLogLength, infoLog );
@@ -354,6 +358,8 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog(
 			// print info to terminal
         	if( sDEBUG ) printf( "[INFO]: |   Pipeline Handle %d: %s\n", pipelineHandle, infoLog );
         }
+
+        delete[] infoLog;
     } else {
 		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader Program Pipeline       |\n", pipelineHandle );
 	}
