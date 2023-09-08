@@ -606,7 +606,6 @@ inline void CSCI441_INTERNAL::SimpleShader2::popTransformation() {
     // never let the original identity matrix pop off
     if( transformationStack.size() > 1 ) {
         glUseProgram(shaderProgramHandle);
-        glm::mat4 lastTransformation = transformationStack.back();
         transformationStack.pop_back();
 
         modelMatrix = glm::mat4(1.0f);
@@ -822,7 +821,6 @@ inline void CSCI441_INTERNAL::SimpleShader3::popTransformation() {
     // never let the original identity matrix pop off
     if( transformationStack.size() > 1 ) {
         glUseProgram(shaderProgramHandle);
-        glm::mat4 lastTransformation = transformationStack.back();
         transformationStack.pop_back();
 
         modelMatrix = glm::mat4(1.0f);
