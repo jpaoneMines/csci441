@@ -496,265 +496,263 @@ $(function() {
 <div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>    <span class="comment">// never let the original identity matrix pop off</span></div>
 <div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>    <span class="keywordflow">if</span>( transformationStack.size() &gt; 1 ) {</div>
 <div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>        glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>        glm::mat4 lastTransformation = transformationStack.back();</div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>        transformationStack.pop_back();</div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span> </div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>        modelMatrix = glm::mat4(1.0f);</div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>        <span class="keywordflow">for</span>( <span class="keyword">auto</span> tMtx : transformationStack ) {</div>
-<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>            modelMatrix *= tMtx;</div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>        }</div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>        glUniformMatrix4fv( modelLocation, 1, GL_FALSE, &amp;modelMatrix[0][0] );</div>
-<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>    }</div>
-<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>}</div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span> </div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader2::resetTransformationMatrix() {</div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>    modelMatrix = glm::mat4(1.0f);</div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>    transformationStack.clear();</div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>    transformationStack.emplace_back(modelMatrix);</div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &amp;modelMatrix[0][0]);</div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>}</div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span> </div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader2::draw(<span class="keyword">const</span> GLint PRIMITIVE_TYPE, <span class="keyword">const</span> GLuint VAOD, <span class="keyword">const</span> GLuint VERTEX_COUNT) {</div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>    glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>    glBindVertexArray(VAOD);</div>
-<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>    glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);</div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>}</div>
-<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span> </div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span><span class="comment">//---------------------------------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span> </div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::enableFlatShading() {</div>
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>    smoothShading = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>}</div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::enableSmoothShading() {</div>
-<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>    smoothShading = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>}</div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span> </div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {</div>
-<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>    std::string vertex_shader_src = <span class="stringliteral">&quot;#version 410 core\n \</span></div>
-<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span><span class="stringliteral">                                    \n \</span></div>
-<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span><span class="stringliteral">                                    uniform mat4 model;\n \</span></div>
-<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span><span class="stringliteral">                                    uniform mat4 view;\n \</span></div>
-<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span><span class="stringliteral">                                    uniform mat4 projection;\n \</span></div>
-<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span><span class="stringliteral">                                    uniform mat3 normalMtx;\n \</span></div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span><span class="stringliteral">                                    uniform vec3 lightColor;\n \</span></div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span><span class="stringliteral">                                    uniform vec3 lightPosition;\n \</span></div>
-<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span><span class="stringliteral">                                    uniform vec3 materialColor;\n \</span></div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span><span class="stringliteral">                                    \n \</span></div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span><span class="stringliteral">                                    layout(location=0) in vec3 vPos;\n \</span></div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span><span class="stringliteral">                                    layout(location=2) in vec3 vNormal;\n \</span></div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span><span class="stringliteral">                                    \n \</span></div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span><span class="stringliteral">                                    layout(location=0) &quot;</span>;</div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>    vertex_shader_src += (smoothShading ? <span class="stringliteral">&quot;&quot;</span> : <span class="stringliteral">&quot;flat &quot;</span>);</div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>    vertex_shader_src += <span class="stringliteral">&quot;out vec4 fragColor;\n \</span></div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span><span class="stringliteral">                                    \n \</span></div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span><span class="stringliteral">                                    void main() {\n \</span></div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span><span class="stringliteral">                                        gl_Position = projection * view * model * vec4(vPos, 1.0);\n \</span></div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span><span class="stringliteral">                                        \n \</span></div>
-<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span><span class="stringliteral">                                        vec3 vertexEye = (view * model * vec4(vPos, 1.0)).xyz;\n \</span></div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span><span class="stringliteral">                                        vec3 lightEye = (view * vec4(lightPosition, 1.0)).xyz;\n \</span></div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span><span class="stringliteral">                                        vec3 lightVec = normalize( lightEye - vertexEye );\n \</span></div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span><span class="stringliteral">                                        vec3 normalVec = normalize( normalMtx * vNormal );\n \</span></div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span><span class="stringliteral">                                        float sDotN = max(dot(lightVec, normalVec), 0.0);\n \</span></div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span><span class="stringliteral">                                        vec3 diffColor = lightColor * materialColor * sDotN;\n \</span></div>
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span><span class="stringliteral">                                        vec3 ambColor = materialColor * 0.3;\</span></div>
-<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span><span class="stringliteral">                                        vec3 color = diffColor + ambColor;\n \</span></div>
-<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span><span class="stringliteral">                                        fragColor = vec4(color, 1.0);\n \</span></div>
-<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span><span class="stringliteral">                                    }&quot;</span>;</div>
-<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* vertexShaders[1] = { vertex_shader_src.c_str() };</div>
-<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span> </div>
-<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>    std::string fragment_shader_src = <span class="stringliteral">&quot;#version 410 core\n \</span></div>
-<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span><span class="stringliteral">                                      \n \</span></div>
-<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span><span class="stringliteral">                                      uniform vec3 materialColor;\n \</span></div>
-<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span><span class="stringliteral">                                      uniform int useLighting;\n \</span></div>
-<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span><span class="stringliteral">                                      \n \</span></div>
-<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span><span class="stringliteral">                                      layout(location=0) &quot;</span>;</div>
-<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>    fragment_shader_src += (smoothShading ? <span class="stringliteral">&quot;&quot;</span> : <span class="stringliteral">&quot;flat &quot;</span>);</div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>    fragment_shader_src += <span class="stringliteral">&quot; in vec4 fragColor;\n \</span></div>
-<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span><span class="stringliteral">                                      \n \</span></div>
-<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span><span class="stringliteral">                                      layout(location=0) out vec4 fragColorOut;\n \</span></div>
-<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span><span class="stringliteral">                                      \n \</span></div>
-<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span><span class="stringliteral">                                      void main() {\n \</span></div>
-<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span><span class="stringliteral">                                          if(useLighting == 1) {\n \</span></div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span><span class="stringliteral">                                              fragColorOut = fragColor;\n \</span></div>
-<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span><span class="stringliteral">                                          } else {\n \</span></div>
-<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span><span class="stringliteral">                                              fragColorOut = vec4(materialColor, 1.0f);\n \</span></div>
-<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span><span class="stringliteral">                                          }\n \</span></div>
-<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span><span class="stringliteral">                                      }&quot;</span>;</div>
-<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* fragmentShaders[1] = { fragment_shader_src.c_str() };</div>
-<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span> </div>
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>    printf( <span class="stringliteral">&quot;[INFO]: /--------------------------------------------------------\\\n&quot;</span> );</div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span> </div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>    GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );</div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>    glShaderSource(vertexShaderHandle, 1, vertexShaders, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>    glCompileShader(vertexShaderHandle);</div>
-<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>    ShaderUtils::printShaderLog(vertexShaderHandle);</div>
-<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span> </div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>    GLuint fragmentShaderHandle = glCreateShader( GL_FRAGMENT_SHADER );</div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>    glShaderSource(fragmentShaderHandle, 1, fragmentShaders, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>    glCompileShader(fragmentShaderHandle);</div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>    ShaderUtils::printShaderLog(fragmentShaderHandle);</div>
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span> </div>
-<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>    shaderProgramHandle = glCreateProgram();</div>
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>    glAttachShader(shaderProgramHandle, vertexShaderHandle);</div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>    glAttachShader(shaderProgramHandle, fragmentShaderHandle);</div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>    glLinkProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>    ShaderUtils::printProgramLog(shaderProgramHandle);</div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span> </div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>    glDetachShader(shaderProgramHandle, vertexShaderHandle);</div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>    glDeleteShader(vertexShaderHandle);</div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span> </div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>    glDetachShader(shaderProgramHandle, fragmentShaderHandle);</div>
-<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>    glDeleteShader(fragmentShaderHandle);</div>
-<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span> </div>
-<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>    ShaderUtils::printShaderProgramInfo(shaderProgramHandle, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span> </div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>    modelLocation       = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;model&quot;</span>);</div>
-<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>    viewLocation        = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;view&quot;</span>);</div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>    projectionLocation  = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;projection&quot;</span>);</div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>    normalMtxLocation   = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;normalMtx&quot;</span>);</div>
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>    lightPositionLocation=glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;lightPosition&quot;</span>);</div>
-<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>    lightColorLocation  = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;lightColor&quot;</span>);</div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>    materialLocation    = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;materialColor&quot;</span>);</div>
-<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>    useLightingLocation = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;useLighting&quot;</span>);</div>
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span> </div>
-<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>    vertexLocation      = glGetAttribLocation(shaderProgramHandle, <span class="stringliteral">&quot;vPos&quot;</span>);</div>
-<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>    normalLocation      = glGetAttribLocation(shaderProgramHandle, <span class="stringliteral">&quot;vNormal&quot;</span>);</div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span> </div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>    glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span> </div>
-<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>    glm::mat4 identity(1.0f);</div>
-<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &amp;identity[0][0]);</div>
-<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &amp;identity[0][0]);</div>
-<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &amp;identity[0][0]);</div>
-<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span> </div>
-<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>    transformationStack.emplace_back(identity);</div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span> </div>
-<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>    glm::vec3 white(1.0f, 1.0f, 1.0f);</div>
-<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>    glUniform3fv(lightColorLocation, 1, &amp;white[0]);</div>
-<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>    glUniform3fv(materialLocation, 1, &amp;white[0]);</div>
-<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span> </div>
-<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>    glm::vec3 origin(0.0f, 0.0f, 0.0f);</div>
-<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>    glUniform3fv(lightPositionLocation, 1, &amp;origin[0]);</div>
-<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span> </div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>    glUniform1i(useLightingLocation, 1);</div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span> </div>
-<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>    <a class="code hl_function" href="namespace_c_s_c_i441.html#a4330a78bc3618a59f4c9a14db9d3e48a">CSCI441::setVertexAttributeLocations</a>(vertexLocation, normalLocation);</div>
-<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>}</div>
-<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span> </div>
-<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span><span class="keyword">inline</span> GLuint CSCI441_INTERNAL::SimpleShader3::registerVertexArray(<span class="keyword">const</span> GLuint NUM_POINTS, <span class="keyword">const</span> glm::vec3 VERTEX_POINTS[], <span class="keyword">const</span> glm::vec3 VERTEX_NORMALS[]) {</div>
-<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>    GLuint vaod;</div>
-<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>    glGenVertexArrays(1, &amp;vaod);</div>
-<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>    glBindVertexArray(vaod);</div>
-<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span> </div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>    GLuint vbod;</div>
-<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>    glGenBuffers(1, &amp;vbod);</div>
-<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>    glBindBuffer(GL_ARRAY_BUFFER, vbod);</div>
-<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>    glBufferData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3 + <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, <span class="keyword">nullptr</span>, GL_STATIC_DRAW);</div>
-<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>    glBufferSubData(GL_ARRAY_BUFFER, 0, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, VERTEX_POINTS);</div>
-<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    glBufferSubData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, VERTEX_NORMALS);</div>
-<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span> </div>
-<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>    glEnableVertexAttribArray(vertexLocation);</div>
-<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>    glVertexAttribPointer(vertexLocation, 3, GL_FLOAT, GL_FALSE, 0, (<span class="keywordtype">void</span>*)0);</div>
-<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span> </div>
-<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>    glEnableVertexAttribArray(normalLocation);</div>
-<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>    glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (<span class="keywordtype">void</span>*)(<span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*2));</div>
-<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span> </div>
-<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>    <span class="keywordflow">return</span> vaod;</div>
-<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>}</div>
-<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span> </div>
-<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::updateVertexArray(<span class="keyword">const</span> GLuint VAOD, <span class="keyword">const</span> GLuint NUM_POINTS, <span class="keyword">const</span> glm::vec3 VERTEX_POINTS[], <span class="keyword">const</span> glm::vec3 VERTEX_NORMALS[]) {</div>
-<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>    glBindVertexArray(VAOD);</div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>    glBindBuffer(GL_ARRAY_BUFFER, VAOD);</div>
-<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>    glBufferSubData(GL_ARRAY_BUFFER, 0, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, VERTEX_POINTS);</div>
-<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>    glBufferSubData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, VERTEX_NORMALS);</div>
-<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>}</div>
-<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span> </div>
-<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setProjectionMatrix(<span class="keyword">const</span> glm::mat4&amp; PROJECTION_MATRIX) {</div>
-<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>    glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &amp;PROJECTION_MATRIX[0][0]);</div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>}</div>
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span> </div>
-<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setViewMatrix(<span class="keyword">const</span> glm::mat4&amp; VIEW_MATRIX) {</div>
-<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>    glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &amp;VIEW_MATRIX[0][0]);</div>
-<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span> </div>
-<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>    viewMatrix = VIEW_MATRIX;</div>
-<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>    setNormalMatrix();</div>
-<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>}</div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span> </div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setLightPosition(<span class="keyword">const</span> glm::vec3&amp; LIGHT_POSITION) {</div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>    glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>    glUniform3fv(lightPositionLocation, 1, &amp;LIGHT_POSITION[0]);</div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>}</div>
-<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span> </div>
-<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setLightColor(<span class="keyword">const</span> glm::vec3&amp; LIGHT_COLOR) {</div>
-<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>    glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>    glUniform3fv(lightColorLocation, 1, &amp;LIGHT_COLOR[0]);</div>
-<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>}</div>
-<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span> </div>
-<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setMaterialColor(<span class="keyword">const</span> glm::vec3&amp; MATERIAL_COLOR) {</div>
-<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>    glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>    glUniform3fv(materialLocation, 1, &amp;MATERIAL_COLOR[0]);</div>
-<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>}</div>
-<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span> </div>
-<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::pushTransformation(<span class="keyword">const</span> glm::mat4&amp; TRANSFORMATION_MATRIX) {</div>
-<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>    glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>    transformationStack.emplace_back(TRANSFORMATION_MATRIX);</div>
-<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span> </div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>    modelMatrix *= TRANSFORMATION_MATRIX;</div>
-<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &amp;modelMatrix[0][0]);</div>
-<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span> </div>
-<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>    setNormalMatrix();</div>
-<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>}</div>
-<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span> </div>
-<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::popTransformation() {</div>
-<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>    <span class="comment">// ensure there is a transformation stack to pop off</span></div>
-<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>    <span class="comment">// never let the original identity matrix pop off</span></div>
-<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>    <span class="keywordflow">if</span>( transformationStack.size() &gt; 1 ) {</div>
-<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>        glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>        glm::mat4 lastTransformation = transformationStack.back();</div>
-<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>        transformationStack.pop_back();</div>
-<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span> </div>
-<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>        modelMatrix = glm::mat4(1.0f);</div>
-<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span>        <span class="keywordflow">for</span>( <span class="keyword">auto</span> tMtx : transformationStack ) {</div>
-<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span>            modelMatrix *= tMtx;</div>
-<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>        }</div>
-<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>        glUniformMatrix4fv( modelLocation, 1, GL_FALSE, &amp;modelMatrix[0][0] );</div>
-<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>    }</div>
-<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>}</div>
-<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span> </div>
-<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::resetTransformationMatrix() {</div>
-<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>    modelMatrix = glm::mat4(1.0f);</div>
-<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>    transformationStack.clear();</div>
-<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>    transformationStack.emplace_back(modelMatrix);</div>
-<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &amp;modelMatrix[0][0]);</div>
-<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>    setNormalMatrix();</div>
-<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>}</div>
-<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span> </div>
-<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setNormalMatrix() {</div>
-<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>    glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>    glm::mat4 modelView = viewMatrix * modelMatrix;</div>
-<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>    glm::mat3 normalMatrix = glm::mat3( glm::transpose( glm::inverse( modelView ) ) );</div>
-<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span>    glUniformMatrix3fv(normalMtxLocation, 1, GL_FALSE, &amp;normalMatrix[0][0]);</div>
-<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>}</div>
-<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span> </div>
-<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::enableLighting() {</div>
-<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>    glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span>    glUniform1i(useLightingLocation, 1);</div>
-<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span>}</div>
-<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span> </div>
-<div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::disableLighting() {</div>
-<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span>    glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span>    glUniform1i(useLightingLocation, 0);</div>
-<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span>}</div>
-<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span> </div>
-<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::draw(<span class="keyword">const</span> GLint PRIMITIVE_TYPE, <span class="keyword">const</span> GLuint VAOD, <span class="keyword">const</span> GLuint VERTEX_COUNT) {</div>
-<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>    glUseProgram(shaderProgramHandle);</div>
-<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span>    glBindVertexArray(VAOD);</div>
-<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>    glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);</div>
-<div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span>}</div>
-<div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span> </div>
-<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span><span class="preprocessor">#endif </span><span class="comment">//__CSCI441_SIMPLE_SHADER_HPP__</span></div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>        transformationStack.pop_back();</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span> </div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>        modelMatrix = glm::mat4(1.0f);</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>        <span class="keywordflow">for</span>( <span class="keyword">auto</span> tMtx : transformationStack ) {</div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>            modelMatrix *= tMtx;</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>        }</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>        glUniformMatrix4fv( modelLocation, 1, GL_FALSE, &amp;modelMatrix[0][0] );</div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    }</div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>}</div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span> </div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader2::resetTransformationMatrix() {</div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>    modelMatrix = glm::mat4(1.0f);</div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>    transformationStack.clear();</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>    transformationStack.emplace_back(modelMatrix);</div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &amp;modelMatrix[0][0]);</div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>}</div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span> </div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader2::draw(<span class="keyword">const</span> GLint PRIMITIVE_TYPE, <span class="keyword">const</span> GLuint VAOD, <span class="keyword">const</span> GLuint VERTEX_COUNT) {</div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>    glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>    glBindVertexArray(VAOD);</div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>    glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);</div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>}</div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span> </div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span><span class="comment">//---------------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span> </div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::enableFlatShading() {</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>    smoothShading = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>}</div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::enableSmoothShading() {</div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>    smoothShading = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>}</div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span> </div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {</div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>    std::string vertex_shader_src = <span class="stringliteral">&quot;#version 410 core\n \</span></div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span><span class="stringliteral">                                    \n \</span></div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span><span class="stringliteral">                                    uniform mat4 model;\n \</span></div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span><span class="stringliteral">                                    uniform mat4 view;\n \</span></div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span><span class="stringliteral">                                    uniform mat4 projection;\n \</span></div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span><span class="stringliteral">                                    uniform mat3 normalMtx;\n \</span></div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span><span class="stringliteral">                                    uniform vec3 lightColor;\n \</span></div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span><span class="stringliteral">                                    uniform vec3 lightPosition;\n \</span></div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span><span class="stringliteral">                                    uniform vec3 materialColor;\n \</span></div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span><span class="stringliteral">                                    \n \</span></div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span><span class="stringliteral">                                    layout(location=0) in vec3 vPos;\n \</span></div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span><span class="stringliteral">                                    layout(location=2) in vec3 vNormal;\n \</span></div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span><span class="stringliteral">                                    \n \</span></div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span><span class="stringliteral">                                    layout(location=0) &quot;</span>;</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>    vertex_shader_src += (smoothShading ? <span class="stringliteral">&quot;&quot;</span> : <span class="stringliteral">&quot;flat &quot;</span>);</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>    vertex_shader_src += <span class="stringliteral">&quot;out vec4 fragColor;\n \</span></div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span><span class="stringliteral">                                    \n \</span></div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span><span class="stringliteral">                                    void main() {\n \</span></div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span><span class="stringliteral">                                        gl_Position = projection * view * model * vec4(vPos, 1.0);\n \</span></div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span><span class="stringliteral">                                        \n \</span></div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span><span class="stringliteral">                                        vec3 vertexEye = (view * model * vec4(vPos, 1.0)).xyz;\n \</span></div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span><span class="stringliteral">                                        vec3 lightEye = (view * vec4(lightPosition, 1.0)).xyz;\n \</span></div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span><span class="stringliteral">                                        vec3 lightVec = normalize( lightEye - vertexEye );\n \</span></div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span><span class="stringliteral">                                        vec3 normalVec = normalize( normalMtx * vNormal );\n \</span></div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span><span class="stringliteral">                                        float sDotN = max(dot(lightVec, normalVec), 0.0);\n \</span></div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span><span class="stringliteral">                                        vec3 diffColor = lightColor * materialColor * sDotN;\n \</span></div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span><span class="stringliteral">                                        vec3 ambColor = materialColor * 0.3;\</span></div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span><span class="stringliteral">                                        vec3 color = diffColor + ambColor;\n \</span></div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span><span class="stringliteral">                                        fragColor = vec4(color, 1.0);\n \</span></div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span><span class="stringliteral">                                    }&quot;</span>;</div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* vertexShaders[1] = { vertex_shader_src.c_str() };</div>
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span> </div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>    std::string fragment_shader_src = <span class="stringliteral">&quot;#version 410 core\n \</span></div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span><span class="stringliteral">                                      \n \</span></div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span><span class="stringliteral">                                      uniform vec3 materialColor;\n \</span></div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span><span class="stringliteral">                                      uniform int useLighting;\n \</span></div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span><span class="stringliteral">                                      \n \</span></div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span><span class="stringliteral">                                      layout(location=0) &quot;</span>;</div>
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>    fragment_shader_src += (smoothShading ? <span class="stringliteral">&quot;&quot;</span> : <span class="stringliteral">&quot;flat &quot;</span>);</div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>    fragment_shader_src += <span class="stringliteral">&quot; in vec4 fragColor;\n \</span></div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span><span class="stringliteral">                                      \n \</span></div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span><span class="stringliteral">                                      layout(location=0) out vec4 fragColorOut;\n \</span></div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span><span class="stringliteral">                                      \n \</span></div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span><span class="stringliteral">                                      void main() {\n \</span></div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span><span class="stringliteral">                                          if(useLighting == 1) {\n \</span></div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span><span class="stringliteral">                                              fragColorOut = fragColor;\n \</span></div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span><span class="stringliteral">                                          } else {\n \</span></div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span><span class="stringliteral">                                              fragColorOut = vec4(materialColor, 1.0f);\n \</span></div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span><span class="stringliteral">                                          }\n \</span></div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span><span class="stringliteral">                                      }&quot;</span>;</div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* fragmentShaders[1] = { fragment_shader_src.c_str() };</div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span> </div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>    printf( <span class="stringliteral">&quot;[INFO]: /--------------------------------------------------------\\\n&quot;</span> );</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span> </div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>    GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>    glShaderSource(vertexShaderHandle, 1, vertexShaders, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>    glCompileShader(vertexShaderHandle);</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>    ShaderUtils::printShaderLog(vertexShaderHandle);</div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span> </div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>    GLuint fragmentShaderHandle = glCreateShader( GL_FRAGMENT_SHADER );</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>    glShaderSource(fragmentShaderHandle, 1, fragmentShaders, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>    glCompileShader(fragmentShaderHandle);</div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>    ShaderUtils::printShaderLog(fragmentShaderHandle);</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span> </div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>    shaderProgramHandle = glCreateProgram();</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>    glAttachShader(shaderProgramHandle, vertexShaderHandle);</div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>    glAttachShader(shaderProgramHandle, fragmentShaderHandle);</div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>    glLinkProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>    ShaderUtils::printProgramLog(shaderProgramHandle);</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span> </div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>    glDetachShader(shaderProgramHandle, vertexShaderHandle);</div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>    glDeleteShader(vertexShaderHandle);</div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span> </div>
+<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>    glDetachShader(shaderProgramHandle, fragmentShaderHandle);</div>
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>    glDeleteShader(fragmentShaderHandle);</div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span> </div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>    ShaderUtils::printShaderProgramInfo(shaderProgramHandle, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span> </div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>    modelLocation       = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;model&quot;</span>);</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>    viewLocation        = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;view&quot;</span>);</div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>    projectionLocation  = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;projection&quot;</span>);</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>    normalMtxLocation   = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;normalMtx&quot;</span>);</div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>    lightPositionLocation=glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;lightPosition&quot;</span>);</div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>    lightColorLocation  = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;lightColor&quot;</span>);</div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>    materialLocation    = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;materialColor&quot;</span>);</div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>    useLightingLocation = glGetUniformLocation(shaderProgramHandle, <span class="stringliteral">&quot;useLighting&quot;</span>);</div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span> </div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>    vertexLocation      = glGetAttribLocation(shaderProgramHandle, <span class="stringliteral">&quot;vPos&quot;</span>);</div>
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>    normalLocation      = glGetAttribLocation(shaderProgramHandle, <span class="stringliteral">&quot;vNormal&quot;</span>);</div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span> </div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span> </div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    glm::mat4 identity(1.0f);</div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &amp;identity[0][0]);</div>
+<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &amp;identity[0][0]);</div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &amp;identity[0][0]);</div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span> </div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>    transformationStack.emplace_back(identity);</div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span> </div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>    glm::vec3 white(1.0f, 1.0f, 1.0f);</div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>    glUniform3fv(lightColorLocation, 1, &amp;white[0]);</div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>    glUniform3fv(materialLocation, 1, &amp;white[0]);</div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span> </div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>    glm::vec3 origin(0.0f, 0.0f, 0.0f);</div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>    glUniform3fv(lightPositionLocation, 1, &amp;origin[0]);</div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span> </div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>    glUniform1i(useLightingLocation, 1);</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span> </div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>    <a class="code hl_function" href="namespace_c_s_c_i441.html#a4330a78bc3618a59f4c9a14db9d3e48a">CSCI441::setVertexAttributeLocations</a>(vertexLocation, normalLocation);</div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>}</div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span> </div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span><span class="keyword">inline</span> GLuint CSCI441_INTERNAL::SimpleShader3::registerVertexArray(<span class="keyword">const</span> GLuint NUM_POINTS, <span class="keyword">const</span> glm::vec3 VERTEX_POINTS[], <span class="keyword">const</span> glm::vec3 VERTEX_NORMALS[]) {</div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>    GLuint vaod;</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>    glGenVertexArrays(1, &amp;vaod);</div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>    glBindVertexArray(vaod);</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span> </div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>    GLuint vbod;</div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>    glGenBuffers(1, &amp;vbod);</div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>    glBindBuffer(GL_ARRAY_BUFFER, vbod);</div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>    glBufferData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3 + <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, <span class="keyword">nullptr</span>, GL_STATIC_DRAW);</div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>    glBufferSubData(GL_ARRAY_BUFFER, 0, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, VERTEX_POINTS);</div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>    glBufferSubData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, VERTEX_NORMALS);</div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span> </div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>    glEnableVertexAttribArray(vertexLocation);</div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>    glVertexAttribPointer(vertexLocation, 3, GL_FLOAT, GL_FALSE, 0, (<span class="keywordtype">void</span>*)0);</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span> </div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>    glEnableVertexAttribArray(normalLocation);</div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>    glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (<span class="keywordtype">void</span>*)(<span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*2));</div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span> </div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>    <span class="keywordflow">return</span> vaod;</div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>}</div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span> </div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::updateVertexArray(<span class="keyword">const</span> GLuint VAOD, <span class="keyword">const</span> GLuint NUM_POINTS, <span class="keyword">const</span> glm::vec3 VERTEX_POINTS[], <span class="keyword">const</span> glm::vec3 VERTEX_NORMALS[]) {</div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>    glBindVertexArray(VAOD);</div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>    glBindBuffer(GL_ARRAY_BUFFER, VAOD);</div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>    glBufferSubData(GL_ARRAY_BUFFER, 0, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, VERTEX_POINTS);</div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>    glBufferSubData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, <span class="keyword">sizeof</span>(GLfloat)*NUM_POINTS*3, VERTEX_NORMALS);</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>}</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span> </div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setProjectionMatrix(<span class="keyword">const</span> glm::mat4&amp; PROJECTION_MATRIX) {</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>    glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &amp;PROJECTION_MATRIX[0][0]);</div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>}</div>
+<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span> </div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setViewMatrix(<span class="keyword">const</span> glm::mat4&amp; VIEW_MATRIX) {</div>
+<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>    glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &amp;VIEW_MATRIX[0][0]);</div>
+<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span> </div>
+<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>    viewMatrix = VIEW_MATRIX;</div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>    setNormalMatrix();</div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>}</div>
+<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span> </div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setLightPosition(<span class="keyword">const</span> glm::vec3&amp; LIGHT_POSITION) {</div>
+<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>    glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>    glUniform3fv(lightPositionLocation, 1, &amp;LIGHT_POSITION[0]);</div>
+<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>}</div>
+<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span> </div>
+<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setLightColor(<span class="keyword">const</span> glm::vec3&amp; LIGHT_COLOR) {</div>
+<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>    glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>    glUniform3fv(lightColorLocation, 1, &amp;LIGHT_COLOR[0]);</div>
+<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>}</div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span> </div>
+<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setMaterialColor(<span class="keyword">const</span> glm::vec3&amp; MATERIAL_COLOR) {</div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>    glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>    glUniform3fv(materialLocation, 1, &amp;MATERIAL_COLOR[0]);</div>
+<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>}</div>
+<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span> </div>
+<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::pushTransformation(<span class="keyword">const</span> glm::mat4&amp; TRANSFORMATION_MATRIX) {</div>
+<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>    glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>    transformationStack.emplace_back(TRANSFORMATION_MATRIX);</div>
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span> </div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>    modelMatrix *= TRANSFORMATION_MATRIX;</div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &amp;modelMatrix[0][0]);</div>
+<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span> </div>
+<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>    setNormalMatrix();</div>
+<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>}</div>
+<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span> </div>
+<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::popTransformation() {</div>
+<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>    <span class="comment">// ensure there is a transformation stack to pop off</span></div>
+<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>    <span class="comment">// never let the original identity matrix pop off</span></div>
+<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>    <span class="keywordflow">if</span>( transformationStack.size() &gt; 1 ) {</div>
+<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>        glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>        transformationStack.pop_back();</div>
+<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span> </div>
+<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>        modelMatrix = glm::mat4(1.0f);</div>
+<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>        <span class="keywordflow">for</span>( <span class="keyword">auto</span> tMtx : transformationStack ) {</div>
+<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>            modelMatrix *= tMtx;</div>
+<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span>        }</div>
+<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span>        glUniformMatrix4fv( modelLocation, 1, GL_FALSE, &amp;modelMatrix[0][0] );</div>
+<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>    }</div>
+<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>}</div>
+<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span> </div>
+<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::resetTransformationMatrix() {</div>
+<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>    modelMatrix = glm::mat4(1.0f);</div>
+<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>    transformationStack.clear();</div>
+<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>    transformationStack.emplace_back(modelMatrix);</div>
+<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &amp;modelMatrix[0][0]);</div>
+<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>    setNormalMatrix();</div>
+<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>}</div>
+<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span> </div>
+<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::setNormalMatrix() {</div>
+<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>    glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>    glm::mat4 modelView = viewMatrix * modelMatrix;</div>
+<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>    glm::mat3 normalMatrix = glm::mat3( glm::transpose( glm::inverse( modelView ) ) );</div>
+<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>    glUniformMatrix3fv(normalMtxLocation, 1, GL_FALSE, &amp;normalMatrix[0][0]);</div>
+<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>}</div>
+<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span> </div>
+<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::enableLighting() {</div>
+<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>    glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>    glUniform1i(useLightingLocation, 1);</div>
+<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>}</div>
+<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span> </div>
+<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::disableLighting() {</div>
+<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>    glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span>    glUniform1i(useLightingLocation, 0);</div>
+<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span>}</div>
+<div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span> </div>
+<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::SimpleShader3::draw(<span class="keyword">const</span> GLint PRIMITIVE_TYPE, <span class="keyword">const</span> GLuint VAOD, <span class="keyword">const</span> GLuint VERTEX_COUNT) {</div>
+<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span>    glUseProgram(shaderProgramHandle);</div>
+<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>    glBindVertexArray(VAOD);</div>
+<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>    glDrawArrays(PRIMITIVE_TYPE, 0, VERTEX_COUNT);</div>
+<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span>}</div>
+<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span> </div>
+<div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span><span class="preprocessor">#endif </span><span class="comment">//__CSCI441_SIMPLE_SHADER_HPP__</span></div>
 <div class="ttc" id="a_shader_utils_8hpp_html"><div class="ttname"><a href="_shader_utils_8hpp.html">ShaderUtils.hpp</a></div><div class="ttdoc">Helper functions to work with OpenGL Shaders.</div></div>
 <div class="ttc" id="a_simple_shader_8hpp_html_a0d38a9d42678dec2861edca6be625347"><div class="ttname"><a href="_simple_shader_8hpp.html#a0d38a9d42678dec2861edca6be625347">CSCI441::SimpleShader3::enableFlatShading</a></div><div class="ttdeci">void enableFlatShading()</div><div class="ttdoc">turns on Flat Shading</div><div class="ttdef"><b>Definition:</b> SimpleShader.hpp:387</div></div>
 <div class="ttc" id="a_simple_shader_8hpp_html_a2d81b7c9082d02715bef92735f4f7716"><div class="ttname"><a href="_simple_shader_8hpp.html#a2d81b7c9082d02715bef92735f4f7716">CSCI441::SimpleShader2::setupSimpleShader</a></div><div class="ttdeci">void setupSimpleShader()</div><div class="ttdoc">Registers a simple Gouraud shader for 2-Dimensional drawing.</div><div class="ttdef"><b>Definition:</b> SimpleShader.hpp:335</div></div>

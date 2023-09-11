@@ -1,3 +1,14 @@
+/**
+ * @file MD5Model.hpp
+ * @brief Doom3 MD5 Model + Animation implementations
+ * @author Dr. Jeffrey Paone
+ *
+ * @copyright MIT License Copyright (c) 2023 Dr. Jeffrey Paone
+ *
+ *	These functions, classes, and constants help minimize common
+ *	code that needs to be written.
+ */
+
 #ifndef CSCI441_MD5_MODEL_HPP
 #define CSCI441_MD5_MODEL_HPP
 
@@ -51,6 +62,7 @@
 namespace CSCI441 {
 
     /**
+     * @class MD5Model
      * @brief stores a Doom3 MD5 Mesh + Animation
      */
     class [[maybe_unused]] MD5Model {

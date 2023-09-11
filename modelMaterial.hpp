@@ -1,3 +1,14 @@
+/**
+ * @file modelMaterial.hpp
+ * @brief Internal material representation for *.mtl files
+ * @author Dr. Jeffrey Paone
+ *
+ * @copyright MIT License Copyright (c) 2021 Dr. Jeffrey Paone
+ *
+ *	These functions, classes, and constants help minimize common
+ *	code that needs to be written.
+ */
+
 #ifndef CSCI441_MODEL_MATERIAL_H
 #define CSCI441_MODEL_MATERIAL_H
 

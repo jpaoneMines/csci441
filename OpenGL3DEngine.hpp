@@ -1,6 +1,13 @@
-//
-// Created by Jeffrey Paone on 5/20/21.
-//
+/**
+ * @file OpenGL3DEngine.hpp
+ * @brief Abstract class engine class to setup a 3D world with an arcball camera, storage for left button state and cursor position
+ * @author Dr. Jeffrey Paone
+ *
+ * @copyright MIT License Copyright (c) 2021 Dr. Jeffrey Paone
+ *
+ *	These functions, classes, and constants help minimize common
+ *	code that needs to be written.
+ */
 
 #ifndef CSCI441_OPENGL3D_ENGINE_HPP
 #define CSCI441_OPENGL3D_ENGINE_HPP

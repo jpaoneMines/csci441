@@ -1,3 +1,14 @@
+/**
+ * @file MD5Camera.hpp
+ * @brief Concrete MD5 Camera implementation with Perspective Projection
+ * @author Dr. Jeffrey Paone
+ *
+ * @copyright MIT License Copyright (c) 2023 Dr. Jeffrey Paone
+ *
+ *	These functions, classes, and constants help minimize common
+ *	code that needs to be written.
+ */
+
 #ifndef CSCI441_MD5_CAMERA_HPP
 #define CSCI441_MD5_CAMERA_HPP
 
@@ -10,6 +21,7 @@
 namespace CSCI441 {
 
     /**
+     * @class MD5Camera
      * @brief A camera that implements the MD5Camera specification
      * @note camera direction is controlled by file contents
      */

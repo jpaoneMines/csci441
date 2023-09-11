@@ -1,5 +1,5 @@
-/** @file modelLoader.hpp
-  * @brief Helper functions to draw 3D OpenGL 3.0+ objects
+/** @file ModelLoader.hpp
+  * @brief Loads OBJ+MTL, OFF, PLY, STL object files into a VAO
   * @author Dr. Jeffrey Paone
   *
   * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone

@@ -1,5 +1,5 @@
 /** @file ShaderProgram.hpp
- * @brief Class to work with OpenGL 3.0+ Shaders
+ * @brief Class to work with OpenGL 4.0+ Shaders
  * @author Dr. Jeffrey Paone
  *
  * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
