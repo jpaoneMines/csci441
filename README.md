@@ -7,6 +7,9 @@ When building, the library must be compiled and linked against OpenGL, GLFW, GLE
 
 # Revision History
 
+## v 4.8.0 - 14 Sep 2023
+- OpenGL3DEngine can handle events that have an effect on the arcball camera movement
+
 ## v 4.7.0 - 07 Sep 2023
 - Big3 implemented on classes as appropriate
 - Classes and methods open/close as appropriate
