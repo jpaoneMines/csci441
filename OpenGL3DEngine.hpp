@@ -132,6 +132,66 @@ namespace CSCI441 {
             mpArcballCamera->recomputeOrientation();
         }
 
+        /**
+         * @brief moves camera for active cursor movement
+         * @param x current cursor x coordinate in screen space
+         * @param y current cursor y coordinate in screen space
+         */
+        [[maybe_unused]] virtual void handleCameraCursorPosEvent(double x, double y) final {
+            glm::vec2 currMousePos(x, getWindowHeight() - y);
+
+            if( mIsLeftMouseDown ) {
+                if( !mIsShiftDown ) {
+                    // rotate the camera by the distance the mouse moved
+                    mpArcballCamera->rotate((currMousePos.x - mMousePosition.x) * 0.005f,
+                                              (mMousePosition.y - currMousePos.y) * 0.005f);
+                } else {
+                    // otherwise, update our camera angles theta & phi
+                    GLfloat totChgSq = (currMousePos.x - mMousePosition.x) + (currMousePos.y - mMousePosition.y);
+                    mpArcballCamera->moveForward( totChgSq * 0.05f );
+                }
+            }
+
+            setMousePosition(currMousePos);
+        }
+
+        /**
+         * @brief tracks if either shift key is currently being pressed
+         * @param key key that triggered event
+         * @param scancode unused
+         * @param action action for corresponding key (pressed, released, repeat)
+         * @param mods unused
+         */
+        [[maybe_unused]] virtual void handleCameraKeyEvent(int key, int scancode, int action, int mods) final {
+            if( key == GLFW_KEY_LEFT_SHIFT ) {
+                _isLeftShiftDown = (action == GLFW_PRESS || action == GLFW_REPEAT);
+            } else if( key == GLFW_KEY_RIGHT_SHIFT ) {
+                _isRightShiftDown = (action == GLFW_PRESS || action == GLFW_REPEAT);
+            }
+            mIsShiftDown = _isLeftShiftDown || _isRightShiftDown;
+        }
+
+        /**
+         * @brief tracks left mouse button state
+         * @param button mouse button that triggered event
+         * @param action action for corresponding mouse button (pressed or released)
+         * @param mods unused
+         */
+        [[maybe_unused]] virtual void handleCameraMouseButtonEvent(int button, int action, int mods) final {
+            if( button == GLFW_MOUSE_BUTTON_LEFT ) {
+                mIsLeftMouseDown = (action == GLFW_PRESS);
+            }
+        }
+
+        /**
+         * @brief zooms camera inward/outward based on scroll direction
+         * @param xOffset unused
+         * @param yOffset vertical amount scrolled
+         */
+        [[maybe_unused]] virtual void handleCameraScrollEvent(double xOffset, double yOffset) {
+            mpArcballCamera->moveForward((GLfloat)yOffset * 0.2f );
+        }
+
     protected:
         /**
          * @brief creates OpenGLEngine for given context and window state as well as creating a default arcball camera
@@ -157,7 +217,7 @@ namespace CSCI441 {
         CSCI441::ArcballCam* mpArcballCamera;
 
         /**
-         * @brief if the shift key was pressed when the mouse was pressed
+         * @brief if either shift key (left or right) is currently pressed
          */
         GLboolean mIsShiftDown;
         /**
@@ -165,21 +225,32 @@ namespace CSCI441 {
          */
         GLboolean mIsLeftMouseDown;
         /**
-         * @brief current mouse position
+         * @brief current mouse position in screen space
          */
         glm::vec2 mMousePosition;
-    };
 
+    private:
+        /**
+         * @brief true if left shift key is currently pressed
+         */
+        GLboolean _isLeftShiftDown;
+        /**
+         * @brief true if right shift key is currently pressed
+         */
+        GLboolean _isRightShiftDown;
+    };
 }
 
 //*****************************************************************************************
 
 inline CSCI441::OpenGL3DEngine::OpenGL3DEngine(const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION, const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const char* WINDOW_TITLE, const bool WINDOW_RESIZABLE)
         : OpenGLEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, WINDOW_RESIZABLE),
-          mpArcballCamera( new CSCI441::ArcballCam() ),
+          mpArcballCamera( new CSCI441::ArcballCam(2.0f, 30.0f, (GLfloat)WINDOW_HEIGHT / (GLfloat)WINDOW_WIDTH) ),
           mIsShiftDown( GL_FALSE ),
           mIsLeftMouseDown( GL_FALSE ),
-          mMousePosition( glm::vec2(0.0f, 0.0f) ) {
+          mMousePosition( glm::vec2(0.0f, 0.0f) ),
+          _isLeftShiftDown(GL_FALSE),
+          _isRightShiftDown(GL_FALSE) {
 
 }
 
