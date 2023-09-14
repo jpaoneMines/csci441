@@ -123,7 +123,7 @@ namespace CSCI441 {
         };
 
         /**
-         * the weight for a mesh vertex
+         * @brief the weight for a mesh vertex
          */
         struct MD5Weight {
             /**
