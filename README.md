@@ -1,9 +1,13 @@
 [CSCI441 OpenGL Library GitHub Repo](https://github.com/jpaoneMines/csci441)
 
-This library is intended to be used with OpenGL for CSCI441 at the Colorado
+This library is intended to be used with OpenGL for CSCI441/444/544 at the Colorado
 School of Mines.
 
-When building, the library must be compiled and linked against OpenGL, GLFW, GLEW, and glm.
+When building, the library must be compiled and linked against: 
+- OpenGL
+- GLFW
+- GLEW
+- glm
 
 # Revision History
 
