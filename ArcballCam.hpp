@@ -105,8 +105,8 @@ inline CSCI441::ArcballCam::ArcballCam(
         const GLfloat farClipPlane
 ) : _minRadius(minRadius),
     _maxRadius(maxRadius),
-    _aspectRatio(aspectRatio),
     _fovy(fovy),
+    _aspectRatio(aspectRatio),
     _nearClipPlane(nearClipPlane),
     _farClipPlane(farClipPlane)
 {
