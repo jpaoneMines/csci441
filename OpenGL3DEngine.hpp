@@ -115,6 +115,10 @@ namespace CSCI441 {
          */
         [[maybe_unused]] virtual void setArcballCameraUpVector( glm::vec3 upVector ) final { mpArcballCamera->setUpVector(upVector); }
 
+        [[maybe_unused]] [[nodiscard]] virtual glm::mat4 getArcballProjectionMatrix() const final { return mpArcballCamera->getProjectionMatrix(); }
+
+        [[maybe_unused]] [[nodiscard]] virtual glm::mat4 getArcballViewMatrix() const final { return mpArcballCamera->getViewMatrix(); }
+
         /**
          * @brief moves the arcball spherical object space coordinate by the associated amounts
          * @param angleAdditions (theta, phi, radius) to add to existing spherical object space coordinate
@@ -245,7 +249,7 @@ namespace CSCI441 {
 
 inline CSCI441::OpenGL3DEngine::OpenGL3DEngine(const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION, const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const char* WINDOW_TITLE, const bool WINDOW_RESIZABLE)
         : OpenGLEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, WINDOW_RESIZABLE),
-          mpArcballCamera( new CSCI441::ArcballCam(2.0f, 30.0f, (GLfloat)WINDOW_HEIGHT / (GLfloat)WINDOW_WIDTH) ),
+          mpArcballCamera( new CSCI441::ArcballCam(2.0f, 30.0f, (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT) ),
           mIsShiftDown( GL_FALSE ),
           mIsLeftMouseDown( GL_FALSE ),
           mMousePosition( glm::vec2(0.0f, 0.0f) ),
