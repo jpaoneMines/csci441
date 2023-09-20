@@ -115,8 +115,16 @@ namespace CSCI441 {
          */
         [[maybe_unused]] virtual void setArcballCameraUpVector( glm::vec3 upVector ) final { mpArcballCamera->setUpVector(upVector); }
 
+        /**
+         * @brief returns the current projection matrix for the arcball camera
+         * @return homogeneous projection matrix
+         */
         [[maybe_unused]] [[nodiscard]] virtual glm::mat4 getArcballProjectionMatrix() const final { return mpArcballCamera->getProjectionMatrix(); }
 
+        /**
+         * @brief returns the current view matrix for the arcball camera
+         * @return homogeneous view matrix
+         */
         [[maybe_unused]] [[nodiscard]] virtual glm::mat4 getArcballViewMatrix() const final { return mpArcballCamera->getViewMatrix(); }
 
         /**

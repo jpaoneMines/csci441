@@ -148,6 +148,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aeebc9bd8b90015a5d1dd17747e235b73"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l3_d_engine.html#aeebc9bd8b90015a5d1dd17747e235b73">setArcballCameraUpVector</a> (glm::vec3 upVector) final</td></tr>
 <tr class="memdesc:aeebc9bd8b90015a5d1dd17747e235b73"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the world space vector the arcball camera is oriented upwards along  <br /></td></tr>
 <tr class="separator:aeebc9bd8b90015a5d1dd17747e235b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a363ad11f3024dbaaf71d2cd3b7654713"><td class="memItemLeft" align="right" valign="top">virtual glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l3_d_engine.html#a363ad11f3024dbaaf71d2cd3b7654713">getArcballProjectionMatrix</a> () const final</td></tr>
+<tr class="memdesc:a363ad11f3024dbaaf71d2cd3b7654713"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current projection matrix for the arcball camera  <br /></td></tr>
+<tr class="separator:a363ad11f3024dbaaf71d2cd3b7654713"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8582008759b1b12233e6b422505bd67"><td class="memItemLeft" align="right" valign="top">virtual glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l3_d_engine.html#ae8582008759b1b12233e6b422505bd67">getArcballViewMatrix</a> () const final</td></tr>
+<tr class="memdesc:ae8582008759b1b12233e6b422505bd67"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current view matrix for the arcball camera  <br /></td></tr>
+<tr class="separator:ae8582008759b1b12233e6b422505bd67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abede383674b02da6e284762c5b670650"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l3_d_engine.html#abede383674b02da6e284762c5b670650">addToArcballCameraAngles</a> (glm::vec3 angleAdditions) final</td></tr>
 <tr class="memdesc:abede383674b02da6e284762c5b670650"><td class="mdescLeft">&#160;</td><td class="mdescRight">moves the arcball spherical object space coordinate by the associated amounts  <br /></td></tr>
 <tr class="separator:abede383674b02da6e284762c5b670650"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -570,6 +576,62 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>mErrorCallback
 
 <p>the world space vector the arcball camera is oriented upwards along </p>
 <dl class="section return"><dt>Returns</dt><dd>&lt;x, y, z&gt; world space vector the arcball is oriented upwards along </dd></dl>
+
+</div>
+</div>
+<a id="a363ad11f3024dbaaf71d2cd3b7654713" name="a363ad11f3024dbaaf71d2cd3b7654713"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a363ad11f3024dbaaf71d2cd3b7654713">&#9670;&#160;</a></span>getArcballProjectionMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual glm::mat4 CSCI441::OpenGL3DEngine::getArcballProjectionMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns the current projection matrix for the arcball camera </p>
+<dl class="section return"><dt>Returns</dt><dd>homogeneous projection matrix </dd></dl>
+
+</div>
+</div>
+<a id="ae8582008759b1b12233e6b422505bd67" name="ae8582008759b1b12233e6b422505bd67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8582008759b1b12233e6b422505bd67">&#9670;&#160;</a></span>getArcballViewMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual glm::mat4 CSCI441::OpenGL3DEngine::getArcballViewMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns the current view matrix for the arcball camera </p>
+<dl class="section return"><dt>Returns</dt><dd>homogeneous view matrix </dd></dl>
 
 </div>
 </div>
