@@ -11,6 +11,9 @@ When building, the library must be compiled and linked against:
 
 # Revision History
 
+## v 4.9.1 - 20 Sep 2023
+- Fixed doxygen version number
+
 ## v 4.9.0 - 20 Sep 2023
 - Fixed aspect ratio calculation in OpenGL3DEngine
 - Fixed MD5Model destruction if error loading model
