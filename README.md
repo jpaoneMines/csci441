@@ -11,6 +11,12 @@ When building, the library must be compiled and linked against:
 
 # Revision History
 
+## v 4.9.0 - 20 Sep 2023
+- Fixed aspect ratio calculation in OpenGL3DEngine
+- Fixed MD5Model destruction if error loading model
+- Removed internal references to glUniform*() and replaced with glProgramUniform*() to not change bound program state
+- Cleaned up documentation
+
 ## v 4.8.0 - 14 Sep 2023
 - OpenGL3DEngine can handle events that have an effect on the arcball camera movement
 
