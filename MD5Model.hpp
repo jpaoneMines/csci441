@@ -408,7 +408,7 @@ namespace CSCI441 {
         GLuint* _vertexIndicesArray;
 
         GLuint _vao;
-        GLuint* _vbo;
+        GLuint _vbo[2];
 
         GLuint _skeletonVAO;
         GLuint _skeletonVBO;
@@ -459,7 +459,8 @@ inline CSCI441::MD5Model::MD5Model()
     _texelArray = nullptr;
     _vertexIndicesArray = nullptr;
     _vao = 0;
-    _vbo = nullptr;
+    _vbo[0] = 0;
+    _vbo[1] = 0;
     _skeletonVAO = 0;
     _skeletonVBO = 0;
     _animation = MD5Animation();
@@ -823,7 +824,6 @@ CSCI441::MD5Model::allocVertexArrays(
     _vertexArray = new glm::vec3[_maxVertices];
     _texelArray = new glm::vec2[_maxVertices];
     _vertexIndicesArray = new GLuint[_maxTriangles * 3];
-    _vbo = new GLuint[2];
 
     glGenVertexArrays( 1, &_vao );
     glBindVertexArray(_vao );
@@ -875,9 +875,6 @@ CSCI441::MD5Model::_freeVertexArrays()
     glDeleteBuffers(2, _vbo );
     glDeleteVertexArrays( 1, &_skeletonVAO );
     glDeleteBuffers( 1, &_skeletonVBO );
-
-    delete[] _vbo;
-    _vbo = nullptr;
 }
 
 // Draw the skeleton as lines and points (for joints).
