@@ -24,6 +24,7 @@
  * \section revision_sec Documentation
  *
  * View the \htmlonly <a href="md__r_e_a_d_m_e.html">README</a> \endhtmlonly
+ *
  * View the \htmlonly <a href="md__c_h_a_n_g_e_l_o_g.html">Revision History</a> \endhtmlonly
  */
 
