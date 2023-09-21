@@ -1146,7 +1146,7 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexSha
     GLint numUniforms;
     glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_UNIFORMS, &numUniforms);
     if( numUniforms > 0 ) {
-        for(GLuint i = 0; i < numUniforms; i++) {
+        for(GLint i = 0; i < numUniforms; i++) {
             char name[64];
             int max_length = 64;
             int actual_length = 0;
@@ -1172,7 +1172,7 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexSha
     GLint numAttributes;
     glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_ATTRIBUTES, &numAttributes );
     if( numAttributes > 0 ) {
-        for(GLuint i = 0; i < numAttributes; i++) {
+        for(GLint i = 0; i < numAttributes; i++) {
             char name[64];
             int max_length = 64;
             int actual_length = 0;
@@ -1320,7 +1320,7 @@ inline GLint CSCI441::ShaderProgram::getImageBinding(const char* imageName) cons
 inline GLint CSCI441::ShaderProgram::getShaderStorageBlockBinding(const char* ssboName) const {
     GLuint ssboIndex = glGetProgramResourceIndex(mShaderProgramHandle, GL_SHADER_STORAGE_BLOCK, ssboName);
 
-    if(ssboIndex == -1) {
+    if(ssboIndex == GL_INVALID_INDEX) {
         fprintf(stderr, "[ERROR]: Could not find shader storage block \"%s\" for Shader Program %u\n", ssboName, mShaderProgramHandle);
         return -1;
     }
@@ -1337,7 +1337,7 @@ inline GLint CSCI441::ShaderProgram::getShaderStorageBlockBinding(const char* ss
 inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferBinding(const char* atomicName) const {
     GLuint uniformIndex = glGetProgramResourceIndex(mShaderProgramHandle, GL_UNIFORM, atomicName);
 
-    if(uniformIndex == -1) {
+    if(uniformIndex == GL_INVALID_INDEX) {
         fprintf(stderr, "[ERROR]: Could not find atomic counter \"%s\" for Shader Program %u\n", atomicName, mShaderProgramHandle);
         return -1;
     }
@@ -1354,7 +1354,7 @@ inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferBinding(const char* a
 inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferOffset(const char* atomicName) const {
     GLuint uniformIndex = glGetProgramResourceIndex(mShaderProgramHandle, GL_UNIFORM, atomicName);
 
-    if(uniformIndex == -1) {
+    if(uniformIndex == GL_INVALID_INDEX) {
         fprintf(stderr, "[ERROR]: Could not find atomic counter \"%s\" for Shader Program %u\n", atomicName, mShaderProgramHandle);
         return -1;
     }
@@ -1368,7 +1368,7 @@ inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferOffset(const char* at
 inline GLint CSCI441::ShaderProgram::getAtomicCounterBufferSize(const char* atomicName) const {
     GLuint uniformIndex = glGetProgramResourceIndex(mShaderProgramHandle, GL_UNIFORM, atomicName);
 
-    if(uniformIndex == -1) {
+    if(uniformIndex == GL_INVALID_INDEX) {
         fprintf(stderr, "[ERROR]: Could not find atomic counter \"%s\" for Shader Program %u\n", atomicName, mShaderProgramHandle);
         return -1;
     }
@@ -2017,7 +2017,7 @@ inline CSCI441::ShaderProgram::~ShaderProgram() {
     glDeleteProgram(mShaderProgramHandle );
 
     // create a buffer of designated length
-    char infoLog[maxLength];
+    char* infoLog = new char[maxLength];
 
     glGetProgramiv(mShaderProgramHandle, GL_DELETE_STATUS, &status );
 
@@ -2031,6 +2031,7 @@ inline CSCI441::ShaderProgram::~ShaderProgram() {
 
     delete mpUniformLocationsMap;
     delete mpAttributeLocationsMap;
+    delete[] infoLog;
 }
 
 inline bool CSCI441::ShaderProgram::writeShaderProgramBinaryToFile(const char* BINARY_FILE_NAME) const {

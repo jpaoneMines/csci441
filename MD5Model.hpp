@@ -511,6 +511,7 @@ CSCI441::MD5Model::readMD5Model(
     GLint version;
     GLint currentMesh = 0;
     GLint i;
+    GLulong uli;
 
     GLint totalVertices = 0;
     GLint totalWeights = 0;
@@ -573,7 +574,7 @@ CSCI441::MD5Model::readMD5Model(
             GLfloat fdata[4];
             GLint idata[3];
 
-            while( (buff[0] != '}') && !feof(fp) ) {
+            while( buff[0] != '}' && !feof(fp) ) {
                 // Read whole line
                 fgets( buff, sizeof(buff), fp );
 
@@ -581,7 +582,7 @@ CSCI441::MD5Model::readMD5Model(
                     GLint quote = 0, j = 0;
 
                     // Copy the shader name without the quote marks
-                    for(i = 0; i < sizeof (buff) && (quote < 2); ++i) {
+                    for(uli = 0; uli < sizeof(buff) && (quote < 2); ++uli) {
                         if( buff[i] == '\"' )
                             quote++;
 
