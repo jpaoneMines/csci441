@@ -1,5 +1,8 @@
 # Revision History
 
+## v 4.12.0 - 21 Sep 2023
+- Computed teapot normals based on partial derivatives
+
 ## v 4.11.0 - 21 Sep 2023
 - Added HUDCamera
 
