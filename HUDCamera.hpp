@@ -20,8 +20,10 @@ namespace CSCI441 {
      * @brief creates a 2D Orthographic projection camera used for Heads Up Display overlays
      * @note Once created, camera cannot be moved/modified
      */
-    class HUDCamera final : public CSCI441::Camera {
+    class [[maybe_unused]] HUDCamera final : public CSCI441::Camera {
     public:
+        HUDCamera() = delete;
+
         /**
          * @brief initializes the HUDCamera
          * @param minX left clipping plane
@@ -29,7 +31,7 @@ namespace CSCI441 {
          * @param minY bottom clipping plane
          * @param maxY top clipping plane
          */
-        explicit HUDCamera(GLfloat minX, GLfloat maxX, GLfloat minY, GLfloat maxY);
+        [[maybe_unused]] explicit HUDCamera(GLfloat minX, GLfloat maxX, GLfloat minY, GLfloat maxY);
 
         /**
          * @brief does nothing
@@ -50,6 +52,7 @@ namespace CSCI441 {
     };
 }
 
+[[maybe_unused]]
 inline CSCI441::HUDCamera::HUDCamera(
     GLfloat minX,
     GLfloat maxX,
