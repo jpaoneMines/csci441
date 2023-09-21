@@ -37,13 +37,18 @@
 #include "FixedCam.hpp"             // static fixed camera implementation
 #include "FramebufferUtils.hpp"     // to query common FBO information
 #include "FreeCam.hpp"              // free cam implementation
+#include "HUDCamera.hpp"            // heads up display implementation
 #include "materials.hpp"            // predefined material properties
+#include "MD5Camera.hpp"            // MD5 camera implementation
+#include "MD5Model.hpp"             // MD5 mesh and anim implementation
 #include "ModelLoader.hpp"          // to load OBJ, OFF, PLY, STL files
+#include "objects.hpp"              // include 3D objects (cube, cylinder, cone, torus, sphere, disk, teapot)
 #include "OpenGL3DEngine.hpp"       // to create a concrete 3D Rendering engine
 #include "OpenGLUtils.hpp"          // to query OpenGL features
-#include "objects.hpp"              // include 3D objects (cube, cylinder, cone, torus, sphere, disk, teapot)
 #include "ShaderProgram.hpp"        // helper class to compile and use shaders
 #include "ShaderProgramPipeline.hpp"// helper class to compile and use shader program pipelines
+#include "ShaderUtils.hpp"          // helper functions to work with shader programs
+#include "SimpleShader.hpp"         // default shader programs for 2D and 3D applications
 #include "TextureUtils.hpp"         // helper functions for registering textures
 #include "UniformBufferObject.hpp"  // helper class to use UBOs
 
