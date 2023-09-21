@@ -616,44 +616,44 @@ inline void CSCI441::drawWireTorus( GLfloat innerRadius, GLfloat outerRadius, GL
 // Internal function rendering implementations
 
 inline void CSCI441_INTERNAL::deleteObjectVAOs() {
-    for(auto iter = _cubeVAO.begin(); iter != _cubeVAO.end(); iter++) {
-        glDeleteVertexArrays(1, &(iter->second));
+    for(auto & iter : _cubeVAO) {
+        glDeleteVertexArrays(1, &(iter.second));
     }
-    for(auto iter = _cubeVAOIndexed.begin(); iter != _cubeVAOIndexed.end(); iter++) {
-        glDeleteVertexArrays(1, &(iter->second));
+    for(auto & iter : _cubeVAOIndexed) {
+        glDeleteVertexArrays(1, &(iter.second));
     }
-    for(auto iter = _cylinderVAO.begin(); iter != _cylinderVAO.end(); iter++) {
-        glDeleteVertexArrays(1, &(iter->second));
+    for(auto & iter : _cylinderVAO) {
+        glDeleteVertexArrays(1, &(iter.second));
     }
-    for(auto iter = _diskVAO.begin(); iter != _diskVAO.end(); iter++) {
-        glDeleteVertexArrays(1, &(iter->second));
+    for(auto & iter : _diskVAO) {
+        glDeleteVertexArrays(1, &(iter.second));
     }
-    for(auto iter = _sphereVAO.begin(); iter != _sphereVAO.end(); iter++) {
-        glDeleteVertexArrays(1, &(iter->second));
+    for(auto & iter : _sphereVAO) {
+        glDeleteVertexArrays(1, &(iter.second));
     }
-    for(auto iter = _torusVAO.begin(); iter != _torusVAO.end(); iter++) {
-        glDeleteVertexArrays(1, &(iter->second));
+    for(auto & iter : _torusVAO) {
+        glDeleteVertexArrays(1, &(iter.second));
     }
 }
 
 inline void CSCI441_INTERNAL::deleteObjectVBOs() {
-    for(auto iter = _cubeVBO.begin(); iter != _cubeVBO.end(); iter++) {
-        glDeleteBuffers(1, &(iter->second));
+    for(auto & iter : _cubeVBO) {
+        glDeleteBuffers(1, &(iter.second));
     }
-    for(auto iter = _cubeVBOIndexed.begin(); iter != _cubeVBOIndexed.end(); iter++) {
-        glDeleteBuffers(1, &(iter->second));
+    for(auto & iter : _cubeVBOIndexed) {
+        glDeleteBuffers(1, &(iter.second));
     }
-    for(auto iter = _cylinderVBO.begin(); iter != _cylinderVBO.end(); iter++) {
-        glDeleteBuffers(1, &(iter->second));
+    for(auto & iter : _cylinderVBO) {
+        glDeleteBuffers(1, &(iter.second));
     }
-    for(auto iter = _diskVBO.begin(); iter != _diskVBO.end(); iter++) {
-        glDeleteBuffers(1, &(iter->second));
+    for(auto & iter : _diskVBO) {
+        glDeleteBuffers(1, &(iter.second));
     }
-    for(auto iter = _sphereVBO.begin(); iter != _sphereVBO.end(); iter++) {
-        glDeleteBuffers(1, &(iter->second));
+    for(auto & iter : _sphereVBO) {
+        glDeleteBuffers(1, &(iter.second));
     }
-    for(auto iter = _torusVBO.begin(); iter != _torusVBO.end(); iter++) {
-        glDeleteBuffers(1, &(iter->second));
+    for(auto & iter : _torusVBO) {
+        glDeleteBuffers(1, &(iter.second));
     }
 }
 
