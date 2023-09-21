@@ -8,4 +8,4 @@ testBuild.cpp
 testBuild_multifile.cpp
 Makefile
 tests/
-csci441.dox.config
+bin/*
