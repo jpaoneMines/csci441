@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.9.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.10.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -569,7 +569,7 @@ $(function() {
 <div class="line"><a id="l01146" name="l01146"></a><span class="lineno"> 1146</span>    GLint numUniforms;</div>
 <div class="line"><a id="l01147" name="l01147"></a><span class="lineno"> 1147</span>    glGetProgramiv(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_ACTIVE_UNIFORMS, &amp;numUniforms);</div>
 <div class="line"><a id="l01148" name="l01148"></a><span class="lineno"> 1148</span>    <span class="keywordflow">if</span>( numUniforms &gt; 0 ) {</div>
-<div class="line"><a id="l01149" name="l01149"></a><span class="lineno"> 1149</span>        <span class="keywordflow">for</span>(GLuint i = 0; i &lt; numUniforms; i++) {</div>
+<div class="line"><a id="l01149" name="l01149"></a><span class="lineno"> 1149</span>        <span class="keywordflow">for</span>(GLint i = 0; i &lt; numUniforms; i++) {</div>
 <div class="line"><a id="l01150" name="l01150"></a><span class="lineno"> 1150</span>            <span class="keywordtype">char</span> name[64];</div>
 <div class="line"><a id="l01151" name="l01151"></a><span class="lineno"> 1151</span>            <span class="keywordtype">int</span> max_length = 64;</div>
 <div class="line"><a id="l01152" name="l01152"></a><span class="lineno"> 1152</span>            <span class="keywordtype">int</span> actual_length = 0;</div>
@@ -595,7 +595,7 @@ $(function() {
 <div class="line"><a id="l01172" name="l01172"></a><span class="lineno"> 1172</span>    GLint numAttributes;</div>
 <div class="line"><a id="l01173" name="l01173"></a><span class="lineno"> 1173</span>    glGetProgramiv(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_ACTIVE_ATTRIBUTES, &amp;numAttributes );</div>
 <div class="line"><a id="l01174" name="l01174"></a><span class="lineno"> 1174</span>    <span class="keywordflow">if</span>( numAttributes &gt; 0 ) {</div>
-<div class="line"><a id="l01175" name="l01175"></a><span class="lineno"> 1175</span>        <span class="keywordflow">for</span>(GLuint i = 0; i &lt; numAttributes; i++) {</div>
+<div class="line"><a id="l01175" name="l01175"></a><span class="lineno"> 1175</span>        <span class="keywordflow">for</span>(GLint i = 0; i &lt; numAttributes; i++) {</div>
 <div class="line"><a id="l01176" name="l01176"></a><span class="lineno"> 1176</span>            <span class="keywordtype">char</span> name[64];</div>
 <div class="line"><a id="l01177" name="l01177"></a><span class="lineno"> 1177</span>            <span class="keywordtype">int</span> max_length = 64;</div>
 <div class="line"><a id="l01178" name="l01178"></a><span class="lineno"> 1178</span>            <span class="keywordtype">int</span> actual_length = 0;</div>
@@ -743,7 +743,7 @@ $(function() {
 <div class="line"><a id="l01320" name="l01320"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_shader_program.html#afd4f07a0ec1b5b29a650ec93d35ecd88"> 1320</a></span><span class="keyword">inline</span> GLint <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#afd4f07a0ec1b5b29a650ec93d35ecd88">CSCI441::ShaderProgram::getShaderStorageBlockBinding</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* ssboName)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l01321" name="l01321"></a><span class="lineno"> 1321</span>    GLuint ssboIndex = glGetProgramResourceIndex(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_SHADER_STORAGE_BLOCK, ssboName);</div>
 <div class="line"><a id="l01322" name="l01322"></a><span class="lineno"> 1322</span> </div>
-<div class="line"><a id="l01323" name="l01323"></a><span class="lineno"> 1323</span>    <span class="keywordflow">if</span>(ssboIndex == -1) {</div>
+<div class="line"><a id="l01323" name="l01323"></a><span class="lineno"> 1323</span>    <span class="keywordflow">if</span>(ssboIndex == GL_INVALID_INDEX) {</div>
 <div class="line"><a id="l01324" name="l01324"></a><span class="lineno"> 1324</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Could not find shader storage block \&quot;%s\&quot; for Shader Program %u\n&quot;</span>, ssboName, <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>);</div>
 <div class="line"><a id="l01325" name="l01325"></a><span class="lineno"> 1325</span>        <span class="keywordflow">return</span> -1;</div>
 <div class="line"><a id="l01326" name="l01326"></a><span class="lineno"> 1326</span>    }</div>
@@ -760,7 +760,7 @@ $(function() {
 <div class="line"><a id="l01337" name="l01337"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_shader_program.html#a17a00efea1627d56b2ca465f830a6152"> 1337</a></span><span class="keyword">inline</span> GLint <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a17a00efea1627d56b2ca465f830a6152">CSCI441::ShaderProgram::getAtomicCounterBufferBinding</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* atomicName)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l01338" name="l01338"></a><span class="lineno"> 1338</span>    GLuint uniformIndex = glGetProgramResourceIndex(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_UNIFORM, atomicName);</div>
 <div class="line"><a id="l01339" name="l01339"></a><span class="lineno"> 1339</span> </div>
-<div class="line"><a id="l01340" name="l01340"></a><span class="lineno"> 1340</span>    <span class="keywordflow">if</span>(uniformIndex == -1) {</div>
+<div class="line"><a id="l01340" name="l01340"></a><span class="lineno"> 1340</span>    <span class="keywordflow">if</span>(uniformIndex == GL_INVALID_INDEX) {</div>
 <div class="line"><a id="l01341" name="l01341"></a><span class="lineno"> 1341</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Could not find atomic counter \&quot;%s\&quot; for Shader Program %u\n&quot;</span>, atomicName, <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>);</div>
 <div class="line"><a id="l01342" name="l01342"></a><span class="lineno"> 1342</span>        <span class="keywordflow">return</span> -1;</div>
 <div class="line"><a id="l01343" name="l01343"></a><span class="lineno"> 1343</span>    }</div>
@@ -777,7 +777,7 @@ $(function() {
 <div class="line"><a id="l01354" name="l01354"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_shader_program.html#a09a45fd8ef2d0ed05c31d5403d5b6cb5"> 1354</a></span><span class="keyword">inline</span> GLint <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a09a45fd8ef2d0ed05c31d5403d5b6cb5">CSCI441::ShaderProgram::getAtomicCounterBufferOffset</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* atomicName)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l01355" name="l01355"></a><span class="lineno"> 1355</span>    GLuint uniformIndex = glGetProgramResourceIndex(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_UNIFORM, atomicName);</div>
 <div class="line"><a id="l01356" name="l01356"></a><span class="lineno"> 1356</span> </div>
-<div class="line"><a id="l01357" name="l01357"></a><span class="lineno"> 1357</span>    <span class="keywordflow">if</span>(uniformIndex == -1) {</div>
+<div class="line"><a id="l01357" name="l01357"></a><span class="lineno"> 1357</span>    <span class="keywordflow">if</span>(uniformIndex == GL_INVALID_INDEX) {</div>
 <div class="line"><a id="l01358" name="l01358"></a><span class="lineno"> 1358</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Could not find atomic counter \&quot;%s\&quot; for Shader Program %u\n&quot;</span>, atomicName, <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>);</div>
 <div class="line"><a id="l01359" name="l01359"></a><span class="lineno"> 1359</span>        <span class="keywordflow">return</span> -1;</div>
 <div class="line"><a id="l01360" name="l01360"></a><span class="lineno"> 1360</span>    }</div>
@@ -791,7 +791,7 @@ $(function() {
 <div class="line"><a id="l01368" name="l01368"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_shader_program.html#aa8081736218d659bee1c54a9ec2ec64f"> 1368</a></span><span class="keyword">inline</span> GLint <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#aa8081736218d659bee1c54a9ec2ec64f">CSCI441::ShaderProgram::getAtomicCounterBufferSize</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* atomicName)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l01369" name="l01369"></a><span class="lineno"> 1369</span>    GLuint uniformIndex = glGetProgramResourceIndex(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_UNIFORM, atomicName);</div>
 <div class="line"><a id="l01370" name="l01370"></a><span class="lineno"> 1370</span> </div>
-<div class="line"><a id="l01371" name="l01371"></a><span class="lineno"> 1371</span>    <span class="keywordflow">if</span>(uniformIndex == -1) {</div>
+<div class="line"><a id="l01371" name="l01371"></a><span class="lineno"> 1371</span>    <span class="keywordflow">if</span>(uniformIndex == GL_INVALID_INDEX) {</div>
 <div class="line"><a id="l01372" name="l01372"></a><span class="lineno"> 1372</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Could not find atomic counter \&quot;%s\&quot; for Shader Program %u\n&quot;</span>, atomicName, <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>);</div>
 <div class="line"><a id="l01373" name="l01373"></a><span class="lineno"> 1373</span>        <span class="keywordflow">return</span> -1;</div>
 <div class="line"><a id="l01374" name="l01374"></a><span class="lineno"> 1374</span>    }</div>
@@ -1440,7 +1440,7 @@ $(function() {
 <div class="line"><a id="l02017" name="l02017"></a><span class="lineno"> 2017</span>    glDeleteProgram(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a> );</div>
 <div class="line"><a id="l02018" name="l02018"></a><span class="lineno"> 2018</span> </div>
 <div class="line"><a id="l02019" name="l02019"></a><span class="lineno"> 2019</span>    <span class="comment">// create a buffer of designated length</span></div>
-<div class="line"><a id="l02020" name="l02020"></a><span class="lineno"> 2020</span>    <span class="keywordtype">char</span> infoLog[maxLength];</div>
+<div class="line"><a id="l02020" name="l02020"></a><span class="lineno"> 2020</span>    <span class="keywordtype">char</span>* infoLog = <span class="keyword">new</span> <span class="keywordtype">char</span>[maxLength];</div>
 <div class="line"><a id="l02021" name="l02021"></a><span class="lineno"> 2021</span> </div>
 <div class="line"><a id="l02022" name="l02022"></a><span class="lineno"> 2022</span>    glGetProgramiv(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_DELETE_STATUS, &amp;status );</div>
 <div class="line"><a id="l02023" name="l02023"></a><span class="lineno"> 2023</span> </div>
@@ -1454,73 +1454,74 @@ $(function() {
 <div class="line"><a id="l02031" name="l02031"></a><span class="lineno"> 2031</span> </div>
 <div class="line"><a id="l02032" name="l02032"></a><span class="lineno"> 2032</span>    <span class="keyword">delete</span> <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a2630cbd8ccf9c3c3b8d169e6d76d144c">mpUniformLocationsMap</a>;</div>
 <div class="line"><a id="l02033" name="l02033"></a><span class="lineno"> 2033</span>    <span class="keyword">delete</span> <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#ab4d9940a36ff5a670b18b4d68c536625">mpAttributeLocationsMap</a>;</div>
-<div class="line"><a id="l02034" name="l02034"></a><span class="lineno"> 2034</span>}</div>
-<div class="line"><a id="l02035" name="l02035"></a><span class="lineno"> 2035</span> </div>
-<div class="line"><a id="l02036" name="l02036"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_shader_program.html#a8e5ea8711e101de4758f892ceb26ff87"> 2036</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a8e5ea8711e101de4758f892ceb26ff87">CSCI441::ShaderProgram::writeShaderProgramBinaryToFile</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* BINARY_FILE_NAME)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l02037" name="l02037"></a><span class="lineno"> 2037</span>    GLint formats = 0;</div>
-<div class="line"><a id="l02038" name="l02038"></a><span class="lineno"> 2038</span>    glGetIntegerv(GL_NUM_PROGRAM_BINARY_FORMATS, &amp;formats);</div>
-<div class="line"><a id="l02039" name="l02039"></a><span class="lineno"> 2039</span>    <span class="keywordflow">if</span>( formats &lt; 1 ) {</div>
-<div class="line"><a id="l02040" name="l02040"></a><span class="lineno"> 2040</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Driver does not support any binary formats.\n&quot;</span>);</div>
-<div class="line"><a id="l02041" name="l02041"></a><span class="lineno"> 2041</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l02042" name="l02042"></a><span class="lineno"> 2042</span>    }</div>
-<div class="line"><a id="l02043" name="l02043"></a><span class="lineno"> 2043</span> </div>
-<div class="line"><a id="l02044" name="l02044"></a><span class="lineno"> 2044</span>    <span class="comment">// Get the binary length</span></div>
-<div class="line"><a id="l02045" name="l02045"></a><span class="lineno"> 2045</span>    GLint length = 0;</div>
-<div class="line"><a id="l02046" name="l02046"></a><span class="lineno"> 2046</span>    glGetProgramiv(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_PROGRAM_BINARY_LENGTH, &amp;length);</div>
-<div class="line"><a id="l02047" name="l02047"></a><span class="lineno"> 2047</span> </div>
-<div class="line"><a id="l02048" name="l02048"></a><span class="lineno"> 2048</span>    <span class="comment">// Retrieve the binary code</span></div>
-<div class="line"><a id="l02049" name="l02049"></a><span class="lineno"> 2049</span>    std::vector&lt;GLubyte&gt; buffer(length);</div>
-<div class="line"><a id="l02050" name="l02050"></a><span class="lineno"> 2050</span>    GLenum format = 0;</div>
-<div class="line"><a id="l02051" name="l02051"></a><span class="lineno"> 2051</span>    glGetProgramBinary(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, length, <span class="keyword">nullptr</span>, &amp;format, buffer.data());</div>
-<div class="line"><a id="l02052" name="l02052"></a><span class="lineno"> 2052</span> </div>
-<div class="line"><a id="l02053" name="l02053"></a><span class="lineno"> 2053</span>    <span class="comment">// Write the binary to a file.</span></div>
-<div class="line"><a id="l02054" name="l02054"></a><span class="lineno"> 2054</span>    fprintf(stdout, <span class="stringliteral">&quot;[INFO]: Writing to %s, binary format %d\n&quot;</span>,BINARY_FILE_NAME, format);</div>
-<div class="line"><a id="l02055" name="l02055"></a><span class="lineno"> 2055</span>    std::ofstream out(BINARY_FILE_NAME, std::ios::binary);</div>
-<div class="line"><a id="l02056" name="l02056"></a><span class="lineno"> 2056</span>    out.write( <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(buffer.data()), length );</div>
-<div class="line"><a id="l02057" name="l02057"></a><span class="lineno"> 2057</span>    out.close();</div>
-<div class="line"><a id="l02058" name="l02058"></a><span class="lineno"> 2058</span> </div>
-<div class="line"><a id="l02059" name="l02059"></a><span class="lineno"> 2059</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l02060" name="l02060"></a><span class="lineno"> 2060</span>}</div>
-<div class="line"><a id="l02061" name="l02061"></a><span class="lineno"> 2061</span> </div>
-<div class="line"><a id="l02062" name="l02062"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_shader_program.html#a1566ee033344561a85325c05c175015b"> 2062</a></span><span class="keyword">inline</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a>* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a1566ee033344561a85325c05c175015b">CSCI441::ShaderProgram::loadShaderProgramFromBinaryFile</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* BINARY_FILE_NAME, <span class="keyword">const</span> GLenum FORMAT) {</div>
-<div class="line"><a id="l02063" name="l02063"></a><span class="lineno"> 2063</span>    GLint formats = 0;</div>
-<div class="line"><a id="l02064" name="l02064"></a><span class="lineno"> 2064</span>    glGetIntegerv(GL_NUM_PROGRAM_BINARY_FORMATS, &amp;formats);</div>
-<div class="line"><a id="l02065" name="l02065"></a><span class="lineno"> 2065</span>    <span class="keywordflow">if</span>( formats &lt; 1 ) {</div>
-<div class="line"><a id="l02066" name="l02066"></a><span class="lineno"> 2066</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Driver does not support any binary formats.\n&quot;</span>);</div>
-<div class="line"><a id="l02067" name="l02067"></a><span class="lineno"> 2067</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l02068" name="l02068"></a><span class="lineno"> 2068</span>    }</div>
-<div class="line"><a id="l02069" name="l02069"></a><span class="lineno"> 2069</span> </div>
-<div class="line"><a id="l02070" name="l02070"></a><span class="lineno"> 2070</span>    GLuint program = glCreateProgram();</div>
-<div class="line"><a id="l02071" name="l02071"></a><span class="lineno"> 2071</span> </div>
-<div class="line"><a id="l02072" name="l02072"></a><span class="lineno"> 2072</span>    <span class="comment">// Load binary from file</span></div>
-<div class="line"><a id="l02073" name="l02073"></a><span class="lineno"> 2073</span>    std::ifstream inputStream(BINARY_FILE_NAME, std::ios::binary);</div>
-<div class="line"><a id="l02074" name="l02074"></a><span class="lineno"> 2074</span>    std::istreambuf_iterator&lt;char&gt; startIt(inputStream), endIt;</div>
-<div class="line"><a id="l02075" name="l02075"></a><span class="lineno"> 2075</span>    std::vector&lt;char&gt; buffer(startIt, endIt);  <span class="comment">// Load file</span></div>
-<div class="line"><a id="l02076" name="l02076"></a><span class="lineno"> 2076</span>    inputStream.close();</div>
-<div class="line"><a id="l02077" name="l02077"></a><span class="lineno"> 2077</span> </div>
-<div class="line"><a id="l02078" name="l02078"></a><span class="lineno"> 2078</span>    <span class="comment">// Install shader binary</span></div>
-<div class="line"><a id="l02079" name="l02079"></a><span class="lineno"> 2079</span>    glProgramBinary(program, FORMAT, buffer.data(), buffer.size() );</div>
-<div class="line"><a id="l02080" name="l02080"></a><span class="lineno"> 2080</span> </div>
-<div class="line"><a id="l02081" name="l02081"></a><span class="lineno"> 2081</span>    <span class="comment">// Check for success/failure</span></div>
-<div class="line"><a id="l02082" name="l02082"></a><span class="lineno"> 2082</span>    GLint status;</div>
-<div class="line"><a id="l02083" name="l02083"></a><span class="lineno"> 2083</span>    glGetProgramiv(program, GL_LINK_STATUS, &amp;status);</div>
-<div class="line"><a id="l02084" name="l02084"></a><span class="lineno"> 2084</span>    <span class="keywordflow">if</span>( GL_FALSE == status ) {</div>
-<div class="line"><a id="l02085" name="l02085"></a><span class="lineno"> 2085</span>        CSCI441_INTERNAL::ShaderUtils::printProgramLog(program);</div>
-<div class="line"><a id="l02086" name="l02086"></a><span class="lineno"> 2086</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l02087" name="l02087"></a><span class="lineno"> 2087</span>    }</div>
-<div class="line"><a id="l02088" name="l02088"></a><span class="lineno"> 2088</span> </div>
-<div class="line"><a id="l02089" name="l02089"></a><span class="lineno"> 2089</span>    <span class="keyword">auto</span> shaderProgram = <span class="keyword">new</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a>();</div>
-<div class="line"><a id="l02090" name="l02090"></a><span class="lineno"> 2090</span>    shaderProgram-&gt;mShaderProgramHandle = program;</div>
-<div class="line"><a id="l02091" name="l02091"></a><span class="lineno"> 2091</span>    <span class="keywordflow">return</span> shaderProgram;</div>
-<div class="line"><a id="l02092" name="l02092"></a><span class="lineno"> 2092</span>}</div>
-<div class="line"><a id="l02093" name="l02093"></a><span class="lineno"> 2093</span> </div>
-<div class="line"><a id="l02094" name="l02094"></a><span class="lineno"> 2094</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_SHADER_PROGRAM_HPP</span></div>
+<div class="line"><a id="l02034" name="l02034"></a><span class="lineno"> 2034</span>    <span class="keyword">delete</span>[] infoLog;</div>
+<div class="line"><a id="l02035" name="l02035"></a><span class="lineno"> 2035</span>}</div>
+<div class="line"><a id="l02036" name="l02036"></a><span class="lineno"> 2036</span> </div>
+<div class="line"><a id="l02037" name="l02037"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_shader_program.html#a8e5ea8711e101de4758f892ceb26ff87"> 2037</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a8e5ea8711e101de4758f892ceb26ff87">CSCI441::ShaderProgram::writeShaderProgramBinaryToFile</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* BINARY_FILE_NAME)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l02038" name="l02038"></a><span class="lineno"> 2038</span>    GLint formats = 0;</div>
+<div class="line"><a id="l02039" name="l02039"></a><span class="lineno"> 2039</span>    glGetIntegerv(GL_NUM_PROGRAM_BINARY_FORMATS, &amp;formats);</div>
+<div class="line"><a id="l02040" name="l02040"></a><span class="lineno"> 2040</span>    <span class="keywordflow">if</span>( formats &lt; 1 ) {</div>
+<div class="line"><a id="l02041" name="l02041"></a><span class="lineno"> 2041</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Driver does not support any binary formats.\n&quot;</span>);</div>
+<div class="line"><a id="l02042" name="l02042"></a><span class="lineno"> 2042</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l02043" name="l02043"></a><span class="lineno"> 2043</span>    }</div>
+<div class="line"><a id="l02044" name="l02044"></a><span class="lineno"> 2044</span> </div>
+<div class="line"><a id="l02045" name="l02045"></a><span class="lineno"> 2045</span>    <span class="comment">// Get the binary length</span></div>
+<div class="line"><a id="l02046" name="l02046"></a><span class="lineno"> 2046</span>    GLint length = 0;</div>
+<div class="line"><a id="l02047" name="l02047"></a><span class="lineno"> 2047</span>    glGetProgramiv(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_PROGRAM_BINARY_LENGTH, &amp;length);</div>
+<div class="line"><a id="l02048" name="l02048"></a><span class="lineno"> 2048</span> </div>
+<div class="line"><a id="l02049" name="l02049"></a><span class="lineno"> 2049</span>    <span class="comment">// Retrieve the binary code</span></div>
+<div class="line"><a id="l02050" name="l02050"></a><span class="lineno"> 2050</span>    std::vector&lt;GLubyte&gt; buffer(length);</div>
+<div class="line"><a id="l02051" name="l02051"></a><span class="lineno"> 2051</span>    GLenum format = 0;</div>
+<div class="line"><a id="l02052" name="l02052"></a><span class="lineno"> 2052</span>    glGetProgramBinary(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, length, <span class="keyword">nullptr</span>, &amp;format, buffer.data());</div>
+<div class="line"><a id="l02053" name="l02053"></a><span class="lineno"> 2053</span> </div>
+<div class="line"><a id="l02054" name="l02054"></a><span class="lineno"> 2054</span>    <span class="comment">// Write the binary to a file.</span></div>
+<div class="line"><a id="l02055" name="l02055"></a><span class="lineno"> 2055</span>    fprintf(stdout, <span class="stringliteral">&quot;[INFO]: Writing to %s, binary format %d\n&quot;</span>,BINARY_FILE_NAME, format);</div>
+<div class="line"><a id="l02056" name="l02056"></a><span class="lineno"> 2056</span>    std::ofstream out(BINARY_FILE_NAME, std::ios::binary);</div>
+<div class="line"><a id="l02057" name="l02057"></a><span class="lineno"> 2057</span>    out.write( <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(buffer.data()), length );</div>
+<div class="line"><a id="l02058" name="l02058"></a><span class="lineno"> 2058</span>    out.close();</div>
+<div class="line"><a id="l02059" name="l02059"></a><span class="lineno"> 2059</span> </div>
+<div class="line"><a id="l02060" name="l02060"></a><span class="lineno"> 2060</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l02061" name="l02061"></a><span class="lineno"> 2061</span>}</div>
+<div class="line"><a id="l02062" name="l02062"></a><span class="lineno"> 2062</span> </div>
+<div class="line"><a id="l02063" name="l02063"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_shader_program.html#a1566ee033344561a85325c05c175015b"> 2063</a></span><span class="keyword">inline</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a>* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a1566ee033344561a85325c05c175015b">CSCI441::ShaderProgram::loadShaderProgramFromBinaryFile</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* BINARY_FILE_NAME, <span class="keyword">const</span> GLenum FORMAT) {</div>
+<div class="line"><a id="l02064" name="l02064"></a><span class="lineno"> 2064</span>    GLint formats = 0;</div>
+<div class="line"><a id="l02065" name="l02065"></a><span class="lineno"> 2065</span>    glGetIntegerv(GL_NUM_PROGRAM_BINARY_FORMATS, &amp;formats);</div>
+<div class="line"><a id="l02066" name="l02066"></a><span class="lineno"> 2066</span>    <span class="keywordflow">if</span>( formats &lt; 1 ) {</div>
+<div class="line"><a id="l02067" name="l02067"></a><span class="lineno"> 2067</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Driver does not support any binary formats.\n&quot;</span>);</div>
+<div class="line"><a id="l02068" name="l02068"></a><span class="lineno"> 2068</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l02069" name="l02069"></a><span class="lineno"> 2069</span>    }</div>
+<div class="line"><a id="l02070" name="l02070"></a><span class="lineno"> 2070</span> </div>
+<div class="line"><a id="l02071" name="l02071"></a><span class="lineno"> 2071</span>    GLuint program = glCreateProgram();</div>
+<div class="line"><a id="l02072" name="l02072"></a><span class="lineno"> 2072</span> </div>
+<div class="line"><a id="l02073" name="l02073"></a><span class="lineno"> 2073</span>    <span class="comment">// Load binary from file</span></div>
+<div class="line"><a id="l02074" name="l02074"></a><span class="lineno"> 2074</span>    std::ifstream inputStream(BINARY_FILE_NAME, std::ios::binary);</div>
+<div class="line"><a id="l02075" name="l02075"></a><span class="lineno"> 2075</span>    std::istreambuf_iterator&lt;char&gt; startIt(inputStream), endIt;</div>
+<div class="line"><a id="l02076" name="l02076"></a><span class="lineno"> 2076</span>    std::vector&lt;char&gt; buffer(startIt, endIt);  <span class="comment">// Load file</span></div>
+<div class="line"><a id="l02077" name="l02077"></a><span class="lineno"> 2077</span>    inputStream.close();</div>
+<div class="line"><a id="l02078" name="l02078"></a><span class="lineno"> 2078</span> </div>
+<div class="line"><a id="l02079" name="l02079"></a><span class="lineno"> 2079</span>    <span class="comment">// Install shader binary</span></div>
+<div class="line"><a id="l02080" name="l02080"></a><span class="lineno"> 2080</span>    glProgramBinary(program, FORMAT, buffer.data(), buffer.size() );</div>
+<div class="line"><a id="l02081" name="l02081"></a><span class="lineno"> 2081</span> </div>
+<div class="line"><a id="l02082" name="l02082"></a><span class="lineno"> 2082</span>    <span class="comment">// Check for success/failure</span></div>
+<div class="line"><a id="l02083" name="l02083"></a><span class="lineno"> 2083</span>    GLint status;</div>
+<div class="line"><a id="l02084" name="l02084"></a><span class="lineno"> 2084</span>    glGetProgramiv(program, GL_LINK_STATUS, &amp;status);</div>
+<div class="line"><a id="l02085" name="l02085"></a><span class="lineno"> 2085</span>    <span class="keywordflow">if</span>( GL_FALSE == status ) {</div>
+<div class="line"><a id="l02086" name="l02086"></a><span class="lineno"> 2086</span>        CSCI441_INTERNAL::ShaderUtils::printProgramLog(program);</div>
+<div class="line"><a id="l02087" name="l02087"></a><span class="lineno"> 2087</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l02088" name="l02088"></a><span class="lineno"> 2088</span>    }</div>
+<div class="line"><a id="l02089" name="l02089"></a><span class="lineno"> 2089</span> </div>
+<div class="line"><a id="l02090" name="l02090"></a><span class="lineno"> 2090</span>    <span class="keyword">auto</span> shaderProgram = <span class="keyword">new</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a>();</div>
+<div class="line"><a id="l02091" name="l02091"></a><span class="lineno"> 2091</span>    shaderProgram-&gt;mShaderProgramHandle = program;</div>
+<div class="line"><a id="l02092" name="l02092"></a><span class="lineno"> 2092</span>    <span class="keywordflow">return</span> shaderProgram;</div>
+<div class="line"><a id="l02093" name="l02093"></a><span class="lineno"> 2093</span>}</div>
+<div class="line"><a id="l02094" name="l02094"></a><span class="lineno"> 2094</span> </div>
+<div class="line"><a id="l02095" name="l02095"></a><span class="lineno"> 2095</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_SHADER_PROGRAM_HPP</span></div>
 <div class="ttc" id="a_shader_utils_8hpp_html"><div class="ttname"><a href="_shader_utils_8hpp.html">ShaderUtils.hpp</a></div><div class="ttdoc">Helper functions to work with OpenGL Shaders.</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a></div><div class="ttdoc">Handles registration and compilation of Shaders.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:34</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a0984fe5246ea9380ce7f80727ccf70be"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a0984fe5246ea9380ce7f80727ccf70be">CSCI441::ShaderProgram::mTessellationEvaluationShaderHandle</a></div><div class="ttdeci">GLuint mTessellationEvaluationShaderHandle</div><div class="ttdoc">handle to the tessellation evaluation shader stage</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:831</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a09a45fd8ef2d0ed05c31d5403d5b6cb5"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a09a45fd8ef2d0ed05c31d5403d5b6cb5">CSCI441::ShaderProgram::getAtomicCounterBufferOffset</a></div><div class="ttdeci">virtual GLint getAtomicCounterBufferOffset(const char *atomicName) const final</div><div class="ttdoc">Returns the offset into the buffer for the corresponding atomic counter buffer.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:1354</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a0cb9c3152f238eb5ccb57f6d3cc4ca83"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a0cb9c3152f238eb5ccb57f6d3cc4ca83">CSCI441::ShaderProgram::mVertexShaderHandle</a></div><div class="ttdeci">GLuint mVertexShaderHandle</div><div class="ttdoc">handle to the vertex shader stage</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:823</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a1566ee033344561a85325c05c175015b"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a1566ee033344561a85325c05c175015b">CSCI441::ShaderProgram::loadShaderProgramFromBinaryFile</a></div><div class="ttdeci">static ShaderProgram * loadShaderProgramFromBinaryFile(const char *BINARY_FILE_NAME, GLenum format)</div><div class="ttdoc">loads precompiled shader program binary from external file</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:2062</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a1566ee033344561a85325c05c175015b"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a1566ee033344561a85325c05c175015b">CSCI441::ShaderProgram::loadShaderProgramFromBinaryFile</a></div><div class="ttdeci">static ShaderProgram * loadShaderProgramFromBinaryFile(const char *BINARY_FILE_NAME, GLenum format)</div><div class="ttdoc">loads precompiled shader program binary from external file</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:2063</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a17a00efea1627d56b2ca465f830a6152"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a17a00efea1627d56b2ca465f830a6152">CSCI441::ShaderProgram::getAtomicCounterBufferBinding</a></div><div class="ttdeci">virtual GLint getAtomicCounterBufferBinding(const char *atomicName) const final</div><div class="ttdoc">Returns the binding point for the corresponding atomic counter buffer.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:1337</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a1ca04557dfe47741b5813c8a6a055b9e"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">CSCI441::ShaderProgram::mShaderProgramHandle</a></div><div class="ttdeci">GLuint mShaderProgramHandle</div><div class="ttdoc">handle to the shader program</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:844</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a1fb9b9a814c8b1a0cdb4a1818e82a254"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a1fb9b9a814c8b1a0cdb4a1818e82a254">CSCI441::ShaderProgram::mTessellationControlShaderHandle</a></div><div class="ttdeci">GLuint mTessellationControlShaderHandle</div><div class="ttdoc">handle to the tessellation control shader stage</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:827</div></div>
@@ -1539,7 +1540,7 @@ $(function() {
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a72cd2e475b77ed3c99ee3f7355f988a3"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a72cd2e475b77ed3c99ee3f7355f988a3">CSCI441::ShaderProgram::getSubroutineIndex</a></div><div class="ttdeci">virtual GLuint getSubroutineIndex(GLenum shaderStage, const char *subroutineName) const final</div><div class="ttdoc">Returns the index of the given subroutine for a shader stage in this shader program.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:1296</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a7eb99d0c8bf0cb0d92947759c750e24e"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a7eb99d0c8bf0cb0d92947759c750e24e">CSCI441::ShaderProgram::getAttributeLocation</a></div><div class="ttdeci">virtual GLint getAttributeLocation(const char *attributeName) const final</div><div class="ttdoc">Returns the location of the given attribute in this shader program.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:1286</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a7f391cfbedd306d3e5d9ae47ff01bc4c"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a7f391cfbedd306d3e5d9ae47ff01bc4c">CSCI441::ShaderProgram::sDEBUG</a></div><div class="ttdeci">static bool sDEBUG</div><div class="ttdoc">if DEBUG information should be printed or not</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:818</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a8e5ea8711e101de4758f892ceb26ff87"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a8e5ea8711e101de4758f892ceb26ff87">CSCI441::ShaderProgram::writeShaderProgramBinaryToFile</a></div><div class="ttdeci">virtual bool writeShaderProgramBinaryToFile(const char *BINARY_FILE_NAME) const final</div><div class="ttdoc">writes precompiled shader program binary to external file</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:2036</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a8e5ea8711e101de4758f892ceb26ff87"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a8e5ea8711e101de4758f892ceb26ff87">CSCI441::ShaderProgram::writeShaderProgramBinaryToFile</a></div><div class="ttdeci">virtual bool writeShaderProgramBinaryToFile(const char *BINARY_FILE_NAME) const final</div><div class="ttdoc">writes precompiled shader program binary to external file</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:2037</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a9358a3f05e8432707d8ec89d1cd9d248"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a9358a3f05e8432707d8ec89d1cd9d248">CSCI441::ShaderProgram::disableDebugMessages</a></div><div class="ttdeci">static void disableDebugMessages()</div><div class="ttdoc">Disables debug messages from Shader Program functions.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:888</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_aa7cf75ce6605ac1f6ca660f98b88ebba"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#aa7cf75ce6605ac1f6ca660f98b88ebba">CSCI441::ShaderProgram::enableDebugMessages</a></div><div class="ttdeci">static void enableDebugMessages()</div><div class="ttdoc">Enables debug messages from Shader Program functions.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:883</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_aa8081736218d659bee1c54a9ec2ec64f"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#aa8081736218d659bee1c54a9ec2ec64f">CSCI441::ShaderProgram::getAtomicCounterBufferSize</a></div><div class="ttdeci">virtual GLint getAtomicCounterBufferSize(const char *atomicName) const final</div><div class="ttdoc">Returns the full buffer size for the corresponding atomic counter buffer.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:1368</div></div>

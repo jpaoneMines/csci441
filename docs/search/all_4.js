@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['emerald_0',['EMERALD',['../materials_8hpp.html#a4a86afa445d7a845fbe78232d74e4465',1,'CSCI441::Materials']]],
+  ['emerald_0',['EMERALD',['../materials_8hpp.html#ad4c5d58cbb698755f2e92c6c6fd9a79a',1,'CSCI441::Materials']]],
   ['enableautogeneratenormals_1',['enableAutoGenerateNormals',['../class_c_s_c_i441_1_1_model_loader.html#a202848314c149e59b5211858ff082072',1,'CSCI441::ModelLoader']]],
   ['enabledebugmessages_2',['enableDebugMessages',['../class_c_s_c_i441_1_1_shader_program.html#aa7cf75ce6605ac1f6ca660f98b88ebba',1,'CSCI441::ShaderProgram::enableDebugMessages()'],['../class_c_s_c_i441_1_1_shader_program_pipeline.html#a6b53ab4ee941e25102ca93b7a2b3f577',1,'CSCI441::ShaderProgramPipeline::enableDebugMessages()']]],
   ['enableflatshading_3',['enableFlatShading',['../_simple_shader_8hpp.html#a444a2172e53711b1b37e0227655eda07',1,'CSCI441::SimpleShader2::enableFlatShading()'],['../_simple_shader_8hpp.html#a0d38a9d42678dec2861edca6be625347',1,'CSCI441::SimpleShader3::enableFlatShading()']]],

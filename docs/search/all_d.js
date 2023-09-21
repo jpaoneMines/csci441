@@ -1,7 +1,7 @@
 var searchData=
 [
   ['objects_2ehpp_0',['objects.hpp',['../objects_8hpp.html',1,'']]],
-  ['obsidian_1',['OBSIDIAN',['../materials_8hpp.html#a7ccd7cb6c9dadf1b1637d29126100536',1,'CSCI441::Materials']]],
+  ['obsidian_1',['OBSIDIAN',['../materials_8hpp.html#a44f15c884082c4f7edb0cdee845107dc',1,'CSCI441::Materials']]],
   ['opengl3dengine_2',['OpenGL3DEngine',['../class_c_s_c_i441_1_1_open_g_l3_d_engine.html',1,'CSCI441::OpenGL3DEngine'],['../class_c_s_c_i441_1_1_open_g_l3_d_engine.html#aaed87b6517f98bafde9429bb8f6daadc',1,'CSCI441::OpenGL3DEngine::OpenGL3DEngine(const OpenGL3DEngine &amp;)=delete'],['../class_c_s_c_i441_1_1_open_g_l3_d_engine.html#a86eaa8f6ce78dcc2e44b6519e7031a53',1,'CSCI441::OpenGL3DEngine::OpenGL3DEngine(int OPENGL_MAJOR_VERSION, int OPENGL_MINOR_VERSION, int WINDOW_WIDTH, int WINDOW_HEIGHT, const char *WINDOW_TITLE, bool WINDOW_RESIZABLE=GLFW_FALSE)']]],
   ['opengl3dengine_2ehpp_3',['OpenGL3DEngine.hpp',['../_open_g_l3_d_engine_8hpp.html',1,'']]],
   ['opengl_5fengine_5ferror_5fglew_5finit_4',['OPENGL_ENGINE_ERROR_GLEW_INIT',['../class_c_s_c_i441_1_1_open_g_l_engine.html#adbbcfe2d4535ac5d77974b4a3fd249b4',1,'CSCI441::OpenGLEngine']]],
