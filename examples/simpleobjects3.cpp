@@ -50,6 +50,8 @@ public:
 
     void swapObject(GLuint object) { _objectIndex = object; }
 
+    void toggleRotation() { _rotate = !_rotate; }
+
 private:
     //***************************************************************************
     // Engine Setup
@@ -78,6 +80,8 @@ private:
     }
 
     void mSetupScene() final {
+        _rotate = GL_TRUE;
+
         _lightPositionAngle = 0.0f;
 
         glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -135,12 +139,14 @@ private:
 
     /// \desc handles moving our FreeCam as determined by keyboard input
     void _updateScene() {
-        _objectAngle += ROTATION_SPEED;
-        // prevent value from getting too large
-        if( _objectAngle > 2.0f * M_PI ) _objectAngle -= 2.0f * M_PI;
+        if( _rotate ) {
+            _objectAngle += ROTATION_SPEED;
+            // prevent value from getting too large
+            if( _objectAngle > 2.0f * M_PI ) _objectAngle -= 2.0f * M_PI;
 
-        _lightPositionAngle += ROTATION_SPEED;
-        _lightPosition = glm::vec3( glm::cos(_lightPositionAngle) * 10.0f, 10.0f, glm::sin(_lightPositionAngle) * 10.0f );
+            _lightPositionAngle += ROTATION_SPEED;
+            _lightPosition = glm::vec3( glm::cos(_lightPositionAngle) * 10.0f, 10.0f, glm::sin(_lightPositionAngle) * 10.0f );
+        }
     }
 
     //***************************************************************************
@@ -153,6 +159,8 @@ private:
 
     glm::vec3 _lightPosition;
     GLfloat _lightPositionAngle;
+
+    GLboolean _rotate;
 
     static constexpr glm::vec3 _MATERIAL_EMERALD_DIFFUSE = glm::vec3( CSCI441::Materials::EMERALD.diffuse[0], CSCI441::Materials::EMERALD.diffuse[1], CSCI441::Materials::EMERALD.diffuse[2] );
     static constexpr glm::vec3 _MATERIAL_GOLD_DIFFUSE = glm::vec3( CSCI441::Materials::GOLD.diffuse[0], CSCI441::Materials::GOLD.diffuse[1], CSCI441::Materials::GOLD.diffuse[2] );
@@ -183,6 +191,10 @@ void simple_objects_3_engine_keyboard_callback(GLFWwindow *window, int key, int 
             case GLFW_KEY_7:
             case GLFW_KEY_8:
                 engine->swapObject(key - GLFW_KEY_1); // GLFW_KEY_1 is 49.  they go in sequence from there
+                break;
+
+            case GLFW_KEY_R:
+                engine->toggleRotation();
                 break;
 
             default:
