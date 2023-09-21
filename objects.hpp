@@ -18,14 +18,11 @@
 #include "teapot.hpp"                   // for teapot()
 
 #include <GL/glew.h>
+#include <glm/gtc/constants.hpp>
 
 #include <cassert>   					// for assert()
 #include <cmath>						// for cos(), sin()
 #include <map>							// for map
-
-#ifndef M_PI
-#define M_PI 3.141529
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -534,7 +531,7 @@ inline void CSCI441::drawSolidDisk( GLfloat inner, GLfloat outer, GLint slices, 
     assert( slices > 2 );
     assert( rings > 0 );
 
-    CSCI441_INTERNAL::drawPartialDisk( inner, outer, slices, rings, 0, 2*M_PI, GL_FILL );
+    CSCI441_INTERNAL::drawPartialDisk( inner, outer, slices, rings, 0, glm::two_pi<float>(), GL_FILL );
 }
 
 inline void CSCI441::drawWireDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings ) {
@@ -544,7 +541,7 @@ inline void CSCI441::drawWireDisk( GLfloat inner, GLfloat outer, GLint slices, G
     assert( slices > 2 );
     assert( rings > 0 );
 
-    CSCI441_INTERNAL::drawPartialDisk( inner, outer, slices, rings, 0, 2*M_PI, GL_LINE );
+    CSCI441_INTERNAL::drawPartialDisk( inner, outer, slices, rings, 0, glm::two_pi<float>(), GL_LINE );
 }
 
 inline void CSCI441::drawSolidPartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep ) {
@@ -556,7 +553,7 @@ inline void CSCI441::drawSolidPartialDisk( GLfloat inner, GLfloat outer, GLint s
     assert( start >= 0.0f && start <= 360.0f );
     assert( sweep >= 0.0f && sweep <= 360.0f );
 
-    CSCI441_INTERNAL::drawPartialDisk( inner, outer, slices, rings, start * M_PI / 180.0f, sweep * M_PI / 180.0f, GL_FILL );
+    CSCI441_INTERNAL::drawPartialDisk( inner, outer, slices, rings, start * glm::pi<float>() / 180.0f, sweep * glm::pi<float>() / 180.0f, GL_FILL );
 }
 
 inline void CSCI441::drawWirePartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep ) {
@@ -568,7 +565,7 @@ inline void CSCI441::drawWirePartialDisk( GLfloat inner, GLfloat outer, GLint sl
     assert( start >= 0.0f && start <= 360.0f );
     assert( sweep >= 0.0f && sweep <= 360.0f );
 
-    CSCI441_INTERNAL::drawPartialDisk( inner, outer, slices, rings, start * M_PI / 180.0f, sweep * M_PI / 180.0f, GL_LINE );
+    CSCI441_INTERNAL::drawPartialDisk( inner, outer, slices, rings, start * glm::pi<float>() / 180.0f, sweep * glm::pi<float>() / 180.0f, GL_LINE );
 }
 
 inline void CSCI441::drawSolidSphere( GLfloat radius, GLint stacks, GLint slices ) {
@@ -1027,8 +1024,8 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
 
     unsigned long int numVertices = cylData.stacks * (cylData.slices + 1) * 2;
 
-    GLfloat sliceStep = 2.0f * M_PI / cylData.slices;
-    GLfloat stackStep = cylData.height / cylData.stacks;
+    GLfloat sliceStep = glm::two_pi<float>() / (GLfloat)cylData.slices;
+    GLfloat stackStep = cylData.height / (GLfloat)cylData.stacks;
 
     auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
     auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
@@ -1160,8 +1157,8 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
 
     unsigned long int numVertices = (sphereData.slices + 2) * 2 + ((sphereData.stacks - 2) * (sphereData.slices + 1)) * 2;
 
-    GLfloat sliceStep = 2.0f * M_PI / sphereData.slices;
-    GLfloat stackStep = M_PI / sphereData.stacks;
+    GLfloat sliceStep = glm::two_pi<float>() / sphereData.slices;
+    GLfloat stackStep = glm::pi<float>() / sphereData.stacks;
 
     auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
     auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
@@ -1303,8 +1300,8 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
 
     unsigned long int idx = 0;
 
-    GLfloat sideStep = 2.0f * M_PI / torusData.sides;
-    GLfloat ringStep = 2.0f * M_PI / torusData.rings;
+    GLfloat sideStep = glm::two_pi<float>() / torusData.sides;
+    GLfloat ringStep = glm::two_pi<float>() / torusData.rings;
 
     for(int ringNum = 0; ringNum < torusData.rings; ringNum++ ) {
         GLfloat currTheta = ringStep * ringNum;

@@ -16,10 +16,7 @@
 #include "OpenGLEngine.hpp"
 
 #include <glm/glm.hpp>
-
-#ifndef M_PI
-#define M_PI 3.141529
-#endif
+#include <glm/gtc/constants.hpp>
 
 namespace CSCI441 {
 
