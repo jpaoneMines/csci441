@@ -21,7 +21,6 @@
 #include <glm/gtc/constants.hpp>
 
 #include <cassert>   					// for assert()
-#include <cmath>						// for cos(), sin()
 #include <map>							// for map
 
 ////////////////////////////////////////////////////////////////////////////////////
