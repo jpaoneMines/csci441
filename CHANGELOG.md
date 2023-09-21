@@ -1,5 +1,8 @@
 # Revision History
 
+## v 4.11.0 - 21 Sep 2023
+- Added HUDCamera
+
 ## v 4.10.2 - 21 Sep 2023
 - Including Makefile
 

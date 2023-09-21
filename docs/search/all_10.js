@@ -40,8 +40,8 @@ var searchData=
   ['simpleshader2_37',['SimpleShader2',['../namespace_simple_shader2.html',1,'']]],
   ['simpleshader3_38',['SimpleShader3',['../namespace_simple_shader3.html',1,'']]],
   ['skeletonframes_39',['skeletonFrames',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation.html#a1031fee9f76ccc58524a6857e9acb9d9',1,'CSCI441::MD5Model::MD5Animation']]],
-  ['specular_40',['SPECULAR',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html#a1de339786389dba8d236be547720c68ba6648381d85831c8fbb04ab219d2085e6',1,'CSCI441::MD5Model::MD5Mesh']]],
-  ['specular_41',['specular',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#ac1a20c197ba9dd4a9ebbf6f36679f49f',1,'CSCI441::Materials::Material']]],
+  ['specular_40',['specular',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#ac1a20c197ba9dd4a9ebbf6f36679f49f',1,'CSCI441::Materials::Material']]],
+  ['specular_41',['SPECULAR',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html#a1de339786389dba8d236be547720c68ba6648381d85831c8fbb04ab219d2085e6',1,'CSCI441::MD5Model::MD5Mesh']]],
   ['start_42',['start',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_vertex.html#aeaafa5177f04ad881d1a94ed0f56f42e',1,'CSCI441::MD5Model::MD5Vertex']]],
   ['startindex_43',['startIndex',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint_info.html#a5a713ee606b3310a67cafc685e119c32',1,'CSCI441::MD5Model::MD5JointInfo']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['shaderprogram_0',['ShaderProgram',['../class_c_s_c_i441_1_1_shader_program.html',1,'CSCI441']]],
-  ['shaderprogrampipeline_1',['ShaderProgramPipeline',['../class_c_s_c_i441_1_1_shader_program_pipeline.html',1,'CSCI441']]]
+  ['opengl3dengine_0',['OpenGL3DEngine',['../class_c_s_c_i441_1_1_open_g_l3_d_engine.html',1,'CSCI441']]],
+  ['openglengine_1',['OpenGLEngine',['../class_c_s_c_i441_1_1_open_g_l_engine.html',1,'CSCI441']]]
 ];

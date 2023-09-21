@@ -8,7 +8,7 @@ INC_PATH = ./dependencies
 LIB_PATH = /usr/local/lib
 LIBS = -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -lglfw3 -lglew
 
-EXAMPLE_SRC_FILES = examples/simpleobjects3.cpp examples/simpletri2.cpp
+EXAMPLE_SRC_FILES = examples/hudcamera.cpp examples/simpleobjects3.cpp examples/simpletri2.cpp
 EXAMPLE_OBJECTS = $(EXAMPLE_SRC_FILES:.cpp=.o)
 PROGRAMS = $(EXAMPLE_SRC_FILES:examples/%.cpp=bin/%)
 

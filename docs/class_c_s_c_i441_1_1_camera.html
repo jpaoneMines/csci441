@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.10.2</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.11.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -97,7 +97,8 @@ Inheritance diagram for CSCI441::Camera:</div>
 <area href="class_c_s_c_i441_1_1_arcball_cam.html" title="A camera that implements an ArcBall camera model." alt="CSCI441::ArcballCam" shape="rect" coords="0,56,139,80"/>
 <area href="class_c_s_c_i441_1_1_fixed_cam.html" title="A camera that can be positioned and oriented but never moved or rotated." alt="CSCI441::FixedCam" shape="rect" coords="149,56,288,80"/>
 <area href="class_c_s_c_i441_1_1_free_cam.html" title="A camera that implements a FreeCam camera model." alt="CSCI441::FreeCam" shape="rect" coords="298,56,437,80"/>
-<area href="class_c_s_c_i441_1_1_m_d5_camera.html" title="A camera that implements the MD5Camera specification." alt="CSCI441::MD5Camera" shape="rect" coords="447,56,586,80"/>
+<area href="class_c_s_c_i441_1_1_h_u_d_camera.html" title="creates a 2D Orthographic projection camera used for Heads Up Display overlays" alt="CSCI441::HUDCamera" shape="rect" coords="447,56,586,80"/>
+<area href="class_c_s_c_i441_1_1_m_d5_camera.html" title="A camera that implements the MD5Camera specification." alt="CSCI441::MD5Camera" shape="rect" coords="596,56,735,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -479,7 +480,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a2a13d007a757a4fcd0fece0963359beb">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#aaeb9f7a5c9ab3a08a11687f1fd7234e2">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a9538c96b3167b01c3d5481de848dafec">CSCI441::FreeCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a5327ca5b6ecf52974510758ba57627e5">CSCI441::MD5Camera</a>.</p>
+<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a2a13d007a757a4fcd0fece0963359beb">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a47b53af60855225e48a5f1b2ed8718cd">CSCI441::HUDCamera</a>, <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#aaeb9f7a5c9ab3a08a11687f1fd7234e2">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a9538c96b3167b01c3d5481de848dafec">CSCI441::FreeCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a5327ca5b6ecf52974510758ba57627e5">CSCI441::MD5Camera</a>.</p>
 
 </div>
 </div>
@@ -515,7 +516,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a9bca71cef49c85697c44e3731d4e3d25">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a5e618322522a711de4d22ff0331e8db2">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a6477c2e4e7734f313f3b03f832450c5f">CSCI441::FreeCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a1484b36acde080697559058717d23ec3">CSCI441::MD5Camera</a>.</p>
+<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a9bca71cef49c85697c44e3731d4e3d25">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#af7edb3eb643b0617cd079ecd6a136be8">CSCI441::HUDCamera</a>, <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a5e618322522a711de4d22ff0331e8db2">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a6477c2e4e7734f313f3b03f832450c5f">CSCI441::FreeCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a1484b36acde080697559058717d23ec3">CSCI441::MD5Camera</a>.</p>
 
 </div>
 </div>
@@ -544,7 +545,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 
 <p>Uses theta, phi, &amp; radius to update the camera's view matrix parameters. The camera orientation is controlled via spherical coordinates and this method would orient and/or position the camera in cartesian coordinates. </p>
 
-<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a37be99738bfbd423573dcd298cf69784">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a">CSCI441::FreeCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014">CSCI441::MD5Camera</a>.</p>
+<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a37be99738bfbd423573dcd298cf69784">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a">CSCI441::FreeCam</a>, <a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a9ad075fd24c2bd5a2b33837e2a882c5c">CSCI441::HUDCamera</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014">CSCI441::MD5Camera</a>.</p>
 
 </div>
 </div>
