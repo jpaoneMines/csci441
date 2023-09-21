@@ -447,14 +447,17 @@ inline void CSCI441::setVertexAttributeLocations( GLint positionLocation, GLint 
     CSCI441_INTERNAL::setTeapotAttributeLocations(positionLocation, normalLocation, texCoordLocation);
 }
 
+[[maybe_unused]]
 inline void CSCI441::deleteObjectVAOs() {
     CSCI441_INTERNAL::deleteObjectVAOs();
 }
 
+[[maybe_unused]]
 inline void CSCI441::deleteObjectVBOs() {
     CSCI441_INTERNAL::deleteObjectVBOs();
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawSolidCone( GLfloat base, GLfloat height, GLint stacks, GLint slices ) {
     assert( base > 0.0f );
     assert( height > 0.0f );
@@ -464,6 +467,7 @@ inline void CSCI441::drawSolidCone( GLfloat base, GLfloat height, GLint stacks, 
     CSCI441_INTERNAL::drawCylinder( base, 0.0f, height, stacks, slices, GL_FILL );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawWireCone( GLfloat base, GLfloat height, GLint stacks, GLint slices ) {
     assert( base > 0.0f );
     assert( height > 0.0f );
@@ -473,10 +477,12 @@ inline void CSCI441::drawWireCone( GLfloat base, GLfloat height, GLint stacks, G
     CSCI441_INTERNAL::drawCylinder( base, 0.0f, height, stacks, slices, GL_LINE );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawSolidCube( GLfloat sideLength ) {
     drawSolidCubeIndexed(sideLength);
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawSolidCubeTextured( GLfloat sideLength ) {
     drawSolidCubeFlat(sideLength);
 }
@@ -493,18 +499,21 @@ inline void CSCI441::drawSolidCubeFlat(GLfloat sideLength) {
     CSCI441_INTERNAL::drawCubeFlat( sideLength, GL_FILL );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawWireCube( GLfloat sideLength ) {
     assert( sideLength > 0.0f );
 
     CSCI441_INTERNAL::drawCube( sideLength, GL_LINE );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawCubeMap(GLfloat sideLength) {
     assert(sideLength > 0.0f);
 
     CSCI441_INTERNAL::drawCube( sideLength, GL_FILL );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawSolidCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices ) {
     assert( (base >= 0.0f && top > 0.0f) || (base > 0.0f && top >= 0.0f) );
     assert( height > 0.0f );
@@ -514,6 +523,7 @@ inline void CSCI441::drawSolidCylinder( GLfloat base, GLfloat top, GLfloat heigh
     CSCI441_INTERNAL::drawCylinder( base, top, height, stacks, slices, GL_FILL );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawWireCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices ) {
     assert( (base >= 0.0f && top > 0.0f) || (base > 0.0f && top >= 0.0f) );
     assert( height > 0.0f );
@@ -523,6 +533,7 @@ inline void CSCI441::drawWireCylinder( GLfloat base, GLfloat top, GLfloat height
     CSCI441_INTERNAL::drawCylinder( base, top, height, stacks, slices, GL_LINE );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawSolidDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings ) {
     assert( inner >= 0.0f );
     assert( outer > 0.0f );
@@ -533,6 +544,7 @@ inline void CSCI441::drawSolidDisk( GLfloat inner, GLfloat outer, GLint slices, 
     CSCI441_INTERNAL::drawPartialDisk( inner, outer, slices, rings, 0, glm::two_pi<float>(), GL_FILL );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawWireDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings ) {
     assert( inner >= 0.0f );
     assert( outer > 0.0f );
@@ -543,6 +555,7 @@ inline void CSCI441::drawWireDisk( GLfloat inner, GLfloat outer, GLint slices, G
     CSCI441_INTERNAL::drawPartialDisk( inner, outer, slices, rings, 0, glm::two_pi<float>(), GL_LINE );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawSolidPartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep ) {
     assert( inner >= 0.0f );
     assert( outer > 0.0f );
@@ -555,6 +568,7 @@ inline void CSCI441::drawSolidPartialDisk( GLfloat inner, GLfloat outer, GLint s
     CSCI441_INTERNAL::drawPartialDisk( inner, outer, slices, rings, start * glm::pi<float>() / 180.0f, sweep * glm::pi<float>() / 180.0f, GL_FILL );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawWirePartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep ) {
     assert( inner >= 0.0f );
     assert( outer > 0.0f );
@@ -567,6 +581,7 @@ inline void CSCI441::drawWirePartialDisk( GLfloat inner, GLfloat outer, GLint sl
     CSCI441_INTERNAL::drawPartialDisk( inner, outer, slices, rings, start * glm::pi<float>() / 180.0f, sweep * glm::pi<float>() / 180.0f, GL_LINE );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawSolidSphere( GLfloat radius, GLint stacks, GLint slices ) {
     assert( radius > 0.0f );
     assert( stacks > 1 );
@@ -575,6 +590,7 @@ inline void CSCI441::drawSolidSphere( GLfloat radius, GLint stacks, GLint slices
     CSCI441_INTERNAL::drawSphere( radius, stacks, slices, GL_FILL );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawWireSphere( GLfloat radius, GLint stacks, GLint slices ) {
     assert( radius > 0.0f );
     assert( stacks > 1);
@@ -583,16 +599,17 @@ inline void CSCI441::drawWireSphere( GLfloat radius, GLint stacks, GLint slices 
     CSCI441_INTERNAL::drawSphere( radius, stacks, slices, GL_LINE );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawSolidTeapot( GLfloat size ) {
-//    CSCI441_INTERNAL::teapot();
-//
     CSCI441_INTERNAL::drawTeapot(GL_FILL);
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawWireTeapot( GLfloat size ) {
     CSCI441_INTERNAL::drawTeapot(GL_LINE);
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawSolidTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings ) {
     assert( innerRadius > 0.0f );
     assert( outerRadius > 0.0f );
@@ -602,6 +619,7 @@ inline void CSCI441::drawSolidTorus( GLfloat innerRadius, GLfloat outerRadius, G
     CSCI441_INTERNAL::drawTorus( innerRadius, outerRadius, sides, rings, GL_FILL );
 }
 
+[[maybe_unused]]
 inline void CSCI441::drawWireTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings ) {
     assert( innerRadius > 0.0f );
     assert( outerRadius > 0.0f );
