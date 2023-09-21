@@ -1,5 +1,8 @@
 # Revision History
 
+## v 4.10.1 - 21 Sep 2023
+- Fixing documentation links
+
 ## v 4.10.0 - 21 Sep 2023
 - Added example programs to demonstrate SimpleShader2 and SimpleShader3 + 3D Objects
 - Moved revision history into dedicated changelog file

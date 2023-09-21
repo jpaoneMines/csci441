@@ -21,9 +21,10 @@
  *
  * Download the latest version from the \htmlonly <a rel="noreferrer" href="https://github.com/jpaoneMines/csci441" target="_blank">CSCI441 GitHub Repo</a> \endhtmlonly
  *
- * \section revision_sec Revision History
+ * \section revision_sec Documentation
  *
- * View the \htmlonly <a href="md__r_e_a_d_m_e.html">README Revision History</a> \endhtmlonly
+ * View the \htmlonly <a href="md__r_e_a_d_m_e.html">README</a> \endhtmlonly
+ * View the \htmlonly <a href="md__c_h_a_n_g_e_l_o_g.html">Revision History</a> \endhtmlonly
  */
 
 #ifndef CSCI441_CSCI441_HPP
