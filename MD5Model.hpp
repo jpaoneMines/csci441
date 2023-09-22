@@ -583,15 +583,14 @@ CSCI441::MD5Model::readMD5Model(
 
                     // Copy the shader name without the quote marks
                     for(uli = 0; uli < sizeof(buff) && (quote < 2); ++uli) {
-                        if( buff[i] == '\"' )
+                        if( buff[uli] == '\"' )
                             quote++;
 
-                        if( (quote == 1) && (buff[i] != '\"') ) {
-                            mesh->shader[j] = buff[i];
+                        if( (quote == 1) && (buff[uli] != '\"') ) {
+                            mesh->shader[j] = buff[uli];
                             j++;
                         }
                     }
-
                     // there was a shader name
                     if( j > 0 ) {
                         // diffuse map
