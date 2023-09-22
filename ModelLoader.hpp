@@ -31,6 +31,7 @@
 #include <sstream>
 #include <map>
 #include <string>
+#include <utility>
 #include <vector>
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -73,7 +74,7 @@ namespace CSCI441 {
          * @param ERRORS flag to control if error messages should be displayed
          * @return true if load succeeded, false otherwise
          */
-		bool loadModelFile( const char* filename, bool INFO = true, bool ERRORS = true );
+		bool loadModelFile( std::string filename, bool INFO = true, bool ERRORS = true );
 
 		/**
 		 * @brief Enables VBO attribute array locations
@@ -157,7 +158,7 @@ namespace CSCI441 {
 		bool _loadSTLFile( bool INFO, bool ERRORS );
 		static std::vector<std::string> _tokenizeString( std::string input, const std::string& delimiters );
 
-		char* _filename;
+		std::string _filename;
 		CSCI441_INTERNAL::MODEL_TYPE _modelType;
 
 		GLuint _vaod;
@@ -176,7 +177,7 @@ namespace CSCI441 {
 		bool _hasVertexTexCoords;
 		bool _hasVertexNormals;
 
-        static bool _AUTO_GEN_NORMALS;
+        static bool sAUTO_GEN_NORMALS;
 	};
 }
 
@@ -188,7 +189,7 @@ namespace CSCI441_INTERNAL {
 	[[maybe_unused]] void flipImageY( int texWidth, int texHeight, int textureChannels, unsigned char *textureData );
 }
 
-inline bool CSCI441::ModelLoader::_AUTO_GEN_NORMALS = false;
+inline bool CSCI441::ModelLoader::sAUTO_GEN_NORMALS = false;
 
 inline CSCI441::ModelLoader::ModelLoader() {
 	_init();
@@ -223,29 +224,28 @@ inline void CSCI441::ModelLoader::_init() {
 	glGenBuffers( 2, _vbods );
 }
 
-inline bool CSCI441::ModelLoader::loadModelFile( const char* filename, bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::loadModelFile( std::string filename, bool INFO, bool ERRORS ) {
 	bool result = true;
-	_filename = (char*)malloc(sizeof(char)*strlen(filename));
-	strcpy( _filename, filename );
-	if( strstr( _filename, ".obj" ) != NULL ) {
+	_filename = std::move(filename);
+	if( _filename.find(".obj") != std::string::npos ) {
 		result = _loadOBJFile( INFO, ERRORS );
 		_modelType = CSCI441_INTERNAL::OBJ;
 	}
-	else if( strstr( _filename, ".off" ) != NULL ) {
+	else if( _filename.find(".off") != std::string::npos ) {
 		result = _loadOFFFile( INFO, ERRORS );
 		_modelType = CSCI441_INTERNAL::OFF;
 	}
-	else if( strstr( _filename, ".ply" ) != NULL ) {
+	else if(  _filename.find(".ply") != std::string::npos ) {
 		result = _loadPLYFile( INFO, ERRORS );
 		_modelType = CSCI441_INTERNAL::PLY;
 	}
-	else if( strstr( _filename, ".stl" ) != NULL ) {
+	else if( _filename.find(".stl") != std::string::npos ) {
 		result = _loadSTLFile( INFO, ERRORS );
 		_modelType = CSCI441_INTERNAL::STL;
 	}
 	else {
 		result = false;
-		if (ERRORS) fprintf( stderr, "[ERROR]:  Unsupported file format for file: %s\n", _filename );
+		if (ERRORS) fprintf( stderr, "[ERROR]:  Unsupported file format for file: %s\n", _filename.c_str() );
 	}
 
 	return result;
@@ -257,7 +257,7 @@ inline void CSCI441::ModelLoader::setAttributeLocations(GLint positionLocation, 
     glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
 
     glEnableVertexAttribArray( positionLocation );
-    glVertexAttribPointer( positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
+    glVertexAttribPointer( positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)nullptr );
 
     glEnableVertexAttribArray( normalLocation );
     glVertexAttribPointer( normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * _uniqueIndex * 3) );
@@ -285,7 +285,7 @@ inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
 			for(auto & idxIter : indexStartStop) {
 				GLuint start = idxIter.first;
 				GLuint end = idxIter.second;
-				GLuint length = end - start + 1;
+				GLsizei length = (GLsizei)(end - start) + 1;
 
 //				printf( "rendering material %s (%u, %u) = %u\n", materialName.c_str(), start, end, length );
 
@@ -305,7 +305,7 @@ inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
 			}
 		}
 	} else {
-		glDrawElements( GL_TRIANGLES, _numIndices, GL_UNSIGNED_INT, (void*)0 );
+		glDrawElements( GL_TRIANGLES, static_cast<GLint>(_numIndices), GL_UNSIGNED_INT, (void*)nullptr );
 	}
 
 	return result;
@@ -322,15 +322,15 @@ inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
 inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	bool result = true;
 
-	if ( INFO ) fprintf( stdout, "[.obj]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=- \n", _filename );
+	if ( INFO ) fprintf( stdout, "[.obj]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=- \n", _filename.c_str() );
 
 	time_t start, end;
 	time(&start);
 
 	std::ifstream in( _filename );
 	if( !in.is_open() ) {
-		if (ERRORS) fprintf( stderr, "[.obj]: [ERROR]: Could not open \"%s\"\n", _filename );
-		if ( INFO ) fprintf( stdout, "[.obj]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=- \n", _filename );
+		if (ERRORS) fprintf( stderr, "[.obj]: [ERROR]: Could not open \"%s\"\n", _filename.c_str() );
+		if ( INFO ) fprintf( stdout, "[.obj]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=- \n", _filename.c_str() );
 		return false;
 	}
 
@@ -354,7 +354,8 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
-		if( tokens[0] == "#"  || tokens[0].find_first_of("#") == 0 ) {								// comment ignore
+		if( tokens[0] == "#"  || tokens[0].find_first_of('#') == 0 ) {
+            // comment ignore
 		} else if( tokens[0] == "o" ) {						// object name ignore
 			numObjects++;
 		} else if( tokens[0] == "g" ) {						// polygon group name ignore
@@ -364,9 +365,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		} else if( tokens[0] == "v" ) {						//vertex
 			numVertices++;
 
-			auto x = (GLfloat) atof( tokens[1].c_str() ),
-                 y = (GLfloat) atof( tokens[2].c_str() ),
-                 z = (GLfloat) atof( tokens[3].c_str() );
+			GLfloat x = strtof( tokens[1].c_str(), nullptr ),
+                    y = strtof( tokens[2].c_str(), nullptr ),
+                    z = strtof( tokens[3].c_str(), nullptr );
 
 			if( x < minX ) minX = x;
 			if( x > maxX ) maxX = x;
@@ -379,7 +380,6 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		} else if( tokens[0] == "vt" ) {                    //vertex tex coord
 			numTexCoords++;
 		} else if( tokens[0] == "f" ) {                     //face!
-
 			//now, faces can be either quads or triangles (or maybe more?)
 			//split the string on spaces to get the number of verts+attrs.
 			std::vector<std::string> faceTokens = _tokenizeString(line, " ");
@@ -393,39 +393,45 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 				}
 
                 std::stringstream currentFaceTokenStream;
-                int v = atoi(groupTokens[0].c_str());
-                if(v < 0)
-                    v = numVertices + v + 1;
+                auto sv = (GLint)strtol(groupTokens[0].c_str(), nullptr, 10);
+                GLuint v = sv;
+                if(sv < 0)
+                    v = numVertices + sv + 1;
                 currentFaceTokenStream << v;
 
 				//based on combination of number of tokens and slashes, we can determine what we have.
 				if(groupTokens.size() == 2 && numSlashes == 1) {
 					_hasVertexTexCoords = true;
 
-                    int vt = atoi(groupTokens[1].c_str());
-                    if(vt < 0)
-                        vt = numTexCoords + vt + 1;
+                    auto svt = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                    GLuint vt = svt;
+                    if(svt < 0)
+                        vt = numTexCoords + svt + 1;
                     currentFaceTokenStream << "/" << vt;
 				} else if(groupTokens.size() == 2 && numSlashes == 2) {
 					_hasVertexNormals = true;
 
-                    int vn = atoi(groupTokens[1].c_str());
-                    if(vn < 0)
-                        vn = numNormals + vn + 1;
+                    auto svn = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                    GLuint vn = svn;
+                    if(svn < 0)
+                        vn = numNormals + svn + 1;
                     currentFaceTokenStream << "//" << vn;
 				} else if(groupTokens.size() == 3) {
 					_hasVertexTexCoords = true;
 					_hasVertexNormals = true;
 
-                    int vt = atoi(groupTokens[1].c_str());
-                    if(vt < 0)
-                        vt = numTexCoords + vt + 1;
-                    int vn = atoi(groupTokens[2].c_str());
-                    if(vn < 0)
-                        vn = numNormals + vn + 1;
+                    auto svt = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                    GLuint vt = svt;
+                    if(svt < 0)
+                        vt = numTexCoords + svt + 1;
+
+                    auto svn = (GLint)strtol(groupTokens[2].c_str(), nullptr, 10);
+                    GLuint vn = svn;
+                    if(svn < 0)
+                        vn = numNormals + svn + 1;
                     currentFaceTokenStream << "/" << vt << "/" << vn;
 				} else if(groupTokens.size() != 1) {
-					if (ERRORS) fprintf(stderr, "[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename);
+					if (ERRORS) fprintf(stderr, "[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename.c_str());
 					return false;
 				}
 
@@ -440,7 +446,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 			numFaces++;
 		} else {
-
+            if (INFO) printf( "[.obj]: ignoring line: %s\n", line.c_str() );
 		}
 
 		if (INFO) {
@@ -448,10 +454,10 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			if( progressCounter % 5000 == 0 ) {
 				printf("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.obj]: scanning %s...\\", _filename);	break;
-					case 10000:	printf("[.obj]: scanning %s...|", _filename);	break;
-					case 15000:	printf("[.obj]: scanning %s.../", _filename);	break;
-					case 20000:	printf("[.obj]: scanning %s...-", _filename);	break;
+					case 5000:	printf("[.obj]: scanning %s...\\", _filename.c_str());	break;
+					case 10000:	printf("[.obj]: scanning %s...|", _filename.c_str());	break;
+					case 15000:	printf("[.obj]: scanning %s.../", _filename.c_str());	break;
+					case 20000:	printf("[.obj]: scanning %s...-", _filename.c_str());	break;
                     default: break;
 				}
 				fflush(stdout);
@@ -464,7 +470,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 	if (INFO) {
 		printf( "\33[2K\r" );
-		printf( "[.obj]: scanning %s...done!\n", _filename );
+		printf( "[.obj]: scanning %s...done!\n", _filename.c_str() );
 		printf( "[.obj]: ------------\n" );
 		printf( "[.obj]: Model Stats:\n" );
 		printf( "[.obj]: Vertices:  \t%u\tNormals:  \t%u\tTex Coords:\t%u\n", numVertices, numNormals, numTexCoords );
@@ -474,7 +480,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		printf( "[.obj]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
 	}
 
-	if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
+	if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 		if (INFO && !_hasVertexNormals)
 			printf( "[.obj]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
 		_vertices = (GLfloat*)malloc(sizeof(GLfloat) * _uniqueIndex * 3);
@@ -493,7 +499,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	auto vt = (GLfloat*)malloc(sizeof(GLfloat) * numTexCoords * 2);
 	auto vn = (GLfloat*)malloc(sizeof(GLfloat) * numNormals * 3);
 
-	std::vector<GLfloat> vertsTemp;
+	std::vector<GLfloat> verticesTemps;
 	std::vector<GLfloat> texCoordsTemp;
 
 	printf( "[.obj]: ------------\n" );
@@ -520,15 +526,14 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
-		if( tokens[0] == "#" || tokens[0].find_first_of("#") == 0 ) {								// comment ignore
+		if( tokens[0] == "#" || tokens[0].find_first_of('#') == 0   // comment ignore
+            || tokens[0] == "o"                                         // object name ignore
+            || tokens[0] == "g"                                         // polygon group name ignore
+            || tokens[0] == "mtllib"                                    // material library
+            || tokens[0] == "s"                                         // smooth shading
+        ) {
 
-		} else if( tokens[0] == "o" ) {						// object name ignore
-
-		} else if( tokens[0] == "g" ) {						// polygon group name ignore
-
-		} else if( tokens[0] == "mtllib" ) {					// material library
-
-		} else if( tokens[0] == "usemtl" ) {					// use material library
+		} else if( tokens[0] == "usemtl" ) {					        // use material library
 			if( currentMaterial == "default" && indicesSeen == 0 ) {
 				_materialIndexStartStop.clear();
 			} else {
@@ -539,14 +544,12 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 				_materialIndexStartStop.insert( std::pair< std::string, std::vector< std::pair< GLuint, GLuint > > >( currentMaterial, std::vector< std::pair< GLuint, GLuint > >(1) ) );
 				_materialIndexStartStop.find( currentMaterial )->second.back().first = indicesSeen;
 			} else {
-				_materialIndexStartStop.find( currentMaterial )->second.push_back( std::pair< GLuint, GLuint >( indicesSeen, -1 ) );
+				_materialIndexStartStop.find( currentMaterial )->second.emplace_back(  indicesSeen, -1 );
 			}
-		} else if( tokens[0] == "s" ) {						// smooth shading
-
 		} else if( tokens[0] == "v" ) {						//vertex
-			auto x = (GLfloat) atof( tokens[1].c_str() ),
-				     y = (GLfloat) atof( tokens[2].c_str() ),
-				     z = (GLfloat) atof( tokens[3].c_str() );
+			GLfloat x = strtof( tokens[1].c_str(), nullptr ),
+                    y = strtof( tokens[2].c_str(), nullptr ),
+                    z = strtof( tokens[3].c_str(), nullptr );
 
 			v[vSeen*3 + 0] = x;
 			v[vSeen*3 + 1] = y;
@@ -554,9 +557,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 			vSeen++;
 		} else if( tokens[0] == "vn" ) {                    //vertex normal
-			auto x = (GLfloat) atof( tokens[1].c_str() ),
-				     y = (GLfloat) atof( tokens[2].c_str() ),
-				     z = (GLfloat) atof( tokens[3].c_str() );
+			GLfloat x = strtof( tokens[1].c_str(), nullptr ),
+                    y = strtof( tokens[2].c_str(), nullptr ),
+                    z = strtof( tokens[3].c_str(), nullptr );
 
 			vn[vnSeen*3 + 0] = x;
 			vn[vnSeen*3 + 1] = y;
@@ -564,15 +567,14 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 			vnSeen++;
 		} else if( tokens[0] == "vt" ) {                    //vertex tex coord
-			auto s = (GLfloat) atof( tokens[1].c_str() ),
-						 t = (GLfloat) atof( tokens[2].c_str() );
+			GLfloat s = strtof( tokens[1].c_str(), nullptr ),
+                    t = strtof( tokens[2].c_str(), nullptr );
 
-		  vt[vtSeen*2 + 0] = s;
+		    vt[vtSeen*2 + 0] = s;
 			vt[vtSeen*2 + 1] = t;
 
 			vtSeen++;
 		} else if( tokens[0] == "f" ) {                     //face!
-
 			//now, faces can be either quads or triangles (or maybe more?)
 			//split the string on spaces to get the number of verts+attrs.
 			std::vector<std::string> faceTokens = _tokenizeString(line, " ");
@@ -587,39 +589,45 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
                 }
 
                 std::stringstream currentFaceTokenStream;
-                int vx = atoi(groupTokens[0].c_str());
-                if(vx < 0)
-                    vx = vSeen + vx + 1;
+                auto svx = (GLint)strtol(groupTokens[0].c_str(), nullptr, 10);
+                GLuint vx = svx;
+                if(svx < 0)
+                    vx = vSeen + svx + 1;
                 currentFaceTokenStream << vx;
 
                 //based on combination of number of tokens and slashes, we can determine what we have.
                 if(groupTokens.size() == 2 && numSlashes == 1) {
                     _hasVertexTexCoords = true;
 
-                    int vtx = atoi(groupTokens[1].c_str());
-                    if(vtx < 0)
-                        vtx = vtSeen + vtx + 1;
+                    auto svtx = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                    GLuint vtx = svtx;
+                    if(svtx < 0)
+                        vtx = vtSeen + svtx + 1;
                     currentFaceTokenStream << "/" << vtx;
                 } else if(groupTokens.size() == 2 && numSlashes == 2) {
                     _hasVertexNormals = true;
 
-                    int vnx = atoi(groupTokens[1].c_str());
-                    if(vnx < 0)
-                        vnx = vnSeen + vnx + 1;
+                    auto svnx = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                    GLuint vnx = svnx;
+                    if(svnx < 0)
+                        vnx = vnSeen + svnx + 1;
                     currentFaceTokenStream << "//" << vnx;
                 } else if(groupTokens.size() == 3) {
                     _hasVertexTexCoords = true;
                     _hasVertexNormals = true;
 
-                    int vtx = atoi(groupTokens[1].c_str());
-                    if(vtx < 0)
-                        vtx = vtSeen + vtx + 1;
-                    int vnx = atoi(groupTokens[2].c_str());
-                    if(vnx < 0)
-                        vnx = vnSeen + vnx + 1;
+                    auto svtx = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                    GLuint vtx = svtx;
+                    if(svtx < 0)
+                        vtx = vtSeen + svtx + 1;
+
+                    auto svnx = (GLint)strtol(groupTokens[2].c_str(), nullptr, 10);
+                    GLuint vnx = svnx;
+                    if(svnx < 0)
+                        vnx = vnSeen + svnx + 1;
                     currentFaceTokenStream << "/" << vtx << "/" << vnx;
                 } else if(groupTokens.size() != 1) {
-                    if (ERRORS) fprintf(stderr, "[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename);
+                    if (ERRORS) fprintf(stderr, "[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename.c_str());
                     return false;
                 }
 
@@ -636,11 +644,12 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 						if(j == '/') numSlashes++;
 					}
 
-					if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
+					if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 						//regardless, we always get a vertex index.
-						int vI = atoi(groupTokens[0].c_str());
-						if( vI < 0 )
-							vI = vSeen + vI + 1;
+						auto svI = (GLint)strtol(groupTokens[0].c_str(), nullptr, 10);
+                        GLuint vI = svI;
+						if( svI < 0 )
+							vI = vSeen + svI + 1;
 
 						_vertices[ _uniqueIndex*3 + 0 ] = v[ ((vI - 1) * 3) + 0 ];
 						_vertices[ _uniqueIndex*3 + 1 ] = v[ ((vI - 1) * 3) + 1 ];
@@ -648,31 +657,35 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 						//based on combination of number of tokens and slashes, we can determine what we have.
 						if(groupTokens.size() == 2 && numSlashes == 1) {
-							int vtI = atoi(groupTokens[1].c_str());
-							if( vtI < 0 )
-								vtI = vtSeen + vtI + 1;
+							auto svtI = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                            GLuint vtI = svtI;
+							if( svtI < 0 )
+								vtI = vtSeen + svtI + 1;
 
 							_texCoords[ _uniqueIndex*2 + 0 ] = vt[ ((vtI - 1) * 2) + 0 ];
 							_texCoords[ _uniqueIndex*2 + 1 ] = vt[ ((vtI - 1) * 2) + 1 ];
 						} else if(groupTokens.size() == 2 && numSlashes == 2) {
-							int vnI = atoi(groupTokens[1].c_str());
-							if( vnI < 0 )
-								vnI = vnSeen + vnI + 1;
+							auto svnI = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                            GLuint vnI = svnI;
+							if( svnI < 0 )
+								vnI = vnSeen + svnI + 1;
 
 							_normals[ _uniqueIndex*3 + 0 ] = vn[ ((vnI - 1) * 3) + 0 ];
 							_normals[ _uniqueIndex*3 + 1 ] = vn[ ((vnI - 1) * 3) + 1 ];
 							_normals[ _uniqueIndex*3 + 2 ] = vn[ ((vnI - 1) * 3) + 2 ];
 						} else if(groupTokens.size() == 3) {
-							int vtI = atoi(groupTokens[1].c_str());
-							if( vtI < 0 )
-								vtI = vtSeen + vtI + 1;
+							auto svtI = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                            GLuint vtI = svtI;
+							if( svtI < 0 )
+								vtI = vtSeen + svtI + 1;
 
 							_texCoords[ _uniqueIndex*2 + 0 ] = vt[ ((vtI - 1) * 2) + 0 ];
 							_texCoords[ _uniqueIndex*2 + 1 ] = vt[ ((vtI - 1) * 2) + 1 ];
 
-							int vnI = atoi(groupTokens[2].c_str());
-							if( vnI < 0 )
-								vnI = vnSeen + vnI + 1;
+							auto svnI = (GLint)strtol(groupTokens[2].c_str(), nullptr, 10);
+                            GLuint vnI = svnI;
+							if( svnI < 0 )
+								vnI = vnSeen + svnI + 1;
 
 							_normals[ _uniqueIndex*3 + 0 ] = vn[ ((vnI - 1) * 3) + 0 ];
 							_normals[ _uniqueIndex*3 + 1 ] = vn[ ((vnI - 1) * 3) + 1 ];
@@ -682,19 +695,21 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 						_uniqueIndex++;
 					} else {
 						//regardless, we always get a vertex index.
-						int vI = atoi(groupTokens[0].c_str());
-						if( vI < 0 )
-							vI = vSeen + vI + 1;
+						auto svI = (GLint)strtol(groupTokens[0].c_str(), nullptr, 10);
+                        GLuint vI = svI;
+						if( svI < 0 )
+							vI = vSeen + svI + 1;
 
-						vertsTemp.push_back( v[ ((vI - 1) * 3) + 0 ] );
-						vertsTemp.push_back( v[ ((vI - 1) * 3) + 1 ] );
-						vertsTemp.push_back( v[ ((vI - 1) * 3) + 2 ] );
+						verticesTemps.push_back( v[ ((vI - 1) * 3) + 0 ] );
+						verticesTemps.push_back( v[ ((vI - 1) * 3) + 1 ] );
+						verticesTemps.push_back( v[ ((vI - 1) * 3) + 2 ] );
 
 						//based on combination of number of tokens and slashes, we can determine what we have.
 						if(groupTokens.size() == 2 && numSlashes == 1) {
-							int vtI = atoi(groupTokens[1].c_str());
-							if( vtI < 0 )
-								vtI = vtSeen + vtI + 1;
+							auto svtI = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                            GLuint vtI = svtI;
+							if( svtI < 0 )
+								vtI = vtSeen + svtI + 1;
 
 							texCoordsTemp.push_back( vt[ ((vtI - 1) * 2) + 0 ] );
 							texCoordsTemp.push_back( vt[ ((vtI - 1) * 2) + 1 ] );
@@ -702,9 +717,10 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 							// should not occur if no normals
 							if (ERRORS) fprintf( stderr, "[.obj]: [WARN]: no vertex normals were specified, should not be trying to access values\n" );
 						} else if(groupTokens.size() == 3) {
-							int vtI = atoi(groupTokens[1].c_str());
-							if( vtI < 0 )
-								vtI = vtSeen + vtI + 1;
+							auto svtI = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                            GLuint vtI = svtI;
+							if( svtI < 0 )
+								vtI = vtSeen + svtI + 1;
 
 							texCoordsTemp.push_back( vt[ ((vtI - 1) * 2) + 0 ] );
 							texCoordsTemp.push_back( vt[ ((vtI - 1) * 2) + 1 ] );
@@ -718,7 +734,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			}
 
 			for(GLuint i = 1; i < processedFaceTokens.size()-1; i++) {
-				if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
+				if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 					_indices[ indicesSeen++ ] = uniqueCounts.find( processedFaceTokens[0]   )->second;
 					_indices[ indicesSeen++ ] = uniqueCounts.find( processedFaceTokens[i]   )->second;
 					_indices[ indicesSeen++ ] = uniqueCounts.find( processedFaceTokens[i+1] )->second;
@@ -729,9 +745,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 					GLuint bI = uniqueCounts.find( processedFaceTokens[i]   )->second;
 					GLuint cI = uniqueCounts.find( processedFaceTokens[i+1] )->second;
 
-					glm::vec3 a( vertsTemp[aI*3 + 0], vertsTemp[aI*3 + 1], vertsTemp[aI*3 + 2] );
-					glm::vec3 b( vertsTemp[bI*3 + 0], vertsTemp[bI*3 + 1], vertsTemp[bI*3 + 2] );
-					glm::vec3 c( vertsTemp[cI*3 + 0], vertsTemp[cI*3 + 1], vertsTemp[cI*3 + 2] );
+					glm::vec3 a(verticesTemps[aI * 3 + 0], verticesTemps[aI * 3 + 1], verticesTemps[aI * 3 + 2] );
+					glm::vec3 b(verticesTemps[bI * 3 + 0], verticesTemps[bI * 3 + 1], verticesTemps[bI * 3 + 2] );
+					glm::vec3 c(verticesTemps[cI * 3 + 0], verticesTemps[cI * 3 + 1], verticesTemps[cI * 3 + 2] );
 
 					glm::vec3 ab = b - a;	glm::vec3 ac = c - a;
 					glm::vec3 ba = a - b; glm::vec3 bc = c - b;
@@ -791,8 +807,6 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 				}
 			}
 
-		} else {
-			if (INFO) printf( "[.obj]: ignoring line: %s\n", line.c_str() );
 		}
 
 		if (INFO) {
@@ -800,10 +814,10 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			if( progressCounter % 5000 == 0 ) {
 				printf("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.obj]: parsing %s...\\", _filename);	break;
-					case 10000:	printf("[.obj]: parsing %s...|", _filename);	break;
-					case 15000:	printf("[.obj]: parsing %s.../", _filename);	break;
-					case 20000:	printf("[.obj]: parsing %s...-", _filename);	break;
+					case 5000:	printf("[.obj]: parsing %s...\\", _filename.c_str());	break;
+					case 10000:	printf("[.obj]: parsing %s...|", _filename.c_str());	break;
+					case 15000:	printf("[.obj]: parsing %s.../", _filename.c_str());	break;
+					case 20000:	printf("[.obj]: parsing %s...-", _filename.c_str());	break;
                     default: break;
 				}
 				fflush(stdout);
@@ -817,7 +831,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 	if (INFO) {
 		printf( "\33[2K\r" );
-		printf( "[.obj]: parsing %s...done!\n", _filename );
+		printf( "[.obj]: parsing %s...done!\n", _filename.c_str() );
 	}
 
 	_materialIndexStartStop.find( currentMaterial )->second.back().second = indicesSeen - 1;
@@ -825,7 +839,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	glBindVertexArray( _vaod );
 	glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
 	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, nullptr, GL_STATIC_DRAW );
-	glBufferSubData( GL_ARRAY_BUFFER, 0, 																  sizeof(GLfloat) * _uniqueIndex * 3, _vertices );
+	glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(GLfloat) * _uniqueIndex * 3, _vertices );
 	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 3, sizeof(GLfloat) * _uniqueIndex * 3, _normals );
 	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 6, sizeof(GLfloat) * _uniqueIndex * 2, _texCoords );
 
@@ -837,7 +851,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 	if (INFO) {
 		printf( "[.obj]: Completed in %.3fs\n", seconds );
-		printf( "[.obj]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=- \n\n", _filename );
+		printf( "[.obj]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=- \n\n", _filename.c_str() );
 	}
 
 	return result;
@@ -850,8 +864,8 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 
 	std::string line;
 	std::string path;
-	if( strstr( _filename, "/" ) != NULL ) {
-	 	path = std::string( _filename ).substr( 0, std::string(_filename).find_last_of('/')+1 );
+	if( _filename.find('/') != std::string::npos ) {
+	 	path = _filename.substr( 0, _filename.find_last_of('/')+1 );
 	} else {
 		path = "./";
 	}
@@ -1056,15 +1070,15 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 	bool result = true;
 
-	if (INFO ) printf( "[.off]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename );
+	if (INFO ) printf( "[.off]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename.c_str() );
 
 	time_t start, end;
 	time(&start);
 
 	std::ifstream in( _filename );
 	if( !in.is_open() ) {
-		if (ERRORS) fprintf( stderr, "[.off]: [ERROR]: Could not open \"%s\"\n", _filename );
-		if ( INFO ) printf( "[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
+		if (ERRORS) fprintf( stderr, "[.off]: [ERROR]: Could not open \"%s\"\n", _filename.c_str() );
+		if ( INFO ) printf( "[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 		return false;
 	}
 
@@ -1087,13 +1101,13 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
-		if( !tokens[0].compare( "#" ) || tokens[0].find_first_of('#') == 0 ) {								// comment ignore
+		if( tokens[0] == "#" || tokens[0].find_first_of('#') == 0 ) {								// comment ignore
 		} else if( fileState == HEADER ) {
-			if( !tokens[0].compare( "OFF" ) ) {					// denotes OFF File type
+			if( tokens[0] == "OFF" ) {					// denotes OFF File type
 			} else {
 				if( tokens.size() != 3 ) {
 					if (ERRORS) fprintf( stderr, "[.off]: [ERROR]: Malformed OFF file.  # vertices, faces, edges not properly specified\n" );
-					if ( INFO ) printf( "[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
+					if ( INFO ) printf( "[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 					in.close();
 					return false;
 				}
@@ -1137,7 +1151,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 
 	if (INFO) {
 		printf( "\33[2K\r" );
-		printf( "[.off]: scanning %s...done!\n", _filename );
+		printf( "[.off]: scanning %s...done!\n", _filename.c_str() );
 		printf( "[.off]: ------------\n" );
 		printf( "[.off]: Model Stats:\n" );
 		printf( "[.off]: Vertices:  \t%u\tNormals:   \t%u\tTex Coords:\t%u\n", numVertices, 0, 0 );
@@ -1145,7 +1159,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 		printf( "[.off]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
 	}
 
-	if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
+	if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 		if (INFO && !_hasVertexNormals)
 			printf( "[.off]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
 		_vertices = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
@@ -1183,9 +1197,9 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
-		if( !tokens[0].compare( "#" ) || tokens[0].find_first_of('#') == 0 ) {								// comment ignore
+		if( tokens[0] == "#"  || tokens[0].find_first_of('#') == 0 ) {								// comment ignore
 		} else if( fileState == HEADER ) {
-			if( !tokens[0].compare( "OFF" ) ) {					// denotes OFF File type
+			if( tokens[0] == "OFF" ) {					// denotes OFF File type
 			} else {
 
 				// end of OFF Header reached
@@ -1209,7 +1223,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 				// 	a = atof( tokens[6].c_str() );
 			}
 
-			if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
+			if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 				_vertices[ _uniqueIndex*3 + 0 ] = x;
 				_vertices[ _uniqueIndex*3 + 1 ] = y;
 				_vertices[ _uniqueIndex*3 + 2 ] = z;
@@ -1230,7 +1244,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 
 			// read in each vertex index of the face
 			for(GLuint i = 2; i <= numberOfVerticesInFace - 1; i++) {
-				if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
+				if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 					int fanRoot = atoi( tokens[1].c_str() );
 					int fanA = atoi( tokens[i].c_str() );
 					int fanB = atoi( tokens[i+1].c_str() );
@@ -1320,10 +1334,10 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 			if( progressCounter % 5000 == 0 ) {
 				printf("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.off]: parsing %s...\\", _filename);	break;
-					case 10000:	printf("[.off]: parsing %s...|", _filename);	break;
-					case 15000:	printf("[.off]: parsing %s.../", _filename);	break;
-					case 20000:	printf("[.off]: parsing %s...-", _filename);	break;
+					case 5000:	printf("[.off]: parsing %s...\\", _filename.c_str());	break;
+					case 10000:	printf("[.off]: parsing %s...|", _filename.c_str());	break;
+					case 15000:	printf("[.off]: parsing %s.../", _filename.c_str());	break;
+					case 20000:	printf("[.off]: parsing %s...-", _filename.c_str());	break;
 				}
 				fflush(stdout);
 			}
@@ -1348,8 +1362,8 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 
 	if (INFO) {
 		printf( "\33[2K\r" );
-		printf( "[.off]: parsing %s...done!  (Time: %.1fs)\n", _filename, seconds );
-		printf( "[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
+		printf( "[.off]: parsing %s...done!  (Time: %.1fs)\n", _filename.c_str(), seconds );
+		printf( "[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 	}
 
 	return result;
@@ -1359,15 +1373,15 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 	bool result = true;
 
-	if (INFO ) printf( "[.ply]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename );
+	if (INFO ) printf( "[.ply]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename.c_str() );
 
 	time_t start, end;
 	time(&start);
 
 	std::ifstream in( _filename );
 	if( !in.is_open() ) {
-		if (ERRORS) fprintf( stderr, "[.ply]: [ERROR]: Could not open \"%s\"\n", _filename );
-		if ( INFO ) printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
+		if (ERRORS) fprintf( stderr, "[.ply]: [ERROR]: Could not open \"%s\"\n", _filename.c_str() );
+		if ( INFO ) printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 		return false;
 	}
 
@@ -1394,32 +1408,32 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
-		if( !tokens[0].compare( "comment" ) ) {								// comment ignore
+		if( tokens[0] == "comment" ) {								// comment ignore
 		} else if( fileState == HEADER ) {
-			if( !tokens[0].compare( "ply" ) ) {					// denotes ply File type
-			} else if( !tokens[0].compare( "format" ) ) {
-				if( tokens[1].compare( "ascii" ) ) {
-					if (ERRORS) fprintf( stderr, "[.ply]: [ERROR]: File \"%s\" not ASCII format\n", _filename );
-					if ( INFO ) printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
+			if( tokens[0] == "ply" ) {					// denotes ply File type
+			} else if( tokens[0] == "format" ) {
+				if( tokens[1] != "ascii" ) {
+					if (ERRORS) fprintf( stderr, "[.ply]: [ERROR]: File \"%s\" not ASCII format\n", _filename.c_str() );
+					if ( INFO ) printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 					in.close();
 					return false;
 				}
-			} else if( !tokens[0].compare( "element" ) ) {		// an element (vertex, face, material)
-				if( !tokens[1].compare( "vertex" ) ) {
+			} else if( tokens[0] == "element" ) {		// an element (vertex, face, material)
+				if( tokens[1] == "vertex" ) {
 					numVertices = atoi( tokens[2].c_str() );
 					elemType = VERTEX;
-				} else if( !tokens[1].compare( "face" ) ) {
+				} else if( tokens[1] == "face" ) {
 					numFaces = atoi( tokens[2].c_str() );
 					elemType = FACE;
-				} else if( !tokens[1].compare( "edge" ) ) {
+				} else if( tokens[1] == "edge" ) {
 
-				} else if( !tokens[1].compare( "material" ) ) {
+				} else if( tokens[1] == "material" ) {
 					numMaterials = atoi( tokens[2].c_str() );
 					elemType = MATERIAL;
 				} else {
 
 				}
-			} else if( !tokens[0].compare( "property" ) ) {
+			} else if( tokens[0] == "property" ) {
 				if( elemType == VERTEX ) {
 
 				} else if( elemType == FACE ) {
@@ -1427,7 +1441,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 				} else if( elemType == MATERIAL ) {
 
 				}
-			} else if( !tokens[0].compare( "end_header" ) ) {	// end of the header section
+			} else if( tokens[0] == "end_header" ) {	// end of the header section
 				fileState = VERTICES;
 			}
 		} else if( fileState == VERTICES ) {
@@ -1459,10 +1473,11 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 			if( progressCounter % 5000 == 0 ) {
 				printf("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.ply]: scanning %s...\\", _filename);	break;
-					case 10000:	printf("[.ply]: scanning %s...|", _filename);	break;
-					case 15000:	printf("[.ply]: scanning %s.../", _filename);	break;
-					case 20000:	printf("[.ply]: scanning %s...-", _filename);	break;
+					case 5000:	printf("[.ply]: scanning %s...\\", _filename.c_str());	break;
+					case 10000:	printf("[.ply]: scanning %s...|", _filename.c_str());	break;
+					case 15000:	printf("[.ply]: scanning %s.../", _filename.c_str());	break;
+					case 20000:	printf("[.ply]: scanning %s...-", _filename.c_str());	break;
+                    default: break;
 				}
 				fflush(stdout);
 			}
@@ -1474,7 +1489,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 
 	if (INFO) {
 		printf( "\33[2K\r" );
-		printf( "[.ply]: scanning %s...done!\n", _filename );
+		printf( "[.ply]: scanning %s...done!\n", _filename.c_str() );
 		printf( "[.ply]: ------------\n" );
 		printf( "[.ply]: Model Stats:\n" );
 		printf( "[.ply]: Vertices:  \t%u\tNormals:   \t%u\tTex Coords:\t%u\n", numVertices, 0, 0 );
@@ -1482,7 +1497,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 		printf( "[.ply]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
 	}
 
-	if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
+	if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 		if (INFO && !_hasVertexNormals)
 			printf( "[.ply]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
 		_vertices = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
@@ -1522,32 +1537,32 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
-		if( !tokens[0].compare( "comment" ) ) {								// comment ignore
+		if( tokens[0] == "comment" ) {								// comment ignore
 		} else if( fileState == HEADER ) {
-			if( !tokens[0].compare( "ply" ) ) {					// denotes ply File type
-			} else if( !tokens[0].compare( "format" ) ) {
-				if( tokens[1].compare( "ascii" ) ) {
-					if (ERRORS) fprintf( stderr, "[.ply]: [ERROR]: File \"%s\" not ASCII format\n", _filename );
-					if ( INFO ) printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
+			if( tokens[0] == "ply" ) {					// denotes ply File type
+			} else if( tokens[0] == "format" ) {
+				if( tokens[1] != "ascii" ) {
+					if (ERRORS) fprintf( stderr, "[.ply]: [ERROR]: File \"%s\" not ASCII format\n", _filename.c_str() );
+					if ( INFO ) printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 					in.close();
 					return false;
 				}
-			} else if( !tokens[0].compare( "element" ) ) {		// an element (vertex, face, material)
-				if( !tokens[1].compare( "vertex" ) ) {
+			} else if( tokens[0] == "element" ) {		// an element (vertex, face, material)
+				if( tokens[1] == "vertex" ) {
 					numVertices = atoi( tokens[2].c_str() );
 					elemType = VERTEX;
-				} else if( !tokens[1].compare( "face" ) ) {
+				} else if( tokens[1] == "face" ) {
 					numFaces = atoi( tokens[2].c_str() );
 					elemType = FACE;
-				} else if( !tokens[1].compare( "edge" ) ) {
+				} else if( tokens[1] == "edge" ) {
 
-				} else if( !tokens[1].compare( "material" ) ) {
+				} else if( tokens[1] == "material" ) {
 					numMaterials = atoi( tokens[2].c_str() );
 					elemType = MATERIAL;
 				} else {
 
 				}
-			} else if( !tokens[0].compare( "property" ) ) {
+			} else if( tokens[0] == "property" ) {
 				if( elemType == VERTEX ) {
 
 				} else if( elemType == FACE ) {
@@ -1555,7 +1570,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 				} else if( elemType == MATERIAL ) {
 
 				}
-			} else if( !tokens[0].compare( "end_header" ) ) {	// end of the header section
+			} else if( tokens[0] == "end_header" ) {	// end of the header section
 				fileState = VERTICES;
 			}
 		} else if( fileState == VERTICES ) {
@@ -1564,7 +1579,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 						y = (GLfloat) atof( tokens[1].c_str() ),
 						z = (GLfloat) atof( tokens[2].c_str() );
 
-			if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
+			if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 				_vertices[ _uniqueIndex*3 + 0 ] = x;
 				_vertices[ _uniqueIndex*3 + 1 ] = y;
 				_vertices[ _uniqueIndex*3 + 2 ] = z;
@@ -1584,7 +1599,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 			GLuint numberOfVerticesInFace = atoi( tokens[0].c_str() );
 
 			for( GLuint i = 2; i <= numberOfVerticesInFace - 1; i++ ) {
-				if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
+				if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 					_indices[ _numIndices++ ] = atoi( tokens[1].c_str() );
 					_indices[ _numIndices++ ] = atoi( tokens[i].c_str() );
 					_indices[ _numIndices++ ] = atoi( tokens[i+1].c_str() );
@@ -1645,10 +1660,11 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 			if( progressCounter % 5000 == 0 ) {
 				printf("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.ply]: parsing %s...\\", _filename);	break;
-					case 10000:	printf("[.ply]: parsing %s...|", _filename);	break;
-					case 15000:	printf("[.ply]: parsing %s.../", _filename);	break;
-					case 20000:	printf("[.ply]: parsing %s...-", _filename);	break;
+					case 5000:	printf("[.ply]: parsing %s...\\", _filename.c_str());	break;
+					case 10000:	printf("[.ply]: parsing %s...|", _filename.c_str());	break;
+					case 15000:	printf("[.ply]: parsing %s.../", _filename.c_str());	break;
+					case 20000:	printf("[.ply]: parsing %s...-", _filename.c_str());	break;
+                    default: break;
 				}
 				fflush(stdout);
 			}
@@ -1673,8 +1689,8 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 
 	if (INFO) {
 		printf( "\33[2K\r" );
-		printf( "[.ply]: parsing %s...done!\n[.ply]: Time to complete: %.3fs\n", _filename, seconds );
-		printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
+		printf( "[.ply]: parsing %s...done!\n[.ply]: Time to complete: %.3fs\n", _filename.c_str(), seconds );
+		printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 	}
 
 	return result;
@@ -1683,15 +1699,15 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 	bool result = true;
 
-	if (INFO) printf( "[.stl]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename );
+	if (INFO) printf( "[.stl]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename.c_str() );
 
 	time_t start, end;
 	time(&start);
 
 	std::ifstream in( _filename );
 	if( !in.is_open() ) {
-		if (ERRORS) fprintf(stderr, "[.stl]: [ERROR]: Could not open \"%s\"\n", _filename );
-		if ( INFO ) printf( "[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
+		if (ERRORS) fprintf(stderr, "[.stl]: [ERROR]: Could not open \"%s\"\n", _filename.c_str() );
+		if ( INFO ) printf( "[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 		return false;
 	}
 
@@ -1711,15 +1727,15 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 
 		if( tokens.empty() ) continue;
 
-		//the line should have a single character that lets us know if it's a...
-		if( !tokens[0].compare( "solid" ) ) {
-		} else if( !tokens[0].compare( "facet" ) ) {
-			/* read in x y z triangle normal */
+		if( tokens[0] == "solid" ) {
+
+		} else if( tokens[0] == "facet" ) {
+			// read in x y z triangle normal
 			numNormals++;
-		} else if( !tokens[0].compare( "outer" ) && !tokens[1].compare( "loop" ) ) {
+		} else if( tokens[0] == "outer" && tokens[1] == "loop" ) {
 			// begin a primitive
 			numVertsInLoop = 0;
-		} else if( !tokens[0].compare( "vertex" ) ) {
+		} else if( tokens[0] == "vertex" ) {
 			auto x = (GLfloat) atof( tokens[1].c_str() ),
 					y = (GLfloat) atof( tokens[2].c_str() ),
 					z = (GLfloat) atof( tokens[3].c_str() );
@@ -1733,18 +1749,18 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 
 			numVertices++;
 			numVertsInLoop++;
-		} else if( !tokens[0].compare( "endloop" ) ) {
+		} else if( tokens[0] == "endloop" ) {
 			// end primitive
 			numTriangles += numVertsInLoop - 3 + 1;
-		} else if( !tokens[0].compare( "endfacet" ) ) {
+		} else if( tokens[0] == "endfacet" ) {
 			numFaces++;
-		} else if( !tokens[0].compare( "endsolid" ) ) {
+		} else if( tokens[0] == "endsolid" ) {
 
 		}
 		else {
 			if( memchr( line.c_str(), '\0', line.length() ) != NULL ) {
-				if (ERRORS) fprintf( stderr, "[.stl]: [ERROR]: Cannot read binary STL file \"%s\"\n", _filename );
-				if ( INFO ) printf( "[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
+				if (ERRORS) fprintf( stderr, "[.stl]: [ERROR]: Cannot read binary STL file \"%s\"\n", _filename.c_str() );
+				if ( INFO ) printf( "[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 				in.close();
 				return false;
 			} else if (INFO) printf( "[.stl]: unknown line: %s\n", line.c_str() );
@@ -1755,10 +1771,11 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 			if( progressCounter % 5000 == 0 ) {
 				printf("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.stl]: scanning %s...\\", _filename);	break;
-					case 10000:	printf("[.stl]: scanning %s...|", _filename);	break;
-					case 15000:	printf("[.stl]: scanning %s.../", _filename);	break;
-					case 20000:	printf("[.stl]: scanning %s...-", _filename);	break;
+					case 5000:	printf("[.stl]: scanning %s...\\", _filename.c_str());	break;
+					case 10000:	printf("[.stl]: scanning %s...|", _filename.c_str());	break;
+					case 15000:	printf("[.stl]: scanning %s.../", _filename.c_str());	break;
+					case 20000:	printf("[.stl]: scanning %s...-", _filename.c_str());	break;
+                    default: break;
 				}
 				fflush(stdout);
 			}
@@ -1770,7 +1787,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 
 	if (INFO) {
 		printf( "\33[2K\r" );
-		printf( "[.stl]: scanning %s...done!\n", _filename );
+		printf( "[.stl]: scanning %s...done!\n", _filename.c_str() );
 		printf( "[.stl]: ------------\n" );
 		printf( "[.stl]: Model Stats:\n" );
 		printf( "[.stl]: Vertices:  \t%u\tNormals:   \t%u\tTex Coords:\t%u\n", numVertices, numNormals, 0 );
@@ -1799,16 +1816,16 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 
 		if( tokens.empty() ) continue;
 
-		//the line should have a single character that lets us know if it's a...
-		if( !tokens[0].compare( "solid" ) ) {
-		} else if( !tokens[0].compare( "facet" ) ) {
-			/* read in x y z triangle normal */
+		if( tokens[0] == "solid" ) {
+
+		} else if( tokens[0] == "facet" ) {
+			// read in x y z triangle normal
 			normalVector[0] = atof( tokens[2].c_str() );
 			normalVector[1] = atof( tokens[3].c_str() );
 			normalVector[2] = atof( tokens[4].c_str() );
-		} else if( !tokens[0].compare( "outer" ) && !tokens[1].compare( "loop" ) ) {
+		} else if( tokens[0] == "outer" && tokens[1] == "loop" ) {
 			// begin a primitive
-		} else if( !tokens[0].compare( "vertex" ) ) {
+		} else if( tokens[0] == "vertex" ) {
 			auto x = (GLfloat) atof( tokens[1].c_str() ),
 					y = (GLfloat) atof( tokens[2].c_str() ),
 					z = (GLfloat) atof( tokens[3].c_str() );
@@ -1822,11 +1839,11 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 			_normals[ _uniqueIndex*3 + 2 ] = normalVector[2];
 
 			_indices[ _numIndices++ ] = _uniqueIndex++;
-		} else if( !tokens[0].compare( "endloop" ) ) {
+		} else if( tokens[0] == "endloop" ) {
 			// end primitive
-		} else if( !tokens[0].compare( "endfacet" ) ) {
+		} else if( tokens[0] == "endfacet" ) {
 
-		} else if( !tokens[0].compare( "endsolid" ) ) {
+		} else if( tokens[0] == "endsolid" ) {
 
 		}
 		else {
@@ -1838,10 +1855,11 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 			if( progressCounter % 5000 == 0 ) {
 				printf("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.stl]: parsing %s...\\", _filename);	break;
-					case 10000:	printf("[.stl]: parsing %s...|", _filename);	break;
-					case 15000:	printf("[.stl]: parsing %s.../", _filename);	break;
-					case 20000:	printf("[.stl]: parsing %s...-", _filename);	break;
+					case 5000:	printf("[.stl]: parsing %s...\\", _filename.c_str());	break;
+					case 10000:	printf("[.stl]: parsing %s...|", _filename.c_str());	break;
+					case 15000:	printf("[.stl]: parsing %s.../", _filename.c_str());	break;
+					case 20000:	printf("[.stl]: parsing %s...-", _filename.c_str());	break;
+                    default: break;
 				}
 				fflush(stdout);
 			}
@@ -1866,8 +1884,8 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 
 	if (INFO) {
 		printf("\33[2K\r");
-		printf("[.stl]: parsing %s...done!\n[.stl]: Time to complete: %.3fs\n", _filename, seconds);
-		printf( "[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename );
+		printf("[.stl]: parsing %s...done!\n[.stl]: Time to complete: %.3fs\n", _filename.c_str(), seconds);
+		printf( "[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 	}
 
 	return result;
@@ -1875,12 +1893,12 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 
 [[maybe_unused]]
 inline void CSCI441::ModelLoader::enableAutoGenerateNormals() {
-	_AUTO_GEN_NORMALS = true;
+    sAUTO_GEN_NORMALS = true;
 }
 
 [[maybe_unused]]
 inline void CSCI441::ModelLoader::disableAutoGenerateNormals() {
-	_AUTO_GEN_NORMALS = false;
+    sAUTO_GEN_NORMALS = false;
 }
 
 //
