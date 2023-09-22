@@ -109,18 +109,18 @@ namespace CSCI441 {
 		 * @note For use with VBOs
 		 */
         [[maybe_unused]] [[nodiscard]] GLfloat* getVertices() const;
+        /**
+         * @brief Return the normal array that corresponds to the model mesh.
+         * @return pointer to the normal array
+         * @note For use with VBOs
+         */
+        [[maybe_unused]] [[nodiscard]] GLfloat* getNormals() const;
 		/**
 		 * @brief Return the texture coordinates array that corresponds to the model mesh.
 		 * @return pointer to texture coordinate array
 		 * @note For use with VBOs
 		 */
         [[maybe_unused]] [[nodiscard]] GLfloat* getTexCoords() const;
-		/**
-		 * @brief Return the normal array that corresponds to the model mesh.
-		 * @return pointer to the normal array
-		 * @note For use with VBOs
-		 */
-        [[maybe_unused]] [[nodiscard]] GLfloat* getNormals() const;
         /**
          * @brief Return the number of indices to draw the model.  This value corresponds to the size of the Indices array.
          * @return the number of indices when drawing the model
@@ -157,6 +157,8 @@ namespace CSCI441 {
 		bool _loadPLYFile( bool INFO, bool ERRORS );
 		bool _loadSTLFile( bool INFO, bool ERRORS );
 		static std::vector<std::string> _tokenizeString( std::string input, const std::string& delimiters );
+        void _allocateAttributeArrays(const GLuint numVertices, const GLuint numIndices);
+        void _bufferData();
 
 		std::string _filename;
 		CSCI441_INTERNAL::MODEL_TYPE _modelType;
@@ -164,9 +166,9 @@ namespace CSCI441 {
 		GLuint _vaod;
 		GLuint _vbods[2];
 
-		GLfloat* _vertices;
-		GLfloat* _texCoords;
-		GLfloat* _normals;
+		glm::vec3* _vertices;
+        glm::vec3* _normals;
+        glm::vec2* _texCoords;
 		GLuint* _indices;
 		GLuint _uniqueIndex;
 		GLuint _numIndices;
@@ -202,10 +204,10 @@ inline CSCI441::ModelLoader::ModelLoader( const char* filename ) {
 }
 
 inline CSCI441::ModelLoader::~ModelLoader() {
-	if( _vertices ) 			free( _vertices );
-	if( _texCoords ) 			free( _texCoords );
-	if( _normals ) 				free( _normals );
-	if( _indices ) 				free( _indices );
+	delete[] _vertices;
+    delete[] _normals;
+    delete[] _texCoords;
+	delete[] _indices;
 
 	glDeleteBuffers( 2, _vbods );
     glDeleteVertexArrays( 1, &_vaod );
@@ -260,10 +262,10 @@ inline void CSCI441::ModelLoader::setAttributeLocations(GLint positionLocation, 
     glVertexAttribPointer( positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)nullptr );
 
     glEnableVertexAttribArray( normalLocation );
-    glVertexAttribPointer( normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * _uniqueIndex * 3) );
+    glVertexAttribPointer( normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * _uniqueIndex) );
 
     glEnableVertexAttribArray( texCoordLocation );
-    glVertexAttribPointer( texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * _uniqueIndex * 6) );
+    glVertexAttribPointer( texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * _uniqueIndex * 2) );
 }
 
 [[maybe_unused]]
@@ -312,9 +314,9 @@ inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
 }
 
 [[maybe_unused]] inline GLuint CSCI441::ModelLoader::getNumberOfVertices() const { return _uniqueIndex; }
-[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getVertices() const { return _vertices; }
-[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getTexCoords() const { return _texCoords; }
-[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getNormals() const { return _normals; }
+[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getVertices() const { return (_vertices != nullptr ? (GLfloat*)&_vertices[0] : nullptr); }
+[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getNormals() const { return (_normals != nullptr ? (GLfloat*)&_normals[0] : nullptr); }
+[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getTexCoords() const { return (_texCoords != nullptr ? (GLfloat*)&_texCoords[0] : nullptr); }
 [[maybe_unused]] inline GLuint CSCI441::ModelLoader::getNumberOfIndices() const { return _numIndices; }
 [[maybe_unused]] inline GLuint* CSCI441::ModelLoader::getIndices() const { return _indices; }
 
@@ -337,7 +339,8 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	GLuint numObjects = 0, numGroups = 0;
 	GLuint numVertices = 0, numTexCoords = 0, numNormals = 0;
 	GLuint numFaces = 0, numTriangles = 0;
-	GLfloat minX = 999999.0f, maxX = -999999.0f, minY = 999999.0f, maxY = -999999.0f, minZ = 999999.0f, maxZ = -999999.0f;
+    glm::vec3 minDimension = {999999.f, 999999.f, 999999.f};
+    glm::vec3 maxDimension = { -999999.f, -999999.f, -999999.f };
 	std::string line;
 
 	std::map<std::string, GLuint> uniqueCounts;
@@ -365,16 +368,16 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		} else if( tokens[0] == "v" ) {						//vertex
 			numVertices++;
 
-			GLfloat x = strtof( tokens[1].c_str(), nullptr ),
-                    y = strtof( tokens[2].c_str(), nullptr ),
-                    z = strtof( tokens[3].c_str(), nullptr );
+			glm::vec3 pos = { strtof( tokens[1].c_str(), nullptr ),
+                            strtof( tokens[2].c_str(), nullptr ),
+                            strtof( tokens[3].c_str(), nullptr ) };
 
-			if( x < minX ) minX = x;
-			if( x > maxX ) maxX = x;
-			if( y < minY ) minY = y;
-			if( y > maxY ) maxY = y;
-			if( z < minZ ) minZ = z;
-			if( z > maxZ ) maxZ = z;
+			if( pos.x < minDimension.x ) minDimension.x = pos.x;
+			if( pos.x > maxDimension.x ) maxDimension.x = pos.x;
+			if( pos.y < minDimension.y ) minDimension.y = pos.y;
+			if( pos.y > maxDimension.y ) maxDimension.y = pos.y;
+			if( pos.z < minDimension.z ) minDimension.z = pos.z;
+			if( pos.z > maxDimension.z ) maxDimension.z = pos.z;
 		} else if( tokens[0] == "vn" ) {                    //vertex normal
 			numNormals++;
 		} else if( tokens[0] == "vt" ) {                    //vertex tex coord
@@ -393,10 +396,11 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 				}
 
                 std::stringstream currentFaceTokenStream;
+
                 auto sv = (GLint)strtol(groupTokens[0].c_str(), nullptr, 10);
                 GLuint v = sv;
-                if(sv < 0)
-                    v = numVertices + sv + 1;
+                if(sv < 0) v = numVertices + sv + 1;
+
                 currentFaceTokenStream << v;
 
 				//based on combination of number of tokens and slashes, we can determine what we have.
@@ -405,16 +409,16 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
                     auto svt = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
                     GLuint vt = svt;
-                    if(svt < 0)
-                        vt = numTexCoords + svt + 1;
+                    if(svt < 0) vt = numTexCoords + svt + 1;
+
                     currentFaceTokenStream << "/" << vt;
 				} else if(groupTokens.size() == 2 && numSlashes == 2) {
 					_hasVertexNormals = true;
 
                     auto svn = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
                     GLuint vn = svn;
-                    if(svn < 0)
-                        vn = numNormals + svn + 1;
+                    if(svn < 0) vn = numNormals + svn + 1;
+
                     currentFaceTokenStream << "//" << vn;
 				} else if(groupTokens.size() == 3) {
 					_hasVertexTexCoords = true;
@@ -422,13 +426,12 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
                     auto svt = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
                     GLuint vt = svt;
-                    if(svt < 0)
-                        vt = numTexCoords + svt + 1;
+                    if(svt < 0) vt = numTexCoords + svt + 1;
 
                     auto svn = (GLint)strtol(groupTokens[2].c_str(), nullptr, 10);
                     GLuint vn = svn;
-                    if(svn < 0)
-                        vn = numNormals + svn + 1;
+                    if(svn < 0) vn = numNormals + svn + 1;
+
                     currentFaceTokenStream << "/" << vt << "/" << vn;
 				} else if(groupTokens.size() != 1) {
 					if (ERRORS) fprintf(stderr, "[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename.c_str());
@@ -477,30 +480,26 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		printf( "[.obj]: Unique Verts:\t%u\n", _uniqueIndex );
 		printf( "[.obj]: Faces:     \t%u\tTriangles:\t%u\n", numFaces, numTriangles );
 		printf( "[.obj]: Objects:   \t%u\tGroups:   \t%u\n", numObjects, numGroups );
-		printf( "[.obj]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
+
+        glm::vec3 sizeDimensions = maxDimension - minDimension;
+		printf( "[.obj]: Dimensions:\t(%f, %f, %f)\n", sizeDimensions.x, sizeDimensions.y, sizeDimensions.z );
 	}
 
 	if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 		if (INFO && !_hasVertexNormals)
 			printf( "[.obj]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
-		_vertices = (GLfloat*)malloc(sizeof(GLfloat) * _uniqueIndex * 3);
-		_texCoords = (GLfloat*)malloc(sizeof(GLfloat) * _uniqueIndex * 2);
-		_normals = (GLfloat*)malloc(sizeof(GLfloat) * _uniqueIndex * 3);
-		_indices = (GLuint*)malloc(sizeof(GLuint) * numTriangles * 3);
+        _allocateAttributeArrays(_uniqueIndex, numTriangles*3);
 	} else {
 		if (INFO) printf( "[.obj]: No vertex normals exist on model, vertex normals will be autogenerated\n" );
-		_vertices = (GLfloat*)malloc(sizeof(GLfloat) * numTriangles * 3 * 3);
-		_texCoords = (GLfloat*)malloc(sizeof(GLfloat) * numTriangles * 3 * 2);
-		_normals = (GLfloat*)malloc(sizeof(GLfloat) * numTriangles * 3 * 3);
-		_indices = (GLuint*)malloc(sizeof(GLuint) * numTriangles * 3);
+        _allocateAttributeArrays(numTriangles * 3, numTriangles*3);
 	}
 
-	auto v  = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
-	auto vt = (GLfloat*)malloc(sizeof(GLfloat) * numTexCoords * 2);
-	auto vn = (GLfloat*)malloc(sizeof(GLfloat) * numNormals * 3);
+	auto v  = new glm::vec3[numVertices];
+	auto vn = new glm::vec3[numNormals];
+    auto vt = new glm::vec2[numTexCoords];
 
-	std::vector<GLfloat> verticesTemps;
-	std::vector<GLfloat> texCoordsTemp;
+	std::vector<glm::vec3> verticesTemps;
+	std::vector<glm::vec2> texCoordsTemp;
 
 	printf( "[.obj]: ------------\n" );
 
@@ -547,32 +546,18 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 				_materialIndexStartStop.find( currentMaterial )->second.emplace_back(  indicesSeen, -1 );
 			}
 		} else if( tokens[0] == "v" ) {						//vertex
-			GLfloat x = strtof( tokens[1].c_str(), nullptr ),
-                    y = strtof( tokens[2].c_str(), nullptr ),
-                    z = strtof( tokens[3].c_str(), nullptr );
-
-			v[vSeen*3 + 0] = x;
-			v[vSeen*3 + 1] = y;
-			v[vSeen*3 + 2] = z;
-
+			v[vSeen] = glm::vec3(strtof( tokens[1].c_str(), nullptr ),
+                                 strtof( tokens[2].c_str(), nullptr ),
+                                 strtof( tokens[3].c_str(), nullptr ) );
 			vSeen++;
 		} else if( tokens[0] == "vn" ) {                    //vertex normal
-			GLfloat x = strtof( tokens[1].c_str(), nullptr ),
-                    y = strtof( tokens[2].c_str(), nullptr ),
-                    z = strtof( tokens[3].c_str(), nullptr );
-
-			vn[vnSeen*3 + 0] = x;
-			vn[vnSeen*3 + 1] = y;
-			vn[vnSeen*3 + 2] = z;
-
+			vn[vnSeen] = glm::vec3(strtof( tokens[1].c_str(), nullptr ),
+                                   strtof( tokens[2].c_str(), nullptr ),
+                                   strtof( tokens[3].c_str(), nullptr ));
 			vnSeen++;
 		} else if( tokens[0] == "vt" ) {                    //vertex tex coord
-			GLfloat s = strtof( tokens[1].c_str(), nullptr ),
-                    t = strtof( tokens[2].c_str(), nullptr );
-
-		    vt[vtSeen*2 + 0] = s;
-			vt[vtSeen*2 + 1] = t;
-
+		    vt[vtSeen] = glm::vec2(strtof( tokens[1].c_str(), nullptr ),
+                                   strtof( tokens[2].c_str(), nullptr ));
 			vtSeen++;
 		} else if( tokens[0] == "f" ) {                     //face!
 			//now, faces can be either quads or triangles (or maybe more?)
@@ -582,51 +567,47 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 			for(GLuint i = 1; i < faceTokens.size(); i++) {
                 //need to use both the tokens and number of slashes to determine what info is there.
-                std::vector<std::string> groupTokens = _tokenizeString(faceTokens[i], "/");
-                int numSlashes = 0;
+                std::vector<std::string> vertexAttributeTokens = _tokenizeString(faceTokens[i], "/");
+                int numAttributeSlashes = 0;
                 for(char j : faceTokens[i]) {
-                    if(j == '/') numSlashes++;
+                    if(j == '/') numAttributeSlashes++;
                 }
 
                 std::stringstream currentFaceTokenStream;
-                auto svx = (GLint)strtol(groupTokens[0].c_str(), nullptr, 10);
+                auto svx = (GLint)strtol(vertexAttributeTokens[0].c_str(), nullptr, 10);
                 GLuint vx = svx;
-                if(svx < 0)
-                    vx = vSeen + svx + 1;
+                if(svx < 0) vx = vSeen + svx + 1;
                 currentFaceTokenStream << vx;
 
                 //based on combination of number of tokens and slashes, we can determine what we have.
-                if(groupTokens.size() == 2 && numSlashes == 1) {
+                if(vertexAttributeTokens.size() == 2 && numAttributeSlashes == 1) {
                     _hasVertexTexCoords = true;
 
-                    auto svtx = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                    auto svtx = (GLint)strtol(vertexAttributeTokens[1].c_str(), nullptr, 10);
                     GLuint vtx = svtx;
-                    if(svtx < 0)
-                        vtx = vtSeen + svtx + 1;
+                    if(svtx < 0) vtx = vtSeen + svtx + 1;
                     currentFaceTokenStream << "/" << vtx;
-                } else if(groupTokens.size() == 2 && numSlashes == 2) {
+                } else if(vertexAttributeTokens.size() == 2 && numAttributeSlashes == 2) {
                     _hasVertexNormals = true;
 
-                    auto svnx = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                    auto svnx = (GLint)strtol(vertexAttributeTokens[1].c_str(), nullptr, 10);
                     GLuint vnx = svnx;
-                    if(svnx < 0)
-                        vnx = vnSeen + svnx + 1;
+                    if(svnx < 0) vnx = vnSeen + svnx + 1;
                     currentFaceTokenStream << "//" << vnx;
-                } else if(groupTokens.size() == 3) {
+                } else if(vertexAttributeTokens.size() == 3) {
                     _hasVertexTexCoords = true;
                     _hasVertexNormals = true;
 
-                    auto svtx = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                    auto svtx = (GLint)strtol(vertexAttributeTokens[1].c_str(), nullptr, 10);
                     GLuint vtx = svtx;
-                    if(svtx < 0)
-                        vtx = vtSeen + svtx + 1;
+                    if(svtx < 0) vtx = vtSeen + svtx + 1;
 
-                    auto svnx = (GLint)strtol(groupTokens[2].c_str(), nullptr, 10);
+                    auto svnx = (GLint)strtol(vertexAttributeTokens[2].c_str(), nullptr, 10);
                     GLuint vnx = svnx;
-                    if(svnx < 0)
-                        vnx = vnSeen + svnx + 1;
+                    if(svnx < 0) vnx = vnSeen + svnx + 1;
+
                     currentFaceTokenStream << "/" << vtx << "/" << vnx;
-                } else if(groupTokens.size() != 1) {
+                } else if(vertexAttributeTokens.size() != 1) {
                     if (ERRORS) fprintf(stderr, "[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename.c_str());
                     return false;
                 }
@@ -635,7 +616,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
                 processedFaceTokens.push_back(processedFaceToken);
 
 				if( uniqueCounts.find( processedFaceToken ) == uniqueCounts.end() ) {
-					uniqueCounts.insert( std::pair<std::string,unsigned long int>(processedFaceToken,uniqueV) );
+					uniqueCounts.insert( std::pair<std::string,GLuint>(processedFaceToken,uniqueV) );
 
 					//need to use both the tokens and number of slashes to determine what info is there.
 					std::vector<std::string> groupTokens = _tokenizeString(processedFaceToken, "/");
@@ -648,48 +629,30 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 						//regardless, we always get a vertex index.
 						auto svI = (GLint)strtol(groupTokens[0].c_str(), nullptr, 10);
                         GLuint vI = svI;
-						if( svI < 0 )
-							vI = vSeen + svI + 1;
-
-						_vertices[ _uniqueIndex*3 + 0 ] = v[ ((vI - 1) * 3) + 0 ];
-						_vertices[ _uniqueIndex*3 + 1 ] = v[ ((vI - 1) * 3) + 1 ];
-						_vertices[ _uniqueIndex*3 + 2 ] = v[ ((vI - 1) * 3) + 2 ];
+						if( svI < 0 ) vI = vSeen + svI + 1;
+						_vertices[ _uniqueIndex ] = v[ vI - 1 ];
 
 						//based on combination of number of tokens and slashes, we can determine what we have.
 						if(groupTokens.size() == 2 && numSlashes == 1) {
 							auto svtI = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
                             GLuint vtI = svtI;
-							if( svtI < 0 )
-								vtI = vtSeen + svtI + 1;
-
-							_texCoords[ _uniqueIndex*2 + 0 ] = vt[ ((vtI - 1) * 2) + 0 ];
-							_texCoords[ _uniqueIndex*2 + 1 ] = vt[ ((vtI - 1) * 2) + 1 ];
+							if( svtI < 0 ) vtI = vtSeen + svtI + 1;
+							_texCoords[ _uniqueIndex ] = vt[ vtI - 1 ];
 						} else if(groupTokens.size() == 2 && numSlashes == 2) {
 							auto svnI = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
                             GLuint vnI = svnI;
-							if( svnI < 0 )
-								vnI = vnSeen + svnI + 1;
-
-							_normals[ _uniqueIndex*3 + 0 ] = vn[ ((vnI - 1) * 3) + 0 ];
-							_normals[ _uniqueIndex*3 + 1 ] = vn[ ((vnI - 1) * 3) + 1 ];
-							_normals[ _uniqueIndex*3 + 2 ] = vn[ ((vnI - 1) * 3) + 2 ];
+							if( svnI < 0 ) vnI = vnSeen + svnI + 1;
+							_normals[ _uniqueIndex ] = vn[ vnI - 1 ];
 						} else if(groupTokens.size() == 3) {
 							auto svtI = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
                             GLuint vtI = svtI;
-							if( svtI < 0 )
-								vtI = vtSeen + svtI + 1;
-
-							_texCoords[ _uniqueIndex*2 + 0 ] = vt[ ((vtI - 1) * 2) + 0 ];
-							_texCoords[ _uniqueIndex*2 + 1 ] = vt[ ((vtI - 1) * 2) + 1 ];
+							if( svtI < 0 ) vtI = vtSeen + svtI + 1;
+							_texCoords[ _uniqueIndex ] = vt[ vtI - 1 ];
 
 							auto svnI = (GLint)strtol(groupTokens[2].c_str(), nullptr, 10);
                             GLuint vnI = svnI;
-							if( svnI < 0 )
-								vnI = vnSeen + svnI + 1;
-
-							_normals[ _uniqueIndex*3 + 0 ] = vn[ ((vnI - 1) * 3) + 0 ];
-							_normals[ _uniqueIndex*3 + 1 ] = vn[ ((vnI - 1) * 3) + 1 ];
-							_normals[ _uniqueIndex*3 + 2 ] = vn[ ((vnI - 1) * 3) + 2 ];
+							if( svnI < 0 ) vnI = vnSeen + svnI + 1;
+							_normals[ _uniqueIndex ] = vn[ vnI - 1 ];
 						}
 
 						_uniqueIndex++;
@@ -697,33 +660,23 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 						//regardless, we always get a vertex index.
 						auto svI = (GLint)strtol(groupTokens[0].c_str(), nullptr, 10);
                         GLuint vI = svI;
-						if( svI < 0 )
-							vI = vSeen + svI + 1;
-
-						verticesTemps.push_back( v[ ((vI - 1) * 3) + 0 ] );
-						verticesTemps.push_back( v[ ((vI - 1) * 3) + 1 ] );
-						verticesTemps.push_back( v[ ((vI - 1) * 3) + 2 ] );
+						if( svI < 0 ) vI = vSeen + svI + 1;
+						verticesTemps.push_back( v[ vI - 1 ] );
 
 						//based on combination of number of tokens and slashes, we can determine what we have.
 						if(groupTokens.size() == 2 && numSlashes == 1) {
 							auto svtI = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
                             GLuint vtI = svtI;
-							if( svtI < 0 )
-								vtI = vtSeen + svtI + 1;
-
-							texCoordsTemp.push_back( vt[ ((vtI - 1) * 2) + 0 ] );
-							texCoordsTemp.push_back( vt[ ((vtI - 1) * 2) + 1 ] );
+							if( svtI < 0 ) vtI = vtSeen + svtI + 1;
+							texCoordsTemp.push_back( vt[ vtI - 1 ] );
 						} else if(groupTokens.size() == 2 && numSlashes == 2) {
 							// should not occur if no normals
 							if (ERRORS) fprintf( stderr, "[.obj]: [WARN]: no vertex normals were specified, should not be trying to access values\n" );
 						} else if(groupTokens.size() == 3) {
 							auto svtI = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
                             GLuint vtI = svtI;
-							if( svtI < 0 )
-								vtI = vtSeen + svtI + 1;
-
-							texCoordsTemp.push_back( vt[ ((vtI - 1) * 2) + 0 ] );
-							texCoordsTemp.push_back( vt[ ((vtI - 1) * 2) + 1 ] );
+							if( svtI < 0 ) vtI = vtSeen + svtI + 1;
+							texCoordsTemp.push_back( vt[ vtI - 1 ] );
 
 							// should not occur if no normals
 							if (ERRORS) fprintf( stderr, "[.obj]: [WARN]: no vertex normals were specified, should not be trying to access values\n" );
@@ -745,11 +698,11 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 					GLuint bI = uniqueCounts.find( processedFaceTokens[i]   )->second;
 					GLuint cI = uniqueCounts.find( processedFaceTokens[i+1] )->second;
 
-					glm::vec3 a(verticesTemps[aI * 3 + 0], verticesTemps[aI * 3 + 1], verticesTemps[aI * 3 + 2] );
-					glm::vec3 b(verticesTemps[bI * 3 + 0], verticesTemps[bI * 3 + 1], verticesTemps[bI * 3 + 2] );
-					glm::vec3 c(verticesTemps[cI * 3 + 0], verticesTemps[cI * 3 + 1], verticesTemps[cI * 3 + 2] );
+					glm::vec3 a = verticesTemps[aI];
+					glm::vec3 b = verticesTemps[bI];
+					glm::vec3 c = verticesTemps[cI];
 
-					glm::vec3 ab = b - a;	glm::vec3 ac = c - a;
+					glm::vec3 ab = b - a; glm::vec3 ac = c - a;
 					glm::vec3 ba = a - b; glm::vec3 bc = c - b;
 					glm::vec3 ca = a - c; glm::vec3 cb = b - c;
 
@@ -757,52 +710,25 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 					glm::vec3 bN = glm::normalize( glm::cross( bc, ba ) );
 					glm::vec3 cN = glm::normalize( glm::cross( ca, cb ) );
 
-					_vertices[ _uniqueIndex*3 + 0 ] = a.x;
-					_vertices[ _uniqueIndex*3 + 1 ] = a.y;
-					_vertices[ _uniqueIndex*3 + 2 ] = a.z;
-
-					_normals[ _uniqueIndex*3 + 0 ] = aN.x;
-					_normals[ _uniqueIndex*3 + 1 ] = aN.y;
-					_normals[ _uniqueIndex*3 + 2 ] = aN.z;
-
-					if( _hasVertexTexCoords ) {
-						_texCoords[ _uniqueIndex*2 + 0 ] = texCoordsTemp[ aI*2 + 0 ];
-						_texCoords[ _uniqueIndex*2 + 1 ] = texCoordsTemp[ aI*2 + 1 ];
-					}
-
+					_vertices[ _uniqueIndex ] = a;
+					_normals[ _uniqueIndex ] = aN;
+					if( _hasVertexTexCoords ) { _texCoords[ _uniqueIndex ] = texCoordsTemp[ aI ]; }
 					_indices[ _numIndices++ ] = _uniqueIndex++;
+
 					indicesSeen++;
 
-					_vertices[ _uniqueIndex*3 + 0 ] = b.x;
-					_vertices[ _uniqueIndex*3 + 1 ] = b.y;
-					_vertices[ _uniqueIndex*3 + 2 ] = b.z;
-
-					_normals[ _uniqueIndex*3 + 0 ] = bN.x;
-					_normals[ _uniqueIndex*3 + 1 ] = bN.y;
-					_normals[ _uniqueIndex*3 + 2 ] = bN.z;
-
-					if( _hasVertexTexCoords ) {
-						_texCoords[ _uniqueIndex*2 + 0 ] = texCoordsTemp[ bI*2 + 0 ];
-						_texCoords[ _uniqueIndex*2 + 1 ] = texCoordsTemp[ bI*2 + 1 ];
-					}
-
+					_vertices[ _uniqueIndex ] = b;
+					_normals[ _uniqueIndex ] = bN;
+					if( _hasVertexTexCoords ) { _texCoords[ _uniqueIndex ] = texCoordsTemp[ bI ]; }
 					_indices[ _numIndices++ ] = _uniqueIndex++;
+
 					indicesSeen++;
 
-					_vertices[ _uniqueIndex*3 + 0 ] = c.x;
-					_vertices[ _uniqueIndex*3 + 1 ] = c.y;
-					_vertices[ _uniqueIndex*3 + 2 ] = c.z;
-
-					_normals[ _uniqueIndex*3 + 0 ] = cN.x;
-					_normals[ _uniqueIndex*3 + 1 ] = cN.y;
-					_normals[ _uniqueIndex*3 + 2 ] = cN.z;
-
-					if( _hasVertexTexCoords ) {
-						_texCoords[ _uniqueIndex*2 + 0 ] = texCoordsTemp[ cI*2 + 0 ];
-						_texCoords[ _uniqueIndex*2 + 1 ] = texCoordsTemp[ cI*2 + 1 ];
-					}
-
+					_vertices[ _uniqueIndex ] = c;
+					_normals[ _uniqueIndex ] = cN;
+					if( _hasVertexTexCoords ) { _texCoords[ _uniqueIndex ] = texCoordsTemp[ cI ]; }
 					_indices[ _numIndices++ ] = _uniqueIndex++;
+
 					indicesSeen++;
 				}
 			}
@@ -836,15 +762,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 	_materialIndexStartStop.find( currentMaterial )->second.back().second = indicesSeen - 1;
 
-	glBindVertexArray( _vaod );
-	glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
-	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, nullptr, GL_STATIC_DRAW );
-	glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(GLfloat) * _uniqueIndex * 3, _vertices );
-	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 3, sizeof(GLfloat) * _uniqueIndex * 3, _normals );
-	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 6, sizeof(GLfloat) * _uniqueIndex * 2, _texCoords );
-
-	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, _vbods[1] );
-	glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indicesSeen, _indices, GL_STATIC_DRAW );
+	_bufferData();
 
 	time(&end);
 	double seconds = difftime( end, start );
@@ -905,7 +823,8 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 
 		//the line should have a single character that lets us know if it's a...
 		if( tokens[0] == "#" ) {							// comment
-		} else if( tokens[0] == "newmtl" ) {				//new material
+
+        } else if( tokens[0] == "newmtl" ) {				//new material
 			if (INFO) printf( "[.mtl]: Parsing material %s properties\n", tokens[1].c_str() );
 			currentMaterial = new CSCI441_INTERNAL::ModelMaterial();
 			materialName = tokens[1];
@@ -919,28 +838,28 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 
 			numMaterials++;
 		} else if( tokens[0] == "Ka" ) {					// ambient component
-			currentMaterial->ambient[0] = atof( tokens[1].c_str() );
-			currentMaterial->ambient[1] = atof( tokens[2].c_str() );
-			currentMaterial->ambient[2] = atof( tokens[3].c_str() );
+			currentMaterial->ambient[0] = strtof( tokens[1].c_str(), nullptr );
+			currentMaterial->ambient[1] = strtof( tokens[2].c_str(), nullptr );
+			currentMaterial->ambient[2] = strtof( tokens[3].c_str(), nullptr );
 		} else if( tokens[0] == "Kd" ) {					// diffuse component
-			currentMaterial->diffuse[0] = atof( tokens[1].c_str() );
-			currentMaterial->diffuse[1] = atof( tokens[2].c_str() );
-			currentMaterial->diffuse[2] = atof( tokens[3].c_str() );
+			currentMaterial->diffuse[0] = strtof( tokens[1].c_str(), nullptr );
+			currentMaterial->diffuse[1] = strtof( tokens[2].c_str(), nullptr );
+			currentMaterial->diffuse[2] = strtof( tokens[3].c_str(), nullptr );
 		} else if( tokens[0] == "Ks" ) {					// specular component
-			currentMaterial->specular[0] = atof( tokens[1].c_str() );
-			currentMaterial->specular[1] = atof( tokens[2].c_str() );
-			currentMaterial->specular[2] = atof( tokens[3].c_str() );
+			currentMaterial->specular[0] = strtof( tokens[1].c_str(), nullptr );
+			currentMaterial->specular[1] = strtof( tokens[2].c_str(), nullptr );
+			currentMaterial->specular[2] = strtof( tokens[3].c_str(), nullptr );
 		} else if( tokens[0] == "Ke" ) {					// emissive component
-			currentMaterial->emissive[0] = atof( tokens[1].c_str() );
-			currentMaterial->emissive[1] = atof( tokens[2].c_str() );
-			currentMaterial->emissive[2] = atof( tokens[3].c_str() );
+			currentMaterial->emissive[0] = strtof( tokens[1].c_str(), nullptr );
+			currentMaterial->emissive[1] = strtof( tokens[2].c_str(), nullptr );
+			currentMaterial->emissive[2] = strtof( tokens[3].c_str(), nullptr );
 		} else if( tokens[0] == "Ns" ) {					// shininess component
-			currentMaterial->shininess = atof( tokens[1].c_str() );
+			currentMaterial->shininess = strtof( tokens[1].c_str(), nullptr );
 		} else if( tokens[0] == "Tr"
 					|| tokens[0] == "d" ) {					// transparency component - Tr or d can be used depending on the format
-			currentMaterial->ambient[3] = atof( tokens[1].c_str() );
-			currentMaterial->diffuse[3] = atof( tokens[1].c_str() );
-			currentMaterial->specular[3] = atof( tokens[1].c_str() );
+			currentMaterial->ambient[3] = strtof( tokens[1].c_str(), nullptr );
+			currentMaterial->diffuse[3] = strtof( tokens[1].c_str(), nullptr );
+			currentMaterial->specular[3] = strtof( tokens[1].c_str(), nullptr );
 		} else if( tokens[0] == "illum" ) {				    // illumination type component
 			// TODO ?
 		} else if( tokens[0] == "map_Kd" ) {				// diffuse color texture map
@@ -974,7 +893,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 						glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-						GLenum colorSpace = GL_RGB;
+						GLint colorSpace = GL_RGB;
 						if( textureChannels == 4 )
 							colorSpace = GL_RGBA;
 						glTexImage2D( GL_TEXTURE_2D, 0, colorSpace, texWidth, texHeight, 0, colorSpace, GL_UNSIGNED_BYTE, textureData );
@@ -1122,9 +1041,9 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 			}
 		} else if( fileState == VERTICES ) {
 			// read in x y z vertex location
-			auto x = (GLfloat) atof( tokens[0].c_str() ),
-                    y = (GLfloat) atof( tokens[1].c_str() ),
-                    z = (GLfloat) atof( tokens[2].c_str() );
+			GLfloat x = strtof( tokens[0].c_str(), nullptr ),
+                    y = strtof( tokens[1].c_str(), nullptr ),
+                    z = strtof( tokens[2].c_str(), nullptr );
 
 			if( x < minX ) minX = x;
 			if( x > maxX ) maxX = x;
@@ -1162,19 +1081,13 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 	if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 		if (INFO && !_hasVertexNormals)
 			printf( "[.off]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
-		_vertices = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
-		_texCoords = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 2);
-		_normals = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
-		_indices = (GLuint*)malloc(sizeof(GLuint) * numTriangles * 3);
+        _allocateAttributeArrays(numVertices, numTriangles*3);
 	} else {
 		if (INFO) printf( "[.off]: No vertex normals exist on model, vertex normals will be autogenerated\n" );
-		_vertices = (GLfloat*)malloc(sizeof(GLfloat) * numTriangles * 3 * 3);
-		_texCoords = (GLfloat*)malloc(sizeof(GLfloat) * numTriangles * 3 * 2);
-		_normals = (GLfloat*)malloc(sizeof(GLfloat) * numTriangles * 3 * 3);
-		_indices = (GLuint*)malloc(sizeof(GLuint) * numTriangles * 3);
+        _allocateAttributeArrays(numTriangles*3, numTriangles*3);
 	}
 
-	std::vector<GLfloat> vertsTemp;
+	std::vector<glm::vec3> verticesTemp;
 
 	if (INFO) printf( "[.off]: ------------\n" );
 
@@ -1207,9 +1120,9 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 			}
 		} else if( fileState == VERTICES ) {
 			// read in x y z vertex location
-			auto x = (GLfloat) atof( tokens[0].c_str() ),
-                    y = (GLfloat) atof( tokens[1].c_str() ),
-                    z = (GLfloat) atof( tokens[2].c_str() );
+			glm::vec3 pos(strtof( tokens[0].c_str(), nullptr ),
+                          strtof( tokens[1].c_str(), nullptr ),
+                          strtof( tokens[2].c_str(), nullptr ) );
 
 			// check if RGB(A) color information is associated with vertex
 			if( tokens.size() == 6 || tokens.size() == 7 ) {
@@ -1224,16 +1137,10 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 			}
 
 			if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
-				_vertices[ _uniqueIndex*3 + 0 ] = x;
-				_vertices[ _uniqueIndex*3 + 1 ] = y;
-				_vertices[ _uniqueIndex*3 + 2 ] = z;
-
+				_vertices[ _uniqueIndex ] = pos;
 				_uniqueIndex++;
 			} else {
-				vertsTemp.push_back( x );
-				vertsTemp.push_back( y );
-				vertsTemp.push_back( z );
-
+				verticesTemp.push_back(pos);
 				vSeen++;
 			}
 			// if all vertices have been read in, move on to faces
@@ -1266,11 +1173,11 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 					if( bI < 0 ) bI = numVertices + bI + 1;
 					if( cI < 0 ) cI = numVertices + cI + 1;
 
-					glm::vec3 a( vertsTemp[aI*3 + 0], vertsTemp[aI*3 + 1], vertsTemp[aI*3 + 2] );
-					glm::vec3 b( vertsTemp[bI*3 + 0], vertsTemp[bI*3 + 1], vertsTemp[bI*3 + 2] );
-					glm::vec3 c( vertsTemp[cI*3 + 0], vertsTemp[cI*3 + 1], vertsTemp[cI*3 + 2] );
+					glm::vec3 a = verticesTemp[aI];
+					glm::vec3 b = verticesTemp[bI];
+					glm::vec3 c = verticesTemp[cI];
 
-					glm::vec3 ab = b - a;	glm::vec3 ac = c - a;
+					glm::vec3 ab = b - a; glm::vec3 ac = c - a;
 					glm::vec3 ba = a - b; glm::vec3 bc = c - b;
 					glm::vec3 ca = a - c; glm::vec3 cb = b - c;
 
@@ -1278,34 +1185,16 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 					glm::vec3 bN = glm::normalize( glm::cross( bc, ba ) );
 					glm::vec3 cN = glm::normalize( glm::cross( ca, cb ) );
 
-					_vertices[ _uniqueIndex*3 + 0 ] = a.x;
-					_vertices[ _uniqueIndex*3 + 1 ] = a.y;
-					_vertices[ _uniqueIndex*3 + 2 ] = a.z;
-
-					_normals[ _uniqueIndex*3 + 0 ] = aN.x;
-					_normals[ _uniqueIndex*3 + 1 ] = aN.y;
-					_normals[ _uniqueIndex*3 + 2 ] = aN.z;
-
+					_vertices[ _uniqueIndex ] = a;
+					_normals[ _uniqueIndex ] = aN;
 					_indices[ _numIndices++ ] = _uniqueIndex++;
 
-					_vertices[ _uniqueIndex*3 + 0 ] = b.x;
-					_vertices[ _uniqueIndex*3 + 1 ] = b.y;
-					_vertices[ _uniqueIndex*3 + 2 ] = b.z;
-
-					_normals[ _uniqueIndex*3 + 0 ] = bN.x;
-					_normals[ _uniqueIndex*3 + 1 ] = bN.y;
-					_normals[ _uniqueIndex*3 + 2 ] = bN.z;
-
+					_vertices[ _uniqueIndex ] = b;
+					_normals[ _uniqueIndex ] = bN;
 					_indices[ _numIndices++ ] = _uniqueIndex++;
 
-					_vertices[ _uniqueIndex*3 + 0 ] = c.x;
-					_vertices[ _uniqueIndex*3 + 1 ] = c.y;
-					_vertices[ _uniqueIndex*3 + 2 ] = c.z;
-
-					_normals[ _uniqueIndex*3 + 0 ] = cN.x;
-					_normals[ _uniqueIndex*3 + 1 ] = cN.y;
-					_normals[ _uniqueIndex*3 + 2 ] = cN.z;
-
+					_vertices[ _uniqueIndex ] = c;
+					_normals[ _uniqueIndex ] = cN;
 					_indices[ _numIndices++ ] = _uniqueIndex++;
 				}
 			}
@@ -1338,6 +1227,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 					case 10000:	printf("[.off]: parsing %s...|", _filename.c_str());	break;
 					case 15000:	printf("[.off]: parsing %s.../", _filename.c_str());	break;
 					case 20000:	printf("[.off]: parsing %s...-", _filename.c_str());	break;
+                    default: break;
 				}
 				fflush(stdout);
 			}
@@ -1347,15 +1237,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 	}
 	in.close();
 
-	glBindVertexArray( _vaod );
-	glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
-	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, nullptr, GL_STATIC_DRAW );
-	glBufferSubData( GL_ARRAY_BUFFER, 0, 																  sizeof(GLfloat) * _uniqueIndex * 3, _vertices );
-	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 3, sizeof(GLfloat) * _uniqueIndex * 3, _normals );
-	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 6, sizeof(GLfloat) * _uniqueIndex * 2, _texCoords );
-
-	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, _vbods[1] );
-	glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * _numIndices, _indices, GL_STATIC_DRAW );
+    _bufferData();
 
 	time(&end);
 	double seconds = difftime( end, start );
@@ -1500,21 +1382,15 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 	if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 		if (INFO && !_hasVertexNormals)
 			printf( "[.ply]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
-		_vertices = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
-		_texCoords = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 2);
-		_normals = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
-		_indices = (GLuint*)malloc(sizeof(GLuint) * numTriangles * 3);
+        _allocateAttributeArrays(numVertices, numTriangles*3);
 	} else {
 		if (INFO) printf( "[.ply]: No vertex normals exist on model, vertex normals will be autogenerated\n" );
-		_vertices = (GLfloat*)malloc(sizeof(GLfloat) * numTriangles * 3 * 3);
-		_texCoords = (GLfloat*)malloc(sizeof(GLfloat) * numTriangles * 3 * 2);
-		_normals = (GLfloat*)malloc(sizeof(GLfloat) * numTriangles * 3 * 3);
-		_indices = (GLuint*)malloc(sizeof(GLuint) * numTriangles * 3);
+        _allocateAttributeArrays(numTriangles*3, numTriangles*3);
 	}
 
 	if (INFO) printf( "[.ply]: ------------\n" );
 
-	std::vector<GLfloat> vertsTemp;
+	std::vector<glm::vec3> verticesTemp;
 
 	in.open( _filename );
 
@@ -1575,21 +1451,15 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 			}
 		} else if( fileState == VERTICES ) {
 			// read in x y z vertex location
-			auto x = (GLfloat) atof( tokens[0].c_str() ),
-						y = (GLfloat) atof( tokens[1].c_str() ),
-						z = (GLfloat) atof( tokens[2].c_str() );
+			glm::vec3 pos(strtof( tokens[0].c_str(), nullptr ),
+                          strtof( tokens[1].c_str(), nullptr ),
+                          strtof( tokens[2].c_str(), nullptr ) );
 
 			if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
-				_vertices[ _uniqueIndex*3 + 0 ] = x;
-				_vertices[ _uniqueIndex*3 + 1 ] = y;
-				_vertices[ _uniqueIndex*3 + 2 ] = z;
-
+				_vertices[ _uniqueIndex ] = pos;
 				_uniqueIndex++;
 			} else {
-				vertsTemp.push_back( x );
-				vertsTemp.push_back( y );
-				vertsTemp.push_back( z );
-
+				verticesTemp.push_back(pos );
 				vSeen++;
 			}
 			// if all vertices have been read in, move on to faces
@@ -1608,11 +1478,11 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 					GLuint bI = atoi( tokens[i].c_str() );
 					GLuint cI = atoi( tokens[i+1].c_str() );
 
-					glm::vec3 a( vertsTemp[aI*3 + 0], vertsTemp[aI*3 + 1], vertsTemp[aI*3 + 2] );
-					glm::vec3 b( vertsTemp[bI*3 + 0], vertsTemp[bI*3 + 1], vertsTemp[bI*3 + 2] );
-					glm::vec3 c( vertsTemp[cI*3 + 0], vertsTemp[cI*3 + 1], vertsTemp[cI*3 + 2] );
+					glm::vec3 a = verticesTemp[aI];
+					glm::vec3 b = verticesTemp[bI];
+					glm::vec3 c = verticesTemp[cI];
 
-					glm::vec3 ab = b - a;	glm::vec3 ac = c - a;
+					glm::vec3 ab = b - a; glm::vec3 ac = c - a;
 					glm::vec3 ba = a - b; glm::vec3 bc = c - b;
 					glm::vec3 ca = a - c; glm::vec3 cb = b - c;
 
@@ -1620,34 +1490,16 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 					glm::vec3 bN = glm::normalize( glm::cross( bc, ba ) );
 					glm::vec3 cN = glm::normalize( glm::cross( ca, cb ) );
 
-					_vertices[ _uniqueIndex*3 + 0 ] = a.x;
-					_vertices[ _uniqueIndex*3 + 1 ] = a.y;
-					_vertices[ _uniqueIndex*3 + 2 ] = a.z;
-
-					_normals[ _uniqueIndex*3 + 0 ] = aN.x;
-					_normals[ _uniqueIndex*3 + 1 ] = aN.y;
-					_normals[ _uniqueIndex*3 + 2 ] = aN.z;
-
+					_vertices[ _uniqueIndex ] = a;
+					_normals[ _uniqueIndex ] = aN;
 					_indices[ _numIndices++ ] = _uniqueIndex++;
 
-					_vertices[ _uniqueIndex*3 + 0 ] = b.x;
-					_vertices[ _uniqueIndex*3 + 1 ] = b.y;
-					_vertices[ _uniqueIndex*3 + 2 ] = b.z;
-
-					_normals[ _uniqueIndex*3 + 0 ] = bN.x;
-					_normals[ _uniqueIndex*3 + 1 ] = bN.y;
-					_normals[ _uniqueIndex*3 + 2 ] = bN.z;
-
+					_vertices[ _uniqueIndex ] = b;
+					_normals[ _uniqueIndex ] = bN;
 					_indices[ _numIndices++ ] = _uniqueIndex++;
 
-					_vertices[ _uniqueIndex*3 + 0 ] = c.x;
-					_vertices[ _uniqueIndex*3 + 1 ] = c.y;
-					_vertices[ _uniqueIndex*3 + 2 ] = c.z;
-
-					_normals[ _uniqueIndex*3 + 0 ] = cN.x;
-					_normals[ _uniqueIndex*3 + 1 ] = cN.y;
-					_normals[ _uniqueIndex*3 + 2 ] = cN.z;
-
+					_vertices[ _uniqueIndex ] = c;
+					_normals[ _uniqueIndex ] = cN;
 					_indices[ _numIndices++ ] = _uniqueIndex++;
 				}
 			}
@@ -1674,15 +1526,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 	}
 	in.close();
 
-	glBindVertexArray( _vaod );
-	glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
-	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, nullptr, GL_STATIC_DRAW );
-	glBufferSubData( GL_ARRAY_BUFFER, 0, 																  sizeof(GLfloat) * _uniqueIndex * 3, _vertices );
-	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 3, sizeof(GLfloat) * _uniqueIndex * 3, _normals );
-	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 6, sizeof(GLfloat) * _uniqueIndex * 2, _texCoords );
-
-	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, _vbods[1] );
-	glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * _numIndices, _indices, GL_STATIC_DRAW );
+    _bufferData();
 
 	time(&end);
 	double seconds = difftime( end, start );
@@ -1716,7 +1560,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 	std::string line;
 
 	int progressCounter = 0;
-	GLfloat normalVector[3] = {0,0,0};
+	glm::vec3 normalVector = {0.f,0.f,0.f};
 
 	while( getline( in, line ) ) {
 		if( line.length() > 1 && line.at(0) == '\t' )
@@ -1736,9 +1580,9 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 			// begin a primitive
 			numVertsInLoop = 0;
 		} else if( tokens[0] == "vertex" ) {
-			auto x = (GLfloat) atof( tokens[1].c_str() ),
-					y = (GLfloat) atof( tokens[2].c_str() ),
-					z = (GLfloat) atof( tokens[3].c_str() );
+			GLfloat x = strtof( tokens[1].c_str(), nullptr ),
+					y = strtof( tokens[2].c_str(), nullptr ),
+					z = strtof( tokens[3].c_str(), nullptr );
 
 			if( x < minX ) minX = x;
 			if( x > maxX ) maxX = x;
@@ -1795,10 +1639,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 		printf( "[.stl]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
 	}
 
-	_vertices = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
-	_texCoords = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 2);
-	_normals = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
-	_indices = (GLuint*)malloc(sizeof(GLuint) * numTriangles * 3);
+    _allocateAttributeArrays(numVertices, numTriangles*3);
 
 	if (INFO) printf( "[.stl]: ------------\n" );
 
@@ -1820,24 +1661,16 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 
 		} else if( tokens[0] == "facet" ) {
 			// read in x y z triangle normal
-			normalVector[0] = atof( tokens[2].c_str() );
-			normalVector[1] = atof( tokens[3].c_str() );
-			normalVector[2] = atof( tokens[4].c_str() );
+			normalVector = glm::vec3( strtof( tokens[2].c_str(), nullptr ),
+                                      strtof( tokens[3].c_str(), nullptr ),
+                                      strtof( tokens[4].c_str(), nullptr ) );
 		} else if( tokens[0] == "outer" && tokens[1] == "loop" ) {
 			// begin a primitive
 		} else if( tokens[0] == "vertex" ) {
-			auto x = (GLfloat) atof( tokens[1].c_str() ),
-					y = (GLfloat) atof( tokens[2].c_str() ),
-					z = (GLfloat) atof( tokens[3].c_str() );
-
-			_vertices[ _uniqueIndex*3 + 0 ] = x;
-			_vertices[ _uniqueIndex*3 + 1 ] = y;
-			_vertices[ _uniqueIndex*3 + 2 ] = z;
-
-			_normals[ _uniqueIndex*3 + 0 ] = normalVector[0];
-			_normals[ _uniqueIndex*3 + 1 ] = normalVector[1];
-			_normals[ _uniqueIndex*3 + 2 ] = normalVector[2];
-
+			_vertices[ _uniqueIndex ] = glm::vec3(strtof( tokens[1].c_str(), nullptr ),
+                                                  strtof( tokens[2].c_str(), nullptr ),
+                                                  strtof( tokens[3].c_str(), nullptr ) );
+			_normals[ _uniqueIndex ] = normalVector;
 			_indices[ _numIndices++ ] = _uniqueIndex++;
 		} else if( tokens[0] == "endloop" ) {
 			// end primitive
@@ -1869,15 +1702,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 	}
 	in.close();
 
-	glBindVertexArray( _vaod );
-	glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
-	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, nullptr, GL_STATIC_DRAW );
-	glBufferSubData( GL_ARRAY_BUFFER, 0, 																  sizeof(GLfloat) * _uniqueIndex * 3, _vertices );
-	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 3, sizeof(GLfloat) * _uniqueIndex * 3, _normals );
-	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 6, sizeof(GLfloat) * _uniqueIndex * 2, _texCoords );
-
-	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, _vbods[1] );
-	glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * _numIndices, _indices, GL_STATIC_DRAW );
+	_bufferData();
 
 	time(&end);
 	double seconds = difftime( end, start );
@@ -1901,6 +1726,25 @@ inline void CSCI441::ModelLoader::disableAutoGenerateNormals() {
     sAUTO_GEN_NORMALS = false;
 }
 
+inline void CSCI441::ModelLoader::_allocateAttributeArrays(const GLuint numVertices, const GLuint numIndices) {
+    _vertices  = new glm::vec3[numVertices];
+    _normals   = new glm::vec3[numVertices];
+    _texCoords = new glm::vec2[numVertices];
+    _indices   = new GLuint[numIndices];
+}
+
+inline void CSCI441::ModelLoader::_bufferData() {
+    glBindVertexArray( _vaod );
+    glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
+    glBufferData( GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2)) * _uniqueIndex, nullptr, GL_STATIC_DRAW );
+    glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * _uniqueIndex, _vertices );
+    glBufferSubData( GL_ARRAY_BUFFER, sizeof(glm::vec3) * _uniqueIndex, sizeof(glm::vec3) * _uniqueIndex, _normals );
+    glBufferSubData( GL_ARRAY_BUFFER, sizeof(glm::vec3) * _uniqueIndex * 2, sizeof(glm::vec2) * _uniqueIndex, _texCoords );
+
+    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, _vbods[1] );
+    glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * _numIndices, _indices, GL_STATIC_DRAW );
+}
+
 //
 //  vector<string> tokenizeString(string input, string delimiters)
 //
@@ -1916,7 +1760,7 @@ inline std::vector<std::string> CSCI441::ModelLoader::_tokenizeString(std::strin
 
 	//strip all delimiter characters from the front and end of the input string.
 	std::string strippedInput;
-	int lowerValidIndex = 0, upperValidIndex = input.size() - 1;
+	GLint lowerValidIndex = 0, upperValidIndex = (GLint)input.size() - 1;
 	while((GLuint)lowerValidIndex < input.size() && delimiters.find_first_of(input.at(lowerValidIndex), 0) != std::string::npos)
 		lowerValidIndex++;
 
