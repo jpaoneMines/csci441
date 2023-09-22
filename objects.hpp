@@ -239,18 +239,18 @@ namespace CSCI441 {
 
     /**
      * @brief Draws a solid teapot
-     * @param size scale of the teapot (defaults to 1.0f)
+     * @param unused present for historical compatability
      * @pre size must be greater than zero
      * @note Oriented with spout and handle running along X-axis, cap and bottom along Y-axis.  Origin is at the center of the teapot
      */
-    [[maybe_unused]] void drawSolidTeapot( GLfloat size = 1.0f );
+    [[maybe_unused]] void drawSolidTeapot( GLfloat unused = 1.0f );
     /**
      * @brief Draws a wireframe teapot
-     * @param size scale of the teapot (defaults to 1.0f)
+     * @param unused present for historical compatability
      * @pre size must be greater than zero
      * @note Oriented with spout and handle running along X-axis, cap and bottom along Y-axis.  Origin is at the center of the teapot
      */
-    [[maybe_unused]] void drawWireTeapot( GLfloat size = 1.0f );
+    [[maybe_unused]] void drawWireTeapot( GLfloat unused = 1.0f );
 
     /**
      * @brief Draws a solid torus
@@ -600,12 +600,12 @@ inline void CSCI441::drawWireSphere( GLfloat radius, GLint stacks, GLint slices 
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawSolidTeapot( GLfloat size ) {
+inline void CSCI441::drawSolidTeapot( [[maybe_unused]] GLfloat unused ) {
     CSCI441_INTERNAL::drawTeapot(GL_FILL);
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawWireTeapot( GLfloat size ) {
+inline void CSCI441::drawWireTeapot( [[maybe_unused]] GLfloat unused ) {
     CSCI441_INTERNAL::drawTeapot(GL_LINE);
 }
 
@@ -1044,9 +1044,9 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
     GLfloat sliceStep = glm::two_pi<float>() / (GLfloat)cylData.slices;
     GLfloat stackStep = cylData.height / (GLfloat)cylData.stacks;
 
-    auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
-    auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
-    auto normals = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
+    auto vertices = new GLfloat[numVertices*3];
+    auto texCoords = new GLfloat[numVertices*2];
+    auto normals = new GLfloat[numVertices*3];
 
     unsigned long int idx = 0;
 
@@ -1083,17 +1083,17 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
         }
     }
 
-    glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 8, nullptr, GL_STATIC_DRAW );
-    glBufferSubData( GL_ARRAY_BUFFER, 0, 								 sizeof(GLfloat) * numVertices * 3, vertices );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 3, sizeof(GLfloat) * numVertices * 3, normals );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 6, sizeof(GLfloat) * numVertices * 2, texCoords );
+    glBufferData( GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 8), nullptr, GL_STATIC_DRAW );
+    glBufferSubData( GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), vertices );
+    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 3), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), normals );
+    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 6), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 2), texCoords );
 
     CSCI441_INTERNAL::_cylinderVAO.insert( std::pair<CylinderData, GLuint>( cylData, vaod ) );
     CSCI441_INTERNAL::_cylinderVBO.insert( std::pair<CylinderData, GLuint>( cylData, vbod ) );
 
-    free(vertices);
-    free(texCoords);
-    free(normals);
+    delete[] vertices;
+    delete[] texCoords;
+    delete[] normals;
 }
 
 inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
@@ -1110,9 +1110,9 @@ inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
     GLfloat sliceStep = diskData.sweepAngle / (GLfloat)diskData.slices;
     GLfloat ringStep = (diskData.outerRadius - diskData.innerRadius) / (GLfloat)diskData.radialSteps;
 
-    auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
-    auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
-    auto normals = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
+    auto vertices = new GLfloat[numVertices*3];
+    auto texCoords = new GLfloat[numVertices*2];
+    auto normals = new GLfloat[numVertices*3];
 
     unsigned long int idx = 0;
 
@@ -1151,17 +1151,17 @@ inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
         }
     }
 
-    glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 8, nullptr, GL_STATIC_DRAW );
-    glBufferSubData( GL_ARRAY_BUFFER, 0, 																  sizeof(GLfloat) * numVertices * 3, vertices );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 3, sizeof(GLfloat) * numVertices * 3, normals );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 6, sizeof(GLfloat) * numVertices * 2, texCoords );
+    glBufferData( GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 8), nullptr, GL_STATIC_DRAW );
+    glBufferSubData( GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), vertices );
+    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 3), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), normals );
+    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 6), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 2), texCoords );
 
     CSCI441_INTERNAL::_diskVAO.insert( std::pair<DiskData, GLuint>( diskData, vaod ) );
     CSCI441_INTERNAL::_diskVBO.insert( std::pair<DiskData, GLuint>( diskData, vbod ) );
 
-    free(vertices);
-    free(texCoords);
-    free(normals);
+    delete[] vertices;
+    delete[] texCoords;
+    delete[] normals;
 }
 
 inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
@@ -1178,9 +1178,9 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
     GLfloat sliceStep = glm::two_pi<float>() / (GLfloat)sphereData.slices;
     GLfloat stackStep = glm::pi<float>() / (GLfloat)sphereData.stacks;
 
-    auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
-    auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
-    auto normals = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
+    auto vertices = new GLfloat[numVertices*3];
+    auto texCoords = new GLfloat[numVertices*2];
+    auto normals = new GLfloat[numVertices*3];
 
     unsigned long int idx = 0;
 
@@ -1288,17 +1288,17 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
         idx++;
     }
 
-    glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 8, nullptr, GL_STATIC_DRAW );
-    glBufferSubData( GL_ARRAY_BUFFER, 0, 																  sizeof(GLfloat) * numVertices * 3, vertices );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 3, sizeof(GLfloat) * numVertices * 3, normals );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 6, sizeof(GLfloat) * numVertices * 2, texCoords );
+    glBufferData( GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 8), nullptr, GL_STATIC_DRAW );
+    glBufferSubData( GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), vertices );
+    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 3), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), normals );
+    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 6), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 2), texCoords );
 
     CSCI441_INTERNAL::_sphereVAO.insert( std::pair<SphereData, GLuint>( sphereData, vaod ) );
     CSCI441_INTERNAL::_sphereVBO.insert( std::pair<SphereData, GLuint>( sphereData, vbod ) );
 
-    free(vertices);
-    free(texCoords);
-    free(normals);
+    delete[] vertices;
+    delete[] texCoords;
+    delete[] normals;
 }
 
 inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
@@ -1312,9 +1312,9 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
 
     unsigned long int numVertices = torusData.sides * 4 * torusData.rings;
 
-    auto vertices = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
-    auto texCoords = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*2);
-    auto normals = (GLfloat*)malloc(sizeof(GLfloat)*numVertices*3);
+    auto vertices = new GLfloat[numVertices*3];
+    auto texCoords = new GLfloat[numVertices*2];
+    auto normals = new GLfloat[numVertices*3];
 
     unsigned long int idx = 0;
 
@@ -1383,17 +1383,17 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
         }
     }
 
-    glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 8, nullptr, GL_STATIC_DRAW );
-    glBufferSubData( GL_ARRAY_BUFFER, 0, 																  sizeof(GLfloat) * numVertices * 3, vertices );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 3, sizeof(GLfloat) * numVertices * 3, normals );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * numVertices * 6, sizeof(GLfloat) * numVertices * 2, texCoords );
+    glBufferData( GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 8), nullptr, GL_STATIC_DRAW );
+    glBufferSubData( GL_ARRAY_BUFFER, 0,static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), vertices );
+    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 3), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), normals );
+    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 6), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 2), texCoords );
 
     CSCI441_INTERNAL::_torusVAO.insert( std::pair<TorusData, GLuint>( torusData, vaod ) );
     CSCI441_INTERNAL::_torusVBO.insert( std::pair<TorusData, GLuint>( torusData, vbod ) );
 
-    free(vertices);
-    free(texCoords);
-    free(normals);
+    delete[] vertices;
+    delete[] texCoords;
+    delete[] normals;
 }
 
 #endif // __CSCI441_OBJECTS_HPP__
