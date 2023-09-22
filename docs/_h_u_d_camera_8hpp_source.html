@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.12.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.12.1</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -81,36 +81,38 @@ $(function() {
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_c_s_c_i441.html">CSCI441</a> {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_h_u_d_camera.html">   23</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_c_s_c_i441_1_1_h_u_d_camera.html">HUDCamera</a> final : <span class="keyword">public</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_h_u_d_camera.html">   23</a></span>    <span class="keyword">class </span>[[maybe_unused]] <a class="code hl_class" href="class_c_s_c_i441_1_1_h_u_d_camera.html">HUDCamera</a> final : <span class="keyword">public</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a> {</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">explicit</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_h_u_d_camera.html">HUDCamera</a>(GLfloat minX, GLfloat maxX, GLfloat minY, GLfloat maxY);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a9ad075fd24c2bd5a2b33837e2a882c5c">   37</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a9ad075fd24c2bd5a2b33837e2a882c5c">recomputeOrientation</a>() final {};</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_h_u_d_camera.html#af7edb3eb643b0617cd079ecd6a136be8">   42</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_h_u_d_camera.html#af7edb3eb643b0617cd079ecd6a136be8">moveForward</a>(<span class="keyword">const</span> GLfloat unused) <span class="keyword">final</span> {};</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a47b53af60855225e48a5f1b2ed8718cd">   47</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a47b53af60855225e48a5f1b2ed8718cd">moveBackward</a>(<span class="keyword">const</span> GLfloat unused) <span class="keyword">final</span> {};</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    };</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a7662707082443bd20eb3b868223501df">   53</a></span><span class="keyword">inline</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a7662707082443bd20eb3b868223501df">CSCI441::HUDCamera::HUDCamera</a>(</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    GLfloat minX,</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    GLfloat maxX,</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    GLfloat minY,</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    GLfloat maxY</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>) {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a64b74b2c979a3a05afa42434c0000d42">mProjectionMatrix</a> = glm::ortho( minX, maxX, minY, maxY );</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif</span><span class="comment">//CSCI441_HUD_CAMERA_HPP</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_h_u_d_camera.html">HUDCamera</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        [[maybe_unused]] <span class="keyword">explicit</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_h_u_d_camera.html">HUDCamera</a>(GLfloat minX, GLfloat maxX, GLfloat minY, GLfloat maxY);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a9ad075fd24c2bd5a2b33837e2a882c5c">   39</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a9ad075fd24c2bd5a2b33837e2a882c5c">recomputeOrientation</a>() final {};</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_h_u_d_camera.html#af7edb3eb643b0617cd079ecd6a136be8">   44</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_h_u_d_camera.html#af7edb3eb643b0617cd079ecd6a136be8">moveForward</a>(<span class="keyword">const</span> GLfloat unused) <span class="keyword">final</span> {};</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a47b53af60855225e48a5f1b2ed8718cd">   49</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a47b53af60855225e48a5f1b2ed8718cd">moveBackward</a>(<span class="keyword">const</span> GLfloat unused) <span class="keyword">final</span> {};</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    };</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>[[maybe_unused]]</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a7662707082443bd20eb3b868223501df">   56</a></span><span class="keyword">inline</span> CSCI441::HUDCamera::HUDCamera(</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    GLfloat minX,</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    GLfloat maxX,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    GLfloat minY,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    GLfloat maxY</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_camera.html#a64b74b2c979a3a05afa42434c0000d42">mProjectionMatrix</a> = glm::ortho( minX, maxX, minY, maxY );</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#endif</span><span class="comment">//CSCI441_HUD_CAMERA_HPP</span></div>
 <div class="ttc" id="a_camera_8hpp_html"><div class="ttname"><a href="_camera_8hpp.html">Camera.hpp</a></div><div class="ttdoc">Abstract Camera class to be placed (position and orientation) within our scene.</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></div><div class="ttdoc">Abstract Class to represent a synthetic camera. The following methods must be overridden:</div><div class="ttdef"><b>Definition:</b> Camera.hpp:32</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_camera_html_a64b74b2c979a3a05afa42434c0000d42"><div class="ttname"><a href="class_c_s_c_i441_1_1_camera.html#a64b74b2c979a3a05afa42434c0000d42">CSCI441::Camera::mProjectionMatrix</a></div><div class="ttdeci">glm::mat4 mProjectionMatrix</div><div class="ttdoc">stores the Projection Matrix</div><div class="ttdef"><b>Definition:</b> Camera.hpp:159</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_h_u_d_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_h_u_d_camera.html">CSCI441::HUDCamera</a></div><div class="ttdoc">creates a 2D Orthographic projection camera used for Heads Up Display overlays</div><div class="ttdef"><b>Definition:</b> HUDCamera.hpp:23</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_h_u_d_camera_html_a47b53af60855225e48a5f1b2ed8718cd"><div class="ttname"><a href="class_c_s_c_i441_1_1_h_u_d_camera.html#a47b53af60855225e48a5f1b2ed8718cd">CSCI441::HUDCamera::moveBackward</a></div><div class="ttdeci">void moveBackward(const GLfloat unused) final</div><div class="ttdoc">does nothing</div><div class="ttdef"><b>Definition:</b> HUDCamera.hpp:47</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_h_u_d_camera_html_a7662707082443bd20eb3b868223501df"><div class="ttname"><a href="class_c_s_c_i441_1_1_h_u_d_camera.html#a7662707082443bd20eb3b868223501df">CSCI441::HUDCamera::HUDCamera</a></div><div class="ttdeci">HUDCamera(GLfloat minX, GLfloat maxX, GLfloat minY, GLfloat maxY)</div><div class="ttdoc">initializes the HUDCamera</div><div class="ttdef"><b>Definition:</b> HUDCamera.hpp:53</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_h_u_d_camera_html_a9ad075fd24c2bd5a2b33837e2a882c5c"><div class="ttname"><a href="class_c_s_c_i441_1_1_h_u_d_camera.html#a9ad075fd24c2bd5a2b33837e2a882c5c">CSCI441::HUDCamera::recomputeOrientation</a></div><div class="ttdeci">void recomputeOrientation() final</div><div class="ttdoc">does nothing</div><div class="ttdef"><b>Definition:</b> HUDCamera.hpp:37</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_h_u_d_camera_html_af7edb3eb643b0617cd079ecd6a136be8"><div class="ttname"><a href="class_c_s_c_i441_1_1_h_u_d_camera.html#af7edb3eb643b0617cd079ecd6a136be8">CSCI441::HUDCamera::moveForward</a></div><div class="ttdeci">void moveForward(const GLfloat unused) final</div><div class="ttdoc">does nothing</div><div class="ttdef"><b>Definition:</b> HUDCamera.hpp:42</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_h_u_d_camera_html_a47b53af60855225e48a5f1b2ed8718cd"><div class="ttname"><a href="class_c_s_c_i441_1_1_h_u_d_camera.html#a47b53af60855225e48a5f1b2ed8718cd">CSCI441::HUDCamera::moveBackward</a></div><div class="ttdeci">void moveBackward(const GLfloat unused) final</div><div class="ttdoc">does nothing</div><div class="ttdef"><b>Definition:</b> HUDCamera.hpp:49</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_h_u_d_camera_html_a9ad075fd24c2bd5a2b33837e2a882c5c"><div class="ttname"><a href="class_c_s_c_i441_1_1_h_u_d_camera.html#a9ad075fd24c2bd5a2b33837e2a882c5c">CSCI441::HUDCamera::recomputeOrientation</a></div><div class="ttdeci">void recomputeOrientation() final</div><div class="ttdoc">does nothing</div><div class="ttdef"><b>Definition:</b> HUDCamera.hpp:39</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_h_u_d_camera_html_af7edb3eb643b0617cd079ecd6a136be8"><div class="ttname"><a href="class_c_s_c_i441_1_1_h_u_d_camera.html#af7edb3eb643b0617cd079ecd6a136be8">CSCI441::HUDCamera::moveForward</a></div><div class="ttdeci">void moveForward(const GLfloat unused) final</div><div class="ttdoc">does nothing</div><div class="ttdef"><b>Definition:</b> HUDCamera.hpp:44</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

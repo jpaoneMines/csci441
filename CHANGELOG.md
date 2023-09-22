@@ -1,5 +1,9 @@
 # Revision History
 
+## v 4.12.1 - 21 Sep 2023
+- Fixed bug with MD5Model loader not reading shader strings correctly
+- Removed warnings
+
 ## v 4.12.0 - 21 Sep 2023
 - Computed teapot normals based on partial derivatives
 
