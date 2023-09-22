@@ -112,7 +112,7 @@ namespace CSCI441 {
     [[maybe_unused]] void drawWireCube( GLfloat sideLength );
 
     /**
-     * @brief Draws a cube with 3D Texture Coordinates to map a cubemap texture to it
+     * @brief Draws a cube with 3D Texture Coordinates to map a cube map texture to it
      * @param sideLength length of the edge of the cube
      * @pre sideLength must be greater than zero
      * @note The origin is at the cube's center of mass.  Cube is oriented with our XYZ axes
@@ -294,10 +294,10 @@ namespace CSCI441_INTERNAL {
     void drawCube( GLfloat sideLength, GLenum renderMode );
     void drawCubeIndexed( GLfloat sideLength, GLenum renderMode );
     void drawCubeFlat( GLfloat sideLength, GLenum renderMode );
-    void drawCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices, GLenum renderMode );
-    void drawPartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep, GLenum renderMode );
-    void drawSphere( GLfloat radius, GLint stacks, GLint slices, GLenum renderMode );
-    void drawTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings, GLenum renderMode );
+    void drawCylinder( GLfloat base, GLfloat top, GLfloat height, GLuint stacks, GLuint slices, GLenum renderMode );
+    void drawPartialDisk(GLfloat innerRadius, GLfloat outerRadius, GLuint slices, GLuint rings, GLfloat startAngle, GLfloat sweepAngle, GLenum renderMode );
+    void drawSphere( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode );
+    void drawTorus( GLfloat innerRadius, GLfloat outerRadius, GLuint sides, GLuint rings, GLenum renderMode );
     void drawTeapot( GLenum renderMode );
 
     inline GLint _positionAttributeLocation = -1;
@@ -320,9 +320,11 @@ namespace CSCI441_INTERNAL {
         // height
         GLfloat height;
         // number of stacks
-        GLint stacks;
+        GLuint stacks;
         // number of slices
-        GLint slices;
+        GLuint slices;
+        // compute number of vertices
+        [[nodiscard]] GLulong numVertices() const { return stacks * (slices + 1) * 2; }
         bool operator<( const CylinderData rhs ) const {
             if( radiusBase < rhs.radiusBase ) {
                 return true;
@@ -352,7 +354,8 @@ namespace CSCI441_INTERNAL {
 
     struct DiskData {
         GLfloat innerRadius, outerRadius, startAngle, sweepAngle;
-        GLint slices, radialSteps;
+        GLuint slices, rings;
+        [[nodiscard]] GLulong numVertices() const { return rings * (slices + 1) * 2; }
         bool operator<( const DiskData rhs ) const {
             if( innerRadius < rhs.innerRadius ) {
                 return true;
@@ -369,7 +372,7 @@ namespace CSCI441_INTERNAL {
                             if( slices < rhs.slices ) {
                                 return true;
                             } else if( slices == rhs.slices ) {
-                                if(radialSteps < rhs.radialSteps ) {
+                                if(rings < rhs.rings ) {
                                     return true;
                                 }
                             }
@@ -386,7 +389,8 @@ namespace CSCI441_INTERNAL {
 
     struct SphereData {
         GLfloat radius;
-        GLint stacks, slices;
+        GLuint stacks, slices;
+        [[nodiscard]] GLulong numVertices() const { return ((slices + 2) * 2) + (((stacks - 2) * (slices+1)) * 2); }
         bool operator<( const SphereData rhs ) const {
             if( radius < rhs.radius ) {
                 return true;
@@ -401,9 +405,6 @@ namespace CSCI441_INTERNAL {
             }
             return false;
         }
-//		bool operator==(const SphereData rhs) const {
-//			return fabs(radius - rhs.radius) <= 0.000001 && stacks == rhs.stacks && slices == rhs.slices;
-//		}
     };
     void generateSphereVAO( SphereData sphereData );
     inline std::map< SphereData, GLuint > _sphereVAO;
@@ -411,7 +412,8 @@ namespace CSCI441_INTERNAL {
 
     struct TorusData {
         GLfloat innerRadius, outerRadius;
-        GLint sides, rings;
+        GLuint sides, rings;
+        [[nodiscard]] GLulong numVertices() const { return sides * 4 * rings; }
         bool operator<( const TorusData rhs ) const {
             if( innerRadius < rhs.innerRadius ) {
                 return true;
@@ -684,6 +686,8 @@ inline void CSCI441_INTERNAL::drawCubeFlat( GLfloat sideLength, GLenum renderMod
         CSCI441_INTERNAL::generateCubeVAOFlat( sideLength );
     }
 
+    const GLulong NUM_VERTICES = 36;
+
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
 
@@ -696,11 +700,11 @@ inline void CSCI441_INTERNAL::drawCubeFlat( GLfloat sideLength, GLenum renderMod
     }
     if(CSCI441_INTERNAL::_normalAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*36 *3) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES) );
     }
     if(CSCI441_INTERNAL::_texCoordAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*36 *6) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES * 2) );
     }
 
     glDrawArrays( GL_TRIANGLES, 0, 36 );
@@ -714,6 +718,8 @@ inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum render
         CSCI441_INTERNAL::generateCubeVAOIndexed( sideLength );
     }
 
+    const GLulong NUM_VERTICES = 8;
+
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
 
@@ -726,11 +732,11 @@ inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum render
     }
     if(CSCI441_INTERNAL::_normalAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*8 *3) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES) );
     }
     if(CSCI441_INTERNAL::_texCoordAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*8 *6) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES * 2) );
     }
 
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*)nullptr);
@@ -739,13 +745,13 @@ inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum render
     glPolygonMode( GL_BACK, currentPolygonMode[1] );
 }
 
-inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices, GLenum renderMode ) {
+inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat height, GLuint stacks, GLuint slices, GLenum renderMode ) {
     CylinderData cylData = { base, top, height, stacks, slices };
     if( CSCI441_INTERNAL::_cylinderVAO.count( cylData ) == 0 ) {
         CSCI441_INTERNAL::generateCylinderVAO( cylData );
     }
 
-    unsigned long int numVertices = cylData.stacks * (cylData.slices + 1) * 2;
+    const GLulong NUM_VERTICES = cylData.numVertices();
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -759,26 +765,28 @@ inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat h
     }
     if(CSCI441_INTERNAL::_normalAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*numVertices *3) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES) );
     }
     if(CSCI441_INTERNAL::_texCoordAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*numVertices *6) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES * 2) );
     }
 
-    for( int stackNum = 0; stackNum < stacks; stackNum++ ) {
-        glDrawArrays( GL_TRIANGLE_STRIP, (slices+1)*2*stackNum, (slices+1)*2 );
+    for(GLuint stackNum = 0; stackNum < stacks; stackNum++) {
+        glDrawArrays( GL_TRIANGLE_STRIP, static_cast<GLint>((slices+1)*2*stackNum), static_cast<GLint>((slices+1)*2) );
     }
 
     glPolygonMode( GL_FRONT, currentPolygonMode[0] );
     glPolygonMode( GL_BACK, currentPolygonMode[1] );
 }
 
-inline void CSCI441_INTERNAL::drawPartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep, GLenum renderMode ) {
-    DiskData diskData = { inner, outer, start, sweep, slices, rings };
+inline void CSCI441_INTERNAL::drawPartialDisk(GLfloat innerRadius, GLfloat outerRadius, GLuint slices, GLuint rings, GLfloat startAngle, GLfloat sweepAngle, GLenum renderMode ) {
+    DiskData diskData = {innerRadius, outerRadius, startAngle, sweepAngle, slices, rings };
     if( CSCI441_INTERNAL::_diskVAO.count( diskData ) == 0 ) {
         CSCI441_INTERNAL::generateDiskVAO( diskData );
     }
+
+    const GLulong NUM_VERTICES = diskData.numVertices();
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -792,26 +800,28 @@ inline void CSCI441_INTERNAL::drawPartialDisk( GLfloat inner, GLfloat outer, GLi
     }
     if(CSCI441_INTERNAL::_normalAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*rings*(slices+1)*2 *3) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES) );
     }
     if(CSCI441_INTERNAL::_texCoordAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*rings*(slices+1)*2 *6) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES * 2) );
     }
 
-    for( int ringNum = 0; ringNum < rings; ringNum++ ) {
-        glDrawArrays( GL_TRIANGLE_STRIP, (slices+1)*2*ringNum, (slices+1)*2 );
+    for(GLuint ringNum = 0; ringNum < rings; ringNum++) {
+        glDrawArrays( GL_TRIANGLE_STRIP, static_cast<GLint>((slices+1)*2*ringNum), static_cast<GLint>((slices+1)*2) );
     }
 
     glPolygonMode( GL_FRONT, currentPolygonMode[0] );
     glPolygonMode( GL_BACK, currentPolygonMode[1] );
 }
 
-inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLint stacks, GLint slices, GLenum renderMode ) {
+inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode ) {
     SphereData sphereData = { radius, stacks, slices };
     if( CSCI441_INTERNAL::_sphereVAO.count( sphereData ) == 0 ) {
         CSCI441_INTERNAL::generateSphereVAO( sphereData );
     }
+
+    const GLulong NUM_VERTICES = sphereData.numVertices();
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -825,30 +835,32 @@ inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLint stacks, GLint sl
     }
     if(CSCI441_INTERNAL::_normalAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*((slices + 2)*2 + ((stacks - 2)*(slices+1))*2) *3) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES) );
     }
     if(CSCI441_INTERNAL::_texCoordAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*((slices + 2)*2 + ((stacks - 2)*(slices+1))*2) *6) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES * 2) );
     }
 
-    glDrawArrays( GL_TRIANGLE_FAN, 0, slices+2 );
+    glDrawArrays( GL_TRIANGLE_FAN, 0, static_cast<GLint>(slices+2) );
 
-    for( int stackNum = 1; stackNum < stacks-1; stackNum++ ) {
-        glDrawArrays( GL_TRIANGLE_STRIP, (slices+2) + (stackNum-1)*((slices+1)*2), (slices+1)*2 );
+    for(GLuint stackNum = 1; stackNum < stacks-1; stackNum++) {
+        glDrawArrays( GL_TRIANGLE_STRIP, static_cast<GLint>((slices+2) + (stackNum-1)*((slices+1)*2)), static_cast<GLint>((slices+1)*2) );
     }
 
-    glDrawArrays( GL_TRIANGLE_FAN, (slices+2) + (stacks-2)*(slices+1)*2, slices+2 );
+    glDrawArrays( GL_TRIANGLE_FAN, static_cast<GLint>((slices+2) + (stacks-2)*(slices+1)*2), static_cast<GLint>(slices+2) );
 
     glPolygonMode( GL_FRONT, currentPolygonMode[0] );
     glPolygonMode( GL_BACK, currentPolygonMode[1] );
 }
 
-inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings, GLenum renderMode ) {
+inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadius, GLuint sides, GLuint rings, GLenum renderMode ) {
     TorusData torusData = { innerRadius, outerRadius, sides, rings };
     if( CSCI441_INTERNAL::_torusVAO.count( torusData ) == 0 ) {
         CSCI441_INTERNAL::generateTorusVAO( torusData );
     }
+
+    const GLulong NUM_VERTICES = torusData.numVertices();
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -862,15 +874,15 @@ inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadiu
     }
     if(CSCI441_INTERNAL::_normalAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*(sides*4*rings) *3) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES) );
     }
     if(CSCI441_INTERNAL::_texCoordAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*(sides*4*rings) *6) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES * 2) );
     }
 
-    for( int ringNum = 0; ringNum < rings; ringNum++ ) {
-        glDrawArrays( GL_TRIANGLE_STRIP, ringNum*sides*4, sides*4 );
+    for(GLuint ringNum = 0; ringNum < rings; ringNum++) {
+        glDrawArrays( GL_TRIANGLE_STRIP, static_cast<GLint>(ringNum*sides*4), static_cast<GLint>(sides*4) );
     }
 
     glPolygonMode( GL_FRONT, currentPolygonMode[0] );
@@ -896,49 +908,31 @@ inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLfloat sideLength ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    GLfloat cornerPoint = sideLength / 2.0f;
+    const GLfloat CORNER_POINT = sideLength / 2.0f;
 
-    GLfloat vertices[36][3] = {
+    const GLulong NUM_VERTICES = 36;
+
+    glm::vec3 vertices[NUM_VERTICES] = {
             // Left Face
-            {-cornerPoint, -cornerPoint, -cornerPoint}, {-cornerPoint, -cornerPoint,  cornerPoint}, {-cornerPoint,  cornerPoint, -cornerPoint},
-            {-cornerPoint,  cornerPoint, -cornerPoint}, {-cornerPoint, -cornerPoint,  cornerPoint}, {-cornerPoint,  cornerPoint,  cornerPoint},
+            {-CORNER_POINT, -CORNER_POINT, -CORNER_POINT}, {-CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {-CORNER_POINT, CORNER_POINT, -CORNER_POINT},
+            {-CORNER_POINT, CORNER_POINT,  -CORNER_POINT}, {-CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {-CORNER_POINT, CORNER_POINT, CORNER_POINT},
             // Right Face
-            { cornerPoint,  cornerPoint,  cornerPoint}, { cornerPoint, -cornerPoint,  cornerPoint}, { cornerPoint,  cornerPoint, -cornerPoint},
-            { cornerPoint,  cornerPoint, -cornerPoint}, { cornerPoint, -cornerPoint,  cornerPoint}, { cornerPoint, -cornerPoint, -cornerPoint},
+            {CORNER_POINT,  CORNER_POINT,  CORNER_POINT}, {CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {CORNER_POINT, CORNER_POINT, -CORNER_POINT},
+            {CORNER_POINT,  CORNER_POINT,  -CORNER_POINT}, {CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {CORNER_POINT, -CORNER_POINT, -CORNER_POINT},
             // Top Face
-            {-cornerPoint,  cornerPoint, -cornerPoint}, {-cornerPoint,  cornerPoint,  cornerPoint}, { cornerPoint,  cornerPoint, -cornerPoint},
-            { cornerPoint,  cornerPoint, -cornerPoint}, {-cornerPoint,  cornerPoint,  cornerPoint}, { cornerPoint,  cornerPoint,  cornerPoint},
+            {-CORNER_POINT, CORNER_POINT,  -CORNER_POINT}, {-CORNER_POINT, CORNER_POINT, CORNER_POINT}, {CORNER_POINT, CORNER_POINT, -CORNER_POINT},
+            {CORNER_POINT,  CORNER_POINT,  -CORNER_POINT}, {-CORNER_POINT, CORNER_POINT, CORNER_POINT}, {CORNER_POINT, CORNER_POINT, CORNER_POINT},
             // Bottom Face
-            { cornerPoint, -cornerPoint,  cornerPoint}, {-cornerPoint, -cornerPoint,  cornerPoint}, { cornerPoint, -cornerPoint, -cornerPoint},
-            { cornerPoint, -cornerPoint, -cornerPoint}, {-cornerPoint, -cornerPoint,  cornerPoint}, {-cornerPoint, -cornerPoint, -cornerPoint},
+            {CORNER_POINT,  -CORNER_POINT, CORNER_POINT}, {-CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {CORNER_POINT, -CORNER_POINT, -CORNER_POINT},
+            {CORNER_POINT,  -CORNER_POINT, -CORNER_POINT}, {-CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {-CORNER_POINT, -CORNER_POINT, -CORNER_POINT},
             // Back Face
-            { cornerPoint,  cornerPoint, -cornerPoint}, { cornerPoint, -cornerPoint, -cornerPoint}, {-cornerPoint,  cornerPoint, -cornerPoint},
-            {-cornerPoint,  cornerPoint, -cornerPoint}, { cornerPoint, -cornerPoint, -cornerPoint}, {-cornerPoint, -cornerPoint, -cornerPoint},
+            {CORNER_POINT,  CORNER_POINT,  -CORNER_POINT}, {CORNER_POINT, -CORNER_POINT, -CORNER_POINT}, {-CORNER_POINT, CORNER_POINT, -CORNER_POINT},
+            {-CORNER_POINT, CORNER_POINT,  -CORNER_POINT}, {CORNER_POINT, -CORNER_POINT, -CORNER_POINT}, {-CORNER_POINT, -CORNER_POINT, -CORNER_POINT},
             // Front Face
-            {-cornerPoint, -cornerPoint,  cornerPoint}, { cornerPoint, -cornerPoint,  cornerPoint}, {-cornerPoint,  cornerPoint,  cornerPoint},
-            {-cornerPoint,  cornerPoint,  cornerPoint}, { cornerPoint, -cornerPoint,  cornerPoint}, { cornerPoint,  cornerPoint,  cornerPoint}
+            {-CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {-CORNER_POINT, CORNER_POINT, CORNER_POINT},
+            {-CORNER_POINT, CORNER_POINT,  CORNER_POINT}, {CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {CORNER_POINT, CORNER_POINT, CORNER_POINT}
     };
-    GLfloat texCoords[36][2] = {
-            // Left Face
-            {0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 1.0f},
-            {0.0f, 1.0f}, {1.0f, 0.0f}, {1.0f, 1.0f},
-            // Right Face
-            {0.0f, 1.0f}, {0.0f, 0.0f}, {1.0f, 1.0f},
-            {1.0f, 1.0f}, {0.0f, 0.0f}, {1.0f, 0.0f},
-            // Top Face
-            {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 0.0f},
-            {0.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f},
-            // Bottom Face
-            {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 0.0f},
-            {0.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f},
-            // Back Face
-            {0.0f, 1.0f}, {0.0f, 0.0f}, {1.0f, 1.0f},
-            {1.0f, 1.0f}, {0.0f, 0.0f}, {1.0f, 0.0f},
-            // Front Face
-            {0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 1.0f},
-            {0.0f, 1.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}
-    };
-    GLfloat normals[36][3] = {
+    glm::vec3 normals[NUM_VERTICES] = {
             // Left Face
             {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f},
             {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f},
@@ -958,11 +952,31 @@ inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLfloat sideLength ) {
             {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f},
             {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}
     };
+    glm::vec2 texCoords[NUM_VERTICES] = {
+            // Left Face
+            {0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 1.0f},
+            {0.0f, 1.0f}, {1.0f, 0.0f}, {1.0f, 1.0f},
+            // Right Face
+            {0.0f, 1.0f}, {0.0f, 0.0f}, {1.0f, 1.0f},
+            {1.0f, 1.0f}, {0.0f, 0.0f}, {1.0f, 0.0f},
+            // Top Face
+            {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 0.0f},
+            {0.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f},
+            // Bottom Face
+            {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 0.0f},
+            {0.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f},
+            // Back Face
+            {0.0f, 1.0f}, {0.0f, 0.0f}, {1.0f, 1.0f},
+            {1.0f, 1.0f}, {0.0f, 0.0f}, {1.0f, 0.0f},
+            // Front Face
+            {0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 1.0f},
+            {0.0f, 1.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}
+    };
 
-    glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * 36 * 8, nullptr, GL_STATIC_DRAW );
-    glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(GLfloat) * 36 * 3, vertices );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * 36 * 3, sizeof(GLfloat) * 36 * 3, normals );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * 36 * 6, sizeof(GLfloat) * 36 * 2, texCoords );
+    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * NUM_VERTICES, vertices );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES, sizeof(glm::vec3) * NUM_VERTICES, normals );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2, sizeof(glm::vec2) * NUM_VERTICES, texCoords );
 
     CSCI441_INTERNAL::_cubeVAO.insert( std::pair<GLfloat, GLuint>( sideLength, vaod ) );
     CSCI441_INTERNAL::_cubeVBO.insert( std::pair<GLfloat, GLuint>( sideLength, vbod ) );
@@ -971,7 +985,9 @@ inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLfloat sideLength ) {
 inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
     const GLfloat CORNER_POINT = sideLength / 2.0f;
 
-    GLfloat vertices[8][3] = {
+    const GLulong NUM_VERTICES = 8;
+
+    glm::vec3 vertices[NUM_VERTICES] = {
             { -CORNER_POINT, -CORNER_POINT, -CORNER_POINT }, // 0 - bln
             {  CORNER_POINT, -CORNER_POINT, -CORNER_POINT }, // 1 - brn
             {  CORNER_POINT,  CORNER_POINT, -CORNER_POINT }, // 2 - trn
@@ -981,7 +997,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
             {  CORNER_POINT,  CORNER_POINT,  CORNER_POINT }, // 6 - trf
             { -CORNER_POINT,  CORNER_POINT,  CORNER_POINT }  // 7 - tlf
     };
-    GLfloat normals[8][3] = {
+    glm::vec3 normals[NUM_VERTICES] = {
             {-1.0f, -1.0f, -1.0f}, // 0 bln
             { 1.0f, -1.0f, -1.0f}, // 1 brn
             { 1.0f,  1.0f, -1.0f}, // 2 trn
@@ -991,7 +1007,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
             { 1.0f,  1.0f,  1.0f}, // 6 trf
             {-1.0f,  1.0f,  1.0f}  // 7 tlf
     };
-    GLfloat texCoords[8][3] = {
+    glm::vec3 texCoords[NUM_VERTICES] = {
             {-1.0f, -1.0f, -1.0f}, // 0 bln
             { 1.0f, -1.0f, -1.0f}, // 1.0f brn
             { 1.0f,  1.0f, -1.0f}, // 2 trn
@@ -1001,7 +1017,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
             { 1.0f,  1.0f,  1.0f}, // 6 trf
             {-1.0f,  1.0f,  1.0f}  // 7 tlf
     };
-    unsigned short indices[36] = {
+    GLushort indices[36] = {
             0, 1, 2,   0, 2, 3, // near
             1, 5, 2,   5, 6, 2, // right
             2, 6, 7,   3, 2, 7, // top
@@ -1018,10 +1034,10 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
     glGenBuffers( 2, vbods );
 
     glBindBuffer( GL_ARRAY_BUFFER, vbods[0] );
-    glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * 8 * 9, nullptr, GL_STATIC_DRAW );
-    glBufferSubData( GL_ARRAY_BUFFER, 0,                       sizeof(GLfloat) * 8 * 3, vertices  );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * 8 * 3, sizeof(GLfloat) * 8 * 3, normals   );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * 8 * 6, sizeof(GLfloat) * 8 * 3, texCoords );
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * NUM_VERTICES, vertices  );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES, sizeof(glm::vec3) * NUM_VERTICES, normals   );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2, sizeof(glm::vec3) * NUM_VERTICES, texCoords );
 
     glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, vbods[1] );
     glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW) ;
@@ -1039,54 +1055,54 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    unsigned long int numVertices = cylData.stacks * (cylData.slices + 1) * 2;
+    const GLulong NUM_VERTICES = cylData.numVertices();
 
     GLfloat sliceStep = glm::two_pi<float>() / (GLfloat)cylData.slices;
     GLfloat stackStep = cylData.height / (GLfloat)cylData.stacks;
 
-    auto vertices = new GLfloat[numVertices*3];
-    auto texCoords = new GLfloat[numVertices*2];
-    auto normals = new GLfloat[numVertices*3];
+    auto vertices  = new glm::vec3[NUM_VERTICES];
+    auto normals   = new glm::vec3[NUM_VERTICES];
+    auto texCoords = new glm::vec2[NUM_VERTICES];
 
-    unsigned long int idx = 0;
+    GLulong idx = 0;
 
-    for(int stackNum = 0; stackNum < cylData.stacks; stackNum++ ) {
+    for(GLuint stackNum = 0; stackNum < cylData.stacks; stackNum++ ) {
         GLfloat botRadius = cylData.radiusBase * (GLfloat)(cylData.stacks - stackNum) / (GLfloat)cylData.stacks + cylData.top * (GLfloat)stackNum / (GLfloat)cylData.stacks;
         GLfloat topRadius = cylData.radiusBase * (GLfloat)(cylData.stacks - stackNum - 1) / (GLfloat)cylData.stacks + cylData.top * (GLfloat)(stackNum + 1) / (GLfloat)cylData.stacks;
 
-        for(int sliceNum = 0; sliceNum <= cylData.slices; sliceNum++ ) {
-            normals[ idx*3 + 0 ] = glm::cos( sliceNum * sliceStep );
-            normals[ idx*3 + 1 ] = 0.0f;
-            normals[ idx*3 + 2 ] = glm::sin( sliceNum * sliceStep );
+        for(GLuint sliceNum = 0; sliceNum <= cylData.slices; sliceNum++ ) {
+            vertices[ idx ].x = glm::cos( sliceNum * sliceStep )*botRadius;
+            vertices[ idx ].y = (GLfloat)stackNum * stackStep;
+            vertices[ idx ].z = glm::sin( sliceNum * sliceStep )*botRadius;
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / (GLfloat)cylData.slices;
-            texCoords[ idx*2 + 1 ] = (GLfloat)stackNum / (GLfloat)cylData.stacks;
+            normals[ idx ].x = glm::cos( sliceNum * sliceStep );
+            normals[ idx ].y = 0.0f;
+            normals[ idx ].z = glm::sin( sliceNum * sliceStep );
 
-            vertices[ idx*3 + 0 ] = glm::cos( sliceNum * sliceStep )*botRadius;
-            vertices[ idx*3 + 1 ] = (GLfloat)stackNum * stackStep;
-            vertices[ idx*3 + 2 ] = glm::sin( sliceNum * sliceStep )*botRadius;
+            texCoords[ idx ].s = (GLfloat)sliceNum / (GLfloat)cylData.slices;
+            texCoords[ idx ].t = (GLfloat)stackNum / (GLfloat)cylData.stacks;
 
             idx++;
 
-            normals[ idx*3 + 0 ] = glm::cos( sliceNum * sliceStep );
-            normals[ idx*3 + 1 ] = 0.0f;
-            normals[ idx*3 + 2 ] = glm::sin( sliceNum * sliceStep );
+            vertices[ idx ].x = glm::cos( sliceNum * sliceStep )*topRadius;
+            vertices[ idx ].y = (GLfloat)(stackNum+1) * stackStep;
+            vertices[ idx ].z = glm::sin( sliceNum * sliceStep )*topRadius;
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / (GLfloat)cylData.slices;
-            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum+1) / (GLfloat)cylData.stacks;
+            normals[ idx ].x = glm::cos( sliceNum * sliceStep );
+            normals[ idx ].y = 0.0f;
+            normals[ idx ].z = glm::sin( sliceNum * sliceStep );
 
-            vertices[ idx*3 + 0 ] = glm::cos( sliceNum * sliceStep )*topRadius;
-            vertices[ idx*3 + 1 ] = (GLfloat)(stackNum+1) * stackStep;
-            vertices[ idx*3 + 2 ] = glm::sin( sliceNum * sliceStep )*topRadius;
+            texCoords[ idx ].s = (GLfloat)sliceNum / (GLfloat)cylData.slices;
+            texCoords[ idx ].t = (GLfloat)(stackNum+1) / (GLfloat)cylData.stacks;
 
             idx++;
         }
     }
 
-    glBufferData( GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 8), nullptr, GL_STATIC_DRAW );
-    glBufferSubData( GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), vertices );
-    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 3), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), normals );
-    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 6), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 2), texCoords );
+    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
+    glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(glm::vec3) * NUM_VERTICES), vertices );
+    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(glm::vec3) * NUM_VERTICES), static_cast<GLsizeiptr>(sizeof(glm::vec3) * NUM_VERTICES), normals );
+    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(glm::vec3) * NUM_VERTICES * 2), static_cast<GLsizeiptr>(sizeof(glm::vec2) * NUM_VERTICES), texCoords );
 
     CSCI441_INTERNAL::_cylinderVAO.insert( std::pair<CylinderData, GLuint>( cylData, vaod ) );
     CSCI441_INTERNAL::_cylinderVBO.insert( std::pair<CylinderData, GLuint>( cylData, vbod ) );
@@ -1105,56 +1121,56 @@ inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    unsigned long int numVertices = diskData.radialSteps * (diskData.slices + 1) * 2;
+    const GLulong NUM_VERTICES = diskData.numVertices();
 
     GLfloat sliceStep = diskData.sweepAngle / (GLfloat)diskData.slices;
-    GLfloat ringStep = (diskData.outerRadius - diskData.innerRadius) / (GLfloat)diskData.radialSteps;
+    GLfloat ringStep = (diskData.outerRadius - diskData.innerRadius) / (GLfloat)diskData.rings;
 
-    auto vertices = new GLfloat[numVertices*3];
-    auto texCoords = new GLfloat[numVertices*2];
-    auto normals = new GLfloat[numVertices*3];
+    auto vertices  = new glm::vec3[NUM_VERTICES];
+    auto normals   = new glm::vec3[NUM_VERTICES];
+    auto texCoords = new glm::vec2[NUM_VERTICES];
 
-    unsigned long int idx = 0;
+    GLulong idx = 0;
 
-    for(GLint ringNum = 0; ringNum < diskData.radialSteps; ringNum++ ) {
+    for(GLuint ringNum = 0; ringNum < diskData.rings; ringNum++ ) {
         GLfloat currRadius = diskData.innerRadius + (GLfloat)ringNum * ringStep;
         GLfloat nextRadius = diskData.innerRadius + (GLfloat)(ringNum + 1) * ringStep;
 
         GLfloat theta = diskData.startAngle;
-        for(GLint i = 0; i <= diskData.slices; i++ ) {
-            normals[ idx*3 + 0 ] = 0.0f;
-            normals[ idx*3 + 1 ] = 0.0f;
-            normals[ idx*3 + 2 ] = 1.0f;
+        for(GLuint i = 0; i <= diskData.slices; i++ ) {
+            vertices[ idx ].x = glm::cos(theta)*currRadius;
+            vertices[ idx ].y = glm::sin(theta)*currRadius;
+            vertices[ idx ].z = 0.0f;
 
-            texCoords[ idx*2 + 0 ] = glm::cos(theta)*(currRadius/diskData.outerRadius);
-            texCoords[ idx*2 + 1 ] = glm::sin(theta)*(currRadius/diskData.outerRadius);
+            normals[ idx ].x = 0.0f;
+            normals[ idx ].y = 0.0f;
+            normals[ idx ].z = 1.0f;
 
-            vertices[ idx*3 + 0 ] = glm::cos(theta)*currRadius;
-            vertices[ idx*3 + 1 ] = glm::sin(theta)*currRadius;
-            vertices[ idx*3 + 2 ] = 0.0f;
+            texCoords[ idx ].s = glm::cos(theta)*(currRadius/diskData.outerRadius);
+            texCoords[ idx ].t = glm::sin(theta)*(currRadius/diskData.outerRadius);
 
             idx++;
 
-            normals[ idx*3 + 0 ] = 0.0f;
-            normals[ idx*3 + 1 ] = 0.0f;
-            normals[ idx*3 + 2 ] = 1.0f;
+            vertices[ idx ].x = glm::cos(theta)*nextRadius;
+            vertices[ idx ].y = glm::sin(theta)*nextRadius;
+            vertices[ idx ].z = 0.0f;
 
-            texCoords[ idx*2 + 0 ] = glm::cos(theta)*(nextRadius/diskData.outerRadius);
-            texCoords[ idx*2 + 1 ] = glm::sin(theta)*(nextRadius/diskData.outerRadius);
+            normals[ idx ].x = 0.0f;
+            normals[ idx ].y = 0.0f;
+            normals[ idx ].z = 1.0f;
 
-            vertices[ idx*3 + 0 ] = glm::cos(theta)*nextRadius;
-            vertices[ idx*3 + 1 ] = glm::sin(theta)*nextRadius;
-            vertices[ idx*3 + 2 ] = 0.0f;
+            texCoords[ idx ].s = glm::cos(theta)*(nextRadius/diskData.outerRadius);
+            texCoords[ idx ].t = glm::sin(theta)*(nextRadius/diskData.outerRadius);
 
             idx++;
             theta += sliceStep;
         }
     }
 
-    glBufferData( GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 8), nullptr, GL_STATIC_DRAW );
-    glBufferSubData( GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), vertices );
-    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 3), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), normals );
-    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 6), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 2), texCoords );
+    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * NUM_VERTICES, vertices );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES, sizeof(glm::vec3) * NUM_VERTICES, normals );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2, sizeof(glm::vec2) * NUM_VERTICES, texCoords );
 
     CSCI441_INTERNAL::_diskVAO.insert( std::pair<DiskData, GLuint>( diskData, vaod ) );
     CSCI441_INTERNAL::_diskVBO.insert( std::pair<DiskData, GLuint>( diskData, vbod ) );
@@ -1173,125 +1189,162 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    unsigned long int numVertices = (sphereData.slices + 2) * 2 + ((sphereData.stacks - 2) * (sphereData.slices + 1)) * 2;
+    const GLulong NUM_VERTICES = sphereData.numVertices();
 
     GLfloat sliceStep = glm::two_pi<float>() / (GLfloat)sphereData.slices;
     GLfloat stackStep = glm::pi<float>() / (GLfloat)sphereData.stacks;
 
-    auto vertices = new GLfloat[numVertices*3];
-    auto texCoords = new GLfloat[numVertices*2];
-    auto normals = new GLfloat[numVertices*3];
+    auto vertices  = new glm::vec3[NUM_VERTICES];
+    auto normals   = new glm::vec3[NUM_VERTICES];
+    auto texCoords = new glm::vec2[NUM_VERTICES];
 
-    unsigned long int idx = 0;
+    GLulong idx = 0;
 
     // sphere top
     GLfloat phi = stackStep * (GLfloat)sphereData.stacks;
     GLfloat phiNext = stackStep * (GLfloat)(sphereData.stacks - 1);
 
-    normals[ idx*3 + 0 ] = 0.0f;
-    normals[ idx*3 + 1 ] = 1.0f;
-    normals[ idx*3 + 2 ] = 0.0f;
+    vertices[ idx ].x = 0.0f;
+    vertices[ idx ].y = -glm::cos( phi )*sphereData.radius;
+    vertices[ idx ].z = 0.0f;
 
-    texCoords[ idx*2 + 0 ] = 0.5f;
-    texCoords[ idx*2 + 1 ] = 1.0f;
+    normals[ idx ].x = 0.0f;
+    normals[ idx ].y = 1.0f;
+    normals[ idx ].z = 0.0f;
 
-    vertices[ idx*3 + 0 ] = 0.0f;
-    vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.radius;
-    vertices[ idx*3 + 2 ] = 0.0f;
+    texCoords[ idx ].s = 0.5f;
+    texCoords[ idx ].t = 1.0f;
 
     idx++;
 
-    for(int sliceNum = 0; sliceNum <= sphereData.slices; sliceNum++ ) {
+    for(GLuint sliceNum = 0; sliceNum <= sphereData.slices; sliceNum++ ) {
         GLfloat theta = sliceStep * (GLfloat)sliceNum;
 
-        normals[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext );
-        normals[ idx*3 + 1 ] = -glm::cos( phiNext );
-        normals[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext );
+        vertices[ idx ].x = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;
+        vertices[ idx ].y = -glm::cos( phiNext )*sphereData.radius;
+        vertices[ idx ].z =  glm::sin( theta )*glm::sin( phiNext )*sphereData.radius;
 
-        texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / (GLfloat)sphereData.slices;
-        texCoords[ idx*2 + 1 ] = 1.0f;
+        normals[ idx ].x = -glm::cos( theta )*glm::sin( phiNext );
+        normals[ idx ].y = -glm::cos( phiNext );
+        normals[ idx ].z =  glm::sin( theta )*glm::sin( phiNext );
 
-        vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;
-        vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.radius;
-        vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.radius;
+        texCoords[ idx ].s = (GLfloat)sliceNum / (GLfloat)sphereData.slices;
+        texCoords[ idx ].t = 1.0f;
 
         idx++;
     }
 
     // sphere stacks
-    for(int stackNum = 1; stackNum < sphereData.stacks - 1; stackNum++ ) {
+    for(GLuint stackNum = 1; stackNum < sphereData.stacks - 1; stackNum++ ) {
         phi = stackStep * (GLfloat)stackNum;
         phiNext = stackStep * (GLfloat)(stackNum + 1);
 
-        for(int sliceNum = sphereData.slices; sliceNum >= 0; sliceNum-- ) {
+        for(GLuint sliceNum = sphereData.slices; sliceNum > 0; sliceNum-- ) {
             GLfloat theta = sliceStep * (GLfloat)sliceNum;
 
-            normals[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phi );
-            normals[ idx*3 + 1 ] = -glm::cos( phi );
-            normals[ idx*3 + 2 ] =  glm::sin( theta )*glm::sin( phi );
+            vertices[ idx ].x = -glm::cos( theta )*glm::sin( phi )*sphereData.radius;
+            vertices[ idx ].y = -glm::cos( phi )*sphereData.radius;
+            vertices[ idx ].z =  glm::sin( theta )*glm::sin( phi )*sphereData.radius;
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / (GLfloat)sphereData.slices;
-            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum-1) / (GLfloat)(sphereData.stacks - 2);
+            normals[ idx ].x = -glm::cos( theta )*glm::sin( phi );
+            normals[ idx ].y = -glm::cos( phi );
+            normals[ idx ].z =  glm::sin( theta )*glm::sin( phi );
 
-            vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phi )*sphereData.radius;
-            vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.radius;
-            vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phi )*sphereData.radius;
+            texCoords[ idx ].s = (GLfloat)sliceNum / (GLfloat)sphereData.slices;
+            texCoords[ idx ].t = (GLfloat)(stackNum-1) / (GLfloat)(sphereData.stacks - 2);
 
             idx++;
 
-            normals[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext );
-            normals[ idx*3 + 1 ] = -glm::cos( phiNext );
-            normals[ idx*3 + 2 ] =  glm::sin( theta )*glm::sin( phiNext );
+            vertices[ idx ].x = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;
+            vertices[ idx ].y = -glm::cos( phiNext )*sphereData.radius;
+            vertices[ idx ].z =  glm::sin( theta )*glm::sin( phiNext )*sphereData.radius;
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / (GLfloat)sphereData.slices;
-            texCoords[ idx*2 + 1 ] = (GLfloat)(stackNum) / (GLfloat)(sphereData.stacks - 2);
+            normals[ idx ].x = -glm::cos( theta )*glm::sin( phiNext );
+            normals[ idx ].y = -glm::cos( phiNext );
+            normals[ idx ].z =  glm::sin( theta )*glm::sin( phiNext );
 
-            vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;
-            vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.radius;
-            vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.radius;
+            texCoords[ idx ].s = (GLfloat)sliceNum / (GLfloat)sphereData.slices;
+            texCoords[ idx ].t = (GLfloat)(stackNum) / (GLfloat)(sphereData.stacks - 2);
 
             idx++;
         }
+
+        vertices[ idx ].x = -glm::sin( phi )*sphereData.radius;
+        vertices[ idx ].y = -glm::cos( phi )*sphereData.radius;
+        vertices[ idx ].z =  0.0f;
+
+        normals[ idx ].x = -glm::sin( phi );
+        normals[ idx ].y = -glm::cos( phi );
+        normals[ idx ].z =  0.0f;
+
+        texCoords[ idx ].s = 0.0f;
+        texCoords[ idx ].t = (GLfloat)(stackNum-1) / (GLfloat)(sphereData.stacks - 2);
+
+        idx++;
+
+        vertices[ idx ].x = -glm::sin( phiNext )*sphereData.radius;
+        vertices[ idx ].y = -glm::cos( phiNext )*sphereData.radius;
+        vertices[ idx ].z =  0.0f;
+
+        normals[ idx ].x = -glm::sin( phiNext );
+        normals[ idx ].y = -glm::cos( phiNext );
+        normals[ idx ].z =  0.0f;
+
+        texCoords[ idx ].s = 0.0f;
+        texCoords[ idx ].t = (GLfloat)(stackNum) / (GLfloat)(sphereData.stacks - 2);
+
+        idx++;
     }
 
     // sphere bottom
     phi = 0;
     phiNext = stackStep;
 
-    normals[ idx*3 + 0 ] =  0.0f;
-    normals[ idx*3 + 1 ] = -1.0f;
-    normals[ idx*3 + 2 ] =  0.0f;
+    vertices[ idx ].x = 0.0f;
+    vertices[ idx ].y = -glm::cos( phi )*sphereData.radius;
+    vertices[ idx ].z = 0.0f;
 
-    texCoords[ idx*2 + 0 ] = 0.5f;
-    texCoords[ idx*2 + 1 ] = 0.0f;
+    normals[ idx ].x =  0.0f;
+    normals[ idx ].y = -1.0f;
+    normals[ idx ].z =  0.0f;
 
-    vertices[ idx*3 + 0 ] = 0.0f;
-    vertices[ idx*3 + 1 ] = -glm::cos( phi )*sphereData.radius;
-    vertices[ idx*3 + 2 ] = 0.0f;
+    texCoords[ idx ].s = 0.5f;
+    texCoords[ idx ].t = 0.0f;
 
     idx++;
 
-    for(int sliceNum = sphereData.slices; sliceNum >= 0; sliceNum-- ) {
+    for(GLuint sliceNum = sphereData.slices; sliceNum > 0; sliceNum--) {
         GLfloat theta = sliceStep * (GLfloat)sliceNum;
 
-        normals[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext );
-        normals[ idx*3 + 1 ] = -glm::cos( phiNext );
-        normals[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext );
+        vertices[ idx ].x = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;
+        vertices[ idx ].y = -glm::cos( phiNext )*sphereData.radius;
+        vertices[ idx ].z = glm::sin( theta )*glm::sin( phiNext )*sphereData.radius;
 
-        texCoords[ idx*2 + 0 ] = (GLfloat)sliceNum / (GLfloat)sphereData.slices;
-        texCoords[ idx*2 + 1 ] = 0.0f;
+        normals[ idx ].x = -glm::cos( theta )*glm::sin( phiNext );
+        normals[ idx ].y = -glm::cos( phiNext );
+        normals[ idx ].z = glm::sin( theta )*glm::sin( phiNext );
 
-        vertices[ idx*3 + 0 ] = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;
-        vertices[ idx*3 + 1 ] = -glm::cos( phiNext )*sphereData.radius;
-        vertices[ idx*3 + 2 ] = glm::sin( theta )*glm::sin( phiNext )*sphereData.radius;
+        texCoords[ idx ].s = (GLfloat)sliceNum / (GLfloat)sphereData.slices;
+        texCoords[ idx ].t = 0.0f;
 
         idx++;
     }
 
-    glBufferData( GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 8), nullptr, GL_STATIC_DRAW );
-    glBufferSubData( GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), vertices );
-    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 3), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), normals );
-    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 6), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 2), texCoords );
+    vertices[ idx ].x = -glm::sin( phiNext )*sphereData.radius;
+    vertices[ idx ].y = -glm::cos( phiNext )*sphereData.radius;
+    vertices[ idx ].z =  0.0f;
+
+    normals[ idx ].x = -glm::sin( phiNext );
+    normals[ idx ].y = -glm::cos( phiNext );
+    normals[ idx ].z =  0.0f;
+
+    texCoords[ idx ].s = 0.0f;
+    texCoords[ idx ].t = 0.0f;
+
+    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * NUM_VERTICES, vertices );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES, sizeof(glm::vec3) * NUM_VERTICES, normals );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2, sizeof(glm::vec2) * NUM_VERTICES, texCoords );
 
     CSCI441_INTERNAL::_sphereVAO.insert( std::pair<SphereData, GLuint>( sphereData, vaod ) );
     CSCI441_INTERNAL::_sphereVBO.insert( std::pair<SphereData, GLuint>( sphereData, vbod ) );
@@ -1310,83 +1363,83 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    unsigned long int numVertices = torusData.sides * 4 * torusData.rings;
+    const GLulong NUM_VERTICES = torusData.numVertices();
 
-    auto vertices = new GLfloat[numVertices*3];
-    auto texCoords = new GLfloat[numVertices*2];
-    auto normals = new GLfloat[numVertices*3];
+    auto vertices  = new glm::vec3[NUM_VERTICES];
+    auto normals   = new glm::vec3[NUM_VERTICES];
+    auto texCoords = new glm::vec2[NUM_VERTICES];
 
-    unsigned long int idx = 0;
+    GLulong idx = 0;
 
     GLfloat sideStep = glm::two_pi<float>() / (GLfloat)torusData.sides;
     GLfloat ringStep = glm::two_pi<float>() / (GLfloat)torusData.rings;
 
-    for(int ringNum = 0; ringNum < torusData.rings; ringNum++ ) {
+    for(GLuint ringNum = 0; ringNum < torusData.rings; ringNum++ ) {
         GLfloat currTheta = ringStep * (GLfloat)ringNum;
         GLfloat nextTheta = ringStep * (GLfloat)(ringNum+1);
 
-        for(int sideNum = 0; sideNum < torusData.sides; sideNum++ ) {
+        for(GLuint sideNum = 0; sideNum < torusData.sides; sideNum++ ) {
             GLfloat currPhi = sideStep * (GLfloat)sideNum;
             GLfloat nextPhi = sideStep * (GLfloat)(sideNum+1);
 
-            normals[ idx*3 + 0 ] = glm::cos( currPhi ) * glm::cos( currTheta );
-            normals[ idx*3 + 1 ] = glm::cos( currPhi ) * glm::sin( currTheta );
-            normals[ idx*3 + 2 ] = glm::sin( currPhi );
+            vertices[ idx ].x = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::cos(currTheta );
+            vertices[ idx ].y = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::sin(currTheta );
+            vertices[ idx ].z = torusData.innerRadius * glm::sin(currPhi );
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)sideNum / (GLfloat)torusData.sides;
-            texCoords[ idx*2 + 1 ] = (GLfloat)ringNum / (GLfloat)torusData.rings;
+            normals[ idx ].x = glm::cos( currPhi ) * glm::cos( currTheta );
+            normals[ idx ].y = glm::cos( currPhi ) * glm::sin( currTheta );
+            normals[ idx ].z = glm::sin( currPhi );
 
-            vertices[ idx*3 + 0 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::cos(currTheta );
-            vertices[ idx*3 + 1 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::sin(currTheta );
-            vertices[ idx*3 + 2 ] = torusData.innerRadius * glm::sin(currPhi );
-
-            idx++;
-
-            normals[ idx*3 + 0 ] = glm::cos( currPhi ) * glm::cos( nextTheta );
-            normals[ idx*3 + 1 ] = glm::cos( currPhi ) * glm::sin( nextTheta );
-            normals[ idx*3 + 2 ] = glm::sin( currPhi );
-
-            texCoords[ idx*2 + 0 ] = (GLfloat)sideNum / (GLfloat)torusData.sides;
-            texCoords[ idx*2 + 1 ] = (GLfloat)(ringNum+1) / (GLfloat)torusData.rings;
-
-            vertices[ idx*3 + 0 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::cos(nextTheta );
-            vertices[ idx*3 + 1 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::sin(nextTheta );
-            vertices[ idx*3 + 2 ] = torusData.innerRadius * glm::sin(currPhi );
+            texCoords[ idx ].s = (GLfloat)sideNum / (GLfloat)torusData.sides;
+            texCoords[ idx ].t = (GLfloat)ringNum / (GLfloat)torusData.rings;
 
             idx++;
 
-            normals[ idx*3 + 0 ] = glm::cos( nextPhi ) * glm::cos( currTheta );
-            normals[ idx*3 + 1 ] = glm::cos( nextPhi ) * glm::sin( currTheta );
-            normals[ idx*3 + 2 ] = glm::sin( nextPhi );
+            vertices[ idx ].x = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::cos(nextTheta );
+            vertices[ idx ].y = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::sin(nextTheta );
+            vertices[ idx ].z = torusData.innerRadius * glm::sin(currPhi );
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)(sideNum+1) / (GLfloat)torusData.sides;
-            texCoords[ idx*2 + 1 ] = (GLfloat)ringNum / (GLfloat)torusData.rings;
+            normals[ idx ].x = glm::cos( currPhi ) * glm::cos( nextTheta );
+            normals[ idx ].y = glm::cos( currPhi ) * glm::sin( nextTheta );
+            normals[ idx ].z = glm::sin( currPhi );
 
-            vertices[ idx*3 + 0 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::cos(currTheta );
-            vertices[ idx*3 + 1 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::sin(currTheta );
-            vertices[ idx*3 + 2 ] = torusData.innerRadius * glm::sin(nextPhi );
+            texCoords[ idx ].s = (GLfloat)sideNum / (GLfloat)torusData.sides;
+            texCoords[ idx ].t = (GLfloat)(ringNum+1) / (GLfloat)torusData.rings;
 
             idx++;
 
-            normals[ idx*3 + 0 ] = glm::cos( nextPhi ) * glm::cos( nextTheta );
-            normals[ idx*3 + 1 ] = glm::cos( nextPhi ) * glm::sin( nextTheta );
-            normals[ idx*3 + 2 ] = glm::sin( nextPhi );
+            vertices[ idx ].x = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::cos(currTheta );
+            vertices[ idx ].y = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::sin(currTheta );
+            vertices[ idx ].z = torusData.innerRadius * glm::sin(nextPhi );
 
-            texCoords[ idx*2 + 0 ] = (GLfloat)(sideNum+1) / (GLfloat)torusData.sides;
-            texCoords[ idx*2 + 1 ] = (GLfloat)(ringNum+1) / (GLfloat)torusData.rings;
+            normals[ idx ].x = glm::cos( nextPhi ) * glm::cos( currTheta );
+            normals[ idx ].y = glm::cos( nextPhi ) * glm::sin( currTheta );
+            normals[ idx ].z = glm::sin( nextPhi );
 
-            vertices[ idx*3 + 0 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::cos(nextTheta );
-            vertices[ idx*3 + 1 ] = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::sin(nextTheta );
-            vertices[ idx*3 + 2 ] = torusData.innerRadius * glm::sin(nextPhi );
+            texCoords[ idx ].s = (GLfloat)(sideNum+1) / (GLfloat)torusData.sides;
+            texCoords[ idx ].t = (GLfloat)ringNum / (GLfloat)torusData.rings;
+
+            idx++;
+
+            vertices[ idx ].x = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::cos(nextTheta );
+            vertices[ idx ].y = (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi ) ) * glm::sin(nextTheta );
+            vertices[ idx ].z = torusData.innerRadius * glm::sin(nextPhi );
+
+            normals[ idx ].x = glm::cos( nextPhi ) * glm::cos( nextTheta );
+            normals[ idx ].y = glm::cos( nextPhi ) * glm::sin( nextTheta );
+            normals[ idx ].z = glm::sin( nextPhi );
+
+            texCoords[ idx ].s = (GLfloat)(sideNum+1) / (GLfloat)torusData.sides;
+            texCoords[ idx ].t = (GLfloat)(ringNum+1) / (GLfloat)torusData.rings;
 
             idx++;
         }
     }
 
-    glBufferData( GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 8), nullptr, GL_STATIC_DRAW );
-    glBufferSubData( GL_ARRAY_BUFFER, 0,static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), vertices );
-    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 3), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 3), normals );
-    glBufferSubData( GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat) * numVertices * 6), static_cast<GLsizeiptr>(sizeof(GLfloat) * numVertices * 2), texCoords );
+    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * NUM_VERTICES, vertices );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES, sizeof(glm::vec3) * NUM_VERTICES, normals );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2, sizeof(glm::vec2) * NUM_VERTICES, texCoords );
 
     CSCI441_INTERNAL::_torusVAO.insert( std::pair<TorusData, GLuint>( torusData, vaod ) );
     CSCI441_INTERNAL::_torusVBO.insert( std::pair<TorusData, GLuint>( torusData, vbod ) );
