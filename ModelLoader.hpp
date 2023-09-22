@@ -155,7 +155,7 @@ namespace CSCI441 {
 		bool _loadOFFFile( bool INFO, bool ERRORS );
 		bool _loadPLYFile( bool INFO, bool ERRORS );
 		bool _loadSTLFile( bool INFO, bool ERRORS );
-		std::vector<std::string> _tokenizeString( std::string input, std::string delimiters );
+		static std::vector<std::string> _tokenizeString( std::string input, const std::string& delimiters );
 
 		char* _filename;
 		CSCI441_INTERNAL::MODEL_TYPE _modelType;
@@ -184,8 +184,8 @@ namespace CSCI441 {
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace CSCI441_INTERNAL {
-	unsigned char* createTransparentTexture( unsigned char *imageData, unsigned char *imageMask, int texWidth, int texHeight, int texChannels, int maskChannels );
-	void flipImageY( int texWidth, int texHeight, int textureChannels, unsigned char *textureData );
+	unsigned char* createTransparentTexture( const unsigned char *imageData, const unsigned char *imageMask, int texWidth, int texHeight, int texChannels, int maskChannels );
+	[[maybe_unused]] void flipImageY( int texWidth, int texHeight, int textureChannels, unsigned char *textureData );
 }
 
 inline bool CSCI441::ModelLoader::_AUTO_GEN_NORMALS = false;
@@ -194,6 +194,7 @@ inline CSCI441::ModelLoader::ModelLoader() {
 	_init();
 }
 
+[[maybe_unused]]
 inline CSCI441::ModelLoader::ModelLoader( const char* filename ) {
 	_init();
 	loadModelFile( filename );
@@ -250,6 +251,7 @@ inline bool CSCI441::ModelLoader::loadModelFile( const char* filename, bool INFO
 	return result;
 }
 
+[[maybe_unused]]
 inline void CSCI441::ModelLoader::setAttributeLocations(GLint positionLocation, GLint normalLocation, GLint texCoordLocation) const {
     glBindVertexArray( _vaod );
     glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
@@ -264,6 +266,7 @@ inline void CSCI441::ModelLoader::setAttributeLocations(GLint positionLocation, 
     glVertexAttribPointer( texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat) * _uniqueIndex * 6) );
 }
 
+[[maybe_unused]]
 inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
                                         GLint matDiffLocation, GLint matSpecLocation, GLint matShinLocation, GLint matAmbLocation,
                                         GLenum diffuseTexture ) const {
@@ -271,23 +274,17 @@ inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
 
     bool result = true;
 	if( _modelType == CSCI441_INTERNAL::OBJ ) {
-		for( auto materialIter = _materialIndexStartStop.begin();
-						materialIter != _materialIndexStartStop.end();
-						materialIter++ ) {
-
-			std::string materialName = materialIter->first;
-			std::vector< std::pair< GLuint, GLuint > > indexStartStop = materialIter->second;
+		for(const auto & materialIter : _materialIndexStartStop) {
+			std::string materialName = materialIter.first;
+			std::vector< std::pair< GLuint, GLuint > > indexStartStop = materialIter.second;
 
 			CSCI441_INTERNAL::ModelMaterial* material = nullptr;
 			if( _materials.find( materialName ) != _materials.end() )
 				material = _materials.find( materialName )->second;
 
-			for( std::vector< std::pair< GLuint, GLuint > >::iterator idxIter = indexStartStop.begin();
-							idxIter != indexStartStop.end();
-							idxIter++ ) {
-
-				GLuint start = idxIter->first;
-				GLuint end = idxIter->second;
+			for(auto & idxIter : indexStartStop) {
+				GLuint start = idxIter.first;
+				GLuint end = idxIter.second;
 				GLuint length = end - start + 1;
 
 //				printf( "rendering material %s (%u, %u) = %u\n", materialName.c_str(), start, end, length );
@@ -314,12 +311,12 @@ inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
 	return result;
 }
 
-inline GLuint CSCI441::ModelLoader::getNumberOfVertices() const { return _uniqueIndex; }
-inline GLfloat* CSCI441::ModelLoader::getVertices() const { return _vertices; }
-inline GLfloat* CSCI441::ModelLoader::getTexCoords() const { return _texCoords; }
-inline GLfloat* CSCI441::ModelLoader::getNormals() const { return _normals; }
-inline GLuint CSCI441::ModelLoader::getNumberOfIndices() const { return _numIndices; }
-inline GLuint* CSCI441::ModelLoader::getIndices() const { return _indices; }
+[[maybe_unused]] inline GLuint CSCI441::ModelLoader::getNumberOfVertices() const { return _uniqueIndex; }
+[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getVertices() const { return _vertices; }
+[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getTexCoords() const { return _texCoords; }
+[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getNormals() const { return _normals; }
+[[maybe_unused]] inline GLuint CSCI441::ModelLoader::getNumberOfIndices() const { return _numIndices; }
+[[maybe_unused]] inline GLuint* CSCI441::ModelLoader::getIndices() const { return _indices; }
 
 // Read in a WaveFront *.obj File
 inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
@@ -367,9 +364,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		} else if( tokens[0] == "v" ) {						//vertex
 			numVertices++;
 
-			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
-				     y = (GLfloat) atof( tokens[2].c_str() ),
-				     z = (GLfloat) atof( tokens[3].c_str() );
+			auto x = (GLfloat) atof( tokens[1].c_str() ),
+                 y = (GLfloat) atof( tokens[2].c_str() ),
+                 z = (GLfloat) atof( tokens[3].c_str() );
 
 			if( x < minX ) minX = x;
 			if( x > maxX ) maxX = x;
@@ -391,8 +388,8 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 				//need to use both the tokens and number of slashes to determine what info is there.
 				std::vector<std::string> groupTokens = _tokenizeString(faceTokens[i], "/");
 				int numSlashes = 0;
-				for( GLuint j = 0; j < faceTokens[i].length(); j++ ) {
-					if(faceTokens[i][j] == '/') numSlashes++;
+				for(char j : faceTokens[i]) {
+					if(j == '/') numSlashes++;
 				}
 
                 std::stringstream currentFaceTokenStream;
@@ -492,9 +489,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		_indices = (GLuint*)malloc(sizeof(GLuint) * numTriangles * 3);
 	}
 
-	GLfloat* v = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
-	GLfloat* vt = (GLfloat*)malloc(sizeof(GLfloat) * numTexCoords * 2);
-	GLfloat* vn = (GLfloat*)malloc(sizeof(GLfloat) * numNormals * 3);
+	auto v  = (GLfloat*)malloc(sizeof(GLfloat) * numVertices * 3);
+	auto vt = (GLfloat*)malloc(sizeof(GLfloat) * numTexCoords * 2);
+	auto vn = (GLfloat*)malloc(sizeof(GLfloat) * numNormals * 3);
 
 	std::vector<GLfloat> vertsTemp;
 	std::vector<GLfloat> texCoordsTemp;
@@ -547,7 +544,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		} else if( tokens[0] == "s" ) {						// smooth shading
 
 		} else if( tokens[0] == "v" ) {						//vertex
-			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
+			auto x = (GLfloat) atof( tokens[1].c_str() ),
 				     y = (GLfloat) atof( tokens[2].c_str() ),
 				     z = (GLfloat) atof( tokens[3].c_str() );
 
@@ -557,7 +554,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 			vSeen++;
 		} else if( tokens[0] == "vn" ) {                    //vertex normal
-			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
+			auto x = (GLfloat) atof( tokens[1].c_str() ),
 				     y = (GLfloat) atof( tokens[2].c_str() ),
 				     z = (GLfloat) atof( tokens[3].c_str() );
 
@@ -567,7 +564,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 			vnSeen++;
 		} else if( tokens[0] == "vt" ) {                    //vertex tex coord
-			GLfloat s = (GLfloat) atof( tokens[1].c_str() ),
+			auto s = (GLfloat) atof( tokens[1].c_str() ),
 						 t = (GLfloat) atof( tokens[2].c_str() );
 
 		  vt[vtSeen*2 + 0] = s;
@@ -585,8 +582,8 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
                 //need to use both the tokens and number of slashes to determine what info is there.
                 std::vector<std::string> groupTokens = _tokenizeString(faceTokens[i], "/");
                 int numSlashes = 0;
-                for( GLuint j = 0; j < faceTokens[i].length(); j++ ) {
-                    if(faceTokens[i][j] == '/') numSlashes++;
+                for(char j : faceTokens[i]) {
+                    if(j == '/') numSlashes++;
                 }
 
                 std::stringstream currentFaceTokenStream;
@@ -635,8 +632,8 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 					//need to use both the tokens and number of slashes to determine what info is there.
 					std::vector<std::string> groupTokens = _tokenizeString(processedFaceToken, "/");
 					int numSlashes = 0;
-					for( GLuint j = 0; j < processedFaceToken.length(); j++ ) {
-						if(processedFaceToken[j] == '/') numSlashes++;
+					for(char j : processedFaceToken) {
+						if(j == '/') numSlashes++;
 					}
 
 					if( _hasVertexNormals || !_AUTO_GEN_NORMALS ) {
@@ -728,9 +725,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 					_numIndices += 3;
 				} else {
-					int aI = uniqueCounts.find( processedFaceTokens[0]   )->second;
-					int bI = uniqueCounts.find( processedFaceTokens[i]   )->second;
-					int cI = uniqueCounts.find( processedFaceTokens[i+1] )->second;
+					GLuint aI = uniqueCounts.find( processedFaceTokens[0]   )->second;
+					GLuint bI = uniqueCounts.find( processedFaceTokens[i]   )->second;
+					GLuint cI = uniqueCounts.find( processedFaceTokens[i+1] )->second;
 
 					glm::vec3 a( vertsTemp[aI*3 + 0], vertsTemp[aI*3 + 1], vertsTemp[aI*3 + 2] );
 					glm::vec3 b( vertsTemp[bI*3 + 0], vertsTemp[bI*3 + 1], vertsTemp[bI*3 + 2] );
@@ -827,7 +824,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 	glBindVertexArray( _vaod );
 	glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
-	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, NULL, GL_STATIC_DRAW );
+	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, nullptr, GL_STATIC_DRAW );
 	glBufferSubData( GL_ARRAY_BUFFER, 0, 																  sizeof(GLfloat) * _uniqueIndex * 3, _vertices );
 	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 3, sizeof(GLfloat) * _uniqueIndex * 3, _normals );
 	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 6, sizeof(GLfloat) * _uniqueIndex * 2, _texCoords );
@@ -854,7 +851,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 	std::string line;
 	std::string path;
 	if( strstr( _filename, "/" ) != NULL ) {
-	 	path = std::string( _filename ).substr( 0, std::string(_filename).find_last_of("/")+1 );
+	 	path = std::string( _filename ).substr( 0, std::string(_filename).find_last_of('/')+1 );
 	} else {
 		path = "./";
 	}
@@ -1087,10 +1084,10 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
-		if( tokens.size() < 1 ) continue;
+		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
-		if( !tokens[0].compare( "#" ) || tokens[0].find_first_of("#") == 0 ) {								// comment ignore
+		if( !tokens[0].compare( "#" ) || tokens[0].find_first_of('#') == 0 ) {								// comment ignore
 		} else if( fileState == HEADER ) {
 			if( !tokens[0].compare( "OFF" ) ) {					// denotes OFF File type
 			} else {
@@ -1111,7 +1108,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 			}
 		} else if( fileState == VERTICES ) {
 			// read in x y z vertex location
-			GLfloat x = (GLfloat) atof( tokens[0].c_str() ),
+			auto x = (GLfloat) atof( tokens[0].c_str() ),
                     y = (GLfloat) atof( tokens[1].c_str() ),
                     z = (GLfloat) atof( tokens[2].c_str() );
 
@@ -1183,10 +1180,10 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 		line.erase( line.find_last_not_of( " \n\r\t" ) + 1 );
 
 		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
-		if( tokens.size() < 1 ) continue;
+		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
-		if( !tokens[0].compare( "#" ) || tokens[0].find_first_of("#") == 0 ) {								// comment ignore
+		if( !tokens[0].compare( "#" ) || tokens[0].find_first_of('#') == 0 ) {								// comment ignore
 		} else if( fileState == HEADER ) {
 			if( !tokens[0].compare( "OFF" ) ) {					// denotes OFF File type
 			} else {
@@ -1196,7 +1193,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 			}
 		} else if( fileState == VERTICES ) {
 			// read in x y z vertex location
-			GLfloat x = (GLfloat) atof( tokens[0].c_str() ),
+			auto x = (GLfloat) atof( tokens[0].c_str() ),
                     y = (GLfloat) atof( tokens[1].c_str() ),
                     z = (GLfloat) atof( tokens[2].c_str() );
 
@@ -1338,7 +1335,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 
 	glBindVertexArray( _vaod );
 	glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
-	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, NULL, GL_STATIC_DRAW );
+	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, nullptr, GL_STATIC_DRAW );
 	glBufferSubData( GL_ARRAY_BUFFER, 0, 																  sizeof(GLfloat) * _uniqueIndex * 3, _vertices );
 	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 3, sizeof(GLfloat) * _uniqueIndex * 3, _normals );
 	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 6, sizeof(GLfloat) * _uniqueIndex * 2, _texCoords );
@@ -1394,7 +1391,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 
 		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
 
-		if( tokens.size() < 1 ) continue;
+		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
 		if( !tokens[0].compare( "comment" ) ) {								// comment ignore
@@ -1435,7 +1432,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 			}
 		} else if( fileState == VERTICES ) {
 			// read in x y z vertex location
-			GLfloat x = (GLfloat) atof( tokens[0].c_str() ),
+			auto x = (GLfloat) atof( tokens[0].c_str() ),
 						y = (GLfloat) atof( tokens[1].c_str() ),
 						z = (GLfloat) atof( tokens[2].c_str() );
 
@@ -1522,7 +1519,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 
 		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
 
-		if( tokens.size() < 1 ) continue;
+		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
 		if( !tokens[0].compare( "comment" ) ) {								// comment ignore
@@ -1563,7 +1560,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 			}
 		} else if( fileState == VERTICES ) {
 			// read in x y z vertex location
-			GLfloat x = (GLfloat) atof( tokens[0].c_str() ),
+			auto x = (GLfloat) atof( tokens[0].c_str() ),
 						y = (GLfloat) atof( tokens[1].c_str() ),
 						z = (GLfloat) atof( tokens[2].c_str() );
 
@@ -1663,7 +1660,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 
 	glBindVertexArray( _vaod );
 	glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
-	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, NULL, GL_STATIC_DRAW );
+	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, nullptr, GL_STATIC_DRAW );
 	glBufferSubData( GL_ARRAY_BUFFER, 0, 																  sizeof(GLfloat) * _uniqueIndex * 3, _vertices );
 	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 3, sizeof(GLfloat) * _uniqueIndex * 3, _normals );
 	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 6, sizeof(GLfloat) * _uniqueIndex * 2, _texCoords );
@@ -1712,7 +1709,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 
 		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
 
-		if( tokens.size() < 1 ) continue;
+		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
 		if( !tokens[0].compare( "solid" ) ) {
@@ -1723,7 +1720,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 			// begin a primitive
 			numVertsInLoop = 0;
 		} else if( !tokens[0].compare( "vertex" ) ) {
-			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
+			auto x = (GLfloat) atof( tokens[1].c_str() ),
 					y = (GLfloat) atof( tokens[2].c_str() ),
 					z = (GLfloat) atof( tokens[3].c_str() );
 
@@ -1800,7 +1797,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 
 		std::vector< std::string > tokens = _tokenizeString( line, " \t" );
 
-		if( tokens.size() < 1 ) continue;
+		if( tokens.empty() ) continue;
 
 		//the line should have a single character that lets us know if it's a...
 		if( !tokens[0].compare( "solid" ) ) {
@@ -1812,7 +1809,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 		} else if( !tokens[0].compare( "outer" ) && !tokens[1].compare( "loop" ) ) {
 			// begin a primitive
 		} else if( !tokens[0].compare( "vertex" ) ) {
-			GLfloat x = (GLfloat) atof( tokens[1].c_str() ),
+			auto x = (GLfloat) atof( tokens[1].c_str() ),
 					y = (GLfloat) atof( tokens[2].c_str() ),
 					z = (GLfloat) atof( tokens[3].c_str() );
 
@@ -1856,7 +1853,7 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 
 	glBindVertexArray( _vaod );
 	glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
-	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, NULL, GL_STATIC_DRAW );
+	glBufferData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 8, nullptr, GL_STATIC_DRAW );
 	glBufferSubData( GL_ARRAY_BUFFER, 0, 																  sizeof(GLfloat) * _uniqueIndex * 3, _vertices );
 	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 3, sizeof(GLfloat) * _uniqueIndex * 3, _normals );
 	glBufferSubData( GL_ARRAY_BUFFER, sizeof(GLfloat) * _uniqueIndex * 6, sizeof(GLfloat) * _uniqueIndex * 2, _texCoords );
@@ -1876,10 +1873,12 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
 	return result;
 }
 
+[[maybe_unused]]
 inline void CSCI441::ModelLoader::enableAutoGenerateNormals() {
 	_AUTO_GEN_NORMALS = true;
 }
 
+[[maybe_unused]]
 inline void CSCI441::ModelLoader::disableAutoGenerateNormals() {
 	_AUTO_GEN_NORMALS = false;
 }
@@ -1890,9 +1889,9 @@ inline void CSCI441::ModelLoader::disableAutoGenerateNormals() {
 //      This is a helper function to break a single string into std::vector
 //  of strings, based on a given set of delimiter characters.
 //
-inline std::vector<std::string> CSCI441::ModelLoader::_tokenizeString(std::string input, std::string delimiters) {
-	if(input.size() == 0)
-		return std::vector<std::string>();
+inline std::vector<std::string> CSCI441::ModelLoader::_tokenizeString(std::string input, const std::string& delimiters) {
+	if(input.empty())
+		return {};
 
 	std::vector<std::string> retVec = std::vector<std::string>();
 	size_t oldR = 0, r = 0;
@@ -1908,7 +1907,7 @@ inline std::vector<std::string> CSCI441::ModelLoader::_tokenizeString(std::strin
 
 	//if the lowest valid index is higher than the highest valid index, they're all delimiters! return nothing.
 	if((GLuint)lowerValidIndex >= input.size() || upperValidIndex < 0 || lowerValidIndex > upperValidIndex)
-		return std::vector<std::string>();
+		return {};
 
 	//remove the delimiters from the beginning and end of the string, if any.
 	strippedInput = input.substr(lowerValidIndex, upperValidIndex-lowerValidIndex+1);
@@ -1927,9 +1926,9 @@ inline std::vector<std::string> CSCI441::ModelLoader::_tokenizeString(std::strin
 	return retVec;
 }
 
-inline unsigned char* CSCI441_INTERNAL::createTransparentTexture( unsigned char *imageData, unsigned char *imageMask, int texWidth, int texHeight, int texChannels, int maskChannels ) {
+inline unsigned char* CSCI441_INTERNAL::createTransparentTexture( const unsigned char * imageData, const unsigned char *imageMask, int texWidth, int texHeight, int texChannels, int maskChannels ) {
 	//combine the 'mask' array with the image data array into an RGBA array.
-	unsigned char *fullData = new unsigned char[texWidth*texHeight*4];
+	auto *fullData = new unsigned char[texWidth*texHeight*4];
 
 	for(int j = 0; j < texHeight; j++) {
 		for(int i = 0; i < texWidth; i++) {
@@ -1953,6 +1952,7 @@ inline unsigned char* CSCI441_INTERNAL::createTransparentTexture( unsigned char 
 	return fullData;
 }
 
+[[maybe_unused]]
 inline void CSCI441_INTERNAL::flipImageY( int texWidth, int texHeight, int textureChannels, unsigned char *textureData ) {
 	for( int j = 0; j < texHeight / 2; j++ ) {
 		for( int i = 0; i < texWidth; i++ ) {
