@@ -30,7 +30,7 @@ namespace CSCI441 {
         /**
          * @brief what to do when the end of a cut is reached
          */
-        enum AdvancementStrategy {
+        enum class AdvancementStrategy {
             /**
              * @brief run through just the initial specified cut, stop when end is reached
              */
@@ -164,7 +164,7 @@ inline CSCI441::MD5Camera::MD5Camera(
     _frames(nullptr),
     _currentFrameIndex(0),
     _currentCutIndex(0),
-    _advancementStrategy(RUN_SINGLE_CUT)
+    _advancementStrategy(AdvancementStrategy::RUN_SINGLE_CUT)
 {
     this->_copy(OTHER);
 }
@@ -313,16 +313,16 @@ inline void CSCI441::MD5Camera::moveForward(const GLfloat unused) {
     // check if current frame is at end of overall list of frames
     if( _currentFrameIndex == _numFrames - 1) {
         switch(_advancementStrategy) {
-        case LOOP_ALL_CUTS:
+        case AdvancementStrategy::LOOP_ALL_CUTS:
             // go back to start of all cuts
             _currentCutIndex = 0;
-        case LOOP_SINGLE_CUT:
+        case AdvancementStrategy::LOOP_SINGLE_CUT:
             // go to start of current cut
             _currentFrameIndex = _cutPositions[ _currentCutIndex ];
             break;
 
-        case RUN_SINGLE_CUT:
-        case RUN_ALL_CUTS:
+        case AdvancementStrategy::RUN_SINGLE_CUT:
+        case AdvancementStrategy::RUN_ALL_CUTS:
             // do nothing, at end and not looping
             return;
         }
@@ -337,16 +337,16 @@ inline void CSCI441::MD5Camera::moveForward(const GLfloat unused) {
         // check if at end of current cut
         if( _currentFrameIndex == _cutPositions[_currentCutIndex + 1] - 1 ) {
             switch(_advancementStrategy) {
-            case RUN_ALL_CUTS:
-            case LOOP_ALL_CUTS:
+            case AdvancementStrategy::RUN_ALL_CUTS:
+            case AdvancementStrategy::LOOP_ALL_CUTS:
                 // go to next cut
                 _currentCutIndex++;
-            case LOOP_SINGLE_CUT:
+            case AdvancementStrategy::LOOP_SINGLE_CUT:
                 // go to start of current cut
                 _currentFrameIndex = _cutPositions[ _currentCutIndex ];
                 break;
 
-            case RUN_SINGLE_CUT:
+            case AdvancementStrategy::RUN_SINGLE_CUT:
                 // do nothing, at end and not looping nor advancing
                 return;
             }
@@ -367,12 +367,12 @@ inline void CSCI441::MD5Camera::moveBackward(const GLfloat unused) {
     // check if current frame is at beginning of overall list of frames
     if( _currentFrameIndex == 0) {
         switch(_advancementStrategy) {
-            case LOOP_ALL_CUTS:
+            case AdvancementStrategy::LOOP_ALL_CUTS:
                 // go back to end of all frames
                 _currentCutIndex = _numFrames-1;
                 break;
 
-            case LOOP_SINGLE_CUT:
+            case AdvancementStrategy::LOOP_SINGLE_CUT:
                 if( _numCuts == 1 ) {
                     // go back to end of all frames
                     _currentCutIndex = _numFrames-1;
@@ -382,8 +382,8 @@ inline void CSCI441::MD5Camera::moveBackward(const GLfloat unused) {
                 }
                 break;
 
-            case RUN_SINGLE_CUT:
-            case RUN_ALL_CUTS:
+            case AdvancementStrategy::RUN_SINGLE_CUT:
+            case AdvancementStrategy::RUN_ALL_CUTS:
                 // do nothing, at end and not looping
                 return;
         }
@@ -398,16 +398,16 @@ inline void CSCI441::MD5Camera::moveBackward(const GLfloat unused) {
         // check if at beginning of current cut
         if( _currentFrameIndex == _cutPositions[_currentCutIndex] ) {
             switch(_advancementStrategy) {
-                case RUN_ALL_CUTS:
-                case LOOP_ALL_CUTS:
+                case AdvancementStrategy::RUN_ALL_CUTS:
+                case AdvancementStrategy::LOOP_ALL_CUTS:
                     // go to previous cut
                     _currentCutIndex--;
-                case LOOP_SINGLE_CUT:
+                case AdvancementStrategy::LOOP_SINGLE_CUT:
                     // go to end of current cut, which is the frame before the next cut
                     _currentFrameIndex = _cutPositions[ _currentCutIndex+1 ] - 1;
                     break;
 
-                case RUN_SINGLE_CUT:
+                case AdvancementStrategy::RUN_SINGLE_CUT:
                     // do nothing, at end and not looping nor advancing
                     return;
             }
