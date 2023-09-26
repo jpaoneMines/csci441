@@ -871,7 +871,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 
 						glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, texWidth, texHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, fullData );
 
-						delete fullData;
+						delete[] fullData;
 
 						currentMaterial->map_Kd = textureHandle;
 					}
@@ -910,7 +910,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 
 						glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, texWidth, texHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, fullData );
 
-						delete fullData;
+						delete[] fullData;
 
                         currentMaterial->map_Kd = textureHandle;
 					}
