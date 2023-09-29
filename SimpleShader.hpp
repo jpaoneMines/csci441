@@ -485,36 +485,40 @@ inline void CSCI441_INTERNAL::SimpleShader2::enableSmoothShading() {
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::setupSimpleShader() {
-    std::string vertex_shader_src = "#version 410 core\n \
-                                    \n \
-                                    uniform mat4 model;\n \
-                                    uniform mat4 view;\n \
-                                    uniform mat4 projection;\n \
-                                    \n \
-                                    layout(location=0) in vec2 vPos;\n \
-                                    layout(location=1) in vec3 vColor;\n \
-                                    \n \
-                                    layout(location=0) ";
+    std::string vertex_shader_src =
+R"_(
+#version 410 core
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+layout(location=0) in vec2 vPos;
+layout(location=1) in vec3 vColor;
+
+layout(location=0) )_";
     vertex_shader_src += (smoothShading ? "" : "flat ");
-    vertex_shader_src += "out vec4 fragColor;\n \
-                                    \n \
-                                    void main() {\n \
-                                        gl_Position = projection * view * model * vec4(vPos, 0.0, 1.0);\n \
-                                        fragColor = vec4(vColor, 1.0);\n \
-                                    }";
+    vertex_shader_src += R"_(out vec4 fragColor;
+
+void main() {
+    gl_Position = projection * view * model * vec4(vPos, 0.0, 1.0);
+    fragColor = vec4(vColor, 1.0);
+})_";
     const char* vertexShaders[1] = { vertex_shader_src.c_str() };
 
-    std::string fragment_shader_src = "#version 410 core\n \
-                                      \n \
-                                      layout(location=0) ";
+    std::string fragment_shader_src =
+R"_(
+#version 410 core
+
+layout(location=0) )_";
     fragment_shader_src += (smoothShading ? "" : "flat ");
-    fragment_shader_src += " in vec4 fragColor;\n \
-                                      \n \
-                                      layout(location=0) out vec4 fragColorOut;\n \
-                                      \n \
-                                      void main() {\n \
-                                          fragColorOut = fragColor;\n \
-                                      }";
+    fragment_shader_src += R"_( in vec4 fragColor;
+
+layout(location=0) out vec4 fragColorOut;
+
+void main() {
+    fragColorOut = fragColor;
+})_";
     const char* fragmentShaders[1] = { fragment_shader_src.c_str() };
 
     printf( "[INFO]: /--------------------------------------------------------\\\n" );
@@ -637,56 +641,59 @@ inline void CSCI441_INTERNAL::SimpleShader3::enableSmoothShading() {
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setupSimpleShader() {
-    std::string vertex_shader_src = "#version 410 core\n \
-                                    \n \
-                                    uniform mat4 model;\n \
-                                    uniform mat4 view;\n \
-                                    uniform mat4 projection;\n \
-                                    uniform mat3 normalMtx;\n \
-                                    uniform vec3 lightColor;\n \
-                                    uniform vec3 lightPosition;\n \
-                                    uniform vec3 materialColor;\n \
-                                    \n \
-                                    layout(location=0) in vec3 vPos;\n \
-                                    layout(location=2) in vec3 vNormal;\n \
-                                    \n \
-                                    layout(location=0) ";
+    std::string vertex_shader_src =
+R"_(
+#version 410 core
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+uniform mat3 normalMtx;
+uniform vec3 lightColor;
+uniform vec3 lightPosition;
+uniform vec3 materialColor;
+
+layout(location=0) in vec3 vPos;
+layout(location=2) in vec3 vNormal;
+
+layout(location=0) )_";
     vertex_shader_src += (smoothShading ? "" : "flat ");
-    vertex_shader_src += "out vec4 fragColor;\n \
-                                    \n \
-                                    void main() {\n \
-                                        gl_Position = projection * view * model * vec4(vPos, 1.0);\n \
-                                        \n \
-                                        vec3 vertexEye = (view * model * vec4(vPos, 1.0)).xyz;\n \
-                                        vec3 lightEye = (view * vec4(lightPosition, 1.0)).xyz;\n \
-                                        vec3 lightVec = normalize( lightEye - vertexEye );\n \
-                                        vec3 normalVec = normalize( normalMtx * vNormal );\n \
-                                        float sDotN = max(dot(lightVec, normalVec), 0.0);\n \
-                                        vec3 diffColor = lightColor * materialColor * sDotN;\n \
-                                        vec3 ambColor = materialColor * 0.3;\
-                                        vec3 color = diffColor + ambColor;\n \
-                                        fragColor = vec4(color, 1.0);\n \
-                                    }";
+    vertex_shader_src += R"_(out vec4 fragColor;
+
+void main() {
+    gl_Position = projection * view * model * vec4(vPos, 1.0);
+
+    vec3 vertexEye = (view * model * vec4(vPos, 1.0)).xyz;
+    vec3 lightEye = (view * vec4(lightPosition, 1.0)).xyz;
+    vec3 lightVec = normalize( lightEye - vertexEye );
+    vec3 normalVec = normalize( normalMtx * vNormal );
+    float sDotN = max(dot(lightVec, normalVec), 0.0);
+    vec3 diffColor = lightColor * materialColor * sDotN;
+    vec3 ambColor = materialColor * 0.3;
+    vec3 color = diffColor + ambColor;
+    fragColor = vec4(color, 1.0);
+})_";
     const char* vertexShaders[1] = { vertex_shader_src.c_str() };
 
-    std::string fragment_shader_src = "#version 410 core\n \
-                                      \n \
-                                      uniform vec3 materialColor;\n \
-                                      uniform int useLighting;\n \
-                                      \n \
-                                      layout(location=0) ";
+    std::string fragment_shader_src =
+R"_(#version 410 core
+
+uniform vec3 materialColor;
+uniform int useLighting;
+
+layout(location=0) )_";
     fragment_shader_src += (smoothShading ? "" : "flat ");
-    fragment_shader_src += " in vec4 fragColor;\n \
-                                      \n \
-                                      layout(location=0) out vec4 fragColorOut;\n \
-                                      \n \
-                                      void main() {\n \
-                                          if(useLighting == 1) {\n \
-                                              fragColorOut = fragColor;\n \
-                                          } else {\n \
-                                              fragColorOut = vec4(materialColor, 1.0f);\n \
-                                          }\n \
-                                      }";
+    fragment_shader_src += R"_( in vec4 fragColor;
+
+layout(location=0) out vec4 fragColorOut;
+
+void main() {
+    if(useLighting == 1) {
+        fragColorOut = fragColor;
+    } else {
+        fragColorOut = vec4(materialColor, 1.0f);
+    }
+})_";
     const char* fragmentShaders[1] = { fragment_shader_src.c_str() };
 
     printf( "[INFO]: /--------------------------------------------------------\\\n" );
