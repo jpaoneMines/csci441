@@ -1,5 +1,10 @@
 # Revision History
 
+## v 4.12.2 - 06 Oct 2023
+- Cleaned up warnings
+- Minor bug fixes
+- Internal data representation changes
+
 ## v 4.12.1 - 21 Sep 2023
 - Fixed bug with MD5Model loader not reading shader strings correctly
 - Removed warnings
