@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.12.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.12.2</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -99,10 +99,10 @@ Inheritance diagram for CSCI441::MD5Camera:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a43f10ff32caa429439bbdbc3019f64c4"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4">AdvancementStrategy</a> { <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a5b50e46f30585ad3235bc8e6fe90cf59">RUN_SINGLE_CUT</a>
-, <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a0c9cacdf5a8c761151465912b165dca4">LOOP_SINGLE_CUT</a>
-, <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a64c93cabe474422bf63a7dcb23482e24">RUN_ALL_CUTS</a>
-, <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4af0c3eabb1a5949669b8bd43ea56abf37">LOOP_ALL_CUTS</a>
+<tr class="memitem:a43f10ff32caa429439bbdbc3019f64c4"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4">AdvancementStrategy</a> { <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a9b5fd92989ade47ee9e52de123b5fa4f">RUN_SINGLE_CUT</a>
+, <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a65bac82ab2f9764e9b488d703972fad2">LOOP_SINGLE_CUT</a>
+, <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a905bc554516ac7f6cadc1a7be1dcde7c">RUN_ALL_CUTS</a>
+, <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a75f792d51f208ec41320e2d8c60e7aac">LOOP_ALL_CUTS</a>
  }</td></tr>
 <tr class="memdesc:a43f10ff32caa429439bbdbc3019f64c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">what to do when the end of a cut is reached  <a href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4">More...</a><br /></td></tr>
 <tr class="separator:a43f10ff32caa429439bbdbc3019f64c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -253,22 +253,30 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4">CSCI441::MD5Camera::AdvancementStrategy</a></td>
+          <td class="memname">enum class <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4">CSCI441::MD5Camera::AdvancementStrategy</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>what to do when the end of a cut is reached </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a43f10ff32caa429439bbdbc3019f64c4a5b50e46f30585ad3235bc8e6fe90cf59" name="a43f10ff32caa429439bbdbc3019f64c4a5b50e46f30585ad3235bc8e6fe90cf59"></a>RUN_SINGLE_CUT&#160;</td><td class="fielddoc"><p>run through just the initial specified cut, stop when end is reached </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a43f10ff32caa429439bbdbc3019f64c4a9b5fd92989ade47ee9e52de123b5fa4f" name="a43f10ff32caa429439bbdbc3019f64c4a9b5fd92989ade47ee9e52de123b5fa4f"></a>RUN_SINGLE_CUT&#160;</td><td class="fielddoc"><p>run through just the initial specified cut, stop when end is reached </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a43f10ff32caa429439bbdbc3019f64c4a0c9cacdf5a8c761151465912b165dca4" name="a43f10ff32caa429439bbdbc3019f64c4a0c9cacdf5a8c761151465912b165dca4"></a>LOOP_SINGLE_CUT&#160;</td><td class="fielddoc"><p>run through just the initial specified cut, looping back to the beginning when the end is reached </p>
+<tr><td class="fieldname"><a id="a43f10ff32caa429439bbdbc3019f64c4a65bac82ab2f9764e9b488d703972fad2" name="a43f10ff32caa429439bbdbc3019f64c4a65bac82ab2f9764e9b488d703972fad2"></a>LOOP_SINGLE_CUT&#160;</td><td class="fielddoc"><p>run through just the initial specified cut, looping back to the beginning when the end is reached </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a43f10ff32caa429439bbdbc3019f64c4a64c93cabe474422bf63a7dcb23482e24" name="a43f10ff32caa429439bbdbc3019f64c4a64c93cabe474422bf63a7dcb23482e24"></a>RUN_ALL_CUTS&#160;</td><td class="fielddoc"><p>run through all cuts beginning at initial specified cut, advancing to next cut when the end of the current cut is reached and stopping at the end of the last cut </p>
+<tr><td class="fieldname"><a id="a43f10ff32caa429439bbdbc3019f64c4a905bc554516ac7f6cadc1a7be1dcde7c" name="a43f10ff32caa429439bbdbc3019f64c4a905bc554516ac7f6cadc1a7be1dcde7c"></a>RUN_ALL_CUTS&#160;</td><td class="fielddoc"><p>run through all cuts beginning at initial specified cut, advancing to next cut when the end of the current cut is reached and stopping at the end of the last cut </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a43f10ff32caa429439bbdbc3019f64c4af0c3eabb1a5949669b8bd43ea56abf37" name="a43f10ff32caa429439bbdbc3019f64c4af0c3eabb1a5949669b8bd43ea56abf37"></a>LOOP_ALL_CUTS&#160;</td><td class="fielddoc"><p>run through all cuts beginning at initial specified cut, advancing to next cut when the end of the current cut is reached and looping to the first cut when the last cut is completed </p>
+<tr><td class="fieldname"><a id="a43f10ff32caa429439bbdbc3019f64c4a75f792d51f208ec41320e2d8c60e7aac" name="a43f10ff32caa429439bbdbc3019f64c4a75f792d51f208ec41320e2d8c60e7aac"></a>LOOP_ALL_CUTS&#160;</td><td class="fielddoc"><p>run through all cuts beginning at initial specified cut, advancing to next cut when the end of the current cut is reached and looping to the first cut when the last cut is completed </p>
 </td></tr>
 </table>
 

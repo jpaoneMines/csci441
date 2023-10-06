@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.12.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.12.2</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -108,9 +108,9 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="class_c_s_c_i441_1_1_model_loader.html">ModelLoader</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_c_s_c_i441_1_1_model_loader.html">ModelLoader</a> &amp;)=delete</td></tr>
 <tr class="memdesc:a3983c37342c864e555b1c6b1c134caba"><td class="mdescLeft">&#160;</td><td class="mdescRight">do not allow models to be copied <br /></td></tr>
 <tr class="separator:a3983c37342c864e555b1c6b1c134caba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ee2d1efb2279540d9d89885ed173ac0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a2ee2d1efb2279540d9d89885ed173ac0">loadModelFile</a> (const char *filename, bool INFO=true, bool ERRORS=true)</td></tr>
-<tr class="memdesc:a2ee2d1efb2279540d9d89885ed173ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a model from the given file.  <br /></td></tr>
-<tr class="separator:a2ee2d1efb2279540d9d89885ed173ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a41de5f070d8cf0964e47729c1d8482"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a6a41de5f070d8cf0964e47729c1d8482">loadModelFile</a> (std::string filename, bool INFO=true, bool ERRORS=true)</td></tr>
+<tr class="memdesc:a6a41de5f070d8cf0964e47729c1d8482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a model from the given file.  <br /></td></tr>
+<tr class="separator:a6a41de5f070d8cf0964e47729c1d8482"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a219e23f5fdc0efccb4a49138da240197"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a219e23f5fdc0efccb4a49138da240197">setAttributeLocations</a> (GLint positionLocation, GLint normalLocation=-1, GLint texCoordLocation=-1) const</td></tr>
 <tr class="memdesc:a219e23f5fdc0efccb4a49138da240197"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables VBO attribute array locations.  <br /></td></tr>
 <tr class="separator:a219e23f5fdc0efccb4a49138da240197"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,12 +123,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c2d76360ed4fb7b31bf49aa8d9e35c7"><td class="memItemLeft" align="right" valign="top">GLfloat *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a5c2d76360ed4fb7b31bf49aa8d9e35c7">getVertices</a> () const</td></tr>
 <tr class="memdesc:a5c2d76360ed4fb7b31bf49aa8d9e35c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the vertex array that makes up the model mesh.  <br /></td></tr>
 <tr class="separator:a5c2d76360ed4fb7b31bf49aa8d9e35c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98b9c1bc899975fcbf0710a018b2c121"><td class="memItemLeft" align="right" valign="top">GLfloat *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a98b9c1bc899975fcbf0710a018b2c121">getTexCoords</a> () const</td></tr>
-<tr class="memdesc:a98b9c1bc899975fcbf0710a018b2c121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the texture coordinates array that corresponds to the model mesh.  <br /></td></tr>
-<tr class="separator:a98b9c1bc899975fcbf0710a018b2c121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8efabf9b18c039ee93367ab33d092b4e"><td class="memItemLeft" align="right" valign="top">GLfloat *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a8efabf9b18c039ee93367ab33d092b4e">getNormals</a> () const</td></tr>
 <tr class="memdesc:a8efabf9b18c039ee93367ab33d092b4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the normal array that corresponds to the model mesh.  <br /></td></tr>
 <tr class="separator:a8efabf9b18c039ee93367ab33d092b4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98b9c1bc899975fcbf0710a018b2c121"><td class="memItemLeft" align="right" valign="top">GLfloat *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a98b9c1bc899975fcbf0710a018b2c121">getTexCoords</a> () const</td></tr>
+<tr class="memdesc:a98b9c1bc899975fcbf0710a018b2c121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the texture coordinates array that corresponds to the model mesh.  <br /></td></tr>
+<tr class="separator:a98b9c1bc899975fcbf0710a018b2c121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5adfe3130cc2b28713b72a58c5252bcc"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a5adfe3130cc2b28713b72a58c5252bcc">getNumberOfIndices</a> () const</td></tr>
 <tr class="memdesc:a5adfe3130cc2b28713b72a58c5252bcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of indices to draw the model. This value corresponds to the size of the Indices array.  <br /></td></tr>
 <tr class="separator:a5adfe3130cc2b28713b72a58c5252bcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -493,8 +493,8 @@ To disable, call disableAutoGenerateNormals </dd></dl>
 
 </div>
 </div>
-<a id="a2ee2d1efb2279540d9d89885ed173ac0" name="a2ee2d1efb2279540d9d89885ed173ac0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ee2d1efb2279540d9d89885ed173ac0">&#9670;&#160;</a></span>loadModelFile()</h2>
+<a id="a6a41de5f070d8cf0964e47729c1d8482" name="a6a41de5f070d8cf0964e47729c1d8482"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a41de5f070d8cf0964e47729c1d8482">&#9670;&#160;</a></span>loadModelFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -505,7 +505,7 @@ To disable, call disableAutoGenerateNormals </dd></dl>
         <tr>
           <td class="memname">bool CSCI441::ModelLoader::loadModelFile </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>filename</em>, </td>
         </tr>
         <tr>
