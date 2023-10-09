@@ -82,10 +82,16 @@ namespace CSCI441 {
          */
         [[maybe_unused]] void printPipelineInfo() const;
 
+        /**
+         * checks if shader program pipeline is in valid state to run
+         * @return true if valid
+         */
+        [[maybe_unused]] [[nodiscard]] bool validatePipeline() const;
+
     private:
         static bool sDEBUG;
 
-        GLuint _pipelineHandle{};
+        GLuint _pipelineHandle;
     };
 }
 
@@ -103,7 +109,7 @@ inline void CSCI441::ShaderProgramPipeline::disableDebugMessages() {
     sDEBUG = false;
 }
 
-inline CSCI441::ShaderProgramPipeline::ShaderProgramPipeline() {
+inline CSCI441::ShaderProgramPipeline::ShaderProgramPipeline() : _pipelineHandle(0) {
     glGenProgramPipelines(1,& _pipelineHandle);
 }
 
@@ -123,7 +129,7 @@ inline void CSCI441::ShaderProgramPipeline::useProgramStages( const ShaderProgra
 
 [[maybe_unused]]
 inline void CSCI441::ShaderProgramPipeline::bindPipeline() const {
-    glUseProgram(0);    // unuse any existing program that may have previously been used.  programs override pipelines
+    glUseProgram(0);    // un-use any existing program that may have previously been used.  programs override pipelines
     glBindProgramPipeline( _pipelineHandle );
 }
 
@@ -154,6 +160,14 @@ inline void CSCI441::ShaderProgramPipeline::printPipelineInfo() const {
         printf( "[INFO]: \\--------------------------------------------------------/\n");
         printf( "\n");
     }
+}
+
+[[maybe_unused]]
+inline bool CSCI441::ShaderProgramPipeline::validatePipeline() const {
+    glValidateProgramPipeline(_pipelineHandle);
+    GLint validateStatus;
+    glGetProgramPipelineiv(_pipelineHandle, GL_VALIDATE_STATUS, &validateStatus);
+    return (validateStatus == GL_TRUE);
 }
 
 #endif// CSCI441_SHADER_PROGRAM_PIPELINE_HPP
