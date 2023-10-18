@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.12.2</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.13.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -874,7 +874,7 @@ $(function() {
 <div class="line"><a id="l01037" name="l01037"></a><span class="lineno"> 1037</span>    glBufferData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(glm::vec3) * NUM_VERTICES, <span class="keyword">nullptr</span>, GL_STATIC_DRAW );</div>
 <div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span>    glBufferSubData(GL_ARRAY_BUFFER, 0, <span class="keyword">sizeof</span>(glm::vec3) * NUM_VERTICES, vertices  );</div>
 <div class="line"><a id="l01039" name="l01039"></a><span class="lineno"> 1039</span>    glBufferSubData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(glm::vec3) * NUM_VERTICES, <span class="keyword">sizeof</span>(glm::vec3) * NUM_VERTICES, normals   );</div>
-<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span>    glBufferSubData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(glm::vec3) * NUM_VERTICES * 2, <span class="keyword">sizeof</span>(glm::vec3) * NUM_VERTICES, texCoords );</div>
+<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span>    glBufferSubData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(glm::vec3) * NUM_VERTICES * 2, <span class="keyword">sizeof</span>(glm::vec2) * NUM_VERTICES, texCoords );</div>
 <div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span> </div>
 <div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span>    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, vbods[1] );</div>
 <div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span>    glBufferData( GL_ELEMENT_ARRAY_BUFFER, <span class="keyword">sizeof</span>(indices), indices, GL_STATIC_DRAW) ;</div>

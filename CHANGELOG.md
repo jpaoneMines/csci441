@@ -1,5 +1,8 @@
 # Revision History
 
+## v 4.13.0 - 18 Oct 2023
+- Fixed memory bug with generateCubeVAOIndexed() texture coordinates
+
 ## v 4.12.2 - 06 Oct 2023
 - Cleaned up warnings
 - Minor bug fixes

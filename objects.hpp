@@ -1037,7 +1037,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
     glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * NUM_VERTICES, vertices  );
     glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES, sizeof(glm::vec3) * NUM_VERTICES, normals   );
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2, sizeof(glm::vec3) * NUM_VERTICES, texCoords );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2, sizeof(glm::vec2) * NUM_VERTICES, texCoords );
 
     glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, vbods[1] );
     glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW) ;
