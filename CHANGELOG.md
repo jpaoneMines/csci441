@@ -1,5 +1,8 @@
 # Revision History
 
+## v 4.13.3 - 04 Nov 2024
+- Added glm::vec4 include to modelMaterial.hpp when included on its own
+
 ## v 4.13.2 - 03 Nov 2023
 - Fixed winding order for generateCubeVAOIndexed() for near, right, top faces
 

@@ -14,6 +14,8 @@
 
 #include <GL/glew.h>
 
+#include <glm/ext/vector_float4.hpp>
+
 namespace CSCI441_INTERNAL {
 
   struct ModelMaterial {
