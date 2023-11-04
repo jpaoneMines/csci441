@@ -1,5 +1,8 @@
 # Revision History
 
+## v 4.13.2 - 03 Nov 2023
+- Fixed winding order for generateCubeVAOIndexed() for near, right, top faces
+
 ## v 4.13.1 - 01 Nov 2023
 - Fixed memory bug with generateCubeVAOIndexed() VBO
 

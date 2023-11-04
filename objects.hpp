@@ -1018,9 +1018,9 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
             {-1.0f,  1.0f,  1.0f}  // 7 tlf
     };
     GLushort indices[36] = {
-            0, 1, 2,   0, 2, 3, // near
-            1, 5, 2,   5, 6, 2, // right
-            2, 6, 7,   3, 2, 7, // top
+            0, 2, 1,   0, 3, 2, // near
+            1, 2, 5,   5, 2, 6, // right
+            2, 7, 6,   3, 7, 2, // top
             0, 1, 4,   1, 5, 4, // bottom
             4, 5, 6,   4, 6, 7, // back
             0, 4, 3,   4, 7, 3  // left
