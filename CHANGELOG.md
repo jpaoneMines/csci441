@@ -1,5 +1,8 @@
 # Revision History
 
+## v 4.13.4 - 16 Nov 2024
+- ShaderUtils::compileShader() returns 0 to properly signal an error
+
 ## v 4.13.3 - 04 Nov 2024
 - Added glm::vec4 include to modelMaterial.hpp when included on its own
 

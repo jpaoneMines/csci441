@@ -502,13 +502,13 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                     sprintf(long_name, "%s[%i]", name, j);
                     int location = glGetUniformLocation(programHandle, long_name);
                     if(location != -1) {
-                        if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string(type), long_name, location);
+                        if (sDEBUG) printf("[INtFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string(type), long_name, location);
                     }
                 }
             } else {
                 int location = glGetUniformLocation(programHandle, name);
                 if(location != -1) {
-                    if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n",i, GLSL_type_to_string(type), name, location);
+                    if (sDEBUG) printf("[INsFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n",i, GLSL_type_to_string(type), name, location);
                 }
             }
         }
@@ -816,7 +816,7 @@ inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader(
 		// return the handle of our shader
 		return shaderHandle;
 	} else {
-		return -1;
+		return 0;
 	}
 }
 
