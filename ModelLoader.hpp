@@ -386,71 +386,73 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		} else if( tokens[0] == "vt" ) {                    //vertex tex coord
 			numTexCoords++;
 		} else if( tokens[0] == "f" ) {                     //face!
-			//now, faces can be either quads or triangles (or maybe more?)
-			//split the string on spaces to get the number of vertices+attributes.
-			std::vector<std::string> faceTokens = _tokenizeString(line, " ");
+            //now, faces can be either quads or triangles (or maybe more?)
+            //split the string on spaces to get the number of vertices+attributes.
+            std::vector<std::string> faceTokens = _tokenizeString(line, " ");
 
-			for(GLuint i = 1; i < faceTokens.size(); i++) {
-				//need to use both the tokens and number of slashes to determine what info is there.
-				std::vector<std::string> groupTokens = _tokenizeString(faceTokens[i], "/");
-				int numSlashes = 0;
-				for(char j : faceTokens[i]) {
-					if(j == '/') numSlashes++;
-				}
+            for (GLuint i = 1; i < faceTokens.size(); i++) {
+                //need to use both the tokens and number of slashes to determine what info is there.
+                std::vector<std::string> groupTokens = _tokenizeString(faceTokens[i], "/");
+                int numSlashes = 0;
+                for (char j: faceTokens[i]) {
+                    if (j == '/') numSlashes++;
+                }
 
                 std::stringstream currentFaceTokenStream;
 
-                auto signedVertexIndex = (GLint)strtol(groupTokens[0].c_str(), nullptr, 10);
+                auto signedVertexIndex = (GLint) strtol(groupTokens[0].c_str(), nullptr, 10);
                 GLuint vertexIndex = signedVertexIndex;
-                if(signedVertexIndex < 0) vertexIndex = numVertices + signedVertexIndex + 1;
+                if (signedVertexIndex < 0) vertexIndex = numVertices + signedVertexIndex + 1;
 
                 currentFaceTokenStream << vertexIndex;
 
-				//based on combination of number of tokens and slashes, we can determine what we have.
-				if(groupTokens.size() == 2 && numSlashes == 1) {
-					_hasVertexTexCoords = true;
+                //based on combination of number of tokens and slashes, we can determine what we have.
+                if (groupTokens.size() == 2 && numSlashes == 1) {
+                    _hasVertexTexCoords = true;
 
-                    auto signedTexCoordIndex = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                    auto signedTexCoordIndex = (GLint) strtol(groupTokens[1].c_str(), nullptr, 10);
                     GLuint texCoordIndex = signedTexCoordIndex;
-                    if(signedTexCoordIndex < 0) texCoordIndex = numTexCoords + signedTexCoordIndex + 1;
+                    if (signedTexCoordIndex < 0) texCoordIndex = numTexCoords + signedTexCoordIndex + 1;
 
                     currentFaceTokenStream << "/" << texCoordIndex;
-				} else if(groupTokens.size() == 2 && numSlashes == 2) {
-					_hasVertexNormals = true;
+                } else if (groupTokens.size() == 2 && numSlashes == 2) {
+                    _hasVertexNormals = true;
 
-                    auto signedNormalIndex = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                    auto signedNormalIndex = (GLint) strtol(groupTokens[1].c_str(), nullptr, 10);
                     GLuint normalIndex = signedNormalIndex;
-                    if(signedNormalIndex < 0) normalIndex = numNormals + signedNormalIndex + 1;
+                    if (signedNormalIndex < 0) normalIndex = numNormals + signedNormalIndex + 1;
 
                     currentFaceTokenStream << "//" << normalIndex;
-				} else if(groupTokens.size() == 3) {
-					_hasVertexTexCoords = true;
-					_hasVertexNormals = true;
+                } else if (groupTokens.size() == 3) {
+                    _hasVertexTexCoords = true;
+                    _hasVertexNormals = true;
 
-                    auto signedTexCoordIndex = (GLint)strtol(groupTokens[1].c_str(), nullptr, 10);
+                    auto signedTexCoordIndex = (GLint) strtol(groupTokens[1].c_str(), nullptr, 10);
                     GLuint texCoordIndex = signedTexCoordIndex;
-                    if(signedTexCoordIndex < 0) texCoordIndex = numTexCoords + signedTexCoordIndex + 1;
+                    if (signedTexCoordIndex < 0) texCoordIndex = numTexCoords + signedTexCoordIndex + 1;
 
-                    auto signedNormalIndex = (GLint)strtol(groupTokens[2].c_str(), nullptr, 10);
+                    auto signedNormalIndex = (GLint) strtol(groupTokens[2].c_str(), nullptr, 10);
                     GLuint normalIndex = signedNormalIndex;
-                    if(signedNormalIndex < 0) normalIndex = numNormals + signedNormalIndex + 1;
+                    if (signedNormalIndex < 0) normalIndex = numNormals + signedNormalIndex + 1;
 
                     currentFaceTokenStream << "/" << texCoordIndex << "/" << normalIndex;
-				} else if(groupTokens.size() != 1) {
-					if (ERRORS) fprintf(stderr, "[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename.c_str());
-					return false;
-				}
+                } else if (groupTokens.size() != 1) {
+                    if (ERRORS) fprintf(stderr, "[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename.c_str());
+                    return false;
+                }
 
                 std::string processedFaceToken = currentFaceTokenStream.str();
-                if( uniqueCounts.find( processedFaceToken ) == uniqueCounts.end() ) {
-                    uniqueCounts.insert( std::pair<std::string,long int>(processedFaceToken,_uniqueIndex) );
+                if (uniqueCounts.find(processedFaceToken) == uniqueCounts.end()) {
+                    uniqueCounts.insert(std::pair<std::string, long int>(processedFaceToken, _uniqueIndex));
                     _uniqueIndex++;
                 }
-			}
+            }
 
-			numTriangles += (faceTokens.size() - 1 - 3 + 1);
+            numTriangles += (faceTokens.size() - 1 - 3 + 1);
 
-			numFaces++;
+            numFaces++;
+        } else if( tokens[0] == "usemtl" ) {					        // use material library
+
 		} else {
             if (INFO) printf( "[.obj]: ignoring line: %s\n", line.c_str() );
 		}
