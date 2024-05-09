@@ -317,7 +317,7 @@ namespace CSCI441 {
 
     private:
         void _setupGLFunctions();           // initialize OpenGL functions
-        void _cleanupGLEW() {}              // nothing to be done at this time
+        void _cleanupGLFunctions() {}       // nothing to be done at this time
 
         bool _isInitialized;                // makes initialization a singleton process
         bool _isCleanedUp;                  // makes cleanup a singleton process
@@ -432,7 +432,7 @@ inline void CSCI441::OpenGLEngine::shutdown() {
         mCleanupTextures();                                 // delete textures from GPU
         mCleanupScene();                                    // delete scene info from CPU
         mCleanupOpenGL();                                   // cleanup anything OpenGL related
-        _cleanupGLEW();                                     // cleanup anything GLEW related
+        _cleanupGLFunctions();                              // cleanup anything GLEW related
         mCleanupGLFW();                                     // shut down GLFW to clean up our context
         if (DEBUG) fprintf(stdout, "[INFO]: ..shut down complete!\n");
         _isCleanedUp = true;
