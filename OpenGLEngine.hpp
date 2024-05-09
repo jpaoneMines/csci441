@@ -129,9 +129,13 @@ namespace CSCI441 {
          */
         static const unsigned short OPENGL_ENGINE_ERROR_GLEW_INIT     = 3;
         /**
+         * @brief an error occurred while initializing GLAD
+         */
+        static const unsigned short OPENGL_ENGINE_ERROR_GLAD_INIT     = 4;
+        /**
          * @brief a new error that does not correspond to a predefined scenario has occurred
          */
-        static const unsigned short OPENGL_ENGINE_ERROR_UNKNOWN       = 4;
+        static const unsigned short OPENGL_ENGINE_ERROR_UNKNOWN       = 5;
         // note to developers: if more error codes are added, need to update LAST accordingly or
         // update UNKNOWN to the last value and shift
         /**
@@ -312,7 +316,7 @@ namespace CSCI441 {
         virtual void mCleanupGLFW();
 
     private:
-        void _setupGLEW();                  // initialize GLEW
+        void _setupGLFunctions();           // initialize OpenGL functions
         void _cleanupGLEW() {}              // nothing to be done at this time
 
         bool _isInitialized;                // makes initialization a singleton process
@@ -341,7 +345,7 @@ inline CSCI441::OpenGLEngine::~OpenGLEngine() {
 inline void CSCI441::OpenGLEngine::initialize() {
     if( !_isInitialized ) {
         mSetupGLFW();                   // initialize GLFW and set up a window
-        _setupGLEW();                   // create OpenGL extensions
+        _setupGLFunctions();            // create OpenGL extensions
         mSetupOpenGL();                 // create the OpenGL context
 
         // get OpenGL context information
@@ -395,7 +399,7 @@ inline void CSCI441::OpenGLEngine::mSetupGLFW()  {
     }
 }
 
-inline void CSCI441::OpenGLEngine::_setupGLEW() {
+inline void CSCI441::OpenGLEngine::_setupGLFunctions() {
     glewExperimental = GL_TRUE;
     GLenum glewResult = glewInit();                                             // initialize GLEW
 
