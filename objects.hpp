@@ -243,6 +243,29 @@ namespace CSCI441 {
     [[maybe_unused]] void drawWireSphere( GLfloat radius, GLint stacks, GLint slices );
 
     /**
+     * @brief Draws a solid dome
+     * @param radius radius of the dome
+     * @param stacks resolution of the number of steps to take along theta (rotate around Y-axis)
+     * @param slices resolution of the number of steps to take along phi (rotate around X- or Z-axis)
+     * @pre radius must be greater than 0
+     * @pre stacks must be greater than 2
+     * @pre slices must be greater than 2
+     * @note Origin is at the center of the dome
+     */
+    [[maybe_unused]] void drawSolidDome( GLfloat radius, GLint stacks, GLint slices );
+    /**
+     * @brief Draws a wireframe dome
+     * @param radius radius of the dome
+     * @param stacks resolution of the number of steps to take along theta (rotate around Y-axis)
+     * @param slices resolution of the number of steps to take along phi (rotate around X- or Z-axis)
+     * @pre radius must be greater than 0
+     * @pre stacks must be greater than 2
+     * @pre slices must be greater than 2
+     * @note Origin is at the center of the dome
+     */
+    [[maybe_unused]] void drawWireDome( GLfloat radius, GLint stacks, GLint slices );
+
+    /**
      * @brief Draws a solid teapot
      * @param unused present for historical compatability
      * @pre size must be greater than zero
@@ -302,6 +325,7 @@ namespace CSCI441_INTERNAL {
     void drawCylinder( GLfloat base, GLfloat top, GLfloat height, GLuint stacks, GLuint slices, GLenum renderMode );
     void drawPartialDisk(GLfloat innerRadius, GLfloat outerRadius, GLuint slices, GLuint rings, GLfloat startAngle, GLfloat sweepAngle, GLenum renderMode );
     void drawSphere( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode );
+    void drawDome( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode );
     void drawTorus( GLfloat innerRadius, GLfloat outerRadius, GLuint sides, GLuint rings, GLenum renderMode );
     void drawTeapot( GLenum renderMode );
 
@@ -607,6 +631,24 @@ inline void CSCI441::drawWireSphere( GLfloat radius, GLint stacks, GLint slices 
 }
 
 [[maybe_unused]]
+inline void CSCI441::drawSolidDome( GLfloat radius, GLint stacks, GLint slices ) {
+    assert( radius > 0.0f );
+    assert( stacks > 1 );
+    assert( slices > 2 );
+
+    CSCI441_INTERNAL::drawDome( radius, stacks, slices, GL_FILL );
+}
+
+[[maybe_unused]]
+inline void CSCI441::drawWireDome( GLfloat radius, GLint stacks, GLint slices ) {
+    assert( radius > 0.0f );
+    assert( stacks > 1);
+    assert( slices > 2 );
+
+    CSCI441_INTERNAL::drawDome( radius, stacks, slices, GL_LINE );
+}
+
+[[maybe_unused]]
 inline void CSCI441::drawSolidTeapot( [[maybe_unused]] GLfloat unused ) {
     CSCI441_INTERNAL::drawTeapot(GL_FILL);
 }
@@ -854,6 +896,43 @@ inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLuint stacks, GLuint 
     }
 
     glDrawArrays( GL_TRIANGLE_FAN, static_cast<GLint>((slices+2) + (stacks-2)*(slices+1)*2), static_cast<GLint>(slices+2) );
+
+    glPolygonMode( GL_FRONT, currentPolygonMode[0] );
+    glPolygonMode( GL_BACK, currentPolygonMode[1] );
+}
+
+inline void CSCI441_INTERNAL::drawDome( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode ) {
+    SphereData sphereData = { radius, stacks, slices };
+    if( CSCI441_INTERNAL::_sphereVAO.count( sphereData ) == 0 ) {
+        CSCI441_INTERNAL::generateSphereVAO( sphereData );
+    }
+
+    const GLuint64 NUM_VERTICES = sphereData.numVertices();
+
+    GLint currentPolygonMode[2];
+    glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
+
+    glPolygonMode( GL_FRONT_AND_BACK, renderMode );
+    glBindVertexArray( CSCI441_INTERNAL::_sphereVAO.find( sphereData )->second );
+    glBindBuffer( GL_ARRAY_BUFFER, CSCI441_INTERNAL::_sphereVBO.find( sphereData )->second );
+    if(CSCI441_INTERNAL::_positionAttributeLocation != -1) {
+        glEnableVertexAttribArray( CSCI441_INTERNAL::_positionAttributeLocation );
+        glVertexAttribPointer( CSCI441_INTERNAL::_positionAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)nullptr );
+    }
+    if(CSCI441_INTERNAL::_normalAttributeLocation != -1) {
+        glEnableVertexAttribArray( CSCI441_INTERNAL::_normalAttributeLocation );
+        glVertexAttribPointer( CSCI441_INTERNAL::_normalAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES) );
+    }
+    if(CSCI441_INTERNAL::_texCoordAttributeLocation != -1) {
+        glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
+        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES * 2) );
+    }
+
+    glDrawArrays( GL_TRIANGLE_FAN, 0, static_cast<GLint>(slices+2) );
+
+    for(GLuint stackNum = (stacks-1)/2; stackNum < stacks-1; stackNum++) {
+        glDrawArrays( GL_TRIANGLE_STRIP, static_cast<GLint>((slices+2) + (stackNum-1)*((slices+1)*2)), static_cast<GLint>((slices+1)*2) );
+    }
 
     glPolygonMode( GL_FRONT, currentPolygonMode[0] );
     glPolygonMode( GL_BACK, currentPolygonMode[1] );

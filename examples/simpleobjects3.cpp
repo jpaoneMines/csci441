@@ -17,6 +17,7 @@ public:
                 const char* WINDOW_TITLE) : CSCI441::OpenGL3DEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE) {
         _objectIndex = 0;
         _objectAngle = 0;
+        _wireframe = false;
     }
     ~SimpleObjects3Engine() final = default;
 
@@ -51,6 +52,7 @@ public:
     void swapObject(GLuint object) { _objectIndex = object; }
 
     void toggleRotation() { _rotate = !_rotate; }
+    void toggleWireframe() { _wireframe = !_wireframe; }
 
 private:
     //***************************************************************************
@@ -122,18 +124,36 @@ private:
         modelMatrix = glm::rotate( modelMatrix, _objectAngle, CSCI441::Y_AXIS );
         CSCI441::SimpleShader3::pushTransformation(modelMatrix);
             // draw all the cool stuff!
-            switch( _objectIndex ) {
-                case 0: CSCI441::drawSolidTeapot();                                                             break;
-                case 1: CSCI441::drawSolidCubeTextured( 3.0f );                                      break;
-                case 2: CSCI441::drawSolidSphere( 2.0f, 32, 32 );                          break;
-                case 3: CSCI441::drawSolidTorus( 0.5f, 1.5f, 32, 32 );        break;
-                case 4: CSCI441::drawSolidCone( 2.0f, 3.0f, 32, 32 );                break;
-                case 5: CSCI441::drawSolidCylinder( 2.0f, 2.0f, 3.0f, 32, 32 ); break;
-                case 6: CSCI441::drawSolidCubeFlat( 3.0f );                                      break;
-                case 7: CSCI441::drawSolidCubeIndexed( 3.0f );                                      break;
+            if( !_wireframe ) {
+                switch( _objectIndex ) {
+                    case 0: CSCI441::drawSolidTeapot();                                                             break;
+                    case 1: CSCI441::drawSolidCubeTextured( 3.0f );                                      break;
+                    case 2: CSCI441::drawSolidSphere( 2.0f, 32, 32 );                          break;
+                    case 3: CSCI441::drawSolidTorus( 0.5f, 1.5f, 32, 32 );        break;
+                    case 4: CSCI441::drawSolidCone( 2.0f, 3.0f, 32, 32 );                break;
+                    case 5: CSCI441::drawSolidCylinder( 2.0f, 2.0f, 3.0f, 32, 32 ); break;
+                    case 6: CSCI441::drawSolidCubeFlat( 3.0f );                                      break;
+                    case 7: CSCI441::drawSolidCubeIndexed( 3.0f );                                      break;
+                    case 8: CSCI441::drawSolidDome(2.0f, 32, 32);                           break;
 
-                default: break;
+                    default: break;
+                }
+            } else {
+                switch( _objectIndex ) {
+                    case 0: CSCI441::drawWireTeapot();                                                             break;
+                    case 1: CSCI441::drawWireCube( 3.0f );                                      break;
+                    case 2: CSCI441::drawWireSphere( 2.0f, 32, 32 );                          break;
+                    case 3: CSCI441::drawWireTorus( 0.5f, 1.5f, 32, 32 );        break;
+                    case 4: CSCI441::drawWireCone( 2.0f, 3.0f, 32, 32 );                break;
+                    case 5: CSCI441::drawWireCylinder( 2.0f, 2.0f, 3.0f, 32, 32 ); break;
+                    case 6: CSCI441::drawWireCube( 3.0f );                                      break;
+                    case 7: CSCI441::drawWireCube( 3.0f );                                      break;
+                    case 8: CSCI441::drawWireDome(2.0f, 32, 32);                           break;
+
+                    default: break;
+                }
             }
+
         CSCI441::SimpleShader3::popTransformation();
     }
 
@@ -156,6 +176,8 @@ private:
     GLuint _objectIndex;
     /// \desc the current angle of rotation to display our object at
     GLfloat _objectAngle;
+    /// \desc if objects should be drawn as wireframe or solid
+    GLboolean _wireframe;
 
     glm::vec3 _lightPosition;
     GLfloat _lightPositionAngle;
@@ -190,11 +212,16 @@ void simple_objects_3_engine_keyboard_callback(GLFWwindow *window, int key, int 
             case GLFW_KEY_6:
             case GLFW_KEY_7:
             case GLFW_KEY_8:
+            case GLFW_KEY_9:
                 engine->swapObject(key - GLFW_KEY_1); // GLFW_KEY_1 is 49.  they go in sequence from there
                 break;
 
             case GLFW_KEY_R:
                 engine->toggleRotation();
+                break;
+
+            case GLFW_KEY_W:
+                engine->toggleWireframe();
                 break;
 
             default:
