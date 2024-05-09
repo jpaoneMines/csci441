@@ -47,8 +47,8 @@ namespace CSCI441 {
 
         /**
          * @brief Initialize everything needed for OpenGL Rendering.  This includes
-         * in order: GLFW, GLEW, OpenGL, Shader Programs, Buffer Objects, Textures,
-         * and any Scene information
+         * in order: GLFW, function pointers, OpenGL, Shader Programs, Buffer Objects,
+         * Textures, and any Scene information
          * @warning If this method is overridden, then the parent implementation must
          * be called first as part of the derived implementation
          */
@@ -60,7 +60,7 @@ namespace CSCI441 {
         /**
          * @brief Cleanup everything needed for OpenGL Rendering.  This includes
          * freeing memory for data used in: any Scene information, Textures, Buffer Objects,
-         * Shader Programs, OpenGL, GLEW, GLFW
+         * Shader Programs, OpenGL, function pointers, GLFW
          * @warning If this method is overridden, then the parent implementation must
          * be called last as part of the derived implementation
          */
@@ -350,7 +350,7 @@ inline CSCI441::OpenGLEngine::~OpenGLEngine() {
 inline void CSCI441::OpenGLEngine::initialize() {
     if( !_isInitialized ) {
         mSetupGLFW();                   // initialize GLFW and set up a window
-        _setupGLFunctions();            // create OpenGL extensions
+        _setupGLFunctions();            // create OpenGL function pointers
         mSetupOpenGL();                 // create the OpenGL context
 
         // get OpenGL context information
@@ -452,7 +452,7 @@ inline void CSCI441::OpenGLEngine::shutdown() {
         mCleanupTextures();                                 // delete textures from GPU
         mCleanupScene();                                    // delete scene info from CPU
         mCleanupOpenGL();                                   // cleanup anything OpenGL related
-        _cleanupGLFunctions();                              // cleanup anything GLEW related
+        _cleanupGLFunctions();                              // cleanup anything function pointer related
         mCleanupGLFW();                                     // shut down GLFW to clean up our context
         if (DEBUG) fprintf(stdout, "[INFO]: ..shut down complete!\n");
         _isCleanedUp = true;
