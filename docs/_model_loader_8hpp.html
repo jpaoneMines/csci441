@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.13.4</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.0.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -80,7 +80,7 @@ $(function() {
 <p>Loads OBJ+MTL, OFF, PLY, STL object files into a VAO.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="model_material_8hpp_source.html">modelMaterial.hpp</a>&quot;</code><br />
-<code>#include &lt;GL/glew.h&gt;</code><br />
+<code>#include &lt;glad/gl.h&gt;</code><br />
 <code>#include &lt;glm/glm.hpp&gt;</code><br />
 <code>#include &lt;stb_image.h&gt;</code><br />
 <code>#include &lt;cstdio&gt;</code><br />
@@ -115,7 +115,7 @@ Namespaces</h2></td></tr>
 <p>This class will load and render object files. Currently supports: .obj + .mtl .off .ply .stl</p>
 <dl class="section warning"><dt>Warning</dt><dd>NOTE: This header file will only work with OpenGL 3.0+ </dd>
 <dd>
-NOTE: This header file depends upon GLEW, glm, stb_image </dd></dl>
+NOTE: This header file depends upon GLAD (or GLEW), glm, stb_image </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

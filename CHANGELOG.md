@@ -1,6 +1,6 @@
 # Revision History
 
-## v ?.??.? - ?? ??? ????
+## v 5.0.0 - 09 May 2024
 - ModelLoader no longer prints "ignoring usemtl" line when parsing file
 - Supports OpenGL function loading via glad2 or GLEW (the default is glad2)
 - Updated GLFW dependency from 3.3.8 to 3.4

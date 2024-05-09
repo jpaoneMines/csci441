@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;4.13.4</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.0.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -79,149 +79,153 @@ $(function() {
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="_shader_program_8hpp.html">ShaderProgram.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;GL/glew.h&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;cstdio&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#ifdef CSCI441_USE_GLEW</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">    #include &lt;GL/glew.h&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">    #include &lt;glad/gl.h&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">//******************************************************************************</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_c_s_c_i441.html">CSCI441</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;cstdio&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">   30</a></span>    <span class="keyword">class </span>[[maybe_unused]] <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a> final {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a5730d2ceda99e2fa6d4965ce70c662ac">   35</a></span>        <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a5730d2ceda99e2fa6d4965ce70c662ac">UniformBufferObject</a>() = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        [[maybe_unused]] <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* UNIFORM_BLOCK_NAME, std::initializer_list&lt;const char*&gt; uniformNamesList);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">~UniformBufferObject</a>();</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ad4476825e49e9554fc3b8cbbdfcc38b9">   51</a></span>        <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ad4476825e49e9554fc3b8cbbdfcc38b9">UniformBufferObject</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a3708af1dbd68a9b7e341ca4a100cb769">   55</a></span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>&amp; <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a3708af1dbd68a9b7e341ca4a100cb769">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        [[maybe_unused]] <span class="keywordtype">void</span> setupWithShaderProgram( <a class="code hl_class" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> *shaderProgram, GLuint bindingPoint );</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        [[maybe_unused]] <span class="keywordtype">void</span> copyToOffset( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> offset, <span class="keywordtype">void</span>* addr, <span class="keywordtype">size_t</span> len );</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        [[maybe_unused]] <span class="keywordtype">void</span> copyToBuffer( <span class="keyword">const</span> <span class="keywordtype">char</span>* UNIFORM_NAME, <span class="keywordtype">void</span>* addr, <span class="keywordtype">size_t</span> len );</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordtype">void</span> bindBuffer() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        [[maybe_unused]] <span class="keywordtype">void</span> bufferSubData() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordtype">char</span>* _blockName;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        std::vector&lt;char*&gt; _uniformNames;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        GLint _blockSize;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        GLubyte* _buffer;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        GLuint _numUniforms;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        GLuint* _uniformIndices;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        GLint* _uniformOffsets;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        GLuint _ubod;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        GLuint _bindingPoint;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    };</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">//******************************************************************************</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>[[maybe_unused]]</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a82ecc51521c3031a85312446877486d1">  107</a></span><span class="keyword">inline</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a5730d2ceda99e2fa6d4965ce70c662ac">CSCI441::UniformBufferObject::UniformBufferObject</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* UNIFORM_BLOCK_NAME, std::initializer_list&lt;const char*&gt; uniformNamesList) {</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    _blockName = (<span class="keywordtype">char</span>*)UNIFORM_BLOCK_NAME;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">//******************************************************************************</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_c_s_c_i441.html">CSCI441</a> {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">   34</a></span>    <span class="keyword">class </span>[[maybe_unused]] <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a> final {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a5730d2ceda99e2fa6d4965ce70c662ac">   39</a></span>        <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a5730d2ceda99e2fa6d4965ce70c662ac">UniformBufferObject</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        [[maybe_unused]] <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* UNIFORM_BLOCK_NAME, std::initializer_list&lt;const char*&gt; uniformNamesList);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">~UniformBufferObject</a>();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ad4476825e49e9554fc3b8cbbdfcc38b9">   55</a></span>        <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ad4476825e49e9554fc3b8cbbdfcc38b9">UniformBufferObject</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a3708af1dbd68a9b7e341ca4a100cb769">   59</a></span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>&amp; <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a3708af1dbd68a9b7e341ca4a100cb769">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        [[maybe_unused]] <span class="keywordtype">void</span> setupWithShaderProgram( <a class="code hl_class" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> *shaderProgram, GLuint bindingPoint );</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        [[maybe_unused]] <span class="keywordtype">void</span> copyToOffset( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> offset, <span class="keywordtype">void</span>* addr, <span class="keywordtype">size_t</span> len );</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        [[maybe_unused]] <span class="keywordtype">void</span> copyToBuffer( <span class="keyword">const</span> <span class="keywordtype">char</span>* UNIFORM_NAME, <span class="keywordtype">void</span>* addr, <span class="keywordtype">size_t</span> len );</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordtype">void</span> bindBuffer() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        [[maybe_unused]] <span class="keywordtype">void</span> bufferSubData() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keywordtype">char</span>* _blockName;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        std::vector&lt;char*&gt; _uniformNames;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        GLint _blockSize;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        GLubyte* _buffer;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        GLuint _numUniforms;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        GLuint* _uniformIndices;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        GLint* _uniformOffsets;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        GLuint _ubod;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        GLuint _bindingPoint;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    };</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">//******************************************************************************</span></div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    _numUniforms = uniformNamesList.size();</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;uniformName : uniformNamesList ) {</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordtype">char</span>* un = (<span class="keywordtype">char</span>*)malloc(strlen(uniformName) * <span class="keyword">sizeof</span>(char));</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        strcpy(un, uniformName);</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        _uniformNames.push_back(un);</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    }</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    _uniformIndices = (GLuint*)malloc(_numUniforms * <span class="keyword">sizeof</span>(GLuint));</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    _uniformOffsets = (GLint*)malloc(_numUniforms * <span class="keyword">sizeof</span>(GLint));</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    _blockSize = 0;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    _buffer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    _bindingPoint = 0;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    _ubod = 0;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>}</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a25509246b1331ac2c1792ee7500e9c01">  127</a></span><span class="keyword">inline</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a25509246b1331ac2c1792ee7500e9c01">CSCI441::UniformBufferObject::~UniformBufferObject</a>() {</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    glDeleteBuffers(1, &amp;_ubod);</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordflow">for</span>(GLuint i = 0; i &lt; _numUniforms; i++) {</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        free(_uniformNames[i]);</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    }</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    free(_uniformIndices);</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    free(_uniformOffsets);</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    free(_buffer);</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>}</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>[[maybe_unused]]</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ae6a0b46eaf1fce65c7c185b27e9876c6">  139</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ae6a0b46eaf1fce65c7c185b27e9876c6">CSCI441::UniformBufferObject::setupWithShaderProgram</a>( <a class="code hl_class" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> *shaderProgram, GLuint bindingPoint ) {</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    _blockSize = shaderProgram-&gt;<a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#adc808f46f482fe92f4a399ed7bd49931">getUniformBlockSize</a>( _blockName );</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    _buffer = (GLubyte*)malloc( _blockSize );</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    glGetUniformIndices(shaderProgram-&gt;<a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a679f8aefe1d0f2fc3a4881c2bfcf2ea6">getShaderProgramHandle</a>(), _numUniforms, &amp;_uniformNames[0], _uniformIndices);</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    glGetActiveUniformsiv(shaderProgram-&gt;<a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a679f8aefe1d0f2fc3a4881c2bfcf2ea6">getShaderProgramHandle</a>(), _numUniforms, _uniformIndices, GL_UNIFORM_OFFSET, _uniformOffsets);</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    glGenBuffers(1, &amp;_ubod);</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    bindBuffer();</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    glBufferData(GL_UNIFORM_BUFFER, _blockSize, <span class="keyword">nullptr</span>, GL_DYNAMIC_DRAW);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>[[maybe_unused]]</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a82ecc51521c3031a85312446877486d1">  111</a></span><span class="keyword">inline</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a5730d2ceda99e2fa6d4965ce70c662ac">CSCI441::UniformBufferObject::UniformBufferObject</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* UNIFORM_BLOCK_NAME, std::initializer_list&lt;const char*&gt; uniformNamesList) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    _blockName = (<span class="keywordtype">char</span>*)UNIFORM_BLOCK_NAME;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    _numUniforms = uniformNamesList.size();</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;uniformName : uniformNamesList ) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordtype">char</span>* un = (<span class="keywordtype">char</span>*)malloc(strlen(uniformName) * <span class="keyword">sizeof</span>(char));</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        strcpy(un, uniformName);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        _uniformNames.push_back(un);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    _uniformIndices = (GLuint*)malloc(_numUniforms * <span class="keyword">sizeof</span>(GLuint));</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    _uniformOffsets = (GLint*)malloc(_numUniforms * <span class="keyword">sizeof</span>(GLint));</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    _blockSize = 0;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    _buffer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    _bindingPoint = 0;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    _ubod = 0;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a25509246b1331ac2c1792ee7500e9c01">  131</a></span><span class="keyword">inline</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a25509246b1331ac2c1792ee7500e9c01">CSCI441::UniformBufferObject::~UniformBufferObject</a>() {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    glDeleteBuffers(1, &amp;_ubod);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">for</span>(GLuint i = 0; i &lt; _numUniforms; i++) {</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        free(_uniformNames[i]);</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    }</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    free(_uniformIndices);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    free(_uniformOffsets);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    free(_buffer);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>}</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>[[maybe_unused]]</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ae6a0b46eaf1fce65c7c185b27e9876c6">  143</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ae6a0b46eaf1fce65c7c185b27e9876c6">CSCI441::UniformBufferObject::setupWithShaderProgram</a>( <a class="code hl_class" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> *shaderProgram, GLuint bindingPoint ) {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    _blockSize = shaderProgram-&gt;<a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#adc808f46f482fe92f4a399ed7bd49931">getUniformBlockSize</a>( _blockName );</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    _buffer = (GLubyte*)malloc( _blockSize );</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    glGetUniformIndices(shaderProgram-&gt;<a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a679f8aefe1d0f2fc3a4881c2bfcf2ea6">getShaderProgramHandle</a>(), _numUniforms, &amp;_uniformNames[0], _uniformIndices);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    glGetActiveUniformsiv(shaderProgram-&gt;<a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a679f8aefe1d0f2fc3a4881c2bfcf2ea6">getShaderProgramHandle</a>(), _numUniforms, _uniformIndices, GL_UNIFORM_OFFSET, _uniformOffsets);</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    _bindingPoint = bindingPoint;</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    glBindBufferBase(GL_UNIFORM_BUFFER, _bindingPoint, _ubod);</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    shaderProgram-&gt;<a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#ad76137c2a29f62a35e074b8ba8db9ff9">setUniformBlockBinding</a>(_blockName, _bindingPoint);</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>}</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>[[maybe_unused]]</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a93bfc9c16fb2d49f35dc360a9009437b">  156</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a93bfc9c16fb2d49f35dc360a9009437b">CSCI441::UniformBufferObject::copyToOffset</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> offset, <span class="keywordtype">void</span>* addr, <span class="keywordtype">size_t</span> len ) {</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordflow">if</span>(offset &lt; _numUniforms) {</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        memcpy(_buffer + _uniformOffsets[offset], addr, len);</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Offset %d exceeds size of Uniform Block %s which is %d\n&quot;</span>, offset, _blockName, _numUniforms);</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    }</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>}</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>[[maybe_unused]]</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ab640cb7aec972a4b4a0a7d4b88a36ab7">  165</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ab640cb7aec972a4b4a0a7d4b88a36ab7">CSCI441::UniformBufferObject::copyToBuffer</a>( <span class="keyword">const</span> <span class="keywordtype">char</span>* UNIFORM_NAME, <span class="keywordtype">void</span>* addr, <span class="keywordtype">size_t</span> len ) {</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">for</span>(GLuint i = 0; i &lt; _numUniforms; i++) {</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="keywordflow">if</span>( strcmp(_uniformNames[i], UNIFORM_NAME) == 0 ) {</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            memcpy( _buffer + _uniformOffsets[i], addr, len );</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            found = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        }</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    }</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">if</span>(!found) {</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Uniform Name \&quot;%s\&quot; not found within Uniform Block \&quot;%s\&quot;\n&quot;</span>, UNIFORM_NAME, _blockName);</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    }</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>}</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a1a90e0cf0530bdbef8fcfc160ff5d645">  179</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a1a90e0cf0530bdbef8fcfc160ff5d645">CSCI441::UniformBufferObject::bindBuffer</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    glBindBuffer(GL_UNIFORM_BUFFER, _ubod);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    glGenBuffers(1, &amp;_ubod);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    bindBuffer();</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    glBufferData(GL_UNIFORM_BUFFER, _blockSize, <span class="keyword">nullptr</span>, GL_DYNAMIC_DRAW);</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    _bindingPoint = bindingPoint;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    glBindBufferBase(GL_UNIFORM_BUFFER, _bindingPoint, _ubod);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    shaderProgram-&gt;<a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#ad76137c2a29f62a35e074b8ba8db9ff9">setUniformBlockBinding</a>(_blockName, _bindingPoint);</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>}</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>[[maybe_unused]]</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a93bfc9c16fb2d49f35dc360a9009437b">  160</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a93bfc9c16fb2d49f35dc360a9009437b">CSCI441::UniformBufferObject::copyToOffset</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> offset, <span class="keywordtype">void</span>* addr, <span class="keywordtype">size_t</span> len ) {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordflow">if</span>(offset &lt; _numUniforms) {</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        memcpy(_buffer + _uniformOffsets[offset], addr, len);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Offset %d exceeds size of Uniform Block %s which is %d\n&quot;</span>, offset, _blockName, _numUniforms);</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    }</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>}</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>[[maybe_unused]]</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ab640cb7aec972a4b4a0a7d4b88a36ab7">  169</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ab640cb7aec972a4b4a0a7d4b88a36ab7">CSCI441::UniformBufferObject::copyToBuffer</a>( <span class="keyword">const</span> <span class="keywordtype">char</span>* UNIFORM_NAME, <span class="keywordtype">void</span>* addr, <span class="keywordtype">size_t</span> len ) {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordflow">for</span>(GLuint i = 0; i &lt; _numUniforms; i++) {</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <span class="keywordflow">if</span>( strcmp(_uniformNames[i], UNIFORM_NAME) == 0 ) {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            memcpy( _buffer + _uniformOffsets[i], addr, len );</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            found = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        }</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    }</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">if</span>(!found) {</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Uniform Name \&quot;%s\&quot; not found within Uniform Block \&quot;%s\&quot;\n&quot;</span>, UNIFORM_NAME, _blockName);</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    }</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>}</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>[[maybe_unused]]</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#af3240a7f017121a215e104fc5c641956">  184</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#af3240a7f017121a215e104fc5c641956">CSCI441::UniformBufferObject::bufferSubData</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    glBufferSubData(GL_UNIFORM_BUFFER, 0, _blockSize, _buffer);</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>}</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="preprocessor">#endif </span><span class="comment">//CSCI441_UNIFORM_BUFFER_OBJECT_HPP</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a1a90e0cf0530bdbef8fcfc160ff5d645">  183</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a1a90e0cf0530bdbef8fcfc160ff5d645">CSCI441::UniformBufferObject::bindBuffer</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    glBindBuffer(GL_UNIFORM_BUFFER, _ubod);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>}</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>[[maybe_unused]]</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#af3240a7f017121a215e104fc5c641956">  188</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#af3240a7f017121a215e104fc5c641956">CSCI441::UniformBufferObject::bufferSubData</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    glBufferSubData(GL_UNIFORM_BUFFER, 0, _blockSize, _buffer);</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>}</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="preprocessor">#endif </span><span class="comment">//CSCI441_UNIFORM_BUFFER_OBJECT_HPP</span></div>
 <div class="ttc" id="a_shader_program_8hpp_html"><div class="ttname"><a href="_shader_program_8hpp.html">ShaderProgram.hpp</a></div><div class="ttdoc">Class to work with OpenGL 4.0+ Shaders.</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a></div><div class="ttdoc">Handles registration and compilation of Shaders.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:34</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_a679f8aefe1d0f2fc3a4881c2bfcf2ea6"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#a679f8aefe1d0f2fc3a4881c2bfcf2ea6">CSCI441::ShaderProgram::getShaderProgramHandle</a></div><div class="ttdeci">virtual GLuint getShaderProgramHandle() const final</div><div class="ttdoc">Returns the handle for this shader program.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:1405</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_ad76137c2a29f62a35e074b8ba8db9ff9"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#ad76137c2a29f62a35e074b8ba8db9ff9">CSCI441::ShaderProgram::setUniformBlockBinding</a></div><div class="ttdeci">virtual void setUniformBlockBinding(const char *uniformBlockName, GLuint binding) const final</div><div class="ttdoc">Set the binding point for the given uniform block in this shader program.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:1281</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_shader_program_html_adc808f46f482fe92f4a399ed7bd49931"><div class="ttname"><a href="class_c_s_c_i441_1_1_shader_program.html#adc808f46f482fe92f4a399ed7bd49931">CSCI441::ShaderProgram::getUniformBlockSize</a></div><div class="ttdeci">virtual GLint getUniformBlockSize(const char *uniformBlockName) const final</div><div class="ttdoc">Returns the size of the given uniform block in this shader program.</div><div class="ttdef"><b>Definition:</b> ShaderProgram.hpp:1230</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html">CSCI441::UniformBufferObject</a></div><div class="ttdoc">Storage of UBO related data.</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:30</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_a1a90e0cf0530bdbef8fcfc160ff5d645"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a1a90e0cf0530bdbef8fcfc160ff5d645">CSCI441::UniformBufferObject::bindBuffer</a></div><div class="ttdeci">void bindBuffer() const</div><div class="ttdoc">binds UBO object to UBO buffer</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:179</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_a25509246b1331ac2c1792ee7500e9c01"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a25509246b1331ac2c1792ee7500e9c01">CSCI441::UniformBufferObject::~UniformBufferObject</a></div><div class="ttdeci">~UniformBufferObject()</div><div class="ttdoc">Deletes the UBO from the GPU and frees all memory on the CPU.</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:127</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html">CSCI441::UniformBufferObject</a></div><div class="ttdoc">Storage of UBO related data.</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:34</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_a1a90e0cf0530bdbef8fcfc160ff5d645"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a1a90e0cf0530bdbef8fcfc160ff5d645">CSCI441::UniformBufferObject::bindBuffer</a></div><div class="ttdeci">void bindBuffer() const</div><div class="ttdoc">binds UBO object to UBO buffer</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:183</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_a25509246b1331ac2c1792ee7500e9c01"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a25509246b1331ac2c1792ee7500e9c01">CSCI441::UniformBufferObject::~UniformBufferObject</a></div><div class="ttdeci">~UniformBufferObject()</div><div class="ttdoc">Deletes the UBO from the GPU and frees all memory on the CPU.</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:131</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_a3708af1dbd68a9b7e341ca4a100cb769"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a3708af1dbd68a9b7e341ca4a100cb769">CSCI441::UniformBufferObject::operator=</a></div><div class="ttdeci">UniformBufferObject &amp; operator=(const UniformBufferObject &amp;)=delete</div><div class="ttdoc">do not allow UBOs to be copied</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_a5730d2ceda99e2fa6d4965ce70c662ac"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a5730d2ceda99e2fa6d4965ce70c662ac">CSCI441::UniformBufferObject::UniformBufferObject</a></div><div class="ttdeci">UniformBufferObject()=delete</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_a93bfc9c16fb2d49f35dc360a9009437b"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a93bfc9c16fb2d49f35dc360a9009437b">CSCI441::UniformBufferObject::copyToOffset</a></div><div class="ttdeci">void copyToOffset(unsigned int offset, void *addr, size_t len)</div><div class="ttdoc">copies the value pointed to by addr to the corresponding location within the UBO as denoted by the of...</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:156</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_ab640cb7aec972a4b4a0a7d4b88a36ab7"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ab640cb7aec972a4b4a0a7d4b88a36ab7">CSCI441::UniformBufferObject::copyToBuffer</a></div><div class="ttdeci">void copyToBuffer(const char *UNIFORM_NAME, void *addr, size_t len)</div><div class="ttdoc">copies the value pointed to by addr to the corresponding location within the UBO as denoted by the un...</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:165</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_a93bfc9c16fb2d49f35dc360a9009437b"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a93bfc9c16fb2d49f35dc360a9009437b">CSCI441::UniformBufferObject::copyToOffset</a></div><div class="ttdeci">void copyToOffset(unsigned int offset, void *addr, size_t len)</div><div class="ttdoc">copies the value pointed to by addr to the corresponding location within the UBO as denoted by the of...</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:160</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_ab640cb7aec972a4b4a0a7d4b88a36ab7"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ab640cb7aec972a4b4a0a7d4b88a36ab7">CSCI441::UniformBufferObject::copyToBuffer</a></div><div class="ttdeci">void copyToBuffer(const char *UNIFORM_NAME, void *addr, size_t len)</div><div class="ttdoc">copies the value pointed to by addr to the corresponding location within the UBO as denoted by the un...</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:169</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_ad4476825e49e9554fc3b8cbbdfcc38b9"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ad4476825e49e9554fc3b8cbbdfcc38b9">CSCI441::UniformBufferObject::UniformBufferObject</a></div><div class="ttdeci">UniformBufferObject(const UniformBufferObject &amp;)=delete</div><div class="ttdoc">do not allow UBOs to be copied</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_ae6a0b46eaf1fce65c7c185b27e9876c6"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ae6a0b46eaf1fce65c7c185b27e9876c6">CSCI441::UniformBufferObject::setupWithShaderProgram</a></div><div class="ttdeci">void setupWithShaderProgram(ShaderProgram *shaderProgram, GLuint bindingPoint)</div><div class="ttdoc">creates the UBO and allocates memory on both the CPU &amp; GPU. binds the UBO and the uniform block for t...</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:139</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_af3240a7f017121a215e104fc5c641956"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#af3240a7f017121a215e104fc5c641956">CSCI441::UniformBufferObject::bufferSubData</a></div><div class="ttdeci">void bufferSubData() const</div><div class="ttdoc">transfers UBO data to UBO buffer</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:184</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_ae6a0b46eaf1fce65c7c185b27e9876c6"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ae6a0b46eaf1fce65c7c185b27e9876c6">CSCI441::UniformBufferObject::setupWithShaderProgram</a></div><div class="ttdeci">void setupWithShaderProgram(ShaderProgram *shaderProgram, GLuint bindingPoint)</div><div class="ttdoc">creates the UBO and allocates memory on both the CPU &amp; GPU. binds the UBO and the uniform block for t...</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:143</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_uniform_buffer_object_html_af3240a7f017121a215e104fc5c641956"><div class="ttname"><a href="class_c_s_c_i441_1_1_uniform_buffer_object.html#af3240a7f017121a215e104fc5c641956">CSCI441::UniformBufferObject::bufferSubData</a></div><div class="ttdeci">void bufferSubData() const</div><div class="ttdoc">transfers UBO data to UBO buffer</div><div class="ttdef"><b>Definition:</b> UniformBufferObject.hpp:188</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
