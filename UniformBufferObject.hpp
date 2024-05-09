@@ -13,7 +13,11 @@
 
 #include "ShaderProgram.hpp"
 
-#include <GL/glew.h>
+#ifdef CSCI441_USE_GLEW
+    #include <GL/glew.h>
+#else
+    #include <glad/gl.h>
+#endif
 
 #include <cstdio>
 #include <string>

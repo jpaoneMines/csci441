@@ -11,13 +11,17 @@
  *
  * Modified by Dr. Jeffrey Paone to work in Colorado School of Mines CSCI441 course context.
  *
- * @warning This header file depends upon GLEW
+ * @warning This header file depends upon GLAD (or alternatively GLEW)
  */
 
 #ifndef CSCI441_TEAPOT_HPP
 #define CSCI441_TEAPOT_HPP
 
-#include <GL/glew.h>
+#ifdef CSCI441_USE_GLEW
+    #include <GL/glew.h>
+#else
+    #include <glad/gl.h>
+#endif
 
 #include <cstdio>
 #include <cstdlib>

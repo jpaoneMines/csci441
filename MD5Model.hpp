@@ -47,7 +47,12 @@
 
 #include "TextureUtils.hpp"
 
-#include <GL/glew.h>
+#ifdef CSCI441_USE_GLEW
+    #include <GL/glew.h>
+#else
+    #include <glad/gl.h>
+#endif
+
 #include <glm/exponential.hpp>
 #include <glm/ext/quaternion_common.hpp>
 #include <glm/ext/quaternion_float.hpp>
@@ -511,7 +516,7 @@ CSCI441::MD5Model::readMD5Model(
     GLint version;
     GLint currentMesh = 0;
     GLint i;
-    GLulong uli;
+    unsigned long uli;
 
     GLint totalVertices = 0;
     GLint totalWeights = 0;

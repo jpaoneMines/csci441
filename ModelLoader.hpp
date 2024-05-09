@@ -11,7 +11,7 @@
   *		.stl
   *
   *	@warning NOTE: This header file will only work with OpenGL 3.0+
-  *	@warning NOTE: This header file depends upon GLEW, glm, stb_image
+  *	@warning NOTE: This header file depends upon GLAD (or GLEW), glm, stb_image
 */
 
 #ifndef CSCI441_MODEL_LOADER_HPP
@@ -19,7 +19,12 @@
 
 #include "modelMaterial.hpp"
 
-#include <GL/glew.h>
+#ifdef CSCI441_USE_GLEW
+    #include <GL/glew.h>
+#else
+    #include <glad/gl.h>
+#endif
+
 #include <glm/glm.hpp>
 #include <stb_image.h>
 

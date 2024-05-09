@@ -4,7 +4,9 @@ doc/html/.DS_Store
 .idea
 CMakeLists.txt
 cmake-build-debug/
-testBuild.cpp
-testBuild_multifile.cpp
+testBuildGLEW.cpp
+testBuildGLAD.cpp
+testBuildGLEW_multifile.cpp
+testBuildGLAD_multifile.cpp
 tests/
 bin/*

@@ -9,7 +9,7 @@
  *
  *	@warning NOTE: This header file will only work with OpenGL 4.1
  *	@warning NOTE: This header file depends upon glm
- *	@warning NOTE: This header file depends upon GLEW
+ *	@warning NOTE: This header file depends upon GLAD (or alternatively GLEW)
  */
 
 #ifndef CSCI441_SIMPLE_SHADER_HPP
@@ -18,7 +18,12 @@
 #include "ShaderUtils.hpp"
 #include "objects.hpp"
 
-#include <GL/glew.h>
+#ifdef CSCI441_USE_GLEW
+    #include <GL/glew.h>
+#else
+    #include <glad/gl.h>
+#endif
+
 #include <glm/glm.hpp>
 
 #include <string>

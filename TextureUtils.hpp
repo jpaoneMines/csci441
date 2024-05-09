@@ -7,14 +7,19 @@
  *	These functions, classes, and constants help minimize common
  *	code that needs to be written.
  *
- *	@warning This header file depends upon GLEW
+ *	@warning This header file depends upon GLAD (or alternatively GLEW)
  *	@warning This header file depends upon stb_image
  */
 
 #ifndef CSCI441_TEXTURE_UTILS_HPP
 #define CSCI441_TEXTURE_UTILS_HPP
 
-#include <GL/glew.h>
+#ifdef CSCI441_USE_GLEW
+    #include <GL/glew.h>
+#else
+    #include <glad/gl.h>
+#endif
+
 #include <stb_image.h>
 
 #include <cstdio>

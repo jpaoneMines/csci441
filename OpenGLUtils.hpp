@@ -8,14 +8,19 @@
  * These functions, classes, and constants help minimize common
  * code that needs to be written.
  *
- * @warning NOTE: This header file depends upon GLEW
+ * @warning NOTE: This header file depends upon GLAD (or alternatively GLEW)
  * @warning NOTE: This header file depends upon glm
  */
 
 #ifndef CSCI441_OPENGL_UTILS_H
 #define CSCI441_OPENGL_UTILS_H
 
-#include <GL/glew.h>
+#ifdef CSCI441_USE_GLEW
+    #include <GL/glew.h>
+#else
+    #include <glad/gl.h>
+#endif
+
 #include <glm/glm.hpp>
 
 #include <cstdio>      // for printf()
@@ -110,9 +115,6 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
 
 	if( (major >= 2 && minor >= 0) || major > 2 ) {
 		CSCI441_INTERNAL::printOpenGLParamHeader( 2, 0 );
-		if(major == 2) {
-            CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Lights:    %35d |\n",                               GL_MAX_LIGHTS );
-        }
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Color Attachments:  %26d |\n", 			    			GL_MAX_COLOR_ATTACHMENTS );
 	}
 

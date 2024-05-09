@@ -8,14 +8,19 @@
  *	These functions, classes, and constants help minimize common
  *	code that needs to be written.
  *
- * @warning This header file depends upon GLEW
+ * @warning This header file depends upon GLAD (or alternatively GLEW)
  * @warning This header file depends upon glm
  */
 
 #ifndef CSCI441_CAMERA_HPP
 #define CSCI441_CAMERA_HPP
 
-#include <GL/glew.h>
+#ifdef CSCI441_USE_GLEW
+    #include <GL/glew.h>
+#else
+    #include <glad/gl.h>
+#endif
+
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
 #include <glm/gtc/constants.hpp>

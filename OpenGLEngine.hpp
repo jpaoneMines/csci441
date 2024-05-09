@@ -14,7 +14,12 @@
 
 #include "OpenGLUtils.hpp"
 
-#include <GL/glew.h>
+#ifdef CSCI441_USE_GLEW
+    #include <GL/glew.h>
+#else
+    #include <glad/gl.h>
+#endif
+
 #include <GLFW/glfw3.h>
 
 #include <cstdio>
@@ -400,6 +405,8 @@ inline void CSCI441::OpenGLEngine::mSetupGLFW()  {
 }
 
 inline void CSCI441::OpenGLEngine::_setupGLFunctions() {
+
+#ifdef CSCI441_USE_GLEW
     glewExperimental = GL_TRUE;
     GLenum glewResult = glewInit();                                             // initialize GLEW
 
@@ -414,6 +421,19 @@ inline void CSCI441::OpenGLEngine::_setupGLFunctions() {
             fprintf(stdout, "[INFO]: Using GLEW %s\n", glewGetString(GLEW_VERSION));
         }
     }
+#else
+    int version = gladLoadGL(glfwGetProcAddress);
+    if(version == 0) {
+        fprintf(stderr, "Failed to initialize GLAD\n" );
+        mErrorCode = OPENGL_ENGINE_ERROR_GLAD_INIT;
+    } else {
+        if(DEBUG) {
+            // Successfully loaded OpenGL
+            fprintf(stdout, "\n[INFO]: GLAD initialized\n");
+            fprintf(stdout, "[INFO]: Loaded OpenGL %d.%d\n", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
+        }
+    }
+#endif
 }
 
 inline void CSCI441::OpenGLEngine::mCleanupGLFW() {

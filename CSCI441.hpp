@@ -8,7 +8,7 @@
  * These functions, classes, and constants help minimize common
  * code that needs to be written.
  *
- * @warning This header file depends upon GLEW
+ * @warning This header file depends upon GLAD (or alternatively GLEW)
  * @warning This header file depends upon GLFW
  * @warning This header file depends upon glm
  * @warning This header file depends upon stb_image

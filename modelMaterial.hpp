@@ -12,7 +12,11 @@
 #ifndef CSCI441_MODEL_MATERIAL_H
 #define CSCI441_MODEL_MATERIAL_H
 
-#include <GL/glew.h>
+#ifdef CSCI441_USE_GLEW
+    #include <GL/glew.h>
+#else
+    #include <glad/gl.h>
+#endif
 
 #include <glm/ext/vector_float4.hpp>
 

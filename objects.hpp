@@ -9,7 +9,7 @@
  *	have normals and texture coordinates properly set.
  *
  *	@warning NOTE: This header file will only work with OpenGL 3.0+
- *	@warning NOTE: This header file depends upon GLEW
+ *	@warning NOTE: This header file depends upon GLAD (or alternatively GLEW)
  */
 
 #ifndef CSCI441_OBJECTS_HPP
@@ -17,7 +17,12 @@
 
 #include "teapot.hpp"                   // for teapot()
 
-#include <GL/glew.h>
+#ifdef CSCI441_USE_GLEW
+    #include <GL/glew.h>
+#else
+    #include <glad/gl.h>
+#endif
+
 #include <glm/gtc/constants.hpp>
 
 #include <cassert>   					// for assert()
@@ -324,7 +329,7 @@ namespace CSCI441_INTERNAL {
         // number of slices
         GLuint slices;
         // compute number of vertices
-        [[nodiscard]] GLulong numVertices() const { return stacks * (slices + 1) * 2; }
+        [[nodiscard]] unsigned long numVertices() const { return stacks * (slices + 1) * 2; }
         bool operator<( const CylinderData rhs ) const {
             if( radiusBase < rhs.radiusBase ) {
                 return true;
@@ -355,7 +360,7 @@ namespace CSCI441_INTERNAL {
     struct DiskData {
         GLfloat innerRadius, outerRadius, startAngle, sweepAngle;
         GLuint slices, rings;
-        [[nodiscard]] GLulong numVertices() const { return rings * (slices + 1) * 2; }
+        [[nodiscard]] unsigned long numVertices() const { return rings * (slices + 1) * 2; }
         bool operator<( const DiskData rhs ) const {
             if( innerRadius < rhs.innerRadius ) {
                 return true;
@@ -390,7 +395,7 @@ namespace CSCI441_INTERNAL {
     struct SphereData {
         GLfloat radius;
         GLuint stacks, slices;
-        [[nodiscard]] GLulong numVertices() const { return ((slices + 2) * 2) + (((stacks - 2) * (slices+1)) * 2); }
+        [[nodiscard]] unsigned long numVertices() const { return ((slices + 2) * 2) + (((stacks - 2) * (slices+1)) * 2); }
         bool operator<( const SphereData rhs ) const {
             if( radius < rhs.radius ) {
                 return true;
@@ -413,7 +418,7 @@ namespace CSCI441_INTERNAL {
     struct TorusData {
         GLfloat innerRadius, outerRadius;
         GLuint sides, rings;
-        [[nodiscard]] GLulong numVertices() const { return sides * 4 * rings; }
+        [[nodiscard]] unsigned long numVertices() const { return sides * 4 * rings; }
         bool operator<( const TorusData rhs ) const {
             if( innerRadius < rhs.innerRadius ) {
                 return true;
@@ -686,7 +691,7 @@ inline void CSCI441_INTERNAL::drawCubeFlat( GLfloat sideLength, GLenum renderMod
         CSCI441_INTERNAL::generateCubeVAOFlat( sideLength );
     }
 
-    const GLulong NUM_VERTICES = 36;
+    const unsigned long NUM_VERTICES = 36;
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -718,7 +723,7 @@ inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum render
         CSCI441_INTERNAL::generateCubeVAOIndexed( sideLength );
     }
 
-    const GLulong NUM_VERTICES = 8;
+    const unsigned long NUM_VERTICES = 8;
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -751,7 +756,7 @@ inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat h
         CSCI441_INTERNAL::generateCylinderVAO( cylData );
     }
 
-    const GLulong NUM_VERTICES = cylData.numVertices();
+    const unsigned long NUM_VERTICES = cylData.numVertices();
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -786,7 +791,7 @@ inline void CSCI441_INTERNAL::drawPartialDisk(GLfloat innerRadius, GLfloat outer
         CSCI441_INTERNAL::generateDiskVAO( diskData );
     }
 
-    const GLulong NUM_VERTICES = diskData.numVertices();
+    const unsigned long NUM_VERTICES = diskData.numVertices();
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -821,7 +826,7 @@ inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLuint stacks, GLuint 
         CSCI441_INTERNAL::generateSphereVAO( sphereData );
     }
 
-    const GLulong NUM_VERTICES = sphereData.numVertices();
+    const unsigned long NUM_VERTICES = sphereData.numVertices();
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -860,7 +865,7 @@ inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadiu
         CSCI441_INTERNAL::generateTorusVAO( torusData );
     }
 
-    const GLulong NUM_VERTICES = torusData.numVertices();
+    const unsigned long NUM_VERTICES = torusData.numVertices();
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -910,7 +915,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLfloat sideLength ) {
 
     const GLfloat CORNER_POINT = sideLength / 2.0f;
 
-    const GLulong NUM_VERTICES = 36;
+    const unsigned long NUM_VERTICES = 36;
 
     glm::vec3 vertices[NUM_VERTICES] = {
             // Left Face
@@ -985,7 +990,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLfloat sideLength ) {
 inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
     const GLfloat CORNER_POINT = sideLength / 2.0f;
 
-    const GLulong NUM_VERTICES = 8;
+    const unsigned long NUM_VERTICES = 8;
 
     glm::vec3 vertices[NUM_VERTICES] = {
             { -CORNER_POINT, -CORNER_POINT, -CORNER_POINT }, // 0 - bln
@@ -1055,7 +1060,7 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    const GLulong NUM_VERTICES = cylData.numVertices();
+    const unsigned long NUM_VERTICES = cylData.numVertices();
 
     GLfloat sliceStep = glm::two_pi<float>() / (GLfloat)cylData.slices;
     GLfloat stackStep = cylData.height / (GLfloat)cylData.stacks;
@@ -1064,7 +1069,7 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
     auto normals   = new glm::vec3[NUM_VERTICES];
     auto texCoords = new glm::vec2[NUM_VERTICES];
 
-    GLulong idx = 0;
+    unsigned long idx = 0;
 
     for(GLuint stackNum = 0; stackNum < cylData.stacks; stackNum++ ) {
         GLfloat botRadius = cylData.radiusBase * (GLfloat)(cylData.stacks - stackNum) / (GLfloat)cylData.stacks + cylData.top * (GLfloat)stackNum / (GLfloat)cylData.stacks;
@@ -1121,7 +1126,7 @@ inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    const GLulong NUM_VERTICES = diskData.numVertices();
+    const unsigned long NUM_VERTICES = diskData.numVertices();
 
     GLfloat sliceStep = diskData.sweepAngle / (GLfloat)diskData.slices;
     GLfloat ringStep = (diskData.outerRadius - diskData.innerRadius) / (GLfloat)diskData.rings;
@@ -1130,7 +1135,7 @@ inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
     auto normals   = new glm::vec3[NUM_VERTICES];
     auto texCoords = new glm::vec2[NUM_VERTICES];
 
-    GLulong idx = 0;
+    unsigned long idx = 0;
 
     for(GLuint ringNum = 0; ringNum < diskData.rings; ringNum++ ) {
         GLfloat currRadius = diskData.innerRadius + (GLfloat)ringNum * ringStep;
@@ -1189,7 +1194,7 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    const GLulong NUM_VERTICES = sphereData.numVertices();
+    const unsigned long NUM_VERTICES = sphereData.numVertices();
 
     GLfloat sliceStep = glm::two_pi<float>() / (GLfloat)sphereData.slices;
     GLfloat stackStep = glm::pi<float>() / (GLfloat)sphereData.stacks;
@@ -1198,7 +1203,7 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
     auto normals   = new glm::vec3[NUM_VERTICES];
     auto texCoords = new glm::vec2[NUM_VERTICES];
 
-    GLulong idx = 0;
+    unsigned long idx = 0;
 
     // sphere top
     GLfloat phi = stackStep * (GLfloat)sphereData.stacks;
@@ -1363,13 +1368,13 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
     glGenBuffers( 1, &vbod );
     glBindBuffer( GL_ARRAY_BUFFER, vbod );
 
-    const GLulong NUM_VERTICES = torusData.numVertices();
+    const unsigned long NUM_VERTICES = torusData.numVertices();
 
     auto vertices  = new glm::vec3[NUM_VERTICES];
     auto normals   = new glm::vec3[NUM_VERTICES];
     auto texCoords = new glm::vec2[NUM_VERTICES];
 
-    GLulong idx = 0;
+    unsigned long idx = 0;
 
     GLfloat sideStep = glm::two_pi<float>() / (GLfloat)torusData.sides;
     GLfloat ringStep = glm::two_pi<float>() / (GLfloat)torusData.rings;
