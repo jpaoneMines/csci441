@@ -5,10 +5,10 @@
 - Supports OpenGL function loading via glad2 or GLEW (the default is glad2)
 - Updated GLFW dependency from 3.3.8 to 3.4
 
-## v 4.13.4 - 16 Nov 2024
+## v 4.13.4 - 16 Nov 2023
 - ShaderUtils::compileShader() returns 0 to properly signal an error
 
-## v 4.13.3 - 04 Nov 2024
+## v 4.13.3 - 04 Nov 2023
 - Added glm::vec4 include to modelMaterial.hpp when included on its own
 
 ## v 4.13.2 - 03 Nov 2023
