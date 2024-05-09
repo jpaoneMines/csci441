@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.1.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -193,6 +193,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteObjectVBOs</b> 
 <tr class="memitem:ab055118682dd909d3ee50f66b6443d58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441.html#ab055118682dd909d3ee50f66b6443d58">drawWireSphere</a> (GLfloat radius, GLint stacks, GLint slices)</td></tr>
 <tr class="memdesc:ab055118682dd909d3ee50f66b6443d58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a wireframe sphere.  <br /></td></tr>
 <tr class="separator:ab055118682dd909d3ee50f66b6443d58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa64da4e3d893dbac440781b69c25bd18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441.html#aa64da4e3d893dbac440781b69c25bd18">drawSolidHalfSphere</a> (GLfloat radius, GLint stacks, GLint slices)</td></tr>
+<tr class="memdesc:aa64da4e3d893dbac440781b69c25bd18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a solid half sphere with a bottom.  <br /></td></tr>
+<tr class="separator:aa64da4e3d893dbac440781b69c25bd18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bab5e60023ecf78541d44b790a5cb27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441.html#a8bab5e60023ecf78541d44b790a5cb27">drawWireHalfSphere</a> (GLfloat radius, GLint stacks, GLint slices)</td></tr>
+<tr class="memdesc:a8bab5e60023ecf78541d44b790a5cb27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a wireframe half sphere with a bottom.  <br /></td></tr>
+<tr class="separator:a8bab5e60023ecf78541d44b790a5cb27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38ed23a7b3b046064fec5c2b900dcc13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441.html#a38ed23a7b3b046064fec5c2b900dcc13">drawSolidDome</a> (GLfloat radius, GLint stacks, GLint slices)</td></tr>
+<tr class="memdesc:a38ed23a7b3b046064fec5c2b900dcc13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a solid dome.  <br /></td></tr>
+<tr class="separator:a38ed23a7b3b046064fec5c2b900dcc13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76bfd64bfd8b183f61d30564cf74e367"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441.html#a76bfd64bfd8b183f61d30564cf74e367">drawWireDome</a> (GLfloat radius, GLint stacks, GLint slices)</td></tr>
+<tr class="memdesc:a76bfd64bfd8b183f61d30564cf74e367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a wireframe dome.  <br /></td></tr>
+<tr class="separator:a76bfd64bfd8b183f61d30564cf74e367"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c5bd6dd17a191c5ca52526acbace216"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441.html#a0c5bd6dd17a191c5ca52526acbace216">drawSolidTeapot</a> (GLfloat unused=1.0f)</td></tr>
 <tr class="memdesc:a0c5bd6dd17a191c5ca52526acbace216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a solid teapot.  <br /></td></tr>
 <tr class="separator:a0c5bd6dd17a191c5ca52526acbace216"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -595,6 +607,122 @@ slices is greater than two </dd>
 <dd>
 rings is greater than zero </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Disk is drawn in the XY plane with the origin at its center </dd></dl>
+
+</div>
+</div>
+<a id="a38ed23a7b3b046064fec5c2b900dcc13" name="a38ed23a7b3b046064fec5c2b900dcc13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38ed23a7b3b046064fec5c2b900dcc13">&#9670;&#160;</a></span>drawSolidDome()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::drawSolidDome </td>
+          <td>(</td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>stacks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>slices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Draws a solid dome. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">radius</td><td>radius of the dome </td></tr>
+    <tr><td class="paramname">stacks</td><td>resolution of the number of steps to take along theta (rotate around Y-axis) </td></tr>
+    <tr><td class="paramname">slices</td><td>resolution of the number of steps to take along phi (rotate around X- or Z-axis) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>radius must be greater than 0 </dd>
+<dd>
+stacks must be greater than 2 </dd>
+<dd>
+slices must be greater than 2 </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Origin is at the center of the dome </dd></dl>
+
+</div>
+</div>
+<a id="aa64da4e3d893dbac440781b69c25bd18" name="aa64da4e3d893dbac440781b69c25bd18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa64da4e3d893dbac440781b69c25bd18">&#9670;&#160;</a></span>drawSolidHalfSphere()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::drawSolidHalfSphere </td>
+          <td>(</td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>stacks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>slices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Draws a solid half sphere with a bottom. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">radius</td><td>radius of the sphere </td></tr>
+    <tr><td class="paramname">stacks</td><td>resolution of the number of steps to take along theta (rotate around Y-axis) </td></tr>
+    <tr><td class="paramname">slices</td><td>resolution of the number of steps to take along phi (rotate around X- or Z-axis) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>radius must be greater than 0 </dd>
+<dd>
+stacks must be greater than 2 </dd>
+<dd>
+slices must be greater than 2 </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Origin is at the center of the sphere </dd></dl>
 
 </div>
 </div>
@@ -1089,6 +1217,122 @@ slices is greater than two </dd>
 <dd>
 rings is greater than zero </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Disk is drawn in the XY plane with the origin at its center </dd></dl>
+
+</div>
+</div>
+<a id="a76bfd64bfd8b183f61d30564cf74e367" name="a76bfd64bfd8b183f61d30564cf74e367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76bfd64bfd8b183f61d30564cf74e367">&#9670;&#160;</a></span>drawWireDome()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::drawWireDome </td>
+          <td>(</td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>stacks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>slices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Draws a wireframe dome. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">radius</td><td>radius of the dome </td></tr>
+    <tr><td class="paramname">stacks</td><td>resolution of the number of steps to take along theta (rotate around Y-axis) </td></tr>
+    <tr><td class="paramname">slices</td><td>resolution of the number of steps to take along phi (rotate around X- or Z-axis) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>radius must be greater than 0 </dd>
+<dd>
+stacks must be greater than 2 </dd>
+<dd>
+slices must be greater than 2 </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Origin is at the center of the dome </dd></dl>
+
+</div>
+</div>
+<a id="a8bab5e60023ecf78541d44b790a5cb27" name="a8bab5e60023ecf78541d44b790a5cb27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bab5e60023ecf78541d44b790a5cb27">&#9670;&#160;</a></span>drawWireHalfSphere()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::drawWireHalfSphere </td>
+          <td>(</td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>stacks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>slices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Draws a wireframe half sphere with a bottom. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">radius</td><td>radius of the sphere </td></tr>
+    <tr><td class="paramname">stacks</td><td>resolution of the number of steps to take along theta (rotate around Y-axis) </td></tr>
+    <tr><td class="paramname">slices</td><td>resolution of the number of steps to take along phi (rotate around X- or Z-axis) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>radius must be greater than 0 </dd>
+<dd>
+stacks must be greater than 2 </dd>
+<dd>
+slices must be greater than 2 </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Origin is at the center of the sphere </dd></dl>
 
 </div>
 </div>

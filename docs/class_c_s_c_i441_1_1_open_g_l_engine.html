@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.1.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -111,14 +111,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0c4c3fbb1559c437f75eb97ea791c39c"><td class="mdescLeft">&#160;</td><td class="mdescRight">do not allow engines to be copied <br /></td></tr>
 <tr class="separator:a0c4c3fbb1559c437f75eb97ea791c39c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20e62bf4168a3f252cdecc9413088884"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884">initialize</a> ()</td></tr>
-<tr class="memdesc:a20e62bf4168a3f252cdecc9413088884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, GLEW, OpenGL, Shader Programs, Buffer Objects, Textures, and any Scene information.  <br /></td></tr>
+<tr class="memdesc:a20e62bf4168a3f252cdecc9413088884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, function pointers, OpenGL, Shader Programs, Buffer Objects, Textures, and any Scene information.  <br /></td></tr>
 <tr class="separator:a20e62bf4168a3f252cdecc9413088884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91a8498d1ab372a8d312720aa6df43f6"><td class="memItemLeft" align="right" valign="top"><a id="a91a8498d1ab372a8d312720aa6df43f6" name="a91a8498d1ab372a8d312720aa6df43f6"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> ()=0</td></tr>
 <tr class="memdesc:a91a8498d1ab372a8d312720aa6df43f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiate the draw loop. <br /></td></tr>
 <tr class="separator:a91a8498d1ab372a8d312720aa6df43f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a22d9d1ed576a697c79ec43aa92aff8e3">shutdown</a> ()</td></tr>
-<tr class="memdesc:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleanup everything needed for OpenGL Rendering. This includes freeing memory for data used in: any Scene information, Textures, Buffer Objects, Shader Programs, OpenGL, GLEW, GLFW.  <br /></td></tr>
+<tr class="memdesc:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleanup everything needed for OpenGL Rendering. This includes freeing memory for data used in: any Scene information, Textures, Buffer Objects, Shader Programs, OpenGL, function pointers, GLFW.  <br /></td></tr>
 <tr class="separator:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c4db87b2fc822713b5cd1557964ebf4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a6c4db87b2fc822713b5cd1557964ebf4">turnDebuggingOn</a> () noexcept final</td></tr>
 <tr class="memdesc:a6c4db87b2fc822713b5cd1557964ebf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable logging to command line.  <br /></td></tr>
@@ -360,7 +360,7 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWindow</b><
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>does not actually create the context nor the window at this time. To do so, call the <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884" title="Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, GLEW,...">initialize()</a> method after the object has been created </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>does not actually create the context nor the window at this time. To do so, call the <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884" title="Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, function pointers,...">initialize()</a> method after the object has been created </dd></dl>
 
 </div>
 </div>
@@ -388,7 +388,7 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWindow</b><
 </table>
 </div><div class="memdoc">
 
-<p>Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, GLEW, OpenGL, Shader Programs, Buffer Objects, Textures, and any Scene information. </p>
+<p>Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, function pointers, OpenGL, Shader Programs, Buffer Objects, Textures, and any Scene information. </p>
 <dl class="section warning"><dt>Warning</dt><dd>If this method is overridden, then the parent implementation must be called first as part of the derived implementation </dd></dl>
 
 </div>
@@ -885,7 +885,7 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
 </table>
 </div><div class="memdoc">
 
-<p>Cleanup everything needed for OpenGL Rendering. This includes freeing memory for data used in: any Scene information, Textures, Buffer Objects, Shader Programs, OpenGL, GLEW, GLFW. </p>
+<p>Cleanup everything needed for OpenGL Rendering. This includes freeing memory for data used in: any Scene information, Textures, Buffer Objects, Shader Programs, OpenGL, function pointers, GLFW. </p>
 <dl class="section warning"><dt>Warning</dt><dd>If this method is overridden, then the parent implementation must be called last as part of the derived implementation </dd></dl>
 
 </div>
