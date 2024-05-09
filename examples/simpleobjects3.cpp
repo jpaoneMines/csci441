@@ -135,6 +135,7 @@ private:
                     case 6: CSCI441::drawSolidCubeFlat( 3.0f );                                      break;
                     case 7: CSCI441::drawSolidCubeIndexed( 3.0f );                                      break;
                     case 8: CSCI441::drawSolidDome(2.0f, 32, 32);                           break;
+                    case 9: CSCI441::drawSolidHalfSphere(2.0f, 32, 32);                     break;
 
                     default: break;
                 }
@@ -149,6 +150,7 @@ private:
                     case 6: CSCI441::drawWireCube( 3.0f );                                      break;
                     case 7: CSCI441::drawWireCube( 3.0f );                                      break;
                     case 8: CSCI441::drawWireDome(2.0f, 32, 32);                           break;
+                    case 9: CSCI441::drawWireHalfSphere(2.0f, 32, 32);                     break;
 
                     default: break;
                 }
@@ -214,6 +216,10 @@ void simple_objects_3_engine_keyboard_callback(GLFWwindow *window, int key, int 
             case GLFW_KEY_8:
             case GLFW_KEY_9:
                 engine->swapObject(key - GLFW_KEY_1); // GLFW_KEY_1 is 49.  they go in sequence from there
+                break;
+
+            case GLFW_KEY_0:
+                engine->swapObject(9);
                 break;
 
             case GLFW_KEY_R:

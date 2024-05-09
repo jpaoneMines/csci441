@@ -1,7 +1,8 @@
 # Revision History
 
 ## v ?.?.? - ?? ??? ????
-- Added CSCI441::drawSolidDome() and CSCI441::drawWireDome() which is an half-sphere with an open bottom
+- Added CSCI441::drawSolidDome() and CSCI441::drawWireDome() which is a half-sphere with an open bottom
+- Added CSCI441::drawSolidHalfSphere() and CSCI441::drawWireHalfSphere() which is a half-sphere with a capped bottom
 
 ## v 5.0.0 - 09 May 2024
 - ModelLoader no longer prints "ignoring usemtl" line when parsing file
