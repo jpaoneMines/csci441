@@ -1,5 +1,8 @@
 # Revision History
 
+## v ?.?.? - ?? ??? ????
+- OpenGLEngine tracks the state of the Caps Lock and Num Lock keys during key callbacks
+
 ## v 5.1.0 - 10 May 2024
 - Added CSCI441::drawSolidDome() and CSCI441::drawWireDome() which is a half-sphere with an open bottom
 - Added CSCI441::drawSolidHalfSphere() and CSCI441::drawWireHalfSphere() which is a half-sphere with a capped bottom

@@ -397,7 +397,7 @@ inline void CSCI441::OpenGLEngine::mSetupGLFW()  {
             if(DEBUG) fprintf( stdout, "[INFO]: GLFW Window created\n" );
             glfwMakeContextCurrent(mpWindow);		                                    // make the created window the current window
             glfwSwapInterval(1);				                                        // update our screen after at least 1 screen refresh
-
+            glfwSetInputMode(mpWindow, GLFW_LOCK_KEY_MODS, GLFW_TRUE);      // track state of Caps Lock and Num Lock keys
             glfwSetWindowUserPointer(mpWindow, (void*)this);
             glfwSetWindowSizeCallback(mpWindow, mWindowResizeCallback);
         }
