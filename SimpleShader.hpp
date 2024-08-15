@@ -25,6 +25,7 @@
 #endif
 
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <string>
 #include <vector>
@@ -561,9 +562,9 @@ void main() {
 
 
     glm::mat4 identity(1.0f);
-    glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, &identity[0][0]);
-    glProgramUniformMatrix4fv(shaderProgramHandle, viewLocation, 1, GL_FALSE, &identity[0][0]);
-    glProgramUniformMatrix4fv(shaderProgramHandle, projectionLocation, 1, GL_FALSE, &identity[0][0]);
+    glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, glm::value_ptr(identity));
+    glProgramUniformMatrix4fv(shaderProgramHandle, viewLocation, 1, GL_FALSE, glm::value_ptr(identity));
+    glProgramUniformMatrix4fv(shaderProgramHandle, projectionLocation, 1, GL_FALSE, glm::value_ptr(identity));
 
     transformationStack.emplace_back(identity);
 
@@ -599,14 +600,14 @@ inline void CSCI441_INTERNAL::SimpleShader2::updateVertexArray(const GLuint VAOD
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
-    glProgramUniformMatrix4fv(shaderProgramHandle, projectionLocation, 1, GL_FALSE, &PROJECTION_MATRIX[0][0]);
+    glProgramUniformMatrix4fv(shaderProgramHandle, projectionLocation, 1, GL_FALSE, glm::value_ptr(PROJECTION_MATRIX));
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX) {
     transformationStack.emplace_back(TRANSFORMATION_MATRIX);
 
     modelMatrix *= TRANSFORMATION_MATRIX;
-    glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+    glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::popTransformation() {
@@ -619,7 +620,7 @@ inline void CSCI441_INTERNAL::SimpleShader2::popTransformation() {
         for( auto tMtx : transformationStack ) {
             modelMatrix *= tMtx;
         }
-        glProgramUniformMatrix4fv( shaderProgramHandle, modelLocation, 1, GL_FALSE, &modelMatrix[0][0] );
+        glProgramUniformMatrix4fv( shaderProgramHandle, modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix) );
     }
 }
 
@@ -627,7 +628,7 @@ inline void CSCI441_INTERNAL::SimpleShader2::resetTransformationMatrix() {
     modelMatrix = glm::mat4(1.0f);
     transformationStack.clear();
     transformationStack.emplace_back(modelMatrix);
-    glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+    glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::draw(const GLint PRIMITIVE_TYPE, const GLuint VAOD, const GLuint VERTEX_COUNT) {
@@ -740,18 +741,18 @@ void main() {
     normalLocation      = glGetAttribLocation(shaderProgramHandle, "vNormal");
 
     glm::mat4 identity(1.0f);
-    glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, &identity[0][0]);
-    glProgramUniformMatrix4fv(shaderProgramHandle, viewLocation, 1, GL_FALSE, &identity[0][0]);
-    glProgramUniformMatrix4fv(shaderProgramHandle, projectionLocation, 1, GL_FALSE, &identity[0][0]);
+    glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, glm::value_ptr(identity));
+    glProgramUniformMatrix4fv(shaderProgramHandle, viewLocation, 1, GL_FALSE, glm::value_ptr(identity));
+    glProgramUniformMatrix4fv(shaderProgramHandle, projectionLocation, 1, GL_FALSE, glm::value_ptr(identity));
 
     transformationStack.emplace_back(identity);
 
     glm::vec3 white(1.0f, 1.0f, 1.0f);
-    glProgramUniform3fv(shaderProgramHandle, lightColorLocation, 1, &white[0]);
-    glProgramUniform3fv(shaderProgramHandle, materialLocation, 1, &white[0]);
+    glProgramUniform3fv(shaderProgramHandle, lightColorLocation, 1, glm::value_ptr(white));
+    glProgramUniform3fv(shaderProgramHandle, materialLocation, 1, glm::value_ptr(white));
 
     glm::vec3 origin(0.0f, 0.0f, 0.0f);
-    glProgramUniform3fv(shaderProgramHandle, lightPositionLocation, 1, &origin[0]);
+    glProgramUniform3fv(shaderProgramHandle, lightPositionLocation, 1, glm::value_ptr(origin));
 
     glProgramUniform1i(shaderProgramHandle, useLightingLocation, 1);
 
@@ -788,33 +789,33 @@ inline void CSCI441_INTERNAL::SimpleShader3::updateVertexArray(const GLuint VAOD
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
-    glProgramUniformMatrix4fv(shaderProgramHandle, projectionLocation, 1, GL_FALSE, &PROJECTION_MATRIX[0][0]);
+    glProgramUniformMatrix4fv(shaderProgramHandle, projectionLocation, 1, GL_FALSE, glm::value_ptr(PROJECTION_MATRIX));
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setViewMatrix(const glm::mat4& VIEW_MATRIX) {
-    glProgramUniformMatrix4fv(shaderProgramHandle, viewLocation, 1, GL_FALSE, &VIEW_MATRIX[0][0]);
+    glProgramUniformMatrix4fv(shaderProgramHandle, viewLocation, 1, GL_FALSE, glm::value_ptr(VIEW_MATRIX));
 
     viewMatrix = VIEW_MATRIX;
     setNormalMatrix();
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setLightPosition(const glm::vec3& LIGHT_POSITION) {
-    glProgramUniform3fv(shaderProgramHandle, lightPositionLocation, 1, &LIGHT_POSITION[0]);
+    glProgramUniform3fv(shaderProgramHandle, lightPositionLocation, 1, glm::value_ptr(LIGHT_POSITION));
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setLightColor(const glm::vec3& LIGHT_COLOR) {
-    glProgramUniform3fv(shaderProgramHandle, lightColorLocation, 1, &LIGHT_COLOR[0]);
+    glProgramUniform3fv(shaderProgramHandle, lightColorLocation, 1, glm::value_ptr(LIGHT_COLOR));
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setMaterialColor(const glm::vec3& MATERIAL_COLOR) {
-    glProgramUniform3fv(shaderProgramHandle, materialLocation, 1, &MATERIAL_COLOR[0]);
+    glProgramUniform3fv(shaderProgramHandle, materialLocation, 1, glm::value_ptr(MATERIAL_COLOR));
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX) {
     transformationStack.emplace_back(TRANSFORMATION_MATRIX);
 
     modelMatrix *= TRANSFORMATION_MATRIX;
-    glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+    glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
     setNormalMatrix();
 }
@@ -829,7 +830,7 @@ inline void CSCI441_INTERNAL::SimpleShader3::popTransformation() {
         for( auto tMtx : transformationStack ) {
             modelMatrix *= tMtx;
         }
-        glProgramUniformMatrix4fv( shaderProgramHandle, modelLocation, 1, GL_FALSE, &modelMatrix[0][0] );
+        glProgramUniformMatrix4fv( shaderProgramHandle, modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix) );
 
         setNormalMatrix();
     }
@@ -839,14 +840,14 @@ inline void CSCI441_INTERNAL::SimpleShader3::resetTransformationMatrix() {
     modelMatrix = glm::mat4(1.0f);
     transformationStack.clear();
     transformationStack.emplace_back(modelMatrix);
-    glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+    glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
     setNormalMatrix();
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setNormalMatrix() {
     glm::mat4 modelView = viewMatrix * modelMatrix;
     glm::mat3 normalMatrix = glm::mat3( glm::transpose( glm::inverse( modelView ) ) );
-    glProgramUniformMatrix3fv(shaderProgramHandle, normalMtxLocation, 1, GL_FALSE, &normalMatrix[0][0]);
+    glProgramUniformMatrix3fv(shaderProgramHandle, normalMtxLocation, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::enableLighting() {

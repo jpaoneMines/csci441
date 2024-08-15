@@ -4,6 +4,7 @@
 - OpenGLEngine tracks the state of the Caps Lock and Num Lock keys during key callbacks
 - OpenGL queries checks Point Size Range
 - Added functions to convert material float arrays into a glm object
+- Use glm::value_ptr() instead of &[0] to access beginning of data array
 
 ## v 5.1.0 - 10 May 2024
 - Added CSCI441::drawSolidDome() and CSCI441::drawWireDome() which is a half-sphere with an open bottom
