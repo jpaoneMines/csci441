@@ -92,6 +92,7 @@ namespace CSCI441_INTERNAL {
   void printOpenGLParamIndexed(const char *FORMAT, GLenum name, GLuint index );
   void printOpenGLParam(const char *FORMAT, GLenum name );
   void printOpenGLParam2(const char *FORMAT, GLenum name );
+  void printOpenGLParam2f(const char *FORMAT, GLenum name );
   [[maybe_unused]] void printOpenGLParam3(const char *FORMAT, GLenum name );
   void printOpenGLParam4(const char *FORMAT, GLenum name );
 }
@@ -116,6 +117,7 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
 	if( (major >= 2 && minor >= 0) || major > 2 ) {
 		CSCI441_INTERNAL::printOpenGLParamHeader( 2, 0 );
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Color Attachments:  %26d |\n", 			    			GL_MAX_COLOR_ATTACHMENTS );
+        CSCI441_INTERNAL::printOpenGLParam2f("[INFO]: |   Point Size Range:  %24.2f %8.2f |\n", 			            GL_POINT_SIZE_RANGE );
 	}
 
 	if( (major >= 2 && minor >= 1) || major > 2 ) {
@@ -261,6 +263,12 @@ inline void CSCI441_INTERNAL::printOpenGLParam(const char * const FORMAT, const 
 inline void CSCI441_INTERNAL::printOpenGLParam2(const char * const FORMAT, const GLenum name ) {
 	GLint values[2] = {0,0};
 	glGetIntegerv( name, values );
+	fprintf(stdout, FORMAT, values[0], values[1] );
+}
+
+inline void CSCI441_INTERNAL::printOpenGLParam2f(const char * const FORMAT, const GLenum name ) {
+	GLfloat values[2] = {0,0};
+	glGetFloatv( name, values );
 	fprintf(stdout, FORMAT, values[0], values[1] );
 }
 
