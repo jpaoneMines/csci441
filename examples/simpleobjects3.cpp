@@ -186,8 +186,8 @@ private:
 
     GLboolean _rotate;
 
-    static constexpr glm::vec3 _MATERIAL_EMERALD_DIFFUSE = glm::vec3( CSCI441::Materials::EMERALD.diffuse[0], CSCI441::Materials::EMERALD.diffuse[1], CSCI441::Materials::EMERALD.diffuse[2] );
-    static constexpr glm::vec3 _MATERIAL_GOLD_DIFFUSE = glm::vec3( CSCI441::Materials::GOLD.diffuse[0], CSCI441::Materials::GOLD.diffuse[1], CSCI441::Materials::GOLD.diffuse[2] );
+    const glm::vec3 _MATERIAL_EMERALD_DIFFUSE = CSCI441::Materials::EMERALD.getDiffuse();
+    const glm::vec3 _MATERIAL_GOLD_DIFFUSE = CSCI441::Materials::GOLD.getDiffuse();
     static constexpr glm::vec3 _MATERIAL_WHITE_DIFFUSE = glm::vec3(1.0f, 1.0f, 1.0f);
 
     /// \desc rate at which the objects rotate
