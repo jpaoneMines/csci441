@@ -11,6 +11,7 @@
 #define CSCI441_MATERIALS_HPP
 
 #include <glm/vec4.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace CSCI441 {
 
@@ -32,7 +33,7 @@ namespace CSCI441 {
              * @brief RGBA values for Diffuse Reflectance
              * @return diffuse values in glm::vec4 format
              */
-            [[maybe_unused]] [[nodiscard]] glm::vec4 getDiffuse() const { return { diffuse[0], diffuse[1], diffuse[2], diffuse[3] }; }
+            [[maybe_unused]] [[nodiscard]] glm::vec4 getDiffuse() const { return glm::make_vec4(diffuse); }
             /**
              * @brief RGBA values for Specular Reflectance
              */
@@ -41,7 +42,7 @@ namespace CSCI441 {
              * @brief RGBA values for Specular Reflectance
              * @return specular values in glm::vec4 format
              */
-            [[maybe_unused]] [[nodiscard]] glm::vec4 getSpecular() const { return { specular[0], specular[1], specular[2], specular[3] }; }
+            [[maybe_unused]] [[nodiscard]] glm::vec4 getSpecular() const { return glm::make_vec4(specular); }
             /**
              * @brief Shininess value to control exponential falloff of Specular Reflectance
              */
@@ -54,7 +55,7 @@ namespace CSCI441 {
              * @brief RGBA values for Ambient Reflectance
              * @return ambient values in glm::vec4 format
              */
-            [[maybe_unused]] [[nodiscard]] glm::vec4 getAmbient() const { return { ambient[0], ambient[1], ambient[2], ambient[3] }; }
+            [[maybe_unused]] [[nodiscard]] glm::vec4 getAmbient() const { return glm::make_vec4(ambient); }
         };
 
         /**
