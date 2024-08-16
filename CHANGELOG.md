@@ -4,6 +4,7 @@
 - Removed [[nodiscard]] from ModelLoader::draw() to silence warnings.  Currently method always returns true so the return value isn't applicable.
 - Changed format of extensions listing header
 - Added abstract PerspectiveCamera class to house aspect ratio, field of view, near/far clip planes.  When any is updated, the perspective projection matrix is recomputed
+- Added abstract OrthographicCamera class to house left, right, bottom, top, near, far clip planes
 
 ## v 5.2.0 - 15 Aug 2024
 - OpenGLEngine tracks the state of the Caps Lock and Num Lock keys during key callbacks

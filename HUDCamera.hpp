@@ -12,7 +12,7 @@
 #ifndef CSCI441_HUD_CAMERA_HPP
 #define CSCI441_HUD_CAMERA_HPP
 
-#include "Camera.hpp"
+#include "OrthographicCamera.hpp"
 
 namespace CSCI441 {
 
@@ -20,7 +20,7 @@ namespace CSCI441 {
      * @brief creates a 2D Orthographic projection camera used for Heads Up Display overlays
      * @note Once created, camera cannot be moved/modified
      */
-    class [[maybe_unused]] HUDCamera final : public CSCI441::Camera {
+    class [[maybe_unused]] HUDCamera final : public CSCI441::OrthographicCamera {
     public:
         HUDCamera() = delete;
 
@@ -58,8 +58,8 @@ inline CSCI441::HUDCamera::HUDCamera(
     GLfloat maxX,
     GLfloat minY,
     GLfloat maxY
-) {
-    mProjectionMatrix = glm::ortho( minX, maxX, minY, maxY );
+) : OrthographicCamera(minX, maxX, minY, maxY) {
+
 }
 
 #endif//CSCI441_HUD_CAMERA_HPP
