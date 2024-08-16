@@ -12,7 +12,7 @@
 #ifndef CSCI441_ARCBALL_CAM_HPP
 #define CSCI441_ARCBALL_CAM_HPP
 
-#include "Camera.hpp"
+#include "PerspectiveCamera.hpp"
 
 namespace CSCI441 {
 
@@ -20,7 +20,7 @@ namespace CSCI441 {
      * @brief A camera that implements an ArcBall camera model.
      * @note camera direction is controlled by setting theta & phi and rotating the camera
      */
-    class ArcballCam final : public CSCI441::Camera {
+    class ArcballCam final : public CSCI441::PerspectiveCamera {
     public:
         /**
          * @brief initializes the Arcball Camera and sets the minimum/maximum radius the camera can zoom through as well as the perspective projection
@@ -75,24 +75,6 @@ namespace CSCI441 {
          * @brief maximum allowable radius of camera
          */
         GLfloat _maxRadius;
-
-        /**
-         * @brief vertical field of view
-         * @note stored in degrees
-         */
-        GLfloat _fovy;
-        /**
-         * @brief aspect ratio of view plane
-         */
-        GLfloat _aspectRatio;
-        /**
-         * @brief near Z clipping plane
-         */
-        GLfloat _nearClipPlane;
-        /**
-         * @brief far Z clipping plane
-         */
-        GLfloat _farClipPlane;
     };
 }
 
@@ -103,14 +85,11 @@ inline CSCI441::ArcballCam::ArcballCam(
         const GLfloat fovy,
         const GLfloat nearClipPlane,
         const GLfloat farClipPlane
-) : _minRadius(minRadius),
-    _maxRadius(maxRadius),
-    _fovy(fovy),
-    _aspectRatio(aspectRatio),
-    _nearClipPlane(nearClipPlane),
-    _farClipPlane(farClipPlane)
+) : CSCI441::PerspectiveCamera(aspectRatio, fovy, nearClipPlane, farClipPlane),
+    _minRadius(minRadius),
+    _maxRadius(maxRadius)
 {
-    mProjectionMatrix = glm::perspective(_fovy, _aspectRatio, _nearClipPlane, _farClipPlane);
+    recomputeOrientation();
 }
 
 inline void CSCI441::ArcballCam::recomputeOrientation() {

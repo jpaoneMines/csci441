@@ -201,6 +201,15 @@ namespace CSCI441 {
             mpArcballCamera->moveForward((GLfloat)yOffset * 0.2f );
         }
 
+        /**
+         * @brief resizes camera aspect ratio
+         * @param width new camera frame width
+         * @param height new camera frame height
+         */
+        [[maybe_unused]] void handleCameraAspectRatioEvent(int width, int height) {
+            mpArcballCamera->setAspectRatio( (GLfloat)width / (GLfloat)height );
+        }
+
     protected:
         /**
          * @brief creates OpenGLEngine for given context and window state as well as creating a default arcball camera

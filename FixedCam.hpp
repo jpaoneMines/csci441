@@ -12,7 +12,7 @@
 #ifndef CSCI441_FIXED_CAM_HPP
 #define CSCI441_FIXED_CAM_HPP
 
-#include "Camera.hpp"
+#include "PerspectiveCamera.hpp"
 
 namespace CSCI441 {
 
@@ -21,7 +21,7 @@ namespace CSCI441 {
      * @note Must position via setPosition()
      * @note Must orient via setLookAtPoint()
      */
-    class FixedCam final : public CSCI441::Camera {
+    class FixedCam final : public CSCI441::PerspectiveCamera {
     public:
         /**
          * creates a FixedCam object with the specified perspective projection
@@ -49,11 +49,7 @@ namespace CSCI441 {
         void moveBackward(const GLfloat unused) final {};
 
     private:
-        // vertical field of view stored in degrees
-        GLfloat _fovy;
-        GLfloat _aspectRatio;
-        GLfloat _nearClipPlane;
-        GLfloat _farClipPlane;
+
     };
 }
 
@@ -62,12 +58,9 @@ inline CSCI441::FixedCam::FixedCam(
         const GLfloat fovy,
         const GLfloat nearClipPlane,
         const GLfloat farClipPlane
-) : _fovy(fovy),
-    _aspectRatio(aspectRatio),
-    _nearClipPlane(nearClipPlane),
-    _farClipPlane(farClipPlane)
+) : PerspectiveCamera(aspectRatio, fovy, nearClipPlane, farClipPlane)
 {
-    mProjectionMatrix = glm::perspective(_fovy, _aspectRatio, _nearClipPlane, _farClipPlane);
+
 }
 
 #endif // CSCI441_FIXED_CAM_HPP

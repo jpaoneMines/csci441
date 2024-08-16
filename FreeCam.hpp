@@ -12,7 +12,7 @@
 #ifndef CSCI441_FREE_CAM_HPP
 #define CSCI441_FREE_CAM_HPP
 
-#include "Camera.hpp"
+#include "PerspectiveCamera.hpp"
 
 namespace CSCI441 {
 
@@ -20,7 +20,7 @@ namespace CSCI441 {
      * @brief A camera that implements a FreeCam camera model.
      * @note camera direction is controlled by setting theta & phi and rotating the camera
      */
-    class FreeCam final : public CSCI441::Camera {
+    class FreeCam final : public CSCI441::PerspectiveCamera {
     public:
         /**
          * creates a FreeCam object with the specified perspective projection
@@ -58,12 +58,6 @@ namespace CSCI441 {
     private:
         // updates the look at point and recalculates the view matrix
         void _updateFreeCameraViewMatrix();
-
-        // vertical field of view stored in degrees
-        GLfloat _fovy;
-        GLfloat _aspectRatio;
-        GLfloat _nearClipPlane;
-        GLfloat _farClipPlane;
     };
 }
 
@@ -72,12 +66,9 @@ inline CSCI441::FreeCam::FreeCam(
         const GLfloat fovy,
         const GLfloat nearClipPlane,
         const GLfloat farClipPlane
-) : _fovy(fovy),
-    _aspectRatio(aspectRatio),
-    _nearClipPlane(nearClipPlane),
-    _farClipPlane(farClipPlane)
+) : PerspectiveCamera(aspectRatio, fovy, nearClipPlane, farClipPlane)
 {
-    mProjectionMatrix = glm::perspective(_fovy, _aspectRatio, _nearClipPlane, _farClipPlane);
+    recomputeOrientation();
 }
 
 inline void CSCI441::FreeCam::recomputeOrientation() {
