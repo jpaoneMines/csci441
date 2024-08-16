@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.1.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.2.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -130,6 +130,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> ()=0<
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isDebuggingEnabled</b> () const noexcept final</td></tr>
 <tr class="memdesc:a33b5f2ee125f2c52e0badd71984d9842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if logging is enabled. <br /></td></tr>
 <tr class="separator:a33b5f2ee125f2c52e0badd71984d9842"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06acf19b9e3f98180a21e0c9cee2d1da"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a06acf19b9e3f98180a21e0c9cee2d1da">isExtensionEnabled</a> (const std::string EXT) const noexcept final</td></tr>
+<tr class="memdesc:a06acf19b9e3f98180a21e0c9cee2d1da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if OpenGL extension exists.  <br /></td></tr>
+<tr class="separator:a06acf19b9e3f98180a21e0c9cee2d1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1cab5dfa1632f7dc805edbe5313bd69f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1cab5dfa1632f7dc805edbe5313bd69f">setCurrentWindowSize</a> (const int WINDOW_WIDTH, const int WINDOW_HEIGHT) final</td></tr>
 <tr class="memdesc:a1cab5dfa1632f7dc805edbe5313bd69f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the new window size.  <br /></td></tr>
 <tr class="separator:a1cab5dfa1632f7dc805edbe5313bd69f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -390,6 +393,41 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWindow</b><
 
 <p>Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, function pointers, OpenGL, Shader Programs, Buffer Objects, Textures, and any Scene information. </p>
 <dl class="section warning"><dt>Warning</dt><dd>If this method is overridden, then the parent implementation must be called first as part of the derived implementation </dd></dl>
+
+</div>
+</div>
+<a id="a06acf19b9e3f98180a21e0c9cee2d1da" name="a06acf19b9e3f98180a21e0c9cee2d1da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06acf19b9e3f98180a21e0c9cee2d1da">&#9670;&#160;</a></span>isExtensionEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool CSCI441::OpenGLEngine::isExtensionEnabled </td>
+          <td>(</td>
+          <td class="paramtype">const std::string&#160;</td>
+          <td class="paramname"><em>EXT</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns if OpenGL extension exists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EXT</td><td>name of extension </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if extension exists, false otherwise </dd></dl>
 
 </div>
 </div>

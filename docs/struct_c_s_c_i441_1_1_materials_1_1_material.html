@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.1.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.2.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -75,6 +75,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="struct_c_s_c_i441_1_1_materials_1_1_material-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">CSCI441::Materials::Material Struct Reference</div></div>
@@ -86,6 +87,18 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="materials_8hpp_source.html">materials.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:add2e576cea4f2164579ca6f7485a33a2"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_materials_1_1_material.html#add2e576cea4f2164579ca6f7485a33a2">getDiffuse</a> () const</td></tr>
+<tr class="memdesc:add2e576cea4f2164579ca6f7485a33a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">RGBA values for Diffuse Reflectance.  <br /></td></tr>
+<tr class="separator:add2e576cea4f2164579ca6f7485a33a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4abf6c5460c4f2f14f0e02f4fde7857d"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_materials_1_1_material.html#a4abf6c5460c4f2f14f0e02f4fde7857d">getSpecular</a> () const</td></tr>
+<tr class="memdesc:a4abf6c5460c4f2f14f0e02f4fde7857d"><td class="mdescLeft">&#160;</td><td class="mdescRight">RGBA values for Specular Reflectance.  <br /></td></tr>
+<tr class="separator:a4abf6c5460c4f2f14f0e02f4fde7857d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bc90ede4adbf190a4108d802592ae52"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_materials_1_1_material.html#a5bc90ede4adbf190a4108d802592ae52">getAmbient</a> () const</td></tr>
+<tr class="memdesc:a5bc90ede4adbf190a4108d802592ae52"><td class="mdescLeft">&#160;</td><td class="mdescRight">RGBA values for Ambient Reflectance.  <br /></td></tr>
+<tr class="separator:a5bc90ede4adbf190a4108d802592ae52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a8e7e3791a3edd0067deade301645bcf3"><td class="memItemLeft" align="right" valign="top"><a id="a8e7e3791a3edd0067deade301645bcf3" name="a8e7e3791a3edd0067deade301645bcf3"></a>
@@ -107,7 +120,92 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>ambient</b> [4]</t
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>stores material properties used within the Phong Reflectance Model </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5bc90ede4adbf190a4108d802592ae52" name="a5bc90ede4adbf190a4108d802592ae52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bc90ede4adbf190a4108d802592ae52">&#9670;&#160;</a></span>getAmbient()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec4 CSCI441::Materials::Material::getAmbient </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>RGBA values for Ambient Reflectance. </p>
+<dl class="section return"><dt>Returns</dt><dd>ambient values in glm::vec4 format </dd></dl>
+
+</div>
+</div>
+<a id="add2e576cea4f2164579ca6f7485a33a2" name="add2e576cea4f2164579ca6f7485a33a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add2e576cea4f2164579ca6f7485a33a2">&#9670;&#160;</a></span>getDiffuse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec4 CSCI441::Materials::Material::getDiffuse </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>RGBA values for Diffuse Reflectance. </p>
+<dl class="section return"><dt>Returns</dt><dd>diffuse values in glm::vec4 format </dd></dl>
+
+</div>
+</div>
+<a id="a4abf6c5460c4f2f14f0e02f4fde7857d" name="a4abf6c5460c4f2f14f0e02f4fde7857d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4abf6c5460c4f2f14f0e02f4fde7857d">&#9670;&#160;</a></span>getSpecular()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec4 CSCI441::Materials::Material::getSpecular </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>RGBA values for Specular Reflectance. </p>
+<dl class="section return"><dt>Returns</dt><dd>specular values in glm::vec4 format </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="materials_8hpp_source.html">materials.hpp</a></li>
 </ul>
 </div><!-- contents -->
