@@ -1,6 +1,6 @@
 # Revision History
 
-## v ?.?.? - ?? ??? ????
+## v 5.3.0 - 16 Aug 2024
 - Removed [[nodiscard]] from ModelLoader::draw() to silence warnings.  Currently method always returns true so the return value isn't applicable.
 - Changed format of extensions listing header
 - Added abstract PerspectiveCamera class to house aspect ratio, field of view, near/far clip planes.  When any is updated, the perspective projection matrix is recomputed
