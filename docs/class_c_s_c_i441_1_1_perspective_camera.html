@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CSCI441 OpenGL Library: CSCI441::HUDCamera Class Reference</title>
+<title>CSCI441 OpenGL Library: CSCI441::PerspectiveCamera Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,50 +70,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespace_c_s_c_i441.html">CSCI441</a></li><li class="navelem"><a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html">HUDCamera</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_c_s_c_i441.html">CSCI441</a></li><li class="navelem"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html">PerspectiveCamera</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_c_s_c_i441_1_1_h_u_d_camera-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">CSCI441::HUDCamera Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="class_c_s_c_i441_1_1_perspective_camera-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">CSCI441::PerspectiveCamera Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>creates a 2D Orthographic projection camera used for Heads Up Display overlays  
- <a href="class_c_s_c_i441_1_1_h_u_d_camera.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="_h_u_d_camera_8hpp_source.html">HUDCamera.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for CSCI441::HUDCamera:</div>
+Inheritance diagram for CSCI441::PerspectiveCamera:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_c_s_c_i441_1_1_h_u_d_camera.png" usemap="#CSCI441::HUDCamera_map" alt=""/>
-  <map id="CSCI441::HUDCamera_map" name="CSCI441::HUDCamera_map">
-<area href="class_c_s_c_i441_1_1_orthographic_camera.html" alt="CSCI441::OrthographicCamera" shape="rect" coords="0,56,187,80"/>
-<area href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:" alt="CSCI441::Camera" shape="rect" coords="0,0,187,24"/>
+  <img src="class_c_s_c_i441_1_1_perspective_camera.png" usemap="#CSCI441::PerspectiveCamera_map" alt=""/>
+  <map id="CSCI441::PerspectiveCamera_map" name="CSCI441::PerspectiveCamera_map">
+<area href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:" alt="CSCI441::Camera" shape="rect" coords="189,0,368,24"/>
+<area href="class_c_s_c_i441_1_1_arcball_cam.html" title="A camera that implements an ArcBall camera model." alt="CSCI441::ArcballCam" shape="rect" coords="0,112,179,136"/>
+<area href="class_c_s_c_i441_1_1_fixed_cam.html" title="A camera that can be positioned and oriented but never moved or rotated." alt="CSCI441::FixedCam" shape="rect" coords="189,112,368,136"/>
+<area href="class_c_s_c_i441_1_1_free_cam.html" title="A camera that implements a FreeCam camera model." alt="CSCI441::FreeCam" shape="rect" coords="378,112,557,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7662707082443bd20eb3b868223501df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a7662707082443bd20eb3b868223501df">HUDCamera</a> (GLfloat minX, GLfloat maxX, GLfloat minY, GLfloat maxY)</td></tr>
-<tr class="memdesc:a7662707082443bd20eb3b868223501df"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes the <a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html" title="creates a 2D Orthographic projection camera used for Heads Up Display overlays">HUDCamera</a>  <br /></td></tr>
-<tr class="separator:a7662707082443bd20eb3b868223501df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ad075fd24c2bd5a2b33837e2a882c5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a9ad075fd24c2bd5a2b33837e2a882c5c">recomputeOrientation</a> () final</td></tr>
-<tr class="memdesc:a9ad075fd24c2bd5a2b33837e2a882c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">does nothing  <br /></td></tr>
-<tr class="separator:a9ad075fd24c2bd5a2b33837e2a882c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7edb3eb643b0617cd079ecd6a136be8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#af7edb3eb643b0617cd079ecd6a136be8">moveForward</a> (const GLfloat unused) final</td></tr>
-<tr class="memdesc:af7edb3eb643b0617cd079ecd6a136be8"><td class="mdescLeft">&#160;</td><td class="mdescRight">does nothing  <br /></td></tr>
-<tr class="separator:af7edb3eb643b0617cd079ecd6a136be8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47b53af60855225e48a5f1b2ed8718cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a47b53af60855225e48a5f1b2ed8718cd">moveBackward</a> (const GLfloat unused) final</td></tr>
-<tr class="memdesc:a47b53af60855225e48a5f1b2ed8718cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">does nothing  <br /></td></tr>
-<tr class="separator:a47b53af60855225e48a5f1b2ed8718cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_c_s_c_i441_1_1_orthographic_camera"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_c_s_c_i441_1_1_orthographic_camera')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_orthographic_camera.html">CSCI441::OrthographicCamera</a></td></tr>
-<tr class="memitem:aaf36d9abbc5b9a0cd86659b0b89f6513 inherit pub_methods_class_c_s_c_i441_1_1_orthographic_camera"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_orthographic_camera.html#aaf36d9abbc5b9a0cd86659b0b89f6513">OrthographicCamera</a> (GLfloat minX=-1.0f, GLfloat maxX=1.0f, GLfloat minY=-1.0f, GLfloat maxY=1.0f, GLfloat minZ=-1.0f, GLfloat maxZ=1.0f)</td></tr>
-<tr class="memdesc:aaf36d9abbc5b9a0cd86659b0b89f6513 inherit pub_methods_class_c_s_c_i441_1_1_orthographic_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes the <a class="el" href="class_c_s_c_i441_1_1_orthographic_camera.html">OrthographicCamera</a>  <br /></td></tr>
-<tr class="separator:aaf36d9abbc5b9a0cd86659b0b89f6513 inherit pub_methods_class_c_s_c_i441_1_1_orthographic_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae81bc97134b0cbf7fc5af27356501ba7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#ae81bc97134b0cbf7fc5af27356501ba7">PerspectiveCamera</a> (GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</td></tr>
+<tr class="memdesc:ae81bc97134b0cbf7fc5af27356501ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes the Perspective <a class="el" href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:">Camera</a>  <br /></td></tr>
+<tr class="separator:ae81bc97134b0cbf7fc5af27356501ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aade9e781a20139672531f5da88a242b0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#aade9e781a20139672531f5da88a242b0">setAspectRatio</a> (GLfloat aspectRatio) final</td></tr>
+<tr class="memdesc:aade9e781a20139672531f5da88a242b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's aspect ratio  <br /></td></tr>
+<tr class="separator:aade9e781a20139672531f5da88a242b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe0ed86d7e31d940f2baef34abeed997"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#afe0ed86d7e31d940f2baef34abeed997">setVerticalFOV</a> (GLfloat fovy) final</td></tr>
+<tr class="memdesc:afe0ed86d7e31d940f2baef34abeed997"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's vertical field of view  <br /></td></tr>
+<tr class="separator:afe0ed86d7e31d940f2baef34abeed997"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fbede45604cee278c81ff6ba77f1961"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#a9fbede45604cee278c81ff6ba77f1961">setNearClipPlane</a> (GLfloat near) final</td></tr>
+<tr class="memdesc:a9fbede45604cee278c81ff6ba77f1961"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's near clip plane  <br /></td></tr>
+<tr class="separator:a9fbede45604cee278c81ff6ba77f1961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa518ca57f73a65dd9d29646cda42187d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#aa518ca57f73a65dd9d29646cda42187d">setFarClipPlane</a> (GLfloat far) final</td></tr>
+<tr class="memdesc:aa518ca57f73a65dd9d29646cda42187d"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's far clip plane  <br /></td></tr>
+<tr class="separator:aa518ca57f73a65dd9d29646cda42187d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_c_s_c_i441_1_1_camera"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_c_s_c_i441_1_1_camera')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></td></tr>
 <tr class="memitem:a812c4b551be79e31f634eb6b41ae2315 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a812c4b551be79e31f634eb6b41ae2315" name="a812c4b551be79e31f634eb6b41ae2315"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~Camera</b> ()=default</td></tr>
@@ -178,13 +175,20 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>computeViewMa
 <tr class="memdesc:a0b0d12421a07aed719abdcd3eeffc0e8 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the camera's radius in world space  <br /></td></tr>
 <tr class="separator:a0b0d12421a07aed719abdcd3eeffc0e8 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a377876abd30d4a654c30b6ab21edb77f"><td class="memItemLeft" align="right" valign="top"><a id="a377876abd30d4a654c30b6ab21edb77f" name="a377876abd30d4a654c30b6ab21edb77f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>mUpdateProjectionMatrix</b> ()</td></tr>
+<tr class="memdesc:a377876abd30d4a654c30b6ab21edb77f"><td class="mdescLeft">&#160;</td><td class="mdescRight">computes the perspective projection matrix for the camera <br /></td></tr>
+<tr class="separator:a377876abd30d4a654c30b6ab21edb77f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_c_s_c_i441_1_1_camera"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_c_s_c_i441_1_1_camera')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></td></tr>
 <tr class="memitem:a2b44075a51d0d334a6a8c0742e42f040 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a2b44075a51d0d334a6a8c0742e42f040" name="a2b44075a51d0d334a6a8c0742e42f040"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> ()</td></tr>
 <tr class="memdesc:a2b44075a51d0d334a6a8c0742e42f040 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a default camera at the origin, looking down the negative Z axis oriented with the world coordinate system <br /></td></tr>
 <tr class="separator:a2b44075a51d0d334a6a8c0742e42f040 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_class_c_s_c_i441_1_1_camera"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_c_s_c_i441_1_1_camera')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></td></tr>
 <tr class="memitem:a64b74b2c979a3a05afa42434c0000d42 inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a64b74b2c979a3a05afa42434c0000d42" name="a64b74b2c979a3a05afa42434c0000d42"></a>
 glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><b>mProjectionMatrix</b></td></tr>
@@ -223,12 +227,9 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 <tr class="memdesc:ae288c2ef288ac5532335e5859966410f inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">spherical magnitude for direction in world space <br /></td></tr>
 <tr class="separator:ae288c2ef288ac5532335e5859966410f inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>creates a 2D Orthographic projection camera used for Heads Up Display overlays </p>
-<dl class="section note"><dt>Note</dt><dd>Once created, camera cannot be moved/modified </dd></dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7662707082443bd20eb3b868223501df" name="a7662707082443bd20eb3b868223501df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7662707082443bd20eb3b868223501df">&#9670;&#160;</a></span>HUDCamera()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae81bc97134b0cbf7fc5af27356501ba7" name="ae81bc97134b0cbf7fc5af27356501ba7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae81bc97134b0cbf7fc5af27356501ba7">&#9670;&#160;</a></span>PerspectiveCamera()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -237,28 +238,28 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">CSCI441::HUDCamera::HUDCamera </td>
+          <td class="memname">CSCI441::PerspectiveCamera::PerspectiveCamera </td>
           <td>(</td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>minX</em>, </td>
+          <td class="paramname"><em>aspectRatio</em> = <code>1.0f</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>maxX</em>, </td>
+          <td class="paramname"><em>fovy</em> = <code>45.0f</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>minY</em>, </td>
+          <td class="paramname"><em>nearClipPlane</em> = <code>0.001f</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>maxY</em>&#160;</td>
+          <td class="paramname"><em>farClipPlane</em> = <code>1000.0f</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -273,22 +274,23 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 </table>
 </div><div class="memdoc">
 
-<p>initializes the <a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html" title="creates a 2D Orthographic projection camera used for Heads Up Display overlays">HUDCamera</a> </p>
+<p>initializes the Perspective <a class="el" href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:">Camera</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">minX</td><td>left clipping plane </td></tr>
-    <tr><td class="paramname">maxX</td><td>right clipping plane </td></tr>
-    <tr><td class="paramname">minY</td><td>bottom clipping plane </td></tr>
-    <tr><td class="paramname">maxY</td><td>top clipping plane </td></tr>
+    <tr><td class="paramname">aspectRatio</td><td>aspect ratio of view plane (defaults to 1.0f) </td></tr>
+    <tr><td class="paramname">fovy</td><td>vertical field of view (defaults to 45.0f) </td></tr>
+    <tr><td class="paramname">nearClipPlane</td><td>near z clip plane (defaults to 0.001f) </td></tr>
+    <tr><td class="paramname">farClipPlane</td><td>far z clip plane (defaults to 1000.0f) </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>field of view specified in degrees </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a47b53af60855225e48a5f1b2ed8718cd" name="a47b53af60855225e48a5f1b2ed8718cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47b53af60855225e48a5f1b2ed8718cd">&#9670;&#160;</a></span>moveBackward()</h2>
+<a id="aade9e781a20139672531f5da88a242b0" name="aade9e781a20139672531f5da88a242b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aade9e781a20139672531f5da88a242b0">&#9670;&#160;</a></span>setAspectRatio()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -297,10 +299,10 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void CSCI441::HUDCamera::moveBackward </td>
+          <td class="memname">void CSCI441::PerspectiveCamera::setAspectRatio </td>
           <td>(</td>
-          <td class="paramtype">const GLfloat&#160;</td>
-          <td class="paramname"><em>unused</em></td><td>)</td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>aspectRatio</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -311,20 +313,19 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 </table>
 </div><div class="memdoc">
 
-<p>does nothing </p>
+<p>updates the camera's aspect ratio </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">unused</td><td>does nothing </td></tr>
+    <tr><td class="paramname">aspectRatio</td><td>new aspect ratio to apply to camera </td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Implements <a class="el" href="class_c_s_c_i441_1_1_camera.html#a2d44bf0b6b8f73cba73c510988519676">CSCI441::Camera</a>.</p>
+<dl class="section note"><dt>Note</dt><dd>internally updates the camera's projection matrix </dd></dl>
 
 </div>
 </div>
-<a id="af7edb3eb643b0617cd079ecd6a136be8" name="af7edb3eb643b0617cd079ecd6a136be8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7edb3eb643b0617cd079ecd6a136be8">&#9670;&#160;</a></span>moveForward()</h2>
+<a id="aa518ca57f73a65dd9d29646cda42187d" name="aa518ca57f73a65dd9d29646cda42187d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa518ca57f73a65dd9d29646cda42187d">&#9670;&#160;</a></span>setFarClipPlane()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -333,10 +334,10 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void CSCI441::HUDCamera::moveForward </td>
+          <td class="memname">void CSCI441::PerspectiveCamera::setFarClipPlane </td>
           <td>(</td>
-          <td class="paramtype">const GLfloat&#160;</td>
-          <td class="paramname"><em>unused</em></td><td>)</td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>far</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -347,20 +348,19 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 </table>
 </div><div class="memdoc">
 
-<p>does nothing </p>
+<p>updates the camera's far clip plane </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">unused</td><td>does nothing </td></tr>
+    <tr><td class="paramname">far</td><td>new far clip plane to apply to camera </td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Implements <a class="el" href="class_c_s_c_i441_1_1_camera.html#aabd8040c8f3ab9dae28ed396c632b94a">CSCI441::Camera</a>.</p>
+<dl class="section note"><dt>Note</dt><dd>internally updates the camera's projection matrix </dd></dl>
 
 </div>
 </div>
-<a id="a9ad075fd24c2bd5a2b33837e2a882c5c" name="a9ad075fd24c2bd5a2b33837e2a882c5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ad075fd24c2bd5a2b33837e2a882c5c">&#9670;&#160;</a></span>recomputeOrientation()</h2>
+<a id="a9fbede45604cee278c81ff6ba77f1961" name="a9fbede45604cee278c81ff6ba77f1961"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fbede45604cee278c81ff6ba77f1961">&#9670;&#160;</a></span>setNearClipPlane()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -369,9 +369,10 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void CSCI441::HUDCamera::recomputeOrientation </td>
+          <td class="memname">void CSCI441::PerspectiveCamera::setNearClipPlane </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>near</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -382,14 +383,54 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 </table>
 </div><div class="memdoc">
 
-<p>does nothing </p>
+<p>updates the camera's near clip plane </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">near</td><td>new near clip plane to apply to camera </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>internally updates the camera's projection matrix </dd></dl>
 
-<p>Implements <a class="el" href="class_c_s_c_i441_1_1_camera.html#a507ca14a9c56993a11f381de2367d2bb">CSCI441::Camera</a>.</p>
+</div>
+</div>
+<a id="afe0ed86d7e31d940f2baef34abeed997" name="afe0ed86d7e31d940f2baef34abeed997"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe0ed86d7e31d940f2baef34abeed997">&#9670;&#160;</a></span>setVerticalFOV()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::PerspectiveCamera::setVerticalFOV </td>
+          <td>(</td>
+          <td class="paramtype">GLfloat&#160;</td>
+          <td class="paramname"><em>fovy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>updates the camera's vertical field of view </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fovy</td><td>new vertical field of view to apply to camera </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>internally updates the camera's projection matrix </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="_h_u_d_camera_8hpp_source.html">HUDCamera.hpp</a></li>
+<li><a class="el" href="_perspective_camera_8hpp_source.html">PerspectiveCamera.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

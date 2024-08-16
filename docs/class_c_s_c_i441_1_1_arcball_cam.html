@@ -91,7 +91,8 @@ Inheritance diagram for CSCI441::ArcballCam:</div>
  <div class="center">
   <img src="class_c_s_c_i441_1_1_arcball_cam.png" usemap="#CSCI441::ArcballCam_map" alt=""/>
   <map id="CSCI441::ArcballCam_map" name="CSCI441::ArcballCam_map">
-<area href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:" alt="CSCI441::Camera" shape="rect" coords="0,0,134,24"/>
+<area href="class_c_s_c_i441_1_1_perspective_camera.html" alt="CSCI441::PerspectiveCamera" shape="rect" coords="0,56,179,80"/>
+<area href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:" alt="CSCI441::Camera" shape="rect" coords="0,0,179,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -109,6 +110,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aaeb9f7a5c9ab3a08a11687f1fd7234e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#aaeb9f7a5c9ab3a08a11687f1fd7234e2">moveBackward</a> (GLfloat movementFactor) final</td></tr>
 <tr class="memdesc:aaeb9f7a5c9ab3a08a11687f1fd7234e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's position by increasing the camera's radius  <br /></td></tr>
 <tr class="separator:aaeb9f7a5c9ab3a08a11687f1fd7234e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_c_s_c_i441_1_1_perspective_camera')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html">CSCI441::PerspectiveCamera</a></td></tr>
+<tr class="memitem:ae81bc97134b0cbf7fc5af27356501ba7 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#ae81bc97134b0cbf7fc5af27356501ba7">PerspectiveCamera</a> (GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</td></tr>
+<tr class="memdesc:ae81bc97134b0cbf7fc5af27356501ba7 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes the Perspective <a class="el" href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:">Camera</a>  <br /></td></tr>
+<tr class="separator:ae81bc97134b0cbf7fc5af27356501ba7 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aade9e781a20139672531f5da88a242b0 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#aade9e781a20139672531f5da88a242b0">setAspectRatio</a> (GLfloat aspectRatio) final</td></tr>
+<tr class="memdesc:aade9e781a20139672531f5da88a242b0 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's aspect ratio  <br /></td></tr>
+<tr class="separator:aade9e781a20139672531f5da88a242b0 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe0ed86d7e31d940f2baef34abeed997 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#afe0ed86d7e31d940f2baef34abeed997">setVerticalFOV</a> (GLfloat fovy) final</td></tr>
+<tr class="memdesc:afe0ed86d7e31d940f2baef34abeed997 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's vertical field of view  <br /></td></tr>
+<tr class="separator:afe0ed86d7e31d940f2baef34abeed997 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fbede45604cee278c81ff6ba77f1961 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#a9fbede45604cee278c81ff6ba77f1961">setNearClipPlane</a> (GLfloat near) final</td></tr>
+<tr class="memdesc:a9fbede45604cee278c81ff6ba77f1961 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's near clip plane  <br /></td></tr>
+<tr class="separator:a9fbede45604cee278c81ff6ba77f1961 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa518ca57f73a65dd9d29646cda42187d inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#aa518ca57f73a65dd9d29646cda42187d">setFarClipPlane</a> (GLfloat far) final</td></tr>
+<tr class="memdesc:aa518ca57f73a65dd9d29646cda42187d inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's far clip plane  <br /></td></tr>
+<tr class="separator:aa518ca57f73a65dd9d29646cda42187d inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_c_s_c_i441_1_1_camera"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_c_s_c_i441_1_1_camera')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></td></tr>
 <tr class="memitem:a812c4b551be79e31f634eb6b41ae2315 inherit pub_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a812c4b551be79e31f634eb6b41ae2315" name="a812c4b551be79e31f634eb6b41ae2315"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~Camera</b> ()=default</td></tr>
@@ -175,6 +192,11 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>computeViewMa
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_c_s_c_i441_1_1_perspective_camera')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html">CSCI441::PerspectiveCamera</a></td></tr>
+<tr class="memitem:a377876abd30d4a654c30b6ab21edb77f inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top"><a id="a377876abd30d4a654c30b6ab21edb77f" name="a377876abd30d4a654c30b6ab21edb77f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>mUpdateProjectionMatrix</b> ()</td></tr>
+<tr class="memdesc:a377876abd30d4a654c30b6ab21edb77f inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">computes the perspective projection matrix for the camera <br /></td></tr>
+<tr class="separator:a377876abd30d4a654c30b6ab21edb77f inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_c_s_c_i441_1_1_camera"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_c_s_c_i441_1_1_camera')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></td></tr>
 <tr class="memitem:a2b44075a51d0d334a6a8c0742e42f040 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a2b44075a51d0d334a6a8c0742e42f040" name="a2b44075a51d0d334a6a8c0742e42f040"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> ()</td></tr>

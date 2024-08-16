@@ -19,5 +19,6 @@ var searchData=
   ['msetupscene_16',['mSetupScene',['../class_c_s_c_i441_1_1_open_g_l_engine.html#af55b52fa0357f2d53eeb0c344c4b70e5',1,'CSCI441::OpenGLEngine']]],
   ['msetupshaders_17',['mSetupShaders',['../class_c_s_c_i441_1_1_open_g_l_engine.html#ab8281273cadfa571c7271ddcb2a85f2e',1,'CSCI441::OpenGLEngine']]],
   ['msetuptextures_18',['mSetupTextures',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a2e67b86e0ea4e5f46b2d18ffa7cfab7f',1,'CSCI441::OpenGLEngine']]],
-  ['mwindowresizecallback_19',['mWindowResizeCallback',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a3561ad6dfca7fef3d8eab0c32213d0ec',1,'CSCI441::OpenGLEngine']]]
+  ['mupdateprojectionmatrix_19',['mUpdateProjectionMatrix',['../class_c_s_c_i441_1_1_perspective_camera.html#a377876abd30d4a654c30b6ab21edb77f',1,'CSCI441::PerspectiveCamera']]],
+  ['mwindowresizecallback_20',['mWindowResizeCallback',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a3561ad6dfca7fef3d8eab0c32213d0ec',1,'CSCI441::OpenGLEngine']]]
 ];

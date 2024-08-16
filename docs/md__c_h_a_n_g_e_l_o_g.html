@@ -77,6 +77,9 @@ $(function() {
 v ?.?.? - ?? ??? ????</h1>
 <ul>
 <li>Removed [[nodiscard]] from ModelLoader::draw() to silence warnings. Currently method always returns true so the return value isn't applicable.</li>
+<li>Changed format of extensions listing header</li>
+<li>Added abstract PerspectiveCamera class to house aspect ratio, field of view, near/far clip planes. When any is updated, the perspective projection matrix is recomputed</li>
+<li>Added abstract OrthographicCamera class to house left, right, bottom, top, near, far clip planes</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
 v 5.2.0 - 15 Aug 2024</h1>

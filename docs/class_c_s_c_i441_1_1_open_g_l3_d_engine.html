@@ -173,6 +173,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>updateArcball
 <tr class="memitem:a0f2bc35ca849b3964cb8c6439c6147e8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l3_d_engine.html#a0f2bc35ca849b3964cb8c6439c6147e8">handleCameraScrollEvent</a> (double xOffset, double yOffset)</td></tr>
 <tr class="memdesc:a0f2bc35ca849b3964cb8c6439c6147e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">zooms camera inward/outward based on scroll direction  <br /></td></tr>
 <tr class="separator:a0f2bc35ca849b3964cb8c6439c6147e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66f5da22907612ea4b92d0638ecc6a04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l3_d_engine.html#a66f5da22907612ea4b92d0638ecc6a04">handleCameraAspectRatioEvent</a> (int width, int height)</td></tr>
+<tr class="memdesc:a66f5da22907612ea4b92d0638ecc6a04"><td class="mdescLeft">&#160;</td><td class="mdescRight">resizes camera aspect ratio  <br /></td></tr>
+<tr class="separator:a66f5da22907612ea4b92d0638ecc6a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_c_s_c_i441_1_1_open_g_l_engine"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_c_s_c_i441_1_1_open_g_l_engine')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html">CSCI441::OpenGLEngine</a></td></tr>
 <tr class="memitem:a65dd75e0bfc33c4c665253402713216f inherit pub_methods_class_c_s_c_i441_1_1_open_g_l_engine"><td class="memItemLeft" align="right" valign="top"><a id="a65dd75e0bfc33c4c665253402713216f" name="a65dd75e0bfc33c4c665253402713216f"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>OpenGLEngine</b> (const <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html">OpenGLEngine</a> &amp;)=delete</td></tr>
@@ -667,6 +670,51 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>mErrorCallback
 
 <p>the location of the mouse within the window </p>
 <dl class="section return"><dt>Returns</dt><dd>(x, y) coordinate in screen space of the mouse </dd></dl>
+
+</div>
+</div>
+<a id="a66f5da22907612ea4b92d0638ecc6a04" name="a66f5da22907612ea4b92d0638ecc6a04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66f5da22907612ea4b92d0638ecc6a04">&#9670;&#160;</a></span>handleCameraAspectRatioEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::OpenGL3DEngine::handleCameraAspectRatioEvent </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>resizes camera aspect ratio </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>new camera frame width </td></tr>
+    <tr><td class="paramname">height</td><td>new camera frame height </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
