@@ -5,6 +5,9 @@
 
 namespace CSCI441 {
 
+    /**
+     * @brief Abstract Class to represent an orthographic camera.  Stores box clip planes
+     */
     class OrthographicCamera : public CSCI441::Camera {
     public:
         /**

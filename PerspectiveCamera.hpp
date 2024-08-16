@@ -5,6 +5,9 @@
 
 namespace CSCI441 {
 
+    /**
+     * @brief Abstract Class to represent a perspective camera.  Stores aspect ratio and field of view
+     */
     class PerspectiveCamera : public CSCI441::Camera {
     public:
         /**
