@@ -10,12 +10,13 @@ static void simple_objects_3_engine_keyboard_callback(GLFWwindow *window, int ke
 static void simple_objects_3_engine_cursor_callback(GLFWwindow *window, double x, double y);
 static void simple_objects_3_engine_mouse_button_callback(GLFWwindow *window, int button, int action, int mods);
 static void simple_objects_3_engine_scroll_callback(GLFWwindow *window, double xOffset, double yOffset);
+static void simple_objects_3_engine_window_size_callback(GLFWwindow *window, int width, int height);
 
 class SimpleObjects3Engine final : public CSCI441::OpenGL3DEngine {
 public:
     SimpleObjects3Engine(int OPENGL_MAJOR_VERSION, int OPENGL_MINOR_VERSION,
                 int WINDOW_WIDTH, int WINDOW_HEIGHT,
-                const char* WINDOW_TITLE) : CSCI441::OpenGL3DEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE) {
+                const char* WINDOW_TITLE) : CSCI441::OpenGL3DEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, GL_TRUE) {
         _objectIndex = 0;
         _objectAngle = 0;
     }
@@ -62,6 +63,7 @@ private:
         glfwSetCursorPosCallback(mpWindow, simple_objects_3_engine_cursor_callback);
         glfwSetMouseButtonCallback(mpWindow, simple_objects_3_engine_mouse_button_callback);
         glfwSetScrollCallback(mpWindow, simple_objects_3_engine_scroll_callback);
+        glfwSetWindowSizeCallback(mpWindow, simple_objects_3_engine_window_size_callback);
     }
 
     void mSetupOpenGL() final {
@@ -271,6 +273,11 @@ void simple_objects_3_engine_mouse_button_callback(GLFWwindow *window, int butto
 void simple_objects_3_engine_scroll_callback(GLFWwindow *window, double xOffset, double yOffset) {
     auto engine = (SimpleObjects3Engine*) glfwGetWindowUserPointer(window);
     engine->handleCameraScrollEvent(xOffset, yOffset);
+}
+
+void simple_objects_3_engine_window_size_callback(GLFWwindow *window, int width, int height) {
+    auto engine = (SimpleObjects3Engine*) glfwGetWindowUserPointer(window);
+    engine->handleCameraAspectRatioEvent(width, height);
 }
 
 int main() {
