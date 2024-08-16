@@ -19,7 +19,7 @@ namespace CSCI441 {
          * @param minZ near clipping plane (defaults to -1.0f)
          * @param maxZ far clipping plane (defaults to +1.0f)
          */
-        [[maybe_unused]] explicit OrthographicCamera(GLfloat minX = -1.0f, GLfloat maxX = 1.0f, GLfloat minY = -1.0f, GLfloat maxY = 1.0f, GLfloat minZ = -1.0f, GLfloat maxZ = 1.0f);
+        explicit OrthographicCamera(GLfloat minX = -1.0f, GLfloat maxX = 1.0f, GLfloat minY = -1.0f, GLfloat maxY = 1.0f, GLfloat minZ = -1.0f, GLfloat maxZ = 1.0f);
 
     private:
         void _updateProjectionMatrix();
@@ -34,7 +34,6 @@ namespace CSCI441 {
 
 }
 
-[[maybe_unused]]
 inline CSCI441::OrthographicCamera::OrthographicCamera(
         GLfloat minX,
         GLfloat maxX,
