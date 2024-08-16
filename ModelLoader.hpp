@@ -99,7 +99,7 @@ namespace CSCI441 {
          * @param diffuseTexture texture number to bind diffuse texture map to
          * @return true if draw succeeded, false otherwise
          */
-        [[maybe_unused]] [[nodiscard]] bool draw( GLuint shaderProgramHandle,
+        [[maybe_unused]] bool draw( GLuint shaderProgramHandle,
                    GLint matDiffLocation = -1, GLint matSpecLocation = -1, GLint matShinLocation = -1, GLint matAmbLocation = -1,
                    GLenum diffuseTexture = GL_TEXTURE0 ) const;
 

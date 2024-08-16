@@ -1,5 +1,8 @@
 # Revision History
 
+## v ?.?.? - ?? ??? ????
+- Removed [[nodiscard]] from ModelLoader::draw() to silence warnings.  Currently method always returns true so the return value isn't applicable.
+
 ## v 5.2.0 - 15 Aug 2024
 - OpenGLEngine tracks the state of the Caps Lock and Num Lock keys during key callbacks
 - OpenGL queries checks Point Size Range
