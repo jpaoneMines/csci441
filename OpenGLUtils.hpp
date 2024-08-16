@@ -237,7 +237,7 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
     GLint numExtensions = 0;
     glGetIntegerv(GL_NUM_EXTENSIONS, &numExtensions);
     fprintf( stdout, "[INFO]: >--------------------------------------------------------<\n" );
-    fprintf( stdout, "[INFO]: | OpenGL %3d Extensions                                  |\n", numExtensions );
+    fprintf( stdout, "[INFO]: | %3d OpenGL Extensions                                  |\n", numExtensions );
     fprintf( stdout, "[INFO]: >--------------------------------------------------------<\n" );
     for (int i = 0; i < numExtensions; i++) {
         fprintf( stdout, "[INFO]: |   Extension #%2d: %37s |\n", (i+1), glGetStringi(GL_EXTENSIONS, i) );
