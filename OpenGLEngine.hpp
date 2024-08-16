@@ -24,6 +24,8 @@
 
 #include <cstdio>
 #include <cstring>
+#include <set>
+#include <string>
 
 namespace CSCI441 {
 
@@ -80,6 +82,13 @@ namespace CSCI441 {
          * @brief Returns if logging is enabled
          */
         [[maybe_unused]] [[nodiscard]] virtual bool isDebuggingEnabled() const noexcept final { return DEBUG; }
+
+        /**
+         * @brief Returns if OpenGL extension exists
+         * @param EXT name of extension
+         * @return true if extension exists, false otherwise
+         */
+        [[maybe_unused]] [[nodiscard]] virtual bool isExtensionEnabled(const std::string EXT) const noexcept final { return _extensions.find(EXT) != _extensions.end(); }
 
         /**
          * @brief Set the new window size
@@ -326,6 +335,8 @@ namespace CSCI441 {
 
         bool _isInitialized;                // makes initialization a singleton process
         bool _isCleanedUp;                  // makes cleanup a singleton process
+
+        std::set< std::string > _extensions;// set of all available OpenGL extensions
     };
 }
 
@@ -434,6 +445,14 @@ inline void CSCI441::OpenGLEngine::_setupGLFunctions() {
         }
     }
 #endif
+
+    if(mErrorCode == OPENGL_ENGINE_ERROR_NO_ERROR) {
+        GLint numExtensions = 0;
+        glGetIntegerv(GL_NUM_EXTENSIONS, &numExtensions);
+        for (int i = 0; i < numExtensions; i++) {
+            _extensions.insert((const char*)glGetStringi(GL_EXTENSIONS, i) );
+        }
+    }
 }
 
 inline void CSCI441::OpenGLEngine::mCleanupGLFW() {

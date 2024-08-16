@@ -234,7 +234,16 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Combined Shader Output Resources:  %11d |\n", 			GL_MAX_COMBINED_SHADER_OUTPUT_RESOURCES );
 	}
 
-	fprintf( stdout, "[INFO]: \\--------------------------------------------------------/\n\n");
+    GLint numExtensions = 0;
+    glGetIntegerv(GL_NUM_EXTENSIONS, &numExtensions);
+    fprintf( stdout, "[INFO]: >--------------------------------------------------------<\n" );
+    fprintf( stdout, "[INFO]: | OpenGL %3d Extensions                                  |\n", numExtensions );
+    fprintf( stdout, "[INFO]: >--------------------------------------------------------<\n" );
+    for (int i = 0; i < numExtensions; i++) {
+        fprintf( stdout, "[INFO]: |   Extension #%2d: %37s |\n", (i+1), glGetStringi(GL_EXTENSIONS, i) );
+    }
+
+    fprintf( stdout, "[INFO]: \\--------------------------------------------------------/\n\n");
 }
 
 
