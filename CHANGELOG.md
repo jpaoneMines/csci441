@@ -1,5 +1,8 @@
 # Revision History
 
+## v ?.?.? - ?? ??? ????
+- Updated glm dependency to v1.0.1
+
 ## v 5.3.0 - 16 Aug 2024
 - Removed [[nodiscard]] from ModelLoader::draw() to silence warnings.  Currently method always returns true so the return value isn't applicable.
 - Changed format of extensions listing header
