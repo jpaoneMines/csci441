@@ -136,6 +136,8 @@ private:
                 case 5: CSCI441::drawSolidCylinder( 2.0f, 2.0f, 3.0f, 32, 32 ); break;
                 case 6: CSCI441::drawSolidCubeFlat( 3.0f );                                      break;
                 case 7: CSCI441::drawSolidCubeIndexed( 3.0f );                                      break;
+                case 8: CSCI441::drawSolidDome(2.0f, 32, 32);                           break;
+                case 9: CSCI441::drawSolidHalfSphere(2.0f, 32, 32);                     break;
 
                 default: break;
             }
@@ -191,6 +193,18 @@ private:
                     modelMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(3.0f, 3.0f, 1.0f));
                     CSCI441::SimpleShader3::pushTransformation(modelMatrix);
                         CSCI441::drawSolidCubeIndexed( 1.0f );
+                    CSCI441::SimpleShader3::popTransformation();
+                    break;
+
+                case 8:
+                    CSCI441::drawSolidDome(2.0f, 32, 32);
+                    break;
+
+                case 9:
+                    modelMatrix = glm::rotate(glm::mat4(1.0f), glm::half_pi<float>(), glm::vec3(0.0f, 1.0f, 0.0f));
+                    modelMatrix = glm::translate(modelMatrix, glm::vec3(1.0f, 0.0f, 0.0f));
+                    CSCI441::SimpleShader3::pushTransformation(modelMatrix);
+                        CSCI441::drawSolidHalfSphere(2.0f, 32, 32);
                     CSCI441::SimpleShader3::popTransformation();
                     break;
 
@@ -251,7 +265,12 @@ void simple_objects_3_engine_keyboard_callback(GLFWwindow *window, int key, int 
             case GLFW_KEY_6:
             case GLFW_KEY_7:
             case GLFW_KEY_8:
+            case GLFW_KEY_9:
                 engine->swapObject(key - GLFW_KEY_1); // GLFW_KEY_1 is 49.  they go in sequence from there
+                break;
+
+            case GLFW_KEY_0:
+                engine->swapObject(9);
                 break;
 
             default:
