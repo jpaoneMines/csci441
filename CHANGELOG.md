@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.4.1 - 26 Aug 2024
+- Updated README
+
 ## v 5.4.0 - 26 Aug 2024
 - Updated glm dependency to v1.0.1
 - Added half sphere and dome to HUD example
