@@ -44,7 +44,10 @@
 #include "ModelLoader.hpp"          // to load OBJ, OFF, PLY, STL files
 #include "objects.hpp"              // include 3D objects (cube, cylinder, cone, torus, sphere, disk, teapot)
 #include "OpenGL3DEngine.hpp"       // to create a concrete 3D Rendering engine
+#include "OpenGLEngine.hpp"         // to create a concrete Rendering engine
 #include "OpenGLUtils.hpp"          // to query OpenGL features
+#include "OrthographicCamera.hpp"   // to create a camera with an orthographic projection
+#include "PerspectiveCamera.hpp"    // to create a camera with a perspective projection
 #include "ShaderProgram.hpp"        // helper class to compile and use shaders
 #include "ShaderProgramPipeline.hpp"// helper class to compile and use shader program pipelines
 #include "ShaderUtils.hpp"          // helper functions to work with shader programs
