@@ -79,6 +79,10 @@ namespace CSCI441 {
          * @brief Prints information about our OpenGL context
          */
         void printOpenGLInfo();
+        /**
+         * @brief Prints the list of available extensions
+         */
+        [[maybe_unused]] void printOpenGLExtensions();
   	};
 
 }
@@ -102,9 +106,10 @@ namespace CSCI441_INTERNAL {
 // Outward facing function implementations
 
 inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
-    GLint major, minor;
+    GLint major = 0, minor = 0, numExtensions = 0;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
+    glGetIntegerv(GL_NUM_EXTENSIONS, &numExtensions);
 
 	fprintf( stdout, "\n[INFO]: /--------------------------------------------------------\\\n" );
 	fprintf( stdout, "[INFO]: | OpenGL Information                                     |\n" );
@@ -113,6 +118,7 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
 	fprintf( stdout, "[INFO]: |   OpenGL Renderer: %35s |\n", glGetString(GL_RENDERER) );
 	fprintf( stdout, "[INFO]: |   OpenGL Vendor:   %35s |\n", glGetString(GL_VENDOR) );
 	fprintf( stdout, "[INFO]: |   Shading Version: %35s |\n", glGetString(GL_SHADING_LANGUAGE_VERSION) );
+    fprintf( stdout, "[INFO]: |   Number of Extensions: %30d |\n", numExtensions );
 
 	if( (major >= 2 && minor >= 0) || major > 2 ) {
 		CSCI441_INTERNAL::printOpenGLParamHeader( 2, 0 );
@@ -234,18 +240,19 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Combined Shader Output Resources:  %11d |\n", 			GL_MAX_COMBINED_SHADER_OUTPUT_RESOURCES );
 	}
 
-    GLint numExtensions = 0;
-    glGetIntegerv(GL_NUM_EXTENSIONS, &numExtensions);
-    fprintf( stdout, "[INFO]: >--------------------------------------------------------<\n" );
-    fprintf( stdout, "[INFO]: | %3d OpenGL Extensions                                  |\n", numExtensions );
-    fprintf( stdout, "[INFO]: >--------------------------------------------------------<\n" );
-    for (int i = 0; i < numExtensions; i++) {
-        fprintf( stdout, "[INFO]: |   Extension #%2d: %37s |\n", (i+1), glGetStringi(GL_EXTENSIONS, i) );
-    }
-
     fprintf( stdout, "[INFO]: \\--------------------------------------------------------/\n\n");
 }
 
+[[maybe_unused]]
+inline void CSCI441::OpenGLUtils::printOpenGLExtensions() {
+    GLint numExtensions = 0;
+    glGetIntegerv(GL_NUM_EXTENSIONS, &numExtensions);
+
+    fprintf( stdout, "[INFO]: Number of Extensions: %4d\n", numExtensions );
+    for (int i = 0; i < numExtensions; i++) {
+        fprintf( stdout, "[INFO]: Extension #%3d: %s \n", (i+1), glGetStringi(GL_EXTENSIONS, i) );
+    }
+}
 
 //**********************************************************************************
 //**********************************************************************************

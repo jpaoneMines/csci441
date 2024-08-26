@@ -4,6 +4,10 @@
 - Updated glm dependency to v1.0.1
 - Added half sphere and dome to HUD example
 - Fixed shader uniform debug output typos
+- OpenGLUtils: Does not print full list of extensions with OpenGL statistics, created a separate function that can be called for full listing
+- MD5Camera: fixed bug where inverseQ normalization was being discarded and not set
+- MD5Model: added GLM_ENABLE_EXPERIMENTAL for quaternion header to match GLM v1.0.1
+- OrthographicCamera: fixed bug where _updateProjectionMatrix was not declared inline
 
 ## v 5.3.0 - 16 Aug 2024
 - Removed [[nodiscard]] from ModelLoader::draw() to silence warnings.  Currently method always returns true so the return value isn't applicable.
