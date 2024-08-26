@@ -435,7 +435,7 @@ inline void CSCI441::MD5Camera::_updateCameraAttributesForCurrentFrame() {
     // set direction and look at point
     glm::vec3 defaultCameraDirection(0.0f, 0.0f, -1.0f);
     glm::vec4 inverseQ(-q.x, -q.y, -q.z, q.w);
-    glm::normalize(inverseQ);
+    inverseQ = glm::normalize(inverseQ);
 
     glm::vec4 tmp( (q.w * defaultCameraDirection.x) + (q.y * defaultCameraDirection.z) - (q.z * defaultCameraDirection.y),
                    (q.w * defaultCameraDirection.y) + (q.z * defaultCameraDirection.x) - (q.x * defaultCameraDirection.z),
