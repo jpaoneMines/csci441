@@ -45,7 +45,7 @@ inline CSCI441::OrthographicCamera::OrthographicCamera(
     _updateProjectionMatrix();
 }
 
-void CSCI441::OrthographicCamera::_updateProjectionMatrix() {
+inline void CSCI441::OrthographicCamera::_updateProjectionMatrix() {
     mProjectionMatrix = glm::ortho( _minX, _maxX, _minY, _maxY, _minZ, _maxZ );
 }
 
