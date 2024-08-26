@@ -1,6 +1,6 @@
 # Revision History
 
-## v ?.?.? - ?? ??? ????
+## v 5.4.0 - 26 Aug 2024
 - Updated glm dependency to v1.0.1
 - Added half sphere and dome to HUD example
 - Fixed shader uniform debug output typos

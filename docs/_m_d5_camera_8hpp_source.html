@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.3.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.4.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -452,7 +452,7 @@ $(function() {
 <div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>    <span class="comment">// set direction and look at point</span></div>
 <div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>    glm::vec3 defaultCameraDirection(0.0f, 0.0f, -1.0f);</div>
 <div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>    glm::vec4 inverseQ(-q.x, -q.y, -q.z, q.w);</div>
-<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>    glm::normalize(inverseQ);</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>    inverseQ = glm::normalize(inverseQ);</div>
 <div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span> </div>
 <div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>    glm::vec4 tmp( (q.w * defaultCameraDirection.x) + (q.y * defaultCameraDirection.z) - (q.z * defaultCameraDirection.y),</div>
 <div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>                   (q.w * defaultCameraDirection.y) + (q.z * defaultCameraDirection.x) - (q.x * defaultCameraDirection.z),</div>

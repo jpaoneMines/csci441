@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.3.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.4.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -569,13 +569,13 @@ $(function() {
 <div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>                    sprintf(long_name, <span class="stringliteral">&quot;%s[%i]&quot;</span>, name, j);</div>
 <div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>                    <span class="keywordtype">int</span> location = glGetUniformLocation(programHandle, long_name);</div>
 <div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>                    <span class="keywordflow">if</span>(location != -1) {</div>
-<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>                        <span class="keywordflow">if</span> (sDEBUG) printf(<span class="stringliteral">&quot;[INtFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n&quot;</span>, i, GLSL_type_to_string(type), long_name, location);</div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>                        <span class="keywordflow">if</span> (sDEBUG) printf(<span class="stringliteral">&quot;[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n&quot;</span>, i, GLSL_type_to_string(type), long_name, location);</div>
 <div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>                    }</div>
 <div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>                }</div>
 <div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>            } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>                <span class="keywordtype">int</span> location = glGetUniformLocation(programHandle, name);</div>
 <div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>                <span class="keywordflow">if</span>(location != -1) {</div>
-<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>                    <span class="keywordflow">if</span> (sDEBUG) printf(<span class="stringliteral">&quot;[INsFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n&quot;</span>,i, GLSL_type_to_string(type), name, location);</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>                    <span class="keywordflow">if</span> (sDEBUG) printf(<span class="stringliteral">&quot;[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n&quot;</span>,i, GLSL_type_to_string(type), name, location);</div>
 <div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>                }</div>
 <div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>            }</div>
 <div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>        }</div>
