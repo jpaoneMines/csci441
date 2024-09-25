@@ -603,46 +603,58 @@ CSCI441::MD5Model::readMD5Model(
                         // diffuse map
                         strcpy(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, mesh->shader);
                         strcat(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, ".tga");
-                        mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                        mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE);
                         if( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle == 0 ) {
                             strcpy(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, mesh->shader);
                             strcat(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, "_d.tga");
-                            mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                            mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
                             if( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle == 0 ) {
                                 strcpy(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, mesh->shader);
                                 strcat(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, ".png");
-                                mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                                mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
+                                if( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle == 0 ) {
+                                    printf("[.md5mesh | ERROR]: Could not load diffuse map %s\n", mesh->shader);
+                                }
                             }
                         }
 
                         // specular map
                         strcpy(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, mesh->shader);
                         strcat(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, "_s.tga");
-                        mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                        mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
                         if( mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle == 0 ) {
                             strcpy(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, mesh->shader);
                             strcat(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, "_s.png");
-                            mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                            mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
+                            if( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle == 0 ) {
+                                printf("[.md5mesh | ERROR]: Could not load specular map %s\n", mesh->shader);
+                            }
                         }
 
                         // normal map
                         strcpy(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, mesh->shader);
                         strcat(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, "_local.tga");
-                        mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                        mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
                         if( mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle == 0 ) {
                             strcpy(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, mesh->shader);
                             strcat(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, "_local.png");
-                            mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                            mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
+                            if( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle == 0 ) {
+                                printf("[.md5mesh | ERROR]: Could not load normal map %s\n", mesh->shader);
+                            }
                         }
 
                         // height map
                         strcpy(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, mesh->shader);
                         strcat(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, "_h.tga");
-                        mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                        mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
                         if( mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle == 0 ) {
                             strcpy(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, mesh->shader);
                             strcat(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, "_h.png");
-                            mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, false );
+                            mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
+                            if( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle == 0 ) {
+                                printf("[.md5mesh | ERROR]: Could not load height map %s\n", mesh->shader);
+                            }
                         }
                     }
                 } else if( sscanf(buff, " numverts %d", &mesh->numVertices) == 1 ) {

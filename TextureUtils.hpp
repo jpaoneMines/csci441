@@ -65,6 +65,7 @@ namespace CSCI441 {
          * @param wrapS wrapping to apply to S coordinate (default: GL_REPEAT)
          * @param wrapT wrapping to apply to T coordinate (default: GL_REPEAT)
          * @param flipOnY flip the image along the vertical on load (default: GL_TRUE)
+         * @param printAllMessages prints debug/error messages to terminal
          * @returns texture handle corresponding to the texture
          */
 		[[maybe_unused]] GLuint loadAndRegisterTexture( const char *filename,
@@ -72,7 +73,8 @@ namespace CSCI441 {
                                        GLint magFilter = GL_LINEAR,
                                        GLint wrapS = GL_REPEAT,
                                        GLint wrapT = GL_REPEAT,
-                                       GLboolean flipOnY = GL_TRUE );
+                                       GLboolean flipOnY = GL_TRUE,
+                                       GLboolean printAllMessages = GL_TRUE);
 
         /**
 		 * @brief loads and registers a texture into memory returning a texture handle
@@ -84,7 +86,8 @@ namespace CSCI441 {
 		 * @param magFilter magnification filter to apply (default: GL_LINEAR)
 		 * @param wrapS wrapping to apply to S coordinate (default: GL_REPEAT)
 		 * @param wrapT wrapping to apply to T coordinate (default: GL_REPEAT)
-         * * @param flipOnY flip the image along the vertical on load (default: GL_TRUE)
+         * @param flipOnY flip the image along the vertical on load (default: GL_TRUE)
+         * @param printAllMessages prints debug/error messages to terminal
 		 * @returns texture handle corresponding to the texture
          */
 		GLuint loadAndRegister2DTexture( const char *filename,
@@ -92,7 +95,8 @@ namespace CSCI441 {
                                          GLint magFilter = GL_LINEAR,
                                          GLint wrapS = GL_REPEAT,
                                          GLint wrapT = GL_REPEAT,
-                                         GLboolean flipOnY = GL_TRUE );
+                                         GLboolean flipOnY = GL_TRUE,
+                                         GLboolean printAllMessages = GL_TRUE);
 
         /**
 		 * @brief loads a texture into memory of a cube face
@@ -149,11 +153,11 @@ inline bool CSCI441::TextureUtils::loadPPM( const char *filename, int &imageWidt
 }
 
 [[maybe_unused]]
-inline GLuint CSCI441::TextureUtils::loadAndRegisterTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT, const GLboolean flipOnY ) {
-	return loadAndRegister2DTexture( filename, minFilter, magFilter, wrapS, wrapT, flipOnY );
+inline GLuint CSCI441::TextureUtils::loadAndRegisterTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT, const GLboolean flipOnY, const GLboolean printAllMessages ) {
+	return loadAndRegister2DTexture( filename, minFilter, magFilter, wrapS, wrapT, flipOnY, printAllMessages );
 }
 
-inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT, const GLboolean flipOnY ) {
+inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT, const GLboolean flipOnY, const GLboolean printAllMessages ) {
     int imageWidth, imageHeight, imageChannels;
     GLuint texHandle = 0;
     stbi_set_flip_vertically_on_load(flipOnY);
@@ -165,7 +169,7 @@ inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filen
             imageChannels = 3;
         }
         if( !data ) {
-            printf( "[ERROR]: CSCI441::TextureUtils::loadAndRegister2DTexture(): Could not load texture \"%s\"\n", filename );
+            if(printAllMessages) printf( "[ERROR]: CSCI441::TextureUtils::loadAndRegister2DTexture(): Could not load texture \"%s\"\n", filename );
             return texHandle;
         }
 	}
