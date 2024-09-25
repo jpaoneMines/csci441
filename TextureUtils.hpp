@@ -65,7 +65,7 @@ namespace CSCI441 {
          * @param wrapS wrapping to apply to S coordinate (default: GL_REPEAT)
          * @param wrapT wrapping to apply to T coordinate (default: GL_REPEAT)
          * @param flipOnY flip the image along the vertical on load (default: GL_TRUE)
-         * @param printAllMessages prints debug/error messages to terminal
+         * @param printAllMessages prints debug/error messages to terminal (default: GL_TRUE)
          * @returns texture handle corresponding to the texture
          */
 		[[maybe_unused]] GLuint loadAndRegisterTexture( const char *filename,
@@ -87,7 +87,7 @@ namespace CSCI441 {
 		 * @param wrapS wrapping to apply to S coordinate (default: GL_REPEAT)
 		 * @param wrapT wrapping to apply to T coordinate (default: GL_REPEAT)
          * @param flipOnY flip the image along the vertical on load (default: GL_TRUE)
-         * @param printAllMessages prints debug/error messages to terminal
+         * @param printAllMessages prints debug/error messages to terminal (default: GL_TRUE)
 		 * @returns texture handle corresponding to the texture
          */
 		GLuint loadAndRegister2DTexture( const char *filename,
