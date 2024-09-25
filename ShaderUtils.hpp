@@ -438,7 +438,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
     int max_attr_name_size;
     int max_uniform_name_size;
 
-    // get max var name for driver
+    // get max var name from program
     // https://registry.khronos.org/OpenGL-Refpages/gl4/html/glGetActiveAttrib.xhtml
     glGetProgramiv(programHandle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &max_attr_name_size);
     glGetProgramiv(programHandle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_uniform_name_size);
