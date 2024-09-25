@@ -10,3 +10,4 @@ testBuildGLEW_multifile.cpp
 testBuildGLAD_multifile.cpp
 tests/
 bin/*
+compile_commands.json

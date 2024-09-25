@@ -434,6 +434,15 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
     GLuint shaders[6];
     int max_count = 6;
     int actual_count;
+
+    int max_attr_name_size;
+    int max_uniform_name_size;
+
+    // get max var name for driver
+    // https://registry.khronos.org/OpenGL-Refpages/gl4/html/glGetActiveAttrib.xhtml
+    glGetProgramiv(programHandle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &max_attr_name_size);
+    glGetProgramiv(programHandle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_uniform_name_size);
+
     glGetAttachedShaders(programHandle, max_count, &actual_count, shaders );
     if(actual_count > 0) {
         if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n");
@@ -468,23 +477,31 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
             if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n");
             if( sDEBUG ) printf( "[INFO]: | GL_ACTIVE_ATTRIBUTES: %32i |\n", params );
             for( int i = 0; i < params; i++ ) {
-                char name[64];
-                int max_length = 64;
+                char* name = (char*) malloc(max_attr_name_size * sizeof(char));
                 int actual_length = 0;
                 int size = 0;
                 GLenum type;
-                glGetActiveAttrib(programHandle, i, max_length, &actual_length, &size, &type, name );
+                glGetActiveAttrib(programHandle, i, max_attr_name_size, &actual_length, &size, &type, name );
                 if( size > 1 ) {
                     for( int j = 0; j < size; j++ ) {
-                        char long_name[64];
-                        sprintf( long_name, "%s[%i]", name, j );
-                        int location = glGetAttribLocation(programHandle, long_name );
-                        if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string( type ), long_name, location );
+                        // length of string + max array value size (technically it depends on the size of GL type, but I'm not aware a way to get the size) 
+                        // + array accessors + null
+                        int max_array_size = actual_length + 4 + 2 + 1;
+                        char* array_name = (char*) malloc(max_array_size * sizeof(char));
+
+                        snprintf( array_name, max_array_size, "%s[%i]", name, j );
+                        int location = glGetAttribLocation(programHandle, array_name);
+                        if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string( type ), array_name, location );
+                        free(array_name);
+                        name = nullptr;
                     }
                 } else {
                     int location = glGetAttribLocation(programHandle, name );
                     if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n",i, GLSL_type_to_string( type ), name, location );
                 }
+
+                free(name);
+                name = nullptr;
             }
         }
     }
@@ -494,20 +511,22 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
         if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n" );
         if( sDEBUG ) printf("[INFO]: | GL_ACTIVE_UNIFORMS: %34i |\n", params);
         for(int i = 0; i < params; i++) {
-            char name[64];
-            int max_length = 64;
+            char* name = (char*) malloc(max_uniform_name_size * sizeof(char));
             int actual_length = 0;
             int size = 0;
             GLenum type;
-            glGetActiveUniform(programHandle, i, max_length, &actual_length, &size, &type, name );
+            glGetActiveUniform(programHandle, i, max_uniform_name_size, &actual_length, &size, &type, name );
             if(size > 1) {
                 for(int j = 0; j < size; j++) {
-                    char long_name[64];
-                    sprintf(long_name, "%s[%i]", name, j);
-                    int location = glGetUniformLocation(programHandle, long_name);
+                    int max_array_size = actual_length + 4 + 2 + 1;
+                    char* array_name = (char*) malloc(max_array_size * sizeof(char));
+                    snprintf(array_name, max_array_size, "%s[%i]", name, j);
+                    int location = glGetUniformLocation(programHandle, array_name);
                     if(location != -1) {
-                        if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string(type), long_name, location);
+                        if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string(type), array_name, location);
                     }
+                    free(array_name);
+                    array_name = nullptr;
                 }
             } else {
                 int location = glGetUniformLocation(programHandle, name);
@@ -515,6 +534,8 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                     if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n",i, GLSL_type_to_string(type), name, location);
                 }
             }
+            free(name);
+            name = nullptr;
         }
     }
 
