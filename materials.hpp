@@ -10,6 +10,8 @@
 #ifndef CSCI441_MATERIALS_HPP
 #define CSCI441_MATERIALS_HPP
 
+#include <glad/gl.h>
+
 #include <glm/vec4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
