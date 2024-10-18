@@ -338,10 +338,25 @@ namespace CSCI441 {
 // Cone is drawn with a cylinder
 // Disk is drawn with a partial disk
 
+/**
+ * @namespace CSCI441_INTERNAL
+ * @brief implementations of public facing methods
+ */
 namespace CSCI441_INTERNAL {
+    /**
+     * @brief delete all the VAOs from the GPU
+     */
     void deleteObjectVAOs();
+    /**
+     * @brief delete all the VBOs from the GPU
+     */
     void deleteObjectVBOs();
 
+    /**
+     * @brief draws a cube
+     * @param sideLength side length
+     * @param renderMode filled polygon (GL_FILL) or line edges (GL_LINES)
+     */
     void drawCube( GLfloat sideLength, GLenum renderMode );
     void drawCubeIndexed( GLfloat sideLength, GLenum renderMode );
     void drawCubeFlat( GLfloat sideLength, GLenum renderMode );
@@ -351,10 +366,23 @@ namespace CSCI441_INTERNAL {
     void drawHalfSphere( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode );
     void drawDome( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode );
     void drawTorus( GLfloat innerRadius, GLfloat outerRadius, GLuint sides, GLuint rings, GLenum renderMode );
+    /**
+     * @brief draws the Utah Teapot
+     * @param renderMode filled polygon (GL_FILL) or line edges (GL_LINES)
+     */
     void drawTeapot( GLenum renderMode );
 
+    /**
+     * @brief location of the vertex position attribute within the shader being rendered with
+     */
     inline GLint _positionAttributeLocation = -1;
+    /**
+     * @brief location of the vertex normal attribute within the shader being rendered with
+     */
     inline GLint _normalAttributeLocation = -1;
+    /**
+     * @brief location of the vertex texture coordinate attribute within the shader being rendered with
+     */
     inline GLint _texCoordAttributeLocation = -1;
 
     void generateCubeVAOFlat( GLfloat sideLength );
@@ -364,20 +392,21 @@ namespace CSCI441_INTERNAL {
     inline std::map< GLfloat, GLuint > _cubeVAOIndexed;
     inline std::map< GLfloat, GLuint > _cubeVBOIndexed;
 
-    // stores data necessary to specify a unique cylinder
+    /// \desc stores data necessary to specify a unique cylinder
     struct CylinderData {
-        // radius of the base
+        /// \desc radius of the base
         GLfloat radiusBase;
-        // radius of the top
+        /// \desc radius of the top
         GLfloat top;
-        // height
+        /// \desc height
         GLfloat height;
-        // number of stacks
+        /// \desc number of stacks
         GLuint stacks;
-        // number of slices
+        /// \desc number of slices
         GLuint slices;
-        // compute number of vertices
+        /// \desc compute number of vertices
         [[nodiscard]] GLuint64 numVertices() const { return stacks * (slices + 1) * 2; }
+        /// \desc less than comparison operator used to sort
         bool operator<( const CylinderData rhs ) const {
             if( radiusBase < rhs.radiusBase ) {
                 return true;
