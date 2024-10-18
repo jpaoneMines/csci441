@@ -1,6 +1,6 @@
 # Revision History
 
-## v ?.?.? - ?? ??? ????
+## v 5.5.0 - 18 Oct 2024
 - TextureUtils::loadAndRegister2DTexture() can silence error message
 - MD5Model silences all but final texture fail messages during load
 - ShaderProgram uses glm::value_ptr() for passing vectors and matrices to program uniforms
