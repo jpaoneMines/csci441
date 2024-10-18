@@ -5,6 +5,7 @@
 - MD5Model silences all but final texture fail messages during load
 - ShaderProgram uses glm::value_ptr() for passing vectors and matrices to program uniforms
 - Include glad/gl.h in materials.hpp for GLfloat to exist if file included on its own
+- Patched bug with objects.hpp wire objects not resetting the polygon mode back for the front_and_back properly
 
 ## v 5.4.1 - 26 Aug 2024
 - Updated README

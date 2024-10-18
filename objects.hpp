@@ -798,8 +798,7 @@ inline void CSCI441_INTERNAL::drawCubeFlat( GLfloat sideLength, GLenum renderMod
 
     glDrawArrays( GL_TRIANGLES, 0, 36 );
 
-    glPolygonMode( GL_FRONT, currentPolygonMode[0] );
-    glPolygonMode( GL_BACK, currentPolygonMode[1] );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
 inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum renderMode ) {
@@ -830,8 +829,7 @@ inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum render
 
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*)nullptr);
 
-    glPolygonMode( GL_FRONT, currentPolygonMode[0] );
-    glPolygonMode( GL_BACK, currentPolygonMode[1] );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
 inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat height, GLuint stacks, GLuint slices, GLenum renderMode ) {
@@ -865,8 +863,7 @@ inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat h
         glDrawArrays( GL_TRIANGLE_STRIP, static_cast<GLint>((slices+1)*2*stackNum), static_cast<GLint>((slices+1)*2) );
     }
 
-    glPolygonMode( GL_FRONT, currentPolygonMode[0] );
-    glPolygonMode( GL_BACK, currentPolygonMode[1] );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
 inline void CSCI441_INTERNAL::drawPartialDisk(GLfloat innerRadius, GLfloat outerRadius, GLuint slices, GLuint rings, GLfloat startAngle, GLfloat sweepAngle, GLenum renderMode ) {
@@ -900,8 +897,7 @@ inline void CSCI441_INTERNAL::drawPartialDisk(GLfloat innerRadius, GLfloat outer
         glDrawArrays( GL_TRIANGLE_STRIP, static_cast<GLint>((slices+1)*2*ringNum), static_cast<GLint>((slices+1)*2) );
     }
 
-    glPolygonMode( GL_FRONT, currentPolygonMode[0] );
-    glPolygonMode( GL_BACK, currentPolygonMode[1] );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
 inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode ) {
@@ -939,8 +935,7 @@ inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLuint stacks, GLuint 
 
     glDrawArrays( GL_TRIANGLE_FAN, static_cast<GLint>((slices+2) + (stacks-2)*(slices+1)*2), static_cast<GLint>(slices+2) );
 
-    glPolygonMode( GL_FRONT, currentPolygonMode[0] );
-    glPolygonMode( GL_BACK, currentPolygonMode[1] );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
 inline void CSCI441_INTERNAL::drawHalfSphere( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode ) {
@@ -978,8 +973,7 @@ inline void CSCI441_INTERNAL::drawHalfSphere( GLfloat radius, GLuint stacks, GLu
 
     glDrawArrays( GL_TRIANGLE_FAN, static_cast<GLint>((slices+2) + (stacks-2)*(slices+1)*2), static_cast<GLint>((slices+2)/2) );
 
-    glPolygonMode( GL_FRONT, currentPolygonMode[0] );
-    glPolygonMode( GL_BACK, currentPolygonMode[1] );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 
     drawPartialDisk(0.0f, radius, slices, stacks, 0.0f, glm::two_pi<float>(), renderMode);
 }
@@ -1017,8 +1011,7 @@ inline void CSCI441_INTERNAL::drawDome( GLfloat radius, GLuint stacks, GLuint sl
         glDrawArrays( GL_TRIANGLE_STRIP, static_cast<GLint>((slices+2) + (stackNum-1)*((slices+1)*2)), static_cast<GLint>((slices+1)*2) );
     }
 
-    glPolygonMode( GL_FRONT, currentPolygonMode[0] );
-    glPolygonMode( GL_BACK, currentPolygonMode[1] );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
 inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadius, GLuint sides, GLuint rings, GLenum renderMode ) {
@@ -1052,8 +1045,7 @@ inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadiu
         glDrawArrays( GL_TRIANGLE_STRIP, static_cast<GLint>(ringNum*sides*4), static_cast<GLint>(sides*4) );
     }
 
-    glPolygonMode( GL_FRONT, currentPolygonMode[0] );
-    glPolygonMode( GL_BACK, currentPolygonMode[1] );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
 inline void CSCI441_INTERNAL::drawTeapot( GLenum renderMode ) {
@@ -1062,8 +1054,7 @@ inline void CSCI441_INTERNAL::drawTeapot( GLenum renderMode ) {
 
     glPolygonMode( GL_FRONT_AND_BACK, renderMode );
     CSCI441_INTERNAL::teapot();
-    glPolygonMode( GL_FRONT, currentPolygonMode[0] );
-    glPolygonMode( GL_BACK, currentPolygonMode[1] );
+    glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
 inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLfloat sideLength ) {
