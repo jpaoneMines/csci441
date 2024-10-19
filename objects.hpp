@@ -415,6 +415,7 @@ namespace CSCI441_INTERNAL {
     inline std::map< GLfloat, GLuint > _cubeVBO;
     inline std::map< GLfloat, GLuint > _cubeVAOIndexed;
     inline std::map< GLfloat, GLuint > _cubeVBOIndexed;
+    inline std::map< GLfloat, GLuint > _cubeIBOIndexed;
 
     /// \desc stores data necessary to specify a unique cylinder
     struct CylinderData {
@@ -803,6 +804,9 @@ inline void CSCI441_INTERNAL::deleteObjectVBOs() {
         glDeleteBuffers(1, &(iter.second));
     }
     for(auto & iter : _cubeVBOIndexed) {
+        glDeleteBuffers(1, &(iter.second));
+    }
+    for(auto & iter : _cubeIBOIndexed) {
         glDeleteBuffers(1, &(iter.second));
     }
     for(auto & iter : _cylinderVBO) {
@@ -1255,6 +1259,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
 
     CSCI441_INTERNAL::_cubeVAOIndexed.insert( std::pair<GLfloat, GLuint>( sideLength, vaod ) );
     CSCI441_INTERNAL::_cubeVBOIndexed.insert( std::pair<GLfloat, GLuint>( sideLength, vbods[0] ) );
+    CSCI441_INTERNAL::_cubeIBOIndexed.insert( std::pair<GLfloat, GLuint>( sideLength, vbods[1] ) );
 }
 
 inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
