@@ -353,13 +353,33 @@ namespace CSCI441_INTERNAL {
     void deleteObjectVBOs();
 
     /**
-     * @brief draws a cube
+     * @brief draws an indexed cube where vertex normals are the sum of the three faces
      * @param sideLength side length
      * @param renderMode filled polygon (GL_FILL) or line edges (GL_LINES)
      */
     void drawCube( GLfloat sideLength, GLenum renderMode );
+    /**
+     * @brief draws an indexed cube where vertex normals are the sum of the three faces
+     * @param sideLength side length
+     * @param renderMode filled polygon (GL_FILL) or line edges (GL_LINES)
+     */
     void drawCubeIndexed( GLfloat sideLength, GLenum renderMode );
+    /**
+     * @brief draws a flat cube where vertex normals are aligned with the face of the cube
+     * @param sideLength side length
+     * @param renderMode filled polygon (GL_FILL) or line edges (GL_LINES)
+     */
     void drawCubeFlat( GLfloat sideLength, GLenum renderMode );
+    /**
+     * @brief draws a cylinder
+     * @note iff one of the base or top is zero and the other is non-zero, then a cone can be drawn
+     * @param base radius of the base of the cylinder
+     * @param top radius of the top of the cylinder
+     * @param height height of the cylinder
+     * @param stacks resolution of the number of steps rotated around the central axis of the cylinder
+     * @param slices resolution of the number of steps to take along the height
+     * @param renderMode filled polygon (GL_FILL) or line edges (GL_LINES)
+     */
     void drawCylinder( GLfloat base, GLfloat top, GLfloat height, GLuint stacks, GLuint slices, GLenum renderMode );
     void drawPartialDisk(GLfloat innerRadius, GLfloat outerRadius, GLuint slices, GLuint rings, GLfloat startAngle, GLfloat sweepAngle, GLenum renderMode );
     void drawSphere( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode );
@@ -385,6 +405,10 @@ namespace CSCI441_INTERNAL {
      */
     inline GLint _texCoordAttributeLocation = -1;
 
+    /**
+     * @brief creates the VAO + VBO
+     * @param sideLength
+     */
     void generateCubeVAOFlat( GLfloat sideLength );
     void generateCubeVAOIndexed( GLfloat sideLength );
     inline std::map< GLfloat, GLuint > _cubeVAO;
