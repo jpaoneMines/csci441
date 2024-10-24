@@ -83,6 +83,11 @@ namespace CSCI441 {
          * @brief Prints the list of available extensions
          */
         [[maybe_unused]] void printOpenGLExtensions();
+        /**
+         * @brief Checks if there are any OpenGL errors, printing them if so,
+         * and clearing the error flag.
+         */
+        [[maybe_unused]] void checkOpenGLErrors();
   	};
 
 }
@@ -99,6 +104,7 @@ namespace CSCI441_INTERNAL {
   void printOpenGLParam2f(const char *FORMAT, GLenum name );
   [[maybe_unused]] void printOpenGLParam3(const char *FORMAT, GLenum name );
   void printOpenGLParam4(const char *FORMAT, GLenum name );
+  const char* openGLErrorMessage(GLenum err);
 }
 
 //**********************************************************************************
@@ -254,6 +260,15 @@ inline void CSCI441::OpenGLUtils::printOpenGLExtensions() {
     }
 }
 
+[[maybe_unused]]
+inline void CSCI441::OpenGLUtils::checkOpenGLErrors() {
+    GLenum err;
+    while( (err = glGetError()) != GL_NO_ERROR ) {
+        fprintf( stderr, "[ERROR]: OpenGL Error %d: %s\n", err, CSCI441_INTERNAL::openGLErrorMessage(err) );
+        err = glGetError();
+    }
+}
+
 //**********************************************************************************
 //**********************************************************************************
 // Internal function implementations
@@ -300,5 +315,21 @@ inline void CSCI441_INTERNAL::printOpenGLParam4(const char * const FORMAT, const
 	glGetIntegerv( name, values );
 	fprintf(stdout, FORMAT, values[0], values[1], values[2], values[3] );
 }
+
+inline const char* CSCI441_INTERNAL::openGLErrorMessage(GLenum err) {
+    switch(err) {
+        case GL_NO_ERROR:                       return "No error";
+        case GL_INVALID_ENUM:                   return "Invalid enum";
+        case GL_INVALID_VALUE:                  return "Invalid value";
+        case GL_INVALID_OPERATION:              return "Invalid operation";
+        case GL_STACK_OVERFLOW:                 return "Stack overflow";
+        case GL_STACK_UNDERFLOW:                return "Stack underflow";
+        case GL_OUT_OF_MEMORY:                  return "Out of memory";
+        case GL_INVALID_FRAMEBUFFER_OPERATION:  return "Invalid framebuffer operation";
+        case GL_CONTEXT_LOST:                   return "Context lost";
+        default: return "Unknown";
+    }
+}
+
 
 #endif // CSCI441_OPENGL_UTILS_H

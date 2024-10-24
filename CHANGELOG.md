@@ -2,6 +2,7 @@
 
 ## v ?.?.? - ?? ??? ????
 - Fixed GPU memory leak of not deleting cube IBOs
+- Add CSCI441::OpenGLUtils::checkOpenGLError() method to check the error queue
 
 ## v 5.5.0 - 18 Oct 2024
 - TextureUtils::loadAndRegister2DTexture() can silence error message
