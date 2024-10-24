@@ -183,6 +183,17 @@ inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filen
     const GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);
     glTexImage2D( GL_TEXTURE_2D, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
+
+    // anisotropic filtering became core in OpenGL 4.6, but was widely supported via extensions prior to then
+    GLint major = 0, minor = 0;
+    glGetIntegerv(GL_MAJOR_VERSION, &major);
+    glGetIntegerv(GL_MINOR_VERSION, &minor);
+    // check if anisotropic filtering is enabled
+    if( (major > 4 || (major == 4 && minor >= 6)) || GL_EXT_texture_filter_anisotropic ) {
+        GLfloat maxAniso = 1.0f;
+        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAniso);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAniso);
+    }
     printf( "[INFO]: Successfully loaded texture \"%s\" with handle %d\n", filename, texHandle );
 
 	return texHandle;

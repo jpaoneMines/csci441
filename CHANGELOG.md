@@ -1,5 +1,8 @@
 # Revision History
 
+## v ?.?.? - ?? ??? ????
+- TextureUtils::loadAndRegister2DTexture() sets anisotropic filtering (if available)
+
 ## v 5.6.0 - 24 Oct 2024
 - Fixed GPU memory leak of not deleting cube IBOs
 - Add CSCI441::OpenGLUtils::checkOpenGLError() method to check the error queue
