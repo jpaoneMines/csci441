@@ -88,6 +88,32 @@ namespace CSCI441 {
          * and clearing the error flag.
          */
         [[maybe_unused]] void checkOpenGLErrors();
+
+        /**
+         * @brief Converts error value to string representation
+         * @param err OpenGL error code
+         * @return name of error
+         */
+        [[maybe_unused]] const char* openGLErrorMessage(GLenum err);
+
+        /**
+         * @brief Converts debug source value to string representation
+         * @param source debug source
+         * @return name of debug source
+         */
+        [[maybe_unused]] const char* debugSourceToString(GLenum source);
+        /**
+         * @brief Converts debug type value to string representation
+         * @param type debug type
+         * @return type of debug message
+         */
+        [[maybe_unused]] const char* debugTypeToString(GLenum type);
+        /**
+         * @brief Converts debug severity value to string representation
+         * @param severity debug severity
+         * @return severity of debug message
+         */
+        [[maybe_unused]] const char* debugSeverityToString(GLenum severity);
   	};
 
 }
@@ -104,7 +130,6 @@ namespace CSCI441_INTERNAL {
   void printOpenGLParam2f(const char *FORMAT, GLenum name );
   [[maybe_unused]] void printOpenGLParam3(const char *FORMAT, GLenum name );
   void printOpenGLParam4(const char *FORMAT, GLenum name );
-  const char* openGLErrorMessage(GLenum err);
 }
 
 //**********************************************************************************
@@ -264,8 +289,63 @@ inline void CSCI441::OpenGLUtils::printOpenGLExtensions() {
 inline void CSCI441::OpenGLUtils::checkOpenGLErrors() {
     GLenum err;
     while( (err = glGetError()) != GL_NO_ERROR ) {
-        fprintf( stderr, "[ERROR]: OpenGL Error %d: %s\n", err, CSCI441_INTERNAL::openGLErrorMessage(err) );
+        fprintf( stderr, "[ERROR]: OpenGL Error (%d): %s\n", err, CSCI441::OpenGLUtils::openGLErrorMessage(err) );
         err = glGetError();
+    }
+}
+
+inline const char* CSCI441::OpenGLUtils::openGLErrorMessage(GLenum err) {
+    switch(err) {
+        case GL_NO_ERROR:                       return "No error";
+        case GL_INVALID_ENUM:                   return "Invalid enum";
+        case GL_INVALID_VALUE:                  return "Invalid value";
+        case GL_INVALID_OPERATION:              return "Invalid operation";
+        case GL_STACK_OVERFLOW:                 return "Stack overflow";
+        case GL_STACK_UNDERFLOW:                return "Stack underflow";
+        case GL_OUT_OF_MEMORY:                  return "Out of memory";
+        case GL_INVALID_FRAMEBUFFER_OPERATION:  return "Invalid framebuffer operation";
+        case GL_CONTEXT_LOST:                   return "Context lost";
+        default: return "Unknown";
+    }
+}
+
+[[maybe_unused]]
+inline const char* CSCI441::OpenGLUtils::debugSourceToString(GLenum source) {
+    switch(source) {
+        case GL_DEBUG_SOURCE_API:               return "API";
+        case GL_DEBUG_SOURCE_WINDOW_SYSTEM:     return "Window System";
+        case GL_DEBUG_SOURCE_SHADER_COMPILER:   return "Shader Compiler";
+        case GL_DEBUG_SOURCE_THIRD_PARTY:       return "Third Party";
+        case GL_DEBUG_SOURCE_APPLICATION:       return "Application";
+        case GL_DEBUG_SOURCE_OTHER:             return "Other";
+        default:                                return "Unknown";
+    }
+}
+
+[[maybe_unused]]
+inline const char* CSCI441::OpenGLUtils::debugTypeToString(GLenum type) {
+    switch(type) {
+        case GL_DEBUG_TYPE_ERROR:               return "Error";
+        case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR: return "Deprecated Behavior";
+        case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:  return "Undefined Behavior";
+        case GL_DEBUG_TYPE_PORTABILITY:         return "Portability";
+        case GL_DEBUG_TYPE_PERFORMANCE:         return "Performance";
+        case GL_DEBUG_TYPE_MARKER:              return "Marker";
+        case GL_DEBUG_TYPE_PUSH_GROUP:          return "Push Group";
+        case GL_DEBUG_TYPE_POP_GROUP:           return "Pop Group";
+        case GL_DEBUG_TYPE_OTHER:               return "Other";
+        default:                                return "Unknown";
+    }
+}
+
+[[maybe_unused]]
+inline const char* CSCI441::OpenGLUtils::debugSeverityToString(GLenum severity) {
+    switch(severity) {
+        case GL_DEBUG_SEVERITY_HIGH:            return "High";
+        case GL_DEBUG_SEVERITY_MEDIUM:          return "Medium";
+        case GL_DEBUG_SEVERITY_LOW:             return "Low";
+        case GL_DEBUG_SEVERITY_NOTIFICATION:    return "Notification";
+        default:                                return "Unknown";
     }
 }
 
@@ -315,21 +395,5 @@ inline void CSCI441_INTERNAL::printOpenGLParam4(const char * const FORMAT, const
 	glGetIntegerv( name, values );
 	fprintf(stdout, FORMAT, values[0], values[1], values[2], values[3] );
 }
-
-inline const char* CSCI441_INTERNAL::openGLErrorMessage(GLenum err) {
-    switch(err) {
-        case GL_NO_ERROR:                       return "No error";
-        case GL_INVALID_ENUM:                   return "Invalid enum";
-        case GL_INVALID_VALUE:                  return "Invalid value";
-        case GL_INVALID_OPERATION:              return "Invalid operation";
-        case GL_STACK_OVERFLOW:                 return "Stack overflow";
-        case GL_STACK_UNDERFLOW:                return "Stack underflow";
-        case GL_OUT_OF_MEMORY:                  return "Out of memory";
-        case GL_INVALID_FRAMEBUFFER_OPERATION:  return "Invalid framebuffer operation";
-        case GL_CONTEXT_LOST:                   return "Context lost";
-        default: return "Unknown";
-    }
-}
-
 
 #endif // CSCI441_OPENGL_UTILS_H

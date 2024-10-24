@@ -235,6 +235,19 @@ namespace CSCI441 {
         static void mErrorCallback(int error, const char* DESCRIPTION) { fprintf(stderr, "[ERROR]: %d\n\t%s\n", error, DESCRIPTION ); }
 
         /**
+         * @brief callback called whenever a debug message is signaled
+         */
+        static void mDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
+            fprintf( stdout, "[VERBOSE]: Debug Message (%d): source = %s, type = %s, severity = %s, message = %s\n",
+                     id,
+                     CSCI441::OpenGLUtils::debugSourceToString(source),
+                     CSCI441::OpenGLUtils::debugTypeToString(type),
+                     CSCI441::OpenGLUtils::debugSeverityToString(severity),
+                     message
+                     );
+        }
+
+        /**
          * callback called when GLFW pWindow is resized.  internally updated mWindowWidth and
          * mWindowHeight to new values
          * @param pWindow pointer to the window that was resized
@@ -398,6 +411,12 @@ inline void CSCI441::OpenGLEngine::mSetupGLFW()  {
         glfwWindowHint( GLFW_DOUBLEBUFFER, GLFW_TRUE );                              // request double buffering
         glfwWindowHint(GLFW_RESIZABLE, mWindowResizable );		                    // set if our window should be able to be resized
 
+        // if wanting debug information with Version 4.3 or higher
+        if( DEBUG
+            && (mOpenGLMajorVersion > 4 || (mOpenGLMajorVersion == 4 && mOpenGLMinorVersion >= 3)) ) {
+            glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);                        // request a debug context
+        }
+
         // create a window for a given size, with a given title
         mpWindow = glfwCreateWindow(mWindowWidth, mWindowHeight, mWindowTitle, nullptr, nullptr );
         if( !mpWindow ) {						                                                // if the window could not be created, NULL is returned
@@ -411,6 +430,20 @@ inline void CSCI441::OpenGLEngine::mSetupGLFW()  {
             glfwSetInputMode(mpWindow, GLFW_LOCK_KEY_MODS, GLFW_TRUE);      // track state of Caps Lock and Num Lock keys
             glfwSetWindowUserPointer(mpWindow, (void*)this);
             glfwSetWindowSizeCallback(mpWindow, mWindowResizeCallback);
+
+            // if wanting debug information with Version 4.3 or higher
+            if( DEBUG
+                && (mOpenGLMajorVersion > 4 || (mOpenGLMajorVersion == 4 && mOpenGLMinorVersion >= 3)) ) {
+                // check if debug context was created
+                int flags; glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
+                if (flags & GL_CONTEXT_FLAG_DEBUG_BIT) {
+                    // register callback to synchronously print any debug messages without having to call glGetError()
+                    glEnable(GL_DEBUG_OUTPUT);
+                    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+                    glDebugMessageCallback(mDebugMessageCallback, nullptr);
+                    glDebugMessageControl( GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE );
+                }
+            }
         }
     }
 }
