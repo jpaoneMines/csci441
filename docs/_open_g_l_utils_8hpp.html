@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.5.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.6.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -105,6 +105,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441::OpenGLUtils:
 void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441::OpenGLUtils::printOpenGLExtensions</b> ()</td></tr>
 <tr class="memdesc:a854077564452ce02c385eba5f33f4d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the list of available extensions. <br /></td></tr>
 <tr class="separator:a854077564452ce02c385eba5f33f4d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e12bc3ac0ce7e01c50191b09c889a2c"><td class="memItemLeft" align="right" valign="top"><a id="a5e12bc3ac0ce7e01c50191b09c889a2c" name="a5e12bc3ac0ce7e01c50191b09c889a2c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441::OpenGLUtils::checkOpenGLErrors</b> ()</td></tr>
+<tr class="memdesc:a5e12bc3ac0ce7e01c50191b09c889a2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if there are any OpenGL errors, printing them if so, and clearing the error flag. <br /></td></tr>
+<tr class="separator:a5e12bc3ac0ce7e01c50191b09c889a2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1473b4a80cac441807ed56deb1cebce9"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_open_g_l_utils_8hpp.html#a1473b4a80cac441807ed56deb1cebce9">CSCI441::OpenGLUtils::openGLErrorMessage</a> (GLenum err)</td></tr>
+<tr class="memdesc:a1473b4a80cac441807ed56deb1cebce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts error value to string representation.  <br /></td></tr>
+<tr class="separator:a1473b4a80cac441807ed56deb1cebce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfc76f732258a960339ba703c1ff6367"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_open_g_l_utils_8hpp.html#abfc76f732258a960339ba703c1ff6367">CSCI441::OpenGLUtils::debugSourceToString</a> (GLenum source)</td></tr>
+<tr class="memdesc:abfc76f732258a960339ba703c1ff6367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts debug source value to string representation.  <br /></td></tr>
+<tr class="separator:abfc76f732258a960339ba703c1ff6367"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaef31c6765378095215ac30cb21e7f50"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_open_g_l_utils_8hpp.html#aaef31c6765378095215ac30cb21e7f50">CSCI441::OpenGLUtils::debugTypeToString</a> (GLenum type)</td></tr>
+<tr class="memdesc:aaef31c6765378095215ac30cb21e7f50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts debug type value to string representation.  <br /></td></tr>
+<tr class="separator:aaef31c6765378095215ac30cb21e7f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43a1a3cd63b4068ab8cf621b2d01c285"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_open_g_l_utils_8hpp.html#a43a1a3cd63b4068ab8cf621b2d01c285">CSCI441::OpenGLUtils::debugSeverityToString</a> (GLenum severity)</td></tr>
+<tr class="memdesc:a43a1a3cd63b4068ab8cf621b2d01c285"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts debug severity value to string representation.  <br /></td></tr>
+<tr class="separator:a43a1a3cd63b4068ab8cf621b2d01c285"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Helper functions to work with OpenGL 3.0+. </p>
@@ -114,7 +130,148 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441::OpenGLUtils:
 <dl class="section warning"><dt>Warning</dt><dd>NOTE: This header file depends upon GLAD (or alternatively GLEW) </dd>
 <dd>
 NOTE: This header file depends upon glm </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a43a1a3cd63b4068ab8cf621b2d01c285" name="a43a1a3cd63b4068ab8cf621b2d01c285"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43a1a3cd63b4068ab8cf621b2d01c285">&#9670;&#160;</a></span>debugSeverityToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * CSCI441::OpenGLUtils::debugSeverityToString </td>
+          <td>(</td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>severity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts debug severity value to string representation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">severity</td><td>debug severity </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>severity of debug message </dd></dl>
+
+</div>
+</div>
+<a id="abfc76f732258a960339ba703c1ff6367" name="abfc76f732258a960339ba703c1ff6367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfc76f732258a960339ba703c1ff6367">&#9670;&#160;</a></span>debugSourceToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * CSCI441::OpenGLUtils::debugSourceToString </td>
+          <td>(</td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>source</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts debug source value to string representation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>debug source </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>name of debug source </dd></dl>
+
+</div>
+</div>
+<a id="aaef31c6765378095215ac30cb21e7f50" name="aaef31c6765378095215ac30cb21e7f50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaef31c6765378095215ac30cb21e7f50">&#9670;&#160;</a></span>debugTypeToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * CSCI441::OpenGLUtils::debugTypeToString </td>
+          <td>(</td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts debug type value to string representation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>debug type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>type of debug message </dd></dl>
+
+</div>
+</div>
+<a id="a1473b4a80cac441807ed56deb1cebce9" name="a1473b4a80cac441807ed56deb1cebce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1473b4a80cac441807ed56deb1cebce9">&#9670;&#160;</a></span>openGLErrorMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * CSCI441::OpenGLUtils::openGLErrorMessage </td>
+          <td>(</td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>err</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts error value to string representation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">err</td><td>OpenGL error code </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>name of error </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6

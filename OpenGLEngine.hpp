@@ -378,7 +378,22 @@ inline void CSCI441::OpenGLEngine::initialize() {
         mSetupOpenGL();                 // create the OpenGL context
 
         // get OpenGL context information
-        if (DEBUG) CSCI441::OpenGLUtils::printOpenGLInfo();
+        if( DEBUG ) {
+            // if wanting debug information with Version 4.3 or higher
+            if( mOpenGLMajorVersion > 4 || (mOpenGLMajorVersion == 4 && mOpenGLMinorVersion >= 3) ) {
+                // check if debug context was created
+                int flags; glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
+                if (flags & GL_CONTEXT_FLAG_DEBUG_BIT) {
+                    // register callback to synchronously print any debug messages without having to call glGetError()
+                    glEnable(GL_DEBUG_OUTPUT);
+                    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+                    glDebugMessageCallback(mDebugMessageCallback, nullptr);
+                    glDebugMessageControl( GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE );
+                }
+            }
+
+            CSCI441::OpenGLUtils::printOpenGLInfo();
+        }
 
         mSetupShaders();                // transfer, compile, link shaders on GPU
         mSetupBuffers();                // register Buffers on GPU
@@ -430,20 +445,6 @@ inline void CSCI441::OpenGLEngine::mSetupGLFW()  {
             glfwSetInputMode(mpWindow, GLFW_LOCK_KEY_MODS, GLFW_TRUE);      // track state of Caps Lock and Num Lock keys
             glfwSetWindowUserPointer(mpWindow, (void*)this);
             glfwSetWindowSizeCallback(mpWindow, mWindowResizeCallback);
-
-            // if wanting debug information with Version 4.3 or higher
-            if( DEBUG
-                && (mOpenGLMajorVersion > 4 || (mOpenGLMajorVersion == 4 && mOpenGLMinorVersion >= 3)) ) {
-                // check if debug context was created
-                int flags; glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
-                if (flags & GL_CONTEXT_FLAG_DEBUG_BIT) {
-                    // register callback to synchronously print any debug messages without having to call glGetError()
-                    glEnable(GL_DEBUG_OUTPUT);
-                    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-                    glDebugMessageCallback(mDebugMessageCallback, nullptr);
-                    glDebugMessageControl( GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE );
-                }
-            }
         }
     }
 }
