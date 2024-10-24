@@ -2,6 +2,7 @@
 
 ## v ?.?.? - ?? ??? ????
 - TextureUtils::loadAndRegister2DTexture() sets anisotropic filtering (if available)
+- TextureUtils::loadAndRegisterTexture() added flags to toggle mipmaps and anisotropic filtering
 
 ## v 5.6.0 - 24 Oct 2024
 - Fixed GPU memory leak of not deleting cube IBOs

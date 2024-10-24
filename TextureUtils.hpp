@@ -66,6 +66,8 @@ namespace CSCI441 {
          * @param wrapT wrapping to apply to T coordinate (default: GL_REPEAT)
          * @param flipOnY flip the image along the vertical on load (default: GL_TRUE)
          * @param printAllMessages prints debug/error messages to terminal (default: GL_TRUE)
+         * @param enableMipmaps create mipmaps for texture (default: GL_TRUE)
+         * @param enableAniso enable anisotropic filtering for mipmaps (default: GL_TRUE)
          * @returns texture handle corresponding to the texture
          */
 		[[maybe_unused]] GLuint loadAndRegisterTexture( const char *filename,
@@ -74,7 +76,9 @@ namespace CSCI441 {
                                        GLint wrapS = GL_REPEAT,
                                        GLint wrapT = GL_REPEAT,
                                        GLboolean flipOnY = GL_TRUE,
-                                       GLboolean printAllMessages = GL_TRUE);
+                                       GLboolean printAllMessages = GL_TRUE,
+                                       GLboolean enableMipmaps = GL_TRUE,
+                                       GLboolean enableAniso = GL_TRUE);
 
         /**
 		 * @brief loads and registers a texture into memory returning a texture handle
@@ -88,6 +92,8 @@ namespace CSCI441 {
 		 * @param wrapT wrapping to apply to T coordinate (default: GL_REPEAT)
          * @param flipOnY flip the image along the vertical on load (default: GL_TRUE)
          * @param printAllMessages prints debug/error messages to terminal (default: GL_TRUE)
+         * @param enableMipmaps create mipmaps for texture (default: GL_TRUE)
+         * @param enableAniso enable anisotropic filtering for mipmaps (default: GL_TRUE)
 		 * @returns texture handle corresponding to the texture
          */
 		GLuint loadAndRegister2DTexture( const char *filename,
@@ -96,7 +102,9 @@ namespace CSCI441 {
                                          GLint wrapS = GL_REPEAT,
                                          GLint wrapT = GL_REPEAT,
                                          GLboolean flipOnY = GL_TRUE,
-                                         GLboolean printAllMessages = GL_TRUE);
+                                         GLboolean printAllMessages = GL_TRUE,
+                                         GLboolean enableMipmaps = GL_TRUE,
+                                         GLboolean enableAniso = GL_TRUE);
 
         /**
 		 * @brief loads a texture into memory of a cube face
@@ -153,11 +161,11 @@ inline bool CSCI441::TextureUtils::loadPPM( const char *filename, int &imageWidt
 }
 
 [[maybe_unused]]
-inline GLuint CSCI441::TextureUtils::loadAndRegisterTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT, const GLboolean flipOnY, const GLboolean printAllMessages ) {
-	return loadAndRegister2DTexture( filename, minFilter, magFilter, wrapS, wrapT, flipOnY, printAllMessages );
+inline GLuint CSCI441::TextureUtils::loadAndRegisterTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT, const GLboolean flipOnY, const GLboolean printAllMessages, const GLboolean enableMipmaps, const GLboolean enableAniso ) {
+	return loadAndRegister2DTexture( filename, minFilter, magFilter, wrapS, wrapT, flipOnY, printAllMessages, enableMipmaps, enableAniso );
 }
 
-inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT, const GLboolean flipOnY, const GLboolean printAllMessages ) {
+inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filename, const GLint minFilter, const GLint magFilter, const GLint wrapS, const GLint wrapT, const GLboolean flipOnY, const GLboolean printAllMessages, const GLboolean enableMipmaps, const GLboolean enableAniso ) {
     int imageWidth, imageHeight, imageChannels;
     GLuint texHandle = 0;
     stbi_set_flip_vertically_on_load(flipOnY);
@@ -182,18 +190,22 @@ inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filen
     glTexParameteri( GL_TEXTURE_2D,  GL_TEXTURE_WRAP_T,     wrapT );
     const GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);
     glTexImage2D( GL_TEXTURE_2D, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
 
-    // anisotropic filtering became core in OpenGL 4.6, but was widely supported via extensions prior to then
-    GLint major = 0, minor = 0;
-    glGetIntegerv(GL_MAJOR_VERSION, &major);
-    glGetIntegerv(GL_MINOR_VERSION, &minor);
-    // check if anisotropic filtering is enabled
-    if( (major > 4 || (major == 4 && minor >= 6)) || GL_EXT_texture_filter_anisotropic ) {
-        GLfloat maxAniso = 1.0f;
-        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAniso);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAniso);
+    if(enableMipmaps) glGenerateMipmap(GL_TEXTURE_2D);
+
+    if(enableAniso) {
+        // anisotropic filtering became core in OpenGL 4.6, but was widely supported via extensions prior to then
+        GLint major = 0, minor = 0;
+        glGetIntegerv(GL_MAJOR_VERSION, &major);
+        glGetIntegerv(GL_MINOR_VERSION, &minor);
+        // check if anisotropic filtering is enabled
+        if( (major > 4 || (major == 4 && minor >= 6)) || GL_EXT_texture_filter_anisotropic ) {
+            GLfloat maxAniso = 1.0f;
+            glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAniso);
+            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAniso);
+        }
     }
+
     printf( "[INFO]: Successfully loaded texture \"%s\" with handle %d\n", filename, texHandle );
 
 	return texHandle;
