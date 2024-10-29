@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.9.0 - 29 Oct 2024
+- Merged fix to use snprintf() and remove build warnings
+
 ## v 5.8.0 - 29 Oct 2024
 - CSCI441::drawCubeMap() specifies three-dimensional texture coordinate
 
