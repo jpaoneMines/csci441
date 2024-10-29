@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.7.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.8.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -618,7 +618,7 @@ $(function() {
 <div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span>    }</div>
 <div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>    <span class="keywordflow">if</span>(CSCI441_INTERNAL::_texCoordAttributeLocation != -1) {</div>
 <div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>        glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );</div>
-<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (<span class="keywordtype">void</span>*)(<span class="keyword">sizeof</span>(glm::vec3) * NUM_VERTICES * 2) );</div>
+<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (<span class="keywordtype">void</span>*)(<span class="keyword">sizeof</span>(glm::vec3) * NUM_VERTICES * 2) );</div>
 <div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>    }</div>
 <div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span> </div>
 <div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (<span class="keywordtype">void</span>*)<span class="keyword">nullptr</span>);</div>

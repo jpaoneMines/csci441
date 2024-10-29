@@ -1,6 +1,6 @@
 # Revision History
 
-## v ?.?.? - ?? ??? ????
+## v 5.8.0 - 29 Oct 2024
 - CSCI441::drawCubeMap() specifies three-dimensional texture coordinate
 
 ## v 5.7.0 - 29 Oct 2024
