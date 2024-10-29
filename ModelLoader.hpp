@@ -569,7 +569,10 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 		} else if( tokens[0] == "f" ) {                     //face!
             std::vector<std::string> processedFaceTokens;
 
-			for(GLuint i = 1; i < tokens.size(); i++) {
+            bool faceHasVertexNormals = false;
+            bool faceHasTextureCoordinates = false;
+
+            for(GLuint i = 1; i < tokens.size(); i++) {
                 //need to use both the tokens and number of slashes to determine what info is there.
                 auto vertexAttributeTokens = _tokenizeString(tokens[i], "/");
                 int numAttributeSlashes = 0;
@@ -589,6 +592,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
                 if(vertexAttributeTokens.size() == 2 && numAttributeSlashes == 1) {
                     // v/t
                     _hasVertexTexCoords = true;
+                    faceHasTextureCoordinates = true;
 
                     auto signedTexCoordIndex = (GLint)strtol(vertexAttributeTokens[1].c_str(), nullptr, 10);
                     texCoordIndex = signedTexCoordIndex;
@@ -597,6 +601,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
                 } else if(vertexAttributeTokens.size() == 2 && numAttributeSlashes == 2) {
                     // v//n
                     _hasVertexNormals = true;
+                    faceHasVertexNormals = true;
 
                     auto signedNormalIndex = (GLint)strtol(vertexAttributeTokens[1].c_str(), nullptr, 10);
                     normalIndex = signedNormalIndex;
@@ -605,7 +610,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
                 } else if(vertexAttributeTokens.size() == 3) {
                     // v/t/n
                     _hasVertexTexCoords = true;
+                    faceHasTextureCoordinates = true;
                     _hasVertexNormals = true;
+                    faceHasVertexNormals = true;
 
                     auto signedTexCoordIndex = (GLint)strtol(vertexAttributeTokens[1].c_str(), nullptr, 10);
                     texCoordIndex = signedTexCoordIndex;
@@ -631,12 +638,12 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 					if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 						_vertices[ _uniqueIndex ] = objVertices[ vertexIndex - 1 ];
-						if(texCoordIndex != 0) { _texCoords[ _uniqueIndex ] = objTexCoords[ texCoordIndex - 1 ]; }
-                        if(normalIndex != 0) _normals[ _uniqueIndex ] = objNormals[ normalIndex - 1 ];
+						if(faceHasTextureCoordinates && texCoordIndex != 0) { _texCoords[ _uniqueIndex ] = objTexCoords[ texCoordIndex - 1 ]; }
+                        if(faceHasVertexNormals && normalIndex != 0) _normals[ _uniqueIndex ] = objNormals[ normalIndex - 1 ];
 						_uniqueIndex++;
 					} else {
 						verticesTemps.push_back( objVertices[ vertexIndex - 1 ] );
-                        if(texCoordIndex != 0) { texCoordsTemp.push_back( objTexCoords[ texCoordIndex - 1 ] ); }
+                        if(faceHasTextureCoordinates && texCoordIndex != 0) { texCoordsTemp.push_back( objTexCoords[ texCoordIndex - 1 ] ); }
 
 						if( (vertexAttributeTokens.size() == 2 && numAttributeSlashes == 2)
                             || (vertexAttributeTokens.size() == 3) ) {
@@ -674,21 +681,21 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 
 					_vertices[ _uniqueIndex ] = a;
 					_normals[ _uniqueIndex ] = aN;
-					if( _hasVertexTexCoords ) { _texCoords[ _uniqueIndex ] = texCoordsTemp[ aI ]; }
+					if( faceHasTextureCoordinates && _hasVertexTexCoords ) { _texCoords[ _uniqueIndex ] = texCoordsTemp[ aI ]; }
 					_indices[ _numIndices++ ] = _uniqueIndex++;
 
 					indicesSeen++;
 
 					_vertices[ _uniqueIndex ] = b;
 					_normals[ _uniqueIndex ] = bN;
-					if( _hasVertexTexCoords ) { _texCoords[ _uniqueIndex ] = texCoordsTemp[ bI ]; }
+					if( faceHasTextureCoordinates && _hasVertexTexCoords ) { _texCoords[ _uniqueIndex ] = texCoordsTemp[ bI ]; }
 					_indices[ _numIndices++ ] = _uniqueIndex++;
 
 					indicesSeen++;
 
 					_vertices[ _uniqueIndex ] = c;
 					_normals[ _uniqueIndex ] = cN;
-					if( _hasVertexTexCoords ) { _texCoords[ _uniqueIndex ] = texCoordsTemp[ cI ]; }
+					if( faceHasTextureCoordinates && _hasVertexTexCoords ) { _texCoords[ _uniqueIndex ] = texCoordsTemp[ cI ]; }
 					_indices[ _numIndices++ ] = _uniqueIndex++;
 
 					indicesSeen++;

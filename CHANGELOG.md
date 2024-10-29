@@ -3,6 +3,7 @@
 ## v ?.?.? - ?? ??? ????
 - TextureUtils::loadAndRegister2DTexture() sets anisotropic filtering (if available)
 - TextureUtils::loadAndRegisterTexture() added flags to toggle mipmaps and anisotropic filtering
+- ModelLoader::_loadObjFile() checks if current face has texture coordinates in addition to entire model
 
 ## v 5.6.0 - 24 Oct 2024
 - Fixed GPU memory leak of not deleting cube IBOs
