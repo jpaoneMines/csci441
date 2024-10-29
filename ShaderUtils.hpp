@@ -435,8 +435,8 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
     int max_count = 6;
     int actual_count;
 
-    int max_attr_name_size;
-    int max_uniform_name_size;
+    GLint max_attr_name_size;
+    GLint max_uniform_name_size;
 
     // get max var name from program
     // https://registry.khronos.org/OpenGL-Refpages/gl4/html/glGetActiveAttrib.xhtml
@@ -493,7 +493,6 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                         int location = glGetAttribLocation(programHandle, array_name);
                         if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string( type ), array_name, location );
                         free(array_name);
-                        name = nullptr;
                     }
                 } else {
                     int location = glGetAttribLocation(programHandle, name );
@@ -501,7 +500,6 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                 }
 
                 free(name);
-                name = nullptr;
             }
         }
     }
@@ -526,7 +524,6 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                         if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string(type), array_name, location);
                     }
                     free(array_name);
-                    array_name = nullptr;
                 }
             } else {
                 int location = glGetUniformLocation(programHandle, name);
@@ -535,7 +532,6 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                 }
             }
             free(name);
-            name = nullptr;
         }
     }
 
