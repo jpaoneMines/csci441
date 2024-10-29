@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.6.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.7.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -101,12 +101,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a4059995665c90622a8fec7b4a4c358c8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8">CSCI441::TextureUtils::loadPPM</a> (const char *filename, int &amp;imageWidth, int &amp;imageHeight, unsigned char *&amp;imageData)</td></tr>
 <tr class="memdesc:a4059995665c90622a8fec7b4a4c358c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads a PPM into memory  <br /></td></tr>
 <tr class="separator:a4059995665c90622a8fec7b4a4c358c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a357b87b32ddd807943848055136e94d0"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_texture_utils_8hpp.html#a357b87b32ddd807943848055136e94d0">CSCI441::TextureUtils::loadAndRegisterTexture</a> (const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT, GLboolean flipOnY=GL_TRUE, GLboolean printAllMessages=GL_TRUE)</td></tr>
-<tr class="memdesc:a357b87b32ddd807943848055136e94d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads and registers a texture into memory returning a texture handle  <br /></td></tr>
-<tr class="separator:a357b87b32ddd807943848055136e94d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af423a3674d7787d7ca100213acea5a3e"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_texture_utils_8hpp.html#af423a3674d7787d7ca100213acea5a3e">CSCI441::TextureUtils::loadAndRegister2DTexture</a> (const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT, GLboolean flipOnY=GL_TRUE, GLboolean printAllMessages=GL_TRUE)</td></tr>
-<tr class="memdesc:af423a3674d7787d7ca100213acea5a3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads and registers a texture into memory returning a texture handle  <br /></td></tr>
-<tr class="separator:af423a3674d7787d7ca100213acea5a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7760a68a85880637fe696d1ef0a2f19a"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_texture_utils_8hpp.html#a7760a68a85880637fe696d1ef0a2f19a">CSCI441::TextureUtils::loadAndRegisterTexture</a> (const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT, GLboolean flipOnY=GL_TRUE, GLboolean printAllMessages=GL_TRUE, GLboolean enableMipmaps=GL_TRUE, GLboolean enableAniso=GL_TRUE)</td></tr>
+<tr class="memdesc:a7760a68a85880637fe696d1ef0a2f19a"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads and registers a texture into memory returning a texture handle  <br /></td></tr>
+<tr class="separator:a7760a68a85880637fe696d1ef0a2f19a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a414ebb3c74d5281a5d4f545a9360d9ff"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_texture_utils_8hpp.html#a414ebb3c74d5281a5d4f545a9360d9ff">CSCI441::TextureUtils::loadAndRegister2DTexture</a> (const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT, GLboolean flipOnY=GL_TRUE, GLboolean printAllMessages=GL_TRUE, GLboolean enableMipmaps=GL_TRUE, GLboolean enableAniso=GL_TRUE)</td></tr>
+<tr class="memdesc:a414ebb3c74d5281a5d4f545a9360d9ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads and registers a texture into memory returning a texture handle  <br /></td></tr>
+<tr class="separator:a414ebb3c74d5281a5d4f545a9360d9ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c32bc9d6e247f7b8a9b8b8b23b605d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">CSCI441::TextureUtils::loadCubeMapFaceTexture</a> (GLint cubeMapFace, const char *filename)</td></tr>
 <tr class="memdesc:a1c32bc9d6e247f7b8a9b8b8b23b605d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads a texture into memory of a cube face  <br /></td></tr>
 <tr class="separator:a1c32bc9d6e247f7b8a9b8b8b23b605d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,8 +120,8 @@ Functions</h2></td></tr>
 <dd>
 This header file depends upon stb_image </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="af423a3674d7787d7ca100213acea5a3e" name="af423a3674d7787d7ca100213acea5a3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af423a3674d7787d7ca100213acea5a3e">&#9670;&#160;</a></span>loadAndRegister2DTexture()</h2>
+<a id="a414ebb3c74d5281a5d4f545a9360d9ff" name="a414ebb3c74d5281a5d4f545a9360d9ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a414ebb3c74d5281a5d4f545a9360d9ff">&#9670;&#160;</a></span>loadAndRegister2DTexture()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -169,7 +169,19 @@ This header file depends upon stb_image </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLboolean&#160;</td>
-          <td class="paramname"><em>printAllMessages</em> = <code>GL_TRUE</code>&#160;</td>
+          <td class="paramname"><em>printAllMessages</em> = <code>GL_TRUE</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLboolean&#160;</td>
+          <td class="paramname"><em>enableMipmaps</em> = <code>GL_TRUE</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLboolean&#160;</td>
+          <td class="paramname"><em>enableAniso</em> = <code>GL_TRUE</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -194,6 +206,8 @@ This header file depends upon stb_image </dd></dl>
     <tr><td class="paramname">wrapT</td><td>wrapping to apply to T coordinate (default: GL_REPEAT) </td></tr>
     <tr><td class="paramname">flipOnY</td><td>flip the image along the vertical on load (default: GL_TRUE) </td></tr>
     <tr><td class="paramname">printAllMessages</td><td>prints debug/error messages to terminal (default: GL_TRUE) </td></tr>
+    <tr><td class="paramname">enableMipmaps</td><td>create mipmaps for texture (default: GL_TRUE) </td></tr>
+    <tr><td class="paramname">enableAniso</td><td>enable anisotropic filtering for mipmaps (default: GL_TRUE) </td></tr>
   </table>
   </dd>
 </dl>
@@ -201,8 +215,8 @@ This header file depends upon stb_image </dd></dl>
 
 </div>
 </div>
-<a id="a357b87b32ddd807943848055136e94d0" name="a357b87b32ddd807943848055136e94d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a357b87b32ddd807943848055136e94d0">&#9670;&#160;</a></span>loadAndRegisterTexture()</h2>
+<a id="a7760a68a85880637fe696d1ef0a2f19a" name="a7760a68a85880637fe696d1ef0a2f19a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7760a68a85880637fe696d1ef0a2f19a">&#9670;&#160;</a></span>loadAndRegisterTexture()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,7 +264,19 @@ This header file depends upon stb_image </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLboolean&#160;</td>
-          <td class="paramname"><em>printAllMessages</em> = <code>GL_TRUE</code>&#160;</td>
+          <td class="paramname"><em>printAllMessages</em> = <code>GL_TRUE</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLboolean&#160;</td>
+          <td class="paramname"><em>enableMipmaps</em> = <code>GL_TRUE</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLboolean&#160;</td>
+          <td class="paramname"><em>enableAniso</em> = <code>GL_TRUE</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -276,6 +302,8 @@ This header file depends upon stb_image </dd></dl>
     <tr><td class="paramname">wrapT</td><td>wrapping to apply to T coordinate (default: GL_REPEAT) </td></tr>
     <tr><td class="paramname">flipOnY</td><td>flip the image along the vertical on load (default: GL_TRUE) </td></tr>
     <tr><td class="paramname">printAllMessages</td><td>prints debug/error messages to terminal (default: GL_TRUE) </td></tr>
+    <tr><td class="paramname">enableMipmaps</td><td>create mipmaps for texture (default: GL_TRUE) </td></tr>
+    <tr><td class="paramname">enableAniso</td><td>enable anisotropic filtering for mipmaps (default: GL_TRUE) </td></tr>
   </table>
   </dd>
 </dl>

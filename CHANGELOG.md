@@ -1,6 +1,6 @@
 # Revision History
 
-## v ?.?.? - ?? ??? ????
+## v 5.7.0 - 29 Oct 2024
 - TextureUtils::loadAndRegister2DTexture() sets anisotropic filtering (if available)
 - TextureUtils::loadAndRegisterTexture() added flags to toggle mipmaps and anisotropic filtering
 - ModelLoader::_loadObjFile() checks if current face has texture coordinates in addition to entire model
