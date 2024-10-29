@@ -881,7 +881,7 @@ inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum render
     }
     if(CSCI441_INTERNAL::_texCoordAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
-        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES * 2) );
+        glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * NUM_VERTICES * 2) );
     }
 
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*)nullptr);

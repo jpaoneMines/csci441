@@ -1,5 +1,8 @@
 # Revision History
 
+## v ?.?.? - ?? ??? ????
+- CSCI441::drawCubeMap() specifies three-dimensional texture coordinate
+
 ## v 5.7.0 - 29 Oct 2024
 - TextureUtils::loadAndRegister2DTexture() sets anisotropic filtering (if available)
 - TextureUtils::loadAndRegisterTexture() added flags to toggle mipmaps and anisotropic filtering
