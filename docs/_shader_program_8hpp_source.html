@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.9.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.9.1</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -460,7 +460,7 @@ $(function() {
 <div class="line"><a id="l01037" name="l01037"></a><span class="lineno"> 1037</span> </div>
 <div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span>    <span class="keywordflow">if</span>( <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a7f391cfbedd306d3e5d9ae47ff01bc4c">sDEBUG</a> ) printf( <span class="stringliteral">&quot;\n[INFO]: /--------------------------------------------------------\\\n&quot;</span>);</div>
 <div class="line"><a id="l01039" name="l01039"></a><span class="lineno"> 1039</span> </div>
-<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span>    <span class="comment">/* compile each one of our shaders */</span></div>
+<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span>    <span class="comment">// compile each one of our shaders</span></div>
 <div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span>    <span class="keywordflow">if</span>( strcmp( vertexShaderFilename, <span class="stringliteral">&quot;&quot;</span> ) != 0 ) {</div>
 <div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span>        <span class="keywordflow">if</span>( <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a7f391cfbedd306d3e5d9ae47ff01bc4c">sDEBUG</a> ) printf( <span class="stringliteral">&quot;[INFO]: | Vertex Shader: %39s |\n&quot;</span>, vertexShaderFilename );</div>
 <div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span>        <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a0cb9c3152f238eb5ccb57f6d3cc4ca83">mVertexShaderHandle</a> = CSCI441_INTERNAL::ShaderUtils::compileShader(vertexShaderFilename, GL_VERTEX_SHADER );</div>
@@ -510,15 +510,15 @@ $(function() {
 <div class="line"><a id="l01087" name="l01087"></a><span class="lineno"> 1087</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l01088" name="l01088"></a><span class="lineno"> 1088</span>        <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#add9fa8fa23f0c2146877f9204b7e7196">mFragmentShaderHandle</a> = 0;</div>
 <div class="line"><a id="l01089" name="l01089"></a><span class="lineno"> 1089</span>    }</div>
-<div class="line"><a id="l01090" name="l01090"></a><span class="lineno"> 1090</span>    <span class="comment">/* get a handle to a shader program */</span></div>
+<div class="line"><a id="l01090" name="l01090"></a><span class="lineno"> 1090</span>    <span class="comment">// get a handle to a shader program</span></div>
 <div class="line"><a id="l01091" name="l01091"></a><span class="lineno"> 1091</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a> = glCreateProgram();</div>
 <div class="line"><a id="l01092" name="l01092"></a><span class="lineno"> 1092</span> </div>
-<div class="line"><a id="l01093" name="l01093"></a><span class="lineno"> 1093</span>    <span class="comment">/* if program is separable, make it so */</span></div>
+<div class="line"><a id="l01093" name="l01093"></a><span class="lineno"> 1093</span>    <span class="comment">// if program is separable, make it so</span></div>
 <div class="line"><a id="l01094" name="l01094"></a><span class="lineno"> 1094</span>    <span class="keywordflow">if</span>( isSeparable ) {</div>
 <div class="line"><a id="l01095" name="l01095"></a><span class="lineno"> 1095</span>        glProgramParameteri(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_PROGRAM_SEPARABLE, GL_TRUE );</div>
 <div class="line"><a id="l01096" name="l01096"></a><span class="lineno"> 1096</span>    }</div>
 <div class="line"><a id="l01097" name="l01097"></a><span class="lineno"> 1097</span> </div>
-<div class="line"><a id="l01098" name="l01098"></a><span class="lineno"> 1098</span>    <span class="comment">/* attach the vertex and fragment shaders to the shader program */</span></div>
+<div class="line"><a id="l01098" name="l01098"></a><span class="lineno"> 1098</span>    <span class="comment">// attach the vertex and fragment shaders to the shader program</span></div>
 <div class="line"><a id="l01099" name="l01099"></a><span class="lineno"> 1099</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a0cb9c3152f238eb5ccb57f6d3cc4ca83">mVertexShaderHandle</a> != 0 ) {</div>
 <div class="line"><a id="l01100" name="l01100"></a><span class="lineno"> 1100</span>        glAttachShader(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a0cb9c3152f238eb5ccb57f6d3cc4ca83">mVertexShaderHandle</a> );</div>
 <div class="line"><a id="l01101" name="l01101"></a><span class="lineno"> 1101</span>    }</div>
@@ -535,15 +535,15 @@ $(function() {
 <div class="line"><a id="l01112" name="l01112"></a><span class="lineno"> 1112</span>        glAttachShader(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#add9fa8fa23f0c2146877f9204b7e7196">mFragmentShaderHandle</a> );</div>
 <div class="line"><a id="l01113" name="l01113"></a><span class="lineno"> 1113</span>    }</div>
 <div class="line"><a id="l01114" name="l01114"></a><span class="lineno"> 1114</span> </div>
-<div class="line"><a id="l01115" name="l01115"></a><span class="lineno"> 1115</span>    <span class="comment">/* link all the programs together on the GPU */</span></div>
+<div class="line"><a id="l01115" name="l01115"></a><span class="lineno"> 1115</span>    <span class="comment">// link all the programs together on the GPU</span></div>
 <div class="line"><a id="l01116" name="l01116"></a><span class="lineno"> 1116</span>    glLinkProgram(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a> );</div>
 <div class="line"><a id="l01117" name="l01117"></a><span class="lineno"> 1117</span> </div>
 <div class="line"><a id="l01118" name="l01118"></a><span class="lineno"> 1118</span>    <span class="keywordflow">if</span>( <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a7f391cfbedd306d3e5d9ae47ff01bc4c">sDEBUG</a> ) printf( <span class="stringliteral">&quot;[INFO]: | Shader Program: %41s&quot;</span>, <span class="stringliteral">&quot;|\n&quot;</span> );</div>
 <div class="line"><a id="l01119" name="l01119"></a><span class="lineno"> 1119</span> </div>
-<div class="line"><a id="l01120" name="l01120"></a><span class="lineno"> 1120</span>    <span class="comment">/* check the program log */</span></div>
+<div class="line"><a id="l01120" name="l01120"></a><span class="lineno"> 1120</span>    <span class="comment">// check the program log</span></div>
 <div class="line"><a id="l01121" name="l01121"></a><span class="lineno"> 1121</span>    CSCI441_INTERNAL::ShaderUtils::printProgramLog(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a> );</div>
 <div class="line"><a id="l01122" name="l01122"></a><span class="lineno"> 1122</span> </div>
-<div class="line"><a id="l01123" name="l01123"></a><span class="lineno"> 1123</span>    <span class="comment">/* detach &amp; delete the vertex and fragment shaders to the shader program */</span></div>
+<div class="line"><a id="l01123" name="l01123"></a><span class="lineno"> 1123</span>    <span class="comment">// detach &amp; delete the vertex and fragment shaders to the shader program</span></div>
 <div class="line"><a id="l01124" name="l01124"></a><span class="lineno"> 1124</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a0cb9c3152f238eb5ccb57f6d3cc4ca83">mVertexShaderHandle</a> != 0 ) {</div>
 <div class="line"><a id="l01125" name="l01125"></a><span class="lineno"> 1125</span>        glDetachShader(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a0cb9c3152f238eb5ccb57f6d3cc4ca83">mVertexShaderHandle</a> );</div>
 <div class="line"><a id="l01126" name="l01126"></a><span class="lineno"> 1126</span>        glDeleteShader(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a0cb9c3152f238eb5ccb57f6d3cc4ca83">mVertexShaderHandle</a> );</div>
@@ -636,7 +636,7 @@ $(function() {
 <div class="line"><a id="l01213" name="l01213"></a><span class="lineno"> 1213</span>    GLint linkStatus;</div>
 <div class="line"><a id="l01214" name="l01214"></a><span class="lineno"> 1214</span>    glGetProgramiv(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, GL_LINK_STATUS, &amp;linkStatus );</div>
 <div class="line"><a id="l01215" name="l01215"></a><span class="lineno"> 1215</span> </div>
-<div class="line"><a id="l01216" name="l01216"></a><span class="lineno"> 1216</span>    <span class="comment">/* print shader info for uniforms &amp; attributes */</span></div>
+<div class="line"><a id="l01216" name="l01216"></a><span class="lineno"> 1216</span>    <span class="comment">// print shader info for uniforms &amp; attributes</span></div>
 <div class="line"><a id="l01217" name="l01217"></a><span class="lineno"> 1217</span>    <span class="keywordflow">if</span>(linkStatus == 1) {</div>
 <div class="line"><a id="l01218" name="l01218"></a><span class="lineno"> 1218</span>        CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(<a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a>, <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a0cb9c3152f238eb5ccb57f6d3cc4ca83">mVertexShaderHandle</a> != 0,</div>
 <div class="line"><a id="l01219" name="l01219"></a><span class="lineno"> 1219</span>                                                              <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1fb9b9a814c8b1a0cdb4a1818e82a254">mTessellationControlShaderHandle</a> != 0,</div>
@@ -644,7 +644,7 @@ $(function() {
 <div class="line"><a id="l01221" name="l01221"></a><span class="lineno"> 1221</span>                                                              <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a6c8fb34912587af4cbd9f62657d3eb44">mGeometryShaderHandle</a> != 0, <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#add9fa8fa23f0c2146877f9204b7e7196">mFragmentShaderHandle</a> != 0,</div>
 <div class="line"><a id="l01222" name="l01222"></a><span class="lineno"> 1222</span>                                                              <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
 <div class="line"><a id="l01223" name="l01223"></a><span class="lineno"> 1223</span>    }</div>
-<div class="line"><a id="l01224" name="l01224"></a><span class="lineno"> 1224</span>    <span class="comment">/* return handle */</span></div>
+<div class="line"><a id="l01224" name="l01224"></a><span class="lineno"> 1224</span>    <span class="comment">// return handle</span></div>
 <div class="line"><a id="l01225" name="l01225"></a><span class="lineno"> 1225</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="class_c_s_c_i441_1_1_shader_program.html#a1ca04557dfe47741b5813c8a6a055b9e">mShaderProgramHandle</a> != 0;</div>
 <div class="line"><a id="l01226" name="l01226"></a><span class="lineno"> 1226</span>}</div>
 <div class="line"><a id="l01227" name="l01227"></a><span class="lineno"> 1227</span> </div>
