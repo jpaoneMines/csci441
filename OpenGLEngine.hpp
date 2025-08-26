@@ -342,6 +342,8 @@ namespace CSCI441 {
         */
         virtual void mCleanupGLFW();
 
+        virtual void mReloadShaders() final;
+
     private:
         void _setupGLFunctions();           // initialize OpenGL functions
         void _cleanupGLFunctions() {}       // nothing to be done at this time
@@ -516,6 +518,14 @@ inline void CSCI441::OpenGLEngine::shutdown() {
 inline void CSCI441::OpenGLEngine::mWindowResizeCallback(GLFWwindow* pWindow, int width, int height) {
     auto pEngine = (OpenGLEngine*) glfwGetWindowUserPointer(pWindow);
     pEngine->setCurrentWindowSize(width, height);
+}
+
+inline void CSCI441::OpenGLEngine::mReloadShaders() {
+    if (DEBUG) fprintf(stdout, "\n[INFO]: Removing old shaders...\n");
+    mCleanupShaders();
+    if (DEBUG) fprintf(stdout, "\n[INFO]: Reloading shaders...\n");
+    mSetupShaders();
+    if (DEBUG) fprintf(stdout, "\n[INFO]: Shaders reloaded\n");
 }
 
 #endif //CSCI441_OPENGL_ENGINE_HPP
