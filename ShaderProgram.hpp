@@ -1037,7 +1037,7 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexSha
 
     if( sDEBUG ) printf( "\n[INFO]: /--------------------------------------------------------\\\n");
 
-    /* compile each one of our shaders */
+    // compile each one of our shaders
     if( strcmp( vertexShaderFilename, "" ) != 0 ) {
         if( sDEBUG ) printf( "[INFO]: | Vertex Shader: %39s |\n", vertexShaderFilename );
         mVertexShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(vertexShaderFilename, GL_VERTEX_SHADER );
@@ -1087,15 +1087,15 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexSha
     } else {
         mFragmentShaderHandle = 0;
     }
-    /* get a handle to a shader program */
+    // get a handle to a shader program
     mShaderProgramHandle = glCreateProgram();
 
-    /* if program is separable, make it so */
+    // if program is separable, make it so
     if( isSeparable ) {
         glProgramParameteri(mShaderProgramHandle, GL_PROGRAM_SEPARABLE, GL_TRUE );
     }
 
-    /* attach the vertex and fragment shaders to the shader program */
+    // attach the vertex and fragment shaders to the shader program
     if(mVertexShaderHandle != 0 ) {
         glAttachShader(mShaderProgramHandle, mVertexShaderHandle );
     }
@@ -1112,15 +1112,15 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexSha
         glAttachShader(mShaderProgramHandle, mFragmentShaderHandle );
     }
 
-    /* link all the programs together on the GPU */
+    // link all the programs together on the GPU
     glLinkProgram(mShaderProgramHandle );
 
     if( sDEBUG ) printf( "[INFO]: | Shader Program: %41s", "|\n" );
 
-    /* check the program log */
+    // check the program log
     CSCI441_INTERNAL::ShaderUtils::printProgramLog(mShaderProgramHandle );
 
-    /* detach & delete the vertex and fragment shaders to the shader program */
+    // detach & delete the vertex and fragment shaders to the shader program
     if(mVertexShaderHandle != 0 ) {
         glDetachShader(mShaderProgramHandle, mVertexShaderHandle );
         glDeleteShader(mVertexShaderHandle );
@@ -1213,7 +1213,7 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexSha
     GLint linkStatus;
     glGetProgramiv(mShaderProgramHandle, GL_LINK_STATUS, &linkStatus );
 
-    /* print shader info for uniforms & attributes */
+    // print shader info for uniforms & attributes
     if(linkStatus == 1) {
         CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(mShaderProgramHandle, mVertexShaderHandle != 0,
                                                               mTessellationControlShaderHandle != 0,
@@ -1221,7 +1221,7 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(const char *vertexSha
                                                               mGeometryShaderHandle != 0, mFragmentShaderHandle != 0,
                                                               false, true);
     }
-    /* return handle */
+    // return handle
     return mShaderProgramHandle != 0;
 }
 
