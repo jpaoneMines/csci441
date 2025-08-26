@@ -375,7 +375,6 @@ inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo(
         const GLboolean printHeader
 ) {
 	int params, params2;
-	int *params3;
 
 	glGetProgramStageiv(programHandle, shaderStage, GL_ACTIVE_SUBROUTINE_UNIFORMS, &params);
 	bool headerPrinted = false;
@@ -392,7 +391,7 @@ inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo(
 
             glGetActiveSubroutineUniformName(programHandle, shaderStage, i, max_length, &actual_length, name );
             glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL_NUM_COMPATIBLE_SUBROUTINES, &params2 );
-            params3 = (int*)malloc(sizeof(int) * params2);
+            int *params3 = (int*)malloc(sizeof(int) * params2);
             glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL_COMPATIBLE_SUBROUTINES, params3 );
             GLint loc = glGetSubroutineUniformLocation(programHandle, shaderStage, name );
 
@@ -636,7 +635,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                 auto ssboName = (GLchar*)malloc(sizeof(GLchar)*maxLen);
                 GLsizei ssboNameLen;
 
-                const int NUM_PROPS = 7;
+                constexpr int NUM_PROPS = 7;
                 GLenum props[NUM_PROPS] = {GL_BUFFER_BINDING,
                                            GL_REFERENCED_BY_VERTEX_SHADER,
                                            GL_REFERENCED_BY_TESS_CONTROL_SHADER, GL_REFERENCED_BY_TESS_EVALUATION_SHADER,
@@ -712,7 +711,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                 auto atomicName = (GLchar*)malloc(sizeof(GLchar)*maxLen);
                 GLsizei atomicNameLen;
 
-                const int NUM_PROPS = 8;
+                constexpr int NUM_PROPS = 8;
                 GLenum props[NUM_PROPS] = {GL_BUFFER_BINDING,
                                            GL_REFERENCED_BY_VERTEX_SHADER,
                                            GL_REFERENCED_BY_TESS_CONTROL_SHADER,
@@ -837,6 +836,8 @@ inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader(
 		// return the handle of our shader
 		return shaderHandle;
 	} else {
+	    // if error reading file, delete shader handle
+	    glDeleteShader(shaderHandle);
 		return 0;
 	}
 }
