@@ -816,10 +816,13 @@ inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader(
         const char *filename,
         const GLenum shaderType
 ) {
-	GLuint shaderHandle = glCreateShader( shaderType );	char *shaderString;
+    // will hold contents of shader source code, loaded from file
+    char *shaderString;
 
-    // read in each text file and store the contents in a string
+	// read in each text file and store the contents in a string
     if( readTextFromFile( filename, shaderString ) ) {
+        // generate a shader handle for the corresponding shader type
+        GLuint shaderHandle = glCreateShader( shaderType );
 
 		// send the contents of each program to the GPU
 		glShaderSource( shaderHandle, 1, (const char**)&shaderString, nullptr );
@@ -836,8 +839,6 @@ inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader(
 		// return the handle of our shader
 		return shaderHandle;
 	} else {
-	    // if error reading file, delete shader handle
-	    glDeleteShader(shaderHandle);
 		return 0;
 	}
 }
