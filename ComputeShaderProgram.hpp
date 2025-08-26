@@ -105,25 +105,30 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
     mpUniformLocationsMap = new std::map<std::string, GLint>();
     GLint numUniforms;
     glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_UNIFORMS, &numUniforms);
+    GLint max_uniform_name_size;
+    glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_uniform_name_size);
     if( numUniforms > 0 ) {
         for(GLuint i = 0; i < numUniforms; i++) {
-            char name[64];
-            int max_length = 64;
+            char* name = (char*) malloc(max_uniform_name_size * sizeof(char));
             int actual_length = 0;
             int size = 0;
             GLenum type;
-            glGetActiveUniform(mShaderProgramHandle, i, max_length, &actual_length, &size, &type, name );
+            glGetActiveUniform(mShaderProgramHandle, i, max_uniform_name_size, &actual_length, &size, &type, name );
             GLint location = -1;
             if(size > 1) {
                 for(int j = 0; j < size; j++) {
-                    char long_name[64];
-                    sprintf(long_name, "%s[%i]", name, j);
-                    location = glGetUniformLocation(mShaderProgramHandle, long_name);
+                    int max_array_size = actual_length + 4 + 2 + 1;
+                    char* array_name = (char*) malloc(max_array_size * sizeof(char));
+                    snprintf(array_name, max_array_size, "%s[%i]", name, j);
+                    location = glGetUniformLocation(mShaderProgramHandle, array_name);
+                    mpUniformLocationsMap->emplace(array_name, location);
+                    free(array_name);
                 }
             } else {
                 location = glGetUniformLocation(mShaderProgramHandle, name);
+                mpUniformLocationsMap->emplace(name, location);
             }
-            mpUniformLocationsMap->emplace(name, location );
+            free(name);
         }
     }
     GLint linkStatus;
