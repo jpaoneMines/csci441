@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.9.2 - 26 Aug 2025
+- Apply snprintf() patch to ComputerShaderProgram()
+
 ## v 5.9.1 - 26 Aug 2025
 - Only create shader handle if shader source successfully read from file
 
