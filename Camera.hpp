@@ -29,9 +29,9 @@
 namespace CSCI441 {
 
     /**
-     * @brief Abstract Class to represent a synthetic camera.  The following methods must be overridden:<br>
-     *   - recomputeOrientation()<br>
-     *   - moveForward()<br>
+     * @brief Abstract Class to represent a synthetic camera.  The following methods must be overridden:
+     *   - recomputeOrientation()
+     *   - moveForward()
      *   - moveBackward()
      */
     class Camera {
@@ -118,7 +118,7 @@ namespace CSCI441 {
          * @brief returns the current radius in world space
          * @returns spherical radius coordinate
          */
-        [[maybe_unused]] [[nodiscard]] GLfloat getRadius() const { return mCameraRadius; }
+        [[maybe_unused]] [[nodiscard]] virtual GLfloat getRadius() const final { return mCameraRadius; }
 
         /**
          * @brief sets the camera's position in world space
