@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.9.1 - 26 Aug 2025
+- Only create shader handle if shader source successfully read from file
+
 ## v 5.9.0 - 29 Oct 2024
 - Merged fix to use snprintf() and remove build warnings
 
