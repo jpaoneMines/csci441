@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.10.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.10.1</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -74,45 +74,50 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="autotoc_md1"></a>
+v 5.10.1 - 29 Aug 2025</h1>
+<ul>
+<li>Fixed bug registering debug callback for OpenGL 4.3+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md2"></a>
 v 5.10.0 - 26 Aug 2025</h1>
 <ul>
 <li>Added OpenGLEngine::mReloadShaders() which internally calls mCleanupShaders() and mReloadShaders() to hot load new shader files while program is running. Will need to be used with care and could lead to additional VAO/Uniform errors if program interface changes.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<h1><a class="anchor" id="autotoc_md3"></a>
 v 5.9.2 - 26 Aug 2025</h1>
 <ul>
 <li>Apply snprintf() patch to ComputerShaderProgram()</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
 v 5.9.1 - 26 Aug 2025</h1>
 <ul>
 <li>Only create shader handle if shader source successfully read from file</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 v 5.9.0 - 29 Oct 2024</h1>
 <ul>
 <li>Merged fix to use snprintf() and remove build warnings</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md6"></a>
 v 5.8.0 - 29 Oct 2024</h1>
 <ul>
 <li><a class="el" href="namespace_c_s_c_i441.html#adb844b96a2b7205864dd118224664c1e" title="Draws a cube with 3D Texture Coordinates to map a cube map texture to it.">CSCI441::drawCubeMap()</a> specifies three-dimensional texture coordinate</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h1><a class="anchor" id="autotoc_md7"></a>
 v 5.7.0 - 29 Oct 2024</h1>
 <ul>
 <li>TextureUtils::loadAndRegister2DTexture() sets anisotropic filtering (if available)</li>
 <li>TextureUtils::loadAndRegisterTexture() added flags to toggle mipmaps and anisotropic filtering</li>
 <li>ModelLoader::_loadObjFile() checks if current face has texture coordinates in addition to entire model</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 v 5.6.0 - 24 Oct 2024</h1>
 <ul>
 <li>Fixed GPU memory leak of not deleting cube IBOs</li>
 <li>Add CSCI441::OpenGLUtils::checkOpenGLError() method to check the error queue</li>
 <li>When requesting an OpenGL 4.3+ debug context, register debug callback</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 v 5.5.0 - 18 Oct 2024</h1>
 <ul>
 <li>TextureUtils::loadAndRegister2DTexture() can silence error message</li>
@@ -121,12 +126,12 @@ v 5.5.0 - 18 Oct 2024</h1>
 <li>Include glad/gl.h in <a class="el" href="materials_8hpp.html" title="Predefined material properties.">materials.hpp</a> for GLfloat to exist if file included on its own</li>
 <li>Patched bug with <a class="el" href="objects_8hpp.html" title="Helper functions to draw 3D OpenGL 3.0+ objects.">objects.hpp</a> wire objects not resetting the polygon mode back for the front_and_back properly</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 v 5.4.1 - 26 Aug 2024</h1>
 <ul>
 <li>Updated README</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<h1><a class="anchor" id="autotoc_md11"></a>
 v 5.4.0 - 26 Aug 2024</h1>
 <ul>
 <li>Updated glm dependency to v1.0.1</li>
@@ -137,7 +142,7 @@ v 5.4.0 - 26 Aug 2024</h1>
 <li>MD5Model: added GLM_ENABLE_EXPERIMENTAL for quaternion header to match GLM v1.0.1</li>
 <li>OrthographicCamera: fixed bug where _updateProjectionMatrix was not declared inline</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 v 5.3.0 - 16 Aug 2024</h1>
 <ul>
 <li>Removed [[nodiscard]] from ModelLoader::draw() to silence warnings. Currently method always returns true so the return value isn't applicable.</li>
@@ -145,7 +150,7 @@ v 5.3.0 - 16 Aug 2024</h1>
 <li>Added abstract PerspectiveCamera class to house aspect ratio, field of view, near/far clip planes. When any is updated, the perspective projection matrix is recomputed</li>
 <li>Added abstract OrthographicCamera class to house left, right, bottom, top, near, far clip planes</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<h1><a class="anchor" id="autotoc_md13"></a>
 v 5.2.0 - 15 Aug 2024</h1>
 <ul>
 <li>OpenGLEngine tracks the state of the Caps Lock and Num Lock keys during key callbacks</li>
@@ -158,78 +163,78 @@ v 5.2.0 - 15 Aug 2024</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 v 5.1.0 - 10 May 2024</h1>
 <ul>
 <li>Added <a class="el" href="namespace_c_s_c_i441.html#a38ed23a7b3b046064fec5c2b900dcc13" title="Draws a solid dome.">CSCI441::drawSolidDome()</a> and <a class="el" href="namespace_c_s_c_i441.html#a76bfd64bfd8b183f61d30564cf74e367" title="Draws a wireframe dome.">CSCI441::drawWireDome()</a> which is a half-sphere with an open bottom</li>
 <li>Added <a class="el" href="namespace_c_s_c_i441.html#aa64da4e3d893dbac440781b69c25bd18" title="Draws a solid half sphere with a bottom.">CSCI441::drawSolidHalfSphere()</a> and <a class="el" href="namespace_c_s_c_i441.html#a8bab5e60023ecf78541d44b790a5cb27" title="Draws a wireframe half sphere with a bottom.">CSCI441::drawWireHalfSphere()</a> which is a half-sphere with a capped bottom</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 v 5.0.0 - 09 May 2024</h1>
 <ul>
 <li>ModelLoader no longer prints "ignoring usemtl" line when parsing file</li>
 <li>Supports OpenGL function loading via glad2 or GLEW (the default is glad2)</li>
 <li>Updated GLFW dependency from 3.3.8 to 3.4</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 v 4.13.4 - 16 Nov 2023</h1>
 <ul>
 <li>ShaderUtils::compileShader() returns 0 to properly signal an error</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md17"></a>
 v 4.13.3 - 04 Nov 2023</h1>
 <ul>
 <li>Added glm::vec4 include to <a class="el" href="model_material_8hpp.html" title="Internal material representation for *.mtl files.">modelMaterial.hpp</a> when included on its own</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md18"></a>
 v 4.13.2 - 03 Nov 2023</h1>
 <ul>
 <li>Fixed winding order for generateCubeVAOIndexed() for near, right, top faces</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md19"></a>
 v 4.13.1 - 01 Nov 2023</h1>
 <ul>
 <li>Fixed memory bug with generateCubeVAOIndexed() VBO</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md19"></a>
+<h1><a class="anchor" id="autotoc_md20"></a>
 v 4.13.0 - 18 Oct 2023</h1>
 <ul>
 <li>Fixed memory bug with generateCubeVAOIndexed() texture coordinates</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md20"></a>
+<h1><a class="anchor" id="autotoc_md21"></a>
 v 4.12.2 - 06 Oct 2023</h1>
 <ul>
 <li>Cleaned up warnings</li>
 <li>Minor bug fixes</li>
 <li>Internal data representation changes</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md21"></a>
+<h1><a class="anchor" id="autotoc_md22"></a>
 v 4.12.1 - 21 Sep 2023</h1>
 <ul>
 <li>Fixed bug with MD5Model loader not reading shader strings correctly</li>
 <li>Removed warnings</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md23"></a>
 v 4.12.0 - 21 Sep 2023</h1>
 <ul>
 <li>Computed teapot normals based on partial derivatives</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 v 4.11.0 - 21 Sep 2023</h1>
 <ul>
 <li>Added HUDCamera</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<h1><a class="anchor" id="autotoc_md25"></a>
 v 4.10.2 - 21 Sep 2023</h1>
 <ul>
 <li>Including Makefile</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md26"></a>
 v 4.10.1 - 21 Sep 2023</h1>
 <ul>
 <li>Fixing documentation links</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 v 4.10.0 - 21 Sep 2023</h1>
 <ul>
 <li>Added example programs to demonstrate <a class="el" href="namespace_simple_shader2.html" title="Abstracts the process of working with a 2D shader program.">SimpleShader2</a> and <a class="el" href="namespace_simple_shader3.html" title="Abstracts the process of working with a 3D shader program.">SimpleShader3</a> + 3D Objects</li>
@@ -237,12 +242,12 @@ v 4.10.0 - 21 Sep 2023</h1>
 <li>Replacing cmath dependency with glm references (PI specifically)</li>
 <li>Warnings removed</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md27"></a>
+<h1><a class="anchor" id="autotoc_md28"></a>
 v 4.9.1 - 20 Sep 2023</h1>
 <ul>
 <li>Fixed doxygen version number</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 v 4.9.0 - 20 Sep 2023</h1>
 <ul>
 <li>Fixed aspect ratio calculation in OpenGL3DEngine</li>
@@ -250,30 +255,30 @@ v 4.9.0 - 20 Sep 2023</h1>
 <li>Removed internal references to glUniform*() and replaced with glProgramUniform*() to not change bound program state</li>
 <li>Cleaned up documentation</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md29"></a>
+<h1><a class="anchor" id="autotoc_md30"></a>
 v 4.8.0 - 14 Sep 2023</h1>
 <ul>
 <li>OpenGL3DEngine can handle events that have an effect on the arcball camera movement</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 v 4.7.0 - 07 Sep 2023</h1>
 <ul>
 <li>Big3 implemented on classes as appropriate</li>
 <li>Classes and methods open/close as appropriate</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<h1><a class="anchor" id="autotoc_md32"></a>
 v 4.6.1 - 06 Sep 2023</h1>
 <ul>
 <li>Cannot copy MD5 Models</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md33"></a>
 v 4.6.0 - 06 Sep 2023</h1>
 <ul>
 <li>Created MD5Model class to load, display, and animate md5mesh + md5anim files</li>
 <li>Deleted copy constructor and copy assignment operator for ShaderProgram and ComputeShaderProgram to prevent shader program objects from being copied and then deallocated on the GPU</li>
 <li>TextureUtils::loadAndRegisterTexture() now has a trailing parameter to specify if the image should be flipped when loaded or not (defaults to flip = true)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md33"></a>
+<h1><a class="anchor" id="autotoc_md34"></a>
 v 4.5.0 - 31 Aug 2023</h1>
 <ul>
 <li>Camera stores projection matrix along with view matrix<ul>
@@ -285,92 +290,92 @@ v 4.5.0 - 31 Aug 2023</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md34"></a>
+<h1><a class="anchor" id="autotoc_md35"></a>
 v 4.4.0 - 29 Aug 2023</h1>
 <ul>
 <li>ShaderProgram::getProgramStages() returns GLbitfield of shader stages</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md35"></a>
+<h1><a class="anchor" id="autotoc_md36"></a>
 v 4.3.0 - 25 Aug 2023</h1>
 <ul>
 <li>Improved and consistent web documentation using a consistent style for all public facing classes and members, methods, and namespaces</li>
 <li>Minor performance improvements</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md36"></a>
+<h1><a class="anchor" id="autotoc_md37"></a>
 v 4.2.0 - 25 Aug 2023</h1>
 <ul>
 <li>setupGLEW() and cleanupGLEW() made private members of OpenGLEngine</li>
 <li>Improving web documentation using a consistent style</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md37"></a>
+<h1><a class="anchor" id="autotoc_md38"></a>
 v 4.1.1 - 24 Aug 2023</h1>
 <ul>
 <li>Cleaned up order of includes</li>
 <li>Fixed publishing to GitHub pages</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md38"></a>
+<h1><a class="anchor" id="autotoc_md39"></a>
 v 4.1.0 - 24 Aug 2023</h1>
 <ul>
 <li>Improving web documentation using a consistent style</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md39"></a>
+<h1><a class="anchor" id="autotoc_md40"></a>
 v 4.0.0 - 21 Aug 2023</h1>
 <ul>
 <li>Refactored protected class member naming scheme from _xyz to mXyz</li>
 <li>Improving web documentation</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md40"></a>
+<h1><a class="anchor" id="autotoc_md41"></a>
 v 3.12.1 - 18 Aug 2023</h1>
 <ul>
 <li>Improving web documentation</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md41"></a>
+<h1><a class="anchor" id="autotoc_md42"></a>
 v 3.12.0 - 18 Aug 2023</h1>
 <ul>
 <li>Consistently use only single precision and GLfloat typedef for OS X Metal compatibility</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md42"></a>
+<h1><a class="anchor" id="autotoc_md43"></a>
 v 3.11.0 - 20 Apr 2023</h1>
 <ul>
 <li>Fixed renaming bug in ModelLoader _AUTO_GEN_NORMALS and properly initialize to false</li>
 <li>Removed memory leaks in object generation of cylinder, disk, sphere, and torus</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md43"></a>
+<h1><a class="anchor" id="autotoc_md44"></a>
 v 3.10.2 - 26 Oct 2022</h1>
 <ul>
 <li>Cleaned up Camera class warnings</li>
 <li>Replaced OpenGL3DEngine internal arcball implementation with ArcballCam object</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md44"></a>
+<h1><a class="anchor" id="autotoc_md45"></a>
 v 3.10.1 - 09 Sep 2022</h1>
 <ul>
 <li>Camera::_clampCameraPhi() explicitly checking against floats instead of double</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md45"></a>
+<h1><a class="anchor" id="autotoc_md46"></a>
 v 3.10.0 - 06 Aug 2022</h1>
 <ul>
 <li>Added capability for ShaderProgram to write to/load from binary - if supported by driver</li>
 <li>ModelLoader no longer internal applies using namespace std; and qualifies all STL types</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md46"></a>
+<h1><a class="anchor" id="autotoc_md47"></a>
 v 3.9.0 - 05 Nov 2021</h1>
 <ul>
 <li>ModelLoader can query number of vertices and indices within model</li>
 <li><a class="el" href="namespace_texture_utils.html" title="OpenGL Texture Utility functions.">TextureUtils</a> load method will roll back to ppm loader if stb_image fails to load ppm</li>
 <li>Reversed top fan winding order for spheres</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md47"></a>
+<h1><a class="anchor" id="autotoc_md48"></a>
 v 3.8.0 - 07 Oct 2021</h1>
 <ul>
 <li>Resolved Issue #2 for OBJ files with negative indices. The negative indices weren't unique and needed to offset before caching</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md48"></a>
+<h1><a class="anchor" id="autotoc_md49"></a>
 v 3.7.1 - 07 Oct 2021</h1>
 <ul>
 <li>Fixed get polygon mode bug where it returns two values</li>
 <li>Objects and Teapot only enable attribute locations if they are not -1. Prevents an invalid enum error</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md49"></a>
+<h1><a class="anchor" id="autotoc_md50"></a>
 v 3.7.0 - 06 Oct 2021</h1>
 <ul>
 <li>Improved encapsulation of Arcball radius modification</li>
@@ -380,39 +385,39 @@ v 3.7.0 - 06 Oct 2021</h1>
 <li>Corrected normals for indexed cube</li>
 <li>Changed object and teapot internal variables from static to inline to support multi-compilation and single use across multiple contexts</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md50"></a>
+<h1><a class="anchor" id="autotoc_md51"></a>
 v 3.6.0 - 15 Sep 2021</h1>
 <ul>
 <li>Created a concrete ArcBall Cam implementation</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md51"></a>
+<h1><a class="anchor" id="autotoc_md52"></a>
 v 3.5.0 - 13 Sep 2021</h1>
 <ul>
 <li>Added full getter suite to Camera class</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md52"></a>
+<h1><a class="anchor" id="autotoc_md53"></a>
 v 3.4.1 - 10 Sep 2021</h1>
 <ul>
 <li>Fixed bug within SimpleShader when the SimpleShader was used split across multiple class objects</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md53"></a>
+<h1><a class="anchor" id="autotoc_md54"></a>
 v 3.4.0 - 08 Sep 2021</h1>
 <ul>
 <li>Created a concrete Fixed Camera implementation that can be positioned but doesn't move</li>
 <li>Fixed FreeCam being included across multiple object files</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md54"></a>
+<h1><a class="anchor" id="autotoc_md55"></a>
 v 3.3.0 - 06 Sep 2021</h1>
 <ul>
 <li>Created an abstract Camera class to store parameters and to make camera objects</li>
 <li>Created a concrete FreeCam implementation</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md55"></a>
+<h1><a class="anchor" id="autotoc_md56"></a>
 v 3.2.1 - 31 Aug 2021</h1>
 <ul>
 <li>Reworked SimpleShader::popTransformation() to always re-multiply the model matrix and not use the inverse calculation to avoid precision errors</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md56"></a>
+<h1><a class="anchor" id="autotoc_md57"></a>
 v 3.2.0 - 30 Aug 2021</h1>
 <ul>
 <li>Cleaning up code style</li>
@@ -422,12 +427,12 @@ v 3.2.0 - 30 Aug 2021</h1>
 <li>Improved efficiency of setting VBO attribute locations for teapot</li>
 <li>Sidestepped the precision error in <a class="el" href="namespace_simple_shader2.html" title="Abstracts the process of working with a 2D shader program.">SimpleShader2</a> (and therefore <a class="el" href="namespace_simple_shader3.html" title="Abstracts the process of working with a 3D shader program.">SimpleShader3</a>) when popping and multiplying by the inverse by adding a resetTransformationMatrix() method which clears the stack and sets the model matrix to the identity</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md57"></a>
+<h1><a class="anchor" id="autotoc_md58"></a>
 v 3.1.0 - 21 May 2021</h1>
 <ul>
 <li>Removed all ShaderProgram::setUniform(). Use ShaderProgram::setProgramUniform() instead.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md58"></a>
+<h1><a class="anchor" id="autotoc_md59"></a>
 v 3.0.0 - 21 May 2021</h1>
 <ul>
 <li>Reworked <a class="el" href="_model_loader_8hpp.html" title="Loads OBJ+MTL, OFF, PLY, STL object files into a VAO.">ModelLoader.hpp</a> to first set attribute locations then specify the shader handle. This allows for the model to be used with separable programs and shader pipelines.</li>
@@ -440,7 +445,7 @@ v 3.0.0 - 21 May 2021</h1>
 <li>Cleaned up console output for ShaderPrograms</li>
 <li>Various fixes to ShaderProgramPipelines</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md59"></a>
+<h1><a class="anchor" id="autotoc_md60"></a>
 v 2.10.0 - 23 Feb 2021</h1>
 <ul>
 <li>Added wrapper class for ComputeShaderProgram</li>
@@ -448,71 +453,71 @@ v 2.10.0 - 23 Feb 2021</h1>
 <li>Added support to ShaderProgram to return Atomic Counter bindings</li>
 <li>Updated ShaderProgram info output to include SSBO and ABO info</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md60"></a>
+<h1><a class="anchor" id="autotoc_md61"></a>
 v 2.8.1 - 28 Jan 2021</h1>
 <ul>
 <li>Added wrappers to ShaderProgram to set a uniform by name or location</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md61"></a>
+<h1><a class="anchor" id="autotoc_md62"></a>
 v 2.8.0 - 28 Jan 2021</h1>
 <ul>
 <li>Created Shader Program Pipeline class to wrap Pipeline Objects. Interfaces with the ShaderProgram class.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md62"></a>
+<h1><a class="anchor" id="autotoc_md63"></a>
 v 2.7.2 - 10 Dec 2020</h1>
 <ul>
 <li>Added getters to vertex data for ModelLoader class</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md63"></a>
+<h1><a class="anchor" id="autotoc_md64"></a>
 v 2.7.0 - 13 Nov 2020</h1>
 <ul>
 <li>Added texture coordinates to Teapot</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md64"></a>
+<h1><a class="anchor" id="autotoc_md65"></a>
 v 2.6.0 - 27 Oct 2020</h1>
 <ul>
 <li>Added predefined Material properties for reuse</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md65"></a>
+<h1><a class="anchor" id="autotoc_md66"></a>
 v 2.3.0 - 12 Oct 2020</h1>
 <ul>
 <li>Allow multi-compilation for <a class="el" href="objects_8hpp.html" title="Helper functions to draw 3D OpenGL 3.0+ objects.">objects.hpp</a> with shaders. Now depends upon C++17</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md66"></a>
+<h1><a class="anchor" id="autotoc_md67"></a>
 v 2.2.0 - 12 Oct 2020</h1>
 <ul>
 <li>Allow multi-compilation for <a class="el" href="_shader_program_8hpp.html" title="Class to work with OpenGL 4.0+ Shaders.">ShaderProgram.hpp</a>. Now depends upon C++17</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md67"></a>
+<h1><a class="anchor" id="autotoc_md68"></a>
 v 2.1.0 - 02 Oct 2020</h1>
 <ul>
 <li>Fixed memory leak in <a class="el" href="objects_8hpp.html" title="Helper functions to draw 3D OpenGL 3.0+ objects.">objects.hpp</a> cylinder, sphere, disk, torus caching</li>
 <li>Added method for <a class="el" href="objects_8hpp.html" title="Helper functions to draw 3D OpenGL 3.0+ objects.">objects.hpp</a> to delete the used VAOs/VBOs from GPU memory</li>
 <li>Delete compiled shaders from GPU after Shader Program is linked to free up memory sooner</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md68"></a>
+<h1><a class="anchor" id="autotoc_md69"></a>
 v.2.0.2 - 25 Sep 2020</h1>
 <ul>
 <li>Removed invalid enum error when querying max number of lights in OpenGL 3+</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md69"></a>
+<h1><a class="anchor" id="autotoc_md70"></a>
 v2.0.0  - 25 Sep 2020</h1>
 <ul>
 <li>Only single version of library files to work with OpenGL 4.1</li>
 <li>Removed dependency upon SOIL and replaced with stb_image</li>
 <li>Fixed bug of spheres not being spheres due to precision error</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md70"></a>
+<h1><a class="anchor" id="autotoc_md71"></a>
 v1.8.3   - 04 Dec 2017</h1>
 <ul>
 <li>Marked modelLoader3.hpp function implementations as inline to prevent redefinition errors</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md71"></a>
+<h1><a class="anchor" id="autotoc_md72"></a>
 v1.8 - 16 Nov 2017</h1>
 <ul>
 <li>Added support for MTL files for Phong Shading and diffuse maps</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md72"></a>
+<h1><a class="anchor" id="autotoc_md73"></a>
 v1.7 - 16 Nov 2017</h1>
 <ul>
 <li>Added loadBMP() support to <a class="el" href="_texture_utils_8hpp.html" title="Helper functions to work with OpenGL Textures.">TextureUtils.hpp</a></li>
@@ -524,20 +529,20 @@ v1.7 - 16 Nov 2017</h1>
 <li>If OFF file does not contain normal information, can autogenerate vertex normals</li>
 <li>If OBJ file does not contain normal information, can autogenerate vertex normals</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md73"></a>
+<h1><a class="anchor" id="autotoc_md74"></a>
 v1.6 - 15 Nov 2017</h1>
 <ul>
 <li>Added FramebufferUtils3.hpp to print Framebuffer info</li>
 <li>Fixed off by 1 error for normals/texcoords in modelLoader3.hpp</li>
 <li>Fixed overflow error for modelLoader3.hpp when reading in models with more than 65535 vertices</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md74"></a>
+<h1><a class="anchor" id="autotoc_md75"></a>
 v1.5.1   - 10 Nov 2017</h1>
 <ul>
 <li>Fixed redefinition errors in teapot3.hpp and objects3.hpp</li>
 <li>Fixed bug in ShaderUtils3.hpp to check if OpenGL is version 4.0+ before querying subroutine uniforms</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md75"></a>
+<h1><a class="anchor" id="autotoc_md76"></a>
 v1.5 - 06 Nov 2017</h1>
 <ul>
 <li>Added loadTGA method to <a class="el" href="_texture_utils_8hpp.html" title="Helper functions to work with OpenGL Textures.">TextureUtils.hpp</a></li>
@@ -545,22 +550,22 @@ v1.5 - 06 Nov 2017</h1>
 <li>Converted <a class="el" href="namespace_open_g_l_utils.html" title="contains OpenGL Utility functions">OpenGLUtils</a> from static non-implementable class to namespace</li>
 <li>Added commenting to ShaderProgram3.hpp</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md76"></a>
+<h1><a class="anchor" id="autotoc_md77"></a>
 v1.4.1   - 05 Nov 2017</h1>
 <ul>
 <li>Fixed bug in objects3.hpp of internally passing torus parameters in incorrect order</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md77"></a>
+<h1><a class="anchor" id="autotoc_md78"></a>
 v1.4 - 03 Nov 2017</h1>
 <ul>
 <li>Created ShaderUtils3.hpp and ShaderProgram3.hpp to make working with Shaders easier</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md78"></a>
+<h1><a class="anchor" id="autotoc_md79"></a>
 v.1.3.1  - 28 Oct 2017</h1>
 <ul>
 <li>Matched internal data types to prevent c++11 narrowing warnings on lab machines</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md79"></a>
+<h1><a class="anchor" id="autotoc_md80"></a>
 v1.3     - 26 Oct 2017</h1>
 <ul>
 <li>Modified texture coordinates for cylinder to linear step from 0 to 1 in s instead of following cosine</li>
@@ -573,7 +578,7 @@ v1.3     - 26 Oct 2017</h1>
 <li>Notes for teapot - the teapot cannot be textured, and it is a pure teapot with no bottom</li>
 <li>For a textured teapot, look into using an object model</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md80"></a>
+<h1><a class="anchor" id="autotoc_md81"></a>
 v1.2 - 25 Sep 2017</h1>
 <ul>
 <li>Fixed error in draw*Disk not completing final slice step</li>
@@ -581,23 +586,23 @@ v1.2 - 25 Sep 2017</h1>
 <li>Added MaterialStruct structure to group together Phong properties</li>
 <li>Fixed error in drawSolidDisk() not allowing inner radius to be zero</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md81"></a>
+<h1><a class="anchor" id="autotoc_md82"></a>
 v1.1.1   - 22 Sep 2017</h1>
 <ul>
 <li>Removed GL_MAX_COLOR_ATTACHMENTS to comply with lab machines</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md82"></a>
+<h1><a class="anchor" id="autotoc_md83"></a>
 v1.1    - 21 Sep 2017</h1>
 <ul>
 <li>Added <a class="el" href="namespace_open_g_l_utils.html" title="contains OpenGL Utility functions">OpenGLUtils</a> class to store commonly used helper functions</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md83"></a>
+<h1><a class="anchor" id="autotoc_md84"></a>
 v1.0.1  - 19 Sep 2017</h1>
 <ul>
 <li>Added documentation</li>
 <li>Added inline definition to functions to prevent duplicate linking errors</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md84"></a>
+<h1><a class="anchor" id="autotoc_md85"></a>
 v1.0    - 01 Sep 2017</h1>
 <ul>
 <li>Initial release of all OpenGL 3D objects </li>

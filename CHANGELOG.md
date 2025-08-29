@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.10.1 - 29 Aug 2025
+- Fixed bug registering debug callback for OpenGL 4.3+
+
 ## v 5.10.0 - 26 Aug 2025
 - Added OpenGLEngine::mReloadShaders() which internally calls mCleanupShaders() and mReloadShaders() to hot load new shader files while program is running.  Will need to be used with care and could lead to additional VAO/Uniform errors if program interface changes.
 

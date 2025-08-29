@@ -26,7 +26,7 @@ var searchData=
   ['getposition_23',['getPosition',['../class_c_s_c_i441_1_1_camera.html#a63c6a518a2979b82bcc046b68c5fc042',1,'CSCI441::Camera']]],
   ['getprogramstages_24',['getProgramStages',['../class_c_s_c_i441_1_1_shader_program.html#a3b7450cd2f596bbfc87b7e83a2549a09',1,'CSCI441::ShaderProgram']]],
   ['getprojectionmatrix_25',['getProjectionMatrix',['../class_c_s_c_i441_1_1_camera.html#abfe977c13b9072a52b148447ea54667b',1,'CSCI441::Camera']]],
-  ['getradius_26',['getRadius',['../class_c_s_c_i441_1_1_camera.html#af6a2f9dc52e142776703cc3f1734d20e',1,'CSCI441::Camera']]],
+  ['getradius_26',['getRadius',['../class_c_s_c_i441_1_1_camera.html#a06e0196575202457f5946af8eade0426',1,'CSCI441::Camera']]],
   ['getshaderprogramhandle_27',['getShaderProgramHandle',['../class_c_s_c_i441_1_1_shader_program.html#a679f8aefe1d0f2fc3a4881c2bfcf2ea6',1,'CSCI441::ShaderProgram']]],
   ['getshaderstorageblockbinding_28',['getShaderStorageBlockBinding',['../class_c_s_c_i441_1_1_shader_program.html#afd4f07a0ec1b5b29a650ec93d35ecd88',1,'CSCI441::ShaderProgram']]],
   ['getspecular_29',['getSpecular',['../struct_c_s_c_i441_1_1_materials_1_1_material.html#a4abf6c5460c4f2f14f0e02f4fde7857d',1,'CSCI441::Materials::Material']]],

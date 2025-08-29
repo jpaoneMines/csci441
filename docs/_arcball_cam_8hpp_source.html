@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.10.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.10.1</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -118,7 +118,7 @@ $(function() {
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">   95</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">CSCI441::ArcballCam::recomputeOrientation</a>() {</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="comment">// compute direction vector based on spherical to cartesian conversion</span></div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    mCameraDirection.x =  glm::sin(mCameraTheta ) * glm::sin(mCameraPhi ) * mCameraRadius;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    mCameraDirection.y = -glm::cos(mCameraPhi )                                  * mCameraRadius;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    mCameraDirection.y = -glm::cos(mCameraPhi )                           * mCameraRadius;</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    mCameraDirection.z = -glm::cos(mCameraTheta ) * glm::sin(mCameraPhi ) * mCameraRadius;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    _updateArcballCameraViewMatrix();</div>
