@@ -237,7 +237,7 @@ namespace CSCI441 {
         /**
          * @brief callback called whenever a debug message is signaled
          */
-        static void mDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
+        static void APIENTRY mDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
             fprintf( stdout, "[VERBOSE]: Debug Message (%d): source = %s, type = %s, severity = %s, message = %s\n",
                      id,
                      CSCI441::OpenGLUtils::debugSourceToString(source),
