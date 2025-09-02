@@ -276,6 +276,26 @@ namespace CSCI441 {
         [[maybe_unused]] virtual GLuint getSubroutineIndex( GLenum shaderStage, const char *subroutineName ) const final;
 
         /**
+         * @brief Returns the uniform location within the subroutine array for a given subroutine
+         * @param shaderStage stage of the shader program to get the subroutine for.
+         *   Allowable values: GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, GL_FRAGMENT_SHADER
+         * @param subroutineName name of the subroutine to get the location for
+         * @return index within the subroutine array of the given subroutine for the shader stage in this shader program
+         * @note Prints an error message to standard error stream if the subroutine is not found
+         */
+        [[maybe_unused]] virtual GLint getSubroutineUniformLocation( GLenum shaderStage, const char *subroutineName ) const final;
+
+        /**
+         * @brief Sets the subroutines to use for a given shader stage
+         * @param shaderStage stage of the shader program to get the subroutine for.
+         *   Allowable values: GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, GL_FRAGMENT_SHADER
+         * @param numIndices size of index array, equivalent to the number of subroutines in the given shader stage
+         * @param indices array of indices of size numIndices
+         * @note ShaderProgram::useProgram() must be called before calling this method
+         */
+        [[maybe_unused]] virtual void setSubroutineIndices( GLenum shaderStage, GLsizei numIndices, const GLuint *indices ) final;
+
+        /**
          * @brief Returns the binding point for the corresponding image uniform
          * @param imageName name of the image to get binding point for
          * @return binding point for image
@@ -1310,6 +1330,19 @@ inline GLuint CSCI441::ShaderProgram::getSubroutineIndex( GLenum shaderStage, co
     if( subroutineIndex == GL_INVALID_INDEX )
         fprintf(stderr, "[ERROR]: Could not find subroutine \"%s\" in %s for Shader Program %u\n", subroutineName, CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage), mShaderProgramHandle );
     return subroutineIndex;
+}
+
+[[maybe_unused]]
+inline GLint CSCI441::ShaderProgram::getSubroutineUniformLocation( GLenum shaderStage, const char *subroutineName ) const {
+    GLint subroutineUniform = glGetSubroutineUniformLocation(mShaderProgramHandle, shaderStage, subroutineName );
+    if ( subroutineUniform == GL_INVALID_VALUE )
+        fprintf(stderr, "[ERROR]: Could not find subroutine \"%s\" in %s for Shader Program %u\n", subroutineName, CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage), mShaderProgramHandle );
+    return subroutineUniform;
+}
+
+[[maybe_unused]]
+inline void CSCI441::ShaderProgram::setSubroutineIndices( GLenum shaderStage, GLsizei numIndices, const GLuint *indices ) {
+    glUniformSubroutinesuiv( shaderStage, numIndices, indices );
 }
 
 // images are opaque types that are not considered program resources
