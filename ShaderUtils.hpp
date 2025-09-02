@@ -292,7 +292,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog(
         glGetShaderiv(  shaderHandle, GL_INFO_LOG_LENGTH, &maxLength );
 
         // create a buffer of designated length
-		char* infoLog = new char[maxLength];
+		const auto infoLog = new char[maxLength];
 		
 		glGetShaderiv( shaderHandle, GL_COMPILE_STATUS, &status );
     	if( sDEBUG ) printf( "[INFO]: |   Shader  Handle %2d: Compile%-26s |\n", shaderHandle, (status == 1 ? "d Successfully" : "r Error") );
@@ -305,7 +305,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog(
         	if( sDEBUG ) printf( "[INFO]: |   Shader Handle %d: %s\n", shaderHandle, infoLog );
         }
 
-        delete[] infoLog;
+        delete [] infoLog;
     } else {
 		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader                        |\n", shaderHandle );
 	}
@@ -323,7 +323,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog(
         glGetProgramiv(  programHandle, GL_INFO_LOG_LENGTH, &maxLength );
 
         // create a buffer of designated length
-		char* infoLog = new char[maxLength];
+		const auto infoLog = new char[maxLength];
 		
 		glGetProgramiv( programHandle, GL_LINK_STATUS, &status );
     	if( sDEBUG ) printf("[INFO]: |   Program Handle %2d: Linke%-28s |\n", programHandle, (status == 1 ? "d Successfully" : "r Error") );
@@ -336,7 +336,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog(
         	if( sDEBUG ) printf( "[INFO]: |   Program Handle %d: %s\n", programHandle, infoLog );
         }
 
-        delete[] infoLog;
+        delete [] infoLog;
     } else {
 		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader Program                |\n", programHandle );
 	}
@@ -353,7 +353,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog(
         glGetProgramPipelineiv(  pipelineHandle, GL_INFO_LOG_LENGTH, &maxLength );
 
         // create a buffer of designated length
-		char* infoLog = new char[maxLength];
+		const auto infoLog = new char[maxLength];
 		
         // get the info log for the shader program pipeline
         glGetProgramPipelineInfoLog(pipelineHandle, maxLength, &infoLogLength, infoLog );
@@ -363,7 +363,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog(
         	if( sDEBUG ) printf( "[INFO]: |   Pipeline Handle %d: %s\n", pipelineHandle, infoLog );
         }
 
-        delete[] infoLog;
+        delete [] infoLog;
     } else {
 		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader Program Pipeline       |\n", pipelineHandle );
 	}
@@ -374,41 +374,44 @@ inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo(
         const GLenum shaderStage,
         const GLboolean printHeader
 ) {
-	int params, params2;
+	int numSubroutines;
+	glGetProgramStageiv(programHandle, shaderStage, GL_ACTIVE_SUBROUTINE_UNIFORMS, &numSubroutines);
 
-	glGetProgramStageiv(programHandle, shaderStage, GL_ACTIVE_SUBROUTINE_UNIFORMS, &params);
 	bool headerPrinted = false;
-	if( params > 0 ) {
+	if( numSubroutines > 0 ) {
         if( printHeader ) {
             printf( "[INFO]: >--------------------------------------------------------<\n");
             headerPrinted = true;
         }
-        printf("[INFO]: | GL_ACTIVE_SUBROUTINE_UNIFORMS (%-15s): %5i |\n", CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage), params);
-        for(int i = 0; i < params; i++ ) {
-            char name[256];
-            int max_length = 256;
+        printf("[INFO]: | GL_ACTIVE_SUBROUTINE_UNIFORMS (%-15s): %5i |\n", CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage), numSubroutines);
+        for(int i = 0; i < numSubroutines; i++ ) {
+            constexpr int max_length = 256;
+            char name[max_length];
             int actual_length = 0;
 
             glGetActiveSubroutineUniformName(programHandle, shaderStage, i, max_length, &actual_length, name );
-            glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL_NUM_COMPATIBLE_SUBROUTINES, &params2 );
-            int *params3 = (int*)malloc(sizeof(int) * params2);
-            glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL_COMPATIBLE_SUBROUTINES, params3 );
-            GLint loc = glGetSubroutineUniformLocation(programHandle, shaderStage, name );
+            const GLint LOC = glGetSubroutineUniformLocation(programHandle, shaderStage, name );
 
-            printf("[INFO]: |   %i) name: %-15s #subRoutines: %-5i loc: %2i |\n", i, name, params2, loc );
+            int numSubroutineIndices;
+            glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL_NUM_COMPATIBLE_SUBROUTINES, &numSubroutineIndices );
 
-            for(int j = 0; j < params2; j++ ) {
-                GLint idx = params3[j];
+            const auto subroutineIndices = new int[numSubroutineIndices];
+            glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL_COMPATIBLE_SUBROUTINES, subroutineIndices );
 
-                char name2[64];
-                int max_length2 = 64;
+            printf("[INFO]: |   %i) name: %-15s #subRoutines: %-5i loc: %2i |\n", i, name, numSubroutineIndices, LOC );
+
+            for(int j = 0; j < numSubroutineIndices; j++ ) {
+                const GLint IDX = subroutineIndices[j];
+
+                constexpr int max_length2 = 64;
+                char name2[max_length2];
                 int actual_length2 = 0;
-                glGetActiveSubroutineName(programHandle, shaderStage, idx, max_length2, &actual_length2, name2 );
+                glGetActiveSubroutineName(programHandle, shaderStage, IDX, max_length2, &actual_length2, name2 );
 
-                printf("[INFO]: |     %i) subroutine: %-25s index: %2i |\n", j, name2, idx );
+                printf("[INFO]: |     %i) subroutine: %-25s index: %2i |\n", j, name2, IDX );
             }
 
-            free(params3);
+            delete [] subroutineIndices;
         }
 	}
 	return !headerPrinted;
@@ -476,7 +479,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
             if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n");
             if( sDEBUG ) printf( "[INFO]: | GL_ACTIVE_ATTRIBUTES: %32i |\n", params );
             for( int i = 0; i < params; i++ ) {
-                char* name = (char*) malloc(max_attr_name_size * sizeof(char));
+                auto name = new char[max_attr_name_size];
                 int actual_length = 0;
                 int size = 0;
                 GLenum type;
@@ -486,19 +489,19 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                         // length of string + max array value size (technically it depends on the size of GL type, but I'm not aware a way to get the size) 
                         // + array accessors + null
                         int max_array_size = actual_length + 4 + 2 + 1;
-                        char* array_name = (char*) malloc(max_array_size * sizeof(char));
+                        auto array_name = new char[max_array_size];
 
                         snprintf( array_name, max_array_size, "%s[%i]", name, j );
                         int location = glGetAttribLocation(programHandle, array_name);
                         if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string( type ), array_name, location );
-                        free(array_name);
+                        delete [] array_name;
                     }
                 } else {
                     int location = glGetAttribLocation(programHandle, name );
                     if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n",i, GLSL_type_to_string( type ), name, location );
                 }
 
-                free(name);
+                delete [] name;
             }
         }
     }
@@ -508,7 +511,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
         if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n" );
         if( sDEBUG ) printf("[INFO]: | GL_ACTIVE_UNIFORMS: %34i |\n", params);
         for(int i = 0; i < params; i++) {
-            char* name = (char*) malloc(max_uniform_name_size * sizeof(char));
+            auto name = new char[max_uniform_name_size];
             int actual_length = 0;
             int size = 0;
             GLenum type;
@@ -516,21 +519,19 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
             if(size > 1) {
                 for(int j = 0; j < size; j++) {
                     int max_array_size = actual_length + 4 + 2 + 1;
-                    char* array_name = (char*) malloc(max_array_size * sizeof(char));
+                    auto array_name = new char[max_array_size];
                     snprintf(array_name, max_array_size, "%s[%i]", name, j);
-                    int location = glGetUniformLocation(programHandle, array_name);
-                    if(location != -1) {
+                    if(int location = glGetUniformLocation(programHandle, array_name); location != -1) {
                         if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string(type), array_name, location);
                     }
-                    free(array_name);
+                    delete [] array_name;
                 }
             } else {
-                int location = glGetUniformLocation(programHandle, name);
-                if(location != -1) {
+                if(int location = glGetUniformLocation(programHandle, name); location != -1) {
                     if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n",i, GLSL_type_to_string(type), name, location);
                 }
             }
-            free(name);
+            delete [] name;
         }
     }
 
@@ -547,13 +548,13 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
 
             int actualLen;
             glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_NAME_LENGTH, &actualLen);
-            char *name = (char *)malloc(sizeof(char) * actualLen);
+            auto name = new char[actualLen];
             glGetActiveUniformBlockName(programHandle, i, actualLen, nullptr, name);
 
-            auto indices = (GLuint*)malloc(params2*sizeof(GLuint));
+            auto indices = new GLuint[params2];
             glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, (GLint*)indices);
 
-            auto offsets = (GLint*)malloc(params2*sizeof(GLint));
+            auto offsets = new GLint[params2];
             glGetActiveUniformsiv(programHandle, params2, indices, GL_UNIFORM_OFFSET, offsets);
 
             if( sDEBUG ) printf("[INFO]: | %d) %-34s   # Uniforms: %2d |\n", i, name, params2);
@@ -569,7 +570,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
 
             int maxUniLength;
             glGetProgramiv(programHandle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxUniLength);
-            char *name2 = (char *)malloc(sizeof(char) * maxUniLength);
+            auto name2 = new char[maxUniLength];
             for(int j = 0; j < params2; j++) {
                 GLenum type;
                 int uniSize;
@@ -580,6 +581,11 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                     printf("[INFO]: |      uniform index: %3d    offset: %4d                |\n", indices[j], offsets[j]);
                 }
             }
+
+            delete [] name;
+            delete [] indices;
+            delete [] offsets;
+            delete [] name2;
         }
 
         if( vsCount + tcsCount + tesCount + gsCount + fsCount + csCount > 0 ) {
@@ -632,7 +638,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
             if(paramsSSBO[0] > 0) {
                 GLint maxLen;
                 glGetProgramInterfaceiv(programHandle, GL_SHADER_STORAGE_BLOCK, GL_MAX_NAME_LENGTH, &maxLen);
-                auto ssboName = (GLchar*)malloc(sizeof(GLchar)*maxLen);
+                auto ssboName = new GLchar[maxLen];
                 GLsizei ssboNameLen;
 
                 constexpr int NUM_PROPS = 7;
@@ -699,6 +705,8 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                     glGetIntegerv( GL_MAX_COMPUTE_SHADER_STORAGE_BLOCKS, &maxComputeSSB );
                     printf( "[INFO]: |   Compute Shader Storage Blocks:               %2d/%2d   |\n", cSSB, maxComputeSSB );
                 }
+
+                delete [] ssboName;
             }
         }
 
@@ -708,7 +716,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
             if(paramsAtomic[0] > 0) {
                 GLint maxLen;
                 glGetProgramInterfaceiv(programHandle, GL_ATOMIC_COUNTER_BUFFER, GL_MAX_NAME_LENGTH, &maxLen);
-                auto atomicName = (GLchar*)malloc(sizeof(GLchar)*maxLen);
+                auto atomicName = new GLchar[maxLen];
                 GLsizei atomicNameLen;
 
                 constexpr int NUM_PROPS = 8;
@@ -795,6 +803,8 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                     glGetIntegerv( GL_MAX_COMPUTE_ATOMIC_COUNTERS, &maxComputeAtomicCounters );
                     printf( "[INFO]: |   Compute Atomic Counters:                 %4d/%4d   |\n", cAC, maxComputeAtomicCounters );
                 }
+
+                delete [] atomicName;
             }
         }
 
