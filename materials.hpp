@@ -10,7 +10,11 @@
 #ifndef CSCI441_MATERIALS_HPP
 #define CSCI441_MATERIALS_HPP
 
-#include <glad/gl.h>
+#ifdef CSCI441_USE_GLEW
+    #include <GL/glew.h>
+#else
+    #include <glad/gl.h>
+#endif
 
 #include <glm/vec4.hpp>
 #include <glm/gtc/type_ptr.hpp>
