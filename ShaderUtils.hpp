@@ -589,7 +589,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
 				
 				constexpr GLsizei NUM_ATOMIC_PROPERTIES = 1;
 				GLint atomicIndex[NUM_ATOMIC_PROPERTIES] = {-1};
-				if((major == 4 && minor >= 2) || major > 4) {
+				if((major == 4 && minor >= 3) || major > 4) {
 					GLenum atomicProps[NUM_ATOMIC_PROPERTIES] = {GL_ATOMIC_COUNTER_BUFFER_INDEX};
 					glGetProgramResourceiv(programHandle, GL_UNIFORM, indices[j], NUM_ATOMIC_PROPERTIES, atomicProps, NUM_ATOMIC_PROPERTIES, nullptr, atomicIndex);
 				}
