@@ -55,7 +55,7 @@ namespace CSCI441_INTERNAL::ShaderUtils {
     // const char* filename of shader file to read in
     // char*& character array to store the contents of the file.  Will allocate memory and populate within the function
     // bool true if file was successfully opened and read.  false otherwise
-    bool readTextFromFile( const char* filename, char* &output );
+    bool readTextFromFile( const char* filename, GLchar* &output );
 
     // Reads the contents of a text file and compiles the associated shader type
     // const char* filename of shader file to read in
@@ -112,7 +112,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::disableDebugMessages() {
 
 inline bool CSCI441_INTERNAL::ShaderUtils::readTextFromFile(
         const char *filename,
-        char* &output
+        GLchar* &output
 ){
     std::string buf = std::string("");
     std::string line;
@@ -126,7 +126,7 @@ inline bool CSCI441_INTERNAL::ShaderUtils::readTextFromFile(
         buf += line + "\n";
     }
 	
-	output = new char[buf.length()+1];
+	output = new GLchar[buf.length()+1];
 	strncpy(output, buf.c_str(), buf.length());
 	output[buf.length()] = '\0';
 	
@@ -283,16 +283,13 @@ inline const char* CSCI441_INTERNAL::ShaderUtils::GL_primitive_type_to_string(
 inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog(
         const GLuint shaderHandle
 ) {
-	int status;
-    int infoLogLength = 0;
-    int maxLength;
-
     // check if the handle is to a vertex/fragment shader
     if( glIsShader( shaderHandle ) ) {
+		GLint maxLength = 0, status = 0, infoLogLength = 0;
         glGetShaderiv(  shaderHandle, GL_INFO_LOG_LENGTH, &maxLength );
 
         // create a buffer of designated length
-		const auto infoLog = new char[maxLength];
+		const auto infoLog = new GLchar[maxLength];
 		
 		glGetShaderiv( shaderHandle, GL_COMPILE_STATUS, &status );
     	if( sDEBUG ) printf( "[INFO]: |   Shader  Handle %2d: Compile%-26s |\n", shaderHandle, (status == 1 ? "d Successfully" : "r Error") );
@@ -305,7 +302,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog(
         	if( sDEBUG ) printf( "[INFO]: |   Shader Handle %d: %s\n", shaderHandle, infoLog );
         }
 
-        delete [] infoLog;
+        delete[] infoLog;
     } else {
 		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader                        |\n", shaderHandle );
 	}
@@ -314,16 +311,13 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog(
 inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog(
         const GLuint programHandle
 ) {
-	int status;
-    int infoLogLength = 0;
-    int maxLength;
-
-    // check if the handle is to a vertex/fragment shader
+	// check if the handle is to a vertex/fragment shader
     if( glIsProgram( programHandle ) ) {
+		GLint maxLength = 0, status = 0, infoLogLength = 0;
         glGetProgramiv(  programHandle, GL_INFO_LOG_LENGTH, &maxLength );
 
         // create a buffer of designated length
-		const auto infoLog = new char[maxLength];
+		const auto infoLog = new GLchar[maxLength];
 		
 		glGetProgramiv( programHandle, GL_LINK_STATUS, &status );
     	if( sDEBUG ) printf("[INFO]: |   Program Handle %2d: Linke%-28s |\n", programHandle, (status == 1 ? "d Successfully" : "r Error") );
@@ -336,7 +330,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog(
         	if( sDEBUG ) printf( "[INFO]: |   Program Handle %d: %s\n", programHandle, infoLog );
         }
 
-        delete [] infoLog;
+        delete[] infoLog;
     } else {
 		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader Program                |\n", programHandle );
 	}
@@ -347,13 +341,12 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog(
 ) {
     // check if the handle is to a shader program pipeline
     if( glIsProgramPipeline( pipelineHandle ) ) {
-        int infoLogLength;
-        int maxLength;
+        GLint maxLength = 0, infoLogLength = 0;
 
         glGetProgramPipelineiv(  pipelineHandle, GL_INFO_LOG_LENGTH, &maxLength );
 
         // create a buffer of designated length
-		const auto infoLog = new char[maxLength];
+		const auto infoLog = new GLchar[maxLength];
 		
         // get the info log for the shader program pipeline
         glGetProgramPipelineInfoLog(pipelineHandle, maxLength, &infoLogLength, infoLog );
@@ -363,7 +356,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog(
         	if( sDEBUG ) printf( "[INFO]: |   Pipeline Handle %d: %s\n", pipelineHandle, infoLog );
         }
 
-        delete [] infoLog;
+        delete[] infoLog;
     } else {
 		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader Program Pipeline       |\n", pipelineHandle );
 	}
@@ -374,44 +367,41 @@ inline GLboolean CSCI441_INTERNAL::ShaderUtils::printSubroutineInfo(
         const GLenum shaderStage,
         const GLboolean printHeader
 ) {
-	int numSubroutines;
-	glGetProgramStageiv(programHandle, shaderStage, GL_ACTIVE_SUBROUTINE_UNIFORMS, &numSubroutines);
-
+	GLint numSubroutineUniforms = 0;
+	glGetProgramStageiv(programHandle, shaderStage, GL_ACTIVE_SUBROUTINE_UNIFORMS, &numSubroutineUniforms);
 	bool headerPrinted = false;
-	if( numSubroutines > 0 ) {
+	if( numSubroutineUniforms > 0 ) {
         if( printHeader ) {
             printf( "[INFO]: >--------------------------------------------------------<\n");
             headerPrinted = true;
         }
-        printf("[INFO]: | GL_ACTIVE_SUBROUTINE_UNIFORMS (%-15s): %5i |\n", CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage), numSubroutines);
-        for(int i = 0; i < numSubroutines; i++ ) {
-            constexpr int max_length = 256;
-            char name[max_length];
-            int actual_length = 0;
+        printf("[INFO]: | GL_ACTIVE_SUBROUTINE_UNIFORMS (%-15s): %5i |\n", CSCI441_INTERNAL::ShaderUtils::GL_shader_type_to_string(shaderStage), numSubroutineUniforms);
+        for(int i = 0; i < numSubroutineUniforms; i++ ) {
+            GLchar subroutineName[256];
+            GLint max_length = 256, actual_length = 0;
+            GLint numCompatibleSubroutines = 0;
 
-            glGetActiveSubroutineUniformName(programHandle, shaderStage, i, max_length, &actual_length, name );
-            const GLint LOC = glGetSubroutineUniformLocation(programHandle, shaderStage, name );
+            glGetActiveSubroutineUniformName(programHandle, shaderStage, i, max_length, &actual_length, subroutineName );
+            glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL_NUM_COMPATIBLE_SUBROUTINES, &numCompatibleSubroutines );
+            
+			const auto compatibleSubroutines = new GLint[numCompatibleSubroutines];
+            glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL_COMPATIBLE_SUBROUTINES, compatibleSubroutines );
+            
+			GLint loc = glGetSubroutineUniformLocation(programHandle, shaderStage, subroutineName );
 
-            int numSubroutineIndices;
-            glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL_NUM_COMPATIBLE_SUBROUTINES, &numSubroutineIndices );
+            printf("[INFO]: |   %i) name: %-15s #subRoutines: %-5i loc: %2i |\n", i, subroutineName, numCompatibleSubroutines, loc );
 
-            const auto subroutineIndices = new int[numSubroutineIndices];
-            glGetActiveSubroutineUniformiv(programHandle, shaderStage, i, GL_COMPATIBLE_SUBROUTINES, subroutineIndices );
+            for(int j = 0; j < numCompatibleSubroutines; j++ ) {
+                GLint idx = compatibleSubroutines[j];
 
-            printf("[INFO]: |   %i) name: %-15s #subRoutines: %-5i loc: %2i |\n", i, name, numSubroutineIndices, LOC );
+                GLchar subroutineImplName[64];
+                GLint max_length2 = 64, actual_length2 = 0;
+                glGetActiveSubroutineName(programHandle, shaderStage, idx, max_length2, &actual_length2, subroutineImplName );
 
-            for(int j = 0; j < numSubroutineIndices; j++ ) {
-                const GLint IDX = subroutineIndices[j];
-
-                constexpr int max_length2 = 64;
-                char name2[max_length2];
-                int actual_length2 = 0;
-                glGetActiveSubroutineName(programHandle, shaderStage, IDX, max_length2, &actual_length2, name2 );
-
-                printf("[INFO]: |     %i) subroutine: %-25s index: %2i |\n", j, name2, IDX );
+                printf("[INFO]: |     %i) subroutine: %-25s index: %2i |\n", j, subroutineImplName, idx );
             }
 
-            delete [] subroutineIndices;
+            delete[] compatibleSubroutines;
         }
 	}
 	return !headerPrinted;
@@ -427,18 +417,16 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
         const GLboolean hasComputeShader,
         const GLboolean useLastNewLine = true
 ) {
-    GLint major, minor;
+    GLint major = 0, minor = 0;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
 
-	int params;
+    GLuint shaders[6] = {0};
+    GLint max_count = 6;
+    GLint actual_count = 0;
 
-    GLuint shaders[6];
-    int max_count = 6;
-    int actual_count;
-
-    GLint max_attr_name_size;
-    GLint max_uniform_name_size;
+    GLint max_attr_name_size = 0;
+    GLint max_uniform_name_size = 0;
 
     // get max var name from program
     // https://registry.khronos.org/OpenGL-Refpages/gl4/html/glGetActiveAttrib.xhtml
@@ -459,7 +447,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
     if(sDEBUG) {
         if(hasGeometryShader) {
             if( major > 3 || (major >= 3 && minor >= 2)  ) {
-                GLint verticesOut, inputType, outputType;
+                GLint verticesOut = 0, inputType = 0, outputType = 0;
                 glGetProgramiv(programHandle, GL_GEOMETRY_VERTICES_OUT, &verticesOut);
                 glGetProgramiv(programHandle, GL_GEOMETRY_INPUT_TYPE, &inputType);
                 glGetProgramiv(programHandle, GL_GEOMETRY_OUTPUT_TYPE, &outputType);
@@ -474,124 +462,154 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
     }
 
     if(hasVertexShader) {
-        glGetProgramiv(programHandle, GL_ACTIVE_ATTRIBUTES, &params );
-        if( params > 0 ) {
+		GLint numActiveAttributes = 0;
+        glGetProgramiv(programHandle, GL_ACTIVE_ATTRIBUTES, &numActiveAttributes );
+        if( numActiveAttributes > 0 ) {
             if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n");
-            if( sDEBUG ) printf( "[INFO]: | GL_ACTIVE_ATTRIBUTES: %32i |\n", params );
-            for( int i = 0; i < params; i++ ) {
-                auto name = new char[max_attr_name_size];
-                int actual_length = 0;
-                int size = 0;
-                GLenum type;
+            if( sDEBUG ) printf( "[INFO]: | GL_ACTIVE_ATTRIBUTES: %32i |\n", numActiveAttributes );
+            for( int i = 0; i < numActiveAttributes; i++ ) {
+                const auto name = new GLchar[max_attr_name_size];
+                GLint actual_length = 0, size = 0;
+                GLenum type = GL_NONE;
                 glGetActiveAttrib(programHandle, i, max_attr_name_size, &actual_length, &size, &type, name );
                 if( size > 1 ) {
                     for( int j = 0; j < size; j++ ) {
                         // length of string + max array value size (technically it depends on the size of GL type, but I'm not aware a way to get the size) 
                         // + array accessors + null
                         int max_array_size = actual_length + 4 + 2 + 1;
-                        auto array_name = new char[max_array_size];
+                        const auto array_name = new GLchar[max_array_size];
 
                         snprintf( array_name, max_array_size, "%s[%i]", name, j );
-                        int location = glGetAttribLocation(programHandle, array_name);
+                        GLint location = glGetAttribLocation(programHandle, array_name);
                         if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string( type ), array_name, location );
-                        delete [] array_name;
+                        delete[] array_name;
                     }
                 } else {
-                    int location = glGetAttribLocation(programHandle, name );
+                    GLint location = glGetAttribLocation(programHandle, name );
                     if( sDEBUG ) printf( "[INFO]: |   %i) type: %-15s name: %-13s loc: %2i |\n",i, GLSL_type_to_string( type ), name, location );
                 }
 
-                delete [] name;
+                delete[] name;
             }
         }
     }
 
-    glGetProgramiv(programHandle, GL_ACTIVE_UNIFORMS, &params);
-    if( params > 0 ) {
+	GLint numActiveUniforms = 0;
+    glGetProgramiv(programHandle, GL_ACTIVE_UNIFORMS, &numActiveUniforms);
+    if( numActiveUniforms > 0 ) {
+		constexpr int NUM_PROPS = 6;
+		GLenum props[NUM_PROPS] = {GL_REFERENCED_BY_VERTEX_SHADER,
+								   GL_REFERENCED_BY_TESS_CONTROL_SHADER,
+								   GL_REFERENCED_BY_TESS_EVALUATION_SHADER,
+								   GL_REFERENCED_BY_GEOMETRY_SHADER,
+								   GL_REFERENCED_BY_FRAGMENT_SHADER,
+								   GL_NONE};
+								   
+		if((major == 4 && minor >= 3) || major > 4) {
+			props[5] = GL_REFERENCED_BY_COMPUTE_SHADER;
+		}
+		GLint results[NUM_PROPS] = {0};
+			
         if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n" );
-        if( sDEBUG ) printf("[INFO]: | GL_ACTIVE_UNIFORMS: %34i |\n", params);
-        for(int i = 0; i < params; i++) {
-            auto name = new char[max_uniform_name_size];
-            int actual_length = 0;
-            int size = 0;
-            GLenum type;
-            glGetActiveUniform(programHandle, i, max_uniform_name_size, &actual_length, &size, &type, name );
+        if( sDEBUG ) printf("[INFO]: | GL_ACTIVE_UNIFORMS: %34i |\n", numActiveUniforms);
+        for(int uIdx = 0; uIdx < numActiveUniforms; uIdx++) {
+            const auto name = new GLchar[max_uniform_name_size];
+            GLint actual_length = 0, size = 0, location = -1;
+            GLenum type = GL_NONE;
+            glGetActiveUniform(programHandle, uIdx, max_uniform_name_size, &actual_length, &size, &type, name );
             if(size > 1) {
                 for(int j = 0; j < size; j++) {
                     int max_array_size = actual_length + 4 + 2 + 1;
-                    auto array_name = new char[max_array_size];
+					const auto array_name = new GLchar[max_array_size];
                     snprintf(array_name, max_array_size, "%s[%i]", name, j);
-                    if(int location = glGetUniformLocation(programHandle, array_name); location != -1) {
-                        if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", i, GLSL_type_to_string(type), array_name, location);
+                    location = glGetUniformLocation(programHandle, array_name);
+                    if(location != -1) {
+                        if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", uIdx, GLSL_type_to_string(type), array_name, location);
                     }
-                    delete [] array_name;
+                    delete[] array_name;
                 }
             } else {
-                if(int location = glGetUniformLocation(programHandle, name); location != -1) {
-                    if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n",i, GLSL_type_to_string(type), name, location);
+                location = glGetUniformLocation(programHandle, name);
+                if(location != -1) {
+                    if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", uIdx, GLSL_type_to_string(type), name, location);
                 }
             }
-            delete [] name;
+			
+			if(location != -1) {
+				glGetProgramResourceiv(programHandle, GL_UNIFORM, uIdx, NUM_PROPS, props, NUM_PROPS, nullptr, results);
+				if( sDEBUG ) printf("[INFO]: |     Used in: %-4s %-4s %-4s %-3s %-4s %-4s    Shader(s) |\n", (results[0] ? "Vert" : ""), (results[1] ? "Ctrl" : ""), (results[2] ? "Eval" : ""), (results[3] ? "Geo" : ""), (results[4] ? "Frag" : ""), (results[5] ? "Comp" : ""));
+			}
+			
+            delete[] name;
         }
     }
 
-    int vsCount, tcsCount, tesCount, gsCount, fsCount, csCount;
-    vsCount = tcsCount = tesCount = gsCount = fsCount = csCount = 0;
+	GLint numActiveUniformBlocks = 0;
+    glGetProgramiv(programHandle, GL_ACTIVE_UNIFORM_BLOCKS, &numActiveUniformBlocks);
+    if( numActiveUniformBlocks > 0 ) {
+		int vsCount, tcsCount, tesCount, gsCount, fsCount, csCount;
+		vsCount = tcsCount = tesCount = gsCount = fsCount = csCount = 0;
 
-    glGetProgramiv(programHandle, GL_ACTIVE_UNIFORM_BLOCKS, &params);
-    if( params > 0 ) {
         if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n");
-        if( sDEBUG ) printf("[INFO]: | GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS: %20d |\n", params);
-        for(int i = 0; i < params; i++ ) {
-            int params2;
-            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &params2 );
-
-            int actualLen;
+        if( sDEBUG ) printf("[INFO]: | GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS: %20d |\n", numActiveUniformBlocks);
+        for(int i = 0; i < numActiveUniformBlocks; i++ ) {
+            GLint numActiveUniformsInBlock = 0, bindingPoint = 0;
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numActiveUniformsInBlock );
+			glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_BINDING, &bindingPoint);
+			
+			GLint actualLen;
             glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_NAME_LENGTH, &actualLen);
-            auto name = new char[actualLen];
+            const auto name = new GLchar[actualLen];
             glGetActiveUniformBlockName(programHandle, i, actualLen, nullptr, name);
 
-            auto indices = new GLuint[params2];
-            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, (GLint*)indices);
+            const auto indices = new GLint[numActiveUniformsInBlock];
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, indices);
+			
+            const auto offsets = new GLint[numActiveUniformsInBlock];
+            glGetActiveUniformsiv(programHandle, numActiveUniformsInBlock, (GLuint*)indices, GL_UNIFORM_OFFSET, offsets);
 
-            auto offsets = new GLint[params2];
-            glGetActiveUniformsiv(programHandle, params2, indices, GL_UNIFORM_OFFSET, offsets);
-
-            if( sDEBUG ) printf("[INFO]: | %d) %-34s   # Uniforms: %2d |\n", i, name, params2);
+            if( sDEBUG ) printf("[INFO]: | %d) %-19s     binding: %3d                |\n", i, name, bindingPoint);
 
             GLint vs, tcs, tes, gs, fs, cs;
-            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER, &vs);			if( vs ) vsCount++;
-            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER, &tcs);	if( tcs) tcsCount++;
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER, &vs);				if( vs ) vsCount++;
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER, &tcs);		if( tcs) tcsCount++;
             glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER, &tes);	if( tes) tesCount++;
             glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER, &gs);			if( gs ) gsCount++;
             glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER, &fs);			if( fs ) fsCount++;
-            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_COMPUTE_SHADER, &cs);			if( cs ) csCount++;
+			if((major == 4 && minor >= 3) || major > 4) {
+				glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_COMPUTE_SHADER, &cs);		if( cs ) csCount++;
+			}
             if( sDEBUG ) printf("[INFO]: |   Used in: %-4s %-4s %-4s %-3s %-4s %-4s      Shader(s) |\n", (vs ? "Vert" : ""), (tcs ? "Ctrl" : ""), (tes ? "Eval" : ""), (gs ? "Geo" : ""), (fs ? "Frag" : ""), (cs ? "Comp" : ""));
 
-            int maxUniLength;
-            glGetProgramiv(programHandle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxUniLength);
-            auto name2 = new char[maxUniLength];
-            for(int j = 0; j < params2; j++) {
+            const auto name2 = new char[max_uniform_name_size];
+            for(int j = 0; j < numActiveUniformsInBlock; j++) {
                 GLenum type;
                 int uniSize;
-                glGetActiveUniform(programHandle, indices[j], maxUniLength, &actualLen, &uniSize, &type, name2);
+                glGetActiveUniform(programHandle, indices[j], max_uniform_name_size, &actualLen, &uniSize, &type, name2);
+				
+				constexpr GLsizei NUM_ATOMIC_PROPERTIES = 1;
+				GLint atomicIndex[NUM_ATOMIC_PROPERTIES] = {-1};
+				if((major == 4 && minor >= 2) || major > 4) {
+					GLenum atomicProps[NUM_ATOMIC_PROPERTIES] = {GL_ATOMIC_COUNTER_BUFFER_INDEX};
+					glGetProgramResourceiv(programHandle, GL_UNIFORM, indices[j], NUM_ATOMIC_PROPERTIES, atomicProps, NUM_ATOMIC_PROPERTIES, nullptr, atomicIndex);
+				}
 
-                if( sDEBUG ) {
+                if( atomicIndex[0] == -1 && sDEBUG ) {
                     printf("[INFO]: |  %2d) type: %-15s name: %-21s |\n", j, GLSL_type_to_string(type), name2);
                     printf("[INFO]: |      uniform index: %3d    offset: %4d                |\n", indices[j], offsets[j]);
                 }
             }
-
-            delete [] name;
-            delete [] indices;
-            delete [] offsets;
-            delete [] name2;
+			
+			delete[] name;
+			delete[] indices;
+			delete[] offsets;
+			delete[] name2;
         }
 
         if( vsCount + tcsCount + tesCount + gsCount + fsCount + csCount > 0 ) {
             GLint maxUniBlocks = 0;
             glGetIntegerv( GL_MAX_COMBINED_UNIFORM_BLOCKS, &maxUniBlocks );
-            if( sDEBUG ) printf( "[INFO]: | Shader Uniform Block Counts                     %2d/%2d  |\n", params, maxUniBlocks);
+            if( sDEBUG ) printf( "[INFO]: | Shader Uniform Block Counts                     %2d/%2d  |\n", numActiveUniformBlocks, maxUniBlocks);
             if( hasVertexShader ) {
                 GLint maxVertexUniformBlocks = 0;
                 glGetIntegerv( GL_MAX_VERTEX_UNIFORM_BLOCKS, &maxVertexUniformBlocks );
@@ -633,13 +651,13 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
 
     if( sDEBUG ) {
         if((major == 4 && minor >= 3) || major > 4) {
-            GLint paramsSSBO[1];
-            glGetProgramInterfaceiv(programHandle, GL_SHADER_STORAGE_BLOCK, GL_ACTIVE_RESOURCES, paramsSSBO);
-            if(paramsSSBO[0] > 0) {
-                GLint maxLen;
+            GLint numSSBO = 0;
+            glGetProgramInterfaceiv(programHandle, GL_SHADER_STORAGE_BLOCK, GL_ACTIVE_RESOURCES, &numSSBO);
+            if(numSSBO > 0) {
+                GLint maxLen = 0;
                 glGetProgramInterfaceiv(programHandle, GL_SHADER_STORAGE_BLOCK, GL_MAX_NAME_LENGTH, &maxLen);
-                auto ssboName = new GLchar[maxLen];
-                GLsizei ssboNameLen;
+                const auto ssboName = new GLchar[maxLen];
+                GLsizei ssboNameLen = 0;
 
                 constexpr int NUM_PROPS = 7;
                 GLenum props[NUM_PROPS] = {GL_BUFFER_BINDING,
@@ -648,15 +666,15 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                                            GL_REFERENCED_BY_GEOMETRY_SHADER,
                                            GL_REFERENCED_BY_FRAGMENT_SHADER,
                                            GL_REFERENCED_BY_COMPUTE_SHADER};
-                GLsizei numWritten;
-                GLint results[NUM_PROPS];
+                GLsizei numWritten = 0;
+                GLint results[NUM_PROPS] = {0};
 
                 int vSSB, teSSB, tcSSB, gSSB, fSSB, cSSB;
                 vSSB = teSSB = tcSSB = gSSB = fSSB = cSSB = 0;
 
                 printf( "[INFO]: >--------------------------------------------------------<\n");
-                printf( "[INFO]: | GL_SHADER_STORAGE_BLOCK: %29d |\n", paramsSSBO[0] );
-                for(int i = 0; i < paramsSSBO[0]; i++) {
+                printf( "[INFO]: | GL_SHADER_STORAGE_BLOCK: %29d |\n", numSSBO );
+                for(int i = 0; i < numSSBO; i++) {
                     glGetProgramResourceName(programHandle, GL_SHADER_STORAGE_BLOCK, i, maxLen, &ssboNameLen, ssboName);
                     GLuint ssboIndex = glGetProgramResourceIndex(programHandle, GL_SHADER_STORAGE_BLOCK, ssboName);
                     glGetProgramResourceiv(programHandle, GL_SHADER_STORAGE_BLOCK, i, NUM_PROPS, props, NUM_PROPS, &numWritten, results);
@@ -674,7 +692,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
 
                 GLint maxSSBCounters = 0;
                 glGetIntegerv( GL_MAX_COMBINED_SHADER_STORAGE_BLOCKS, &maxSSBCounters );
-                printf( "[INFO]: | Shader Storage Block Counts:                   %2d/%2d   |\n", paramsSSBO[0], maxSSBCounters );
+                printf( "[INFO]: | Shader Storage Block Counts:                   %2d/%2d   |\n", numSSBO, maxSSBCounters );
                 if(hasVertexShader) {
                     GLint maxVertSSB = 0;
                     glGetIntegerv( GL_MAX_VERTEX_SHADER_STORAGE_BLOCKS, &maxVertSSB );
@@ -705,74 +723,87 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                     glGetIntegerv( GL_MAX_COMPUTE_SHADER_STORAGE_BLOCKS, &maxComputeSSB );
                     printf( "[INFO]: |   Compute Shader Storage Blocks:               %2d/%2d   |\n", cSSB, maxComputeSSB );
                 }
-
-                delete [] ssboName;
+				
+				delete[] ssboName;
             }
         }
 
         if((major == 4 && minor >= 2) || major > 4) {
-            GLint paramsAtomic[1];
-            glGetProgramInterfaceiv(programHandle, GL_ATOMIC_COUNTER_BUFFER, GL_ACTIVE_RESOURCES, paramsAtomic);
-            if(paramsAtomic[0] > 0) {
-                GLint maxLen;
-                glGetProgramInterfaceiv(programHandle, GL_ATOMIC_COUNTER_BUFFER, GL_MAX_NAME_LENGTH, &maxLen);
-                auto atomicName = new GLchar[maxLen];
-                GLsizei atomicNameLen;
-
-                constexpr int NUM_PROPS = 8;
-                GLenum props[NUM_PROPS] = {GL_BUFFER_BINDING,
-                                           GL_REFERENCED_BY_VERTEX_SHADER,
+            GLint numAtomicCounters = 0;
+            glGetProgramInterfaceiv(programHandle, GL_ATOMIC_COUNTER_BUFFER, GL_ACTIVE_RESOURCES, &numAtomicCounters);
+			
+		    if(numAtomicCounters > 0) {
+				constexpr int NUM_PROPS = 6;
+                GLenum props[NUM_PROPS] = {GL_REFERENCED_BY_VERTEX_SHADER,
                                            GL_REFERENCED_BY_TESS_CONTROL_SHADER,
                                            GL_REFERENCED_BY_TESS_EVALUATION_SHADER,
                                            GL_REFERENCED_BY_GEOMETRY_SHADER,
                                            GL_REFERENCED_BY_FRAGMENT_SHADER,
-                                           GL_REFERENCED_BY_COMPUTE_SHADER,
-                                           GL_BUFFER_DATA_SIZE};
-                GLsizei numWritten;
-                GLint results[NUM_PROPS];
+                                           GL_NONE};
+										   
+				if((major == 4 && minor >= 3) || major > 4) {
+					props[5] = GL_REFERENCED_BY_COMPUTE_SHADER;
+				}
+				
+                GLsizei numWritten = 0;
+                GLint results[NUM_PROPS] = {0};
 
                 printf( "[INFO]: >--------------------------------------------------------<\n");
-                printf("[INFO]: | GL_ATOMIC_COUNTER_BUFFER: %28d |\n", paramsAtomic[0] );
+                printf("[INFO]: | GL_ATOMIC_COUNTER_BUFFER: %28d |\n", numAtomicCounters );
 
                 int vAC, teAC, tcAC, gAC, fAC, cAC;
                 vAC = teAC = tcAC = gAC = fAC = cAC = 0;
 
-                GLint numUniforms;
-                glGetProgramiv(programHandle, GL_ACTIVE_UNIFORMS, &numUniforms);
-                for(int j = 0; j < numUniforms; j++) {
-                    int size = 0;
-                    GLenum type;
-                    glGetActiveUniform(programHandle, j, maxLen, &atomicNameLen, &size, &type, atomicName );
-
-                    GLuint atomicIndex = glGetProgramResourceIndex(programHandle, GL_UNIFORM, atomicName);
-
-                    GLenum atomicProps[1] = {GL_ATOMIC_COUNTER_BUFFER_INDEX};
-                    GLint atomicResults[1];
-                    glGetProgramResourceiv(programHandle, GL_UNIFORM, atomicIndex, 1, atomicProps, 1, nullptr, atomicResults);
-
-                    if(atomicResults[0] != -1) {
-                        glGetProgramResourceiv(programHandle, GL_ATOMIC_COUNTER_BUFFER, atomicResults[0], NUM_PROPS, props, NUM_PROPS, &numWritten, results);
-
-                        GLint offset;
-                        glGetActiveUniformsiv(programHandle, 1, &atomicIndex, GL_UNIFORM_OFFSET, &offset);
-
-                        printf( "[INFO]: | %3d) type: %-15s name: %-21s |\n", atomicResults[0], GLSL_type_to_string(type), atomicName );
-                        printf( "[INFO]: |      uniform index: %3d    atomic index: %3d           |\n", atomicIndex, atomicResults[0] );
-                        printf( "[INFO]: |      binding: %3d   offset: %3d   buffer size: %4d    |\n", results[0], offset, results[7] );
-                        printf( "[INFO]: |   Used in: %-4s %-4s %-4s %-3s %-4s %-4s      Shader(s) |\n", (results[1] ? "Vert" : ""), (results[2] ? "Ctrl" : ""), (results[3] ? "Eval" : ""), (results[4] ? "Geo" : ""), (results[5] ? "Frag" : ""), (results[6] ? "Comp" : ""));
-
-                        if(results[1]) vAC++;
-                        if(results[2]) teAC++;
-                        if(results[3]) tcAC++;
-                        if(results[4]) gAC++;
-                        if(results[5]) fAC++;
-                        if(results[6]) cAC++;
-                    }
-                }
+                for(GLint acIdx = 0; acIdx < numAtomicCounters; acIdx++) {
+					GLint binding = -1, bufferSize = 0, nac = 0;
+					
+					glGetActiveAtomicCounterBufferiv(programHandle, acIdx, GL_ATOMIC_COUNTER_BUFFER_BINDING, &binding);
+					glGetActiveAtomicCounterBufferiv(programHandle, acIdx, GL_ATOMIC_COUNTER_BUFFER_DATA_SIZE, &bufferSize);
+					glGetActiveAtomicCounterBufferiv(programHandle, acIdx, GL_ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTERS, &nac);
+					
+					const auto uniformIndices = new GLint[nac];
+					const auto atomicOffsets = new GLint[nac];
+					const auto atomicName = new GLchar[max_uniform_name_size];		
+					
+					glGetActiveAtomicCounterBufferiv(programHandle, acIdx, GL_ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTER_INDICES, uniformIndices);
+					glGetActiveUniformsiv(programHandle, nac, (GLuint*)uniformIndices, GL_UNIFORM_OFFSET, atomicOffsets);
+					glGetProgramResourceiv(programHandle, GL_ATOMIC_COUNTER_BUFFER, acIdx, NUM_PROPS, props, NUM_PROPS, &numWritten, results);
+					
+					// increment counts of which shaders have an atomic counter
+					if(results[0]) vAC++;
+					if(results[1]) teAC++;
+					if(results[2]) tcAC++;
+					if(results[3]) gAC++;
+					if(results[4]) fAC++;
+					if(results[5]) cAC++;
+					
+					printf( "[INFO]: | %d) binding: %11d    buffer size: %4d           |\n", acIdx, binding, bufferSize );
+					printf( "[INFO]: |   Used in: %-4s %-4s %-4s %-3s %-4s %-4s      Shader(s) |\n", (results[0] ? "Vert" : ""), (results[1] ? "Ctrl" : ""), (results[2] ? "Eval" : ""), (results[3] ? "Geo" : ""), (results[4] ? "Frag" : ""), (results[5] ? "Comp" : ""));						
+					
+					GLint acCtr = 0, actualLen = 0, uniSize = 0;
+					GLenum type = GL_NONE;
+					for(GLint uniIdx = 0; uniIdx < nac; uniIdx++) {
+						glGetActiveUniform(programHandle, uniformIndices[uniIdx], max_uniform_name_size, &actualLen, &uniSize, &type, atomicName);
+						
+						constexpr GLsizei NUM_ATOMIC_PROPERTIES = 1;
+						GLenum atomicProps[NUM_ATOMIC_PROPERTIES] = {GL_ATOMIC_COUNTER_BUFFER_INDEX};
+						GLint atomicIndex [NUM_ATOMIC_PROPERTIES] = {-1};
+						glGetProgramResourceiv(programHandle, GL_UNIFORM, uniformIndices[uniIdx], NUM_ATOMIC_PROPERTIES, atomicProps, NUM_ATOMIC_PROPERTIES, nullptr, atomicIndex);
+						
+						if(atomicIndex[0] == acIdx) {
+							printf( "[INFO]: | %3d) type: %-15s name: %-21s |\n", acCtr++, GLSL_type_to_string(type), atomicName );
+							printf( "[INFO]: |      uniform index: %3d      offset: %7d           |\n", uniformIndices[uniIdx], atomicOffsets[uniIdx] );							
+						}
+					}
+					
+					delete[] uniformIndices;
+					delete[] atomicOffsets;
+					delete[] atomicName;
+				}
 
                 GLint maxAtomicCounters = 0;
                 glGetIntegerv( GL_MAX_COMBINED_ATOMIC_COUNTERS, &maxAtomicCounters );
-                printf("[INFO]: | Atomic Counter Counts:                     %4d/%4d   |\n", paramsAtomic[0], maxAtomicCounters );
+                printf("[INFO]: | Atomic Counter Counts:                     %4d/%4d   |\n", numAtomicCounters, maxAtomicCounters );
                 if(hasVertexShader) {
                     GLint maxVertAtomicCounters = 0;
                     glGetIntegerv( GL_MAX_VERTEX_ATOMIC_COUNTERS, &maxVertAtomicCounters );
@@ -803,8 +834,6 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                     glGetIntegerv( GL_MAX_COMPUTE_ATOMIC_COUNTERS, &maxComputeAtomicCounters );
                     printf( "[INFO]: |   Compute Atomic Counters:                 %4d/%4d   |\n", cAC, maxComputeAtomicCounters );
                 }
-
-                delete [] atomicName;
             }
         }
 
@@ -819,7 +848,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
         }
     }
 
-    if(useLastNewLine) printf( "[INFO]: \\--------------------------------------------------------/\n\n");
+    if(useLastNewLine && sDEBUG) printf( "[INFO]: \\--------------------------------------------------------/\n\n");
 }
 
 inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader(
@@ -827,7 +856,7 @@ inline GLuint CSCI441_INTERNAL::ShaderUtils::compileShader(
         const GLenum shaderType
 ) {
     // will hold contents of shader source code, loaded from file
-    char *shaderString;
+    GLchar *shaderString;
 
 	// read in each text file and store the contents in a string
     if( readTextFromFile( filename, shaderString ) ) {
