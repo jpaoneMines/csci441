@@ -535,7 +535,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                 }
             }
 			
-			if(location != -1) {
+			if(((major == 4 && minor >= 3) || major > 4) && location != -1) {
 				glGetProgramResourceiv(programHandle, GL_UNIFORM, uIdx, NUM_PROPS, props, NUM_PROPS, nullptr, results);
 				if( sDEBUG ) printf("[INFO]: |     Used in: %-4s %-4s %-4s %-3s %-4s %-4s    Shader(s) |\n", (results[0] ? "Vert" : ""), (results[1] ? "Ctrl" : ""), (results[2] ? "Eval" : ""), (results[3] ? "Geo" : ""), (results[4] ? "Frag" : ""), (results[5] ? "Comp" : ""));
 			}
