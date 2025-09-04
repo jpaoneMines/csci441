@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.11.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.11.1</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -598,7 +598,7 @@ $(function() {
 <div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>                }</div>
 <div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>            }</div>
 <div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>            </div>
-<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>            <span class="keywordflow">if</span>(location != -1) {</div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>            <span class="keywordflow">if</span>(((major == 4 &amp;&amp; minor &gt;= 3) || major &gt; 4) &amp;&amp; location != -1) {</div>
 <div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>                glGetProgramResourceiv(programHandle, GL_UNIFORM, uIdx, NUM_PROPS, props, NUM_PROPS, <span class="keyword">nullptr</span>, results);</div>
 <div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>                <span class="keywordflow">if</span>( sDEBUG ) printf(<span class="stringliteral">&quot;[INFO]: |     Used in: %-4s %-4s %-4s %-3s %-4s %-4s    Shader(s) |\n&quot;</span>, (results[0] ? <span class="stringliteral">&quot;Vert&quot;</span> : <span class="stringliteral">&quot;&quot;</span>), (results[1] ? <span class="stringliteral">&quot;Ctrl&quot;</span> : <span class="stringliteral">&quot;&quot;</span>), (results[2] ? <span class="stringliteral">&quot;Eval&quot;</span> : <span class="stringliteral">&quot;&quot;</span>), (results[3] ? <span class="stringliteral">&quot;Geo&quot;</span> : <span class="stringliteral">&quot;&quot;</span>), (results[4] ? <span class="stringliteral">&quot;Frag&quot;</span> : <span class="stringliteral">&quot;&quot;</span>), (results[5] ? <span class="stringliteral">&quot;Comp&quot;</span> : <span class="stringliteral">&quot;&quot;</span>));</div>
 <div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>            }</div>
@@ -652,7 +652,7 @@ $(function() {
 <div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>                </div>
 <div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>                <span class="keyword">constexpr</span> GLsizei NUM_ATOMIC_PROPERTIES = 1;</div>
 <div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>                GLint atomicIndex[NUM_ATOMIC_PROPERTIES] = {-1};</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>                <span class="keywordflow">if</span>((major == 4 &amp;&amp; minor &gt;= 2) || major &gt; 4) {</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>                <span class="keywordflow">if</span>((major == 4 &amp;&amp; minor &gt;= 3) || major &gt; 4) {</div>
 <div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>                    GLenum atomicProps[NUM_ATOMIC_PROPERTIES] = {GL_ATOMIC_COUNTER_BUFFER_INDEX};</div>
 <div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>                    glGetProgramResourceiv(programHandle, GL_UNIFORM, indices[j], NUM_ATOMIC_PROPERTIES, atomicProps, NUM_ATOMIC_PROPERTIES, <span class="keyword">nullptr</span>, atomicIndex);</div>
 <div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>                }</div>

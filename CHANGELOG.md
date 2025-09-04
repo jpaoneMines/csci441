@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.11.1 - 02 Sep 2025
+- Fixed bug that glGetProgramResource is only defined for version 4.3+
+
 ## v 5.11.0 - 02 Sep 2025
 - Fixed small memory leaks with ShaderUtils
 - Adding subroutine helper functions to ShaderProgram
