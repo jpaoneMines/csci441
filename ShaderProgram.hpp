@@ -903,11 +903,13 @@ inline bool CSCI441::ShaderProgram::sDEBUG = true;
 [[maybe_unused]]
 inline void CSCI441::ShaderProgram::enableDebugMessages() {
     sDEBUG = true;
+	CSCI441_INTERNAL::ShaderUtils::enableDebugMessages();
 }
 
 [[maybe_unused]]
 inline void CSCI441::ShaderProgram::disableDebugMessages() {
     sDEBUG = false;
+	CSCI441_INTERNAL::ShaderUtils::disableDebugMessages();
 }
 
 inline CSCI441::ShaderProgram::ShaderProgram( const char *vertexShaderFilename, const char *fragmentShaderFilename ) {
