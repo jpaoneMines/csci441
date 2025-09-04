@@ -1,5 +1,12 @@
 # Revision History
 
+## v 5.11.0 - 02 Sep 2025
+- Fixed small memory leaks with ShaderUtils
+- Adding subroutine helper functions to ShaderProgram
+- Fixed bug of materials.hpp not checking for GLEW inclusion
+- Internal improvements (using GLtypes in ShaderUtils)
+- Fixed bug of atomic counter shader debug information printing
+
 ## v 5.10.1 - 29 Aug 2025
 - Fixed bug registering debug callback for OpenGL 4.3+
 

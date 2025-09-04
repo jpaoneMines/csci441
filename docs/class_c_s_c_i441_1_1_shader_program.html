@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.10.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.11.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -176,6 +176,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~ShaderProgram</b>
 <tr class="memitem:a72cd2e475b77ed3c99ee3f7355f988a3"><td class="memItemLeft" align="right" valign="top">virtual GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a72cd2e475b77ed3c99ee3f7355f988a3">getSubroutineIndex</a> (GLenum shaderStage, const char *subroutineName) const final</td></tr>
 <tr class="memdesc:a72cd2e475b77ed3c99ee3f7355f988a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the given subroutine for a shader stage in this shader program.  <br /></td></tr>
 <tr class="separator:a72cd2e475b77ed3c99ee3f7355f988a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceff7ae9a54a61f0969679254e0ab0f4"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aceff7ae9a54a61f0969679254e0ab0f4">getSubroutineUniformLocation</a> (GLenum shaderStage, const char *subroutineName) const final</td></tr>
+<tr class="memdesc:aceff7ae9a54a61f0969679254e0ab0f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the uniform location within the subroutine array for a given subroutine.  <br /></td></tr>
+<tr class="separator:aceff7ae9a54a61f0969679254e0ab0f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88d20d8cdd9568c72d2fa58feeabf0e1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a88d20d8cdd9568c72d2fa58feeabf0e1">setSubroutineIndices</a> (GLenum shaderStage, GLsizei numIndices, const GLuint *indices) final</td></tr>
+<tr class="memdesc:a88d20d8cdd9568c72d2fa58feeabf0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the subroutines to use for a given shader stage.  <br /></td></tr>
+<tr class="separator:a88d20d8cdd9568c72d2fa58feeabf0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a452fc14cffbe81af4822a0a63da1613d"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a452fc14cffbe81af4822a0a63da1613d">getImageBinding</a> (const char *imageName) const final</td></tr>
 <tr class="memdesc:a452fc14cffbe81af4822a0a63da1613d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the binding point for the corresponding image uniform.  <br /></td></tr>
 <tr class="separator:a452fc14cffbe81af4822a0a63da1613d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1476,6 +1482,53 @@ Static Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>index of the given subroutine for the shader stage in this shader program </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the subroutine is not found </dd></dl>
+
+</div>
+</div>
+<a id="aceff7ae9a54a61f0969679254e0ab0f4" name="aceff7ae9a54a61f0969679254e0ab0f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceff7ae9a54a61f0969679254e0ab0f4">&#9670;&#160;</a></span>getSubroutineUniformLocation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLint CSCI441::ShaderProgram::getSubroutineUniformLocation </td>
+          <td>(</td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>shaderStage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>subroutineName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the uniform location within the subroutine array for a given subroutine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shaderStage</td><td>stage of the shader program to get the subroutine for. Allowable values: GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, GL_FRAGMENT_SHADER </td></tr>
+    <tr><td class="paramname">subroutineName</td><td>name of the subroutine to get the location for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>index within the subroutine array of the given subroutine for the shader stage in this shader program </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the subroutine is not found </dd></dl>
 
 </div>
@@ -5213,6 +5266,59 @@ Static Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a88d20d8cdd9568c72d2fa58feeabf0e1" name="a88d20d8cdd9568c72d2fa58feeabf0e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88d20d8cdd9568c72d2fa58feeabf0e1">&#9670;&#160;</a></span>setSubroutineIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::ShaderProgram::setSubroutineIndices </td>
+          <td>(</td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>shaderStage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLsizei&#160;</td>
+          <td class="paramname"><em>numIndices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const GLuint *&#160;</td>
+          <td class="paramname"><em>indices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the subroutines to use for a given shader stage. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shaderStage</td><td>stage of the shader program to get the subroutine for. Allowable values: GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, GL_FRAGMENT_SHADER </td></tr>
+    <tr><td class="paramname">numIndices</td><td>size of index array, equivalent to the number of subroutines in the given shader stage </td></tr>
+    <tr><td class="paramname">indices</td><td>array of indices of size numIndices </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a2145012fa06c678521886f904645b229" title="Sets the Shader Program to be active.">ShaderProgram::useProgram()</a> must be called before calling this method </dd></dl>
 
 </div>
 </div>
