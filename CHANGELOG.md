@@ -3,6 +3,8 @@
 ## v ?.??.? - ?? ??? ????
 - Examples can build against GLEW or GLAD
 - UniformCopyObject cannot be copied but can be moved
+- Cleaned up ModelLoader material memory leak
+- ModelLoader cannot be copied but can be moved
 
 ## v 5.12.0 - 05 Sep 2025
 - SimpleShader no longer assumes VAOD and VBOD are the same value

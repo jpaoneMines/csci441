@@ -73,6 +73,16 @@ namespace CSCI441 {
         ModelLoader& operator=(const ModelLoader&) = delete;
 
 		/**
+		 * @brief move construct from an existing Model
+		 */
+		ModelLoader(ModelLoader&&) noexcept;
+		/**
+		 * Move assign from an existing Model
+		 * @return newly configured object
+		 */
+		ModelLoader& operator=(ModelLoader&&) noexcept;
+
+		/**
 		 * @brief Loads a model from the given file
          * @param filename file to load model from
          * @param INFO flag to control if informational messages should be displayed
@@ -184,6 +194,9 @@ namespace CSCI441 {
 		bool _hasVertexTexCoords;
 		bool _hasVertexNormals;
 
+		void _moveFromSrc(ModelLoader&);
+		void _cleanupSelf();
+
         static bool sAUTO_GEN_NORMALS;
 	};
 }
@@ -209,14 +222,21 @@ inline CSCI441::ModelLoader::ModelLoader( const char* filename ) {
 }
 
 inline CSCI441::ModelLoader::~ModelLoader() {
-	delete[] _vertices;
-    delete[] _normals;
-    delete[] _texCoords;
-	delete[] _indices;
-
-	glDeleteBuffers( 2, _vbods );
-    glDeleteVertexArrays( 1, &_vaod );
+	_cleanupSelf();
 }
+
+inline CSCI441::ModelLoader::ModelLoader(ModelLoader&& src) noexcept {
+	_moveFromSrc(src);
+}
+
+inline CSCI441::ModelLoader& CSCI441::ModelLoader::operator=(ModelLoader&& src) noexcept {
+	if (this != &src) {			// guard against self move
+		_cleanupSelf();			// empty self
+		_moveFromSrc(src);	// move from source
+	}
+	return *this;
+}
+
 
 inline void CSCI441::ModelLoader::_init() {
 	_hasVertexTexCoords = false;
@@ -1757,6 +1777,82 @@ inline std::vector<std::string> CSCI441::ModelLoader::_tokenizeString(std::strin
 		retVec.push_back(strippedInput.substr(oldR, r-oldR));
 
 	return retVec;
+}
+
+inline void CSCI441::ModelLoader::_moveFromSrc(ModelLoader& src) {
+	_hasVertexTexCoords = src._hasVertexTexCoords;
+	src._hasVertexTexCoords = false;
+
+	_hasVertexNormals = src._hasVertexNormals;
+	src._hasVertexNormals = false;
+
+	_vertices = src._vertices;
+	src._vertices = nullptr;
+
+	_texCoords = src._texCoords;
+	src._texCoords = nullptr;
+
+	_normals = src._normals;
+	src._normals = nullptr;
+
+	_indices = src._indices;
+	src._indices = nullptr;
+
+	_uniqueIndex = src._uniqueIndex;
+	src._uniqueIndex = 0;
+
+	_numIndices = src._numIndices;
+	src._numIndices = 0;
+
+	_vbods[0] = src._vbods[0];
+	_vbods[1] = src._vbods[1];
+	src._vbods[0] = 0;
+	src._vbods[1] = 0;
+
+	_vaod = src._vaod;
+	src._vaod = 0;
+
+	_filename = std::move(src._filename);
+	src._filename = "";
+
+	_modelType = src._modelType;
+
+	_materials = std::move(src._materials);
+	_materialIndexStartStop = std::move(src._materialIndexStartStop);
+}
+
+inline void CSCI441::ModelLoader::_cleanupSelf() {
+	delete[] _vertices;
+	_vertices = nullptr;
+
+	delete[] _normals;
+	_normals = nullptr;
+
+	delete[] _texCoords;
+	_texCoords = nullptr;
+
+	delete[] _indices;
+	_indices = nullptr;
+
+	glDeleteBuffers( 2, _vbods );
+	_vbods[0] = 0;
+	_vbods[1] = 0;
+
+	glDeleteVertexArrays( 1, &_vaod );
+	_vaod = 0;
+
+	_hasVertexTexCoords = false;
+	_hasVertexNormals = false;
+	_uniqueIndex = 0;
+	_numIndices = 0;
+	_filename = "";
+
+	for( auto [name, material] : _materials ) {
+		delete material;
+	}
+	_materials.clear();
+
+	_materialIndexStartStop.clear();
 }
 
 inline unsigned char* CSCI441_INTERNAL::createTransparentTexture( const unsigned char * imageData, const unsigned char *imageMask, int texWidth, int texHeight, int texChannels, int maskChannels ) {
