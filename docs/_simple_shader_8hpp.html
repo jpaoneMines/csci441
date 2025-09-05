@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.11.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.12.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -84,6 +84,7 @@ $(function() {
 <code>#include &lt;glad/gl.h&gt;</code><br />
 <code>#include &lt;glm/glm.hpp&gt;</code><br />
 <code>#include &lt;glm/gtc/type_ptr.hpp&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div>
@@ -125,6 +126,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441::SimpleShader
 <tr class="memitem:adf7fca77ee0cd0ea0ca94bb25eea59ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_simple_shader_8hpp.html#adf7fca77ee0cd0ea0ca94bb25eea59ac">CSCI441::SimpleShader2::updateVertexArray</a> (GLuint VAOD, GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[])</td></tr>
 <tr class="memdesc:adf7fca77ee0cd0ea0ca94bb25eea59ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates GL_ARRAY_BUFFER for the corresponding VAO.  <br /></td></tr>
 <tr class="separator:adf7fca77ee0cd0ea0ca94bb25eea59ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24027a8a1e6c13acf6f9db4cb004303b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_simple_shader_8hpp.html#a24027a8a1e6c13acf6f9db4cb004303b">CSCI441::SimpleShader2::deleteVertexArray</a> (GLuint VAOD)</td></tr>
+<tr class="memdesc:a24027a8a1e6c13acf6f9db4cb004303b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the Vertex Array Object and corresponding Vertex Buffer Object.  <br /></td></tr>
+<tr class="separator:a24027a8a1e6c13acf6f9db4cb004303b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30ba121704c89dc0f64104ec4ec156d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_simple_shader_8hpp.html#a30ba121704c89dc0f64104ec4ec156d0">CSCI441::SimpleShader2::setProjectionMatrix</a> (const glm::mat4 &amp;PROJECTION_MATRIX)</td></tr>
 <tr class="memdesc:a30ba121704c89dc0f64104ec4ec156d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Projection Matrix.  <br /></td></tr>
 <tr class="separator:a30ba121704c89dc0f64104ec4ec156d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,6 +168,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441::SimpleShader
 <tr class="memitem:a3bfb9535afbbb689671b370d1eea388c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_simple_shader_8hpp.html#a3bfb9535afbbb689671b370d1eea388c">CSCI441::SimpleShader3::updateVertexArray</a> (GLuint VAOD, GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[])</td></tr>
 <tr class="memdesc:a3bfb9535afbbb689671b370d1eea388c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates GL_ARRAY_BUFFER for the corresponding VAO.  <br /></td></tr>
 <tr class="separator:a3bfb9535afbbb689671b370d1eea388c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8fa0699891cefa209f035787b6c1b53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_simple_shader_8hpp.html#ab8fa0699891cefa209f035787b6c1b53">CSCI441::SimpleShader3::deleteVertexArray</a> (GLuint VAOD)</td></tr>
+<tr class="memdesc:ab8fa0699891cefa209f035787b6c1b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the Vertex Array Object and corresponding Vertex Buffer Object.  <br /></td></tr>
+<tr class="separator:ab8fa0699891cefa209f035787b6c1b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2febd32f3aeafdec8243a98f3ba5384"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_simple_shader_8hpp.html#ac2febd32f3aeafdec8243a98f3ba5384">CSCI441::SimpleShader3::setProjectionMatrix</a> (const glm::mat4 &amp;PROJECTION_MATRIX)</td></tr>
 <tr class="memdesc:ac2febd32f3aeafdec8243a98f3ba5384"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Projection Matrix.  <br /></td></tr>
 <tr class="separator:ac2febd32f3aeafdec8243a98f3ba5384"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,6 +218,74 @@ NOTE: This header file depends upon glm </dd>
 <dd>
 NOTE: This header file depends upon GLAD (or alternatively GLEW) </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a24027a8a1e6c13acf6f9db4cb004303b" name="a24027a8a1e6c13acf6f9db4cb004303b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24027a8a1e6c13acf6f9db4cb004303b">&#9670;&#160;</a></span>deleteVertexArray() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::SimpleShader2::deleteVertexArray </td>
+          <td>(</td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>VAOD</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deletes the Vertex Array Object and corresponding Vertex Buffer Object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">VAOD</td><td>Vertex Array Object Descriptor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab8fa0699891cefa209f035787b6c1b53" name="ab8fa0699891cefa209f035787b6c1b53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8fa0699891cefa209f035787b6c1b53">&#9670;&#160;</a></span>deleteVertexArray() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::SimpleShader3::deleteVertexArray </td>
+          <td>(</td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>VAOD</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deletes the Vertex Array Object and corresponding Vertex Buffer Object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">VAOD</td><td>Vertex Array Object Descriptor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a86c823d75eac359329967141d6c20261" name="a86c823d75eac359329967141d6c20261"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a86c823d75eac359329967141d6c20261">&#9670;&#160;</a></span>disableLighting()</h2>
 
