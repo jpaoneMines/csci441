@@ -27,6 +27,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <map>
 #include <string>
 #include <vector>
 
@@ -281,6 +282,7 @@ namespace CSCI441_INTERNAL {
         inline GLint vertexLocation = -1;
         inline GLint colorLocation = -1;
 
+        inline std::map<GLuint, GLuint> descriptorMap;
         inline std::vector<glm::mat4> transformationStack;
         inline glm::mat4 modelMatrix(1.0f);
     }
@@ -317,6 +319,7 @@ namespace CSCI441_INTERNAL {
         inline GLint normalLocation = -1;
         inline GLint useLightingLocation = -1;
 
+        inline std::map<GLuint, GLuint> descriptorMap;
         inline std::vector<glm::mat4> transformationStack;
         inline glm::mat4 modelMatrix(1.0f);
         inline glm::mat4 viewMatrix(1.0f);
@@ -589,14 +592,19 @@ inline GLuint CSCI441_INTERNAL::SimpleShader2::registerVertexArray(const GLuint 
     glEnableVertexAttribArray(colorLocation);
     glVertexAttribPointer(colorLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*NUM_POINTS*2));
 
+    descriptorMap.insert( std::pair<GLuint, GLuint>( vaod, vbod ) );
+
     return vaod;
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]) {
-    glBindVertexArray(VAOD);
-    glBindBuffer(GL_ARRAY_BUFFER, VAOD);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*2), VERTEX_POINTS);
-    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat)*NUM_POINTS*2), static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*3), VERTEX_COLORS);
+    const auto descriptorIter = descriptorMap.find(VAOD);
+    if( descriptorIter != descriptorMap.end() ) {
+        glBindVertexArray(descriptorIter->first);
+        glBindBuffer(GL_ARRAY_BUFFER, descriptorIter->second);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*2), VERTEX_POINTS);
+        glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat)*NUM_POINTS*2), static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*3), VERTEX_COLORS);
+    }
 }
 
 inline void CSCI441_INTERNAL::SimpleShader2::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
@@ -778,14 +786,19 @@ inline GLuint CSCI441_INTERNAL::SimpleShader3::registerVertexArray(const GLuint 
     glEnableVertexAttribArray(normalLocation);
     glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*NUM_POINTS*2));
 
+    descriptorMap.insert( std::pair<GLuint, GLuint>( vaod, vbod ) );
+
     return vaod;
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]) {
-    glBindVertexArray(VAOD);
-    glBindBuffer(GL_ARRAY_BUFFER, VAOD);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*3), VERTEX_POINTS);
-    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat)*NUM_POINTS*3), static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*3), VERTEX_NORMALS);
+    const auto descriptorIter = descriptorMap.find(VAOD);
+    if( descriptorIter != descriptorMap.end() ) {
+        glBindVertexArray(descriptorIter->first);
+        glBindBuffer(GL_ARRAY_BUFFER, descriptorIter->second);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*3), VERTEX_POINTS);
+        glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat)*NUM_POINTS*3), static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*3), VERTEX_NORMALS);
+    }
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
