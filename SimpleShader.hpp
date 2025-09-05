@@ -97,6 +97,12 @@ namespace CSCI441 {
         [[maybe_unused]] void updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
 
         /**
+         * @brief Deletes the Vertex Array Object and corresponding Vertex Buffer Object
+         * @param VAOD Vertex Array Object Descriptor
+         */
+        [[maybe_unused]] void deleteVertexArray(GLuint VAOD);
+
+        /**
          * @brief Sets the Projection Matrix
          * @param PROJECTION_MATRIX homogeneous projection matrix to set
          */
@@ -192,6 +198,12 @@ namespace CSCI441 {
         [[maybe_unused]] void updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
 
         /**
+         * @brief Deletes the Vertex Array Object and corresponding Vertex Buffer Object
+         * @param VAOD Vertex Array Object Descriptor
+         */
+        [[maybe_unused]] void deleteVertexArray(GLuint VAOD);
+
+        /**
          * @brief Sets the Projection Matrix
          * @param PROJECTION_MATRIX homogeneous projection matrix to set
          */
@@ -268,6 +280,7 @@ namespace CSCI441_INTERNAL {
         void setupSimpleShader();
         GLuint registerVertexArray(GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
         void updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
+        void deleteVertexArray(GLuint VAOD);
         void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
         void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
         void popTransformation();
@@ -293,6 +306,7 @@ namespace CSCI441_INTERNAL {
         void setupSimpleShader();
         GLuint registerVertexArray(GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
         void updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
+        void deleteVertexArray(GLuint VAOD);
         void setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX);
         void setViewMatrix(const glm::mat4& VIEW_MATRIX);
         void setLightPosition(const glm::vec3& LIGHT_POSITION);
@@ -366,6 +380,11 @@ inline void CSCI441::SimpleShader2::updateVertexArray(const GLuint VAOD, const G
 }
 
 [[maybe_unused]]
+inline void CSCI441::SimpleShader2::deleteVertexArray(const GLuint VAOD) {
+    CSCI441_INTERNAL::SimpleShader2::deleteVertexArray(VAOD);
+}
+
+[[maybe_unused]]
 inline void CSCI441::SimpleShader2::setProjectionMatrix(const glm::mat4& PROJECTION_MATRIX) {
     CSCI441_INTERNAL::SimpleShader2::setProjectionMatrix(PROJECTION_MATRIX);
 }
@@ -425,6 +444,11 @@ inline GLuint CSCI441::SimpleShader3::registerVertexArray(const GLuint NUM_POINT
 [[maybe_unused]]
 inline void CSCI441::SimpleShader3::updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]) {
     CSCI441_INTERNAL::SimpleShader3::updateVertexArray(VAOD, NUM_POINTS, VERTEX_POINTS, VERTEX_NORMALS);
+}
+
+[[maybe_unused]]
+inline void CSCI441::SimpleShader3::deleteVertexArray(const GLuint VAOD) {
+    CSCI441_INTERNAL::SimpleShader3::deleteVertexArray(VAOD);
 }
 
 [[maybe_unused]]
@@ -604,6 +628,14 @@ inline void CSCI441_INTERNAL::SimpleShader2::updateVertexArray(const GLuint VAOD
         glBindBuffer(GL_ARRAY_BUFFER, descriptorIter->second);
         glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*2), VERTEX_POINTS);
         glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat)*NUM_POINTS*2), static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*3), VERTEX_COLORS);
+    }
+}
+
+inline void CSCI441_INTERNAL::SimpleShader2::deleteVertexArray(const GLuint VAOD) {
+    const auto descriptorIter = descriptorMap.find(VAOD);
+    if( descriptorIter != descriptorMap.end() ) {
+        glDeleteVertexArrays(1, &(descriptorIter->first));
+        glDeleteBuffers(1, &(descriptorIter->second));
     }
 }
 
@@ -798,6 +830,14 @@ inline void CSCI441_INTERNAL::SimpleShader3::updateVertexArray(const GLuint VAOD
         glBindBuffer(GL_ARRAY_BUFFER, descriptorIter->second);
         glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*3), VERTEX_POINTS);
         glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat)*NUM_POINTS*3), static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*3), VERTEX_NORMALS);
+    }
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::deleteVertexArray(const GLuint VAOD) {
+    const auto descriptorIter = descriptorMap.find(VAOD);
+    if( descriptorIter != descriptorMap.end() ) {
+        glDeleteVertexArrays(1, &(descriptorIter->first));
+        glDeleteBuffers(1, &(descriptorIter->second));
     }
 }
 

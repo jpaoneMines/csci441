@@ -2,6 +2,7 @@
 
 ## v ?.??.? - ?? ??? ????
 - SimpleShader no longer assumes VAOD and VBOD are the same value
+- SimpleShader supports deleting Vertex Arrays
 
 ## v 5.11.1 - 02 Sep 2025
 - Fixed bug that glGetProgramResource is only defined for version 4.3+
