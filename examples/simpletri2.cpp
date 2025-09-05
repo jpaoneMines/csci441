@@ -1,3 +1,7 @@
+#ifdef MAKE_GLEW_EXAMPLES
+#define CSCI441_USE_GLEW
+#endif
+
 #include "../OpenGLEngine.hpp"
 #include "../SimpleShader.hpp"
 

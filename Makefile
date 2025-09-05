@@ -25,7 +25,11 @@ install:
 	sudo mkdir -p /usr/local/include/CSCI441
 	sudo cp *.hpp /usr/local/include/CSCI441/.
 
-examples: $(PROGRAMS)
+examples: clean $(PROGRAMS)
+
+glewexamples: CXX += -DMAKE_GLEW_EXAMPLES
+glewexamples: LIBS += -lglew
+glewexamples: clean $(PROGRAMS)
 
 bin/%: examples/%.cpp
 	@echo "Building $@..."
@@ -35,4 +39,4 @@ bin/%: examples/%.cpp
 clean:
 	@rm -f $(PROGRAMS)
 
-.PHONY: help doxygen install examples clean
+.PHONY: help doxygen install examples glewexamples clean

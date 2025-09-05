@@ -1,3 +1,7 @@
+#ifdef MAKE_GLEW_EXAMPLES
+#define CSCI441_USE_GLEW
+#endif
+
 #include "../OpenGL3DEngine.hpp"
 #include "../materials.hpp"
 #include "../objects.hpp"
