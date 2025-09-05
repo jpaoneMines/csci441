@@ -13,7 +13,7 @@
 
 #include "ShaderProgram.hpp"
 
-#include <cstdlib>
+#include <cstdio>
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -55,6 +55,16 @@ namespace CSCI441 {
         * @brief do not allow shader program pipelines to be copied
         */
         ShaderProgramPipeline& operator=(const ShaderProgramPipeline&) = delete;
+
+        /**
+         * @brief move construct a shader program pipeline
+         */
+        ShaderProgramPipeline(ShaderProgramPipeline&&) noexcept;
+        /**
+         * @brief move assign a shader program pipeline
+         * @return the newly assigne dobject
+         */
+        ShaderProgramPipeline& operator=(ShaderProgramPipeline&&) noexcept;
 
         /**
          * @brief adds shader program stages to pipeline
@@ -116,6 +126,25 @@ inline CSCI441::ShaderProgramPipeline::ShaderProgramPipeline() : _pipelineHandle
 inline CSCI441::ShaderProgramPipeline::~ShaderProgramPipeline() {
     glDeleteProgramPipelines(1, &_pipelineHandle);
 }
+
+inline CSCI441::ShaderProgramPipeline::ShaderProgramPipeline(ShaderProgramPipeline&& src) noexcept {
+    _pipelineHandle = src._pipelineHandle;
+    src._pipelineHandle = 0;
+}
+
+inline CSCI441::ShaderProgramPipeline &CSCI441::ShaderProgramPipeline::operator=(ShaderProgramPipeline&& src) noexcept {
+    // guard against self movement
+    if (this != &src) {
+        // delete our existing pipeline
+        glDeleteProgramPipelines(1, &_pipelineHandle);
+        // move the source pipeline
+        _pipelineHandle = src._pipelineHandle;
+        src._pipelineHandle = 0;
+    }
+    // return ourselves
+    return *this;
+}
+
 
 [[maybe_unused]]
 inline void CSCI441::ShaderProgramPipeline::useProgramStages( const GLbitfield programStages, const ShaderProgram * const shaderProgram ) const {
