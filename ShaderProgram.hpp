@@ -176,6 +176,16 @@ namespace CSCI441 {
         ShaderProgram& operator=(const ShaderProgram&) = delete;
 
         /**
+         * @brief create a shader program by moving another shader program
+         */
+        ShaderProgram(ShaderProgram&&) noexcept;
+        /**
+         * @brief reassign this shader program by moving another shader program
+         * @return our newly assigned self
+         */
+        ShaderProgram& operator=(ShaderProgram&&) noexcept;
+
+        /**
          * @brief writes precompiled shader program binary to external file
          * @param BINARY_FILE_NAME filename to write shader program binary to
          * @return true if write succeeded, false otherwise
@@ -891,7 +901,8 @@ namespace CSCI441 {
                                             bool isSeparable ) final;
 
     private:
-
+        void _cleanupSelf();
+        void _moveFromSource(ShaderProgram& src);
     };
 
 }
@@ -2085,6 +2096,24 @@ inline CSCI441::ShaderProgram::ShaderProgram() :
 }
 
 inline CSCI441::ShaderProgram::~ShaderProgram() {
+    _cleanupSelf();
+}
+
+inline CSCI441::ShaderProgram::ShaderProgram(
+    ShaderProgram&& src
+) noexcept : ShaderProgram() {
+    _moveFromSource(src);
+}
+
+inline CSCI441::ShaderProgram &CSCI441::ShaderProgram::operator=(ShaderProgram&& src) noexcept {
+    if (this != &src) {             // guard against self moving
+        _cleanupSelf();             // cleanup existing instance
+        _moveFromSource(src);   // move from source instance
+    }
+    return *this;                   // return self
+}
+
+inline void CSCI441::ShaderProgram::_cleanupSelf() {
     GLint status;
     GLint infoLogLength = 0;
     constexpr int maxLength = 1000;
@@ -2107,7 +2136,43 @@ inline CSCI441::ShaderProgram::~ShaderProgram() {
     delete mpUniformLocationsMap;
     delete mpAttributeLocationsMap;
     delete[] infoLog;
+
+    mVertexShaderHandle = 0;
+    mTessellationControlShaderHandle = 0;
+    mTessellationEvaluationShaderHandle = 0;
+    mGeometryShaderHandle = 0;
+    mFragmentShaderHandle = 0;
+    mShaderProgramHandle = 0;
+    mpUniformLocationsMap = nullptr;
+    mpAttributeLocationsMap = nullptr;
 }
+
+inline void CSCI441::ShaderProgram::_moveFromSource(ShaderProgram &src) {
+    mVertexShaderHandle = src.mVertexShaderHandle;
+    src.mVertexShaderHandle = 0;
+
+    mTessellationControlShaderHandle = src.mTessellationControlShaderHandle;
+    src.mTessellationControlShaderHandle = 0;
+
+    mTessellationEvaluationShaderHandle = src.mTessellationEvaluationShaderHandle;
+    src.mTessellationEvaluationShaderHandle = 0;
+
+    mGeometryShaderHandle = src.mGeometryShaderHandle;
+    src.mGeometryShaderHandle = 0;
+
+    mFragmentShaderHandle = src.mFragmentShaderHandle;
+    src.mFragmentShaderHandle = 0;
+
+    mShaderProgramHandle = src.mShaderProgramHandle;
+    src.mShaderProgramHandle = 0;
+
+    mpUniformLocationsMap = src.mpUniformLocationsMap;
+    src.mpUniformLocationsMap = nullptr;
+
+    mpAttributeLocationsMap = src.mpAttributeLocationsMap;
+    src.mpAttributeLocationsMap = nullptr;
+}
+
 
 inline bool CSCI441::ShaderProgram::writeShaderProgramBinaryToFile(const char* BINARY_FILE_NAME) const {
     GLint formats = 0;

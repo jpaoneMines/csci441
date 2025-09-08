@@ -8,6 +8,7 @@
 - ShaderProgramPipeline cannot be copied but can be moved
 - ShaderProgram uses OpenGL types
 - ShaderProgram internal improvements
+- ShaderProgram cannot be copied but can be moved
 
 ## v 5.12.0 - 05 Sep 2025
 - SimpleShader no longer assumes VAOD and VBOD are the same value
@@ -20,7 +21,7 @@
 - Fixed small memory leaks with ShaderUtils
 - Adding subroutine helper functions to ShaderProgram
 - Fixed bug of materials.hpp not checking for GLEW inclusion
-- Internal improvements (using GLtypes in ShaderUtils)
+- Internal improvements (using OpenGL types in ShaderUtils)
 - Fixed bug of atomic counter shader debug information printing
 
 ## v 5.10.1 - 29 Aug 2025
@@ -71,7 +72,7 @@
 - OrthographicCamera: fixed bug where _updateProjectionMatrix was not declared inline
 
 ## v 5.3.0 - 16 Aug 2024
-- Removed [[nodiscard]] from ModelLoader::draw() to silence warnings.  Currently method always returns true so the return value isn't applicable.
+- Removed [[nodiscard]] from ModelLoader::draw() to silence warnings.  Currently, method always returns true so the return value isn't applicable.
 - Changed format of extensions listing header
 - Added abstract PerspectiveCamera class to house aspect ratio, field of view, near/far clip planes.  When any is updated, the perspective projection matrix is recomputed
 - Added abstract OrthographicCamera class to house left, right, bottom, top, near, far clip planes
