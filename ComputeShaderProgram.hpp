@@ -32,7 +32,7 @@ namespace CSCI441 {
         /**
          * @brief Clean up memory associated with the Compute Shader Program
          */
-        ~ComputeShaderProgram() final = default;
+        ~ComputeShaderProgram() override = default;
 
         /**
          * @brief do not allow shader programs to be copied
@@ -44,13 +44,25 @@ namespace CSCI441 {
         ComputeShaderProgram& operator=(const ComputeShaderProgram&) = delete;
 
         /**
+         * @brief construct a new compute shader program by moving an existing computer shader program
+         * @note uses default implementation which is to call the parent CSCI441::ShaderProgram implementation
+         */
+        ComputeShaderProgram(ComputeShaderProgram&&) noexcept = default;
+        /**
+         * @brief assign this compute shader program by moving an existing computer shader program
+         * @return our newly assigned computer shader program
+         * @note uses default implementation which is to call the parent CSCI441::ShaderProgram implementation
+         */
+        ComputeShaderProgram& operator=(ComputeShaderProgram&&) noexcept = default;
+
+        /**
          * @brief dispatches work to the Compute Shader on the GPU
          * @param numGroupsX number of work groups in X dimension (defaults to 1)
          * @param numGroupsY number of work groups in Y dimension (defaults to 1)
          * @param numGroupsZ number of work groups in Z dimension (defaults to 1)
          * @note call after calling ShaderProgram::useProgram()
          */
-        [[maybe_unused]] virtual void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ) final;
+        [[maybe_unused]] void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ);
     };
 }
 
@@ -143,7 +155,7 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
 }
 
 [[maybe_unused]]
-inline void CSCI441::ComputeShaderProgram::dispatchWork(GLuint numGroupsX = 1, GLuint numGroupsY = 1, GLuint numGroupsZ = 1) {
+inline void CSCI441::ComputeShaderProgram::dispatchWork(const GLuint numGroupsX = 1, const GLuint numGroupsY = 1, const GLuint numGroupsZ = 1) {
     glDispatchCompute(numGroupsX, numGroupsY, numGroupsZ);
 }
 

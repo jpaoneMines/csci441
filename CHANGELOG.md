@@ -9,6 +9,7 @@
 - ShaderProgram uses OpenGL types
 - ShaderProgram internal improvements
 - ShaderProgram cannot be copied but can be moved
+- ComputeShaderProgram cannot be copied but can be moved
 
 ## v 5.12.0 - 05 Sep 2025
 - SimpleShader no longer assumes VAOD and VBOD are the same value
