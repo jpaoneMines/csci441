@@ -82,7 +82,7 @@ namespace CSCI441 {
             /**
              * @brief a non-existent joint.  used to identify joints at the root of a skeleton
              */
-            static const GLint NULL_JOINT = -1;
+            static constexpr GLint NULL_JOINT = -1;
             /**
              * @brief joint identifier
              */
@@ -346,6 +346,15 @@ namespace CSCI441 {
          * @brief do not allow MD5 models to be copied
          */
         MD5Model& operator=(const MD5Model&) = delete;
+
+        /**
+         * @brief do not allow MD5 models to be moved
+         */
+        MD5Model(MD5Model&&) = delete;
+        /**
+         * @brief do not allow MD5 models to be moved
+         */
+        MD5Model& operator=(MD5Model&&) = delete;
 
         /**
          * @brief loads a corresponding md5mesh and md5anim file to the object
