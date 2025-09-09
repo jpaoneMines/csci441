@@ -16,16 +16,28 @@ static void simple_objects_3_engine_scroll_callback(GLFWwindow *window, double x
 
 class SimpleObjects3Engine final : public CSCI441::OpenGL3DEngine {
 public:
-    SimpleObjects3Engine(int OPENGL_MAJOR_VERSION, int OPENGL_MINOR_VERSION,
-                int WINDOW_WIDTH, int WINDOW_HEIGHT,
-                const char* WINDOW_TITLE) : CSCI441::OpenGL3DEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE) {
-        _objectIndex = 0;
-        _objectAngle = 0;
-        _wireframe = false;
-    }
-    ~SimpleObjects3Engine() final = default;
+    SimpleObjects3Engine(
+        const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION,
+        const int WINDOW_WIDTH, const int WINDOW_HEIGHT,
+        const char* WINDOW_TITLE
+    ) : CSCI441::OpenGL3DEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE),
+        _objectIndex(0),
+        _objectAngle(0.0f),
+        _wireframe(GL_FALSE),
+        _lightPosition( glm::vec3(0.0f, 0.0f, 0.0f) ),
+        _lightPositionAngle(0.0f),
+        _rotate(GL_FALSE)
+    {
 
-    void run() final {
+    }
+    ~SimpleObjects3Engine() override = default;
+
+    void run() override {
+        printf("  0-9   : change object\n");
+        printf("   W    : toggle wireframe\n");
+        printf("   R    : toggle rotation\n");
+        printf("Q / ESC : quit\n");
+
         //  This is our draw loop - all rendering is done here.  We use a loop to keep the window open
         //  until the user decides to close the window and quit the program.  Without a loop, the
         //  window will display once and then the program exits.
@@ -53,7 +65,7 @@ public:
         }
     }
 
-    void swapObject(GLuint object) { _objectIndex = object; }
+    void swapObject(const GLuint object) { _objectIndex = object; }
 
     void toggleRotation() { _rotate = !_rotate; }
     void toggleWireframe() { _wireframe = !_wireframe; }
@@ -61,7 +73,7 @@ public:
 private:
     //***************************************************************************
     // Engine Setup
-    void mSetupGLFW() final {
+    void mSetupGLFW() override {
         CSCI441::OpenGLEngine::mSetupGLFW();
 
         // set our callbacks
@@ -71,7 +83,7 @@ private:
         glfwSetScrollCallback(mpWindow, simple_objects_3_engine_scroll_callback);
     }
 
-    void mSetupOpenGL() final {
+    void mSetupOpenGL() override {
         glEnable( GL_DEPTH_TEST );                                   // enable depth testing
         glDepthFunc( GL_LESS );                                      // use less than depth test
 
@@ -81,11 +93,11 @@ private:
         glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );     // clear the frame buffer to black
     }
 
-    void mSetupShaders() final {
+    void mSetupShaders() override {
         CSCI441::SimpleShader3::setupSimpleShader();
     }
 
-    void mSetupScene() final {
+    void mSetupScene() override {
         _rotate = GL_TRUE;
 
         _lightPositionAngle = 0.0f;
@@ -103,7 +115,7 @@ private:
     /// \desc draws everything to the scene from a particular point of view
     /// \param viewMtx the current view matrix for our camera
     /// \param projMtx the current projection matrix for our camera
-    void _renderScene(glm::mat4 viewMtx, glm::mat4 projMtx) const {
+    void _renderScene(const glm::mat4& viewMtx, const glm::mat4& projMtx) const {
         CSCI441::SimpleShader3::setProjectionMatrix(projMtx);
         CSCI441::SimpleShader3::setViewMatrix(viewMtx);
 
@@ -198,8 +210,8 @@ private:
     static constexpr GLfloat ROTATION_SPEED = 0.01f;
 };
 
-void simple_objects_3_engine_keyboard_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-    auto engine = (SimpleObjects3Engine*) glfwGetWindowUserPointer(window);
+void simple_objects_3_engine_keyboard_callback(GLFWwindow *window, const int key, const int scancode, const int action, const int mods) {
+    const auto engine = static_cast<SimpleObjects3Engine *>(glfwGetWindowUserPointer(window));
     engine->handleCameraKeyEvent(key, scancode, action, mods);
 
     if(action == GLFW_PRESS) {
@@ -240,23 +252,23 @@ void simple_objects_3_engine_keyboard_callback(GLFWwindow *window, int key, int 
     }
 }
 
-void simple_objects_3_engine_cursor_callback(GLFWwindow *window, double x, double y) {
-    auto engine = (SimpleObjects3Engine*) glfwGetWindowUserPointer(window);
+void simple_objects_3_engine_cursor_callback(GLFWwindow *window, const double x, const double y) {
+    const auto engine = static_cast<SimpleObjects3Engine *>(glfwGetWindowUserPointer(window));
     engine->handleCameraCursorPosEvent(x, y);
 }
 
-void simple_objects_3_engine_mouse_button_callback(GLFWwindow *window, int button, int action, int mods) {
-    auto engine = (SimpleObjects3Engine*) glfwGetWindowUserPointer(window);
+void simple_objects_3_engine_mouse_button_callback(GLFWwindow *window, const int button, const int action, const int mods) {
+    const auto engine = static_cast<SimpleObjects3Engine *>(glfwGetWindowUserPointer(window));
     engine->handleCameraMouseButtonEvent(button, action, mods);
 }
 
-void simple_objects_3_engine_scroll_callback(GLFWwindow *window, double xOffset, double yOffset) {
-    auto engine = (SimpleObjects3Engine*) glfwGetWindowUserPointer(window);
+void simple_objects_3_engine_scroll_callback(GLFWwindow *window, const double xOffset, const double yOffset) {
+    const auto engine = static_cast<SimpleObjects3Engine *>(glfwGetWindowUserPointer(window));
     engine->handleCameraScrollEvent(xOffset, yOffset);
 }
 
 int main() {
-    auto pSimpleObjects3Engine = new SimpleObjects3Engine(4, 1, 512, 512, "SimpleShader3 Objects");
+    const auto pSimpleObjects3Engine = new SimpleObjects3Engine(4, 1, 512, 512, "SimpleShader3 Objects");
     pSimpleObjects3Engine->initialize();
     if (pSimpleObjects3Engine->getError() == CSCI441::OpenGLEngine::OPENGL_ENGINE_ERROR_NO_ERROR) {
         pSimpleObjects3Engine->run();

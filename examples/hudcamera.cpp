@@ -18,15 +18,29 @@ static void simple_objects_3_engine_window_size_callback(GLFWwindow *window, int
 
 class SimpleObjects3Engine final : public CSCI441::OpenGL3DEngine {
 public:
-    SimpleObjects3Engine(int OPENGL_MAJOR_VERSION, int OPENGL_MINOR_VERSION,
-                int WINDOW_WIDTH, int WINDOW_HEIGHT,
-                const char* WINDOW_TITLE) : CSCI441::OpenGL3DEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, GL_TRUE) {
-        _objectIndex = 0;
-        _objectAngle = 0;
-    }
-    ~SimpleObjects3Engine() final = default;
+    SimpleObjects3Engine(
+        const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION,
+        const int WINDOW_WIDTH, const int WINDOW_HEIGHT,
+        const char* WINDOW_TITLE
+    ) : CSCI441::OpenGL3DEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, GL_TRUE),
+        _objectIndex(0),
+        _objectAngle(0.0f),
+        _wireframe(GL_FALSE),
+        _pHUDCamera(nullptr),
+        _lightPosition( glm::vec3(0.0f, 0.0f, 0.0f) ),
+        _lightPositionAngle(0.0f),
+        _rotate(GL_TRUE)
+    {
 
-    void run() final {
+    }
+    ~SimpleObjects3Engine() override = default;
+
+    void run() override {
+        printf("  0-9   : change object\n");
+        printf("   W    : toggle wireframe\n");
+        printf("   R    : toggle rotation\n");
+        printf("Q / ESC : quit\n");
+
         //  This is our draw loop - all rendering is done here.  We use a loop to keep the window open
         //  until the user decides to close the window and quit the program.  Without a loop, the
         //  window will display once and then the program exits.
@@ -56,10 +70,13 @@ public:
 
     void swapObject(GLuint object) { _objectIndex = object; }
 
+    void toggleRotation() { _rotate = !_rotate; }
+    void toggleWireframe() { _wireframe = !_wireframe; }
+
 private:
     //***************************************************************************
     // Engine Setup
-    void mSetupGLFW() final {
+    void mSetupGLFW() override {
         CSCI441::OpenGLEngine::mSetupGLFW();
 
         // set our callbacks
@@ -70,7 +87,7 @@ private:
         glfwSetWindowSizeCallback(mpWindow, simple_objects_3_engine_window_size_callback);
     }
 
-    void mSetupOpenGL() final {
+    void mSetupOpenGL() override {
         glEnable( GL_DEPTH_TEST );                                   // enable depth testing
         glDepthFunc( GL_LESS );                                      // use less than depth test
 
@@ -80,24 +97,25 @@ private:
         glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );     // clear the frame buffer to black
     }
 
-    void mSetupShaders() final {
+    void mSetupShaders() override {
         CSCI441::SimpleShader3::setupSimpleShader();
     }
 
-    void mSetupScene() final {
-        _pHUDCamera = new CSCI441::HUDCamera(0.0f, (GLfloat)mWindowWidth, 0.0f, (GLfloat)mWindowHeight);
+    void mSetupScene() override {
+        _pHUDCamera = new CSCI441::HUDCamera(0.0f, static_cast<GLfloat>(mWindowWidth), 0.0f, static_cast<GLfloat>(mWindowHeight));
 
         _lightPositionAngle = 0.0f;
 
-        glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+        constexpr glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
         CSCI441::SimpleShader3::setLightColor(lightColor);
 
         setArcballCameraLookAtPoint( glm::vec3(0.0f, 2.1f, 0.0f) );
         addToArcballCameraAngles( glm::vec3(M_PI / 8.0f, M_PI / 8.0f, 25.0f) );
     }
 
-    void mCleanupScene() final {
+    void mCleanupScene() override {
         delete _pHUDCamera;
+        _pHUDCamera = nullptr;
     }
 
     //***************************************************************************
@@ -106,7 +124,7 @@ private:
     /// \desc draws everything to the scene from a particular point of view
     /// \param viewMtx the current view matrix for our camera
     /// \param projMtx the current projection matrix for our camera
-    void _renderScene(glm::mat4 viewMtx, glm::mat4 projMtx) const {
+    void _renderScene(const glm::mat4& viewMtx, const glm::mat4& projMtx) const {
         CSCI441::SimpleShader3::setProjectionMatrix(projMtx);
         CSCI441::SimpleShader3::setViewMatrix(viewMtx);
 
@@ -131,19 +149,36 @@ private:
         modelMatrix = glm::rotate( modelMatrix, _objectAngle, CSCI441::Y_AXIS );
         CSCI441::SimpleShader3::pushTransformation(modelMatrix);
             // draw all the cool stuff!
-            switch( _objectIndex ) {
-                case 0: CSCI441::drawSolidTeapot();                                                             break;
-                case 1: CSCI441::drawSolidCubeTextured( 3.0f );                                      break;
-                case 2: CSCI441::drawSolidSphere( 2.0f, 32, 32 );                          break;
-                case 3: CSCI441::drawSolidTorus( 0.5f, 1.5f, 32, 32 );        break;
-                case 4: CSCI441::drawSolidCone( 2.0f, 3.0f, 32, 32 );                break;
-                case 5: CSCI441::drawSolidCylinder( 2.0f, 2.0f, 3.0f, 32, 32 ); break;
-                case 6: CSCI441::drawSolidCubeFlat( 3.0f );                                      break;
-                case 7: CSCI441::drawSolidCubeIndexed( 3.0f );                                      break;
-                case 8: CSCI441::drawSolidDome(2.0f, 32, 32);                           break;
-                case 9: CSCI441::drawSolidHalfSphere(2.0f, 32, 32);                     break;
+            if( !_wireframe ) {
+                switch( _objectIndex ) {
+                    case 0: CSCI441::drawSolidTeapot();                                                             break;
+                    case 1: CSCI441::drawSolidCubeTextured( 3.0f );                                      break;
+                    case 2: CSCI441::drawSolidSphere( 2.0f, 32, 32 );                          break;
+                    case 3: CSCI441::drawSolidTorus( 0.5f, 1.5f, 32, 32 );        break;
+                    case 4: CSCI441::drawSolidCone( 2.0f, 3.0f, 32, 32 );                break;
+                    case 5: CSCI441::drawSolidCylinder( 2.0f, 2.0f, 3.0f, 32, 32 ); break;
+                    case 6: CSCI441::drawSolidCubeFlat( 3.0f );                                      break;
+                    case 7: CSCI441::drawSolidCubeIndexed( 3.0f );                                      break;
+                    case 8: CSCI441::drawSolidDome(2.0f, 32, 32);                           break;
+                    case 9: CSCI441::drawSolidHalfSphere(2.0f, 32, 32);                     break;
 
-                default: break;
+                    default: break;
+                }
+            } else {
+                switch( _objectIndex ) {
+                    case 0: CSCI441::drawWireTeapot();                                                             break;
+                    case 1: CSCI441::drawWireCube( 3.0f );                                      break;
+                    case 2: CSCI441::drawWireSphere( 2.0f, 32, 32 );                          break;
+                    case 3: CSCI441::drawWireTorus( 0.5f, 1.5f, 32, 32 );        break;
+                    case 4: CSCI441::drawWireCone( 2.0f, 3.0f, 32, 32 );                break;
+                    case 5: CSCI441::drawWireCylinder( 2.0f, 2.0f, 3.0f, 32, 32 ); break;
+                    case 6: CSCI441::drawWireCube( 3.0f );                                      break;
+                    case 7: CSCI441::drawWireCube( 3.0f );                                      break;
+                    case 8: CSCI441::drawWireDome(2.0f, 32, 32);                           break;
+                    case 9: CSCI441::drawWireHalfSphere(2.0f, 32, 32);                     break;
+
+                    default: break;
+                }
             }
         CSCI441::SimpleShader3::popTransformation();
 
@@ -220,12 +255,14 @@ private:
 
     /// \desc handles moving our FreeCam as determined by keyboard input
     void _updateScene() {
-        _objectAngle += ROTATION_SPEED;
-        // prevent value from getting too large
-        if( _objectAngle > 2.0f * M_PI ) _objectAngle -= 2.0f * M_PI;
+        if( _rotate ) {
+            _objectAngle += ROTATION_SPEED;
+            // prevent value from getting too large
+            if( _objectAngle > 2.0f * M_PI ) _objectAngle -= 2.0f * M_PI;
 
-        _lightPositionAngle += ROTATION_SPEED;
-        _lightPosition = glm::vec3( glm::cos(_lightPositionAngle) * 10.0f, 10.0f, glm::sin(_lightPositionAngle) * 10.0f );
+            _lightPositionAngle += ROTATION_SPEED;
+            _lightPosition = glm::vec3( glm::cos(_lightPositionAngle) * 10.0f, 10.0f, glm::sin(_lightPositionAngle) * 10.0f );
+        }
     }
 
     //***************************************************************************
@@ -236,10 +273,15 @@ private:
     /// \desc the current angle of rotation to display our object at
     GLfloat _objectAngle;
 
+    /// \desc if objects should be drawn as wireframe or solid
+    GLboolean _wireframe;
+
     CSCI441::HUDCamera* _pHUDCamera;
 
     glm::vec3 _lightPosition;
     GLfloat _lightPositionAngle;
+
+    GLboolean _rotate;
 
     const glm::vec3 _MATERIAL_EMERALD_DIFFUSE = CSCI441::Materials::EMERALD.getDiffuse();
     const glm::vec3 _MATERIAL_GOLD_DIFFUSE = CSCI441::Materials::GOLD.getDiffuse();
@@ -249,8 +291,8 @@ private:
     static constexpr GLfloat ROTATION_SPEED = 0.01f;
 };
 
-void simple_objects_3_engine_keyboard_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-    auto engine = (SimpleObjects3Engine*) glfwGetWindowUserPointer(window);
+void simple_objects_3_engine_keyboard_callback(GLFWwindow *window, const int key, const int scancode, const int action, const int mods) {
+    const auto engine = static_cast<SimpleObjects3Engine *>(glfwGetWindowUserPointer(window));
     engine->handleCameraKeyEvent(key, scancode, action, mods);
 
     if(action == GLFW_PRESS) {
@@ -277,34 +319,42 @@ void simple_objects_3_engine_keyboard_callback(GLFWwindow *window, int key, int 
                 engine->swapObject(9);
                 break;
 
+            case GLFW_KEY_R:
+                engine->toggleRotation();
+                break;
+
+            case GLFW_KEY_W:
+                engine->toggleWireframe();
+                break;
+
             default:
                 break;
         }
     }
 }
 
-void simple_objects_3_engine_cursor_callback(GLFWwindow *window, double x, double y) {
-    auto engine = (SimpleObjects3Engine*) glfwGetWindowUserPointer(window);
+void simple_objects_3_engine_cursor_callback(GLFWwindow *window, const double x, const double y) {
+    const auto engine = static_cast<SimpleObjects3Engine *>(glfwGetWindowUserPointer(window));
     engine->handleCameraCursorPosEvent(x, y);
 }
 
-void simple_objects_3_engine_mouse_button_callback(GLFWwindow *window, int button, int action, int mods) {
-    auto engine = (SimpleObjects3Engine*) glfwGetWindowUserPointer(window);
+void simple_objects_3_engine_mouse_button_callback(GLFWwindow *window, const int button, const int action, const int mods) {
+    const auto engine = static_cast<SimpleObjects3Engine *>(glfwGetWindowUserPointer(window));
     engine->handleCameraMouseButtonEvent(button, action, mods);
 }
 
-void simple_objects_3_engine_scroll_callback(GLFWwindow *window, double xOffset, double yOffset) {
-    auto engine = (SimpleObjects3Engine*) glfwGetWindowUserPointer(window);
+void simple_objects_3_engine_scroll_callback(GLFWwindow *window, const double xOffset, const double yOffset) {
+    const auto engine = static_cast<SimpleObjects3Engine *>(glfwGetWindowUserPointer(window));
     engine->handleCameraScrollEvent(xOffset, yOffset);
 }
 
-void simple_objects_3_engine_window_size_callback(GLFWwindow *window, int width, int height) {
-    auto engine = (SimpleObjects3Engine*) glfwGetWindowUserPointer(window);
+void simple_objects_3_engine_window_size_callback(GLFWwindow *window, const int width, const int height) {
+    const auto engine = static_cast<SimpleObjects3Engine *>(glfwGetWindowUserPointer(window));
     engine->handleCameraAspectRatioEvent(width, height);
 }
 
 int main() {
-    auto pSimpleObjects3Engine = new SimpleObjects3Engine(4, 1, 512, 512, "HUD Display of Object Selection");
+    const auto pSimpleObjects3Engine = new SimpleObjects3Engine(4, 1, 512, 512, "HUD Display of Object Selection");
     pSimpleObjects3Engine->initialize();
     if (pSimpleObjects3Engine->getError() == CSCI441::OpenGLEngine::OPENGL_ENGINE_ERROR_NO_ERROR) {
         pSimpleObjects3Engine->run();

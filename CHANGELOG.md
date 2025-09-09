@@ -1,5 +1,8 @@
 # Revision History
 
+## v ?.??.? - ?? ??? ????
+- Internal improvements to examples
+
 ## v 5.13.0 - 09 Sep 2025
 - Examples can build against GLEW or GLAD
 - UniformCopyObject cannot be copied but can be moved
