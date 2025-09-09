@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.12.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.13.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -85,61 +85,74 @@ $(function() {
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">explicit</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_free_cam.html">FreeCam</a>(GLfloat aspectRatio = 1.0f, GLfloat fovy = 45.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a">recomputeOrientation</a>() <span class="keyword">final</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#a6477c2e4e7734f313f3b03f832450c5f">moveForward</a>(GLfloat movementFactor) <span class="keyword">final</span>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#a9538c96b3167b01c3d5481de848dafec">moveBackward</a>(GLfloat movementFactor) <span class="keyword">final</span>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="comment">// updates the look at point and recalculates the view matrix</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordtype">void</span> _updateFreeCameraViewMatrix();</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    };</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#a2bd8a7b5c706c1641b3ef8e243e109ea">   64</a></span><span class="keyword">inline</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#a2bd8a7b5c706c1641b3ef8e243e109ea">CSCI441::FreeCam::FreeCam</a>(</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keyword">const</span> GLfloat aspectRatio,</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keyword">const</span> GLfloat fovy,</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keyword">const</span> GLfloat nearClipPlane,</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keyword">const</span> GLfloat farClipPlane</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>) : <a class="code hl_class" href="class_c_s_c_i441_1_1_perspective_camera.html">PerspectiveCamera</a>(aspectRatio, fovy, nearClipPlane, farClipPlane)</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>{</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a">recomputeOrientation</a>();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a">   74</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a">CSCI441::FreeCam::recomputeOrientation</a>() {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="comment">// compute direction vector based on spherical to cartesian conversion</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    mCameraDirection.x =  glm::sin(mCameraTheta ) * glm::sin(mCameraPhi );</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    mCameraDirection.y = -glm::cos(mCameraPhi );</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    mCameraDirection.z = -glm::cos(mCameraTheta ) * glm::sin(mCameraPhi );</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">// and normalize this directional vector!</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    mCameraDirection = glm::normalize(mCameraDirection );</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#acab9da51fd778709f1ba0fde5e5bffcf">   38</a></span>        <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#acab9da51fd778709f1ba0fde5e5bffcf">FreeCam</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_free_cam.html">FreeCam</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#a9152e6bfb7e6895ca51ccebd12cd8cd4">   43</a></span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_free_cam.html">FreeCam</a>&amp; <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#a9152e6bfb7e6895ca51ccebd12cd8cd4">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_free_cam.html">FreeCam</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#a8db327f37e76599cdc039eafe3fca765">   48</a></span>        <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#a8db327f37e76599cdc039eafe3fca765">FreeCam</a>(<a class="code hl_class" href="class_c_s_c_i441_1_1_free_cam.html">FreeCam</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#af949a3b63180063f129404f0e21f6b28">   53</a></span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_free_cam.html">FreeCam</a>&amp; <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#af949a3b63180063f129404f0e21f6b28">operator=</a>(<a class="code hl_class" href="class_c_s_c_i441_1_1_free_cam.html">FreeCam</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#a667e5da91ea2cb952c088c6130f454c3">   58</a></span>        <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#a667e5da91ea2cb952c088c6130f454c3">~FreeCam</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#a31ee75e4426c310305ae21012bea8d50">recomputeOrientation</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#abf150079d1daff5c9654c8c48141a705">moveForward</a>(GLfloat movementFactor) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#abab27c9d9861e41d344e00a19cb70165">moveBackward</a>(GLfloat movementFactor) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    _updateFreeCameraViewMatrix();</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#a6477c2e4e7734f313f3b03f832450c5f">   86</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#a6477c2e4e7734f313f3b03f832450c5f">CSCI441::FreeCam::moveForward</a>(<span class="keyword">const</span> GLfloat movementFactor) {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    mCameraPosition += mCameraDirection * movementFactor;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    _updateFreeCameraViewMatrix();</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#a9538c96b3167b01c3d5481de848dafec">   91</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#a9538c96b3167b01c3d5481de848dafec">CSCI441::FreeCam::moveBackward</a>(<span class="keyword">const</span> GLfloat movementFactor) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    mCameraPosition -= mCameraDirection * movementFactor;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    _updateFreeCameraViewMatrix();</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>}</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441::FreeCam::_updateFreeCameraViewMatrix() {</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    setLookAtPoint(mCameraPosition + mCameraDirection );</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    computeViewMatrix();</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_FREE_CAM_HPP</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="comment">// updates the look at point and recalculates the view matrix</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordtype">void</span> _updateFreeCameraViewMatrix();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    };</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#a2bd8a7b5c706c1641b3ef8e243e109ea">   89</a></span><span class="keyword">inline</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#a2bd8a7b5c706c1641b3ef8e243e109ea">CSCI441::FreeCam::FreeCam</a>(</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keyword">const</span> GLfloat aspectRatio,</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keyword">const</span> GLfloat fovy,</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keyword">const</span> GLfloat nearClipPlane,</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keyword">const</span> GLfloat farClipPlane</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>) : <a class="code hl_class" href="class_c_s_c_i441_1_1_perspective_camera.html">PerspectiveCamera</a>(aspectRatio, fovy, nearClipPlane, farClipPlane)</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>{</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#a31ee75e4426c310305ae21012bea8d50">recomputeOrientation</a>();</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>}</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#a31ee75e4426c310305ae21012bea8d50">   99</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#a31ee75e4426c310305ae21012bea8d50">CSCI441::FreeCam::recomputeOrientation</a>() {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="comment">// compute direction vector based on spherical to cartesian conversion</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    mCameraDirection.x =  glm::sin(mCameraTheta ) * glm::sin(mCameraPhi );</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    mCameraDirection.y = -glm::cos(mCameraPhi );</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    mCameraDirection.z = -glm::cos(mCameraTheta ) * glm::sin(mCameraPhi );</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="comment">// and normalize this directional vector!</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    mCameraDirection = glm::normalize(mCameraDirection );</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    _updateFreeCameraViewMatrix();</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>}</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#abf150079d1daff5c9654c8c48141a705">  111</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#abf150079d1daff5c9654c8c48141a705">CSCI441::FreeCam::moveForward</a>(<span class="keyword">const</span> GLfloat movementFactor) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    mCameraPosition += mCameraDirection * movementFactor;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    _updateFreeCameraViewMatrix();</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_free_cam.html#abab27c9d9861e41d344e00a19cb70165">  116</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_free_cam.html#abab27c9d9861e41d344e00a19cb70165">CSCI441::FreeCam::moveBackward</a>(<span class="keyword">const</span> GLfloat movementFactor) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    mCameraPosition -= mCameraDirection * movementFactor;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    _updateFreeCameraViewMatrix();</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441::FreeCam::_updateFreeCameraViewMatrix() {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    setLookAtPoint(mCameraPosition + mCameraDirection );</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    computeViewMatrix();</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_FREE_CAM_HPP</span></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html">CSCI441::FreeCam</a></div><div class="ttdoc">A camera that implements a FreeCam camera model.</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:23</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_a2bd8a7b5c706c1641b3ef8e243e109ea"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#a2bd8a7b5c706c1641b3ef8e243e109ea">CSCI441::FreeCam::FreeCam</a></div><div class="ttdeci">FreeCam(GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:64</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_a6477c2e4e7734f313f3b03f832450c5f"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#a6477c2e4e7734f313f3b03f832450c5f">CSCI441::FreeCam::moveForward</a></div><div class="ttdeci">void moveForward(GLfloat movementFactor) final</div><div class="ttdoc">updates the camera's position by the adding the camera's direction to the camera's position</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:86</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_a9538c96b3167b01c3d5481de848dafec"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#a9538c96b3167b01c3d5481de848dafec">CSCI441::FreeCam::moveBackward</a></div><div class="ttdeci">void moveBackward(GLfloat movementFactor) final</div><div class="ttdoc">updates the camera's position by the adding the camera's negative direction to the camera's position</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:91</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_aea185b8dad3bcbdc81fd12f322ee357a"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a">CSCI441::FreeCam::recomputeOrientation</a></div><div class="ttdeci">void recomputeOrientation() final</div><div class="ttdoc">converts spherical theta &amp; phi to cartesian x,y,z direction vector</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:74</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_a2bd8a7b5c706c1641b3ef8e243e109ea"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#a2bd8a7b5c706c1641b3ef8e243e109ea">CSCI441::FreeCam::FreeCam</a></div><div class="ttdeci">FreeCam(GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:89</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_a31ee75e4426c310305ae21012bea8d50"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#a31ee75e4426c310305ae21012bea8d50">CSCI441::FreeCam::recomputeOrientation</a></div><div class="ttdeci">void recomputeOrientation() override</div><div class="ttdoc">converts spherical theta &amp; phi to cartesian x,y,z direction vector</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:99</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_a667e5da91ea2cb952c088c6130f454c3"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#a667e5da91ea2cb952c088c6130f454c3">CSCI441::FreeCam::~FreeCam</a></div><div class="ttdeci">~FreeCam() override=default</div><div class="ttdoc">properly destroy concrete children</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_a8db327f37e76599cdc039eafe3fca765"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#a8db327f37e76599cdc039eafe3fca765">CSCI441::FreeCam::FreeCam</a></div><div class="ttdeci">FreeCam(FreeCam &amp;&amp;)=default</div><div class="ttdoc">construct a camera by moving ane existing camera object</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_a9152e6bfb7e6895ca51ccebd12cd8cd4"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#a9152e6bfb7e6895ca51ccebd12cd8cd4">CSCI441::FreeCam::operator=</a></div><div class="ttdeci">FreeCam &amp; operator=(const FreeCam &amp;)=default</div><div class="ttdoc">assign a copy of an existing camera</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_abab27c9d9861e41d344e00a19cb70165"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#abab27c9d9861e41d344e00a19cb70165">CSCI441::FreeCam::moveBackward</a></div><div class="ttdeci">void moveBackward(GLfloat movementFactor) override</div><div class="ttdoc">updates the camera's position by the adding the camera's negative direction to the camera's position</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:116</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_abf150079d1daff5c9654c8c48141a705"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#abf150079d1daff5c9654c8c48141a705">CSCI441::FreeCam::moveForward</a></div><div class="ttdeci">void moveForward(GLfloat movementFactor) override</div><div class="ttdoc">updates the camera's position by the adding the camera's direction to the camera's position</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:111</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_acab9da51fd778709f1ba0fde5e5bffcf"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#acab9da51fd778709f1ba0fde5e5bffcf">CSCI441::FreeCam::FreeCam</a></div><div class="ttdeci">FreeCam(const FreeCam &amp;)=default</div><div class="ttdoc">construct a copy an existing camera</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_af949a3b63180063f129404f0e21f6b28"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#af949a3b63180063f129404f0e21f6b28">CSCI441::FreeCam::operator=</a></div><div class="ttdeci">FreeCam &amp; operator=(FreeCam &amp;&amp;)=default</div><div class="ttdoc">reassign an existing camera to ourselves</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_perspective_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_perspective_camera.html">CSCI441::PerspectiveCamera</a></div><div class="ttdoc">Abstract Class to represent a perspective camera. Stores aspect ratio and field of view.</div><div class="ttdef"><b>Definition:</b> PerspectiveCamera.hpp:11</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->

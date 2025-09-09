@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.12.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.13.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -174,6 +174,20 @@ Protected Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> ()</td></tr>
 <tr class="memdesc:a2b44075a51d0d334a6a8c0742e42f040"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a default camera at the origin, looking down the negative Z axis oriented with the world coordinate system <br /></td></tr>
 <tr class="separator:a2b44075a51d0d334a6a8c0742e42f040"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf5eb1328dde3203b094e644219851d1"><td class="memItemLeft" align="right" valign="top"><a id="abf5eb1328dde3203b094e644219851d1" name="abf5eb1328dde3203b094e644219851d1"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> (const <a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;)=default</td></tr>
+<tr class="memdesc:abf5eb1328dde3203b094e644219851d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a copy an existing camera <br /></td></tr>
+<tr class="separator:abf5eb1328dde3203b094e644219851d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ca5080ba0121f737eb8633d6d9e450"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#ab5ca5080ba0121f737eb8633d6d9e450">operator=</a> (const <a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;)=default</td></tr>
+<tr class="memdesc:ab5ca5080ba0121f737eb8633d6d9e450"><td class="mdescLeft">&#160;</td><td class="mdescRight">assign a copy of an existing camera  <br /></td></tr>
+<tr class="separator:ab5ca5080ba0121f737eb8633d6d9e450"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a303137f044b8c03e0f3bd0b570af45f2"><td class="memItemLeft" align="right" valign="top"><a id="a303137f044b8c03e0f3bd0b570af45f2" name="a303137f044b8c03e0f3bd0b570af45f2"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> (<a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:a303137f044b8c03e0f3bd0b570af45f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a camera by moving ane existing camera object <br /></td></tr>
+<tr class="separator:a303137f044b8c03e0f3bd0b570af45f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72f87ca0cb40590e88bf31966d2b22d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a72f87ca0cb40590e88bf31966d2b22d2">operator=</a> (<a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:a72f87ca0cb40590e88bf31966d2b22d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">reassign an existing camera to ourselves  <br /></td></tr>
+<tr class="separator:a72f87ca0cb40590e88bf31966d2b22d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -478,7 +492,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a2a13d007a757a4fcd0fece0963359beb">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a47b53af60855225e48a5f1b2ed8718cd">CSCI441::HUDCamera</a>, <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#aaeb9f7a5c9ab3a08a11687f1fd7234e2">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a9538c96b3167b01c3d5481de848dafec">CSCI441::FreeCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a5327ca5b6ecf52974510758ba57627e5">CSCI441::MD5Camera</a>.</p>
+<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a1dc1ebdeaf99f4954a1ee5dd357a16b4">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a83d681acce7f9aef8733841600ffa617">CSCI441::HUDCamera</a>, <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#ad6904e4626c4233f331b57894a929b7e">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#abab27c9d9861e41d344e00a19cb70165">CSCI441::FreeCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a52bb2204521a709d0e2eb8167e9cf6b3">CSCI441::MD5Camera</a>.</p>
 
 </div>
 </div>
@@ -514,7 +528,65 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a9bca71cef49c85697c44e3731d4e3d25">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#af7edb3eb643b0617cd079ecd6a136be8">CSCI441::HUDCamera</a>, <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a5e618322522a711de4d22ff0331e8db2">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a6477c2e4e7734f313f3b03f832450c5f">CSCI441::FreeCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a1484b36acde080697559058717d23ec3">CSCI441::MD5Camera</a>.</p>
+<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a04610c3b95c1d50d3391e445efdd913a">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#ad6a91349c45e5c43171f06a0181331b1">CSCI441::HUDCamera</a>, <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#ac6ea79f3ae32c51639fb10e3d7787a4b">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#abf150079d1daff5c9654c8c48141a705">CSCI441::FreeCam</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#ad41fbb096cb3784cf10d2f457bbf640c">CSCI441::MD5Camera</a>.</p>
+
+</div>
+</div>
+<a id="a72f87ca0cb40590e88bf31966d2b22d2" name="a72f87ca0cb40590e88bf31966d2b22d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72f87ca0cb40590e88bf31966d2b22d2">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp; CSCI441::Camera::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;&amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>reassign an existing camera to ourselves </p>
+<dl class="section return"><dt>Returns</dt><dd>our newly assigned camera </dd></dl>
+
+</div>
+</div>
+<a id="ab5ca5080ba0121f737eb8633d6d9e450" name="ab5ca5080ba0121f737eb8633d6d9e450"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5ca5080ba0121f737eb8633d6d9e450">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp; CSCI441::Camera::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>assign a copy of an existing camera </p>
+<dl class="section return"><dt>Returns</dt><dd>our newly assigned camera </dd></dl>
 
 </div>
 </div>
@@ -543,7 +615,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 
 <p>Uses theta, phi, &amp; radius to update the camera's view matrix parameters. The camera orientation is controlled via spherical coordinates and this method would orient and/or position the camera in cartesian coordinates. </p>
 
-<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a37be99738bfbd423573dcd298cf69784">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#aea185b8dad3bcbdc81fd12f322ee357a">CSCI441::FreeCam</a>, <a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a9ad075fd24c2bd5a2b33837e2a882c5c">CSCI441::HUDCamera</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a9c25fd07e39defa9a9885b0a139ca014">CSCI441::MD5Camera</a>.</p>
+<p>Implemented in <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a200d4e0f6461b09baefc2038ad46d3f6">CSCI441::ArcballCam</a>, <a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html#a123d4902f7a7820a411252bbd18be74f">CSCI441::FixedCam</a>, <a class="el" href="class_c_s_c_i441_1_1_free_cam.html#a31ee75e4426c310305ae21012bea8d50">CSCI441::FreeCam</a>, <a class="el" href="class_c_s_c_i441_1_1_h_u_d_camera.html#a6c6ed8e7e9af925197cef956b83f6e87">CSCI441::HUDCamera</a>, and <a class="el" href="class_c_s_c_i441_1_1_m_d5_camera.html#a93307d983089028c3499b559123fa04b">CSCI441::MD5Camera</a>.</p>
 
 </div>
 </div>

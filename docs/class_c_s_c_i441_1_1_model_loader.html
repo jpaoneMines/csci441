@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.12.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.13.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -108,6 +108,12 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="class_c_s_c_i441_1_1_model_loader.html">ModelLoader</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_c_s_c_i441_1_1_model_loader.html">ModelLoader</a> &amp;)=delete</td></tr>
 <tr class="memdesc:a3983c37342c864e555b1c6b1c134caba"><td class="mdescLeft">&#160;</td><td class="mdescRight">do not allow models to be copied <br /></td></tr>
 <tr class="separator:a3983c37342c864e555b1c6b1c134caba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a726659822917849097370a136cfb6e8b"><td class="memItemLeft" align="right" valign="top"><a id="a726659822917849097370a136cfb6e8b" name="a726659822917849097370a136cfb6e8b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ModelLoader</b> (<a class="el" href="class_c_s_c_i441_1_1_model_loader.html">ModelLoader</a> &amp;&amp;) noexcept</td></tr>
+<tr class="memdesc:a726659822917849097370a136cfb6e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">move construct from an existing Model <br /></td></tr>
+<tr class="separator:a726659822917849097370a136cfb6e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d58003ab85a18545d6340f4ffa5cf2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html">ModelLoader</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a3d58003ab85a18545d6340f4ffa5cf2b">operator=</a> (<a class="el" href="class_c_s_c_i441_1_1_model_loader.html">ModelLoader</a> &amp;&amp;) noexcept</td></tr>
+<tr class="separator:a3d58003ab85a18545d6340f4ffa5cf2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a41de5f070d8cf0964e47729c1d8482"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a6a41de5f070d8cf0964e47729c1d8482">loadModelFile</a> (std::string filename, bool INFO=true, bool ERRORS=true)</td></tr>
 <tr class="memdesc:a6a41de5f070d8cf0964e47729c1d8482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a model from the given file.  <br /></td></tr>
 <tr class="separator:a6a41de5f070d8cf0964e47729c1d8482"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -543,6 +549,33 @@ To disable, call disableAutoGenerateNormals </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if load succeeded, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a3d58003ab85a18545d6340f4ffa5cf2b" name="a3d58003ab85a18545d6340f4ffa5cf2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d58003ab85a18545d6340f4ffa5cf2b">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html">CSCI441::ModelLoader</a> &amp; CSCI441::ModelLoader::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html">ModelLoader</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Move assign from an existing Model </p><dl class="section return"><dt>Returns</dt><dd>newly configured object </dd></dl>
 
 </div>
 </div>

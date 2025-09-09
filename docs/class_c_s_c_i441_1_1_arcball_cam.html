@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.12.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.13.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -101,19 +101,41 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adbacdaa920532f83d39e34c87d4324e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#adbacdaa920532f83d39e34c87d4324e2">ArcballCam</a> (GLfloat minRadius=2.0f, GLfloat maxRadius=30.0f, GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</td></tr>
 <tr class="memdesc:adbacdaa920532f83d39e34c87d4324e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes the Arcball <a class="el" href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:">Camera</a> and sets the minimum/maximum radius the camera can zoom through as well as the perspective projection  <br /></td></tr>
 <tr class="separator:adbacdaa920532f83d39e34c87d4324e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05be1d4f9916e124258810d8f1d2b7e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">recomputeOrientation</a> () final</td></tr>
-<tr class="memdesc:a05be1d4f9916e124258810d8f1d2b7e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">converts spherical theta &amp; phi to cartesian x,y,z direction vector  <br /></td></tr>
-<tr class="separator:a05be1d4f9916e124258810d8f1d2b7e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e618322522a711de4d22ff0331e8db2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a5e618322522a711de4d22ff0331e8db2">moveForward</a> (GLfloat movementFactor) final</td></tr>
-<tr class="memdesc:a5e618322522a711de4d22ff0331e8db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's position by decreasing the camera's radius  <br /></td></tr>
-<tr class="separator:a5e618322522a711de4d22ff0331e8db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaeb9f7a5c9ab3a08a11687f1fd7234e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#aaeb9f7a5c9ab3a08a11687f1fd7234e2">moveBackward</a> (GLfloat movementFactor) final</td></tr>
-<tr class="memdesc:aaeb9f7a5c9ab3a08a11687f1fd7234e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's position by increasing the camera's radius  <br /></td></tr>
-<tr class="separator:aaeb9f7a5c9ab3a08a11687f1fd7234e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba1d723b50dc41438b712c3e0dcc37b4"><td class="memItemLeft" align="right" valign="top"><a id="aba1d723b50dc41438b712c3e0dcc37b4" name="aba1d723b50dc41438b712c3e0dcc37b4"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ArcballCam</b> (const <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a> &amp;)=default</td></tr>
+<tr class="memdesc:aba1d723b50dc41438b712c3e0dcc37b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a copy an existing camera <br /></td></tr>
+<tr class="separator:aba1d723b50dc41438b712c3e0dcc37b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21bd379ee8aa3a76e706b7289fb21e32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a21bd379ee8aa3a76e706b7289fb21e32">operator=</a> (const <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a> &amp;)=default</td></tr>
+<tr class="memdesc:a21bd379ee8aa3a76e706b7289fb21e32"><td class="mdescLeft">&#160;</td><td class="mdescRight">assign a copy of an existing camera  <br /></td></tr>
+<tr class="separator:a21bd379ee8aa3a76e706b7289fb21e32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9825c32d8562225c0fe138f40148177"><td class="memItemLeft" align="right" valign="top"><a id="ad9825c32d8562225c0fe138f40148177" name="ad9825c32d8562225c0fe138f40148177"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ArcballCam</b> (<a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:ad9825c32d8562225c0fe138f40148177"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a camera by moving ane existing camera object <br /></td></tr>
+<tr class="separator:ad9825c32d8562225c0fe138f40148177"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8210143a646ee9c7f8555c671a4942d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a8210143a646ee9c7f8555c671a4942d1">operator=</a> (<a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:a8210143a646ee9c7f8555c671a4942d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">reassign an existing camera to ourselves  <br /></td></tr>
+<tr class="separator:a8210143a646ee9c7f8555c671a4942d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72bc715008c1ba9e21e0e8a21a32bd3d"><td class="memItemLeft" align="right" valign="top"><a id="a72bc715008c1ba9e21e0e8a21a32bd3d" name="a72bc715008c1ba9e21e0e8a21a32bd3d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>~ArcballCam</b> () override=default</td></tr>
+<tr class="memdesc:a72bc715008c1ba9e21e0e8a21a32bd3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">properly destroy concrete children <br /></td></tr>
+<tr class="separator:a72bc715008c1ba9e21e0e8a21a32bd3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200d4e0f6461b09baefc2038ad46d3f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#a200d4e0f6461b09baefc2038ad46d3f6">recomputeOrientation</a> () override</td></tr>
+<tr class="memdesc:a200d4e0f6461b09baefc2038ad46d3f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">converts spherical theta &amp; phi to cartesian x,y,z direction vector  <br /></td></tr>
+<tr class="separator:a200d4e0f6461b09baefc2038ad46d3f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6ea79f3ae32c51639fb10e3d7787a4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#ac6ea79f3ae32c51639fb10e3d7787a4b">moveForward</a> (GLfloat movementFactor) override</td></tr>
+<tr class="memdesc:ac6ea79f3ae32c51639fb10e3d7787a4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's position by decreasing the camera's radius  <br /></td></tr>
+<tr class="separator:ac6ea79f3ae32c51639fb10e3d7787a4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6904e4626c4233f331b57894a929b7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html#ad6904e4626c4233f331b57894a929b7e">moveBackward</a> (GLfloat movementFactor) override</td></tr>
+<tr class="memdesc:ad6904e4626c4233f331b57894a929b7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's position by increasing the camera's radius  <br /></td></tr>
+<tr class="separator:ad6904e4626c4233f331b57894a929b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_c_s_c_i441_1_1_perspective_camera')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html">CSCI441::PerspectiveCamera</a></td></tr>
 <tr class="memitem:ae81bc97134b0cbf7fc5af27356501ba7 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#ae81bc97134b0cbf7fc5af27356501ba7">PerspectiveCamera</a> (GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</td></tr>
 <tr class="memdesc:ae81bc97134b0cbf7fc5af27356501ba7 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes the Perspective <a class="el" href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:">Camera</a>  <br /></td></tr>
 <tr class="separator:ae81bc97134b0cbf7fc5af27356501ba7 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8476fad0f9dc10a62580280a676be1b inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top"><a id="ab8476fad0f9dc10a62580280a676be1b" name="ab8476fad0f9dc10a62580280a676be1b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>~PerspectiveCamera</b> () override=default</td></tr>
+<tr class="memdesc:ab8476fad0f9dc10a62580280a676be1b inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">properly destroy concrete children <br /></td></tr>
+<tr class="separator:ab8476fad0f9dc10a62580280a676be1b inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aade9e781a20139672531f5da88a242b0 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#aade9e781a20139672531f5da88a242b0">setAspectRatio</a> (GLfloat aspectRatio) final</td></tr>
 <tr class="memdesc:aade9e781a20139672531f5da88a242b0 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the camera's aspect ratio  <br /></td></tr>
 <tr class="separator:aade9e781a20139672531f5da88a242b0 inherit pub_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -197,11 +219,39 @@ Additional Inherited Members</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>mUpdateProjectionMatrix</b> ()</td></tr>
 <tr class="memdesc:a377876abd30d4a654c30b6ab21edb77f inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">computes the perspective projection matrix for the camera <br /></td></tr>
 <tr class="separator:a377876abd30d4a654c30b6ab21edb77f inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27feb149cf52822119ea05ae8db4c8b4 inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top"><a id="a27feb149cf52822119ea05ae8db4c8b4" name="a27feb149cf52822119ea05ae8db4c8b4"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>PerspectiveCamera</b> (const <a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html">PerspectiveCamera</a> &amp;)=default</td></tr>
+<tr class="memdesc:a27feb149cf52822119ea05ae8db4c8b4 inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a copy an existing camera <br /></td></tr>
+<tr class="separator:a27feb149cf52822119ea05ae8db4c8b4 inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3caf365010212c704e6c42613693b80f inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html">PerspectiveCamera</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#a3caf365010212c704e6c42613693b80f">operator=</a> (const <a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html">PerspectiveCamera</a> &amp;)=default</td></tr>
+<tr class="memdesc:a3caf365010212c704e6c42613693b80f inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">assign a copy of an existing camera  <br /></td></tr>
+<tr class="separator:a3caf365010212c704e6c42613693b80f inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa18bc5642788b58913f301a2b326626a inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top"><a id="aa18bc5642788b58913f301a2b326626a" name="aa18bc5642788b58913f301a2b326626a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>PerspectiveCamera</b> (<a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html">PerspectiveCamera</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:aa18bc5642788b58913f301a2b326626a inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a camera by moving ane existing camera object <br /></td></tr>
+<tr class="separator:aa18bc5642788b58913f301a2b326626a inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbedda91856f9ed1be1f40f83baa3cec inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html">PerspectiveCamera</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#adbedda91856f9ed1be1f40f83baa3cec">operator=</a> (<a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html">PerspectiveCamera</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:adbedda91856f9ed1be1f40f83baa3cec inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">reassign an existing camera to ourselves  <br /></td></tr>
+<tr class="separator:adbedda91856f9ed1be1f40f83baa3cec inherit pro_methods_class_c_s_c_i441_1_1_perspective_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_c_s_c_i441_1_1_camera"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_c_s_c_i441_1_1_camera')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></td></tr>
 <tr class="memitem:a2b44075a51d0d334a6a8c0742e42f040 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a2b44075a51d0d334a6a8c0742e42f040" name="a2b44075a51d0d334a6a8c0742e42f040"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> ()</td></tr>
 <tr class="memdesc:a2b44075a51d0d334a6a8c0742e42f040 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a default camera at the origin, looking down the negative Z axis oriented with the world coordinate system <br /></td></tr>
 <tr class="separator:a2b44075a51d0d334a6a8c0742e42f040 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf5eb1328dde3203b094e644219851d1 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="abf5eb1328dde3203b094e644219851d1" name="abf5eb1328dde3203b094e644219851d1"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> (const <a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;)=default</td></tr>
+<tr class="memdesc:abf5eb1328dde3203b094e644219851d1 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a copy an existing camera <br /></td></tr>
+<tr class="separator:abf5eb1328dde3203b094e644219851d1 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ca5080ba0121f737eb8633d6d9e450 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#ab5ca5080ba0121f737eb8633d6d9e450">operator=</a> (const <a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;)=default</td></tr>
+<tr class="memdesc:ab5ca5080ba0121f737eb8633d6d9e450 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">assign a copy of an existing camera  <br /></td></tr>
+<tr class="separator:ab5ca5080ba0121f737eb8633d6d9e450 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a303137f044b8c03e0f3bd0b570af45f2 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a303137f044b8c03e0f3bd0b570af45f2" name="a303137f044b8c03e0f3bd0b570af45f2"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> (<a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:a303137f044b8c03e0f3bd0b570af45f2 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a camera by moving ane existing camera object <br /></td></tr>
+<tr class="separator:a303137f044b8c03e0f3bd0b570af45f2 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72f87ca0cb40590e88bf31966d2b22d2 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a72f87ca0cb40590e88bf31966d2b22d2">operator=</a> (<a class="el" href="class_c_s_c_i441_1_1_camera.html">Camera</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:a72f87ca0cb40590e88bf31966d2b22d2 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="mdescLeft">&#160;</td><td class="mdescRight">reassign an existing camera to ourselves  <br /></td></tr>
+<tr class="separator:a72f87ca0cb40590e88bf31966d2b22d2 inherit pro_methods_class_c_s_c_i441_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_c_s_c_i441_1_1_camera"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_c_s_c_i441_1_1_camera')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_c_s_c_i441_1_1_camera.html">CSCI441::Camera</a></td></tr>
 <tr class="memitem:a64b74b2c979a3a05afa42434c0000d42 inherit pro_attribs_class_c_s_c_i441_1_1_camera"><td class="memItemLeft" align="right" valign="top"><a id="a64b74b2c979a3a05afa42434c0000d42" name="a64b74b2c979a3a05afa42434c0000d42"></a>
 glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><b>mProjectionMatrix</b></td></tr>
@@ -319,8 +369,8 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aaeb9f7a5c9ab3a08a11687f1fd7234e2" name="aaeb9f7a5c9ab3a08a11687f1fd7234e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaeb9f7a5c9ab3a08a11687f1fd7234e2">&#9670;&#160;</a></span>moveBackward()</h2>
+<a id="ad6904e4626c4233f331b57894a929b7e" name="ad6904e4626c4233f331b57894a929b7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6904e4626c4233f331b57894a929b7e">&#9670;&#160;</a></span>moveBackward()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -338,7 +388,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -356,8 +406,8 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 
 </div>
 </div>
-<a id="a5e618322522a711de4d22ff0331e8db2" name="a5e618322522a711de4d22ff0331e8db2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e618322522a711de4d22ff0331e8db2">&#9670;&#160;</a></span>moveForward()</h2>
+<a id="ac6ea79f3ae32c51639fb10e3d7787a4b" name="ac6ea79f3ae32c51639fb10e3d7787a4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6ea79f3ae32c51639fb10e3d7787a4b">&#9670;&#160;</a></span>moveForward()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -375,7 +425,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -393,8 +443,66 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 
 </div>
 </div>
-<a id="a05be1d4f9916e124258810d8f1d2b7e4" name="a05be1d4f9916e124258810d8f1d2b7e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05be1d4f9916e124258810d8f1d2b7e4">&#9670;&#160;</a></span>recomputeOrientation()</h2>
+<a id="a8210143a646ee9c7f8555c671a4942d1" name="a8210143a646ee9c7f8555c671a4942d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8210143a646ee9c7f8555c671a4942d1">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a> &amp; CSCI441::ArcballCam::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a> &amp;&amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>reassign an existing camera to ourselves </p>
+<dl class="section return"><dt>Returns</dt><dd>our newly assigned camera </dd></dl>
+
+</div>
+</div>
+<a id="a21bd379ee8aa3a76e706b7289fb21e32" name="a21bd379ee8aa3a76e706b7289fb21e32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21bd379ee8aa3a76e706b7289fb21e32">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a> &amp; CSCI441::ArcballCam::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>assign a copy of an existing camera </p>
+<dl class="section return"><dt>Returns</dt><dd>our newly assigned camera </dd></dl>
+
+</div>
+</div>
+<a id="a200d4e0f6461b09baefc2038ad46d3f6" name="a200d4e0f6461b09baefc2038ad46d3f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a200d4e0f6461b09baefc2038ad46d3f6">&#9670;&#160;</a></span>recomputeOrientation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -411,7 +519,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

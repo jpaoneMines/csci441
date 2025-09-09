@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.12.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.13.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -140,63 +140,70 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~ShaderProgram</b>
 <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> &amp;)=delete</td></tr>
 <tr class="memdesc:a38dad34969e72280a02e46aa30a1a69c"><td class="mdescLeft">&#160;</td><td class="mdescRight">do not allow shader programs to be copied <br /></td></tr>
 <tr class="separator:a38dad34969e72280a02e46aa30a1a69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e4fc50b8fd92a023dab10d8805da666"><td class="memItemLeft" align="right" valign="top"><a id="a2e4fc50b8fd92a023dab10d8805da666" name="a2e4fc50b8fd92a023dab10d8805da666"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ShaderProgram</b> (<a class="el" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> &amp;&amp;) noexcept</td></tr>
+<tr class="memdesc:a2e4fc50b8fd92a023dab10d8805da666"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a shader program by moving another shader program <br /></td></tr>
+<tr class="separator:a2e4fc50b8fd92a023dab10d8805da666"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae257698bb3964ec0b0ebc745d3791115"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ae257698bb3964ec0b0ebc745d3791115">operator=</a> (<a class="el" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> &amp;&amp;) noexcept</td></tr>
+<tr class="memdesc:ae257698bb3964ec0b0ebc745d3791115"><td class="mdescLeft">&#160;</td><td class="mdescRight">reassign this shader program by moving another shader program  <br /></td></tr>
+<tr class="separator:ae257698bb3964ec0b0ebc745d3791115"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e5ea8711e101de4758f892ceb26ff87"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a8e5ea8711e101de4758f892ceb26ff87">writeShaderProgramBinaryToFile</a> (const char *BINARY_FILE_NAME) const final</td></tr>
 <tr class="memdesc:a8e5ea8711e101de4758f892ceb26ff87"><td class="mdescLeft">&#160;</td><td class="mdescRight">writes precompiled shader program binary to external file  <br /></td></tr>
 <tr class="separator:a8e5ea8711e101de4758f892ceb26ff87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a533dae7d70fa029f06ee95d50e94eee9"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a533dae7d70fa029f06ee95d50e94eee9">getUniformLocation</a> (const char *uniformName) const final</td></tr>
-<tr class="memdesc:a533dae7d70fa029f06ee95d50e94eee9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the location of the given uniform in this shader program.  <br /></td></tr>
-<tr class="separator:a533dae7d70fa029f06ee95d50e94eee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3c5fe8411f02d54a2a496393978471a"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ae3c5fe8411f02d54a2a496393978471a">getUniformBlockIndex</a> (const char *uniformBlockName) const final</td></tr>
-<tr class="memdesc:ae3c5fe8411f02d54a2a496393978471a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the given uniform block in this shader program.  <br /></td></tr>
-<tr class="separator:ae3c5fe8411f02d54a2a496393978471a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc808f46f482fe92f4a399ed7bd49931"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#adc808f46f482fe92f4a399ed7bd49931">getUniformBlockSize</a> (const char *uniformBlockName) const final</td></tr>
-<tr class="memdesc:adc808f46f482fe92f4a399ed7bd49931"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the given uniform block in this shader program.  <br /></td></tr>
-<tr class="separator:adc808f46f482fe92f4a399ed7bd49931"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4066cc20116df67638aa15ff01614cd3"><td class="memItemLeft" align="right" valign="top">virtual GLubyte *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a4066cc20116df67638aa15ff01614cd3">getUniformBlockBuffer</a> (const char *uniformBlockName) const final</td></tr>
-<tr class="memdesc:a4066cc20116df67638aa15ff01614cd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an allocated buffer for the given uniform block in this shader program.  <br /></td></tr>
-<tr class="separator:a4066cc20116df67638aa15ff01614cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae30d71a953879110473d2410a509ebb7"><td class="memItemLeft" align="right" valign="top">virtual GLint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ae30d71a953879110473d2410a509ebb7">getUniformBlockOffsets</a> (const char *uniformBlockName) const final</td></tr>
-<tr class="memdesc:ae30d71a953879110473d2410a509ebb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an array of offsets into the buffer for the given uniform block in this shader program.  <br /></td></tr>
-<tr class="separator:ae30d71a953879110473d2410a509ebb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c6be779314a8a50d4024b7944d1cb71"><td class="memItemLeft" align="right" valign="top">virtual GLint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a9c6be779314a8a50d4024b7944d1cb71">getUniformBlockOffsets</a> (const char *uniformBlockName, const char *names[]) const final</td></tr>
-<tr class="memdesc:a9c6be779314a8a50d4024b7944d1cb71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an array of offsets into the buffer for the given uniform block and names in this shader program.  <br /></td></tr>
-<tr class="separator:a9c6be779314a8a50d4024b7944d1cb71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af73c70088a3afda90579a491abcc070c"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#af73c70088a3afda90579a491abcc070c">getUniformLocation</a> (const GLchar *uniformName) const final</td></tr>
+<tr class="memdesc:af73c70088a3afda90579a491abcc070c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the location of the given uniform in this shader program.  <br /></td></tr>
+<tr class="separator:af73c70088a3afda90579a491abcc070c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fca544d2a015c98ee7eb951b252be92"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a2fca544d2a015c98ee7eb951b252be92">getUniformBlockIndex</a> (const GLchar *uniformBlockName) const final</td></tr>
+<tr class="memdesc:a2fca544d2a015c98ee7eb951b252be92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the given uniform block in this shader program.  <br /></td></tr>
+<tr class="separator:a2fca544d2a015c98ee7eb951b252be92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cfc07521a38e0ef5a900f81a87de9f4"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a9cfc07521a38e0ef5a900f81a87de9f4">getUniformBlockSize</a> (const GLchar *uniformBlockName) const final</td></tr>
+<tr class="memdesc:a9cfc07521a38e0ef5a900f81a87de9f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the given uniform block in this shader program.  <br /></td></tr>
+<tr class="separator:a9cfc07521a38e0ef5a900f81a87de9f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a122061f4ecfe5d648b2c1125a52391e0"><td class="memItemLeft" align="right" valign="top">virtual GLubyte *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a122061f4ecfe5d648b2c1125a52391e0">getUniformBlockBuffer</a> (const GLchar *uniformBlockName) const final</td></tr>
+<tr class="memdesc:a122061f4ecfe5d648b2c1125a52391e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an allocated buffer for the given uniform block in this shader program.  <br /></td></tr>
+<tr class="separator:a122061f4ecfe5d648b2c1125a52391e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bf91ace4801770235a4b8ba011eaebb"><td class="memItemLeft" align="right" valign="top">virtual GLint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a0bf91ace4801770235a4b8ba011eaebb">getUniformBlockOffsets</a> (const GLchar *uniformBlockName) const final</td></tr>
+<tr class="memdesc:a0bf91ace4801770235a4b8ba011eaebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an array of offsets into the buffer for the given uniform block in this shader program.  <br /></td></tr>
+<tr class="separator:a0bf91ace4801770235a4b8ba011eaebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5003271cdbea89f224b31024e6294b4f"><td class="memItemLeft" align="right" valign="top">virtual GLint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a5003271cdbea89f224b31024e6294b4f">getUniformBlockOffsets</a> (const GLchar *uniformBlockName, const GLchar *names[]) const final</td></tr>
+<tr class="memdesc:a5003271cdbea89f224b31024e6294b4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an array of offsets into the buffer for the given uniform block and names in this shader program.  <br /></td></tr>
+<tr class="separator:a5003271cdbea89f224b31024e6294b4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4811da30fde9be8f261393293bce5e21"><td class="memItemLeft" align="right" valign="top">virtual GLint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a4811da30fde9be8f261393293bce5e21">getUniformBlockOffsets</a> (GLint uniformBlockIndex) const final</td></tr>
 <tr class="memdesc:a4811da30fde9be8f261393293bce5e21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an array of offsets into the buffer for the given uniform block in this shader program.  <br /></td></tr>
 <tr class="separator:a4811da30fde9be8f261393293bce5e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d4aad784eff879476ddb888211ddcfc"><td class="memItemLeft" align="right" valign="top">virtual GLint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a1d4aad784eff879476ddb888211ddcfc">getUniformBlockOffsets</a> (GLint uniformBlockIndex, const char *names[]) const final</td></tr>
-<tr class="memdesc:a1d4aad784eff879476ddb888211ddcfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an array of offsets into the buffer for the given uniform block and names in this shader program.  <br /></td></tr>
-<tr class="separator:a1d4aad784eff879476ddb888211ddcfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad76137c2a29f62a35e074b8ba8db9ff9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ad76137c2a29f62a35e074b8ba8db9ff9">setUniformBlockBinding</a> (const char *uniformBlockName, GLuint binding) const final</td></tr>
-<tr class="memdesc:ad76137c2a29f62a35e074b8ba8db9ff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the binding point for the given uniform block in this shader program.  <br /></td></tr>
-<tr class="separator:ad76137c2a29f62a35e074b8ba8db9ff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7eb99d0c8bf0cb0d92947759c750e24e"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a7eb99d0c8bf0cb0d92947759c750e24e">getAttributeLocation</a> (const char *attributeName) const final</td></tr>
-<tr class="memdesc:a7eb99d0c8bf0cb0d92947759c750e24e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the location of the given attribute in this shader program.  <br /></td></tr>
-<tr class="separator:a7eb99d0c8bf0cb0d92947759c750e24e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72cd2e475b77ed3c99ee3f7355f988a3"><td class="memItemLeft" align="right" valign="top">virtual GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a72cd2e475b77ed3c99ee3f7355f988a3">getSubroutineIndex</a> (GLenum shaderStage, const char *subroutineName) const final</td></tr>
-<tr class="memdesc:a72cd2e475b77ed3c99ee3f7355f988a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the given subroutine for a shader stage in this shader program.  <br /></td></tr>
-<tr class="separator:a72cd2e475b77ed3c99ee3f7355f988a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aceff7ae9a54a61f0969679254e0ab0f4"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aceff7ae9a54a61f0969679254e0ab0f4">getSubroutineUniformLocation</a> (GLenum shaderStage, const char *subroutineName) const final</td></tr>
-<tr class="memdesc:aceff7ae9a54a61f0969679254e0ab0f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the uniform location within the subroutine array for a given subroutine.  <br /></td></tr>
-<tr class="separator:aceff7ae9a54a61f0969679254e0ab0f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ac4d38ad01dd0d73ba41f8da8497f5c"><td class="memItemLeft" align="right" valign="top">virtual GLint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a1ac4d38ad01dd0d73ba41f8da8497f5c">getUniformBlockOffsets</a> (GLint uniformBlockIndex, const GLchar *names[]) const final</td></tr>
+<tr class="memdesc:a1ac4d38ad01dd0d73ba41f8da8497f5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an array of offsets into the buffer for the given uniform block and names in this shader program.  <br /></td></tr>
+<tr class="separator:a1ac4d38ad01dd0d73ba41f8da8497f5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24d0f02d2773c1a212140ddf21247f8d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a24d0f02d2773c1a212140ddf21247f8d">setUniformBlockBinding</a> (const GLchar *uniformBlockName, GLuint binding) const final</td></tr>
+<tr class="memdesc:a24d0f02d2773c1a212140ddf21247f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the binding point for the given uniform block in this shader program.  <br /></td></tr>
+<tr class="separator:a24d0f02d2773c1a212140ddf21247f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18ffa11c79e51bacdbc913ff8c89e668"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a18ffa11c79e51bacdbc913ff8c89e668">getAttributeLocation</a> (const GLchar *attributeName) const final</td></tr>
+<tr class="memdesc:a18ffa11c79e51bacdbc913ff8c89e668"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the location of the given attribute in this shader program.  <br /></td></tr>
+<tr class="separator:a18ffa11c79e51bacdbc913ff8c89e668"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8552f8aa55c8a8ad6d51f03a0f7f125f"><td class="memItemLeft" align="right" valign="top">virtual GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a8552f8aa55c8a8ad6d51f03a0f7f125f">getSubroutineIndex</a> (GLenum shaderStage, const GLchar *subroutineName) const final</td></tr>
+<tr class="memdesc:a8552f8aa55c8a8ad6d51f03a0f7f125f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the given subroutine for a shader stage in this shader program.  <br /></td></tr>
+<tr class="separator:a8552f8aa55c8a8ad6d51f03a0f7f125f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a494fde2833ef8138043a65156d583e68"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a494fde2833ef8138043a65156d583e68">getSubroutineUniformLocation</a> (GLenum shaderStage, const GLchar *subroutineName) const final</td></tr>
+<tr class="memdesc:a494fde2833ef8138043a65156d583e68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the uniform location within the subroutine array for a given subroutine.  <br /></td></tr>
+<tr class="separator:a494fde2833ef8138043a65156d583e68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88d20d8cdd9568c72d2fa58feeabf0e1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a88d20d8cdd9568c72d2fa58feeabf0e1">setSubroutineIndices</a> (GLenum shaderStage, GLsizei numIndices, const GLuint *indices) final</td></tr>
 <tr class="memdesc:a88d20d8cdd9568c72d2fa58feeabf0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the subroutines to use for a given shader stage.  <br /></td></tr>
 <tr class="separator:a88d20d8cdd9568c72d2fa58feeabf0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a452fc14cffbe81af4822a0a63da1613d"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a452fc14cffbe81af4822a0a63da1613d">getImageBinding</a> (const char *imageName) const final</td></tr>
-<tr class="memdesc:a452fc14cffbe81af4822a0a63da1613d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the binding point for the corresponding image uniform.  <br /></td></tr>
-<tr class="separator:a452fc14cffbe81af4822a0a63da1613d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd4f07a0ec1b5b29a650ec93d35ecd88"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#afd4f07a0ec1b5b29a650ec93d35ecd88">getShaderStorageBlockBinding</a> (const char *ssboName) const final</td></tr>
-<tr class="memdesc:afd4f07a0ec1b5b29a650ec93d35ecd88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the binding point for the corresponding shader storage block.  <br /></td></tr>
-<tr class="separator:afd4f07a0ec1b5b29a650ec93d35ecd88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17a00efea1627d56b2ca465f830a6152"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a17a00efea1627d56b2ca465f830a6152">getAtomicCounterBufferBinding</a> (const char *atomicName) const final</td></tr>
-<tr class="memdesc:a17a00efea1627d56b2ca465f830a6152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the binding point for the corresponding atomic counter buffer.  <br /></td></tr>
-<tr class="separator:a17a00efea1627d56b2ca465f830a6152"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09a45fd8ef2d0ed05c31d5403d5b6cb5"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a09a45fd8ef2d0ed05c31d5403d5b6cb5">getAtomicCounterBufferOffset</a> (const char *atomicName) const final</td></tr>
-<tr class="memdesc:a09a45fd8ef2d0ed05c31d5403d5b6cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the offset into the buffer for the corresponding atomic counter buffer.  <br /></td></tr>
-<tr class="separator:a09a45fd8ef2d0ed05c31d5403d5b6cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8081736218d659bee1c54a9ec2ec64f"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aa8081736218d659bee1c54a9ec2ec64f">getAtomicCounterBufferSize</a> (const char *atomicName) const final</td></tr>
-<tr class="memdesc:aa8081736218d659bee1c54a9ec2ec64f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the full buffer size for the corresponding atomic counter buffer.  <br /></td></tr>
-<tr class="separator:aa8081736218d659bee1c54a9ec2ec64f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c1634ee5aa37a3cd62bddc7a62db0c7"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a5c1634ee5aa37a3cd62bddc7a62db0c7">getImageBinding</a> (const GLchar *imageName) const final</td></tr>
+<tr class="memdesc:a5c1634ee5aa37a3cd62bddc7a62db0c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the binding point for the corresponding image uniform.  <br /></td></tr>
+<tr class="separator:a5c1634ee5aa37a3cd62bddc7a62db0c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ca721175059d89169132047afebc205"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a8ca721175059d89169132047afebc205">getShaderStorageBlockBinding</a> (const GLchar *ssboName) const final</td></tr>
+<tr class="memdesc:a8ca721175059d89169132047afebc205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the binding point for the corresponding shader storage block.  <br /></td></tr>
+<tr class="separator:a8ca721175059d89169132047afebc205"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e124f78c19adee2a3690cc4ad76a4dd"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a7e124f78c19adee2a3690cc4ad76a4dd">getAtomicCounterBufferBinding</a> (const GLchar *atomicName) const final</td></tr>
+<tr class="memdesc:a7e124f78c19adee2a3690cc4ad76a4dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the binding point for the corresponding atomic counter buffer.  <br /></td></tr>
+<tr class="separator:a7e124f78c19adee2a3690cc4ad76a4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a368a34ecd12a8453828e6261cbe54c1f"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a368a34ecd12a8453828e6261cbe54c1f">getAtomicCounterBufferOffset</a> (const GLchar *atomicName) const final</td></tr>
+<tr class="memdesc:a368a34ecd12a8453828e6261cbe54c1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the offset into the buffer for the corresponding atomic counter buffer.  <br /></td></tr>
+<tr class="separator:a368a34ecd12a8453828e6261cbe54c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbcf2b7b8f6fa7262a0af57ced0e8803"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#afbcf2b7b8f6fa7262a0af57ced0e8803">getAtomicCounterBufferSize</a> (const GLchar *atomicName) const final</td></tr>
+<tr class="memdesc:afbcf2b7b8f6fa7262a0af57ced0e8803"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the full buffer size for the corresponding atomic counter buffer.  <br /></td></tr>
+<tr class="separator:afbcf2b7b8f6fa7262a0af57ced0e8803"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c49103697d7142fe12cfdeb9e19da8f"><td class="memItemLeft" align="right" valign="top">virtual GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a3c49103697d7142fe12cfdeb9e19da8f">getNumUniforms</a> () const final</td></tr>
 <tr class="memdesc:a3c49103697d7142fe12cfdeb9e19da8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of active uniforms in this shader program.  <br /></td></tr>
 <tr class="separator:a3c49103697d7142fe12cfdeb9e19da8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,105 +220,105 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~ShaderProgram</b>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>useProgram</b> () const final</td></tr>
 <tr class="memdesc:a2145012fa06c678521886f904645b229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Shader Program to be active. <br /></td></tr>
 <tr class="separator:a2145012fa06c678521886f904645b229"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acea4d6f1e8d3f808d56c8f969e07dbce"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#acea4d6f1e8d3f808d56c8f969e07dbce">setProgramUniform</a> (const char *uniformName, GLfloat v0) const final</td></tr>
-<tr class="memdesc:acea4d6f1e8d3f808d56c8f969e07dbce"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one float  <br /></td></tr>
-<tr class="separator:acea4d6f1e8d3f808d56c8f969e07dbce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d0d611201f6fb38131762add8e73b46"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a6d0d611201f6fb38131762add8e73b46">setProgramUniform</a> (const char *uniformName, GLint v0) const final</td></tr>
-<tr class="memdesc:a6d0d611201f6fb38131762add8e73b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one integer  <br /></td></tr>
-<tr class="separator:a6d0d611201f6fb38131762add8e73b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc804ec9ffbc288fb5582a51e6d322b2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#afc804ec9ffbc288fb5582a51e6d322b2">setProgramUniform</a> (const char *uniformName, GLuint v0) const final</td></tr>
-<tr class="memdesc:afc804ec9ffbc288fb5582a51e6d322b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one unsigned integer  <br /></td></tr>
-<tr class="separator:afc804ec9ffbc288fb5582a51e6d322b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a757c3b8b4ec09244429af1945fd71491"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a757c3b8b4ec09244429af1945fd71491">setProgramUniform</a> (const char *uniformName, glm::mat2 mtx) const final</td></tr>
-<tr class="memdesc:a757c3b8b4ec09244429af1945fd71491"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 2x2 matrix  <br /></td></tr>
-<tr class="separator:a757c3b8b4ec09244429af1945fd71491"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa66cbf9b90ede5dc8abdfbdc385264d0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aa66cbf9b90ede5dc8abdfbdc385264d0">setProgramUniform</a> (const char *uniformName, glm::mat3 mtx) const final</td></tr>
-<tr class="memdesc:aa66cbf9b90ede5dc8abdfbdc385264d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 3x3 matrix  <br /></td></tr>
-<tr class="separator:aa66cbf9b90ede5dc8abdfbdc385264d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1051a78d0d21885c524d9729416fb1d8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a1051a78d0d21885c524d9729416fb1d8">setProgramUniform</a> (const char *uniformName, glm::mat4 mtx) const final</td></tr>
-<tr class="memdesc:a1051a78d0d21885c524d9729416fb1d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 4x4 matrix  <br /></td></tr>
-<tr class="separator:a1051a78d0d21885c524d9729416fb1d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cad48e13fdf3f28d36226d2eac548c8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a7cad48e13fdf3f28d36226d2eac548c8">setProgramUniform</a> (const char *uniformName, glm::mat2x3 mtx) const final</td></tr>
-<tr class="memdesc:a7cad48e13fdf3f28d36226d2eac548c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 2x3 matrix  <br /></td></tr>
-<tr class="separator:a7cad48e13fdf3f28d36226d2eac548c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85c4ba30447807c0d139717effe32676"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a85c4ba30447807c0d139717effe32676">setProgramUniform</a> (const char *uniformName, glm::mat3x2 mtx) const final</td></tr>
-<tr class="memdesc:a85c4ba30447807c0d139717effe32676"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 3x2 matrix  <br /></td></tr>
-<tr class="separator:a85c4ba30447807c0d139717effe32676"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecdb85a12607e478d8285327a5c53496"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aecdb85a12607e478d8285327a5c53496">setProgramUniform</a> (const char *uniformName, glm::mat2x4 mtx) const final</td></tr>
-<tr class="memdesc:aecdb85a12607e478d8285327a5c53496"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 2x4 matrix  <br /></td></tr>
-<tr class="separator:aecdb85a12607e478d8285327a5c53496"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1362f027eb4892fdc91cde0997a396b8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a1362f027eb4892fdc91cde0997a396b8">setProgramUniform</a> (const char *uniformName, glm::mat4x2 mtx) const final</td></tr>
-<tr class="memdesc:a1362f027eb4892fdc91cde0997a396b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 4x2 matrix  <br /></td></tr>
-<tr class="separator:a1362f027eb4892fdc91cde0997a396b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae99f4f152057d390c1ecfb21790dd6c4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ae99f4f152057d390c1ecfb21790dd6c4">setProgramUniform</a> (const char *uniformName, glm::mat3x4 mtx) const final</td></tr>
-<tr class="memdesc:ae99f4f152057d390c1ecfb21790dd6c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 3x4 matrix  <br /></td></tr>
-<tr class="separator:ae99f4f152057d390c1ecfb21790dd6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6522dc9244d5b71933ddd052c938a28b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a6522dc9244d5b71933ddd052c938a28b">setProgramUniform</a> (const char *uniformName, glm::mat4x3 mtx) const final</td></tr>
-<tr class="memdesc:a6522dc9244d5b71933ddd052c938a28b"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 4x3 matrix  <br /></td></tr>
-<tr class="separator:a6522dc9244d5b71933ddd052c938a28b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a046fdd4a4ad0cb84740bb0319b2440a7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a046fdd4a4ad0cb84740bb0319b2440a7">setProgramUniform</a> (const char *uniformName, GLfloat v0, GLfloat v1) const final</td></tr>
-<tr class="memdesc:a046fdd4a4ad0cb84740bb0319b2440a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two floats  <br /></td></tr>
-<tr class="separator:a046fdd4a4ad0cb84740bb0319b2440a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fa782ee938995c20e809af7852deec5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a0fa782ee938995c20e809af7852deec5">setProgramUniform</a> (const char *uniformName, GLint v0, GLint v1) const final</td></tr>
-<tr class="memdesc:a0fa782ee938995c20e809af7852deec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two integers  <br /></td></tr>
-<tr class="separator:a0fa782ee938995c20e809af7852deec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add01357277278de15d6bea5b49f043a4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#add01357277278de15d6bea5b49f043a4">setProgramUniform</a> (const char *uniformName, GLuint v0, GLuint v1) const final</td></tr>
-<tr class="memdesc:add01357277278de15d6bea5b49f043a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two unsigned integers  <br /></td></tr>
-<tr class="separator:add01357277278de15d6bea5b49f043a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a849f727e9434cd54bd1657344241d6f5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a849f727e9434cd54bd1657344241d6f5">setProgramUniform</a> (const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2) const final</td></tr>
-<tr class="memdesc:a849f727e9434cd54bd1657344241d6f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three floats  <br /></td></tr>
-<tr class="separator:a849f727e9434cd54bd1657344241d6f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab278c99e7c6cf174c1a9ced602c4a3dd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ab278c99e7c6cf174c1a9ced602c4a3dd">setProgramUniform</a> (const char *uniformName, GLint v0, GLint v1, GLint v2) const final</td></tr>
-<tr class="memdesc:ab278c99e7c6cf174c1a9ced602c4a3dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three integers  <br /></td></tr>
-<tr class="separator:ab278c99e7c6cf174c1a9ced602c4a3dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbd3a787f3af5293838c218526c2f2ee"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#afbd3a787f3af5293838c218526c2f2ee">setProgramUniform</a> (const char *uniformName, GLuint v0, GLuint v1, GLuint v2) const final</td></tr>
-<tr class="memdesc:afbd3a787f3af5293838c218526c2f2ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three unsigned integers  <br /></td></tr>
-<tr class="separator:afbd3a787f3af5293838c218526c2f2ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96ca0b839081fd6ba2b993ac5befd2d0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a96ca0b839081fd6ba2b993ac5befd2d0">setProgramUniform</a> (const char *uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const final</td></tr>
-<tr class="memdesc:a96ca0b839081fd6ba2b993ac5befd2d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four floats  <br /></td></tr>
-<tr class="separator:a96ca0b839081fd6ba2b993ac5befd2d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc8fd603526fc03b1aa435deff0b18ad"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#abc8fd603526fc03b1aa435deff0b18ad">setProgramUniform</a> (const char *uniformName, GLint v0, GLint v1, GLint v2, GLint v3) const final</td></tr>
-<tr class="memdesc:abc8fd603526fc03b1aa435deff0b18ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four integers  <br /></td></tr>
-<tr class="separator:abc8fd603526fc03b1aa435deff0b18ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf56c2138fdc34edf287c6e620ac5f5f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#abf56c2138fdc34edf287c6e620ac5f5f">setProgramUniform</a> (const char *uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3) const final</td></tr>
-<tr class="memdesc:abf56c2138fdc34edf287c6e620ac5f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four unsigned integers  <br /></td></tr>
-<tr class="separator:abf56c2138fdc34edf287c6e620ac5f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c7486808ef860ac599eeb2b88e2d56a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a3c7486808ef860ac599eeb2b88e2d56a">setProgramUniform</a> (const char *uniformName, glm::vec2 value) const final</td></tr>
-<tr class="memdesc:a3c7486808ef860ac599eeb2b88e2d56a"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two floats  <br /></td></tr>
-<tr class="separator:a3c7486808ef860ac599eeb2b88e2d56a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef2ba1f953f8ac09585b73ca4dba8ce8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aef2ba1f953f8ac09585b73ca4dba8ce8">setProgramUniform</a> (const char *uniformName, glm::ivec2 value) const final</td></tr>
-<tr class="memdesc:aef2ba1f953f8ac09585b73ca4dba8ce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two integers  <br /></td></tr>
-<tr class="separator:aef2ba1f953f8ac09585b73ca4dba8ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae049b5207cef2bc52d645831f23afda7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ae049b5207cef2bc52d645831f23afda7">setProgramUniform</a> (const char *uniformName, glm::uvec2 value) const final</td></tr>
-<tr class="memdesc:ae049b5207cef2bc52d645831f23afda7"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two unsigned integers  <br /></td></tr>
-<tr class="separator:ae049b5207cef2bc52d645831f23afda7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada0561fc170c4c883ef9b59594d90cd1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ada0561fc170c4c883ef9b59594d90cd1">setProgramUniform</a> (const char *uniformName, glm::vec3 value) const final</td></tr>
-<tr class="memdesc:ada0561fc170c4c883ef9b59594d90cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three floats  <br /></td></tr>
-<tr class="separator:ada0561fc170c4c883ef9b59594d90cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c966d5d6b2fedd1899e9b1fe98749a9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a3c966d5d6b2fedd1899e9b1fe98749a9">setProgramUniform</a> (const char *uniformName, glm::ivec3 value) const final</td></tr>
-<tr class="memdesc:a3c966d5d6b2fedd1899e9b1fe98749a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three integers  <br /></td></tr>
-<tr class="separator:a3c966d5d6b2fedd1899e9b1fe98749a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44cb969fff27b66f7b73ffc6d40b164b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a44cb969fff27b66f7b73ffc6d40b164b">setProgramUniform</a> (const char *uniformName, glm::uvec3 value) const final</td></tr>
-<tr class="memdesc:a44cb969fff27b66f7b73ffc6d40b164b"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three unsigned integers  <br /></td></tr>
-<tr class="separator:a44cb969fff27b66f7b73ffc6d40b164b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a651134bb63f710a162733bd3b7feefe4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a651134bb63f710a162733bd3b7feefe4">setProgramUniform</a> (const char *uniformName, glm::vec4 value) const final</td></tr>
-<tr class="memdesc:a651134bb63f710a162733bd3b7feefe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four floats  <br /></td></tr>
-<tr class="separator:a651134bb63f710a162733bd3b7feefe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d127bf6c03c058b62a50e8a2115e665"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a8d127bf6c03c058b62a50e8a2115e665">setProgramUniform</a> (const char *uniformName, glm::ivec4 value) const final</td></tr>
-<tr class="memdesc:a8d127bf6c03c058b62a50e8a2115e665"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four integers  <br /></td></tr>
-<tr class="separator:a8d127bf6c03c058b62a50e8a2115e665"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd49dc7e07a42c12978ec02e94d9907f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#abd49dc7e07a42c12978ec02e94d9907f">setProgramUniform</a> (const char *uniformName, glm::uvec4 value) const final</td></tr>
-<tr class="memdesc:abd49dc7e07a42c12978ec02e94d9907f"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four unsigned integers  <br /></td></tr>
-<tr class="separator:abd49dc7e07a42c12978ec02e94d9907f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4eece25f0d79c2f64d4866d7a2eba34a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a4eece25f0d79c2f64d4866d7a2eba34a">setProgramUniform</a> (const char *uniformName, GLuint dim, GLsizei count, const GLfloat *value) const final</td></tr>
-<tr class="memdesc:a4eece25f0d79c2f64d4866d7a2eba34a"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of floats  <br /></td></tr>
-<tr class="separator:a4eece25f0d79c2f64d4866d7a2eba34a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af67c5debb0419ec8a35c72bd9057150c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#af67c5debb0419ec8a35c72bd9057150c">setProgramUniform</a> (const char *uniformName, GLuint dim, GLsizei count, const GLint *value) const final</td></tr>
-<tr class="memdesc:af67c5debb0419ec8a35c72bd9057150c"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of integers  <br /></td></tr>
-<tr class="separator:af67c5debb0419ec8a35c72bd9057150c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad46985eb7561276bfdd53e6bc3211020"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ad46985eb7561276bfdd53e6bc3211020">setProgramUniform</a> (const char *uniformName, GLuint dim, GLsizei count, const GLuint *value) const final</td></tr>
-<tr class="memdesc:ad46985eb7561276bfdd53e6bc3211020"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of unsigned integers  <br /></td></tr>
-<tr class="separator:ad46985eb7561276bfdd53e6bc3211020"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14c79ae77ecbadca91a43854752c6aef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a14c79ae77ecbadca91a43854752c6aef">setProgramUniform</a> (const GLchar *uniformName, GLfloat v0) const final</td></tr>
+<tr class="memdesc:a14c79ae77ecbadca91a43854752c6aef"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one float  <br /></td></tr>
+<tr class="separator:a14c79ae77ecbadca91a43854752c6aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa542a7ea780024c5ff58cd3ac7e3ab4d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aa542a7ea780024c5ff58cd3ac7e3ab4d">setProgramUniform</a> (const GLchar *uniformName, GLint v0) const final</td></tr>
+<tr class="memdesc:aa542a7ea780024c5ff58cd3ac7e3ab4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one integer  <br /></td></tr>
+<tr class="separator:aa542a7ea780024c5ff58cd3ac7e3ab4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a413cb5e97c06d27c0ac5d3ce2b8323a4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a413cb5e97c06d27c0ac5d3ce2b8323a4">setProgramUniform</a> (const GLchar *uniformName, GLuint v0) const final</td></tr>
+<tr class="memdesc:a413cb5e97c06d27c0ac5d3ce2b8323a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one unsigned integer  <br /></td></tr>
+<tr class="separator:a413cb5e97c06d27c0ac5d3ce2b8323a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad778be4ca2d5c28e930a77881944f754"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ad778be4ca2d5c28e930a77881944f754">setProgramUniform</a> (const GLchar *uniformName, glm::mat2 mtx) const final</td></tr>
+<tr class="memdesc:ad778be4ca2d5c28e930a77881944f754"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 2x2 matrix  <br /></td></tr>
+<tr class="separator:ad778be4ca2d5c28e930a77881944f754"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f6533f3658a40aa3b2f42bd2ab046c6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a8f6533f3658a40aa3b2f42bd2ab046c6">setProgramUniform</a> (const GLchar *uniformName, glm::mat3 mtx) const final</td></tr>
+<tr class="memdesc:a8f6533f3658a40aa3b2f42bd2ab046c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 3x3 matrix  <br /></td></tr>
+<tr class="separator:a8f6533f3658a40aa3b2f42bd2ab046c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a416a55bc38e6d4490d31ceb37a08d209"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a416a55bc38e6d4490d31ceb37a08d209">setProgramUniform</a> (const GLchar *uniformName, glm::mat4 mtx) const final</td></tr>
+<tr class="memdesc:a416a55bc38e6d4490d31ceb37a08d209"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 4x4 matrix  <br /></td></tr>
+<tr class="separator:a416a55bc38e6d4490d31ceb37a08d209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19404177ab6d12b8ca2c3197583f1461"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a19404177ab6d12b8ca2c3197583f1461">setProgramUniform</a> (const GLchar *uniformName, glm::mat2x3 mtx) const final</td></tr>
+<tr class="memdesc:a19404177ab6d12b8ca2c3197583f1461"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 2x3 matrix  <br /></td></tr>
+<tr class="separator:a19404177ab6d12b8ca2c3197583f1461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2114002fb8ac6a809cfbe148a8c662b0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a2114002fb8ac6a809cfbe148a8c662b0">setProgramUniform</a> (const GLchar *uniformName, glm::mat3x2 mtx) const final</td></tr>
+<tr class="memdesc:a2114002fb8ac6a809cfbe148a8c662b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 3x2 matrix  <br /></td></tr>
+<tr class="separator:a2114002fb8ac6a809cfbe148a8c662b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af50167d8ca69fe006221b05262913668"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#af50167d8ca69fe006221b05262913668">setProgramUniform</a> (const GLchar *uniformName, glm::mat2x4 mtx) const final</td></tr>
+<tr class="memdesc:af50167d8ca69fe006221b05262913668"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 2x4 matrix  <br /></td></tr>
+<tr class="separator:af50167d8ca69fe006221b05262913668"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a864266402ccfcd81aaa6a4de42fac1f0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a864266402ccfcd81aaa6a4de42fac1f0">setProgramUniform</a> (const GLchar *uniformName, glm::mat4x2 mtx) const final</td></tr>
+<tr class="memdesc:a864266402ccfcd81aaa6a4de42fac1f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 4x2 matrix  <br /></td></tr>
+<tr class="separator:a864266402ccfcd81aaa6a4de42fac1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef3f1044338d67ba990b12cf7ec969c0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aef3f1044338d67ba990b12cf7ec969c0">setProgramUniform</a> (const GLchar *uniformName, glm::mat3x4 mtx) const final</td></tr>
+<tr class="memdesc:aef3f1044338d67ba990b12cf7ec969c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 3x4 matrix  <br /></td></tr>
+<tr class="separator:aef3f1044338d67ba990b12cf7ec969c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36747b00908a158bfcd321fb545a3381"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a36747b00908a158bfcd321fb545a3381">setProgramUniform</a> (const GLchar *uniformName, glm::mat4x3 mtx) const final</td></tr>
+<tr class="memdesc:a36747b00908a158bfcd321fb545a3381"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one 4x3 matrix  <br /></td></tr>
+<tr class="separator:a36747b00908a158bfcd321fb545a3381"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a967351bda5ecdb7eca96a78615d38129"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a967351bda5ecdb7eca96a78615d38129">setProgramUniform</a> (const GLchar *uniformName, GLfloat v0, GLfloat v1) const final</td></tr>
+<tr class="memdesc:a967351bda5ecdb7eca96a78615d38129"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two floats  <br /></td></tr>
+<tr class="separator:a967351bda5ecdb7eca96a78615d38129"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fca35e8a40cf0173c811c98d04e1b5c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a6fca35e8a40cf0173c811c98d04e1b5c">setProgramUniform</a> (const GLchar *uniformName, GLint v0, GLint v1) const final</td></tr>
+<tr class="memdesc:a6fca35e8a40cf0173c811c98d04e1b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two integers  <br /></td></tr>
+<tr class="separator:a6fca35e8a40cf0173c811c98d04e1b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7c80ff5655d491e28deb682baa0f2f0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ab7c80ff5655d491e28deb682baa0f2f0">setProgramUniform</a> (const GLchar *uniformName, GLuint v0, GLuint v1) const final</td></tr>
+<tr class="memdesc:ab7c80ff5655d491e28deb682baa0f2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two unsigned integers  <br /></td></tr>
+<tr class="separator:ab7c80ff5655d491e28deb682baa0f2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1afb230cf1d566e01e159f4deca80a7a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a1afb230cf1d566e01e159f4deca80a7a">setProgramUniform</a> (const GLchar *uniformName, GLfloat v0, GLfloat v1, GLfloat v2) const final</td></tr>
+<tr class="memdesc:a1afb230cf1d566e01e159f4deca80a7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three floats  <br /></td></tr>
+<tr class="separator:a1afb230cf1d566e01e159f4deca80a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9262ab5fca78df3a12dea4b8b0e55d13"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a9262ab5fca78df3a12dea4b8b0e55d13">setProgramUniform</a> (const GLchar *uniformName, GLint v0, GLint v1, GLint v2) const final</td></tr>
+<tr class="memdesc:a9262ab5fca78df3a12dea4b8b0e55d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three integers  <br /></td></tr>
+<tr class="separator:a9262ab5fca78df3a12dea4b8b0e55d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63d862c2f2dd29553e0fa5a185ae0424"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a63d862c2f2dd29553e0fa5a185ae0424">setProgramUniform</a> (const GLchar *uniformName, GLuint v0, GLuint v1, GLuint v2) const final</td></tr>
+<tr class="memdesc:a63d862c2f2dd29553e0fa5a185ae0424"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three unsigned integers  <br /></td></tr>
+<tr class="separator:a63d862c2f2dd29553e0fa5a185ae0424"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade3b69fbcdbf33c9298dac2c0223473d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ade3b69fbcdbf33c9298dac2c0223473d">setProgramUniform</a> (const GLchar *uniformName, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) const final</td></tr>
+<tr class="memdesc:ade3b69fbcdbf33c9298dac2c0223473d"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four floats  <br /></td></tr>
+<tr class="separator:ade3b69fbcdbf33c9298dac2c0223473d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a6b177192f3b33b4d8813e5354460d1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a2a6b177192f3b33b4d8813e5354460d1">setProgramUniform</a> (const GLchar *uniformName, GLint v0, GLint v1, GLint v2, GLint v3) const final</td></tr>
+<tr class="memdesc:a2a6b177192f3b33b4d8813e5354460d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four integers  <br /></td></tr>
+<tr class="separator:a2a6b177192f3b33b4d8813e5354460d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89ae7c7e857057c1867341bb8c597109"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a89ae7c7e857057c1867341bb8c597109">setProgramUniform</a> (const GLchar *uniformName, GLuint v0, GLuint v1, GLuint v2, GLuint v3) const final</td></tr>
+<tr class="memdesc:a89ae7c7e857057c1867341bb8c597109"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four unsigned integers  <br /></td></tr>
+<tr class="separator:a89ae7c7e857057c1867341bb8c597109"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac16f5188b8883985225b4c8b88669ddf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ac16f5188b8883985225b4c8b88669ddf">setProgramUniform</a> (const GLchar *uniformName, glm::vec2 value) const final</td></tr>
+<tr class="memdesc:ac16f5188b8883985225b4c8b88669ddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two floats  <br /></td></tr>
+<tr class="separator:ac16f5188b8883985225b4c8b88669ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb32c921632efa8d3fbfaedd1c46135d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#adb32c921632efa8d3fbfaedd1c46135d">setProgramUniform</a> (const GLchar *uniformName, glm::ivec2 value) const final</td></tr>
+<tr class="memdesc:adb32c921632efa8d3fbfaedd1c46135d"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two integers  <br /></td></tr>
+<tr class="separator:adb32c921632efa8d3fbfaedd1c46135d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c46c424850d6922c87eaec3fad31aa7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a8c46c424850d6922c87eaec3fad31aa7">setProgramUniform</a> (const GLchar *uniformName, glm::uvec2 value) const final</td></tr>
+<tr class="memdesc:a8c46c424850d6922c87eaec3fad31aa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of two unsigned integers  <br /></td></tr>
+<tr class="separator:a8c46c424850d6922c87eaec3fad31aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bf96534e239f9e4605c3b55e7e502b2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a1bf96534e239f9e4605c3b55e7e502b2">setProgramUniform</a> (const GLchar *uniformName, glm::vec3 value) const final</td></tr>
+<tr class="memdesc:a1bf96534e239f9e4605c3b55e7e502b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three floats  <br /></td></tr>
+<tr class="separator:a1bf96534e239f9e4605c3b55e7e502b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ea2fb278e4351487498bef268fdef2d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a8ea2fb278e4351487498bef268fdef2d">setProgramUniform</a> (const GLchar *uniformName, glm::ivec3 value) const final</td></tr>
+<tr class="memdesc:a8ea2fb278e4351487498bef268fdef2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three integers  <br /></td></tr>
+<tr class="separator:a8ea2fb278e4351487498bef268fdef2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a8ab88eb2d9414da6e66b83ab33ee38"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a1a8ab88eb2d9414da6e66b83ab33ee38">setProgramUniform</a> (const GLchar *uniformName, glm::uvec3 value) const final</td></tr>
+<tr class="memdesc:a1a8ab88eb2d9414da6e66b83ab33ee38"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of three unsigned integers  <br /></td></tr>
+<tr class="separator:a1a8ab88eb2d9414da6e66b83ab33ee38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73afe144929eceb6413ee1be54fe827a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a73afe144929eceb6413ee1be54fe827a">setProgramUniform</a> (const GLchar *uniformName, glm::vec4 value) const final</td></tr>
+<tr class="memdesc:a73afe144929eceb6413ee1be54fe827a"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four floats  <br /></td></tr>
+<tr class="separator:a73afe144929eceb6413ee1be54fe827a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad36ea2e3990f530b6754e1f5cb595b01"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ad36ea2e3990f530b6754e1f5cb595b01">setProgramUniform</a> (const GLchar *uniformName, glm::ivec4 value) const final</td></tr>
+<tr class="memdesc:ad36ea2e3990f530b6754e1f5cb595b01"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four integers  <br /></td></tr>
+<tr class="separator:ad36ea2e3990f530b6754e1f5cb595b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77f553c51bb39128d4f08ccd98c0672c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a77f553c51bb39128d4f08ccd98c0672c">setProgramUniform</a> (const GLchar *uniformName, glm::uvec4 value) const final</td></tr>
+<tr class="memdesc:a77f553c51bb39128d4f08ccd98c0672c"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of four unsigned integers  <br /></td></tr>
+<tr class="separator:a77f553c51bb39128d4f08ccd98c0672c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c52f8734ec413b723a209b0732d0e56"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a9c52f8734ec413b723a209b0732d0e56">setProgramUniform</a> (const GLchar *uniformName, GLuint dim, GLsizei count, const GLfloat *value) const final</td></tr>
+<tr class="memdesc:a9c52f8734ec413b723a209b0732d0e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of floats  <br /></td></tr>
+<tr class="separator:a9c52f8734ec413b723a209b0732d0e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9309d64a0051531156ec6d7343ec3bb2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a9309d64a0051531156ec6d7343ec3bb2">setProgramUniform</a> (const GLchar *uniformName, GLuint dim, GLsizei count, const GLint *value) const final</td></tr>
+<tr class="memdesc:a9309d64a0051531156ec6d7343ec3bb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of integers  <br /></td></tr>
+<tr class="separator:a9309d64a0051531156ec6d7343ec3bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14c99cdf8ec3a0fbefbe8ef18cf0b22b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a14c99cdf8ec3a0fbefbe8ef18cf0b22b">setProgramUniform</a> (const GLchar *uniformName, GLuint dim, GLsizei count, const GLuint *value) const final</td></tr>
+<tr class="memdesc:a14c99cdf8ec3a0fbefbe8ef18cf0b22b"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of unsigned integers  <br /></td></tr>
+<tr class="separator:a14c99cdf8ec3a0fbefbe8ef18cf0b22b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeea55dfd28d5c2f35cd09f54dc3b3f42"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aeea55dfd28d5c2f35cd09f54dc3b3f42">setProgramUniform</a> (GLint uniformLocation, GLfloat v0) const final</td></tr>
 <tr class="memdesc:aeea55dfd28d5c2f35cd09f54dc3b3f42"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of one float  <br /></td></tr>
 <tr class="separator:aeea55dfd28d5c2f35cd09f54dc3b3f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1083,8 +1090,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a17a00efea1627d56b2ca465f830a6152" name="a17a00efea1627d56b2ca465f830a6152"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17a00efea1627d56b2ca465f830a6152">&#9670;&#160;</a></span>getAtomicCounterBufferBinding()</h2>
+<a id="a7e124f78c19adee2a3690cc4ad76a4dd" name="a7e124f78c19adee2a3690cc4ad76a4dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e124f78c19adee2a3690cc4ad76a4dd">&#9670;&#160;</a></span>getAtomicCounterBufferBinding()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1095,7 +1102,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">GLint CSCI441::ShaderProgram::getAtomicCounterBufferBinding </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>atomicName</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1119,8 +1126,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a09a45fd8ef2d0ed05c31d5403d5b6cb5" name="a09a45fd8ef2d0ed05c31d5403d5b6cb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09a45fd8ef2d0ed05c31d5403d5b6cb5">&#9670;&#160;</a></span>getAtomicCounterBufferOffset()</h2>
+<a id="a368a34ecd12a8453828e6261cbe54c1f" name="a368a34ecd12a8453828e6261cbe54c1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a368a34ecd12a8453828e6261cbe54c1f">&#9670;&#160;</a></span>getAtomicCounterBufferOffset()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1131,7 +1138,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">GLint CSCI441::ShaderProgram::getAtomicCounterBufferOffset </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>atomicName</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1155,8 +1162,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa8081736218d659bee1c54a9ec2ec64f" name="aa8081736218d659bee1c54a9ec2ec64f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8081736218d659bee1c54a9ec2ec64f">&#9670;&#160;</a></span>getAtomicCounterBufferSize()</h2>
+<a id="afbcf2b7b8f6fa7262a0af57ced0e8803" name="afbcf2b7b8f6fa7262a0af57ced0e8803"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbcf2b7b8f6fa7262a0af57ced0e8803">&#9670;&#160;</a></span>getAtomicCounterBufferSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1167,7 +1174,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">GLint CSCI441::ShaderProgram::getAtomicCounterBufferSize </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>atomicName</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1191,8 +1198,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a7eb99d0c8bf0cb0d92947759c750e24e" name="a7eb99d0c8bf0cb0d92947759c750e24e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7eb99d0c8bf0cb0d92947759c750e24e">&#9670;&#160;</a></span>getAttributeLocation()</h2>
+<a id="a18ffa11c79e51bacdbc913ff8c89e668" name="a18ffa11c79e51bacdbc913ff8c89e668"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18ffa11c79e51bacdbc913ff8c89e668">&#9670;&#160;</a></span>getAttributeLocation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1203,7 +1210,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">GLint CSCI441::ShaderProgram::getAttributeLocation </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>attributeName</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1227,8 +1234,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a452fc14cffbe81af4822a0a63da1613d" name="a452fc14cffbe81af4822a0a63da1613d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a452fc14cffbe81af4822a0a63da1613d">&#9670;&#160;</a></span>getImageBinding()</h2>
+<a id="a5c1634ee5aa37a3cd62bddc7a62db0c7" name="a5c1634ee5aa37a3cd62bddc7a62db0c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c1634ee5aa37a3cd62bddc7a62db0c7">&#9670;&#160;</a></span>getImageBinding()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1239,7 +1246,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">GLint CSCI441::ShaderProgram::getImageBinding </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>imageName</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1403,8 +1410,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afd4f07a0ec1b5b29a650ec93d35ecd88" name="afd4f07a0ec1b5b29a650ec93d35ecd88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd4f07a0ec1b5b29a650ec93d35ecd88">&#9670;&#160;</a></span>getShaderStorageBlockBinding()</h2>
+<a id="a8ca721175059d89169132047afebc205" name="a8ca721175059d89169132047afebc205"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ca721175059d89169132047afebc205">&#9670;&#160;</a></span>getShaderStorageBlockBinding()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1415,7 +1422,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">GLint CSCI441::ShaderProgram::getShaderStorageBlockBinding </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>ssboName</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1439,8 +1446,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a72cd2e475b77ed3c99ee3f7355f988a3" name="a72cd2e475b77ed3c99ee3f7355f988a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72cd2e475b77ed3c99ee3f7355f988a3">&#9670;&#160;</a></span>getSubroutineIndex()</h2>
+<a id="a8552f8aa55c8a8ad6d51f03a0f7f125f" name="a8552f8aa55c8a8ad6d51f03a0f7f125f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8552f8aa55c8a8ad6d51f03a0f7f125f">&#9670;&#160;</a></span>getSubroutineIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1457,7 +1464,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>subroutineName</em>&#160;</td>
         </tr>
         <tr>
@@ -1486,8 +1493,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aceff7ae9a54a61f0969679254e0ab0f4" name="aceff7ae9a54a61f0969679254e0ab0f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aceff7ae9a54a61f0969679254e0ab0f4">&#9670;&#160;</a></span>getSubroutineUniformLocation()</h2>
+<a id="a494fde2833ef8138043a65156d583e68" name="a494fde2833ef8138043a65156d583e68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a494fde2833ef8138043a65156d583e68">&#9670;&#160;</a></span>getSubroutineUniformLocation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1504,7 +1511,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>subroutineName</em>&#160;</td>
         </tr>
         <tr>
@@ -1533,8 +1540,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4066cc20116df67638aa15ff01614cd3" name="a4066cc20116df67638aa15ff01614cd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4066cc20116df67638aa15ff01614cd3">&#9670;&#160;</a></span>getUniformBlockBuffer()</h2>
+<a id="a122061f4ecfe5d648b2c1125a52391e0" name="a122061f4ecfe5d648b2c1125a52391e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a122061f4ecfe5d648b2c1125a52391e0">&#9670;&#160;</a></span>getUniformBlockBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1545,7 +1552,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">GLubyte * CSCI441::ShaderProgram::getUniformBlockBuffer </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformBlockName</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1569,8 +1576,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae3c5fe8411f02d54a2a496393978471a" name="ae3c5fe8411f02d54a2a496393978471a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3c5fe8411f02d54a2a496393978471a">&#9670;&#160;</a></span>getUniformBlockIndex()</h2>
+<a id="a2fca544d2a015c98ee7eb951b252be92" name="a2fca544d2a015c98ee7eb951b252be92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fca544d2a015c98ee7eb951b252be92">&#9670;&#160;</a></span>getUniformBlockIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1581,7 +1588,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">GLint CSCI441::ShaderProgram::getUniformBlockIndex </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformBlockName</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1605,8 +1612,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae30d71a953879110473d2410a509ebb7" name="ae30d71a953879110473d2410a509ebb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae30d71a953879110473d2410a509ebb7">&#9670;&#160;</a></span>getUniformBlockOffsets() <span class="overload">[1/4]</span></h2>
+<a id="a0bf91ace4801770235a4b8ba011eaebb" name="a0bf91ace4801770235a4b8ba011eaebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bf91ace4801770235a4b8ba011eaebb">&#9670;&#160;</a></span>getUniformBlockOffsets() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1617,7 +1624,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">GLint * CSCI441::ShaderProgram::getUniformBlockOffsets </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformBlockName</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1641,8 +1648,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a9c6be779314a8a50d4024b7944d1cb71" name="a9c6be779314a8a50d4024b7944d1cb71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c6be779314a8a50d4024b7944d1cb71">&#9670;&#160;</a></span>getUniformBlockOffsets() <span class="overload">[2/4]</span></h2>
+<a id="a5003271cdbea89f224b31024e6294b4f" name="a5003271cdbea89f224b31024e6294b4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5003271cdbea89f224b31024e6294b4f">&#9670;&#160;</a></span>getUniformBlockOffsets() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1651,15 +1658,15 @@ Static Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">GLint * CSCI441::ShaderProgram::getUniformBlockOffsets </td>
+          <td class="memname">virtual GLint * CSCI441::ShaderProgram::getUniformBlockOffsets </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformBlockName</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>names</em>[]&#160;</td>
         </tr>
         <tr>
@@ -1670,7 +1677,7 @@ Static Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1724,8 +1731,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a1d4aad784eff879476ddb888211ddcfc" name="a1d4aad784eff879476ddb888211ddcfc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d4aad784eff879476ddb888211ddcfc">&#9670;&#160;</a></span>getUniformBlockOffsets() <span class="overload">[4/4]</span></h2>
+<a id="a1ac4d38ad01dd0d73ba41f8da8497f5c" name="a1ac4d38ad01dd0d73ba41f8da8497f5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ac4d38ad01dd0d73ba41f8da8497f5c">&#9670;&#160;</a></span>getUniformBlockOffsets() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1734,7 +1741,7 @@ Static Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">GLint * CSCI441::ShaderProgram::getUniformBlockOffsets </td>
+          <td class="memname">virtual GLint * CSCI441::ShaderProgram::getUniformBlockOffsets </td>
           <td>(</td>
           <td class="paramtype">GLint&#160;</td>
           <td class="paramname"><em>uniformBlockIndex</em>, </td>
@@ -1742,7 +1749,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>names</em>[]&#160;</td>
         </tr>
         <tr>
@@ -1753,7 +1760,7 @@ Static Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1771,8 +1778,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="adc808f46f482fe92f4a399ed7bd49931" name="adc808f46f482fe92f4a399ed7bd49931"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc808f46f482fe92f4a399ed7bd49931">&#9670;&#160;</a></span>getUniformBlockSize()</h2>
+<a id="a9cfc07521a38e0ef5a900f81a87de9f4" name="a9cfc07521a38e0ef5a900f81a87de9f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cfc07521a38e0ef5a900f81a87de9f4">&#9670;&#160;</a></span>getUniformBlockSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1783,7 +1790,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">GLint CSCI441::ShaderProgram::getUniformBlockSize </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformBlockName</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1807,8 +1814,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a533dae7d70fa029f06ee95d50e94eee9" name="a533dae7d70fa029f06ee95d50e94eee9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a533dae7d70fa029f06ee95d50e94eee9">&#9670;&#160;</a></span>getUniformLocation()</h2>
+<a id="af73c70088a3afda90579a491abcc070c" name="af73c70088a3afda90579a491abcc070c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af73c70088a3afda90579a491abcc070c">&#9670;&#160;</a></span>getUniformLocation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1819,7 +1826,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">GLint CSCI441::ShaderProgram::getUniformLocation </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1963,8 +1970,37 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="acea4d6f1e8d3f808d56c8f969e07dbce" name="acea4d6f1e8d3f808d56c8f969e07dbce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acea4d6f1e8d3f808d56c8f969e07dbce">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[1/66]</span></h2>
+<a id="ae257698bb3964ec0b0ebc745d3791115" name="ae257698bb3964ec0b0ebc745d3791115"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae257698bb3964ec0b0ebc745d3791115">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a> &amp; CSCI441::ShaderProgram::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>reassign this shader program by moving another shader program </p>
+<dl class="section return"><dt>Returns</dt><dd>our newly assigned self </dd></dl>
+
+</div>
+</div>
+<a id="a14c79ae77ecbadca91a43854752c6aef" name="a14c79ae77ecbadca91a43854752c6aef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14c79ae77ecbadca91a43854752c6aef">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[1/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1975,7 +2011,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2008,8 +2044,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a046fdd4a4ad0cb84740bb0319b2440a7" name="a046fdd4a4ad0cb84740bb0319b2440a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a046fdd4a4ad0cb84740bb0319b2440a7">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[2/66]</span></h2>
+<a id="a967351bda5ecdb7eca96a78615d38129" name="a967351bda5ecdb7eca96a78615d38129"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a967351bda5ecdb7eca96a78615d38129">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[2/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2020,7 +2056,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2060,8 +2096,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a849f727e9434cd54bd1657344241d6f5" name="a849f727e9434cd54bd1657344241d6f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a849f727e9434cd54bd1657344241d6f5">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[3/66]</span></h2>
+<a id="a1afb230cf1d566e01e159f4deca80a7a" name="a1afb230cf1d566e01e159f4deca80a7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1afb230cf1d566e01e159f4deca80a7a">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[3/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2072,7 +2108,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2119,8 +2155,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a96ca0b839081fd6ba2b993ac5befd2d0" name="a96ca0b839081fd6ba2b993ac5befd2d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96ca0b839081fd6ba2b993ac5befd2d0">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[4/66]</span></h2>
+<a id="ade3b69fbcdbf33c9298dac2c0223473d" name="ade3b69fbcdbf33c9298dac2c0223473d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade3b69fbcdbf33c9298dac2c0223473d">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[4/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2131,7 +2167,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2185,8 +2221,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6d0d611201f6fb38131762add8e73b46" name="a6d0d611201f6fb38131762add8e73b46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d0d611201f6fb38131762add8e73b46">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[5/66]</span></h2>
+<a id="aa542a7ea780024c5ff58cd3ac7e3ab4d" name="aa542a7ea780024c5ff58cd3ac7e3ab4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa542a7ea780024c5ff58cd3ac7e3ab4d">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[5/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2197,7 +2233,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2230,8 +2266,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0fa782ee938995c20e809af7852deec5" name="a0fa782ee938995c20e809af7852deec5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fa782ee938995c20e809af7852deec5">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[6/66]</span></h2>
+<a id="a6fca35e8a40cf0173c811c98d04e1b5c" name="a6fca35e8a40cf0173c811c98d04e1b5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fca35e8a40cf0173c811c98d04e1b5c">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[6/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2242,7 +2278,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2282,8 +2318,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab278c99e7c6cf174c1a9ced602c4a3dd" name="ab278c99e7c6cf174c1a9ced602c4a3dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab278c99e7c6cf174c1a9ced602c4a3dd">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[7/66]</span></h2>
+<a id="a9262ab5fca78df3a12dea4b8b0e55d13" name="a9262ab5fca78df3a12dea4b8b0e55d13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9262ab5fca78df3a12dea4b8b0e55d13">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[7/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2294,7 +2330,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2341,8 +2377,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="abc8fd603526fc03b1aa435deff0b18ad" name="abc8fd603526fc03b1aa435deff0b18ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc8fd603526fc03b1aa435deff0b18ad">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[8/66]</span></h2>
+<a id="a2a6b177192f3b33b4d8813e5354460d1" name="a2a6b177192f3b33b4d8813e5354460d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a6b177192f3b33b4d8813e5354460d1">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[8/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2353,7 +2389,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2407,8 +2443,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aef2ba1f953f8ac09585b73ca4dba8ce8" name="aef2ba1f953f8ac09585b73ca4dba8ce8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef2ba1f953f8ac09585b73ca4dba8ce8">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[9/66]</span></h2>
+<a id="adb32c921632efa8d3fbfaedd1c46135d" name="adb32c921632efa8d3fbfaedd1c46135d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb32c921632efa8d3fbfaedd1c46135d">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[9/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2419,7 +2455,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2452,8 +2488,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a3c966d5d6b2fedd1899e9b1fe98749a9" name="a3c966d5d6b2fedd1899e9b1fe98749a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c966d5d6b2fedd1899e9b1fe98749a9">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[10/66]</span></h2>
+<a id="a8ea2fb278e4351487498bef268fdef2d" name="a8ea2fb278e4351487498bef268fdef2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ea2fb278e4351487498bef268fdef2d">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[10/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2464,7 +2500,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2497,8 +2533,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8d127bf6c03c058b62a50e8a2115e665" name="a8d127bf6c03c058b62a50e8a2115e665"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d127bf6c03c058b62a50e8a2115e665">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[11/66]</span></h2>
+<a id="ad36ea2e3990f530b6754e1f5cb595b01" name="ad36ea2e3990f530b6754e1f5cb595b01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad36ea2e3990f530b6754e1f5cb595b01">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[11/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2509,7 +2545,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2542,8 +2578,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a757c3b8b4ec09244429af1945fd71491" name="a757c3b8b4ec09244429af1945fd71491"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a757c3b8b4ec09244429af1945fd71491">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[12/66]</span></h2>
+<a id="ad778be4ca2d5c28e930a77881944f754" name="ad778be4ca2d5c28e930a77881944f754"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad778be4ca2d5c28e930a77881944f754">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[12/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2554,7 +2590,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2587,8 +2623,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a7cad48e13fdf3f28d36226d2eac548c8" name="a7cad48e13fdf3f28d36226d2eac548c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cad48e13fdf3f28d36226d2eac548c8">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[13/66]</span></h2>
+<a id="a19404177ab6d12b8ca2c3197583f1461" name="a19404177ab6d12b8ca2c3197583f1461"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19404177ab6d12b8ca2c3197583f1461">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[13/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2599,7 +2635,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2632,8 +2668,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aecdb85a12607e478d8285327a5c53496" name="aecdb85a12607e478d8285327a5c53496"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecdb85a12607e478d8285327a5c53496">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[14/66]</span></h2>
+<a id="af50167d8ca69fe006221b05262913668" name="af50167d8ca69fe006221b05262913668"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af50167d8ca69fe006221b05262913668">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[14/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2644,7 +2680,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2677,8 +2713,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa66cbf9b90ede5dc8abdfbdc385264d0" name="aa66cbf9b90ede5dc8abdfbdc385264d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa66cbf9b90ede5dc8abdfbdc385264d0">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[15/66]</span></h2>
+<a id="a8f6533f3658a40aa3b2f42bd2ab046c6" name="a8f6533f3658a40aa3b2f42bd2ab046c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f6533f3658a40aa3b2f42bd2ab046c6">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[15/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2689,7 +2725,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2722,8 +2758,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a85c4ba30447807c0d139717effe32676" name="a85c4ba30447807c0d139717effe32676"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85c4ba30447807c0d139717effe32676">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[16/66]</span></h2>
+<a id="a2114002fb8ac6a809cfbe148a8c662b0" name="a2114002fb8ac6a809cfbe148a8c662b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2114002fb8ac6a809cfbe148a8c662b0">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[16/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2734,7 +2770,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2767,8 +2803,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae99f4f152057d390c1ecfb21790dd6c4" name="ae99f4f152057d390c1ecfb21790dd6c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae99f4f152057d390c1ecfb21790dd6c4">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[17/66]</span></h2>
+<a id="aef3f1044338d67ba990b12cf7ec969c0" name="aef3f1044338d67ba990b12cf7ec969c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef3f1044338d67ba990b12cf7ec969c0">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[17/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2779,7 +2815,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2812,8 +2848,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a1051a78d0d21885c524d9729416fb1d8" name="a1051a78d0d21885c524d9729416fb1d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1051a78d0d21885c524d9729416fb1d8">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[18/66]</span></h2>
+<a id="a416a55bc38e6d4490d31ceb37a08d209" name="a416a55bc38e6d4490d31ceb37a08d209"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a416a55bc38e6d4490d31ceb37a08d209">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[18/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2824,7 +2860,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2857,8 +2893,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a1362f027eb4892fdc91cde0997a396b8" name="a1362f027eb4892fdc91cde0997a396b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1362f027eb4892fdc91cde0997a396b8">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[19/66]</span></h2>
+<a id="a864266402ccfcd81aaa6a4de42fac1f0" name="a864266402ccfcd81aaa6a4de42fac1f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a864266402ccfcd81aaa6a4de42fac1f0">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[19/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2869,7 +2905,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2902,8 +2938,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6522dc9244d5b71933ddd052c938a28b" name="a6522dc9244d5b71933ddd052c938a28b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6522dc9244d5b71933ddd052c938a28b">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[20/66]</span></h2>
+<a id="a36747b00908a158bfcd321fb545a3381" name="a36747b00908a158bfcd321fb545a3381"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36747b00908a158bfcd321fb545a3381">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[20/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2914,7 +2950,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2947,8 +2983,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae049b5207cef2bc52d645831f23afda7" name="ae049b5207cef2bc52d645831f23afda7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae049b5207cef2bc52d645831f23afda7">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[21/66]</span></h2>
+<a id="a8c46c424850d6922c87eaec3fad31aa7" name="a8c46c424850d6922c87eaec3fad31aa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c46c424850d6922c87eaec3fad31aa7">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[21/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2959,7 +2995,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -2992,8 +3028,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a44cb969fff27b66f7b73ffc6d40b164b" name="a44cb969fff27b66f7b73ffc6d40b164b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44cb969fff27b66f7b73ffc6d40b164b">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[22/66]</span></h2>
+<a id="a1a8ab88eb2d9414da6e66b83ab33ee38" name="a1a8ab88eb2d9414da6e66b83ab33ee38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a8ab88eb2d9414da6e66b83ab33ee38">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[22/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3004,7 +3040,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -3037,8 +3073,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="abd49dc7e07a42c12978ec02e94d9907f" name="abd49dc7e07a42c12978ec02e94d9907f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd49dc7e07a42c12978ec02e94d9907f">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[23/66]</span></h2>
+<a id="a77f553c51bb39128d4f08ccd98c0672c" name="a77f553c51bb39128d4f08ccd98c0672c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77f553c51bb39128d4f08ccd98c0672c">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[23/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3049,7 +3085,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -3082,8 +3118,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a3c7486808ef860ac599eeb2b88e2d56a" name="a3c7486808ef860ac599eeb2b88e2d56a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c7486808ef860ac599eeb2b88e2d56a">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[24/66]</span></h2>
+<a id="ac16f5188b8883985225b4c8b88669ddf" name="ac16f5188b8883985225b4c8b88669ddf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac16f5188b8883985225b4c8b88669ddf">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[24/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3094,7 +3130,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -3127,8 +3163,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ada0561fc170c4c883ef9b59594d90cd1" name="ada0561fc170c4c883ef9b59594d90cd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada0561fc170c4c883ef9b59594d90cd1">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[25/66]</span></h2>
+<a id="a1bf96534e239f9e4605c3b55e7e502b2" name="a1bf96534e239f9e4605c3b55e7e502b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bf96534e239f9e4605c3b55e7e502b2">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[25/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3139,7 +3175,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -3172,8 +3208,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a651134bb63f710a162733bd3b7feefe4" name="a651134bb63f710a162733bd3b7feefe4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a651134bb63f710a162733bd3b7feefe4">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[26/66]</span></h2>
+<a id="a73afe144929eceb6413ee1be54fe827a" name="a73afe144929eceb6413ee1be54fe827a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73afe144929eceb6413ee1be54fe827a">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[26/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3184,7 +3220,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -3217,8 +3253,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4eece25f0d79c2f64d4866d7a2eba34a" name="a4eece25f0d79c2f64d4866d7a2eba34a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4eece25f0d79c2f64d4866d7a2eba34a">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[27/66]</span></h2>
+<a id="a9c52f8734ec413b723a209b0732d0e56" name="a9c52f8734ec413b723a209b0732d0e56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c52f8734ec413b723a209b0732d0e56">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[27/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3229,7 +3265,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -3276,8 +3312,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af67c5debb0419ec8a35c72bd9057150c" name="af67c5debb0419ec8a35c72bd9057150c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af67c5debb0419ec8a35c72bd9057150c">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[28/66]</span></h2>
+<a id="a9309d64a0051531156ec6d7343ec3bb2" name="a9309d64a0051531156ec6d7343ec3bb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9309d64a0051531156ec6d7343ec3bb2">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[28/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3288,7 +3324,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -3335,8 +3371,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad46985eb7561276bfdd53e6bc3211020" name="ad46985eb7561276bfdd53e6bc3211020"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad46985eb7561276bfdd53e6bc3211020">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[29/66]</span></h2>
+<a id="a14c99cdf8ec3a0fbefbe8ef18cf0b22b" name="a14c99cdf8ec3a0fbefbe8ef18cf0b22b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14c99cdf8ec3a0fbefbe8ef18cf0b22b">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[29/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3347,7 +3383,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -3394,8 +3430,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afc804ec9ffbc288fb5582a51e6d322b2" name="afc804ec9ffbc288fb5582a51e6d322b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc804ec9ffbc288fb5582a51e6d322b2">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[30/66]</span></h2>
+<a id="a413cb5e97c06d27c0ac5d3ce2b8323a4" name="a413cb5e97c06d27c0ac5d3ce2b8323a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a413cb5e97c06d27c0ac5d3ce2b8323a4">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[30/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3406,7 +3442,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -3439,8 +3475,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="add01357277278de15d6bea5b49f043a4" name="add01357277278de15d6bea5b49f043a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add01357277278de15d6bea5b49f043a4">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[31/66]</span></h2>
+<a id="ab7c80ff5655d491e28deb682baa0f2f0" name="ab7c80ff5655d491e28deb682baa0f2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7c80ff5655d491e28deb682baa0f2f0">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[31/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3451,7 +3487,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -3491,8 +3527,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afbd3a787f3af5293838c218526c2f2ee" name="afbd3a787f3af5293838c218526c2f2ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbd3a787f3af5293838c218526c2f2ee">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[32/66]</span></h2>
+<a id="a63d862c2f2dd29553e0fa5a185ae0424" name="a63d862c2f2dd29553e0fa5a185ae0424"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63d862c2f2dd29553e0fa5a185ae0424">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[32/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3503,7 +3539,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -3550,8 +3586,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="abf56c2138fdc34edf287c6e620ac5f5f" name="abf56c2138fdc34edf287c6e620ac5f5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf56c2138fdc34edf287c6e620ac5f5f">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[33/66]</span></h2>
+<a id="a89ae7c7e857057c1867341bb8c597109" name="a89ae7c7e857057c1867341bb8c597109"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89ae7c7e857057c1867341bb8c597109">&#9670;&#160;</a></span>setProgramUniform() <span class="overload">[33/66]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3562,7 +3598,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setProgramUniform </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformName</em>, </td>
         </tr>
         <tr>
@@ -5322,8 +5358,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad76137c2a29f62a35e074b8ba8db9ff9" name="ad76137c2a29f62a35e074b8ba8db9ff9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad76137c2a29f62a35e074b8ba8db9ff9">&#9670;&#160;</a></span>setUniformBlockBinding()</h2>
+<a id="a24d0f02d2773c1a212140ddf21247f8d" name="a24d0f02d2773c1a212140ddf21247f8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24d0f02d2773c1a212140ddf21247f8d">&#9670;&#160;</a></span>setUniformBlockBinding()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5334,7 +5370,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void CSCI441::ShaderProgram::setUniformBlockBinding </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const GLchar *&#160;</td>
           <td class="paramname"><em>uniformBlockName</em>, </td>
         </tr>
         <tr>

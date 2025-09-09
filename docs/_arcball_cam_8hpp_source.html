@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.12.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.13.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -85,72 +85,85 @@ $(function() {
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">explicit</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a>(GLfloat minRadius = 2.0f, GLfloat maxRadius = 30.0f, GLfloat aspectRatio = 1.0f, GLfloat fovy = 45.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">recomputeOrientation</a>() <span class="keyword">final</span>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a5e618322522a711de4d22ff0331e8db2">moveForward</a>(GLfloat movementFactor) <span class="keyword">final</span>;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#aaeb9f7a5c9ab3a08a11687f1fd7234e2">moveBackward</a>(GLfloat movementFactor) <span class="keyword">final</span>;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordtype">void</span> _updateArcballCameraViewMatrix();</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordtype">void</span> _clampRadius();</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#aba1d723b50dc41438b712c3e0dcc37b4">   40</a></span>        <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#aba1d723b50dc41438b712c3e0dcc37b4">ArcballCam</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#a21bd379ee8aa3a76e706b7289fb21e32">   45</a></span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a>&amp; <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a21bd379ee8aa3a76e706b7289fb21e32">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#ad9825c32d8562225c0fe138f40148177">   50</a></span>        <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#ad9825c32d8562225c0fe138f40148177">ArcballCam</a>(<a class="code hl_class" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#a8210143a646ee9c7f8555c671a4942d1">   55</a></span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a>&amp; <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a8210143a646ee9c7f8555c671a4942d1">operator=</a>(<a class="code hl_class" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#a72bc715008c1ba9e21e0e8a21a32bd3d">   60</a></span>        <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a72bc715008c1ba9e21e0e8a21a32bd3d">~ArcballCam</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a200d4e0f6461b09baefc2038ad46d3f6">recomputeOrientation</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        GLfloat _minRadius;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        GLfloat _maxRadius;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    };</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#adbacdaa920532f83d39e34c87d4324e2">   81</a></span><span class="keyword">inline</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#adbacdaa920532f83d39e34c87d4324e2">CSCI441::ArcballCam::ArcballCam</a>(</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keyword">const</span> GLfloat minRadius,</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keyword">const</span> GLfloat maxRadius,</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keyword">const</span> GLfloat aspectRatio,</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keyword">const</span> GLfloat fovy,</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keyword">const</span> GLfloat nearClipPlane,</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keyword">const</span> GLfloat farClipPlane</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>) : <a class="code hl_namespace" href="namespace_c_s_c_i441.html">CSCI441</a>::<a class="code hl_class" href="class_c_s_c_i441_1_1_perspective_camera.html">PerspectiveCamera</a>(aspectRatio, fovy, nearClipPlane, farClipPlane),</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    _minRadius(minRadius),</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    _maxRadius(maxRadius)</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>{</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">recomputeOrientation</a>();</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#ac6ea79f3ae32c51639fb10e3d7787a4b">moveForward</a>(GLfloat movementFactor) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#ad6904e4626c4233f331b57894a929b7e">moveBackward</a>(GLfloat movementFactor) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordtype">void</span> _updateArcballCameraViewMatrix();</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordtype">void</span> _clampRadius();</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">   95</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">CSCI441::ArcballCam::recomputeOrientation</a>() {</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="comment">// compute direction vector based on spherical to cartesian conversion</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    mCameraDirection.x =  glm::sin(mCameraTheta ) * glm::sin(mCameraPhi ) * mCameraRadius;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    mCameraDirection.y = -glm::cos(mCameraPhi )                           * mCameraRadius;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    mCameraDirection.z = -glm::cos(mCameraTheta ) * glm::sin(mCameraPhi ) * mCameraRadius;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    _updateArcballCameraViewMatrix();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#a5e618322522a711de4d22ff0331e8db2">  104</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a5e618322522a711de4d22ff0331e8db2">CSCI441::ArcballCam::moveForward</a>(<span class="keyword">const</span> GLfloat movementFactor) {</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    mCameraRadius -= movementFactor;    <span class="comment">// camera &quot;moves forward&quot; by reducing the radius to get closer to the look at point</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    _clampRadius();                     <span class="comment">// ensure camera doesn&#39;t get too close</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    recomputeOrientation();             <span class="comment">// update view matrix</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#aaeb9f7a5c9ab3a08a11687f1fd7234e2">  110</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#aaeb9f7a5c9ab3a08a11687f1fd7234e2">CSCI441::ArcballCam::moveBackward</a>(<span class="keyword">const</span> GLfloat movementFactor) {</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    mCameraRadius += movementFactor;    <span class="comment">// camera &quot;moves backward&quot; by increasing the radius to get further away from the look at point</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    _clampRadius();                     <span class="comment">// ensure camera doesn&#39;t get too far away</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    recomputeOrientation();             <span class="comment">// update view matrix</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441::ArcballCam::_updateArcballCameraViewMatrix() {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    setPosition(mCameraLookAtPoint + mCameraDirection );</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    computeViewMatrix();</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441::ArcballCam::_clampRadius() {</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    mCameraRadius = glm::clamp(mCameraRadius, _minRadius, _maxRadius);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_ARCBALL_CAM_HPP</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        GLfloat _minRadius;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        GLfloat _maxRadius;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    };</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>}</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#adbacdaa920532f83d39e34c87d4324e2">  106</a></span><span class="keyword">inline</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#adbacdaa920532f83d39e34c87d4324e2">CSCI441::ArcballCam::ArcballCam</a>(</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keyword">const</span> GLfloat minRadius,</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keyword">const</span> GLfloat maxRadius,</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keyword">const</span> GLfloat aspectRatio,</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keyword">const</span> GLfloat fovy,</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keyword">const</span> GLfloat nearClipPlane,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keyword">const</span> GLfloat farClipPlane</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>) : <a class="code hl_namespace" href="namespace_c_s_c_i441.html">CSCI441</a>::<a class="code hl_class" href="class_c_s_c_i441_1_1_perspective_camera.html">PerspectiveCamera</a>(aspectRatio, fovy, nearClipPlane, farClipPlane),</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    _minRadius(minRadius),</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    _maxRadius(maxRadius)</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>{</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a200d4e0f6461b09baefc2038ad46d3f6">recomputeOrientation</a>();</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>}</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#a200d4e0f6461b09baefc2038ad46d3f6">  120</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#a200d4e0f6461b09baefc2038ad46d3f6">CSCI441::ArcballCam::recomputeOrientation</a>() {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="comment">// compute direction vector based on spherical to cartesian conversion</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    mCameraDirection.x =  glm::sin(mCameraTheta ) * glm::sin(mCameraPhi ) * mCameraRadius;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    mCameraDirection.y = -glm::cos(mCameraPhi )                           * mCameraRadius;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    mCameraDirection.z = -glm::cos(mCameraTheta ) * glm::sin(mCameraPhi ) * mCameraRadius;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    _updateArcballCameraViewMatrix();</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>}</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#ac6ea79f3ae32c51639fb10e3d7787a4b">  129</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#ac6ea79f3ae32c51639fb10e3d7787a4b">CSCI441::ArcballCam::moveForward</a>(<span class="keyword">const</span> GLfloat movementFactor) {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    mCameraRadius -= movementFactor;    <span class="comment">// camera &quot;moves forward&quot; by reducing the radius to get closer to the look at point</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    _clampRadius();                     <span class="comment">// ensure camera doesn&#39;t get too close</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    recomputeOrientation();             <span class="comment">// update view matrix</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_arcball_cam.html#ad6904e4626c4233f331b57894a929b7e">  135</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_arcball_cam.html#ad6904e4626c4233f331b57894a929b7e">CSCI441::ArcballCam::moveBackward</a>(<span class="keyword">const</span> GLfloat movementFactor) {</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    mCameraRadius += movementFactor;    <span class="comment">// camera &quot;moves backward&quot; by increasing the radius to get further away from the look at point</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    _clampRadius();                     <span class="comment">// ensure camera doesn&#39;t get too far away</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    recomputeOrientation();             <span class="comment">// update view matrix</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>}</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441::ArcballCam::_updateArcballCameraViewMatrix() {</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    setPosition(mCameraLookAtPoint + mCameraDirection );</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    computeViewMatrix();</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>}</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441::ArcballCam::_clampRadius() {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    mCameraRadius = glm::clamp(mCameraRadius, _minRadius, _maxRadius);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>}</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_ARCBALL_CAM_HPP</span></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html">CSCI441::ArcballCam</a></div><div class="ttdoc">A camera that implements an ArcBall camera model.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:23</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_a05be1d4f9916e124258810d8f1d2b7e4"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#a05be1d4f9916e124258810d8f1d2b7e4">CSCI441::ArcballCam::recomputeOrientation</a></div><div class="ttdeci">void recomputeOrientation() final</div><div class="ttdoc">converts spherical theta &amp; phi to cartesian x,y,z direction vector</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:95</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_a5e618322522a711de4d22ff0331e8db2"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#a5e618322522a711de4d22ff0331e8db2">CSCI441::ArcballCam::moveForward</a></div><div class="ttdeci">void moveForward(GLfloat movementFactor) final</div><div class="ttdoc">updates the camera's position by decreasing the camera's radius</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:104</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_aaeb9f7a5c9ab3a08a11687f1fd7234e2"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#aaeb9f7a5c9ab3a08a11687f1fd7234e2">CSCI441::ArcballCam::moveBackward</a></div><div class="ttdeci">void moveBackward(GLfloat movementFactor) final</div><div class="ttdoc">updates the camera's position by increasing the camera's radius</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:110</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_adbacdaa920532f83d39e34c87d4324e2"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#adbacdaa920532f83d39e34c87d4324e2">CSCI441::ArcballCam::ArcballCam</a></div><div class="ttdeci">ArcballCam(GLfloat minRadius=2.0f, GLfloat maxRadius=30.0f, GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</div><div class="ttdoc">initializes the Arcball Camera and sets the minimum/maximum radius the camera can zoom through as wel...</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:81</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_a200d4e0f6461b09baefc2038ad46d3f6"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#a200d4e0f6461b09baefc2038ad46d3f6">CSCI441::ArcballCam::recomputeOrientation</a></div><div class="ttdeci">void recomputeOrientation() override</div><div class="ttdoc">converts spherical theta &amp; phi to cartesian x,y,z direction vector</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:120</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_a21bd379ee8aa3a76e706b7289fb21e32"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#a21bd379ee8aa3a76e706b7289fb21e32">CSCI441::ArcballCam::operator=</a></div><div class="ttdeci">ArcballCam &amp; operator=(const ArcballCam &amp;)=default</div><div class="ttdoc">assign a copy of an existing camera</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_a72bc715008c1ba9e21e0e8a21a32bd3d"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#a72bc715008c1ba9e21e0e8a21a32bd3d">CSCI441::ArcballCam::~ArcballCam</a></div><div class="ttdeci">~ArcballCam() override=default</div><div class="ttdoc">properly destroy concrete children</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_a8210143a646ee9c7f8555c671a4942d1"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#a8210143a646ee9c7f8555c671a4942d1">CSCI441::ArcballCam::operator=</a></div><div class="ttdeci">ArcballCam &amp; operator=(ArcballCam &amp;&amp;)=default</div><div class="ttdoc">reassign an existing camera to ourselves</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_aba1d723b50dc41438b712c3e0dcc37b4"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#aba1d723b50dc41438b712c3e0dcc37b4">CSCI441::ArcballCam::ArcballCam</a></div><div class="ttdeci">ArcballCam(const ArcballCam &amp;)=default</div><div class="ttdoc">construct a copy an existing camera</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_ac6ea79f3ae32c51639fb10e3d7787a4b"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#ac6ea79f3ae32c51639fb10e3d7787a4b">CSCI441::ArcballCam::moveForward</a></div><div class="ttdeci">void moveForward(GLfloat movementFactor) override</div><div class="ttdoc">updates the camera's position by decreasing the camera's radius</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:129</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_ad6904e4626c4233f331b57894a929b7e"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#ad6904e4626c4233f331b57894a929b7e">CSCI441::ArcballCam::moveBackward</a></div><div class="ttdeci">void moveBackward(GLfloat movementFactor) override</div><div class="ttdoc">updates the camera's position by increasing the camera's radius</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:135</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_ad9825c32d8562225c0fe138f40148177"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#ad9825c32d8562225c0fe138f40148177">CSCI441::ArcballCam::ArcballCam</a></div><div class="ttdeci">ArcballCam(ArcballCam &amp;&amp;)=default</div><div class="ttdoc">construct a camera by moving ane existing camera object</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_adbacdaa920532f83d39e34c87d4324e2"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#adbacdaa920532f83d39e34c87d4324e2">CSCI441::ArcballCam::ArcballCam</a></div><div class="ttdeci">ArcballCam(GLfloat minRadius=2.0f, GLfloat maxRadius=30.0f, GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</div><div class="ttdoc">initializes the Arcball Camera and sets the minimum/maximum radius the camera can zoom through as wel...</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:106</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_perspective_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_perspective_camera.html">CSCI441::PerspectiveCamera</a></div><div class="ttdoc">Abstract Class to represent a perspective camera. Stores aspect ratio and field of view.</div><div class="ttdef"><b>Definition:</b> PerspectiveCamera.hpp:11</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
