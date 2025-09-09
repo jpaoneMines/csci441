@@ -21,6 +21,11 @@ namespace CSCI441 {
         explicit PerspectiveCamera(GLfloat aspectRatio = 1.0f, GLfloat fovy = 45.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);
 
         /**
+         * @brief properly destroy concrete children
+         */
+        ~PerspectiveCamera() override = default;
+
+        /**
          * @brief updates the camera's aspect ratio
          * @param aspectRatio new aspect ratio to apply to camera
          * @note internally updates the camera's projection matrix
@@ -53,6 +58,26 @@ namespace CSCI441 {
          * @brief computes the perspective projection matrix for the camera
          */
         void mUpdateProjectionMatrix();
+
+        /**
+         * @brief construct a copy an existing camera
+         */
+        PerspectiveCamera(const PerspectiveCamera&) = default;
+        /**
+         * @brief assign a copy of an existing camera
+         * @return our newly assigned camera
+         */
+        PerspectiveCamera& operator=(const PerspectiveCamera&) = default;
+
+        /**
+         * @brief construct a camera by moving ane existing camera object
+         */
+        PerspectiveCamera(PerspectiveCamera&&) = default;
+        /**
+         * @brief reassign an existing camera to ourselves
+         * @return our newly assigned camera
+         */
+        PerspectiveCamera& operator=(PerspectiveCamera&&) = default;
 
     private:
         /**
@@ -90,25 +115,25 @@ inline CSCI441::PerspectiveCamera::PerspectiveCamera(
 }
 
 [[maybe_unused]]
-inline void CSCI441::PerspectiveCamera::setAspectRatio(GLfloat aspectRatio) {
+inline void CSCI441::PerspectiveCamera::setAspectRatio(const GLfloat aspectRatio) {
     _aspectRatio = aspectRatio;
     mUpdateProjectionMatrix();
 }
 
 [[maybe_unused]]
-inline void CSCI441::PerspectiveCamera::setVerticalFOV(GLfloat fovy) {
+inline void CSCI441::PerspectiveCamera::setVerticalFOV(const GLfloat fovy) {
     _fovy = fovy;
     mUpdateProjectionMatrix();
 }
 
 [[maybe_unused]]
-inline void CSCI441::PerspectiveCamera::setNearClipPlane(GLfloat near) {
+inline void CSCI441::PerspectiveCamera::setNearClipPlane(const GLfloat near) {
     _nearClipPlane = near;
     mUpdateProjectionMatrix();
 }
 
 [[maybe_unused]]
-inline void CSCI441::PerspectiveCamera::setFarClipPlane(GLfloat far) {
+inline void CSCI441::PerspectiveCamera::setFarClipPlane(const GLfloat far) {
     _farClipPlane = far;
     mUpdateProjectionMatrix();
 }

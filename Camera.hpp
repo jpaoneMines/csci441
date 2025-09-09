@@ -159,9 +159,29 @@ namespace CSCI441 {
         Camera();
 
         /**
+         * @brief construct a copy an existing camera
+         */
+        Camera(const Camera&) = default;
+        /**
+         * @brief assign a copy of an existing camera
+         * @return our newly assigned camera
+         */
+        Camera& operator=(const Camera&) = default;
+
+        /**
+         * @brief construct a camera by moving ane existing camera object
+         */
+        Camera(Camera&&) = default;
+        /**
+         * @brief reassign an existing camera to ourselves
+         * @return our newly assigned camera
+         */
+        Camera& operator=(Camera&&) = default;
+
+        /**
          * @brief stores the Projection Matrix
          */
-         glm::mat4 mProjectionMatrix;
+        glm::mat4 mProjectionMatrix;
 
         /**
          * @brief stores the View Matrix corresponding to the inverse of the Camera's Matrix

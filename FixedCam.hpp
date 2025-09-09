@@ -34,22 +34,44 @@ namespace CSCI441 {
         explicit FixedCam(GLfloat aspectRatio = 1.0f, GLfloat fovy = 45.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);
 
         /**
+         * @brief construct a copy an existing camera
+         */
+        FixedCam(const FixedCam&) = default;
+        /**
+         * @brief assign a copy of an existing camera
+         * @return our newly assigned camera
+         */
+        FixedCam& operator=(const FixedCam&) = default;
+
+        /**
+         * @brief construct a camera by moving ane existing camera object
+         */
+        FixedCam(FixedCam&&) = default;
+        /**
+         * @brief reassign an existing camera to ourselves
+         * @return our newly assigned camera
+         */
+        FixedCam& operator=(FixedCam&&) = default;
+
+        /**
+         * @brief properly destroy concrete children
+         */
+        ~FixedCam() override = default;
+
+        /**
          * @brief does nothing
          */
-        void recomputeOrientation() final {};
+        void recomputeOrientation() override {};
         /**
          * @brief does nothing
          * @param unused does nothing
          */
-        void moveForward(const GLfloat unused) final {};
+        void moveForward(const GLfloat unused) override {};
         /**
          * @brief does nothing
          * @param unused does nothing
          */
-        void moveBackward(const GLfloat unused) final {};
-
-    private:
-
+        void moveBackward(const GLfloat unused) override {};
     };
 }
 

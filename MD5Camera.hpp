@@ -77,24 +77,36 @@ namespace CSCI441 {
         MD5Camera(const MD5Camera&);
         /**
          * @brief deep copy another MD5Camera
-         * @return
+         * @return our newly assigned object
          */
         MD5Camera& operator=(const MD5Camera&);
+
+        /**
+         * @brief construct a camera by moving an existing MD5Camera
+         */
+        MD5Camera(MD5Camera&&) noexcept;
+        /**
+         * @brief construct a camera by moving an existing MD5Camera
+         * @return our newly assigned object
+         */
+        MD5Camera& operator=(MD5Camera&&) noexcept;
+
         /**
          * @brief delete cuts and frames
          */
-        ~MD5Camera() final;
+        ~MD5Camera() override;
 
-        void recomputeOrientation() final {}
-        void moveForward(GLfloat unused) final;
-        void moveBackward(GLfloat unused) final;
+        void recomputeOrientation() override {}
+        void moveForward(GLfloat unused) override;
+        void moveBackward(GLfloat unused) override;
 
     private:
         bool _loadMD5CameraFromFile(const char * MD5CAMERA_FILE, GLboolean INFO = true, GLboolean ERRORS = true);
         void _copy(const MD5Camera&);
+        void _moveFromSource(MD5Camera&);
         void _free();
 
-        bool _isInitialized{};
+        bool _isInitialized;
 
         struct Frame {
             glm::vec3 cameraPosition;
@@ -102,22 +114,22 @@ namespace CSCI441 {
             GLfloat fieldOfView;
         };
 
-        GLuint _frameRate{};
-        GLuint _numFrames{};
-        GLuint _numCuts{};
-        GLuint* _cutPositions{};
-        Frame* _frames{};
-        GLuint _currentFrameIndex{};
-        GLuint _currentCutIndex{};
+        GLuint _frameRate;
+        GLuint _numFrames;
+        GLuint _numCuts;
+        GLuint* _cutPositions;
+        Frame* _frames;
+        GLuint _currentFrameIndex;
+        GLuint _currentCutIndex;
         AdvancementStrategy _advancementStrategy;
 
         void _updateCameraAttributesForCurrentFrame();
 
         // vertical field of view stored in degrees
-        GLfloat _fovy{};
-        GLfloat _aspectRatio{};
-        GLfloat _nearClipPlane{};
-        GLfloat _farClipPlane{};
+        GLfloat _fovy;
+        GLfloat _aspectRatio;
+        GLfloat _nearClipPlane;
+        GLfloat _farClipPlane;
     };
 }
 
@@ -131,10 +143,7 @@ inline CSCI441::MD5Camera::MD5Camera(
         const GLfloat farClipPlane,
         const GLboolean INFO,
         const GLboolean ERRORS
-) : _fovy(fovy),
-    _aspectRatio(aspectRatio),
-    _nearClipPlane(nearClipPlane),
-    _farClipPlane(farClipPlane),
+) : _isInitialized(false),
     _frameRate(60),
     _numFrames(0),
     _numCuts(0),
@@ -142,7 +151,11 @@ inline CSCI441::MD5Camera::MD5Camera(
     _frames(nullptr),
     _currentFrameIndex(0),
     _currentCutIndex(firstCutToRun),
-    _advancementStrategy(advancementStrategy)
+    _advancementStrategy(advancementStrategy),
+    _fovy(fovy),
+    _aspectRatio(aspectRatio),
+    _nearClipPlane(nearClipPlane),
+    _farClipPlane(farClipPlane)
 {
     mProjectionMatrix = glm::perspective(_fovy, _aspectRatio, _nearClipPlane, _farClipPlane);
 
@@ -153,10 +166,7 @@ inline CSCI441::MD5Camera::MD5Camera(
 inline CSCI441::MD5Camera::MD5Camera(
     const MD5Camera& OTHER
 ) : Camera(OTHER),
-    _fovy(45.0f),
-    _aspectRatio(1.0f),
-    _nearClipPlane(0.001f),
-    _farClipPlane(1000.0f),
+    _isInitialized(false),
     _frameRate(60),
     _numFrames(0),
     _numCuts(0),
@@ -164,12 +174,39 @@ inline CSCI441::MD5Camera::MD5Camera(
     _frames(nullptr),
     _currentFrameIndex(0),
     _currentCutIndex(0),
-    _advancementStrategy(AdvancementStrategy::RUN_SINGLE_CUT)
+    _advancementStrategy(AdvancementStrategy::RUN_SINGLE_CUT),
+    _fovy(45.0f),
+    _aspectRatio(1.0f),
+    _nearClipPlane(0.001f),
+    _farClipPlane(1000.0f)
 {
     this->_copy(OTHER);
 }
 
+inline CSCI441::MD5Camera::MD5Camera(
+    MD5Camera&& src
+) noexcept : Camera(std::move(src)),
+    _isInitialized(false),
+    _frameRate(60),
+    _numFrames(0),
+    _numCuts(0),
+    _cutPositions(nullptr),
+    _frames(nullptr),
+    _currentFrameIndex(0),
+    _currentCutIndex(0),
+    _advancementStrategy(AdvancementStrategy::RUN_SINGLE_CUT),
+    _fovy(45.0f),
+    _aspectRatio(1.0f),
+    _nearClipPlane(0.001f),
+    _farClipPlane(1000.0f)
+{
+    this->_moveFromSource(src);
+}
+
 inline CSCI441::MD5Camera& CSCI441::MD5Camera::operator=(const MD5Camera& OTHER) {
+    // call parent assignment operator
+    CSCI441::Camera::operator=(OTHER);
+
     // guard against self-assignment
     if(this != &OTHER) {
         this->_free();
@@ -177,6 +214,20 @@ inline CSCI441::MD5Camera& CSCI441::MD5Camera::operator=(const MD5Camera& OTHER)
     }
     return *this;
 }
+
+inline CSCI441::MD5Camera& CSCI441::MD5Camera::operator=(MD5Camera&& src) noexcept {
+    // guard against self-move
+    if (this != &src) {
+        this->_free();
+        this->_moveFromSource(src);
+    }
+
+    // call parent move operator
+    CSCI441::Camera::operator=(std::move(src));
+
+    return *this;
+}
+
 
 inline CSCI441::MD5Camera::~MD5Camera() {
     this->_free();
@@ -207,9 +258,52 @@ inline void CSCI441::MD5Camera::_copy(const MD5Camera& OTHER) {
     }
 }
 
+inline void CSCI441::MD5Camera::_moveFromSource(CSCI441::MD5Camera& src) {
+    _fovy = src._fovy;
+    src._fovy = 0.0f;
+
+    _aspectRatio = src._aspectRatio;
+    src._aspectRatio = 0.0f;
+
+    _nearClipPlane = src._nearClipPlane;
+    src._nearClipPlane = 0.0f;
+
+    _farClipPlane = src._farClipPlane;
+    src._farClipPlane = 0.0f;
+
+    _frameRate = src._frameRate;
+    src._frameRate = 0;
+
+    _currentFrameIndex = src._currentFrameIndex;
+    src._currentFrameIndex = 0;
+;
+    _currentCutIndex = src._currentCutIndex;
+    src._currentCutIndex = 0;
+
+    _advancementStrategy = src._advancementStrategy;
+
+    _isInitialized = src._isInitialized;
+    src._isInitialized = false;
+
+    _numCuts = src._numCuts;
+    src._numCuts = 0;
+
+    _cutPositions = src._cutPositions;
+    src._cutPositions = nullptr;
+
+    _numFrames = src._numFrames;
+    src._numFrames = 0;
+
+    _frames = src._frames;
+    src._frames = nullptr;
+}
+
 inline void CSCI441::MD5Camera::_free() {
-    free( _frames );
-    free( _cutPositions );
+    delete[] _frames;
+    _frames = nullptr;
+
+    delete[] _cutPositions;
+    _cutPositions = nullptr;
 }
 
 
@@ -251,20 +345,24 @@ inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
         if(sectionLabel == "numFrames") {
              // numFrames <integer>
              md5CameraFile >> _numFrames;
-            _frames = (Frame*)malloc(sizeof(Frame) * _numFrames);
+            _frames = new Frame[_numFrames];
         } else if(sectionLabel == "frameRate") {
             // frameRate <integer>
             md5CameraFile >> _frameRate;
         } else if(sectionLabel == "numCuts") {
             // numCuts <integer>
             md5CameraFile >> _numCuts;
-            _cutPositions = (GLuint*)malloc(sizeof(GLuint) * _numCuts);
+            _cutPositions = new GLuint[_numCuts];
         } else if(sectionLabel == "cuts") {
             // cuts {
             //   [frameNumber]
             //   [frameNumber]
             // }
             md5CameraFile >> brace;
+            if (_cutPositions == nullptr) {
+                if (ERRORS) fprintf( stderr, "[.md5camera]: [ERROR]: malformed md5camera file.  numCuts not previously defined in file\n" );
+                return false;
+            }
             for(unsigned int cutNumber = 0; cutNumber < _numCuts; cutNumber++) {
                 md5CameraFile >> _cutPositions[cutNumber];
             }
@@ -437,9 +535,9 @@ inline void CSCI441::MD5Camera::_updateCameraAttributesForCurrentFrame() {
     glm::vec4 inverseQ(-q.x, -q.y, -q.z, q.w);
     inverseQ = glm::normalize(inverseQ);
 
-    glm::vec4 tmp( (q.w * defaultCameraDirection.x) + (q.y * defaultCameraDirection.z) - (q.z * defaultCameraDirection.y),
-                   (q.w * defaultCameraDirection.y) + (q.z * defaultCameraDirection.x) - (q.x * defaultCameraDirection.z),
-                   (q.w * defaultCameraDirection.z) + (q.x * defaultCameraDirection.y) - (q.y * defaultCameraDirection.x),
+    glm::vec4 tmp(  (q.w * defaultCameraDirection.x) + (q.y * defaultCameraDirection.z) - (q.z * defaultCameraDirection.y),
+                    (q.w * defaultCameraDirection.y) + (q.z * defaultCameraDirection.x) - (q.x * defaultCameraDirection.z),
+                    (q.w * defaultCameraDirection.z) + (q.x * defaultCameraDirection.y) - (q.y * defaultCameraDirection.x),
                    -(q.w * defaultCameraDirection.x) - (q.y * defaultCameraDirection.y) - (q.z * defaultCameraDirection.z) );
     glm::vec4 rotatedCameraDirection((tmp.x * inverseQ.w) + (tmp.w * inverseQ.x) + (tmp.y * inverseQ.z) - (tmp.z * inverseQ.y),
                                      (tmp.y * inverseQ.w) + (tmp.w * inverseQ.y) + (tmp.z * inverseQ.x) - (tmp.x * inverseQ.z),
@@ -450,14 +548,14 @@ inline void CSCI441::MD5Camera::_updateCameraAttributesForCurrentFrame() {
 
     // set up vector
     glm::vec3 defaultCameraUpVector(0.0f, 1.0f, 0.0f);
-    glm::vec4 tmp2( (q.w * defaultCameraUpVector.x) + (q.y * defaultCameraUpVector.z) - (q.z * defaultCameraUpVector.y),
-                    (q.w * defaultCameraUpVector.y) + (q.z * defaultCameraUpVector.x) - (q.x * defaultCameraUpVector.z),
-                    (q.w * defaultCameraUpVector.z) + (q.x * defaultCameraUpVector.y) - (q.y * defaultCameraUpVector.x),
+    glm::vec4 tmp2(  (q.w * defaultCameraUpVector.x) + (q.y * defaultCameraUpVector.z) - (q.z * defaultCameraUpVector.y),
+                     (q.w * defaultCameraUpVector.y) + (q.z * defaultCameraUpVector.x) - (q.x * defaultCameraUpVector.z),
+                     (q.w * defaultCameraUpVector.z) + (q.x * defaultCameraUpVector.y) - (q.y * defaultCameraUpVector.x),
                     -(q.w * defaultCameraUpVector.x) - (q.y * defaultCameraUpVector.y) - (q.z * defaultCameraUpVector.z) );
-    glm::vec4 rotatedCameraUpVector((tmp.x * inverseQ.w) + (tmp.w * inverseQ.x) + (tmp.y * inverseQ.z) - (tmp.z * inverseQ.y),
-                                    (tmp.y * inverseQ.w) + (tmp.w * inverseQ.y) + (tmp.z * inverseQ.x) - (tmp.x * inverseQ.z),
-                                    (tmp.z * inverseQ.w) + (tmp.w * inverseQ.z) + (tmp.x * inverseQ.y) - (tmp.y * inverseQ.x),
-                                    (tmp.w * inverseQ.w) - (tmp.x * inverseQ.x) - (tmp.y * inverseQ.y) - (tmp.z * inverseQ.z) );
+    glm::vec4 rotatedCameraUpVector((tmp2.x * inverseQ.w) + (tmp2.w * inverseQ.x) + (tmp2.y * inverseQ.z) - (tmp2.z * inverseQ.y),
+                                    (tmp2.y * inverseQ.w) + (tmp2.w * inverseQ.y) + (tmp2.z * inverseQ.x) - (tmp2.x * inverseQ.z),
+                                    (tmp2.z * inverseQ.w) + (tmp2.w * inverseQ.z) + (tmp2.x * inverseQ.y) - (tmp2.y * inverseQ.x),
+                                    (tmp2.w * inverseQ.w) - (tmp2.x * inverseQ.x) - (tmp2.y * inverseQ.y) - (tmp2.z * inverseQ.z) );
     mCameraUpVector = glm::vec3(rotatedCameraUpVector.x, rotatedCameraUpVector.y, rotatedCameraUpVector.z);
 
     // compute and set view matrix

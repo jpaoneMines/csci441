@@ -34,30 +34,53 @@ namespace CSCI441 {
         [[maybe_unused]] explicit HUDCamera(GLfloat minX, GLfloat maxX, GLfloat minY, GLfloat maxY);
 
         /**
-         * @brief does nothing
+         * @brief construct a copy an existing camera
          */
-        void recomputeOrientation() final {};
+        HUDCamera(const HUDCamera&) = default;
         /**
-         * @brief does nothing
-         * @param unused does nothing
+         * @brief assign a copy of an existing camera
+         * @return our newly assigned camera
          */
-        void moveForward(const GLfloat unused) final {};
-        /**
-         * @brief does nothing
-         * @param unused does nothing
-         */
-        void moveBackward(const GLfloat unused) final {};
-    private:
+        HUDCamera& operator=(const HUDCamera&) = default;
 
+        /**
+         * @brief construct a camera by moving ane existing camera object
+         */
+        HUDCamera(HUDCamera&&) = default;
+        /**
+         * @brief reassign an existing camera to ourselves
+         * @return our newly assigned camera
+         */
+        HUDCamera& operator=(HUDCamera&&) = default;
+
+        /**
+         * @brief properly destroy concrete children
+         */
+        ~HUDCamera() override = default;
+
+        /**
+         * @brief does nothing
+         */
+        void recomputeOrientation() override {};
+        /**
+         * @brief does nothing
+         * @param unused does nothing
+         */
+        void moveForward(const GLfloat unused) override {};
+        /**
+         * @brief does nothing
+         * @param unused does nothing
+         */
+        void moveBackward(const GLfloat unused) override {};
     };
 }
 
 [[maybe_unused]]
 inline CSCI441::HUDCamera::HUDCamera(
-    GLfloat minX,
-    GLfloat maxX,
-    GLfloat minY,
-    GLfloat maxY
+    const GLfloat minX,
+    const GLfloat maxX,
+    const GLfloat minY,
+    const GLfloat maxY
 ) : OrthographicCamera(minX, maxX, minY, maxY) {
 
 }

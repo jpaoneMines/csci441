@@ -21,6 +21,32 @@ namespace CSCI441 {
          */
         explicit OrthographicCamera(GLfloat minX = -1.0f, GLfloat maxX = 1.0f, GLfloat minY = -1.0f, GLfloat maxY = 1.0f, GLfloat minZ = -1.0f, GLfloat maxZ = 1.0f);
 
+    protected:
+        /**
+         * @brief construct a copy an existing camera
+         */
+        OrthographicCamera(const OrthographicCamera&) = default;
+        /**
+         * @brief assign a copy of an existing camera
+         * @return our newly assigned camera
+         */
+        OrthographicCamera& operator=(const OrthographicCamera&) = default;
+
+        /**
+         * @brief construct a camera by moving ane existing camera object
+         */
+        OrthographicCamera(OrthographicCamera&&) = default;
+        /**
+         * @brief reassign an existing camera to ourselves
+         * @return our newly assigned camera
+         */
+        OrthographicCamera& operator=(OrthographicCamera&&) = default;
+
+        /**
+         * @brief properly destroy concrete children
+         */
+        ~OrthographicCamera() override = default;
+
     private:
         void _updateProjectionMatrix();
 
@@ -35,12 +61,12 @@ namespace CSCI441 {
 }
 
 inline CSCI441::OrthographicCamera::OrthographicCamera(
-        GLfloat minX,
-        GLfloat maxX,
-        GLfloat minY,
-        GLfloat maxY,
-        GLfloat minZ,
-        GLfloat maxZ
+        const GLfloat minX,
+        const GLfloat maxX,
+        const GLfloat minY,
+        const GLfloat maxY,
+        const GLfloat minZ,
+        const GLfloat maxZ
 ) : _minX(minX), _maxX(maxX), _minY(minY), _maxY(maxY), _minZ(minZ), _maxZ(maxZ) {
     _updateProjectionMatrix();
 }

@@ -33,27 +33,52 @@ namespace CSCI441 {
         explicit FreeCam(GLfloat aspectRatio = 1.0f, GLfloat fovy = 45.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);
 
         /**
+         * @brief construct a copy an existing camera
+         */
+        FreeCam(const FreeCam&) = default;
+        /**
+         * @brief assign a copy of an existing camera
+         * @return our newly assigned camera
+         */
+        FreeCam& operator=(const FreeCam&) = default;
+
+        /**
+         * @brief construct a camera by moving ane existing camera object
+         */
+        FreeCam(FreeCam&&) = default;
+        /**
+         * @brief reassign an existing camera to ourselves
+         * @return our newly assigned camera
+         */
+        FreeCam& operator=(FreeCam&&) = default;
+
+        /**
+         * @brief properly destroy concrete children
+         */
+        ~FreeCam() override = default;
+
+        /**
          * @brief converts spherical theta & phi to cartesian x,y,z direction vector
          * @note sets the camera's direction vector to point outward from a sphere centered
          * at the camera's position and updates the camera's look at point to be a point on
          * the sphere offset from the camera's position.
          * @note internally sets the camera's view matrix
          */
-        void recomputeOrientation() final;
+        void recomputeOrientation() override;
 
         /**
          * @brief updates the camera's position by the adding the camera's direction to the camera's position
          * @param movementFactor  distance factor to scale the movement step
          * @note internally sets the camera's view matrix
          */
-        void moveForward(GLfloat movementFactor) final;
+        void moveForward(GLfloat movementFactor) override;
 
         /**
          * @brief updates the camera's position by the adding the camera's negative direction to the camera's position
          * @param movementFactor distance factor to scale the movement step
          * @note internally sets the camera's view matrix
          */
-        void moveBackward(GLfloat movementFactor) final;
+        void moveBackward(GLfloat movementFactor) override;
 
     private:
         // updates the look at point and recalculates the view matrix
