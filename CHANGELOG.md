@@ -2,6 +2,7 @@
 
 ## v ?.??.? - ?? ??? ????
 - Internal improvements to examples
+- Fixed bug in SimpleShader were deleting vertexArray didn't clear map entry
 
 ## v 5.13.0 - 09 Sep 2025
 - Examples can build against GLEW or GLAD

@@ -636,6 +636,7 @@ inline void CSCI441_INTERNAL::SimpleShader2::deleteVertexArray(const GLuint VAOD
     if( descriptorIter != descriptorMap.end() ) {
         glDeleteVertexArrays(1, &(descriptorIter->first));
         glDeleteBuffers(1, &(descriptorIter->second));
+        descriptorMap.erase(descriptorIter);
     }
 }
 
@@ -838,6 +839,7 @@ inline void CSCI441_INTERNAL::SimpleShader3::deleteVertexArray(const GLuint VAOD
     if( descriptorIter != descriptorMap.end() ) {
         glDeleteVertexArrays(1, &(descriptorIter->first));
         glDeleteBuffers(1, &(descriptorIter->second));
+        descriptorMap.erase(descriptorIter);
     }
 }
 
