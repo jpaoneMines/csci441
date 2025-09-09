@@ -779,48 +779,72 @@ inline void CSCI441::drawWireTorus( GLfloat innerRadius, GLfloat outerRadius, GL
 // Internal function rendering implementations
 
 inline void CSCI441_INTERNAL::deleteObjectVAOs() {
-    for(auto & iter : _cubeVAO) {
-        glDeleteVertexArrays(1, &(iter.second));
+    for(auto &[sideLength, vaod] : _cubeVAO) {
+        glDeleteVertexArrays(1, &vaod);
     }
-    for(auto & iter : _cubeVAOIndexed) {
-        glDeleteVertexArrays(1, &(iter.second));
+    _cubeVAO.clear();
+
+    for(auto &[sideLength, vaod] : _cubeVAOIndexed) {
+        glDeleteVertexArrays(1, &vaod);
     }
-    for(auto & iter : _cylinderVAO) {
-        glDeleteVertexArrays(1, &(iter.second));
+    _cubeVAOIndexed.clear();
+
+    for(auto &[cylData, vaod] : _cylinderVAO) {
+        glDeleteVertexArrays(1, &vaod);
     }
-    for(auto & iter : _diskVAO) {
-        glDeleteVertexArrays(1, &(iter.second));
+    _cylinderVAO.clear();
+
+    for(auto &[diskData, vaod] : _diskVAO) {
+        glDeleteVertexArrays(1, &vaod);
     }
-    for(auto & iter : _sphereVAO) {
-        glDeleteVertexArrays(1, &(iter.second));
+    _diskVAO.clear();
+
+    for(auto &[sphereData, vaod] : _sphereVAO) {
+        glDeleteVertexArrays(1, &vaod);
     }
-    for(auto & iter : _torusVAO) {
-        glDeleteVertexArrays(1, &(iter.second));
+    _sphereVAO.clear();
+
+    for(auto &[torusData, vaod] : _torusVAO) {
+        glDeleteVertexArrays(1, &vaod);
     }
+    _torusVAO.clear();
 }
 
 inline void CSCI441_INTERNAL::deleteObjectVBOs() {
-    for(auto & iter : _cubeVBO) {
-        glDeleteBuffers(1, &(iter.second));
+    for(auto &[sideLength, vbod] : _cubeVBO) {
+        glDeleteBuffers(1, &vbod);
     }
-    for(auto & iter : _cubeVBOIndexed) {
-        glDeleteBuffers(1, &(iter.second));
+    _cubeVBO.clear();
+
+    for(auto &[sideLength, vbod] : _cubeVBOIndexed) {
+        glDeleteBuffers(1, &vbod);
     }
-    for(auto & iter : _cubeIBOIndexed) {
-        glDeleteBuffers(1, &(iter.second));
+    _cubeVBOIndexed.clear();
+
+    for(auto &[sideLength, vbod] : _cubeIBOIndexed) {
+        glDeleteBuffers(1, &vbod);
     }
-    for(auto & iter : _cylinderVBO) {
-        glDeleteBuffers(1, &(iter.second));
+    _cubeIBOIndexed.clear();
+
+    for(auto &[cylData, vbod] : _cylinderVBO) {
+        glDeleteBuffers(1, &vbod);
     }
-    for(auto & iter : _diskVBO) {
-        glDeleteBuffers(1, &(iter.second));
+    _cylinderVBO.clear();
+
+    for(auto &[diskData, vbod] : _diskVBO) {
+        glDeleteBuffers(1, &vbod);
     }
-    for(auto & iter : _sphereVBO) {
-        glDeleteBuffers(1, &(iter.second));
+    _diskVBO.clear();
+
+    for(auto &[sphereData, vbod] : _sphereVBO) {
+        glDeleteBuffers(1, &vbod);
     }
-    for(auto & iter : _torusVBO) {
-        glDeleteBuffers(1, &(iter.second));
+    _sphereVBO.clear();
+
+    for(auto &[torusData, vbod] : _torusVBO) {
+        glDeleteBuffers(1, &vbod);
     }
+    _torusVBO.clear();
 }
 
 inline void CSCI441_INTERNAL::drawCube( GLfloat sideLength, GLenum renderMode ) {
