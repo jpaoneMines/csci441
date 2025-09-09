@@ -14,6 +14,8 @@
 - Fixed bug in MD5Camera update frame orientation calculation
 - Fixed bug in MD5Camera copy operation
 - objects.hpp: "Fixed bug where deleting VAO/VBO only deletes from GPU and does not clear internal maps.  if delete occurs mid-program, next call will now properly recreate vao/vbo
+- Fixed bug OpenGLEngine where destructor calling shutdown() does nothing
+- OpenGLEngines cannot be copied but can be moved
 
 ## v 5.12.0 - 05 Sep 2025
 - SimpleShader no longer assumes VAOD and VBOD are the same value

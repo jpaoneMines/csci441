@@ -48,6 +48,22 @@ namespace CSCI441 {
         OpenGLEngine& operator=(const OpenGLEngine&) = delete;
 
         /**
+         * @brief construct a new engine by moving an existing one
+         */
+        OpenGLEngine(OpenGLEngine&&) noexcept;
+        /**
+         * @brief assign this engine by moving an existing one
+         * @return our newly assigned engine
+         */
+        OpenGLEngine& operator=(OpenGLEngine&&) noexcept;
+
+        /**
+         * @brief cleans up our OpenGL Engine by destroying the OpenGL context, GLFW window, and cleaning up
+         * all GPU resources
+         */
+        virtual ~OpenGLEngine();
+
+        /**
          * @brief Initialize everything needed for OpenGL Rendering.  This includes
          * in order: GLFW, function pointers, OpenGL, Shader Programs, Buffer Objects,
          * Textures, and any Scene information
@@ -121,7 +137,7 @@ namespace CSCI441 {
          * @brief Return current value of error code and clear the error code back to no error
          */
         [[nodiscard]] virtual unsigned short getError() noexcept final {
-            unsigned short storedErrorCode = mErrorCode;  // store current error code
+            const unsigned short storedErrorCode = mErrorCode;  // store current error code
             mErrorCode = OPENGL_ENGINE_ERROR_NO_ERROR;  // reset error code
             return storedErrorCode;                     // return previously stored error code
         }
@@ -129,38 +145,38 @@ namespace CSCI441 {
         /**
          * @brief no error is present, everything is currently working
          */
-        static const unsigned short OPENGL_ENGINE_ERROR_NO_ERROR      = 0;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_NO_ERROR      = 0;
         /**
          * @brief an error occurred while initializing GLFW
          */
-        static const unsigned short OPENGL_ENGINE_ERROR_GLFW_INIT     = 1;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_GLFW_INIT     = 1;
         /**
          * @brief an error occurred while creating the GLFW window
          */
-        static const unsigned short OPENGL_ENGINE_ERROR_GLFW_WINDOW   = 2;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_GLFW_WINDOW   = 2;
         /**
          * @brief an error occurred while initializing GLEW
          */
-        static const unsigned short OPENGL_ENGINE_ERROR_GLEW_INIT     = 3;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_GLEW_INIT     = 3;
         /**
          * @brief an error occurred while initializing GLAD
          */
-        static const unsigned short OPENGL_ENGINE_ERROR_GLAD_INIT     = 4;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_GLAD_INIT     = 4;
         /**
          * @brief a new error that does not correspond to a predefined scenario has occurred
          */
-        static const unsigned short OPENGL_ENGINE_ERROR_UNKNOWN       = 5;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_UNKNOWN       = 5;
         // note to developers: if more error codes are added, need to update LAST accordingly or
         // update UNKNOWN to the last value and shift
         /**
          * @brief stores the error code number of the last possible error, this corresponds to the
          * max error code value.
          */
-        static const unsigned short OPENGL_ENGINE_ERROR_LAST          = OPENGL_ENGINE_ERROR_UNKNOWN;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_LAST          = OPENGL_ENGINE_ERROR_UNKNOWN;
         /**
          * @brief stores the number of unique error codes that can be generated
          */
-        [[maybe_unused]] static const unsigned short OPENGL_ENGINE_ERROR_SIZE          = OPENGL_ENGINE_ERROR_LAST + 1;
+        [[maybe_unused]] static constexpr unsigned short OPENGL_ENGINE_ERROR_SIZE          = OPENGL_ENGINE_ERROR_LAST + 1;
 
     protected:
         /**
@@ -175,11 +191,6 @@ namespace CSCI441 {
          * initialize() method after the object has been created
          */
         OpenGLEngine(int OPENGL_MAJOR_VERSION, int OPENGL_MINOR_VERSION, int WINDOW_WIDTH, int WINDOW_HEIGHT, const char* WINDOW_TITLE, bool WINDOW_RESIZABLE = GLFW_FALSE);
-        /**
-         * @brief cleans up our OpenGL Engine by destroying the OpenGL context, GLFW window, and cleaning up
-         * all GPU resources
-         */
-        virtual ~OpenGLEngine();
 
         /**
          * @brief if information should be printed to console while running
@@ -224,7 +235,7 @@ namespace CSCI441 {
         /**
          * @brief pointer to the GLFW window object
          */
-        GLFWwindow *mpWindow;
+        GLFWwindow* mpWindow;
 
         /**
          * @brief We will register this function as GLFW's error callback.
@@ -232,12 +243,12 @@ namespace CSCI441 {
          *	this function.  We can then print this info to the terminal to
          *	alert the user.
          */
-        static void mErrorCallback(int error, const char* DESCRIPTION) { fprintf(stderr, "[ERROR]: %d\n\t%s\n", error, DESCRIPTION ); }
+        static void mErrorCallback(const int error, const char* DESCRIPTION) { fprintf(stderr, "[ERROR]: %d\n\t%s\n", error, DESCRIPTION ); }
 
         /**
          * @brief callback called whenever a debug message is signaled
          */
-        static void APIENTRY mDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
+        static void APIENTRY mDebugMessageCallback(const GLenum source, const GLenum type, const GLuint id, const GLenum severity, const GLsizei length, const GLchar* message, const void* userParam) {
             fprintf( stdout, "[VERBOSE]: Debug Message (%d): source = %s, type = %s, severity = %s, message = %s\n",
                      id,
                      CSCI441::OpenGLUtils::debugSourceToString(source),
@@ -348,6 +359,9 @@ namespace CSCI441 {
         void _setupGLFunctions();           // initialize OpenGL functions
         void _cleanupGLFunctions() {}       // nothing to be done at this time
 
+        void _cleanupSelf();                // delete internal memory
+        void _moveFromSource(OpenGLEngine&);// move members from another instance
+
         bool _isInitialized;                // makes initialization a singleton process
         bool _isCleanedUp;                  // makes cleanup a singleton process
 
@@ -355,22 +369,100 @@ namespace CSCI441 {
     };
 }
 
-inline CSCI441::OpenGLEngine::OpenGLEngine(const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION, const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const char* WINDOW_TITLE, const bool WINDOW_RESIZABLE)
-        : mOpenGLMajorVersion(OPENGL_MAJOR_VERSION), mOpenGLMinorVersion(OPENGL_MINOR_VERSION), mWindowWidth(WINDOW_WIDTH), mWindowHeight(WINDOW_HEIGHT), mWindowResizable(WINDOW_RESIZABLE) {
-
-    mWindowTitle = (char*)malloc(sizeof(char) * strlen(WINDOW_TITLE));
+inline CSCI441::OpenGLEngine::OpenGLEngine(
+    const int OPENGL_MAJOR_VERSION,
+    const int OPENGL_MINOR_VERSION,
+    const int WINDOW_WIDTH,
+    const int WINDOW_HEIGHT,
+    const char* WINDOW_TITLE,
+    const bool WINDOW_RESIZABLE
+) : DEBUG(true),
+    mErrorCode(OPENGL_ENGINE_ERROR_NO_ERROR),
+    mOpenGLMajorVersion(OPENGL_MAJOR_VERSION),
+    mOpenGLMinorVersion(OPENGL_MINOR_VERSION),
+    mWindowWidth(WINDOW_WIDTH),
+    mWindowHeight(WINDOW_HEIGHT),
+    mWindowResizable(WINDOW_RESIZABLE),
+    mWindowTitle(nullptr),
+    mpWindow(nullptr),
+    _isInitialized(false),
+    _isCleanedUp(false)
+{
+    mWindowTitle = new char[ strlen(WINDOW_TITLE) ];
     strcpy(mWindowTitle, WINDOW_TITLE);
-
-    mpWindow = nullptr;
-
-    _isInitialized = _isCleanedUp = false;
-    DEBUG = true;
-    mErrorCode = OPENGL_ENGINE_ERROR_NO_ERROR;
 }
 
+inline CSCI441::OpenGLEngine::OpenGLEngine(
+    CSCI441::OpenGLEngine&& src
+) noexcept :
+    DEBUG(true),
+    mErrorCode(OPENGL_ENGINE_ERROR_NO_ERROR),
+    mOpenGLMajorVersion(0),
+    mOpenGLMinorVersion(0),
+    mWindowWidth(0),
+    mWindowHeight(0),
+    mWindowResizable(false),
+    mWindowTitle(nullptr),
+    mpWindow(nullptr),
+    _isInitialized(false),
+    _isCleanedUp(false)
+{
+    _moveFromSource(src);
+}
+
+inline CSCI441::OpenGLEngine& CSCI441::OpenGLEngine::operator=(OpenGLEngine&& src) noexcept {
+    if (this != &src) {
+        _cleanupSelf();
+        _moveFromSource(src);
+    }
+    return *this;
+}
+
+
 inline CSCI441::OpenGLEngine::~OpenGLEngine() {
-    shutdown();
-    free(mWindowTitle);
+    _cleanupSelf();
+}
+
+inline void CSCI441::OpenGLEngine::_cleanupSelf() {
+    delete[] mWindowTitle;
+    mWindowTitle = nullptr;
+}
+
+inline void CSCI441::OpenGLEngine::_moveFromSource(OpenGLEngine& src) {
+    DEBUG = src.DEBUG;
+    src.DEBUG = false;
+
+    mErrorCode = src.mErrorCode;
+    src.mErrorCode = OPENGL_ENGINE_ERROR_NO_ERROR;
+
+    mOpenGLMajorVersion = src.mOpenGLMajorVersion;
+    src.mOpenGLMajorVersion = 0;
+
+    mOpenGLMinorVersion = src.mOpenGLMinorVersion;
+    src.mOpenGLMinorVersion = 0;
+
+    mWindowWidth = src.mWindowWidth;
+    src.mWindowWidth = 0;
+
+    mWindowHeight = src.mWindowHeight;
+    src.mWindowHeight = 0;
+
+    mWindowResizable = src.mWindowResizable;
+    src.mWindowResizable = false;
+
+    mWindowTitle = src.mWindowTitle;
+    src.mWindowTitle = nullptr;
+
+    mpWindow = src.mpWindow;
+    src.mpWindow = nullptr;
+
+    _isInitialized = src._isInitialized;
+    src._isInitialized = false;
+
+    _isCleanedUp = src._isCleanedUp;
+    src._isCleanedUp = false;
+
+    _extensions = std::move(src._extensions);
 }
 
 inline void CSCI441::OpenGLEngine::initialize() {
@@ -423,9 +515,9 @@ inline void CSCI441::OpenGLEngine::mSetupGLFW()  {
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, mOpenGLMajorVersion );	        // request OpenGL vX.
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, mOpenGLMinorVersion );	        // request OpenGL v .X
-        glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );                       // request forward compatible OpenGL context
-        glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );             // request OpenGL Core Profile context
-        glfwWindowHint( GLFW_DOUBLEBUFFER, GLFW_TRUE );                              // request double buffering
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );                       // request forward compatible OpenGL context
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );             // request OpenGL Core Profile context
+        glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE );                              // request double buffering
         glfwWindowHint(GLFW_RESIZABLE, mWindowResizable );		                    // set if our window should be able to be resized
 
         // if wanting debug information with Version 4.3 or higher
@@ -455,17 +547,17 @@ inline void CSCI441::OpenGLEngine::_setupGLFunctions() {
 
 #ifdef CSCI441_USE_GLEW
     glewExperimental = GL_TRUE;
-    GLenum glewResult = glewInit();                                             // initialize GLEW
+    const GLenum glewResult = glewInit();                                             // initialize GLEW
 
     // check for an error
     if( glewResult != GLEW_OK ) {
         fprintf( stderr, "[ERROR]: Error initializing GLEW\n");
-        fprintf( stderr, "[ERROR]: %s\n", glewGetErrorString(glewResult) );
+        fprintf( stderr, "[ERROR]: %s\n", reinterpret_cast<const char *>(glewGetErrorString(glewResult)) );
         mErrorCode = OPENGL_ENGINE_ERROR_GLEW_INIT;
     } else {
         if(DEBUG) {
             fprintf(stdout, "\n[INFO]: GLEW initialized\n");
-            fprintf(stdout, "[INFO]: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+            fprintf(stdout, "[INFO]: Using GLEW %s\n", reinterpret_cast<const char *>(glewGetString(GLEW_VERSION)));
         }
     }
 #else
@@ -486,7 +578,7 @@ inline void CSCI441::OpenGLEngine::_setupGLFunctions() {
         GLint numExtensions = 0;
         glGetIntegerv(GL_NUM_EXTENSIONS, &numExtensions);
         for (int i = 0; i < numExtensions; i++) {
-            _extensions.insert((const char*)glGetStringi(GL_EXTENSIONS, i) );
+            _extensions.insert(reinterpret_cast<const char *>(glGetStringi(GL_EXTENSIONS, i)) );
         }
     }
 }
@@ -515,8 +607,8 @@ inline void CSCI441::OpenGLEngine::shutdown() {
     }
 }
 
-inline void CSCI441::OpenGLEngine::mWindowResizeCallback(GLFWwindow* pWindow, int width, int height) {
-    auto pEngine = (OpenGLEngine*) glfwGetWindowUserPointer(pWindow);
+inline void CSCI441::OpenGLEngine::mWindowResizeCallback(GLFWwindow* pWindow, const int width, const int height) {
+    const auto pEngine = static_cast<OpenGLEngine *>(glfwGetWindowUserPointer(pWindow));
     pEngine->setCurrentWindowSize(width, height);
 }
 
