@@ -1,6 +1,6 @@
 # Revision History
 
-## v ?.??.? - ?? ??? ????
+## v 5.13.1 - 25 Sep 2025
 - Internal improvements to examples
 - Fixed bug in SimpleShader were deleting vertexArray didn't clear map entry
 
