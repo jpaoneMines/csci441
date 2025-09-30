@@ -426,6 +426,36 @@ namespace CSCI441 {
              * @brief joint orientation expressed as a quaternion in object space
              */
             glm::quat orientation = {0.0f, 0.0f, 0.0f, 0.0f};
+
+            MD5BaseFrameJoint(const MD5BaseFrameJoint& OTHER) {
+                _copyFromSrc(OTHER);
+            }
+            MD5BaseFrameJoint& operator=(const MD5BaseFrameJoint &OTHER) {
+                if (this != &OTHER) {
+                    _copyFromSrc(OTHER);
+                }
+                return *this;
+            }
+            MD5BaseFrameJoint(MD5BaseFrameJoint&& src) noexcept {
+                _moveFromSrc(src);
+            }
+            MD5BaseFrameJoint& operator=(MD5BaseFrameJoint &src) noexcept {
+                if (this != &src) {
+                    _moveFromSrc(src);
+                }
+                return *this;
+            }
+        private:
+            void _copyFromSrc(const MD5BaseFrameJoint &src) {
+                this->position = src.position;
+                this->orientation = src.orientation;
+            }
+            void _moveFromSrc(MD5BaseFrameJoint &src) {
+                _copyFromSrc(src);
+
+                src.position = glm::vec3(0.0f, 0.0f, 0.0f);
+                src.orientation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f);
+            }
         };
 
         /**
