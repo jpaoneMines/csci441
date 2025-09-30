@@ -287,13 +287,47 @@ namespace CSCI441 {
          */
         struct MD5Texture {
             /**
+             * @brief max length of joint name string
+             */
+            static constexpr GLshort MAX_NAME_LENGTH = 512;
+            /**
              * @brief handle of texture stored on the GPU
              */
             GLuint texHandle = 0;
             /**
              * @brief filename texture was loaded from
              */
-            char filename[512] = "";
+            char filename[MAX_NAME_LENGTH] = "";
+
+            MD5Texture(const MD5Texture &OTHER) {
+                _copyFromSrc(OTHER);
+            }
+            MD5Texture& operator=(const MD5Texture &OTHER) {
+                if (this != &OTHER) {
+                    _copyFromSrc(OTHER);
+                }
+                return *this;
+            }
+            MD5Texture(MD5Texture&& src) noexcept {
+                _moveFromSrc(src);
+            }
+            MD5Texture& operator=(MD5Texture&& src) noexcept {
+                if (this != &src) {
+                    _moveFromSrc(src);
+                }
+                return *this;
+            }
+        private:
+            void _copyFromSrc(const MD5Texture &src) {
+                this->texHandle = src.texHandle;
+                strncpy(this->filename, src.filename, MAX_NAME_LENGTH);
+            }
+            void _moveFromSrc(MD5Texture& src) {
+                _copyFromSrc(src);
+
+                src.texHandle = 0;
+                strncpy(src.filename, "", MAX_NAME_LENGTH);
+            }
         };
 
         /**
