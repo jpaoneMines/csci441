@@ -24,9 +24,11 @@ public:
         _objectIndex(0),
         _objectAngle(0.0f),
         _wireframe(GL_FALSE),
-        _lightPosition( glm::vec3(0.0f, 0.0f, 0.0f) ),
         _lightPositionAngle(0.0f),
-        _rotate(GL_FALSE)
+        _lightPosition( {glm::cos(_lightPositionAngle) * 10.0f, 10.0f, glm::sin(_lightPositionAngle) * 10.0f} ),
+        _rotate(GL_FALSE),
+        _useTransparency(GL_FALSE),
+        _useSmoothShading(GL_TRUE)
     {
 
     }
@@ -36,6 +38,8 @@ public:
         printf("  0-9   : change object\n");
         printf("   W    : toggle wireframe\n");
         printf("   R    : toggle rotation\n");
+        printf("   S    : toggle smooth shading\n");
+        printf("   T    : toggle transparency\n");
         printf("Q / ESC : quit\n");
 
         //  This is our draw loop - all rendering is done here.  We use a loop to keep the window open
@@ -69,6 +73,16 @@ public:
 
     void toggleRotation() { _rotate = !_rotate; }
     void toggleWireframe() { _wireframe = !_wireframe; }
+    void toggleTransparency() { _useTransparency = !_useTransparency; }
+    void toggleSmoothShading() {
+        _useSmoothShading = !_useSmoothShading;
+        if (_useSmoothShading) {
+            CSCI441::SimpleShader3::enableSmoothShading();
+        } else {
+            CSCI441::SimpleShader3::enableFlatShading();
+        }
+        mReloadShaders();
+    }
 
 private:
     //***************************************************************************
@@ -102,7 +116,7 @@ private:
 
         _lightPositionAngle = 0.0f;
 
-        glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+        constexpr glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
         CSCI441::SimpleShader3::setLightColor(lightColor);
 
         setArcballCameraLookAtPoint( glm::vec3(0.0f, 2.1f, 0.0f) );
@@ -135,7 +149,11 @@ private:
             CSCI441::drawSolidCubeFlat(1.0f);
         CSCI441::SimpleShader3::popTransformation();
 
-        CSCI441::SimpleShader3::setMaterialColor( _MATERIAL_GOLD_DIFFUSE );
+        if (_useTransparency) {
+            CSCI441::SimpleShader3::setMaterialColor( _MATERIAL_GOLD_ALPHA_DIFFUSE );
+        } else {
+            CSCI441::SimpleShader3::setMaterialColor( _MATERIAL_GOLD_DIFFUSE );
+        }
         modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 2.1f, 0.0f));
         modelMatrix = glm::rotate( modelMatrix, _objectAngle, CSCI441::Y_AXIS );
         CSCI441::SimpleShader3::pushTransformation(modelMatrix);
@@ -197,13 +215,16 @@ private:
     /// \desc if objects should be drawn as wireframe or solid
     GLboolean _wireframe;
 
-    glm::vec3 _lightPosition;
     GLfloat _lightPositionAngle;
+    glm::vec3 _lightPosition;
 
     GLboolean _rotate;
+    GLboolean _useTransparency;
+    GLboolean _useSmoothShading;
 
     const glm::vec3 _MATERIAL_EMERALD_DIFFUSE = CSCI441::Materials::EMERALD.getDiffuse();
     const glm::vec3 _MATERIAL_GOLD_DIFFUSE = CSCI441::Materials::GOLD.getDiffuse();
+    const glm::vec4 _MATERIAL_GOLD_ALPHA_DIFFUSE = glm::vec4( glm::vec3(CSCI441::Materials::GOLD.getDiffuse()), 0.5f );
     static constexpr glm::vec3 _MATERIAL_WHITE_DIFFUSE = glm::vec3(1.0f, 1.0f, 1.0f);
 
     /// \desc rate at which the objects rotate
@@ -246,6 +267,14 @@ void simple_objects_3_engine_keyboard_callback(GLFWwindow *window, const int key
                 engine->toggleWireframe();
                 break;
 
+            case GLFW_KEY_S:
+                engine->toggleSmoothShading();
+                break;
+
+            case GLFW_KEY_T:
+                engine->toggleTransparency();
+                break;
+
             default:
                 break;
         }
@@ -275,6 +304,5 @@ int main() {
     }
     pSimpleObjects3Engine->shutdown();
     delete pSimpleObjects3Engine;
-
     return EXIT_SUCCESS;
 }

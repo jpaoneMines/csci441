@@ -1,6 +1,7 @@
 # Revision History
 
 ## v ?.??.? - ?? ??? ????
+- SimpleShader3 supports RGB and RGBA materials
 - SimpleShader2 supports RGB and RGBA color
 
 ## v 5.13.1 - 25 Sep 2025

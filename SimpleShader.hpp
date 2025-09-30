@@ -270,6 +270,11 @@ namespace CSCI441 {
          * @param MATERIAL_COLOR diffuse material color in RGB space
          */
         [[maybe_unused]] void setMaterialColor(const glm::vec3& MATERIAL_COLOR);
+        /**
+         * @brief sets current diffuse material color to apply to object
+         * @param MATERIAL_COLOR diffuse material color in RGBA space
+         */
+        [[maybe_unused]] void setMaterialColor(const glm::vec4& MATERIAL_COLOR);
 
         /**
          * @brief Pushes a transformation to the stack and updates our model matrix
@@ -333,7 +338,7 @@ namespace CSCI441_INTERNAL {
         inline GLint modelLocation = -1;
         inline GLint viewLocation = -1;
         inline GLint projectionLocation = -1;
-        inline GLint vertexLocation = -1;
+        inline GLint positionLocation = -1;
         inline GLint colorLocation = -1;
 
         inline std::map<GLuint, GLuint> descriptorMap;
@@ -352,7 +357,7 @@ namespace CSCI441_INTERNAL {
         void setViewMatrix(const glm::mat4& VIEW_MATRIX);
         void setLightPosition(const glm::vec3& LIGHT_POSITION);
         void setLightColor(const glm::vec3& LIGHT_COLOR);
-        void setMaterialColor(const glm::vec3& MATERIAL_COLOR);
+        void setMaterialColor(const glm::vec4& MATERIAL_COLOR);
         void pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX);
         void popTransformation();
         void resetTransformationMatrix();
@@ -370,7 +375,7 @@ namespace CSCI441_INTERNAL {
         inline GLint lightPositionLocation = -1;
         inline GLint lightColorLocation = -1;
         inline GLint materialLocation = -1;
-        inline GLint vertexLocation = -1;
+        inline GLint positionLocation = -1;
         inline GLint normalLocation = -1;
         inline GLint useLightingLocation = -1;
 
@@ -540,11 +545,16 @@ inline void CSCI441::SimpleShader3::setLightPosition(const glm::vec3& LIGHT_POSI
 
 [[maybe_unused]]
 inline void CSCI441::SimpleShader3::setLightColor(const glm::vec3& LIGHT_COLOR) {
-    CSCI441_INTERNAL::SimpleShader3::setLightColor(LIGHT_COLOR);
+    CSCI441_INTERNAL::SimpleShader3::setLightColor( LIGHT_COLOR );
 }
 
 [[maybe_unused]]
 inline void CSCI441::SimpleShader3::setMaterialColor(const glm::vec3& MATERIAL_COLOR) {
+    CSCI441_INTERNAL::SimpleShader3::setMaterialColor( glm::vec4(MATERIAL_COLOR, 1.0f) );
+}
+
+[[maybe_unused]]
+inline void CSCI441::SimpleShader3::setMaterialColor(const glm::vec4& MATERIAL_COLOR) {
     CSCI441_INTERNAL::SimpleShader3::setMaterialColor(MATERIAL_COLOR);
 }
 
@@ -656,7 +666,7 @@ void main() {
     viewLocation        = glGetUniformLocation(shaderProgramHandle, "view");
     projectionLocation  = glGetUniformLocation(shaderProgramHandle, "projection");
 
-    vertexLocation      = glGetAttribLocation(shaderProgramHandle, "vPos");
+    positionLocation    = glGetAttribLocation(shaderProgramHandle, "vPos");
     colorLocation       = glGetAttribLocation(shaderProgramHandle, "vColor");
 
 
@@ -682,8 +692,8 @@ inline GLuint CSCI441_INTERNAL::SimpleShader2::registerVertexArray(const GLuint 
     glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*2), VERTEX_POINTS);
     glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat)*NUM_POINTS*2), static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*4), VERTEX_COLORS);
 
-    glEnableVertexAttribArray(vertexLocation);
-    glVertexAttribPointer(vertexLocation, 2, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr));
+    glEnableVertexAttribArray(positionLocation);
+    glVertexAttribPointer(positionLocation, 2, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr));
 
     glEnableVertexAttribArray(colorLocation);
     glVertexAttribPointer(colorLocation, 4, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(GLfloat) * NUM_POINTS * 2));
@@ -770,7 +780,7 @@ uniform mat4 projection;
 uniform mat3 normalMtx;
 uniform vec3 lightColor;
 uniform vec3 lightPosition;
-uniform vec3 materialColor;
+uniform vec4 materialColor;
 
 layout(location=0) in vec3 vPos;
 layout(location=2) in vec3 vNormal;
@@ -787,17 +797,17 @@ void main() {
     vec3 lightVec = normalize( lightEye - vertexEye );
     vec3 normalVec = normalize( normalMtx * vNormal );
     float sDotN = max(dot(lightVec, normalVec), 0.0);
-    vec3 diffColor = lightColor * materialColor * sDotN;
-    vec3 ambColor = materialColor * 0.3;
-    vec3 color = diffColor + ambColor;
-    fragColor = vec4(color, 1.0);
+    vec3 diffColor = lightColor * materialColor.rgb * sDotN;
+    vec3 ambColor = materialColor.rgb * 0.3;
+    vec4 color = vec4( diffColor + ambColor, materialColor.a );
+    fragColor = clamp(color, 0.0f, 1.0f);
 })_";
     const char* vertexShaders[1] = { vertex_shader_src.c_str() };
 
     std::string fragment_shader_src =
 R"_(#version 410 core
 
-uniform vec3 materialColor;
+uniform vec4 materialColor;
 uniform int useLighting;
 
 layout(location=0) )_";
@@ -810,19 +820,19 @@ void main() {
     if(useLighting == 1) {
         fragColorOut = fragColor;
     } else {
-        fragColorOut = vec4(materialColor, 1.0f);
+        fragColorOut = materialColor;
     }
 })_";
     const char* fragmentShaders[1] = { fragment_shader_src.c_str() };
 
     printf( "[INFO]: /--------------------------------------------------------\\\n" );
 
-    GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );
+    const GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );
     glShaderSource(vertexShaderHandle, 1, vertexShaders, nullptr);
     glCompileShader(vertexShaderHandle);
     ShaderUtils::printShaderLog(vertexShaderHandle);
 
-    GLuint fragmentShaderHandle = glCreateShader( GL_FRAGMENT_SHADER );
+    const GLuint fragmentShaderHandle = glCreateShader( GL_FRAGMENT_SHADER );
     glShaderSource(fragmentShaderHandle, 1, fragmentShaders, nullptr);
     glCompileShader(fragmentShaderHandle);
     ShaderUtils::printShaderLog(fragmentShaderHandle);
@@ -850,27 +860,28 @@ void main() {
     materialLocation    = glGetUniformLocation(shaderProgramHandle, "materialColor");
     useLightingLocation = glGetUniformLocation(shaderProgramHandle, "useLighting");
 
-    vertexLocation      = glGetAttribLocation(shaderProgramHandle, "vPos");
+    positionLocation    = glGetAttribLocation(shaderProgramHandle, "vPos");
     normalLocation      = glGetAttribLocation(shaderProgramHandle, "vNormal");
 
-    glm::mat4 identity(1.0f);
+    constexpr glm::mat4 identity(1.0f);
     glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, glm::value_ptr(identity));
     glProgramUniformMatrix4fv(shaderProgramHandle, viewLocation, 1, GL_FALSE, glm::value_ptr(identity));
     glProgramUniformMatrix4fv(shaderProgramHandle, projectionLocation, 1, GL_FALSE, glm::value_ptr(identity));
 
     transformationStack.emplace_back(identity);
 
-    glm::vec3 white(1.0f, 1.0f, 1.0f);
-    glProgramUniform3fv(shaderProgramHandle, lightColorLocation, 1, glm::value_ptr(white));
-    glProgramUniform3fv(shaderProgramHandle, materialLocation, 1, glm::value_ptr(white));
+    constexpr glm::vec3 white3 {1.0f, 1.0f, 1.0f};
+    glProgramUniform3fv(shaderProgramHandle, lightColorLocation, 1, glm::value_ptr(white3));
+    constexpr glm::vec4 white4 {1.0f, 1.0f, 1.0f, 1.0f};
+    glProgramUniform4fv(shaderProgramHandle, materialLocation, 1, glm::value_ptr(white4));
 
-    glm::vec3 origin(0.0f, 0.0f, 0.0f);
+    constexpr glm::vec3 origin {0.0f, 0.0f, 0.0f};
     glProgramUniform3fv(shaderProgramHandle, lightPositionLocation, 1, glm::value_ptr(origin));
 
     glProgramUniform1i(shaderProgramHandle, useLightingLocation, 1);
 
     glUseProgram(shaderProgramHandle);
-    CSCI441::setVertexAttributeLocations(vertexLocation, normalLocation);
+    CSCI441::setVertexAttributeLocations(positionLocation, normalLocation);
 }
 
 inline GLuint CSCI441_INTERNAL::SimpleShader3::registerVertexArray(const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]) {
@@ -885,13 +896,13 @@ inline GLuint CSCI441_INTERNAL::SimpleShader3::registerVertexArray(const GLuint 
     glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*3), VERTEX_POINTS);
     glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(GLfloat)*NUM_POINTS*3), static_cast<GLsizeiptr>(sizeof(GLfloat)*NUM_POINTS*3), VERTEX_NORMALS);
 
-    glEnableVertexAttribArray(vertexLocation);
-    glVertexAttribPointer(vertexLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)nullptr);
+    glEnableVertexAttribArray(positionLocation);
+    glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr));
 
     glEnableVertexAttribArray(normalLocation);
-    glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(GLfloat)*NUM_POINTS*2));
+    glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(GLfloat) * NUM_POINTS * 2));
 
-    descriptorMap.insert( std::pair<GLuint, GLuint>( vaod, vbod ) );
+    descriptorMap.insert( std::pair( vaod, vbod ) );
 
     return vaod;
 }
@@ -934,8 +945,8 @@ inline void CSCI441_INTERNAL::SimpleShader3::setLightColor(const glm::vec3& LIGH
     glProgramUniform3fv(shaderProgramHandle, lightColorLocation, 1, glm::value_ptr(LIGHT_COLOR));
 }
 
-inline void CSCI441_INTERNAL::SimpleShader3::setMaterialColor(const glm::vec3& MATERIAL_COLOR) {
-    glProgramUniform3fv(shaderProgramHandle, materialLocation, 1, glm::value_ptr(MATERIAL_COLOR));
+inline void CSCI441_INTERNAL::SimpleShader3::setMaterialColor(const glm::vec4& MATERIAL_COLOR) {
+    glProgramUniform4fv(shaderProgramHandle, materialLocation, 1, glm::value_ptr(MATERIAL_COLOR));
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::pushTransformation(const glm::mat4& TRANSFORMATION_MATRIX) {
@@ -954,7 +965,7 @@ inline void CSCI441_INTERNAL::SimpleShader3::popTransformation() {
         transformationStack.pop_back();
 
         modelMatrix = glm::mat4(1.0f);
-        for( auto tMtx : transformationStack ) {
+        for( const auto& tMtx : transformationStack ) {
             modelMatrix *= tMtx;
         }
         glProgramUniformMatrix4fv( shaderProgramHandle, modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix) );
@@ -972,8 +983,8 @@ inline void CSCI441_INTERNAL::SimpleShader3::resetTransformationMatrix() {
 }
 
 inline void CSCI441_INTERNAL::SimpleShader3::setNormalMatrix() {
-    glm::mat4 modelView = viewMatrix * modelMatrix;
-    glm::mat3 normalMatrix = glm::mat3( glm::transpose( glm::inverse( modelView ) ) );
+    const glm::mat4 modelView = viewMatrix * modelMatrix;
+    const glm::mat3 normalMatrix = glm::mat3( glm::transpose( glm::inverse( modelView ) ) );
     glProgramUniformMatrix3fv(shaderProgramHandle, normalMtxLocation, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 }
 
