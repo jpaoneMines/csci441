@@ -84,9 +84,13 @@ namespace CSCI441 {
              */
             static constexpr GLint NULL_JOINT = -1;
             /**
+             * @brief max length of joint name string
+             */
+            static constexpr GLshort MAX_NAME_LENGTH = 256;
+            /**
              * @brief joint identifier
              */
-            char name[256] = "";
+            char name[MAX_NAME_LENGTH] = "";
             /**
              * @brief index of the parent joint on skeletal tree
              */
@@ -99,6 +103,41 @@ namespace CSCI441 {
              * @brief joint orientation expressed as a quaternion in object space
              */
             glm::quat orientation = {0.0f, 0.0f, 0.0f, 0.0f};
+
+            MD5Joint(const MD5Joint &OTHER) {
+                _copyFromSrc(OTHER);
+            }
+            MD5Joint& operator=(const MD5Joint &OTHER) {
+                if (this != &OTHER) {
+                    _copyFromSrc(OTHER);
+                }
+                return *this;
+            }
+            MD5Joint(MD5Joint&& src) noexcept {
+                _moveFromSrc(src);
+            }
+            MD5Joint& operator=(MD5Joint&& src) noexcept {
+                if (this != &src) {
+                    _moveFromSrc(src);
+                }
+                return *this;
+            }
+        private:
+            void _copyFromSrc(const MD5Joint& src) {
+                strncpy(this->name, src.name, MAX_NAME_LENGTH);
+                this->parent = src.parent;
+                this->position = src.position;
+                this->orientation = src.orientation;
+            }
+            void _moveFromSrc(MD5Joint& src) {
+                // copy values from source
+                _copyFromSrc(src);
+                // reset source
+                strncpy(src.name, "", MAX_NAME_LENGTH);
+                src.parent = NULL_JOINT;
+                src.position = glm::vec3(0.0f, 0.0f, 0.0f);
+                src.orientation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f);
+            }
         };
 
         /**
