@@ -19,6 +19,7 @@ public:
         const char* WINDOW_TITLE
     ) : CSCI441::OpenGLEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE),
         _triangleVAO(0),
+        _triangleVAO2(0),
         _triforceRotationSpeed(1.0f),
         _triforceAngle(0.0f)
     {
@@ -67,26 +68,34 @@ protected:
         glfwSetKeyCallback( mpWindow, simple_tri_2_engine_keyboard_callback );
     }
     void mSetupOpenGL() override {
-        glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );     // set the clear color to black
+        glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );         // set the clear color to black
+        glEnable( GL_BLEND );                                           // enable blending for transparency
+        glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );   // specify blending equation
     }
     void mSetupShaders() override {
         CSCI441::SimpleShader2::setupSimpleShader();
     }
     void mSetupBuffers() override {
         glm::vec3 gold(0.9f, 0.8f, 0.1f);
+        glm::vec4 redA( 1.0f, 0.0f, 0.0f, 0.5f );
 
-        _trianglePoints.emplace_back( -2.5f, -2.0f );   _triangleColorsGold.emplace_back( gold );
-        _trianglePoints.emplace_back(  2.5f, -2.0f );   _triangleColorsGold.emplace_back( gold );
-        _trianglePoints.emplace_back(  0.0f,  2.0f );   _triangleColorsGold.emplace_back( gold );
+        _trianglePoints.emplace_back( -2.5f, -2.0f );   _triangleColorsGold.emplace_back( gold );   _triangleColorsRedAlpha.emplace_back( redA );
+        _trianglePoints.emplace_back(  2.5f, -2.0f );   _triangleColorsGold.emplace_back( gold );   _triangleColorsRedAlpha.emplace_back( redA );
+        _trianglePoints.emplace_back(  0.0f,  2.0f );   _triangleColorsGold.emplace_back( gold );   _triangleColorsRedAlpha.emplace_back( redA );
 
         _triangleVAO = CSCI441::SimpleShader2::registerVertexArray( _trianglePoints, _triangleColorsGold );
+        _triangleVAO2 = CSCI441::SimpleShader2::registerVertexArray( _trianglePoints, _triangleColorsRedAlpha );
     }
     void mCleanupBuffers() override {
         CSCI441::SimpleShader2::deleteVertexArray( _triangleVAO );
         _triangleVAO = 0;
 
+        CSCI441::SimpleShader2::deleteVertexArray( _triangleVAO2 );
+        _triangleVAO2 = 0;
+
         _trianglePoints.clear();
         _triangleColorsGold.clear();
+        _triangleColorsRedAlpha.clear();
     }
 
 private:
@@ -97,30 +106,40 @@ private:
             CSCI441::SimpleShader2::pushTransformation( rotMtx );
                 const glm::mat4 scaleMtx = glm::scale( glm::mat4(1.0), glm::vec3(10, 10, 1) );
                 CSCI441::SimpleShader2::pushTransformation( scaleMtx );
-                    _drawTriforce();
+                    _drawTriforce(_triangleVAO);
+                CSCI441::SimpleShader2::popTransformation();
+            CSCI441::SimpleShader2::popTransformation();
+        CSCI441::SimpleShader2::popTransformation();
+
+        const glm::mat4 transMtx2 = glm::translate( glm::mat4(1.0), glm::vec3(2.0f * getWindowWidth() / 3.0f, getWindowHeight() / 2.0f, 0.0f) );
+        CSCI441::SimpleShader2::pushTransformation( transMtx2 );
+            const glm::mat4 rotMtx2 = glm::rotate( glm::mat4(1.0), _triforceAngle, glm::vec3(0, 0, -1) );
+            CSCI441::SimpleShader2::pushTransformation( rotMtx2 );
+                CSCI441::SimpleShader2::pushTransformation( scaleMtx );
+                    _drawTriforce(_triangleVAO2);
                 CSCI441::SimpleShader2::popTransformation();
             CSCI441::SimpleShader2::popTransformation();
         CSCI441::SimpleShader2::popTransformation();
     }
 
-    void _drawTriangle() const {
-        CSCI441::SimpleShader2::draw(GL_TRIANGLES, _triangleVAO, _trianglePoints.size());
+    void _drawTriangle(const GLuint vao) const {
+        CSCI441::SimpleShader2::draw(GL_TRIANGLES, vao, _trianglePoints.size());
     }
 
-    void _drawTriforce() const {
+    void _drawTriforce(const GLuint vao) const {
         constexpr glm::mat4 t1 = glm::translate( glm::mat4(1.0), glm::vec3( -2.5f, -2.0f, 0.0f ) );
         CSCI441::SimpleShader2::pushTransformation( t1 );
-            _drawTriangle();
+            _drawTriangle(vao);
         CSCI441::SimpleShader2::popTransformation();
 
         constexpr glm::mat4 t2 = glm::translate( glm::mat4(1.0), glm::vec3( 2.5f, -2.0f, 0.0f ) );
         CSCI441::SimpleShader2::pushTransformation( t2 );
-            _drawTriangle();
+            _drawTriangle(vao);
         CSCI441::SimpleShader2::popTransformation();
 
         constexpr glm::mat4 t3 = glm::translate( glm::mat4(1.0), glm::vec3( 0.0f, 2.0f, 0.0f ) );
         CSCI441::SimpleShader2::pushTransformation( t3 );
-            _drawTriangle();
+            _drawTriangle(vao);
         CSCI441::SimpleShader2::popTransformation();
     }
 
@@ -129,9 +148,10 @@ private:
         if( _triforceAngle > glm::two_pi<GLfloat>() ) _triforceAngle -= glm::two_pi<GLfloat>();
     }
 
-    GLuint _triangleVAO;
+    GLuint _triangleVAO, _triangleVAO2;
     std::vector<glm::vec2> _trianglePoints;
     std::vector<glm::vec3> _triangleColorsGold;
+    std::vector<glm::vec4> _triangleColorsRedAlpha;
     GLfloat _triforceRotationSpeed;
     GLfloat _triforceAngle;
 };
@@ -159,6 +179,5 @@ int main() {
     }
     pSimpleTri2Engine->shutdown();
     delete pSimpleTri2Engine;
-
     return EXIT_SUCCESS;
 }

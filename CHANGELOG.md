@@ -1,5 +1,8 @@
 # Revision History
 
+## v ?.??.? - ?? ??? ????
+- SimpleShader2 supports RGB and RGBA color
+
 ## v 5.13.1 - 25 Sep 2025
 - Internal improvements to examples
 - Fixed bug in SimpleShader were deleting vertexArray didn't clear map entry
