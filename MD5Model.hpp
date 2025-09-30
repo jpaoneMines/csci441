@@ -1167,7 +1167,7 @@ CSCI441::MD5Model::draw() const
 {
     // Draw each mesh of the model
     for(GLint i = 0; i < _numMeshes; ++i) {
-        MD5Mesh mesh = _meshes[i];                  // get the mesh
+        MD5Mesh& mesh = _meshes[i];                  // get the mesh
         _prepareMesh(&mesh);                // do some preprocessing on it
         _drawMesh(&mesh);
     }
