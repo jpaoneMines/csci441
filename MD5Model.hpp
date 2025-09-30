@@ -559,7 +559,6 @@ namespace CSCI441 {
              * @brief index of next frame model will move to
              */
             GLint nextFrame = 0;
-
             /**
              * @brief time of last frame interpolation
              */
@@ -569,6 +568,42 @@ namespace CSCI441 {
              * @note equivalent to inverse of frame rate
              */
             GLfloat maxTime = 0.0f;
+
+            MD5AnimationState() = default;
+
+            MD5AnimationState(const MD5AnimationState &OTHER) {
+                _copyFromSrc(OTHER);
+            }
+            MD5AnimationState& operator=(const MD5AnimationState &OTHER) {
+                if (this != &OTHER) {
+                    _copyFromSrc(OTHER);
+                }
+                return *this;
+            }
+            MD5AnimationState(MD5AnimationState&& src) noexcept {
+                _moveFromSrc(src);
+            }
+            MD5AnimationState& operator=(MD5AnimationState&& src) noexcept {
+                if (this != &src) {
+                    _moveFromSrc(src);
+                }
+                return *this;
+            }
+        private:
+            void _copyFromSrc(const MD5AnimationState &src) {
+                this->currFrame = src.currFrame;
+                this->nextFrame = src.nextFrame;
+                this->lastTime = src.lastTime;
+                this->maxTime = src.maxTime;
+            }
+            void _moveFromSrc(MD5AnimationState &src) {
+                _copyFromSrc(src);
+
+                src.currFrame = 0;
+                src.nextFrame = 0;
+                src.lastTime = 0.0f;
+                src.maxTime = 0.0f;
+            }
         };
 
     public:
