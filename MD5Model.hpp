@@ -198,6 +198,38 @@ namespace CSCI441 {
              * @brief vertex indices that make up triangle
              */
             GLint index[3] = {0};
+
+            MD5Triangle(const MD5Triangle &OTHER) {
+                _copyFromSrc(OTHER);
+            }
+            MD5Triangle& operator=(const MD5Triangle &OTHER) {
+                if (this != &OTHER) {
+                    _copyFromSrc(OTHER);
+                }
+                return *this;
+            }
+            MD5Triangle(MD5Triangle&& src) noexcept {
+                _moveFromSrc(src);
+            }
+            MD5Triangle& operator=(MD5Triangle&& src) noexcept {
+                if (this != &src) {
+                    _moveFromSrc(src);
+                }
+                return *this;
+            }
+        private:
+            void _copyFromSrc(const MD5Triangle &src) {
+                this->index[0] = src.index[0];
+                this->index[1] = src.index[1];
+                this->index[2] = src.index[2];
+            }
+            void _moveFromSrc(MD5Triangle &src) {
+                _copyFromSrc(src);
+
+                src.index[0] = 0;
+                src.index[1] = 0;
+                src.index[2] = 0;
+            }
         };
 
         /**
