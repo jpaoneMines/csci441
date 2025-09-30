@@ -239,7 +239,7 @@ namespace CSCI441 {
         /**
          * @brief pointer to the ArcballCam object
          */
-        CSCI441::ArcballCam* mpArcballCamera;
+        CSCI441::Camera* mpArcballCamera;
 
         /**
          * @brief if either shift key (left or right) is currently pressed
