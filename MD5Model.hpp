@@ -104,6 +104,8 @@ namespace CSCI441 {
              */
             glm::quat orientation = {0.0f, 0.0f, 0.0f, 0.0f};
 
+            MD5Joint() = default;
+
             MD5Joint(const MD5Joint &OTHER) {
                 _copyFromSrc(OTHER);
             }
@@ -157,6 +159,8 @@ namespace CSCI441 {
              */
             GLint count = 0;
 
+            MD5Vertex() = default;
+
             MD5Vertex(const MD5Vertex &OTHER) {
                 _copyFromSrc(OTHER);
             }
@@ -194,10 +198,13 @@ namespace CSCI441 {
          * @brief a triangle on the mesh
          */
         struct MD5Triangle {
+            static constexpr GLint NUM_VERTICES = 3;
             /**
              * @brief vertex indices that make up triangle
              */
-            GLint index[3] = {0};
+            GLint index[NUM_VERTICES] = {0};
+
+            MD5Triangle() = default;
 
             MD5Triangle(const MD5Triangle &OTHER) {
                 _copyFromSrc(OTHER);
@@ -219,16 +226,16 @@ namespace CSCI441 {
             }
         private:
             void _copyFromSrc(const MD5Triangle &src) {
-                this->index[0] = src.index[0];
-                this->index[1] = src.index[1];
-                this->index[2] = src.index[2];
+                for (GLint i = 0; i < NUM_VERTICES; i++) {
+                    this->index[i] = src.index[i];
+                }
             }
             void _moveFromSrc(MD5Triangle &src) {
                 _copyFromSrc(src);
 
-                src.index[0] = 0;
-                src.index[1] = 0;
-                src.index[2] = 0;
+                for (GLint i = 0; i < NUM_VERTICES; i++) {
+                    src.index[i] = 0;
+                }
             }
         };
 
@@ -248,6 +255,8 @@ namespace CSCI441 {
              * @brief weight's position in object space
              */
             glm::vec3 position = {0.0f, 0.0f, 0.0f};
+
+            MD5Weight() = default;
 
             MD5Weight(const MD5Weight &OTHER) {
                 _copyFromSrc(OTHER);
@@ -298,6 +307,8 @@ namespace CSCI441 {
              * @brief filename texture was loaded from
              */
             char filename[MAX_NAME_LENGTH] = "";
+
+            MD5Texture() = default;
 
             MD5Texture(const MD5Texture &OTHER) {
                 _copyFromSrc(OTHER);
@@ -427,6 +438,8 @@ namespace CSCI441 {
              */
             glm::quat orientation = {0.0f, 0.0f, 0.0f, 0.0f};
 
+            MD5BaseFrameJoint() = default;
+
             MD5BaseFrameJoint(const MD5BaseFrameJoint& OTHER) {
                 _copyFromSrc(OTHER);
             }
@@ -439,7 +452,7 @@ namespace CSCI441 {
             MD5BaseFrameJoint(MD5BaseFrameJoint&& src) noexcept {
                 _moveFromSrc(src);
             }
-            MD5BaseFrameJoint& operator=(MD5BaseFrameJoint &src) noexcept {
+            MD5BaseFrameJoint& operator=(MD5BaseFrameJoint&& src) noexcept {
                 if (this != &src) {
                     _moveFromSrc(src);
                 }
