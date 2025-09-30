@@ -236,8 +236,8 @@ namespace CSCI441 {
             void _moveFromSrc(MD5Triangle &src) {
                 _copyFromSrc(src);
 
-                for (GLshort i = 0; i < NUM_VERTICES; i++) {
-                    src.index[i] = 0;
+                for (GLint & i : src.index) {
+                    i = 0;
                 }
             }
         };
@@ -913,12 +913,9 @@ inline bool
 CSCI441::MD5Model::readMD5Model(
         const char* FILENAME
 ) {
-    FILE *fp;
     char buff[512];
-    GLint version;
+    GLint version = 0;
     GLint currentMesh = 0;
-    GLint i;
-    unsigned long uli;
 
     GLint totalVertices = 0;
     GLint totalWeights = 0;
@@ -929,7 +926,7 @@ CSCI441::MD5Model::readMD5Model(
 
     printf("[.md5mesh]: about to read %s\n", FILENAME );
 
-    fp = fopen(FILENAME, "rb" );
+    FILE *fp = fopen(FILENAME, "rb" );
     if( !fp ) {
         fprintf (stderr, "[.md5mesh]: Error: couldn't open \"%s\"!\n", FILENAME);
         return false;
@@ -958,7 +955,7 @@ CSCI441::MD5Model::readMD5Model(
             }
         } else if( strncmp(buff, "joints {", 8) == 0 ) {
             // Read each joint
-            for(i = 0; i < _numJoints; ++i) {
+            for(GLint i = 0; i < _numJoints; ++i) {
                 MD5Joint *joint = &_baseSkeleton[i];
 
                 // Read whole line
@@ -989,7 +986,7 @@ CSCI441::MD5Model::readMD5Model(
                     GLint quote = 0, j = 0;
 
                     // Copy the shader name without the quote marks
-                    for(uli = 0; uli < sizeof(buff) && (quote < 2); ++uli) {
+                    for(unsigned long uli = 0; uli < sizeof(buff) && (quote < 2); ++uli) {
                         if( buff[uli] == '\"' )
                             quote++;
 
@@ -1197,8 +1194,7 @@ CSCI441::MD5Model::_prepareMesh(
             const MD5Joint  *joint  = &_skeleton[weight->joint];
 
             // Calculate transformed vertex for this weight
-            glm::vec3 weightedVertex;
-            weightedVertex = glm::rotate(joint->orientation, glm::vec4(weight->position, 0.0f));
+            const glm::vec3 weightedVertex = glm::rotate(joint->orientation, glm::vec4(weight->position, 0.0f));
 
             // The sum of all weight->bias should be 1.0
             finalVertex.x += (joint->position.x + weightedVertex.x) * weight->bias;
@@ -1215,11 +1211,13 @@ CSCI441::MD5Model::_prepareMesh(
     }
 
     glBindVertexArray(_vao );
+
     glBindBuffer(GL_ARRAY_BUFFER, _vbo[0] );
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * pMESH->numVertices, &_vertexArray[0] );
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * _maxVertices, sizeof(glm::vec2) * pMESH->numVertices, &_texelArray[0] );
+    glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * pMESH->numVertices, &_vertexArray[0] );
+    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _maxVertices, static_cast<GLsizeiptr>(sizeof(glm::vec2)) * pMESH->numVertices, &_texelArray[0] );
+
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _vbo[1] );
-    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(GLuint) * pMESH->numTriangles * 3, _vertexIndicesArray );
+    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLuint)) * pMESH->numTriangles * 3, _vertexIndicesArray );
 }
 
 inline void
@@ -1236,9 +1234,9 @@ CSCI441::MD5Model::_drawMesh(
 [[maybe_unused]]
 inline void
 CSCI441::MD5Model::allocVertexArrays(
-        GLuint vPosAttribLoc,
-        GLuint vColorAttribLoc,
-        GLuint vTexCoordAttribLoc
+        const GLuint vPosAttribLoc,
+        const GLuint vColorAttribLoc,
+        const GLuint vTexCoordAttribLoc
 ) {
     _vertexArray = new glm::vec3[_maxVertices];
     _texelArray = new glm::vec2[_maxVertices];
@@ -1249,16 +1247,16 @@ CSCI441::MD5Model::allocVertexArrays(
 
     glGenBuffers(2, _vbo );
     glBindBuffer(GL_ARRAY_BUFFER, _vbo[0] );
-    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * _maxVertices + sizeof(glm::vec2) * _maxVertices, nullptr, GL_DYNAMIC_DRAW );
+    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _maxVertices + static_cast<GLsizeiptr>(sizeof(glm::vec2)) * _maxVertices, nullptr, GL_DYNAMIC_DRAW );
 
     glEnableVertexAttribArray( vPosAttribLoc );
-    glVertexAttribPointer( vPosAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)nullptr );
+    glVertexAttribPointer( vPosAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr) );
 
     glEnableVertexAttribArray( vTexCoordAttribLoc );
-    glVertexAttribPointer( vTexCoordAttribLoc, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * _maxVertices) );
+    glVertexAttribPointer( vTexCoordAttribLoc, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _maxVertices) );
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _vbo[1] );
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * _maxTriangles * 3, nullptr, GL_DYNAMIC_DRAW );
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(GLuint)) * _maxTriangles * 3, nullptr, GL_DYNAMIC_DRAW );
 
     printf("[.md5mesh]: Model VAO/VBO/IBO registered at %u/%u/%u\n", _vao, _vbo[0], _vbo[1] );
 
@@ -1267,13 +1265,13 @@ CSCI441::MD5Model::allocVertexArrays(
 
     glGenBuffers( 1, &_skeletonVBO );
     glBindBuffer(GL_ARRAY_BUFFER, _skeletonVBO );
-    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * _numJoints * 3 * 2, nullptr, GL_DYNAMIC_DRAW );
+    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _numJoints * 3 * 2, nullptr, GL_DYNAMIC_DRAW );
 
     glEnableVertexAttribArray( vPosAttribLoc ); // vPos
-    glVertexAttribPointer( vPosAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)nullptr );
+    glVertexAttribPointer( vPosAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr) );
 
     glEnableVertexAttribArray( vColorAttribLoc ); // vColor
-    glVertexAttribPointer( vColorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * _numJoints * 3) );
+    glVertexAttribPointer( vColorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _numJoints * 3) );
 
     printf("[.md5mesh]: Skeleton VAO/VBO registered at %u/%u\n", _skeletonVAO, _skeletonVBO );
 }
@@ -1304,29 +1302,49 @@ CSCI441::MD5Model::drawSkeleton() const
     glBindVertexArray(_skeletonVAO );
     glBindBuffer(GL_ARRAY_BUFFER, _skeletonVBO );
 
-    glm::vec3 jointColor = {1.0f, 1.0f, 0.0f };
-    glm::vec3 boneColor = {1.0f, 0.0f, 1.0f };
+    constexpr glm::vec3 jointColor = {1.0f, 1.0f, 0.0f };
+    constexpr glm::vec3 boneColor = {1.0f, 0.0f, 1.0f };
 
     // put in points for joints
     for(GLint i = 0; i < _numJoints; ++i ) {
-        glBufferSubData(GL_ARRAY_BUFFER, i * sizeof(glm::vec3), sizeof(glm::vec3), &(_skeleton[i].position) );
-        glBufferSubData(GL_ARRAY_BUFFER, i * sizeof(glm::vec3) + sizeof(glm::vec3) * _numJoints * 3, sizeof(glm::vec3), &jointColor[0]);
+        glBufferSubData(GL_ARRAY_BUFFER, i * static_cast<GLsizeiptr>(sizeof(glm::vec3)), sizeof(glm::vec3), &(_skeleton[i].position) );
+        glBufferSubData(GL_ARRAY_BUFFER, i * static_cast<GLsizeiptr>(sizeof(glm::vec3)) + static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _numJoints * 3, sizeof(glm::vec3), &jointColor[0]);
     }
 
     // put in lines for bones
     GLint numBones = 0;
     for(GLint i = 0; i < _numJoints; ++i ) {
         if( _skeleton[i].parent != MD5Joint::NULL_JOINT ) {
-            glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * _numJoints + (i * 2) * sizeof(glm::vec3), sizeof(glm::vec3), &(_skeleton[_skeleton[i].parent].position) );
-            glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * _numJoints + (i * 2) * sizeof(glm::vec3) + sizeof(glm::vec3) * _numJoints * 3, sizeof(glm::vec3), &boneColor[0]);
+            glBufferSubData(
+                GL_ARRAY_BUFFER,
+                static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _numJoints + (i * 2) * static_cast<GLsizeiptr>(sizeof(glm::vec3)),
+                static_cast<GLsizeiptr>(sizeof(glm::vec3)),
+                &(_skeleton[_skeleton[i].parent].position)
+            );
+            glBufferSubData(
+                GL_ARRAY_BUFFER,
+                static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _numJoints + (i * 2) * static_cast<GLsizeiptr>(sizeof(glm::vec3)) + static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _numJoints * 3,
+                sizeof(glm::vec3),
+                &boneColor[0]
+            );
 
-            glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * _numJoints + (i * 2) * sizeof(glm::vec3) + sizeof(glm::vec3), sizeof(glm::vec3), &(_skeleton[i].position) );
-            glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * _numJoints + (i * 2) * sizeof(glm::vec3) + sizeof(glm::vec3) + sizeof(glm::vec3) * _numJoints * 3, sizeof(glm::vec3), &boneColor[0]);
+            glBufferSubData(
+                GL_ARRAY_BUFFER,
+                static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _numJoints + (i * 2) * static_cast<GLsizeiptr>(sizeof(glm::vec3)) + static_cast<GLsizeiptr>(sizeof(glm::vec3)),
+                static_cast<GLsizeiptr>(sizeof(glm::vec3)),
+                &(_skeleton[i].position)
+            );
+            glBufferSubData(
+                GL_ARRAY_BUFFER,
+                static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _numJoints + (i * 2) * static_cast<GLsizeiptr>(sizeof(glm::vec3)) + static_cast<GLsizeiptr>(sizeof(glm::vec3)) + static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _numJoints * 3,
+                sizeof(glm::vec3),
+                &boneColor[0]
+            );
             numBones++;
         }
     }
 
-    glPointSize (5.0f);
+    glPointSize(5.0f);
     glDrawArrays(GL_POINTS, 0, _numJoints );
     glPointSize(1.0f);
 
@@ -1379,9 +1397,7 @@ CSCI441::MD5Model::_buildFrameSkeleton(
        || pANIM_FRAME_DATA == nullptr
        || pSkeletonFrame == nullptr) return;
 
-    GLint i;
-
-    for(i = 0; i < NUM_JOINTS; ++i) {
+    for(GLint i = 0; i < NUM_JOINTS; ++i) {
         const MD5BaseFrameJoint *baseJoint = &pBASE_FRAME[i];
         glm::vec3 animatedPosition = baseJoint->position;
         glm::quat animatedOrientation = baseJoint->orientation;
@@ -1510,14 +1526,18 @@ CSCI441::MD5Model::readMD5Anim(
                 animFrameData = new GLfloat[numAnimatedComponents];
             }
         } else if( strncmp(buff, "hierarchy {", 11) == 0 ) {
-            for(i = 0; i < _animation.numJoints; ++i) {
-                // Read whole line
-                fgets( buff, sizeof(buff), fp );
+            if (jointInfos == nullptr) {
+                fprintf( stderr, "[ERROR]: md5anim file malformed. numJoints not specified prior to hierarchy\n" );
+            } else {
+                for(i = 0; i < _animation.numJoints; ++i) {
+                    // Read whole line
+                    fgets( buff, sizeof(buff), fp );
 
-                // Read joint info
-                sscanf(buff, " %s %d %d %d",
-                       jointInfos[i].name, &jointInfos[i].parent,
-                       &jointInfos[i].flags, &jointInfos[i].startIndex);
+                    // Read joint info
+                    sscanf(buff, " %s %d %d %d",
+                           jointInfos[i].name, &jointInfos[i].parent,
+                           &jointInfos[i].flags, &jointInfos[i].startIndex);
+                }
             }
         } else if( strncmp(buff, "bounds {", 8) == 0 ) {
             for(i = 0; i < _animation.numFrames; ++i) {
@@ -1530,16 +1550,20 @@ CSCI441::MD5Model::readMD5Anim(
                        &_animation.boundingBoxes[i].max[0], &_animation.boundingBoxes[i].max[1], &_animation.boundingBoxes[i].max[2]);
             }
         } else if( strncmp(buff, "baseframe {", 10) == 0 ) {
-            for(i = 0; i < _animation.numJoints; ++i) {
-                // Read whole line
-                fgets( buff, sizeof(buff), fp );
+            if (baseFrame == nullptr) {
+                fprintf( stderr, "[ERROR]: md5anim file malformed. numJoints not specified prior to baseframe\n" );
+            } else {
+                for(i = 0; i < _animation.numJoints; ++i) {
+                    // Read whole line
+                    fgets( buff, sizeof(buff), fp );
 
-                // Read base frame joint
-                if( sscanf(buff, " ( %f %f %f ) ( %f %f %f )",
-                           &baseFrame[i].position[0], &baseFrame[i].position[1], &baseFrame[i].position[2],
-                           &baseFrame[i].orientation[0], &baseFrame[i].orientation[1], &baseFrame[i].orientation[2]) == 6 ) {
-                    // Compute the w component
-                    baseFrame[i].orientation.w = glm::extractRealComponent(baseFrame[i].orientation);
+                    // Read base frame joint
+                    if( sscanf(buff, " ( %f %f %f ) ( %f %f %f )",
+                               &baseFrame[i].position[0], &baseFrame[i].position[1], &baseFrame[i].position[2],
+                               &baseFrame[i].orientation[0], &baseFrame[i].orientation[1], &baseFrame[i].orientation[2]) == 6 ) {
+                        // Compute the w component
+                        baseFrame[i].orientation.w = glm::extractRealComponent(baseFrame[i].orientation);
+                    }
                 }
             }
         } else if(sscanf(buff, " frame %d", &frameIndex) == 1 ) {
@@ -1575,7 +1599,7 @@ CSCI441::MD5Model::readMD5Anim(
     _animationInfo.nextFrame = 1;
 
     _animationInfo.lastTime = 0.0f;
-    _animationInfo.maxTime = 1.0f / (GLfloat)_animation.frameRate;
+    _animationInfo.maxTime = 1.0f / static_cast<GLfloat>(_animation.frameRate);
 
     // Allocate memory for animated _skeleton
     _skeleton = new MD5Joint[_animation.numJoints];
@@ -1593,9 +1617,7 @@ CSCI441::MD5Model::readMD5Anim(
 inline void
 CSCI441::MD5Model::_freeAnim()
 {
-    GLint i;
-
-    for(i = 0; i < _animation.numFrames; ++i) {
+    for(GLint i = 0; i < _animation.numFrames; ++i) {
         delete _animation.skeletonFrames[i];
         _animation.skeletonFrames[i] = nullptr;
     }
@@ -1659,14 +1681,12 @@ inline void CSCI441::MD5Model::_moveFromSrc(MD5Model &src) {
 
 // Smoothly interpolate two skeletons
 inline void
-CSCI441::MD5Model::_interpolateSkeletons(GLfloat interp)
+CSCI441::MD5Model::_interpolateSkeletons(const GLfloat interp)
 {
     const MD5Joint *skeletonA = _animation.skeletonFrames[_animationInfo.currFrame];
     const MD5Joint *skeletonB = _animation.skeletonFrames[_animationInfo.nextFrame];
 
-    GLint i;
-
-    for(i = 0; i < _animation.numJoints; ++i) {
+    for(GLint i = 0; i < _animation.numJoints; ++i) {
         // Copy parent index
         _skeleton[i].parent = skeletonA[i].parent;
 
@@ -1683,9 +1703,9 @@ CSCI441::MD5Model::_interpolateSkeletons(GLfloat interp)
 // Perform animation related computations.  Calculate the current and
 // next frames, given a delta time.
 inline void
-CSCI441::MD5Model::animate(GLfloat dt)
+CSCI441::MD5Model::animate(const GLfloat dt)
 {
-    GLint maxFrames = _animation.numFrames - 1;
+    const GLint maxFrames = _animation.numFrames - 1;
 
     _animationInfo.lastTime += dt;
 
@@ -1703,7 +1723,7 @@ CSCI441::MD5Model::animate(GLfloat dt)
     }
 
     // Interpolate skeletons between two frames
-    _interpolateSkeletons( _animationInfo.lastTime * _animation.frameRate );
+    _interpolateSkeletons( _animationInfo.lastTime * static_cast<GLfloat>(_animation.frameRate) );
 }
 
 #endif//CSCI441_MD5_MODEL_HPP
