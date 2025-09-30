@@ -1,7 +1,7 @@
 # Revision History
 
 ## v ?.??.? - ?? ??? ????
-- 
+- Added ability for SimpleShader to delete its internal program
 
 ## v 5.14.1 - 29 Sep 2025
 - fixing online CHANGELOG formatting

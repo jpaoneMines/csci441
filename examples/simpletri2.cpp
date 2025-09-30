@@ -86,7 +86,12 @@ protected:
         _triangleVAO = CSCI441::SimpleShader2::registerVertexArray( _trianglePoints, _triangleColorsGold );
         _triangleVAO2 = CSCI441::SimpleShader2::registerVertexArray( _trianglePoints, _triangleColorsRedAlpha );
     }
+    void mCleanupShaders() override {
+        printf("[INFO]: ...deleting shaders.\n");
+        CSCI441::SimpleShader2::cleanupSimpleShader();
+    }
     void mCleanupBuffers() override {
+        printf("[INFO]: ...deleting VAOs....\n");
         CSCI441::SimpleShader2::deleteVertexArray( _triangleVAO );
         _triangleVAO = 0;
 

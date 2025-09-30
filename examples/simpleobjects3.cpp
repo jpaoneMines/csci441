@@ -84,7 +84,7 @@ public:
         mReloadShaders();
     }
 
-private:
+protected:
     //***************************************************************************
     // Engine Setup
     void mSetupGLFW() override {
@@ -123,6 +123,20 @@ private:
         addToArcballCameraAngles( glm::vec3(M_PI / 8.0f, M_PI / 8.0f, 25.0f) );
     }
 
+    //***************************************************************************
+    // Engine Cleanup
+    void mCleanupShaders() override {
+        printf("[INFO]: ...deleting shaders.\n");
+        CSCI441::SimpleShader3::cleanupSimpleShader();
+    }
+
+    void mCleanupBuffers() override {
+        printf("[INFO]: ...deleting VAOs....\n");
+        CSCI441::deleteObjectVAOs();
+        CSCI441::deleteObjectVBOs();
+    }
+
+private:
     //***************************************************************************
     // Engine Rendering & Updating
 

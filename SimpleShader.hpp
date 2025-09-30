@@ -57,6 +57,11 @@ namespace CSCI441 {
         [[maybe_unused]] void setupSimpleShader();
 
         /**
+         * @brief Deletes shader from GPU
+         */
+        [[maybe_unused]] void cleanupSimpleShader();
+
+        /**
          * @brief registers the associated vertex locations and colors with the GPU
          * @param VERTEX_POINTS vector of vertex (x,y) locations
          * @param VERTEX_COLORS vector of vertex (r,g,b) colors
@@ -200,6 +205,11 @@ namespace CSCI441 {
         [[maybe_unused]] void setupSimpleShader();
 
         /**
+         * @brief Deletes shader from GPU
+         */
+        [[maybe_unused]] void cleanupSimpleShader();
+
+        /**
          * @brief registers the associated vertex locations and colors with the GPU
          * @param VERTEX_POINTS vector of vertex (x,y,z) locations in object space
          * @param VERTEX_NORMALS vector of vertex (x,y,z) normals in object space
@@ -327,6 +337,7 @@ namespace CSCI441_INTERNAL {
         void enableFlatShading();
         void enableSmoothShading();
         void setupSimpleShader();
+        void cleanupSimpleShader();
         GLuint registerVertexArray(GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec4 VERTEX_COLORS[]);
         void updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec4 VERTEX_COLORS[]);
         void deleteVertexArray(GLuint VAOD);
@@ -353,6 +364,7 @@ namespace CSCI441_INTERNAL {
         void enableFlatShading();
         void enableSmoothShading();
         void setupSimpleShader();
+        void cleanupSimpleShader();
         GLuint registerVertexArray(GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
         void updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]);
         void deleteVertexArray(GLuint VAOD);
@@ -406,6 +418,11 @@ inline void CSCI441::SimpleShader2::enableSmoothShading() {
 [[maybe_unused]]
 inline void CSCI441::SimpleShader2::setupSimpleShader() {
     CSCI441_INTERNAL::SimpleShader2::setupSimpleShader();
+}
+
+[[maybe_unused]]
+inline void CSCI441::SimpleShader2::cleanupSimpleShader() {
+    CSCI441_INTERNAL::SimpleShader2::cleanupSimpleShader();
 }
 
 [[maybe_unused]]
@@ -504,6 +521,11 @@ inline void CSCI441::SimpleShader3::enableSmoothShading() {
 [[maybe_unused]]
 inline void CSCI441::SimpleShader3::setupSimpleShader() {
     CSCI441_INTERNAL::SimpleShader3::setupSimpleShader();
+}
+
+[[maybe_unused]]
+inline void CSCI441::SimpleShader3::cleanupSimpleShader() {
+    CSCI441_INTERNAL::SimpleShader3::cleanupSimpleShader();
 }
 
 [[maybe_unused]]
@@ -681,6 +703,13 @@ void main() {
     transformationStack.emplace_back(identity);
 
     glUseProgram(shaderProgramHandle);
+}
+
+inline void CSCI441_INTERNAL::SimpleShader2::cleanupSimpleShader() {
+    glDeleteProgram(shaderProgramHandle);
+    shaderProgramHandle = 0;
+
+    transformationStack.clear();
 }
 
 inline GLuint CSCI441_INTERNAL::SimpleShader2::registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec4 VERTEX_COLORS[]) {
@@ -885,6 +914,13 @@ void main() {
 
     glUseProgram(shaderProgramHandle);
     CSCI441::setVertexAttributeLocations(positionLocation, normalLocation);
+}
+
+inline void CSCI441_INTERNAL::SimpleShader3::cleanupSimpleShader() {
+    glDeleteProgram(shaderProgramHandle);
+    shaderProgramHandle = 0;
+
+    transformationStack.clear();
 }
 
 inline GLuint CSCI441_INTERNAL::SimpleShader3::registerVertexArray(const GLuint NUM_POINTS, const glm::vec3 VERTEX_POINTS[], const glm::vec3 VERTEX_NORMALS[]) {
