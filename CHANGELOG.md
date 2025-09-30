@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.14.1 - 29 Sep 2025
+- fixing online CHANGLOG formatting
+
 ## v 5.14.0 - 29 Sep 2025
 - SimpleShader3 supports RGB and RGBA materials
 - SimpleShader2 supports RGB and RGBA color
@@ -21,7 +24,7 @@
 - Cameras can be copied and moved
 - Fixed bug in MD5Camera update frame orientation calculation
 - Fixed bug in MD5Camera copy operation
-- objects.hpp: "Fixed bug where deleting VAO/VBO only deletes from GPU and does not clear internal maps.  if delete occurs mid-program, next call will now properly recreate vao/vbo
+- objects.hpp: Fixed bug where deleting VAO/VBO only deletes from GPU and does not clear internal maps.  if delete occurs mid-program, next call will now properly recreate vao/vbo
 - Fixed bug OpenGLEngine where destructor calling shutdown() does nothing
 - OpenGLEngines cannot be copied but can be moved
 - Do not allow MD5Models to be copied nor moved
