@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.13.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.14.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -165,9 +165,9 @@ $(function() {
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        virtual GLint <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a9cfc07521a38e0ef5a900f81a87de9f4">getUniformBlockSize</a>( const GLchar *uniformBlockName ) const final;</div>
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        [[maybe_unused]] virtual GLubyte* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a122061f4ecfe5d648b2c1125a52391e0">getUniformBlockBuffer</a>( const GLchar *uniformBlockName ) const final;</div>
 <div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        [[maybe_unused]] virtual GLint* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a0bf91ace4801770235a4b8ba011eaebb">getUniformBlockOffsets</a>( const GLchar *uniformBlockName ) const final;</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_shader_program.html#a5003271cdbea89f224b31024e6294b4f">  246</a></span>        [[maybe_unused]] virtual GLint* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a0bf91ace4801770235a4b8ba011eaebb">getUniformBlockOffsets</a>( const GLchar *uniformBlockName, const GLchar *names[] ) const final;</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        [[maybe_unused]] virtual GLint* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a0bf91ace4801770235a4b8ba011eaebb">getUniformBlockOffsets</a>( const GLchar *uniformBlockName, const GLchar *names[] ) const final;</div>
 <div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        [[nodiscard]] virtual GLint* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a0bf91ace4801770235a4b8ba011eaebb">getUniformBlockOffsets</a>(GLint uniformBlockIndex ) const final;</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_shader_program.html#a1ac4d38ad01dd0d73ba41f8da8497f5c">  261</a></span>        [[nodiscard]] virtual GLint* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a0bf91ace4801770235a4b8ba011eaebb">getUniformBlockOffsets</a>(GLint uniformBlockIndex, const GLchar *names[] ) const final;</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        [[nodiscard]] virtual GLint* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a0bf91ace4801770235a4b8ba011eaebb">getUniformBlockOffsets</a>(GLint uniformBlockIndex, const GLchar *names[] ) const final;</div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        virtual <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a24d0f02d2773c1a212140ddf21247f8d">setUniformBlockBinding</a>( const GLchar *uniformBlockName, GLuint binding ) const final;</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        [[maybe_unused]] virtual GLint <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a18ffa11c79e51bacdbc913ff8c89e668">getAttributeLocation</a>( const GLchar *attributeName ) const final;</div>
@@ -728,7 +728,7 @@ $(function() {
 <div class="line"><a id="l01328" name="l01328"></a><span class="lineno"> 1328</span>}</div>
 <div class="line"><a id="l01329" name="l01329"></a><span class="lineno"> 1329</span> </div>
 <div class="line"><a id="l01330" name="l01330"></a><span class="lineno"> 1330</span>[[maybe_unused]]</div>
-<div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span><span class="keyword">inline</span> GLint* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a0bf91ace4801770235a4b8ba011eaebb">CSCI441::ShaderProgram::getUniformBlockOffsets</a>( <span class="keyword">const</span> GLchar* uniformBlockName, <span class="keyword">const</span> <span class="keywordtype">char</span> *names[] )<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l01331" name="l01331"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_shader_program.html#ab9ddde9f5e68edada90f105ad3bd0c37"> 1331</a></span><span class="keyword">inline</span> GLint* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a0bf91ace4801770235a4b8ba011eaebb">CSCI441::ShaderProgram::getUniformBlockOffsets</a>( <span class="keyword">const</span> GLchar* uniformBlockName, <span class="keyword">const</span> GLchar *names[] )<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l01332" name="l01332"></a><span class="lineno"> 1332</span>    <span class="keywordflow">return</span> getUniformBlockOffsets(getUniformBlockIndex(uniformBlockName), names);</div>
 <div class="line"><a id="l01333" name="l01333"></a><span class="lineno"> 1333</span>}</div>
 <div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span> </div>
@@ -744,7 +744,7 @@ $(function() {
 <div class="line"><a id="l01344" name="l01344"></a><span class="lineno"> 1344</span>    <span class="keywordflow">return</span> offsets;</div>
 <div class="line"><a id="l01345" name="l01345"></a><span class="lineno"> 1345</span>}</div>
 <div class="line"><a id="l01346" name="l01346"></a><span class="lineno"> 1346</span> </div>
-<div class="line"><a id="l01347" name="l01347"></a><span class="lineno"> 1347</span><span class="keyword">inline</span> GLint* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a0bf91ace4801770235a4b8ba011eaebb">CSCI441::ShaderProgram::getUniformBlockOffsets</a>(<span class="keyword">const</span> GLint uniformBlockIndex, <span class="keyword">const</span> <span class="keywordtype">char</span> * names[] )<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l01347" name="l01347"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_shader_program.html#a04832f2d137b3feed24edfd0953d8608"> 1347</a></span><span class="keyword">inline</span> GLint* <a class="code hl_function" href="class_c_s_c_i441_1_1_shader_program.html#a0bf91ace4801770235a4b8ba011eaebb">CSCI441::ShaderProgram::getUniformBlockOffsets</a>(<span class="keyword">const</span> GLint uniformBlockIndex, <span class="keyword">const</span> GLchar * names[] )<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span>    GLint numUniforms;</div>
 <div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span>    glGetActiveUniformBlockiv(mShaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &amp;numUniforms );</div>
 <div class="line"><a id="l01350" name="l01350"></a><span class="lineno"> 1350</span> </div>
