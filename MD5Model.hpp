@@ -346,6 +346,14 @@ namespace CSCI441 {
          */
         struct MD5Mesh {
             /**
+             * @brief max length of shader name string
+             */
+            static constexpr GLshort MAX_NAME_LENGTH = 512;
+            /**
+             * @brief number of textures applied to mesh
+             */
+            static constexpr GLshort NUM_TEXTURES = 4;
+            /**
              * @brief array of vertices comprising the mesh
              */
             MD5Vertex *vertices = nullptr;
@@ -360,7 +368,7 @@ namespace CSCI441 {
             /**
              * @brief texture map array
              */
-            MD5Texture textures[4];
+            MD5Texture textures[NUM_TEXTURES];
             /**
              * @brief named entities for different texture maps applied to the model
              */
@@ -399,7 +407,49 @@ namespace CSCI441 {
             /**
              * @brief base filename for all textures applied to mesh
              */
-            char shader[512] = "";
+            char shader[MAX_NAME_LENGTH] = "";
+
+            MD5Mesh() = default;
+
+            MD5Mesh(const MD5Mesh &OTHER) = delete;
+            MD5Mesh& operator=(const MD5Mesh &OTHER) = delete;
+
+            MD5Mesh(MD5Mesh&& src) noexcept {
+                _moveFromSrc(src);
+            }
+            MD5Mesh& operator=(MD5Mesh&& src) noexcept {
+                if (this != &src) {
+                    _moveFromSrc(src);
+                }
+                return *this;
+            }
+        private:
+            void _moveFromSrc(MD5Mesh& src) {
+                this->vertices = src.vertices;
+                src.vertices = nullptr;
+
+                this->triangles = src.triangles;
+                src.triangles = nullptr;
+
+                this->weights = src.weights;
+                src.weights = nullptr;
+
+                for (GLshort i = 0; i < NUM_TEXTURES; i++) {
+                    this->textures[i] = std::move( src.textures[i] );
+                }
+
+                this->numVertices = src.numVertices;
+                src.numVertices = 0;
+
+                this->numTriangles = src.numTriangles;
+                src.numTriangles = 0;
+
+                this->numWeights = src.numWeights;
+                src.numWeights = 0;
+
+                strncpy(this->shader, src.shader, MAX_NAME_LENGTH);
+                strncpy(src.shader, "", MAX_NAME_LENGTH);
+            }
         };
 
         // md5anim types
