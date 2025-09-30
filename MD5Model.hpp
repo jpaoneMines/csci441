@@ -585,6 +585,38 @@ namespace CSCI441 {
              * @brief bounding box for each frame
              */
             MD5BoundingBox *boundingBoxes = nullptr;
+
+            MD5Animation() = default;
+
+            MD5Animation(const MD5Animation&) = delete;
+            MD5Animation& operator=(const MD5Animation&) = delete;
+
+            MD5Animation(MD5Animation&& src) noexcept {
+                _moveFromSrc(src);
+            }
+            MD5Animation& operator=(MD5Animation&& src) noexcept {
+                if (this != &src) {
+                    _moveFromSrc(src);
+                }
+                return *this;
+            }
+        private:
+            void _moveFromSrc(MD5Animation &src) {
+                this->numFrames = src.numFrames;
+                src.numFrames = 0;
+
+                this->numJoints = src.numJoints;
+                src.numJoints = 0;
+
+                this->frameRate = src.frameRate;
+                src.frameRate = 0;
+
+                this->skeletonFrames = src.skeletonFrames;
+                src.skeletonFrames = nullptr;
+
+                this->boundingBoxes = src.boundingBoxes;
+                src.boundingBoxes = nullptr;
+            }
         };
 
         /**
