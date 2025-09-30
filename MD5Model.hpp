@@ -484,6 +484,38 @@ namespace CSCI441 {
              * @brief maximum dimension bound
              */
             glm::vec3 max = {0.0f, 0.0f, 0.0f};
+
+            MD5BoundingBox() = default;
+
+            MD5BoundingBox(const MD5BoundingBox &OTHER) {
+                _copyFromSrc(OTHER);
+            }
+            MD5BoundingBox& operator=(const MD5BoundingBox &OTHER) {
+                if (this != &OTHER) {
+                    _copyFromSrc(OTHER);
+                }
+                return *this;
+            }
+            MD5BoundingBox(MD5BoundingBox&& src) noexcept {
+                _moveFromSrc(src);
+            }
+            MD5BoundingBox& operator=(MD5BoundingBox&& src) noexcept {
+                if (this != &src) {
+                    _moveFromSrc(src);
+                }
+                return *this;
+            }
+        private:
+            void _copyFromSrc(const MD5BoundingBox& src) {
+                this->min = src.min;
+                this->max = src.max;
+            }
+            void _moveFromSrc(MD5BoundingBox& src) {
+                _copyFromSrc(src);
+
+                src.min = glm::vec3(0.0f, 0.0f, 0.0f);
+                src.max = glm::vec3(0.0f, 0.0f, 0.0f);
+            }
         };
 
         /**
