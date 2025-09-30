@@ -248,6 +248,38 @@ namespace CSCI441 {
              * @brief weight's position in object space
              */
             glm::vec3 position = {0.0f, 0.0f, 0.0f};
+
+            MD5Weight(const MD5Weight &OTHER) {
+                _copyFromSrc(OTHER);
+            }
+            MD5Weight& operator=(const MD5Weight &OTHER) {
+                if (this != &OTHER) {
+                    _copyFromSrc(OTHER);
+                }
+                return *this;
+            }
+            MD5Weight(MD5Weight&& src) noexcept {
+                _moveFromSrc(src);
+            }
+            MD5Weight& operator=(MD5Weight&& src) noexcept {
+                if (this != &src) {
+                    _moveFromSrc(src);
+                }
+                return *this;
+            }
+        private:
+            void _copyFromSrc(const MD5Weight &src) {
+                this->joint = src.joint;
+                this->bias = src.bias;
+                this->position = src.position;
+            }
+            void _moveFromSrc(MD5Weight &src) {
+                _copyFromSrc(src);
+
+                src.joint = MD5Joint::NULL_JOINT;
+                src.bias = 0.0f;
+                src.position = glm::vec3(0.0f, 0.0f, 0.0f);
+            }
         };
 
         /**
