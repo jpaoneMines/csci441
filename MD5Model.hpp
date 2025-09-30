@@ -104,20 +104,40 @@ namespace CSCI441 {
              */
             glm::quat orientation = {0.0f, 0.0f, 0.0f, 0.0f};
 
+            /**
+             * @brief construct a default joint object
+             */
             MD5Joint() = default;
-
+            /**
+             * @brief construct a joint object by copying an existing joint
+             * @param OTHER existing joint object
+             */
             MD5Joint(const MD5Joint &OTHER) {
                 _copyFromSrc(OTHER);
             }
+            /**
+             * @brief reassign an existing joint object by copying another joint object
+             * @param OTHER existing joint object to copy
+             * @return the now modified joint object
+             */
             MD5Joint& operator=(const MD5Joint &OTHER) {
                 if (this != &OTHER) {
                     _copyFromSrc(OTHER);
                 }
                 return *this;
             }
+            /**
+             * @brief construct a joint object by moving an existing object
+             * @param src existing joint object to move
+             */
             MD5Joint(MD5Joint&& src) noexcept {
                 _moveFromSrc(src);
             }
+            /**
+             * @brief reassign an existing joint object by moving another joint object
+             * @param src existing joint object to move
+             * @return the now modified joint object
+             */
             MD5Joint& operator=(MD5Joint&& src) noexcept {
                 if (this != &src) {
                     _moveFromSrc(src);
@@ -125,12 +145,21 @@ namespace CSCI441 {
                 return *this;
             }
         private:
+            /**
+             * @brief deep copies all the data members from another joint object
+             * @param src existing joint object to copy
+             */
             void _copyFromSrc(const MD5Joint& src) {
                 strncpy(this->name, src.name, MAX_NAME_LENGTH);
                 this->parent = src.parent;
                 this->position = src.position;
                 this->orientation = src.orientation;
             }
+            /**
+             * @brief moves data members from another joint object, resetting the other joint object
+             * back to its default state
+             * @param src existing joint object to move
+             */
             void _moveFromSrc(MD5Joint& src) {
                 // copy values from source
                 _copyFromSrc(src);
@@ -159,20 +188,40 @@ namespace CSCI441 {
              */
             GLint count = 0;
 
+            /**
+             * @brief construt a default vertex object
+             */
             MD5Vertex() = default;
-
+            /**
+             * @brief construct a vertex object by copying an existing vertex
+             * @param OTHER existing vertex object to copy
+             */
             MD5Vertex(const MD5Vertex &OTHER) {
                 _copyFromSrc(OTHER);
             }
+            /**
+             * @brief reassign existing vertex object by copying an existing vertex object
+             * @param OTHER existing vertex object to copy
+             * @return now modified vertex object
+             */
             MD5Vertex& operator=(const MD5Vertex &OTHER) {
                 if (this != &OTHER) {
                     _copyFromSrc(OTHER);
                 }
                 return *this;
             }
+            /**
+             * @brief construct a vertex object by moving an existing vertex
+             * @param src existing vertex object to move
+             */
             MD5Vertex(MD5Vertex&& src) noexcept {
                 _moveFromSrc(src);
             }
+            /**
+             * @brief reassign existing vertex object by moving an existing vertex object
+             * @param src existing vertex object move
+             * @return now modified vertex object
+             */
             MD5Vertex& operator=(MD5Vertex&& src) noexcept {
                 if (this != &src) {
                     _moveFromSrc(src);
@@ -180,11 +229,19 @@ namespace CSCI441 {
                 return *this;
             }
         private:
+            /**
+             * @brief deep copy vertex data members
+             * @param src existing vertex to copy
+             */
             void _copyFromSrc(const MD5Vertex &src) {
                 this->texCoord = src.texCoord;
                 this->start = src.start;
                 this->count = src.count;
             }
+            /**
+             * @brief move data members and reset existing vertex to default state
+             * @param src existing vertex to move
+             */
             void _moveFromSrc(MD5Vertex& src) {
                 _copyFromSrc(src);
 
@@ -207,20 +264,40 @@ namespace CSCI441 {
              */
             GLint index[NUM_VERTICES] = {0};
 
+            /**
+             * @brief construct a default triangle object
+             */
             MD5Triangle() = default;
-
+            /**
+             * @brief construct a triangle by copying an existing triangle
+             * @param OTHER existing triangle object to copy
+             */
             MD5Triangle(const MD5Triangle &OTHER) {
                 _copyFromSrc(OTHER);
             }
+            /**
+             * @brief reassign triangle object by copying an existing triangle
+             * @param OTHER existing triangle object to copy
+             * @return now modified triangle object
+             */
             MD5Triangle& operator=(const MD5Triangle &OTHER) {
                 if (this != &OTHER) {
                     _copyFromSrc(OTHER);
                 }
                 return *this;
             }
+            /**
+             * @brief construct a triangle object by moving an existing triangle
+             * @param src existing triangle object to move
+             */
             MD5Triangle(MD5Triangle&& src) noexcept {
                 _moveFromSrc(src);
             }
+            /**
+             * @brief reassign triangle object by moving an existing triangle
+             * @param src existing triangle object to move
+             * @return now modified triangle object
+             */
             MD5Triangle& operator=(MD5Triangle&& src) noexcept {
                 if (this != &src) {
                     _moveFromSrc(src);
@@ -228,11 +305,19 @@ namespace CSCI441 {
                 return *this;
             }
         private:
+            /**
+             * @brief deep copy triangle data members
+             * @param src triangle object to copy
+             */
             void _copyFromSrc(const MD5Triangle &src) {
                 for (GLshort i = 0; i < NUM_VERTICES; i++) {
                     this->index[i] = src.index[i];
                 }
             }
+            /**
+             * @brief move triangle object and reset existing triangle to default state
+             * @param src triangle object to move
+             */
             void _moveFromSrc(MD5Triangle &src) {
                 _copyFromSrc(src);
 
