@@ -1328,7 +1328,7 @@ inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const GLchar* unif
 }
 
 [[maybe_unused]]
-inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const GLchar* uniformBlockName, const char *names[] ) const {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const GLchar* uniformBlockName, const GLchar *names[] ) const {
     return getUniformBlockOffsets(getUniformBlockIndex(uniformBlockName), names);
 }
 
@@ -1344,7 +1344,7 @@ inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets(const GLint uniform
     return offsets;
 }
 
-inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets(const GLint uniformBlockIndex, const char * names[] ) const {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets(const GLint uniformBlockIndex, const GLchar * names[] ) const {
     GLint numUniforms;
     glGetActiveUniformBlockiv(mShaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
 
