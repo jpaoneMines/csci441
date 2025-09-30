@@ -408,9 +408,13 @@ namespace CSCI441 {
          */
         struct MD5JointInfo {
             /**
+             * @brief max length of joint name string
+             */
+            static constexpr GLshort MAX_NAME_LENGTH = 256;
+            /**
              * @brief joint identifier
              */
-            char name[256] = "";
+            char name[MAX_NAME_LENGTH] = "";
             /**
              * @brief index of parent joint on skeletal tree
              */
@@ -423,6 +427,42 @@ namespace CSCI441 {
              * @brief index of starting parameter
              */
             GLint startIndex = 0;
+
+            MD5JointInfo() = default;
+
+            MD5JointInfo(const MD5JointInfo& OTHER) {
+                _copyFromSrc(OTHER);
+            }
+            MD5JointInfo& operator=(const MD5JointInfo& OTHER) {
+                if (this != &OTHER) {
+                    _copyFromSrc(OTHER);
+                }
+                return *this;
+            }
+            MD5JointInfo(MD5JointInfo&& src) noexcept {
+                _moveFromSrc(src);
+            }
+            MD5JointInfo& operator=(MD5JointInfo&& src) noexcept {
+                if (this != &src) {
+                    _moveFromSrc(src);
+                }
+                return *this;
+            }
+        private:
+            void _copyFromSrc(const MD5JointInfo &src) {
+                strncpy(this->name, src.name, MAX_NAME_LENGTH);
+                this->parent = src.parent;
+                this->flags = src.flags;
+                this->startIndex = src.startIndex;
+            }
+            void _moveFromSrc(MD5JointInfo &src) {
+                _copyFromSrc(src);
+
+                strncpy(src.name, "", MAX_NAME_LENGTH);
+                src.parent = MD5Joint::NULL_JOINT;
+                src.flags = 0;
+                src.startIndex = 0;
+            }
         };
 
         /**
