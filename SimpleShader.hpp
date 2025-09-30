@@ -102,6 +102,7 @@ namespace CSCI441 {
          * @param VERTEX_POINTS array of vertex (x,y) locations
          * @param VERTEX_COLORS array of vertex (r,g,b) colors
          * @returns generated Vertex Array Object Descriptor (vaod)
+         * @note will pad colors with alpha channel = 1.0f
          */
         [[maybe_unused]] GLuint registerVertexArray(GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
         /**
@@ -122,6 +123,7 @@ namespace CSCI441 {
          * @param NUM_POINTS number of points in each array
          * @param VERTEX_POINTS vector of vertex (x,y) locations
          * @param VERTEX_COLORS vector of vertex (r,g,b) colors
+         * @note will pad colors with alpha channel = 1.0f
          */
         [[maybe_unused]] void updateVertexArray(GLuint VAOD, GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]);
         /**
@@ -268,6 +270,7 @@ namespace CSCI441 {
         /**
          * @brief sets current diffuse material color to apply to object
          * @param MATERIAL_COLOR diffuse material color in RGB space
+         * @note will pad colors with alpha channel = 1.0f
          */
         [[maybe_unused]] void setMaterialColor(const glm::vec3& MATERIAL_COLOR);
         /**
