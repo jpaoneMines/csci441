@@ -156,6 +156,38 @@ namespace CSCI441 {
              * @brief number of weights that determine vertex's position
              */
             GLint count = 0;
+
+            MD5Vertex(const MD5Vertex &OTHER) {
+                _copyFromSrc(OTHER);
+            }
+            MD5Vertex& operator=(const MD5Vertex &OTHER) {
+                if (this != &OTHER) {
+                    _copyFromSrc(OTHER);
+                }
+                return *this;
+            }
+            MD5Vertex(MD5Vertex&& src) noexcept {
+                _moveFromSrc(src);
+            }
+            MD5Vertex& operator=(MD5Vertex&& src) noexcept {
+                if (this != &src) {
+                    _moveFromSrc(src);
+                }
+                return *this;
+            }
+        private:
+            void _copyFromSrc(const MD5Vertex &src) {
+                this->texCoord = src.texCoord;
+                this->start = src.start;
+                this->count = src.count;
+            }
+            void _moveFromSrc(MD5Vertex& src) {
+                _copyFromSrc(src);
+
+                src.texCoord = glm::vec2(0.0f, 0.0f);
+                src.start = 0;
+                src.count = 0;
+            }
         };
 
         /**
