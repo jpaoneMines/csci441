@@ -736,7 +736,7 @@ namespace CSCI441 {
          * @brief initializes an empty MD5 Model
          * @note need to call loadMD5Model() or readMD5Model() after construction to actually load in a mesh file
          */
-        MD5Model();
+        MD5Model() = default;
         /**
          * @brief deallocates any used memory on the CPU and GPU
          */
@@ -754,11 +754,18 @@ namespace CSCI441 {
         /**
          * @brief do not allow MD5 models to be moved
          */
-        MD5Model(MD5Model&&) = delete;
+        MD5Model(MD5Model&& src) noexcept {
+            _moveFromSrc(src);
+        }
         /**
          * @brief do not allow MD5 models to be moved
          */
-        MD5Model& operator=(MD5Model&&) = delete;
+        MD5Model& operator=(MD5Model&& src) noexcept {
+            if (this != &src) {
+                _moveFromSrc(src);
+            }
+            return *this;
+        }
 
         /**
          * @brief loads a corresponding md5mesh and md5anim file to the object
@@ -813,30 +820,30 @@ namespace CSCI441 {
         void animate(GLfloat dt);
 
     private:
-        MD5Joint* _baseSkeleton;
-        MD5Mesh* _meshes;
+        MD5Joint* _baseSkeleton = nullptr;
+        MD5Mesh* _meshes = nullptr;
 
-        GLint _numJoints;
-        GLint _numMeshes;
+        GLint _numJoints = 0;
+        GLint _numMeshes = 0;
 
         // vertex array related stuff
-        GLint _maxVertices;
-        GLint _maxTriangles;
+        GLint _maxVertices = 0;
+        GLint _maxTriangles = 0;
 
-        glm::vec3* _vertexArray;
-        glm::vec2* _texelArray;
-        GLuint* _vertexIndicesArray;
+        glm::vec3* _vertexArray = nullptr;
+        glm::vec2* _texelArray = nullptr;
+        GLuint* _vertexIndicesArray = nullptr;
 
-        GLuint _vao;
-        GLuint _vbo[2];
+        GLuint _vao = 0;
+        GLuint _vbo[2] = {0, 0};
 
-        GLuint _skeletonVAO;
-        GLuint _skeletonVBO;
+        GLuint _skeletonVAO = 0;
+        GLuint _skeletonVBO = 0;
 
         /**
          * @brief the MD5 skeletal joint data
          */
-        MD5Joint* _skeleton;
+        MD5Joint* _skeleton = nullptr;
         /**
          * @brief the MD5 animation frame sequence
          */
@@ -844,7 +851,7 @@ namespace CSCI441 {
         /**
          * @brief flag stating if the loaded MD5 model has a corresponding animation or not
          */
-        bool _isAnimated;
+        bool _isAnimated = false;
         /**
          * @brief current animation frame state
          */
@@ -862,32 +869,12 @@ namespace CSCI441 {
         void _freeModel();
         void _freeVertexArrays();
         void _freeAnim();
+
+        void _moveFromSrc(MD5Model &src);
     };
 }
 
 //----------------------------------------------------------------------------------------------------
-
-inline CSCI441::MD5Model::MD5Model()
-{
-    _baseSkeleton = nullptr;
-    _meshes = nullptr;
-    _numJoints = 0;
-    _numMeshes = 0;
-    _maxVertices = 0;
-    _maxTriangles = 0;
-    _vertexArray = nullptr;
-    _texelArray = nullptr;
-    _vertexIndicesArray = nullptr;
-    _vao = 0;
-    _vbo[0] = 0;
-    _vbo[1] = 0;
-    _skeletonVAO = 0;
-    _skeletonVBO = 0;
-    _animation = MD5Animation();
-    _skeleton = nullptr;
-    _animationInfo = MD5AnimationState();
-    _isAnimated = false;
-}
 
 inline CSCI441::MD5Model::~MD5Model()
 {
@@ -1621,6 +1608,53 @@ CSCI441::MD5Model::_freeAnim()
 
     delete _skeleton;
     _skeleton = nullptr;
+}
+
+inline void CSCI441::MD5Model::_moveFromSrc(MD5Model &src) {
+    this->_baseSkeleton = src._baseSkeleton;
+    src._baseSkeleton = nullptr;
+
+    this->_meshes = src._meshes;
+    src._meshes = nullptr;
+
+    this->_maxVertices = src._maxVertices;
+    src._maxVertices = 0;
+
+    this->_maxTriangles = src._maxTriangles;
+    src._maxTriangles = 0;
+
+    this->_vertexArray = src._vertexArray;
+    src._vertexArray = nullptr;
+
+    this->_texelArray = src._texelArray;
+    src._texelArray = nullptr;
+
+    this->_vertexIndicesArray = src._vertexIndicesArray;
+    src._vertexIndicesArray = nullptr;
+
+    this->_vao = src._vao;
+    src._vao = 0;
+
+    this->_vbo[0] = src._vbo[0];
+    this->_vbo[1] = src._vbo[1];
+    src._vbo[0] = 0;
+    src._vbo[1] = 0;
+
+    this->_skeletonVAO = src._skeletonVAO;
+    src._skeletonVAO = 0;
+
+    this->_skeletonVBO = src._skeletonVBO;
+    src._skeletonVBO = 0;
+
+    this->_skeleton = src._skeleton;
+    src._skeleton = nullptr;
+
+    this->_animation = std::move( src._animation );
+
+    this->_isAnimated = src._isAnimated;
+    src._isAnimated = false;
+
+    this->_animationInfo = std::move( src._animationInfo );
 }
 
 // Smoothly interpolate two skeletons
