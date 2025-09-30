@@ -198,7 +198,10 @@ namespace CSCI441 {
          * @brief a triangle on the mesh
          */
         struct MD5Triangle {
-            static constexpr GLint NUM_VERTICES = 3;
+            /**
+             * @brief number of vertices that make up a triangle
+             */
+            static constexpr GLshort NUM_VERTICES = 3;
             /**
              * @brief vertex indices that make up triangle
              */
@@ -226,14 +229,14 @@ namespace CSCI441 {
             }
         private:
             void _copyFromSrc(const MD5Triangle &src) {
-                for (GLint i = 0; i < NUM_VERTICES; i++) {
+                for (GLshort i = 0; i < NUM_VERTICES; i++) {
                     this->index[i] = src.index[i];
                 }
             }
             void _moveFromSrc(MD5Triangle &src) {
                 _copyFromSrc(src);
 
-                for (GLint i = 0; i < NUM_VERTICES; i++) {
+                for (GLshort i = 0; i < NUM_VERTICES; i++) {
                     src.index[i] = 0;
                 }
             }
@@ -296,7 +299,7 @@ namespace CSCI441 {
          */
         struct MD5Texture {
             /**
-             * @brief max length of joint name string
+             * @brief max length of texture name string
              */
             static constexpr GLshort MAX_NAME_LENGTH = 512;
             /**
@@ -458,7 +461,7 @@ namespace CSCI441 {
          */
         struct MD5JointInfo {
             /**
-             * @brief max length of joint name string
+             * @brief max length of joint identifier string
              */
             static constexpr GLshort MAX_NAME_LENGTH = 256;
             /**
