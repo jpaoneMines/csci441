@@ -353,6 +353,10 @@ namespace CSCI441 {
         */
         virtual void mCleanupGLFW();
 
+        /**
+         *  @brief calls mCleanupShaders() followed by mSetupShaders() to reload
+         *  shader source code from file
+         */
         virtual void mReloadShaders() final;
 
     private:
