@@ -1,7 +1,10 @@
 # Revision History
 
-## v ?.??.? - ?? ??? ????
+## v 5.15.0 - 01 Oct 2025
 - Added ability for SimpleShader to delete its internal program
+- Implemented MD5Model move operation
+- Fixed memory leaks and other memory errors within MD5Model
+- Added access protection to MD5Model subclasses
 
 ## v 5.14.1 - 29 Sep 2025
 - fixing online CHANGELOG formatting
