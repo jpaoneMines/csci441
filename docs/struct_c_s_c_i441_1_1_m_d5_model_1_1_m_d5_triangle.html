@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.14.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.15.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -75,7 +75,9 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">CSCI441::MD5Model::MD5Triangle Struct Reference</div></div>
 </div><!--header-->
@@ -86,16 +88,182 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="_m_d5_model_8hpp_source.html">MD5Model.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac6ade81ee22cac68e9770c42cd03a9cb"><td class="memItemLeft" align="right" valign="top"><a id="ac6ade81ee22cac68e9770c42cd03a9cb" name="ac6ade81ee22cac68e9770c42cd03a9cb"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>MD5Triangle</b> ()=default</td></tr>
+<tr class="memdesc:ac6ade81ee22cac68e9770c42cd03a9cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a default triangle object <br /></td></tr>
+<tr class="separator:ac6ade81ee22cac68e9770c42cd03a9cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f709b5e1ac8dca7f91f06acc31f5326"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html#a2f709b5e1ac8dca7f91f06acc31f5326">MD5Triangle</a> (const <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> &amp;OTHER)</td></tr>
+<tr class="memdesc:a2f709b5e1ac8dca7f91f06acc31f5326"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a triangle by copying an existing triangle  <br /></td></tr>
+<tr class="separator:a2f709b5e1ac8dca7f91f06acc31f5326"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c0d0a5149860a78a3d612460aaa22a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html#a1c0d0a5149860a78a3d612460aaa22a3">operator=</a> (const <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> &amp;OTHER)</td></tr>
+<tr class="memdesc:a1c0d0a5149860a78a3d612460aaa22a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">reassign triangle object by copying an existing triangle  <br /></td></tr>
+<tr class="separator:a1c0d0a5149860a78a3d612460aaa22a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c117310f2ad83e942045addfc79646d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html#a1c117310f2ad83e942045addfc79646d">MD5Triangle</a> (<a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> &amp;&amp;src) noexcept</td></tr>
+<tr class="memdesc:a1c117310f2ad83e942045addfc79646d"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a triangle object by moving an existing triangle  <br /></td></tr>
+<tr class="separator:a1c117310f2ad83e942045addfc79646d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2029b07acef1ef323f3130c6d1ca687e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html#a2029b07acef1ef323f3130c6d1ca687e">operator=</a> (<a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> &amp;&amp;src) noexcept</td></tr>
+<tr class="memdesc:a2029b07acef1ef323f3130c6d1ca687e"><td class="mdescLeft">&#160;</td><td class="mdescRight">reassign triangle object by moving an existing triangle  <br /></td></tr>
+<tr class="separator:a2029b07acef1ef323f3130c6d1ca687e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a598775b6f3ed8c4a7a1e119726556aa7"><td class="memItemLeft" align="right" valign="top"><a id="a598775b6f3ed8c4a7a1e119726556aa7" name="a598775b6f3ed8c4a7a1e119726556aa7"></a>
-GLint&#160;</td><td class="memItemRight" valign="bottom"><b>index</b> [3] = {0}</td></tr>
-<tr class="memdesc:a598775b6f3ed8c4a7a1e119726556aa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">vertex indices that make up triangle <br /></td></tr>
-<tr class="separator:a598775b6f3ed8c4a7a1e119726556aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8154d444458463c9b3b5e923baaf8d7"><td class="memItemLeft" align="right" valign="top"><a id="af8154d444458463c9b3b5e923baaf8d7" name="af8154d444458463c9b3b5e923baaf8d7"></a>
+GLint&#160;</td><td class="memItemRight" valign="bottom"><b>index</b> [<a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html#a647682befb29d58763b1bab698c8f434">NUM_VERTICES</a>] = {0}</td></tr>
+<tr class="memdesc:af8154d444458463c9b3b5e923baaf8d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">vertex indices that make up triangle <br /></td></tr>
+<tr class="separator:af8154d444458463c9b3b5e923baaf8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a647682befb29d58763b1bab698c8f434"><td class="memItemLeft" align="right" valign="top"><a id="a647682befb29d58763b1bab698c8f434" name="a647682befb29d58763b1bab698c8f434"></a>
+static constexpr GLshort&#160;</td><td class="memItemRight" valign="bottom"><b>NUM_VERTICES</b> = 3</td></tr>
+<tr class="memdesc:a647682befb29d58763b1bab698c8f434"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of vertices that make up a triangle <br /></td></tr>
+<tr class="separator:a647682befb29d58763b1bab698c8f434"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>a triangle on the mesh </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2f709b5e1ac8dca7f91f06acc31f5326" name="a2f709b5e1ac8dca7f91f06acc31f5326"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f709b5e1ac8dca7f91f06acc31f5326">&#9670;&#160;</a></span>MD5Triangle() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">CSCI441::MD5Model::MD5Triangle::MD5Triangle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> &amp;&#160;</td>
+          <td class="paramname"><em>OTHER</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>construct a triangle by copying an existing triangle </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OTHER</td><td>existing triangle object to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1c117310f2ad83e942045addfc79646d" name="a1c117310f2ad83e942045addfc79646d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c117310f2ad83e942045addfc79646d">&#9670;&#160;</a></span>MD5Triangle() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">CSCI441::MD5Model::MD5Triangle::MD5Triangle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>construct a triangle object by moving an existing triangle </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>existing triangle object to move </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1c0d0a5149860a78a3d612460aaa22a3" name="a1c0d0a5149860a78a3d612460aaa22a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c0d0a5149860a78a3d612460aaa22a3">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> &amp; CSCI441::MD5Model::MD5Triangle::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> &amp;&#160;</td>
+          <td class="paramname"><em>OTHER</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>reassign triangle object by copying an existing triangle </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OTHER</td><td>existing triangle object to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>now modified triangle object </dd></dl>
+
+</div>
+</div>
+<a id="a2029b07acef1ef323f3130c6d1ca687e" name="a2029b07acef1ef323f3130c6d1ca687e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2029b07acef1ef323f3130c6d1ca687e">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> &amp; CSCI441::MD5Model::MD5Triangle::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>reassign triangle object by moving an existing triangle </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>existing triangle object to move </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>now modified triangle object </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="_m_d5_model_8hpp_source.html">MD5Model.hpp</a></li>
 </ul>
 </div><!-- contents -->
