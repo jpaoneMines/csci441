@@ -1,5 +1,8 @@
 # Revision History
 
+## v ?.??.? - ?? ??? ????
+- MD5Model can bind diffuse, specular, normal, and height maps
+
 ## v 5.15.0 - 01 Oct 2025
 - Added ability for SimpleShader to delete its internal program
 - Implemented MD5Model move operation

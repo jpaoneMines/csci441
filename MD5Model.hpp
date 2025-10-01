@@ -1252,7 +1252,17 @@ namespace CSCI441 {
          * @note color attribute used when drawing the skeleton
          * @note texCoord attribute used when drawing the mesh
          */
-        [[maybe_unused]]void allocVertexArrays(GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc);
+        [[maybe_unused]] void allocVertexArrays(GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc);
+
+        /**
+         * @brief specify which texture targets each texture map should be bound to when rendering
+         * @param diffuseMapActiveTexture active texture to bind the diffuse map to (default GL_TEXTURE0)
+         * @param specularMapActiveTexture active texture to bind the specular map to (default GL_TEXTURE1)
+         * @param normalMapActiveTexture active texture to bind the normal map to (default GL_TEXTURE2)
+         * @param heightMapActiveTexture active texture to bind the height map to (default GL_TEXTURE3)
+         */
+        [[maybe_unused]] void setActiveTextures(GLint diffuseMapActiveTexture, GLint specularMapActiveTexture, GLint normalMapActiveTexture, GLint heightMapActiveTexture);
+
         /**
          * @brief draws all the meshes that make up the model
          */
@@ -1361,6 +1371,23 @@ namespace CSCI441 {
          * @brief current animation frame state
          */
         MD5AnimationState _animationInfo;
+
+        /**
+         * @brief active texture diffuse map should be bound to
+         */
+        GLint _diffuseActiveTexture  = GL_TEXTURE0;
+        /**
+         * @brief active texture specular map should be bound to
+         */
+        GLint _specularActiveTexture = GL_TEXTURE1;
+        /**
+         * @brief active texture normal map should be bound to
+         */
+        GLint _normalActiveTexture   = GL_TEXTURE2;
+        /**
+         * @brief active texture height map should be bound to
+         */
+        GLint _heightActiveTexture   = GL_TEXTURE3;
 
         // helper functions
         /**
@@ -1556,7 +1583,7 @@ CSCI441::MD5Model::readMD5Model(
                                 strcat(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, ".png");
                                 mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
                                 if( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle == 0 ) {
-                                    printf("[.md5mesh | ERROR]: Could not load diffuse map %s\n", mesh->shader);
+                                    fprintf(stderr, "[.md5mesh | ERROR]: Could not load diffuse map for shader %s\n", mesh->shader);
                                 }
                             }
                         }
@@ -1570,7 +1597,7 @@ CSCI441::MD5Model::readMD5Model(
                             strcat(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, "_s.png");
                             mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
                             if( mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle == 0 ) {
-                                printf("[.md5mesh | ERROR]: Could not load specular map %s\n", mesh->shader);
+                                fprintf(stderr, "[.md5mesh | ERROR]: Could not load specular map for shader %s\n", mesh->shader);
                             }
                         }
 
@@ -1583,7 +1610,7 @@ CSCI441::MD5Model::readMD5Model(
                             strcat(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, "_local.png");
                             mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
                             if( mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle == 0 ) {
-                                printf("[.md5mesh | ERROR]: Could not load normal map %s\n", mesh->shader);
+                                fprintf(stderr, "[.md5mesh | ERROR]: Could not load normal map for shader %s\n", mesh->shader);
                             }
                         }
 
@@ -1596,7 +1623,7 @@ CSCI441::MD5Model::readMD5Model(
                             strcat(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, "_h.png");
                             mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
                             if( mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle == 0 ) {
-                                printf("[.md5mesh | ERROR]: Could not load height map %s\n", mesh->shader);
+                                fprintf(stderr, "[.md5mesh | ERROR]: Could not load height map for shader %s\n", mesh->shader);
                             }
                         }
                     }
@@ -1756,8 +1783,31 @@ inline void
 CSCI441::MD5Model::_drawMesh(
     const MD5Mesh *pMESH
 ) const {
-    // Bind Diffuse Map
-    glBindTexture(GL_TEXTURE_2D, pMESH->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle );
+    if (pMESH->textures[MD5Mesh::TextureMap::SPECULAR].texHandle != 0) {
+        // Bind Specular Map if exists
+        glActiveTexture(_specularActiveTexture);
+        glBindTexture(GL_TEXTURE_2D, pMESH->textures[MD5Mesh::TextureMap::SPECULAR].texHandle );
+    }
+    if (pMESH->textures[MD5Mesh::TextureMap::NORMAL].texHandle != 0) {
+        // Bind Normal Map if exists
+        glActiveTexture(_normalActiveTexture);
+        glBindTexture(GL_TEXTURE_2D, pMESH->textures[MD5Mesh::TextureMap::NORMAL].texHandle );
+    }
+    if (pMESH->textures[MD5Mesh::TextureMap::HEIGHT].texHandle != 0) {
+        // Bind Height Map if exists
+        glActiveTexture(_heightActiveTexture);
+        glBindTexture(GL_TEXTURE_2D, pMESH->textures[MD5Mesh::TextureMap::HEIGHT].texHandle );
+    }
+    // bind diffuse last because ideally it is texture 0 and will remain for future renderings
+    if (pMESH->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle != 0) {
+        // Bind Diffuse Map if exists
+        glActiveTexture(_diffuseActiveTexture);
+        glBindTexture(GL_TEXTURE_2D, pMESH->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle );
+    }
+    if (_diffuseActiveTexture != GL_TEXTURE0) {
+        // reset back to active texture being zero
+        glActiveTexture(GL_TEXTURE0);
+    }
 
     glBindVertexArray(_vao );
     glDrawElements(GL_TRIANGLES, pMESH->numTriangles * 3, GL_UNSIGNED_INT, (void*)nullptr );
@@ -1806,6 +1856,19 @@ CSCI441::MD5Model::allocVertexArrays(
     glVertexAttribPointer( vColorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _numJoints * 3) );
 
     printf("[.md5mesh]: Skeleton VAO/VBO registered at %u/%u\n", _skeletonVAO, _skeletonVBO );
+}
+
+inline void
+CSCI441::MD5Model::setActiveTextures(
+    const GLint diffuseMapActiveTexture = GL_TEXTURE0,
+    const GLint specularMapActiveTexture = GL_TEXTURE1,
+    const GLint normalMapActiveTexture = GL_TEXTURE2,
+    const GLint heightMapActiveTexture = GL_TEXTURE3
+) {
+    _diffuseActiveTexture = diffuseMapActiveTexture;
+    _specularActiveTexture = specularMapActiveTexture;
+    _normalActiveTexture = normalMapActiveTexture;
+    _heightActiveTexture = heightMapActiveTexture;
 }
 
 inline void
