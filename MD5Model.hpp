@@ -344,20 +344,40 @@ namespace CSCI441 {
              */
             glm::vec3 position = {0.0f, 0.0f, 0.0f};
 
+            /**
+             * @brief construct a default weight object
+             */
             MD5Weight() = default;
-
+            /**
+             * @brief construct a weight object by copying an existing weight
+             * @param OTHER existing weight object to copy
+             */
             MD5Weight(const MD5Weight &OTHER) {
                 _copyFromSrc(OTHER);
             }
+            /**
+             * @brief reassign an existing weight object by copying another
+             * @param OTHER existing weight object to copy
+             * @return now modified weight object
+             */
             MD5Weight& operator=(const MD5Weight &OTHER) {
                 if (this != &OTHER) {
                     _copyFromSrc(OTHER);
                 }
                 return *this;
             }
+            /**
+             * @brief construct a weight object by moving an existing object
+             * @param src existing weight object to move
+             */
             MD5Weight(MD5Weight&& src) noexcept {
                 _moveFromSrc(src);
             }
+            /**
+             * @brief reassign an existing weight object by moving anoter
+             * @param src existing weight object to move
+             * @return now modified weight object
+             */
             MD5Weight& operator=(MD5Weight&& src) noexcept {
                 if (this != &src) {
                     _moveFromSrc(src);
@@ -365,11 +385,19 @@ namespace CSCI441 {
                 return *this;
             }
         private:
+            /**
+             * @brief deep copy data members
+             * @param src weight object to copy
+             */
             void _copyFromSrc(const MD5Weight &src) {
                 this->joint = src.joint;
                 this->bias = src.bias;
                 this->position = src.position;
             }
+            /**
+             * @brief move data members and reset existing object to default state
+             * @param src weight object to move
+             */
             void _moveFromSrc(MD5Weight &src) {
                 _copyFromSrc(src);
 
@@ -396,20 +424,40 @@ namespace CSCI441 {
              */
             char filename[MAX_NAME_LENGTH] = "";
 
+            /**
+             * @brief constructs a default texture object
+             */
             MD5Texture() = default;
-
+            /**
+             * @brief construct a texture object by copying an existing object
+             * @param OTHER texture object to copy
+             */
             MD5Texture(const MD5Texture &OTHER) {
                 _copyFromSrc(OTHER);
             }
+            /**
+             * @brief reassign texture object by copying an existing object
+             * @param OTHER existing object to copy
+             * @return now modified texture object
+             */
             MD5Texture& operator=(const MD5Texture &OTHER) {
                 if (this != &OTHER) {
                     _copyFromSrc(OTHER);
                 }
                 return *this;
             }
+            /**
+             * @brief construct a texture object by moving an existing object
+             * @param src existing object to move
+             */
             MD5Texture(MD5Texture&& src) noexcept {
                 _moveFromSrc(src);
             }
+            /**
+             * @brief reasign texture boject by moving an existing object
+             * @param src existing object to move
+             * @return now modified texture object
+             */
             MD5Texture& operator=(MD5Texture&& src) noexcept {
                 if (this != &src) {
                     _moveFromSrc(src);
@@ -417,10 +465,18 @@ namespace CSCI441 {
                 return *this;
             }
         private:
+            /**
+             * @brief deep copy data members from an existing object
+             * @param src object to copy
+             */
             void _copyFromSrc(const MD5Texture &src) {
                 this->texHandle = src.texHandle;
                 strncpy(this->filename, src.filename, MAX_NAME_LENGTH);
             }
+            /**
+             * @brief move data members and return existing object to default state
+             * @param src object to move
+             */
             void _moveFromSrc(MD5Texture& src) {
                 _copyFromSrc(src);
 
@@ -478,7 +534,6 @@ namespace CSCI441 {
                  */
                 HEIGHT
             };
-
             /**
              * @brief number of vertices in the mesh vertex array
              */
@@ -497,14 +552,34 @@ namespace CSCI441 {
              */
             char shader[MAX_NAME_LENGTH] = "";
 
-            MD5Mesh() = default;
+            /**
+             * @brief construct a default mesh object
+             */
+             MD5Mesh() = default;
 
+            /**
+             * @brief do not allow meshes to be copied
+             * @param OTHER unused
+             */
             MD5Mesh(const MD5Mesh &OTHER) = delete;
+            /**
+             * @brief do not allow meshes to be copied
+             * @param OTHER unused
+             */
             MD5Mesh& operator=(const MD5Mesh &OTHER) = delete;
 
+            /**
+             * @brief construct a new mesh by moving an existing object
+             * @param src object to move
+             */
             MD5Mesh(MD5Mesh&& src) noexcept {
                 _moveFromSrc(src);
             }
+            /**
+             * @brief reassign mesh object by moving an existing object
+             * @param src object to move
+             * @return now modified object
+             */
             MD5Mesh& operator=(MD5Mesh&& src) noexcept {
                 if (this != &src) {
                     _moveFromSrc(src);
@@ -512,6 +587,10 @@ namespace CSCI441 {
                 return *this;
             }
         private:
+            /**
+             * @brief move data members from an existing object and reset to default state
+             * @param src object to move
+             */
             void _moveFromSrc(MD5Mesh& src) {
                 this->vertices = src.vertices;
                 src.vertices = nullptr;
@@ -566,20 +645,40 @@ namespace CSCI441 {
              */
             GLint startIndex = 0;
 
+            /**
+             * @brief construct a default joint info object
+             */
             MD5JointInfo() = default;
-
+            /**
+             * @brief construct a joint info object by copying an existing object
+             * @param OTHER object to copy
+             */
             MD5JointInfo(const MD5JointInfo& OTHER) {
                 _copyFromSrc(OTHER);
             }
+            /**
+             * @brief reassign object by copying an existing object
+             * @param OTHER object to copy
+             * @return now modified object
+             */
             MD5JointInfo& operator=(const MD5JointInfo& OTHER) {
                 if (this != &OTHER) {
                     _copyFromSrc(OTHER);
                 }
                 return *this;
             }
+            /**
+             * @brief construct joint info object by moving an existing object
+             * @param src object to move
+             */
             MD5JointInfo(MD5JointInfo&& src) noexcept {
                 _moveFromSrc(src);
             }
+            /**
+             * @brief reassign object by moving an existing object
+             * @param src object to move
+             * @return now modified object
+             */
             MD5JointInfo& operator=(MD5JointInfo&& src) noexcept {
                 if (this != &src) {
                     _moveFromSrc(src);
@@ -587,12 +686,20 @@ namespace CSCI441 {
                 return *this;
             }
         private:
+            /**
+             * @brief deep copy data members
+             * @param src object to copy
+             */
             void _copyFromSrc(const MD5JointInfo &src) {
                 strncpy(this->name, src.name, MAX_NAME_LENGTH);
                 this->parent = src.parent;
                 this->flags = src.flags;
                 this->startIndex = src.startIndex;
             }
+            /**
+             * @brief move object and reset to default state
+             * @param src object to move
+             */
             void _moveFromSrc(MD5JointInfo &src) {
                 _copyFromSrc(src);
 
@@ -616,20 +723,40 @@ namespace CSCI441 {
              */
             glm::quat orientation = {0.0f, 0.0f, 0.0f, 0.0f};
 
+            /**
+             * @brief construct a default object
+             */
             MD5BaseFrameJoint() = default;
-
+            /**
+             * @brief construct an object by copying an existing object
+             * @param OTHER object to copy
+             */
             MD5BaseFrameJoint(const MD5BaseFrameJoint& OTHER) {
                 _copyFromSrc(OTHER);
             }
+            /**
+             * @brief reassign object by copying an existing object
+             * @param OTHER object to copy
+             * @return now modified object
+             */
             MD5BaseFrameJoint& operator=(const MD5BaseFrameJoint &OTHER) {
                 if (this != &OTHER) {
                     _copyFromSrc(OTHER);
                 }
                 return *this;
             }
+            /**
+             * @brief construct object by moving an existing object
+             * @param src object to move
+             */
             MD5BaseFrameJoint(MD5BaseFrameJoint&& src) noexcept {
                 _moveFromSrc(src);
             }
+            /**
+             * @brief reassign object by moving an existing object
+             * @param src object to move
+             * @return now modified object
+             */
             MD5BaseFrameJoint& operator=(MD5BaseFrameJoint&& src) noexcept {
                 if (this != &src) {
                     _moveFromSrc(src);
@@ -637,10 +764,18 @@ namespace CSCI441 {
                 return *this;
             }
         private:
+            /**
+             * @brief deep copy data members
+             * @param src object to copy
+             */
             void _copyFromSrc(const MD5BaseFrameJoint &src) {
                 this->position = src.position;
                 this->orientation = src.orientation;
             }
+            /**
+             * @brief move data members and reset object to default state
+             * @param src object to move
+             */
             void _moveFromSrc(MD5BaseFrameJoint &src) {
                 _copyFromSrc(src);
 
@@ -663,20 +798,40 @@ namespace CSCI441 {
              */
             glm::vec3 max = {0.0f, 0.0f, 0.0f};
 
+            /**
+             * @brief construct a default object
+             */
             MD5BoundingBox() = default;
-
+            /**
+             * @brief construct an object by copying an existing object
+             * @param OTHER object to copy
+             */
             MD5BoundingBox(const MD5BoundingBox &OTHER) {
                 _copyFromSrc(OTHER);
             }
+            /**
+             * @brief reassign object by copying an existing object
+             * @param OTHER object to copy
+             * @return now modified object
+             */
             MD5BoundingBox& operator=(const MD5BoundingBox &OTHER) {
                 if (this != &OTHER) {
                     _copyFromSrc(OTHER);
                 }
                 return *this;
             }
+            /**
+             * @brief construct an object by moving an existing object
+             * @param src object to move
+             */
             MD5BoundingBox(MD5BoundingBox&& src) noexcept {
                 _moveFromSrc(src);
             }
+            /**
+             * @brief reassign object by moving an existing object
+             * @param src object to move
+             * @return now modified object
+             */
             MD5BoundingBox& operator=(MD5BoundingBox&& src) noexcept {
                 if (this != &src) {
                     _moveFromSrc(src);
@@ -684,10 +839,18 @@ namespace CSCI441 {
                 return *this;
             }
         private:
+            /**
+             * @brief deep copy data members
+             * @param src object to copy
+             */
             void _copyFromSrc(const MD5BoundingBox& src) {
                 this->min = src.min;
                 this->max = src.max;
             }
+            /**
+             * @brief move data members and reset object to default state
+             * @param src object to move
+             */
             void _moveFromSrc(MD5BoundingBox& src) {
                 _copyFromSrc(src);
 
@@ -714,7 +877,6 @@ namespace CSCI441 {
              * @note duration of a frame can be computed by inverting the frame rate
              */
             GLint frameRate = 0;
-
             /**
              * @brief skeletal pose for each frame
              */
@@ -724,14 +886,34 @@ namespace CSCI441 {
              */
             MD5BoundingBox *boundingBoxes = nullptr;
 
+            /**
+             * @brief construct a default animation object
+             */
             MD5Animation() = default;
 
-            MD5Animation(const MD5Animation&) = delete;
-            MD5Animation& operator=(const MD5Animation&) = delete;
+            /**
+             * @brief do not allow animation objects to be copied
+             * @param OTHER unused
+             */
+            MD5Animation(const MD5Animation& OTHER) = delete;
+            /**
+             * @brief do not allow animation objects to be copied
+             * @param OTHER unused
+             */
+            MD5Animation& operator=(const MD5Animation& OTHER) = delete;
 
+            /**
+             * @brief construct an animation object by moving an existing object
+             * @param src object to move
+             */
             MD5Animation(MD5Animation&& src) noexcept {
                 _moveFromSrc(src);
             }
+            /**
+             * @brief reassign object by moving an existing object
+             * @param src object to be moved
+             * @return now modified object
+             */
             MD5Animation& operator=(MD5Animation&& src) noexcept {
                 if (this != &src) {
                     _moveFromSrc(src);
@@ -739,6 +921,10 @@ namespace CSCI441 {
                 return *this;
             }
         private:
+            /**
+             * @brief move data members and reset object to default state
+             * @param src object to move
+             */
             void _moveFromSrc(MD5Animation &src) {
                 this->numFrames = src.numFrames;
                 src.numFrames = 0;
@@ -779,20 +965,40 @@ namespace CSCI441 {
              */
             GLfloat maxTime = 0.0f;
 
+            /**
+             * @brief construct a default object
+             */
             MD5AnimationState() = default;
-
+            /**
+             * @brief construct an object by copying an existing object
+             * @param OTHER object to copy
+             */
             MD5AnimationState(const MD5AnimationState &OTHER) {
                 _copyFromSrc(OTHER);
             }
+            /**
+             * @brief reassign object by copying an existing object
+             * @param OTHER object to copy
+             * @return now modified object
+             */
             MD5AnimationState& operator=(const MD5AnimationState &OTHER) {
                 if (this != &OTHER) {
                     _copyFromSrc(OTHER);
                 }
                 return *this;
             }
+            /**
+             * @brief construct an object by moving an existing object
+             * @param src object to move
+             */
             MD5AnimationState(MD5AnimationState&& src) noexcept {
                 _moveFromSrc(src);
             }
+            /**
+             * @brief reassign object by moving an existing object
+             * @param src object to move
+             * @return now modified object
+             */
             MD5AnimationState& operator=(MD5AnimationState&& src) noexcept {
                 if (this != &src) {
                     _moveFromSrc(src);
@@ -800,12 +1006,20 @@ namespace CSCI441 {
                 return *this;
             }
         private:
+            /**
+             * @brief deep copy data members
+             * @param src object to copy
+             */
             void _copyFromSrc(const MD5AnimationState &src) {
                 this->currFrame = src.currFrame;
                 this->nextFrame = src.nextFrame;
                 this->lastTime = src.lastTime;
                 this->maxTime = src.maxTime;
             }
+            /**
+             * @brief move data members and reset object to default state
+             * @param src object to move
+             */
             void _moveFromSrc(MD5AnimationState &src) {
                 _copyFromSrc(src);
 
@@ -905,30 +1119,79 @@ namespace CSCI441 {
         void animate(GLfloat dt);
 
     private:
+        /**
+         * @brief array of joints making up model skeleton
+         * @note allocated size is tracked in _numJoints
+         */
         MD5Joint* _baseSkeleton = nullptr;
+        /**
+         * @brief array of meshes making up model
+         * @note allocated size is tracked in _numMeshes
+         */
         MD5Mesh* _meshes = nullptr;
-
+        /**
+         * @brief number of joints in model
+         * @note corresponds to size of _baseSkeleton
+         */
         GLint _numJoints = 0;
+        /**
+         * @brief number of meshes in model
+         * @note corresponds to size of _meshes
+         */
         GLint _numMeshes = 0;
 
         // vertex array related stuff
+        /**
+         * @brief max number of vertices amongst all meshes
+         * @note corresponds to size of _vertexArray and _texelArray
+         */
         GLint _maxVertices = 0;
+        /**
+         * @brief max number of triangles amongst all meshes
+         * @note corresponds to size of _vertexIndicesArray
+         */
         GLint _maxTriangles = 0;
-
+        /**
+         * @brief array of vertex positions for a single mesh
+         * @note allocated size is tracked in _maxVertices
+         */
         glm::vec3* _vertexArray = nullptr;
+        /**
+         * @brief array of texel coordinates for a single mesh
+         * @note allocated size is tracked in _maxVertices
+         */
         glm::vec2* _texelArray = nullptr;
+        /**
+         * @brief array of indices to render a single mesh
+         * @note allocated size is tracked in _maxTriangles * 3
+         */
         GLuint* _vertexIndicesArray = nullptr;
-
+        /**
+         * @brief VAO for the full model rendering
+         */
         GLuint _vao = 0;
+        /**
+         * @brief VBO array for the full model rendering
+         * @note position [0] bind to GL_ARRAY_BUFFER (vbo)
+         * @note position [1] bind to GL_ELEMENT_ARRAY_BUFFER (ibo)
+         */
         GLuint _vbo[2] = {0, 0};
 
+        // skeleton related stuff
+        /**
+         * @brief VAO for the skeleton rendering
+         */
         GLuint _skeletonVAO = 0;
+        /**
+         * @brief VBO for the skeleton rendering
+         */
         GLuint _skeletonVBO = 0;
-
         /**
          * @brief the MD5 skeletal joint data
          */
         MD5Joint* _skeleton = nullptr;
+
+        // animation related stuff
         /**
          * @brief the MD5 animation frame sequence
          */
@@ -942,26 +1205,67 @@ namespace CSCI441 {
          */
         MD5AnimationState _animationInfo;
 
+        // helper functions
+        /**
+         * @brief Prepare a mesh for drawing.  Compute mesh's final vertex positions
+         * given a skeleton.  Put the vertices in vertex arrays.
+         * @param pMESH mesh to load into vertex arrays
+         */
         void _prepareMesh(const MD5Mesh* pMESH) const;
+        /**
+         * @brief bind mesh's texture and vao, then call glDraw
+         * @param pMESH mesh to draw
+         */
         void _drawMesh(const MD5Mesh* pMESH) const;
+        /**
+         * @brief Check if an animation can be used for a given model.  Model's
+         * skeleton and animation's skeleton must match.
+         * @return true if animation can be used
+         */
         [[nodiscard]] bool _checkAnimValidity() const;
+        /**
+         * @brief Build _skeleton for a given frame data.
+         * @param pJOINT_INFOS array of joint infos
+         * @param pBASE_FRAME array of base frames
+         * @param pANIM_FRAME_DATA array of animation data
+         * @param pSkeletonFrame skeleton array
+         * @param NUM_JOINTS number of joints in each array
+         */
         static void _buildFrameSkeleton(const MD5JointInfo* pJOINT_INFOS,
                                         const MD5BaseFrameJoint* pBASE_FRAME,
                                         const GLfloat* pANIM_FRAME_DATA,
                                         MD5Joint* pSkeletonFrame,
                                         GLint NUM_JOINTS);
+        /**
+         * @brief Smoothly interpolate two skeletons
+         * @param interp amount to interpolate
+         */
         void _interpolateSkeletons(GLfloat interp);
+        /**
+         * @brief Free resources allocated for the model.
+         */
         void _freeModel();
+        /**
+         * @brief free vertex data and clear VAO/VBO from GPU
+         */
         void _freeVertexArrays();
+        /**
+         * @brief Free resources allocated for the animation.
+         */
         void _freeAnim();
 
+        /**
+         * @brief move data members and reset object to default state
+         * @param src object to move
+         */
         void _moveFromSrc(MD5Model &src);
     };
 }
 
 //----------------------------------------------------------------------------------------------------
 
-inline CSCI441::MD5Model::~MD5Model()
+inline
+CSCI441::MD5Model::~MD5Model()
 {
     _freeVertexArrays();
     _freeAnim();
@@ -972,8 +1276,8 @@ inline CSCI441::MD5Model::~MD5Model()
 [[maybe_unused]]
 inline bool
 CSCI441::MD5Model::loadMD5Model(
-        const char* MD5_MESH_FILE,
-        const char* MD5_ANIM_FILE
+    const char* MD5_MESH_FILE,
+    const char* MD5_ANIM_FILE
 ) {
     // Load MD5 _model file
     if( readMD5Model(MD5_MESH_FILE) ) {
@@ -996,7 +1300,7 @@ CSCI441::MD5Model::loadMD5Model(
 // Load an MD5 model from file.
 inline bool
 CSCI441::MD5Model::readMD5Model(
-        const char* FILENAME
+    const char* FILENAME
 ) {
     char buff[512];
     GLint version = 0;
@@ -1220,7 +1524,6 @@ CSCI441::MD5Model::readMD5Model(
     return true;
 }
 
-//Free resources allocated for the model.
 inline void
 CSCI441::MD5Model::_freeModel()
 {
@@ -1255,11 +1558,9 @@ CSCI441::MD5Model::draw() const
     }
 }
 
-// Prepare a mesh for drawing.  Compute mesh's final vertex positions
-// given a skeleton.  Put the vertices in vertex arrays.
 inline void
 CSCI441::MD5Model::_prepareMesh(
-        const MD5Mesh *pMESH
+    const MD5Mesh *pMESH
 ) const {
     GLint i, j, k;
 
@@ -1307,7 +1608,7 @@ CSCI441::MD5Model::_prepareMesh(
 
 inline void
 CSCI441::MD5Model::_drawMesh(
-        const MD5Mesh *pMESH
+    const MD5Mesh *pMESH
 ) const {
     // Bind Diffuse Map
     glBindTexture(GL_TEXTURE_2D, pMESH->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle );
@@ -1319,9 +1620,9 @@ CSCI441::MD5Model::_drawMesh(
 [[maybe_unused]]
 inline void
 CSCI441::MD5Model::allocVertexArrays(
-        const GLuint vPosAttribLoc,
-        const GLuint vColorAttribLoc,
-        const GLuint vTexCoordAttribLoc
+    const GLuint vPosAttribLoc,
+    const GLuint vColorAttribLoc,
+    const GLuint vTexCoordAttribLoc
 ) {
     _vertexArray = new glm::vec3[_maxVertices];
     _texelArray = new glm::vec2[_maxVertices];
@@ -1379,7 +1680,6 @@ CSCI441::MD5Model::_freeVertexArrays()
     glDeleteBuffers( 1, &_skeletonVBO );
 }
 
-// Draw the skeleton as lines and points (for joints).
 [[maybe_unused]]
 inline void
 CSCI441::MD5Model::drawSkeleton() const
@@ -1438,8 +1738,6 @@ CSCI441::MD5Model::drawSkeleton() const
     glLineWidth(1.0f);
 }
 
-// Check if an animation can be used for a given model.  Model's
-// skeleton and animation's skeleton must match.
 inline bool
 CSCI441::MD5Model::_checkAnimValidity() const
 {
@@ -1468,7 +1766,6 @@ CSCI441::MD5Model::_checkAnimValidity() const
     return true;
 }
 
-// Build _skeleton for a given frame data.
 inline void
 CSCI441::MD5Model::_buildFrameSkeleton(
         const MD5JointInfo* pJOINT_INFOS,
@@ -1531,7 +1828,7 @@ CSCI441::MD5Model::_buildFrameSkeleton(
         // never be smaller than its parent ID.
         MD5Joint *thisJoint = &pSkeletonFrame[i];
 
-        GLint parent = pJOINT_INFOS[i].parent;
+        const GLint parent = pJOINT_INFOS[i].parent;
         thisJoint->parent = parent;
         strcpy (thisJoint->name, pJOINT_INFOS[i].name);
 
@@ -1540,7 +1837,7 @@ CSCI441::MD5Model::_buildFrameSkeleton(
             thisJoint->position = animatedPosition;
             thisJoint->orientation = animatedOrientation;
         } else {
-            MD5Joint *parentJoint = &pSkeletonFrame[parent];
+            const MD5Joint *parentJoint = &pSkeletonFrame[parent];
             glm::vec3 rotatedPosition = glm::rotate(parentJoint->orientation, glm::vec4(animatedPosition, 0.0f));
 
             // Add positions
@@ -1552,7 +1849,6 @@ CSCI441::MD5Model::_buildFrameSkeleton(
     }
 }
 
-// Load an MD5 animation from file.
 inline bool
 CSCI441::MD5Model::readMD5Anim(
         const char *filename
@@ -1698,7 +1994,6 @@ CSCI441::MD5Model::readMD5Anim(
     return true;
 }
 
-// Free resources allocated for the animation.
 inline void
 CSCI441::MD5Model::_freeAnim()
 {
@@ -1764,7 +2059,6 @@ inline void CSCI441::MD5Model::_moveFromSrc(MD5Model &src) {
     this->_animationInfo = std::move( src._animationInfo );
 }
 
-// Smoothly interpolate two skeletons
 inline void
 CSCI441::MD5Model::_interpolateSkeletons(const GLfloat interp)
 {
