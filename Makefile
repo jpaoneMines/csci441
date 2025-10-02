@@ -24,6 +24,7 @@ doxygen:
 install:
 	sudo mkdir -p /usr/local/include/CSCI441
 	sudo cp *.hpp /usr/local/include/CSCI441/.
+	sudo cp constants.h /usr/local/include/CSCI441/.
 
 examples: clean $(PROGRAMS)
 

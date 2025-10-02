@@ -15,6 +15,7 @@
 #ifndef CSCI441_OBJECTS_HPP
 #define CSCI441_OBJECTS_HPP
 
+#include "constants.h"
 #include "teapot.hpp"                   // for teapot()
 
 #ifdef CSCI441_USE_GLEW

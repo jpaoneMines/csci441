@@ -12,6 +12,7 @@
 #ifndef CSCI441_OPENGL_ENGINE_HPP
 #define CSCI441_OPENGL_ENGINE_HPP
 
+#include "constants.h"
 #include "OpenGLUtils.hpp"
 
 #ifdef CSCI441_USE_GLEW
@@ -471,6 +472,10 @@ inline void CSCI441::OpenGLEngine::_moveFromSource(OpenGLEngine& src) {
 
 inline void CSCI441::OpenGLEngine::initialize() {
     if( !_isInitialized ) {
+        if (DEBUG) {
+            fprintf(stdout, "[INFO]: Using CSCI441 Library v%d.%d.%d\n", CSCI441::VERSION_MAJOR, CSCI441::VERSION_MINOR, CSCI441::VERSION_PATCH);
+        }
+
         mSetupGLFW();                   // initialize GLFW and set up a window
         _setupGLFunctions();            // create OpenGL function pointers
         mSetupOpenGL();                 // create the OpenGL context

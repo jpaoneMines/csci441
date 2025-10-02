@@ -10,6 +10,8 @@
 #ifndef CSCI441_MATERIALS_HPP
 #define CSCI441_MATERIALS_HPP
 
+#include "constants.h"
+
 #ifdef CSCI441_USE_GLEW
     #include <GL/glew.h>
 #else

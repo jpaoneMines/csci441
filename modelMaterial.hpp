@@ -12,6 +12,8 @@
 #ifndef CSCI441_MODEL_MATERIAL_H
 #define CSCI441_MODEL_MATERIAL_H
 
+#include "constants.h"
+
 #ifdef CSCI441_USE_GLEW
     #include <GL/glew.h>
 #else

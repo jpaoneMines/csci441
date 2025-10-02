@@ -15,8 +15,9 @@
 #ifndef CSCI441_SIMPLE_SHADER_HPP
 #define CSCI441_SIMPLE_SHADER_HPP
 
-#include "ShaderUtils.hpp"
+#include "constants.h"
 #include "objects.hpp"
+#include "ShaderUtils.hpp"
 
 #ifdef CSCI441_USE_GLEW
     #include <GL/glew.h>

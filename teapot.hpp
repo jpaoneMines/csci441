@@ -17,6 +17,8 @@
 #ifndef CSCI441_TEAPOT_HPP
 #define CSCI441_TEAPOT_HPP
 
+#include "constants.h"
+
 #ifdef CSCI441_USE_GLEW
     #include <GL/glew.h>
 #else

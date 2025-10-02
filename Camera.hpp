@@ -15,6 +15,8 @@
 #ifndef CSCI441_CAMERA_HPP
 #define CSCI441_CAMERA_HPP
 
+#include "constants.h"
+
 #ifdef CSCI441_USE_GLEW
     #include <GL/glew.h>
 #else

@@ -34,6 +34,7 @@
 #include "ArcballCam.hpp"           // arcball cam implementation
 #include "Camera.hpp"               // abstract Camera class
 #include "ComputeShaderProgram.hpp" // helper class to compile and use compute shaders
+#include "constants.h"              // namespace defined constants
 #include "FixedCam.hpp"             // static fixed camera implementation
 #include "FramebufferUtils.hpp"     // to query common FBO information
 #include "FreeCam.hpp"              // free cam implementation

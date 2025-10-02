@@ -17,6 +17,7 @@
 #ifndef CSCI441_MODEL_LOADER_HPP
 #define CSCI441_MODEL_LOADER_HPP
 
+#include "constants.h"
 #include "modelMaterial.hpp"
 
 #ifdef CSCI441_USE_GLEW

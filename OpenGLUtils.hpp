@@ -15,6 +15,8 @@
 #ifndef CSCI441_OPENGL_UTILS_H
 #define CSCI441_OPENGL_UTILS_H
 
+#include "constants.h"
+
 #ifdef CSCI441_USE_GLEW
     #include <GL/glew.h>
 #else

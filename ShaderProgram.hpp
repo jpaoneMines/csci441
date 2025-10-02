@@ -13,6 +13,7 @@
 #ifndef CSCI441_SHADER_PROGRAM_HPP
 #define CSCI441_SHADER_PROGRAM_HPP
 
+#include "constants.h"
 #include "ShaderUtils.hpp"
 
 #include <glm/glm.hpp>

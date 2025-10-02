@@ -14,6 +14,8 @@
 #ifndef CSCI441_TEXTURE_UTILS_HPP
 #define CSCI441_TEXTURE_UTILS_HPP
 
+#include "constants.h"
+
 #ifdef CSCI441_USE_GLEW
     #include <GL/glew.h>
 #else

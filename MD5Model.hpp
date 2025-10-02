@@ -45,6 +45,7 @@
  *
  */
 
+#include "constants.h"
 #include "TextureUtils.hpp"
 
 #ifdef CSCI441_USE_GLEW

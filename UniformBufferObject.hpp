@@ -11,6 +11,7 @@
 #ifndef CSCI441_UNIFORM_BUFFER_OBJECT_HPP
 #define CSCI441_UNIFORM_BUFFER_OBJECT_HPP
 
+#include "constants.h"
 #include "ShaderProgram.hpp"
 
 #ifdef CSCI441_USE_GLEW
