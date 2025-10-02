@@ -6,15 +6,36 @@
 #define CSCI441_CONSTANTS_H
 
 namespace CSCI441 {
+    /**
+     * @brief library major version
+     */
     constexpr int VERSION_MAJOR = 5;
-    constexpr int VERSION_MINOR = 15;
-    constexpr int VERSION_PATCH = 1;
+    /**
+     * @brief library minor version
+     */
+    constexpr int VERSION_MINOR = 16;
+    /**
+     * @brief library patch version
+     */
+    constexpr int VERSION_PATCH = 0;
 
 #ifdef CSCI441_USE_GLEW
+    /**
+     * @brief true if the library is dependent upon GLEW
+     */
     constexpr bool USING_GLEW = true;
+    /**
+     * @brief true if the library is dependent upon GLAD
+     */
     constexpr bool USING_GLAD = false;
 #else
+    /**
+     * @brief true if the library is dependent upon GLEW
+     */
     constexpr bool USING_GLEW = false;
+    /**
+     * @brief true if the library is dependent upon GLAD
+     */
     constexpr bool USING_GLAD = true;
 #endif
 }

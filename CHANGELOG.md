@@ -1,6 +1,6 @@
 # Revision History
 
-## v 5.15.1 - 02 Oct 2025
+## v 5.16.0 - 02 Oct 2025
 - MD5Model can bind diffuse, specular, normal, and height maps
 - Added constants file to track library information
 
