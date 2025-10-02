@@ -1,3 +1,14 @@
+/**
+ * @file PerspectiveCamera.hpp
+ * @brief Abstract Class to represent a perspective camera.  Stores aspect ratio and field of view
+ * @author Dr. Jeffrey Paone
+ *
+ * @copyright MIT License Copyright (c) 2024 Dr. Jeffrey Paone
+ *
+ * These functions, classes, and constants help minimize common
+ * code that needs to be written.
+ */
+
 #ifndef CSCI441_PERSPECTIVE_CAMERA_HPP
 #define CSCI441_PERSPECTIVE_CAMERA_HPP
 

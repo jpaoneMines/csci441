@@ -1,6 +1,13 @@
-//
-// Created by Jeffrey Paone on 10/2/25.
-//
+/**
+ * @file constants.h
+ * @brief stores library specific constants and flags
+ * @author Dr. Jeffrey Paone
+ *
+ * @copyright MIT License Copyright (c) 2025 Dr. Jeffrey Paone
+ *
+ * These functions, classes, and constants help minimize common
+ * code that needs to be written.
+ */
 
 #ifndef CSCI441_CONSTANTS_H
 #define CSCI441_CONSTANTS_H

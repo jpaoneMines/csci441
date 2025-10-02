@@ -1,3 +1,14 @@
+/**
+ * @file OrthographicCamera.hpp
+ * @brief Abstract Class to represent an orthographic camera.  Stores box clip planes
+ * @author Dr. Jeffrey Paone
+ *
+ * @copyright MIT License Copyright (c) 2024 Dr. Jeffrey Paone
+ *
+ * These functions, classes, and constants help minimize common
+ * code that needs to be written.
+ */
+
 #ifndef CSCI441_ORTHOGRAPHIC_CAMERA_HPP
 #define CSCI441_ORTHOGRAPHIC_CAMERA_HPP
 
