@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.15.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.16.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -160,6 +160,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9b98a82c47b19c88da5aac08cc813490"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a9b98a82c47b19c88da5aac08cc813490">allocVertexArrays</a> (GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc)</td></tr>
 <tr class="memdesc:a9b98a82c47b19c88da5aac08cc813490"><td class="mdescLeft">&#160;</td><td class="mdescRight">binds model VBOs to attribute pointer locations  <br /></td></tr>
 <tr class="separator:a9b98a82c47b19c88da5aac08cc813490"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f8eb75b2500a62405b2e03d7e4e5c24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a5f8eb75b2500a62405b2e03d7e4e5c24">setActiveTextures</a> (GLint diffuseMapActiveTexture, GLint specularMapActiveTexture, GLint normalMapActiveTexture, GLint heightMapActiveTexture)</td></tr>
+<tr class="memdesc:a5f8eb75b2500a62405b2e03d7e4e5c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">specify which texture targets each texture map should be bound to when rendering  <br /></td></tr>
+<tr class="separator:a5f8eb75b2500a62405b2e03d7e4e5c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a205ba4caef19a4598e6e00b1506349c2"><td class="memItemLeft" align="right" valign="top"><a id="a205ba4caef19a4598e6e00b1506349c2" name="a205ba4caef19a4598e6e00b1506349c2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> () const</td></tr>
 <tr class="memdesc:a205ba4caef19a4598e6e00b1506349c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">draws all the meshes that make up the model <br /></td></tr>
@@ -437,6 +440,65 @@ texCoord attribute used when drawing the mesh </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if file parsed successfully </dd></dl>
+
+</div>
+</div>
+<a id="a5f8eb75b2500a62405b2e03d7e4e5c24" name="a5f8eb75b2500a62405b2e03d7e4e5c24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f8eb75b2500a62405b2e03d7e4e5c24">&#9670;&#160;</a></span>setActiveTextures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::MD5Model::setActiveTextures </td>
+          <td>(</td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>diffuseMapActiveTexture</em> = <code>GL_TEXTURE0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>specularMapActiveTexture</em> = <code>GL_TEXTURE1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>normalMapActiveTexture</em> = <code>GL_TEXTURE2</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>heightMapActiveTexture</em> = <code>GL_TEXTURE3</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>specify which texture targets each texture map should be bound to when rendering </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">diffuseMapActiveTexture</td><td>active texture to bind the diffuse map to (default GL_TEXTURE0) </td></tr>
+    <tr><td class="paramname">specularMapActiveTexture</td><td>active texture to bind the specular map to (default GL_TEXTURE1) </td></tr>
+    <tr><td class="paramname">normalMapActiveTexture</td><td>active texture to bind the normal map to (default GL_TEXTURE2) </td></tr>
+    <tr><td class="paramname">heightMapActiveTexture</td><td>active texture to bind the height map to (default GL_TEXTURE3) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
