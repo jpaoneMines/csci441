@@ -367,6 +367,12 @@ namespace CSCI441 {
         [[nodiscard]] virtual GLuint getShaderProgramHandle() const final;
 
         /**
+         * @brief checks if program can execute in its current OpenGL state
+         * @return GL_TRUE if valid, GL_FALSE otherwise and prints error messages if failed
+         */
+        [[nodiscard]] virtual GLboolean validate() const final;
+
+        /**
          * @brief Sets the Shader Program to be active
          */
         [[maybe_unused]] virtual void useProgram() const final;
@@ -1495,6 +1501,22 @@ inline GLuint CSCI441::ShaderProgram::getNumAttributes() const {
 
 inline GLuint CSCI441::ShaderProgram::getShaderProgramHandle() const {
     return mShaderProgramHandle;
+}
+
+inline GLboolean CSCI441::ShaderProgram::validate() const {
+    if (mShaderProgramHandle == 0) {
+        return GL_FALSE;
+    }
+
+    glValidateProgram(mShaderProgramHandle);
+    GLint validateStatus = GL_FALSE;
+    glGetProgramiv(mShaderProgramHandle, GL_VALIDATE_STATUS, &validateStatus);
+
+    if (validateStatus == GL_FALSE && sDEBUG) {
+        CSCI441_INTERNAL::ShaderUtils::printProgramInfoLog(mShaderProgramHandle);
+    }
+
+    return (validateStatus == GL_TRUE);
 }
 
 [[maybe_unused]]

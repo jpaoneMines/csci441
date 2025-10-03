@@ -68,8 +68,11 @@ namespace CSCI441_INTERNAL::ShaderUtils {
     // Prints the shader log for the associated Shader handle
     void printShaderLog( GLuint shaderHandle );
 
-    // Prints the shader log for the associated Shader Program handle
+    // Prints the shader log for the associated Shader Program handle after linking
     void printProgramLog( GLuint programHandle );
+
+	// Prints the shader log for the associated Shader Program handle
+	void printProgramInfoLog( GLuint programHandle );
 
     // Prints the shader log for the associated Program Pipeline handle
     void printProgramPipelineLog( GLuint pipelineHandle );
@@ -311,29 +314,41 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderLog(
 }
 
 inline void CSCI441_INTERNAL::ShaderUtils::printProgramLog(
-        const GLuint programHandle
+    const GLuint programHandle
 ) {
 	// check if the handle is to a vertex/fragment shader
     if( glIsProgram( programHandle ) ) {
-		GLint maxLength = 0, status = 0, infoLogLength = 0;
-        glGetProgramiv(  programHandle, GL_INFO_LOG_LENGTH, &maxLength );
-
-        // create a buffer of designated length
-		const auto infoLog = new GLchar[maxLength];
-		
+		GLint status = 0;
 		glGetProgramiv( programHandle, GL_LINK_STATUS, &status );
     	if( sDEBUG ) printf("[INFO]: |   Program Handle %2d: Linke%-28s |\n", programHandle, (status == 1 ? "d Successfully" : "r Error") );
 
-        // get the info log for the vertex/tesselation/geometry/fragment/compute shader
-        glGetProgramInfoLog(programHandle, maxLength, &infoLogLength, infoLog );
-
-        if(infoLogLength > 0 ) {
-			// print info to terminal
-        	if( sDEBUG ) printf( "[INFO]: |   Program Handle %d: %s\n", programHandle, infoLog );
-        }
-
-        delete[] infoLog;
+    	printProgramInfoLog(programHandle);
     } else {
+		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader Program                |\n", programHandle );
+	}
+}
+
+inline void CSCI441_INTERNAL::ShaderUtils::printProgramInfoLog(
+	const GLuint programHandle
+) {
+	// check if the handle is to a vertex/fragment shader
+	if( glIsProgram( programHandle ) ) {
+		GLint maxLength = 0, infoLogLength = 0;
+		glGetProgramiv(  programHandle, GL_INFO_LOG_LENGTH, &maxLength );
+
+		// create a buffer of designated length
+		const auto infoLog = new GLchar[maxLength];
+
+		// get the info log for the vertex/tesselation/geometry/fragment/compute shader
+		glGetProgramInfoLog(programHandle, maxLength, &infoLogLength, infoLog );
+
+		if(infoLogLength > 0 ) {
+			// print info to terminal
+			if( sDEBUG ) printf( "[INFO]: |   Program Handle %d: %s\n", programHandle, infoLog );
+		}
+
+		delete[] infoLog;
+	} else {
 		if( sDEBUG ) fprintf( stderr, "[WARN]: |  Handle %-3d is not for a Shader Program                |\n", programHandle );
 	}
 }

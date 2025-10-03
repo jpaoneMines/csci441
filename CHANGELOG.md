@@ -1,5 +1,8 @@
 # Revision History
 
+## v ?.??.? - ?? ??? ????
+- ShaderProgram can validate if program is ready to execute in current state
+
 ## v 5.16.0 - 02 Oct 2025
 - MD5Model can bind diffuse, specular, normal, and height maps
 - Added constants file to track library information
