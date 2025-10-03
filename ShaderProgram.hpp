@@ -1286,7 +1286,7 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(
     glGetProgramiv(mShaderProgramHandle, GL_LINK_STATUS, &linkStatus );
 
     // print shader info for uniforms & attributes
-    if(linkStatus == 1) {
+    if(linkStatus == GL_TRUE) {
         CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(mShaderProgramHandle, mVertexShaderHandle != 0,
                                                               mTessellationControlShaderHandle != 0,
                                                               mTessellationEvaluationShaderHandle != 0,
