@@ -2,6 +2,7 @@
 
 ## v ?.??.? - ?? ??? ????
 - ShaderProgram can validate if program is ready to execute in current state
+- Fixed recently introduced error of OpenGL3DEngine expecting a PerspectiveCamera object 
 
 ## v 5.16.0 - 02 Oct 2025
 - MD5Model can bind diffuse, specular, normal, and height maps
