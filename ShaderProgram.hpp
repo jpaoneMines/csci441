@@ -361,6 +361,20 @@ namespace CSCI441 {
         [[maybe_unused]] [[nodiscard]] virtual GLuint getNumAttributes() const final;
 
         /**
+         * @brief query the bindings of color numbers to user-defined varying out variables
+         * @param name fragment shader output variable name
+         * @return assigned color number binding, or -1 if name is not active varying output of fragment shader
+         */
+        [[maybe_unused]] [[nodiscard]] virtual GLint getFragmentDataLocation(const GLchar* name) const final;
+
+        /**
+         * @brief query the bindings of color indices to user-defined varying out variables
+         * @param name fragment shader output variable name
+         * @return index of the fragment color which name was bound to, or -1 if name is not active
+         */
+        [[maybe_unused]] [[nodiscard]] virtual GLint getFragmentDataIndex(const GLchar* name) const final;
+
+        /**
          * @brief Returns the handle for this shader program
          * @return handle for this shader program
          */
@@ -1497,6 +1511,16 @@ inline GLuint CSCI441::ShaderProgram::getNumAttributes() const {
     GLint numAttr = 0;
     glGetProgramiv(mShaderProgramHandle, GL_ACTIVE_ATTRIBUTES, &numAttr );
     return numAttr;
+}
+
+[[maybe_unused]]
+inline GLint CSCI441::ShaderProgram::getFragmentDataLocation(const GLchar *name) const {
+    return glGetFragDataLocation(mShaderProgramHandle, name);
+}
+
+[[maybe_unused]]
+inline GLint CSCI441::ShaderProgram::getFragmentDataIndex(const GLchar *name) const {
+    return glGetFragDataIndex(mShaderProgramHandle, name);
 }
 
 inline GLuint CSCI441::ShaderProgram::getShaderProgramHandle() const {
