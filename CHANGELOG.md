@@ -1,6 +1,6 @@
 # Revision History
 
-## v ?.??.? - ?? ??? ????
+## v 5.17.0 - 06 Oct 2025
 - ShaderProgram can validate if program is ready to execute in current state
 - ShaderProgram can query fragment output color bindings
 - Fixed recently introduced error of OpenGL3DEngine expecting a PerspectiveCamera object 

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CSCI441 OpenGL Library: ModelLoader.hpp File Reference</title>
+<title>CSCI441 OpenGL Library: OrthographicCamera.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,34 +73,20 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">ModelLoader.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">OrthographicCamera.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Loads OBJ+MTL, OFF, PLY, STL object files into a VAO.  
+<p>Abstract Class to represent an orthographic camera. Stores box clip planes.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;constants.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="model_material_8hpp_source.html">modelMaterial.hpp</a>&quot;</code><br />
-<code>#include &lt;glad/gl.h&gt;</code><br />
-<code>#include &lt;glm/glm.hpp&gt;</code><br />
-<code>#include &lt;stb_image.h&gt;</code><br />
-<code>#include &lt;cstdio&gt;</code><br />
-<code>#include &lt;cstdlib&gt;</code><br />
-<code>#include &lt;cstring&gt;</code><br />
-<code>#include &lt;ctime&gt;</code><br />
-<code>#include &lt;fstream&gt;</code><br />
-<code>#include &lt;sstream&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>&quot;</code><br />
 </div>
-<p><a href="_model_loader_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="_orthographic_camera_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html">CSCI441::ModelLoader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads object models from file and renders using VBOs/VAOs.  <a href="class_c_s_c_i441_1_1_model_loader.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_orthographic_camera.html">CSCI441::OrthographicCamera</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract Class to represent an orthographic camera. Stores box clip planes.  <a href="class_c_s_c_i441_1_1_orthographic_camera.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -110,13 +96,10 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Loads OBJ+MTL, OFF, PLY, STL object files into a VAO. </p>
+<div class="textblock"><p>Abstract Class to represent an orthographic camera. Stores box clip planes. </p>
 <dl class="section author"><dt>Author</dt><dd>Dr. Jeffrey Paone</dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>MIT License Copyright (c) 2017 Dr. Jeffrey Paone</dd></dl>
-<p>This class will load and render object files. Currently supports: .obj + .mtl .off .ply .stl</p>
-<dl class="section warning"><dt>Warning</dt><dd>NOTE: This header file will only work with OpenGL 3.0+ </dd>
-<dd>
-NOTE: This header file depends upon GLAD (or GLEW), glm, stb_image </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>MIT License Copyright (c) 2024 Dr. Jeffrey Paone</dd></dl>
+<p>These functions, classes, and constants help minimize common code that needs to be written. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

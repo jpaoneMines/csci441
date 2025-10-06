@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.16.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.17.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -77,7 +77,7 @@ $(function() {
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#ifndef CSCI441_FREE_CAM_HPP</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define CSCI441_FREE_CAM_HPP</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;PerspectiveCamera.hpp&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="_perspective_camera_8hpp.html">PerspectiveCamera.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_c_s_c_i441.html">CSCI441</a> {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
@@ -143,6 +143,7 @@ $(function() {
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_FREE_CAM_HPP</span></div>
+<div class="ttc" id="a_perspective_camera_8hpp_html"><div class="ttname"><a href="_perspective_camera_8hpp.html">PerspectiveCamera.hpp</a></div><div class="ttdoc">Abstract Class to represent a perspective camera. Stores aspect ratio and field of view.</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html">CSCI441::FreeCam</a></div><div class="ttdoc">A camera that implements a FreeCam camera model.</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:23</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_a2bd8a7b5c706c1641b3ef8e243e109ea"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#a2bd8a7b5c706c1641b3ef8e243e109ea">CSCI441::FreeCam::FreeCam</a></div><div class="ttdeci">FreeCam(GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:89</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_a31ee75e4426c310305ae21012bea8d50"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#a31ee75e4426c310305ae21012bea8d50">CSCI441::FreeCam::recomputeOrientation</a></div><div class="ttdeci">void recomputeOrientation() override</div><div class="ttdoc">converts spherical theta &amp; phi to cartesian x,y,z direction vector</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:99</div></div>
@@ -153,7 +154,7 @@ $(function() {
 <div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_abf150079d1daff5c9654c8c48141a705"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#abf150079d1daff5c9654c8c48141a705">CSCI441::FreeCam::moveForward</a></div><div class="ttdeci">void moveForward(GLfloat movementFactor) override</div><div class="ttdoc">updates the camera's position by the adding the camera's direction to the camera's position</div><div class="ttdef"><b>Definition:</b> FreeCam.hpp:111</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_acab9da51fd778709f1ba0fde5e5bffcf"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#acab9da51fd778709f1ba0fde5e5bffcf">CSCI441::FreeCam::FreeCam</a></div><div class="ttdeci">FreeCam(const FreeCam &amp;)=default</div><div class="ttdoc">construct a copy an existing camera</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_free_cam_html_af949a3b63180063f129404f0e21f6b28"><div class="ttname"><a href="class_c_s_c_i441_1_1_free_cam.html#af949a3b63180063f129404f0e21f6b28">CSCI441::FreeCam::operator=</a></div><div class="ttdeci">FreeCam &amp; operator=(FreeCam &amp;&amp;)=default</div><div class="ttdoc">reassign an existing camera to ourselves</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_perspective_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_perspective_camera.html">CSCI441::PerspectiveCamera</a></div><div class="ttdoc">Abstract Class to represent a perspective camera. Stores aspect ratio and field of view.</div><div class="ttdef"><b>Definition:</b> PerspectiveCamera.hpp:11</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_perspective_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_perspective_camera.html">CSCI441::PerspectiveCamera</a></div><div class="ttdoc">Abstract Class to represent a perspective camera. Stores aspect ratio and field of view.</div><div class="ttdef"><b>Definition:</b> PerspectiveCamera.hpp:22</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

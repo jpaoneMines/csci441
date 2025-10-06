@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.16.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.17.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -213,9 +213,18 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~ShaderProgram</b>
 <tr class="memitem:a23cbdb2ce98d2b07fc24b7f916bf31c6"><td class="memItemLeft" align="right" valign="top">virtual GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a23cbdb2ce98d2b07fc24b7f916bf31c6">getNumAttributes</a> () const final</td></tr>
 <tr class="memdesc:a23cbdb2ce98d2b07fc24b7f916bf31c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of active attributes in this shader program.  <br /></td></tr>
 <tr class="separator:a23cbdb2ce98d2b07fc24b7f916bf31c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6b52dbfe813aa2f85f2128732f13156"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#ad6b52dbfe813aa2f85f2128732f13156">getFragmentDataLocation</a> (const GLchar *name) const final</td></tr>
+<tr class="memdesc:ad6b52dbfe813aa2f85f2128732f13156"><td class="mdescLeft">&#160;</td><td class="mdescRight">query the bindings of color numbers to user-defined varying out variables  <br /></td></tr>
+<tr class="separator:ad6b52dbfe813aa2f85f2128732f13156"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af042274ffae79b286e1977c80584993f"><td class="memItemLeft" align="right" valign="top">virtual GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#af042274ffae79b286e1977c80584993f">getFragmentDataIndex</a> (const GLchar *name) const final</td></tr>
+<tr class="memdesc:af042274ffae79b286e1977c80584993f"><td class="mdescLeft">&#160;</td><td class="mdescRight">query the bindings of color indices to user-defined varying out variables  <br /></td></tr>
+<tr class="separator:af042274ffae79b286e1977c80584993f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a679f8aefe1d0f2fc3a4881c2bfcf2ea6"><td class="memItemLeft" align="right" valign="top">virtual GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a679f8aefe1d0f2fc3a4881c2bfcf2ea6">getShaderProgramHandle</a> () const final</td></tr>
 <tr class="memdesc:a679f8aefe1d0f2fc3a4881c2bfcf2ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the handle for this shader program.  <br /></td></tr>
 <tr class="separator:a679f8aefe1d0f2fc3a4881c2bfcf2ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf95e39b52e798d19dbc398dbb29a77b"><td class="memItemLeft" align="right" valign="top">virtual GLboolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aaf95e39b52e798d19dbc398dbb29a77b">validate</a> () const final</td></tr>
+<tr class="memdesc:aaf95e39b52e798d19dbc398dbb29a77b"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks if program can execute in its current OpenGL state  <br /></td></tr>
+<tr class="separator:aaf95e39b52e798d19dbc398dbb29a77b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2145012fa06c678521886f904645b229"><td class="memItemLeft" align="right" valign="top"><a id="a2145012fa06c678521886f904645b229" name="a2145012fa06c678521886f904645b229"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>useProgram</b> () const final</td></tr>
 <tr class="memdesc:a2145012fa06c678521886f904645b229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Shader Program to be active. <br /></td></tr>
@@ -1231,6 +1240,76 @@ Static Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>location of the given attribute in this shader program </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the attribute is not found </dd></dl>
+
+</div>
+</div>
+<a id="af042274ffae79b286e1977c80584993f" name="af042274ffae79b286e1977c80584993f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af042274ffae79b286e1977c80584993f">&#9670;&#160;</a></span>getFragmentDataIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLint CSCI441::ShaderProgram::getFragmentDataIndex </td>
+          <td>(</td>
+          <td class="paramtype">const GLchar *&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>query the bindings of color indices to user-defined varying out variables </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>fragment shader output variable name </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>index of the fragment color which name was bound to, or -1 if name is not active </dd></dl>
+
+</div>
+</div>
+<a id="ad6b52dbfe813aa2f85f2128732f13156" name="ad6b52dbfe813aa2f85f2128732f13156"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6b52dbfe813aa2f85f2128732f13156">&#9670;&#160;</a></span>getFragmentDataLocation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLint CSCI441::ShaderProgram::getFragmentDataLocation </td>
+          <td>(</td>
+          <td class="paramtype">const GLchar *&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>query the bindings of color numbers to user-defined varying out variables </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>fragment shader output variable name </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>assigned color number binding, or -1 if name is not active varying output of fragment shader </dd></dl>
 
 </div>
 </div>
@@ -5401,6 +5480,34 @@ Static Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Prints an error message to standard error stream if the uniform block is not found </dd></dl>
+
+</div>
+</div>
+<a id="aaf95e39b52e798d19dbc398dbb29a77b" name="aaf95e39b52e798d19dbc398dbb29a77b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf95e39b52e798d19dbc398dbb29a77b">&#9670;&#160;</a></span>validate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLboolean CSCI441::ShaderProgram::validate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>checks if program can execute in its current OpenGL state </p>
+<dl class="section return"><dt>Returns</dt><dd>GL_TRUE if valid, GL_FALSE otherwise and prints error messages if failed </dd></dl>
 
 </div>
 </div>

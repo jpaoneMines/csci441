@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.16.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.17.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -77,7 +77,7 @@ $(function() {
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#ifndef CSCI441_ARCBALL_CAM_HPP</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define CSCI441_ARCBALL_CAM_HPP</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;PerspectiveCamera.hpp&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="_perspective_camera_8hpp.html">PerspectiveCamera.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="namespace_c_s_c_i441.html">   17</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_c_s_c_i441.html">CSCI441</a> {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
@@ -154,6 +154,7 @@ $(function() {
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>}</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_ARCBALL_CAM_HPP</span></div>
+<div class="ttc" id="a_perspective_camera_8hpp_html"><div class="ttname"><a href="_perspective_camera_8hpp.html">PerspectiveCamera.hpp</a></div><div class="ttdoc">Abstract Class to represent a perspective camera. Stores aspect ratio and field of view.</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html">CSCI441::ArcballCam</a></div><div class="ttdoc">A camera that implements an ArcBall camera model.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:23</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_a200d4e0f6461b09baefc2038ad46d3f6"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#a200d4e0f6461b09baefc2038ad46d3f6">CSCI441::ArcballCam::recomputeOrientation</a></div><div class="ttdeci">void recomputeOrientation() override</div><div class="ttdoc">converts spherical theta &amp; phi to cartesian x,y,z direction vector</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:120</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_a21bd379ee8aa3a76e706b7289fb21e32"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#a21bd379ee8aa3a76e706b7289fb21e32">CSCI441::ArcballCam::operator=</a></div><div class="ttdeci">ArcballCam &amp; operator=(const ArcballCam &amp;)=default</div><div class="ttdoc">assign a copy of an existing camera</div></div>
@@ -164,7 +165,7 @@ $(function() {
 <div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_ad6904e4626c4233f331b57894a929b7e"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#ad6904e4626c4233f331b57894a929b7e">CSCI441::ArcballCam::moveBackward</a></div><div class="ttdeci">void moveBackward(GLfloat movementFactor) override</div><div class="ttdoc">updates the camera's position by increasing the camera's radius</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:135</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_ad9825c32d8562225c0fe138f40148177"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#ad9825c32d8562225c0fe138f40148177">CSCI441::ArcballCam::ArcballCam</a></div><div class="ttdeci">ArcballCam(ArcballCam &amp;&amp;)=default</div><div class="ttdoc">construct a camera by moving ane existing camera object</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_arcball_cam_html_adbacdaa920532f83d39e34c87d4324e2"><div class="ttname"><a href="class_c_s_c_i441_1_1_arcball_cam.html#adbacdaa920532f83d39e34c87d4324e2">CSCI441::ArcballCam::ArcballCam</a></div><div class="ttdeci">ArcballCam(GLfloat minRadius=2.0f, GLfloat maxRadius=30.0f, GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</div><div class="ttdoc">initializes the Arcball Camera and sets the minimum/maximum radius the camera can zoom through as wel...</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:106</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_perspective_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_perspective_camera.html">CSCI441::PerspectiveCamera</a></div><div class="ttdoc">Abstract Class to represent a perspective camera. Stores aspect ratio and field of view.</div><div class="ttdef"><b>Definition:</b> PerspectiveCamera.hpp:11</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_perspective_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_perspective_camera.html">CSCI441::PerspectiveCamera</a></div><div class="ttdoc">Abstract Class to represent a perspective camera. Stores aspect ratio and field of view.</div><div class="ttdef"><b>Definition:</b> PerspectiveCamera.hpp:22</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

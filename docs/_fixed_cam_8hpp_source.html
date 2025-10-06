@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.16.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.17.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -77,7 +77,7 @@ $(function() {
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#ifndef CSCI441_FIXED_CAM_HPP</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define CSCI441_FIXED_CAM_HPP</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;PerspectiveCamera.hpp&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="_perspective_camera_8hpp.html">PerspectiveCamera.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_c_s_c_i441.html">CSCI441</a> {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
@@ -110,6 +110,7 @@ $(function() {
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_FIXED_CAM_HPP</span></div>
+<div class="ttc" id="a_perspective_camera_8hpp_html"><div class="ttname"><a href="_perspective_camera_8hpp.html">PerspectiveCamera.hpp</a></div><div class="ttdoc">Abstract Class to represent a perspective camera. Stores aspect ratio and field of view.</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_fixed_cam_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_fixed_cam.html">CSCI441::FixedCam</a></div><div class="ttdoc">A camera that can be positioned and oriented but never moved or rotated.</div><div class="ttdef"><b>Definition:</b> FixedCam.hpp:24</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_fixed_cam_html_a04610c3b95c1d50d3391e445efdd913a"><div class="ttname"><a href="class_c_s_c_i441_1_1_fixed_cam.html#a04610c3b95c1d50d3391e445efdd913a">CSCI441::FixedCam::moveForward</a></div><div class="ttdeci">void moveForward(const GLfloat unused) override</div><div class="ttdoc">does nothing</div><div class="ttdef"><b>Definition:</b> FixedCam.hpp:69</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_fixed_cam_html_a08fd3fcc9dfe4419e85dbb0446573500"><div class="ttname"><a href="class_c_s_c_i441_1_1_fixed_cam.html#a08fd3fcc9dfe4419e85dbb0446573500">CSCI441::FixedCam::FixedCam</a></div><div class="ttdeci">FixedCam(FixedCam &amp;&amp;)=default</div><div class="ttdoc">construct a camera by moving ane existing camera object</div></div>
@@ -120,7 +121,7 @@ $(function() {
 <div class="ttc" id="aclass_c_s_c_i441_1_1_fixed_cam_html_a32e5f7d55dc61c5134948e9025191d08"><div class="ttname"><a href="class_c_s_c_i441_1_1_fixed_cam.html#a32e5f7d55dc61c5134948e9025191d08">CSCI441::FixedCam::~FixedCam</a></div><div class="ttdeci">~FixedCam() override=default</div><div class="ttdoc">properly destroy concrete children</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_fixed_cam_html_a3d1a167d02784ee55e4ee541af25c7d0"><div class="ttname"><a href="class_c_s_c_i441_1_1_fixed_cam.html#a3d1a167d02784ee55e4ee541af25c7d0">CSCI441::FixedCam::FixedCam</a></div><div class="ttdeci">FixedCam(const FixedCam &amp;)=default</div><div class="ttdoc">construct a copy an existing camera</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_fixed_cam_html_ae086114d2c9a4b0feb88b27a315a537d"><div class="ttname"><a href="class_c_s_c_i441_1_1_fixed_cam.html#ae086114d2c9a4b0feb88b27a315a537d">CSCI441::FixedCam::FixedCam</a></div><div class="ttdeci">FixedCam(GLfloat aspectRatio=1.0f, GLfloat fovy=45.0f, GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</div><div class="ttdef"><b>Definition:</b> FixedCam.hpp:78</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_perspective_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_perspective_camera.html">CSCI441::PerspectiveCamera</a></div><div class="ttdoc">Abstract Class to represent a perspective camera. Stores aspect ratio and field of view.</div><div class="ttdef"><b>Definition:</b> PerspectiveCamera.hpp:11</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_perspective_camera_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_perspective_camera.html">CSCI441::PerspectiveCamera</a></div><div class="ttdoc">Abstract Class to represent a perspective camera. Stores aspect ratio and field of view.</div><div class="ttdef"><b>Definition:</b> PerspectiveCamera.hpp:22</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
