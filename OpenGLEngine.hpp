@@ -25,8 +25,12 @@
 
 #include <cstdio>
 #include <cstring>
+#include <ctime>
 #include <set>
 #include <string>
+#include <memory>
+
+#include <stb_image_write.h>
 
 namespace CSCI441 {
 
@@ -84,6 +88,11 @@ namespace CSCI441 {
          * be called last as part of the derived implementation
          */
         virtual void shutdown();
+
+        /**
+         * @brief Save a PNG screenshot of the viewport
+         */
+        [[maybe_unused]] virtual bool saveScreenshot(const char* FILENAME = nullptr) noexcept final;
 
         /**
          * @brief Enable logging to command line
@@ -146,34 +155,38 @@ namespace CSCI441 {
         /**
          * @brief no error is present, everything is currently working
          */
-        static constexpr unsigned short OPENGL_ENGINE_ERROR_NO_ERROR      = 0;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_NO_ERROR            = 0;
         /**
          * @brief an error occurred while initializing GLFW
          */
-        static constexpr unsigned short OPENGL_ENGINE_ERROR_GLFW_INIT     = 1;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_GLFW_INIT           = 1;
         /**
          * @brief an error occurred while creating the GLFW window
          */
-        static constexpr unsigned short OPENGL_ENGINE_ERROR_GLFW_WINDOW   = 2;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_GLFW_WINDOW         = 2;
         /**
          * @brief an error occurred while initializing GLEW
          */
-        static constexpr unsigned short OPENGL_ENGINE_ERROR_GLEW_INIT     = 3;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_GLEW_INIT           = 3;
         /**
          * @brief an error occurred while initializing GLAD
          */
-        static constexpr unsigned short OPENGL_ENGINE_ERROR_GLAD_INIT     = 4;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_GLAD_INIT           = 4;
+        /**
+         * @brief an error occurred while taking a screenshot
+         */
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_TAKE_SCREENSHOT     = 5;
         /**
          * @brief a new error that does not correspond to a predefined scenario has occurred
          */
-        static constexpr unsigned short OPENGL_ENGINE_ERROR_UNKNOWN       = 5;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_UNKNOWN             = 6;
         // note to developers: if more error codes are added, need to update LAST accordingly or
         // update UNKNOWN to the last value and shift
         /**
          * @brief stores the error code number of the last possible error, this corresponds to the
          * max error code value.
          */
-        static constexpr unsigned short OPENGL_ENGINE_ERROR_LAST          = OPENGL_ENGINE_ERROR_UNKNOWN;
+        static constexpr unsigned short OPENGL_ENGINE_ERROR_LAST                = OPENGL_ENGINE_ERROR_UNKNOWN;
         /**
          * @brief stores the number of unique error codes that can be generated
          */
@@ -613,6 +626,42 @@ inline void CSCI441::OpenGLEngine::shutdown() {
         if (DEBUG) fprintf(stdout, "[INFO]: ..shut down complete!\n");
         _isCleanedUp = true;
         _isInitialized = false;
+    }
+}
+
+inline bool CSCI441::OpenGLEngine::saveScreenshot(const char* FILENAME) noexcept {
+    try {
+        // Generate a name based on current timestamp if not provided 
+        const std::string filename = FILENAME == nullptr 
+            ? "Screenshot_" + std::to_string(time(nullptr)) + ".png"
+            : FILENAME
+        ;
+
+        // Get size
+        GLint viewport[4];
+        glGetIntegerv(GL_VIEWPORT, viewport);
+        const GLsizei x = viewport[0], y = viewport[1], width = viewport[2], height = viewport[3];
+
+        // Read pixel data
+        const size_t CHANNELS = 4; // RGBA
+        std::unique_ptr<GLubyte> bytes(new GLubyte[width*height*CHANNELS]);
+        glReadPixels(x, y, width, height, GL_RGBA, GL_UNSIGNED_BYTE, bytes.get());
+
+        stbi_flip_vertically_on_write(1);
+
+        if(!stbi_write_png(filename.c_str(), width, height, CHANNELS, bytes.get(), width*CHANNELS)) {
+            throw 1; // Jump to catch(...) without needing stdexcept
+        }
+        
+        if(DEBUG) {
+            fprintf(stdout, "[INFO]: Screenshot saved to %s\n", filename.c_str());
+        }
+        
+        return true;
+    } catch(...) {
+        fprintf(stderr, "[ERROR]: Could not save screenshot\n");
+        mErrorCode = OPENGL_ENGINE_ERROR_TAKE_SCREENSHOT;
+        return false;
     }
 }
 
