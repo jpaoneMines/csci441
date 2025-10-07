@@ -442,13 +442,13 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
     GLint max_count = 6;
     GLint actual_count = 0;
 
-    GLint max_attr_name_size = 0;
-    GLint max_uniform_name_size = 0;
+    GLint maxAttributeNameLength = 0;
+    GLint maxUniformNameLength = 0;
 
     // get max var name from program
     // https://registry.khronos.org/OpenGL-Refpages/gl4/html/glGetActiveAttrib.xhtml
-    glGetProgramiv(programHandle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &max_attr_name_size);
-    glGetProgramiv(programHandle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_uniform_name_size);
+    glGetProgramiv(programHandle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &maxAttributeNameLength);
+    glGetProgramiv(programHandle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxUniformNameLength);
 
     glGetAttachedShaders(programHandle, max_count, &actual_count, shaders );
     if(actual_count > 0) {
@@ -485,10 +485,10 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
             if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n");
             if( sDEBUG ) printf( "[INFO]: | GL_ACTIVE_ATTRIBUTES: %32i |\n", numActiveAttributes );
             for( int i = 0; i < numActiveAttributes; i++ ) {
-                const auto name = new GLchar[max_attr_name_size];
+                const auto name = new GLchar[maxAttributeNameLength];
                 GLint actual_length = 0, size = 0;
                 GLenum type = GL_NONE;
-                glGetActiveAttrib(programHandle, i, max_attr_name_size, &actual_length, &size, &type, name );
+                glGetActiveAttrib(programHandle, i, maxAttributeNameLength, &actual_length, &size, &type, name );
                 if( size > 1 ) {
                     for( int j = 0; j < size; j++ ) {
                         // length of string + max array value size (technically it depends on the size of GL type, but I'm not aware a way to get the size) 
@@ -530,10 +530,10 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
         if( sDEBUG ) printf( "[INFO]: >--------------------------------------------------------<\n" );
         if( sDEBUG ) printf("[INFO]: | GL_ACTIVE_UNIFORMS: %34i |\n", numActiveUniforms);
         for(int uIdx = 0; uIdx < numActiveUniforms; uIdx++) {
-            const auto name = new GLchar[max_uniform_name_size];
+            const auto name = new GLchar[maxUniformNameLength];
             GLint actual_length = 0, size = 0, location = -1;
             GLenum type = GL_NONE;
-            glGetActiveUniform(programHandle, uIdx, max_uniform_name_size, &actual_length, &size, &type, name );
+            glGetActiveUniform(programHandle, uIdx, maxUniformNameLength, &actual_length, &size, &type, name );
             if(size > 1) {
                 for(int j = 0; j < size; j++) {
                     int max_array_size = actual_length + 4 + 2 + 1;
@@ -598,11 +598,11 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
 			}
             if( sDEBUG ) printf("[INFO]: |   Used in: %-4s %-4s %-4s %-3s %-4s %-4s      Shader(s) |\n", (vs ? "Vert" : ""), (tcs ? "Ctrl" : ""), (tes ? "Eval" : ""), (gs ? "Geo" : ""), (fs ? "Frag" : ""), (cs ? "Comp" : ""));
 
-            const auto name2 = new char[max_uniform_name_size];
+            const auto name2 = new char[maxUniformNameLength];
             for(int j = 0; j < numActiveUniformsInBlock; j++) {
                 GLenum type;
                 int uniSize;
-                glGetActiveUniform(programHandle, indices[j], max_uniform_name_size, &actualLen, &uniSize, &type, name2);
+                glGetActiveUniform(programHandle, indices[j], maxUniformNameLength, &actualLen, &uniSize, &type, name2);
 				
 				constexpr GLsizei NUM_ATOMIC_PROPERTIES = 1;
 				GLint atomicIndex[NUM_ATOMIC_PROPERTIES] = {-1};
@@ -665,6 +665,34 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
             }
         }
     }
+
+	if (sDEBUG) {
+		if ((major == 4 && minor >=3) || major > 4) {
+			GLint numFragOutputs;           //Where GL will write the number of outputs
+			glGetProgramInterfaceiv(programHandle, GL_PROGRAM_OUTPUT,GL_ACTIVE_RESOURCES, &numFragOutputs);
+
+			printf( "[INFO]: >--------------------------------------------------------<\n");
+			printf( "[INFO]: | GL_PROGRAM_OUTPUT: %35d |\n", numFragOutputs);
+
+			if(numFragOutputs > 0) {
+				GLint maxLen = 0;
+                glGetProgramInterfaceiv(programHandle, GL_PROGRAM_OUTPUT, GL_MAX_NAME_LENGTH, &maxLen);
+
+				const auto outputName = new GLchar[maxLen];
+
+				//Now you can query for the names and indices of the outputs
+				for (GLint i = 0; i < numFragOutputs; i++) {
+					GLsizei actualLength = 0;
+					glGetProgramResourceName(programHandle, GL_PROGRAM_OUTPUT, i, maxLen, &actualLength, outputName);
+					GLint location = glGetFragDataLocation(programHandle, outputName);
+					GLint index = glGetFragDataIndex(programHandle, outputName);
+					printf( "[INFO]: | %3d) name: %-18s location: %3d index: %3d |\n", i, outputName, location, index );
+				}
+
+				delete[] outputName;
+			}
+		}
+	}
 
     if( sDEBUG ) {
         if((major == 4 && minor >= 3) || major > 4) {
@@ -780,7 +808,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
 					
 					const auto uniformIndices = new GLint[nac];
 					const auto atomicOffsets = new GLint[nac];
-					const auto atomicName = new GLchar[max_uniform_name_size];		
+					const auto atomicName = new GLchar[maxUniformNameLength];
 					
 					glGetActiveAtomicCounterBufferiv(programHandle, acIdx, GL_ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTER_INDICES, uniformIndices);
 					glGetActiveUniformsiv(programHandle, nac, (GLuint*)uniformIndices, GL_UNIFORM_OFFSET, atomicOffsets);
@@ -800,7 +828,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
 					GLint acCtr = 0, actualLen = 0, uniSize = 0;
 					GLenum type = GL_NONE;
 					for(GLint uniIdx = 0; uniIdx < nac; uniIdx++) {
-						glGetActiveUniform(programHandle, uniformIndices[uniIdx], max_uniform_name_size, &actualLen, &uniSize, &type, atomicName);
+						glGetActiveUniform(programHandle, uniformIndices[uniIdx], maxUniformNameLength, &actualLen, &uniSize, &type, atomicName);
 						
 						constexpr GLsizei NUM_ATOMIC_PROPERTIES = 1;
 						GLenum atomicProps[NUM_ATOMIC_PROPERTIES] = {GL_ATOMIC_COUNTER_BUFFER_INDEX};

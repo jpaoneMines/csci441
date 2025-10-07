@@ -1,5 +1,8 @@
 # Revision History
 
+## v ?.??.? - ?? ??? ????
+- ShaderUtils prints shader program output information if using version 4.3+
+
 ## v 5.17.0 - 06 Oct 2025
 - ShaderProgram can validate if program is ready to execute in current state
 - ShaderProgram can query fragment output color bindings
