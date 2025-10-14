@@ -23,14 +23,15 @@
 
 #include <GLFW/glfw3.h>
 
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include <stb_image_write.h>
+
 #include <cstdio>
 #include <cstring>
 #include <ctime>
 #include <set>
 #include <string>
 #include <memory>
-
-#include <stb_image_write.h>
 
 namespace CSCI441 {
 
@@ -92,7 +93,7 @@ namespace CSCI441 {
         /**
          * @brief Save a PNG screenshot of the viewport
          */
-        [[maybe_unused]] virtual bool saveScreenshot(const char* FILENAME = nullptr) noexcept final;
+        [[maybe_unused]] virtual bool saveScreenshot(const char* FILENAME) noexcept final;
 
         /**
          * @brief Enable logging to command line
@@ -387,7 +388,8 @@ namespace CSCI441 {
     };
 }
 
-inline CSCI441::OpenGLEngine::OpenGLEngine(
+inline
+CSCI441::OpenGLEngine::OpenGLEngine(
     const int OPENGL_MAJOR_VERSION,
     const int OPENGL_MINOR_VERSION,
     const int WINDOW_WIDTH,
@@ -410,7 +412,8 @@ inline CSCI441::OpenGLEngine::OpenGLEngine(
     strcpy(mWindowTitle, WINDOW_TITLE);
 }
 
-inline CSCI441::OpenGLEngine::OpenGLEngine(
+inline
+CSCI441::OpenGLEngine::OpenGLEngine(
     CSCI441::OpenGLEngine&& src
 ) noexcept :
     DEBUG(true),
@@ -428,7 +431,11 @@ inline CSCI441::OpenGLEngine::OpenGLEngine(
     _moveFromSource(src);
 }
 
-inline CSCI441::OpenGLEngine& CSCI441::OpenGLEngine::operator=(OpenGLEngine&& src) noexcept {
+inline
+CSCI441::OpenGLEngine& CSCI441::OpenGLEngine::operator=(
+    OpenGLEngine&& src
+) noexcept
+{
     if (this != &src) {
         _cleanupSelf();
         _moveFromSource(src);
@@ -437,16 +444,23 @@ inline CSCI441::OpenGLEngine& CSCI441::OpenGLEngine::operator=(OpenGLEngine&& sr
 }
 
 
-inline CSCI441::OpenGLEngine::~OpenGLEngine() {
+inline
+CSCI441::OpenGLEngine::~OpenGLEngine()
+{
     _cleanupSelf();
 }
 
-inline void CSCI441::OpenGLEngine::_cleanupSelf() {
+inline
+void CSCI441::OpenGLEngine::_cleanupSelf()
+{
     delete[] mWindowTitle;
     mWindowTitle = nullptr;
 }
 
-inline void CSCI441::OpenGLEngine::_moveFromSource(OpenGLEngine& src) {
+inline
+void CSCI441::OpenGLEngine::_moveFromSource(
+    OpenGLEngine& src
+) {
     DEBUG = src.DEBUG;
     src.DEBUG = false;
 
@@ -483,7 +497,9 @@ inline void CSCI441::OpenGLEngine::_moveFromSource(OpenGLEngine& src) {
     _extensions = std::move(src._extensions);
 }
 
-inline void CSCI441::OpenGLEngine::initialize() {
+inline
+void CSCI441::OpenGLEngine::initialize()
+{
     if( !_isInitialized ) {
         if (DEBUG) {
             fprintf(stdout, "[INFO]: Using CSCI441 Library v%d.%d.%d\n", CSCI441::VERSION_MAJOR, CSCI441::VERSION_MINOR, CSCI441::VERSION_PATCH);
@@ -522,7 +538,45 @@ inline void CSCI441::OpenGLEngine::initialize() {
     }
 }
 
-inline void CSCI441::OpenGLEngine::mSetupGLFW()  {
+inline
+bool CSCI441::OpenGLEngine::saveScreenshot(
+    const char* FILENAME
+) noexcept {
+    // Generate a name based on current timestamp if not provided
+    const std::string filename =
+        (
+            FILENAME == nullptr
+            ? "Screenshot_" + std::to_string(time(nullptr)) + ".png"
+            : FILENAME
+        );
+
+    // Get size
+    GLint viewport[4];
+    glGetIntegerv(GL_VIEWPORT, viewport);
+    const GLsizei x = viewport[0], y = viewport[1], width = viewport[2], height = viewport[3];
+
+    // Read pixel data
+    constexpr int CHANNELS = 4; // RGBA
+    const auto bytes = new GLubyte[width*height*CHANNELS];
+    glReadPixels(x, y, width, height, GL_RGBA, GL_UNSIGNED_BYTE, bytes);
+
+    stbi_flip_vertically_on_write(true);
+
+    if( !stbi_write_png(filename.c_str(), width, height, CHANNELS, bytes, width*CHANNELS) ) {
+        fprintf(stderr, "[ERROR]: Could not save screenshot\n");
+        mErrorCode = OPENGL_ENGINE_ERROR_TAKE_SCREENSHOT;
+    } else if(DEBUG) {
+        fprintf(stdout, "[INFO]: Screenshot saved to %s\n", filename.c_str());
+    }
+
+    delete[] bytes;
+
+    return (mErrorCode == OPENGL_ENGINE_ERROR_NO_ERROR);
+}
+
+inline
+void CSCI441::OpenGLEngine::mSetupGLFW()
+{
     // set what function to use when registering errors
     // this is the ONLY GLFW function that can be called BEFORE GLFW is initialized
     // all other GLFW calls must be performed after GLFW has been initialized
@@ -565,7 +619,9 @@ inline void CSCI441::OpenGLEngine::mSetupGLFW()  {
     }
 }
 
-inline void CSCI441::OpenGLEngine::_setupGLFunctions() {
+inline
+void CSCI441::OpenGLEngine::_setupGLFunctions()
+{
 
 #ifdef CSCI441_USE_GLEW
     glewExperimental = GL_TRUE;
@@ -605,7 +661,9 @@ inline void CSCI441::OpenGLEngine::_setupGLFunctions() {
     }
 }
 
-inline void CSCI441::OpenGLEngine::mCleanupGLFW() {
+inline
+void CSCI441::OpenGLEngine::mCleanupGLFW()
+{
     if(DEBUG) fprintf( stdout, "[INFO]: ...closing window...\n" );
     glfwDestroyWindow(mpWindow );                        // close our window
     mpWindow = nullptr;
@@ -613,7 +671,9 @@ inline void CSCI441::OpenGLEngine::mCleanupGLFW() {
     glfwTerminate();
 }
 
-inline void CSCI441::OpenGLEngine::shutdown() {
+inline
+void CSCI441::OpenGLEngine::shutdown()
+{
     if( !_isCleanedUp ) {
         if (DEBUG) fprintf(stdout, "\n[INFO]: Shutting down.......\n");
         mCleanupShaders();                                  // delete shaders from GPU
@@ -629,48 +689,19 @@ inline void CSCI441::OpenGLEngine::shutdown() {
     }
 }
 
-inline bool CSCI441::OpenGLEngine::saveScreenshot(const char* FILENAME) noexcept {
-    try {
-        // Generate a name based on current timestamp if not provided 
-        const std::string filename = FILENAME == nullptr 
-            ? "Screenshot_" + std::to_string(time(nullptr)) + ".png"
-            : FILENAME
-        ;
-
-        // Get size
-        GLint viewport[4];
-        glGetIntegerv(GL_VIEWPORT, viewport);
-        const GLsizei x = viewport[0], y = viewport[1], width = viewport[2], height = viewport[3];
-
-        // Read pixel data
-        const size_t CHANNELS = 4; // RGBA
-        std::unique_ptr<GLubyte> bytes(new GLubyte[width*height*CHANNELS]);
-        glReadPixels(x, y, width, height, GL_RGBA, GL_UNSIGNED_BYTE, bytes.get());
-
-        stbi_flip_vertically_on_write(1);
-
-        if(!stbi_write_png(filename.c_str(), width, height, CHANNELS, bytes.get(), width*CHANNELS)) {
-            throw 1; // Jump to catch(...) without needing stdexcept
-        }
-        
-        if(DEBUG) {
-            fprintf(stdout, "[INFO]: Screenshot saved to %s\n", filename.c_str());
-        }
-        
-        return true;
-    } catch(...) {
-        fprintf(stderr, "[ERROR]: Could not save screenshot\n");
-        mErrorCode = OPENGL_ENGINE_ERROR_TAKE_SCREENSHOT;
-        return false;
-    }
-}
-
-inline void CSCI441::OpenGLEngine::mWindowResizeCallback(GLFWwindow* pWindow, const int width, const int height) {
+inline
+void CSCI441::OpenGLEngine::mWindowResizeCallback(
+    GLFWwindow* pWindow,
+    const int width,
+    const int height
+) {
     const auto pEngine = static_cast<OpenGLEngine *>(glfwGetWindowUserPointer(pWindow));
     pEngine->setCurrentWindowSize(width, height);
 }
 
-inline void CSCI441::OpenGLEngine::mReloadShaders() {
+inline
+void CSCI441::OpenGLEngine::mReloadShaders()
+{
     if (DEBUG) fprintf(stdout, "\n[INFO]: Removing old shaders...\n");
     mCleanupShaders();
     if (DEBUG) fprintf(stdout, "\n[INFO]: Reloading shaders...\n");
