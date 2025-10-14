@@ -1,6 +1,6 @@
 # Revision History
 
-## v ?.??.? - ?? ??? ????
+## v 5.18.0 - 14 Oct 2025
 - ShaderUtils prints shader program output information if using version 4.3+
 - Cylinder and Cone texture coords wrap outward textures
 

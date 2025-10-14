@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.17.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.18.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -1057,7 +1057,7 @@ $(function() {
 <div class="line"><a id="l01320" name="l01320"></a><span class="lineno"> 1320</span>            normals[ idx ].y = 0.0f;</div>
 <div class="line"><a id="l01321" name="l01321"></a><span class="lineno"> 1321</span>            normals[ idx ].z = glm::sin( sliceNum * sliceStep );</div>
 <div class="line"><a id="l01322" name="l01322"></a><span class="lineno"> 1322</span> </div>
-<div class="line"><a id="l01323" name="l01323"></a><span class="lineno"> 1323</span>            texCoords[ idx ].s = (GLfloat)sliceNum / (GLfloat)cylData.slices;</div>
+<div class="line"><a id="l01323" name="l01323"></a><span class="lineno"> 1323</span>            texCoords[ idx ].s = 1.0f - (GLfloat)sliceNum / (GLfloat)cylData.slices;</div>
 <div class="line"><a id="l01324" name="l01324"></a><span class="lineno"> 1324</span>            texCoords[ idx ].t = (GLfloat)stackNum / (GLfloat)cylData.stacks;</div>
 <div class="line"><a id="l01325" name="l01325"></a><span class="lineno"> 1325</span> </div>
 <div class="line"><a id="l01326" name="l01326"></a><span class="lineno"> 1326</span>            idx++;</div>
@@ -1070,7 +1070,7 @@ $(function() {
 <div class="line"><a id="l01333" name="l01333"></a><span class="lineno"> 1333</span>            normals[ idx ].y = 0.0f;</div>
 <div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span>            normals[ idx ].z = glm::sin( sliceNum * sliceStep );</div>
 <div class="line"><a id="l01335" name="l01335"></a><span class="lineno"> 1335</span> </div>
-<div class="line"><a id="l01336" name="l01336"></a><span class="lineno"> 1336</span>            texCoords[ idx ].s = (GLfloat)sliceNum / (GLfloat)cylData.slices;</div>
+<div class="line"><a id="l01336" name="l01336"></a><span class="lineno"> 1336</span>            texCoords[ idx ].s = 1.0f - (GLfloat)sliceNum / (GLfloat)cylData.slices;</div>
 <div class="line"><a id="l01337" name="l01337"></a><span class="lineno"> 1337</span>            texCoords[ idx ].t = (GLfloat)(stackNum+1) / (GLfloat)cylData.stacks;</div>
 <div class="line"><a id="l01338" name="l01338"></a><span class="lineno"> 1338</span> </div>
 <div class="line"><a id="l01339" name="l01339"></a><span class="lineno"> 1339</span>            idx++;</div>
