@@ -149,6 +149,9 @@ namespace CSCI441 {
          */
         [[nodiscard]] virtual unsigned short getError() noexcept final {
             const unsigned short storedErrorCode = mErrorCode;  // store current error code
+            if (DEBUG && mErrorCode != OPENGL_ENGINE_ERROR_NO_ERROR) {
+                fprintf( stderr, "[ERROR]: %s\n", getErrorStringDescription(mErrorCode) );
+            }
             mErrorCode = OPENGL_ENGINE_ERROR_NO_ERROR;  // reset error code
             return storedErrorCode;                     // return previously stored error code
         }
@@ -182,7 +185,8 @@ namespace CSCI441 {
          */
         static constexpr unsigned short OPENGL_ENGINE_ERROR_UNKNOWN             = 6;
         // note to developers: if more error codes are added, need to update LAST accordingly or
-        // update UNKNOWN to the last value and shift
+        //                      update UNKNOWN to the last value and shift
+        // note to developers: if more error codes are added, need to add description to getErrorStringDescription()
         /**
          * @brief stores the error code number of the last possible error, this corresponds to the
          * max error code value.
@@ -192,6 +196,13 @@ namespace CSCI441 {
          * @brief stores the number of unique error codes that can be generated
          */
         [[maybe_unused]] static constexpr unsigned short OPENGL_ENGINE_ERROR_SIZE          = OPENGL_ENGINE_ERROR_LAST + 1;
+
+        /**
+         * @brief Returns a string describing what the error code corresponds to
+         * @param ERROR_CODE value representing error within OpenGLEngine
+         * @return string description of the error code value
+         */
+        static const char* getErrorStringDescription(unsigned short ERROR_CODE) noexcept;
 
     protected:
         /**
@@ -535,6 +546,21 @@ void CSCI441::OpenGLEngine::initialize()
         _isInitialized = true;
         _isCleanedUp = false;
         if (DEBUG) fprintf(stdout, "\n[INFO]: Setup complete\n");
+    }
+}
+
+inline
+const char* CSCI441::OpenGLEngine::getErrorStringDescription(
+    const unsigned short ERROR_CODE
+) noexcept {
+    switch (ERROR_CODE) {
+        case OPENGL_ENGINE_ERROR_NO_ERROR:          return "No error";
+        case OPENGL_ENGINE_ERROR_GLFW_INIT:         return "Error initializing GLFW";
+        case OPENGL_ENGINE_ERROR_GLFW_WINDOW:       return "Error initializing GLFW window";
+        case OPENGL_ENGINE_ERROR_GLEW_INIT:         return "Error initializing GLEW";
+        case OPENGL_ENGINE_ERROR_GLAD_INIT:         return "Error initializing GLAD";
+        case OPENGL_ENGINE_ERROR_TAKE_SCREENSHOT:   return "Error saving screenshot";
+        default:                                    return "Unknown error code";
     }
 }
 
