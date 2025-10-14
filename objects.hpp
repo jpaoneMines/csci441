@@ -1320,7 +1320,7 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
             normals[ idx ].y = 0.0f;
             normals[ idx ].z = glm::sin( sliceNum * sliceStep );
 
-            texCoords[ idx ].s = (GLfloat)sliceNum / (GLfloat)cylData.slices;
+            texCoords[ idx ].s = 1.0f - (GLfloat)sliceNum / (GLfloat)cylData.slices;
             texCoords[ idx ].t = (GLfloat)stackNum / (GLfloat)cylData.stacks;
 
             idx++;
@@ -1333,7 +1333,7 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
             normals[ idx ].y = 0.0f;
             normals[ idx ].z = glm::sin( sliceNum * sliceStep );
 
-            texCoords[ idx ].s = (GLfloat)sliceNum / (GLfloat)cylData.slices;
+            texCoords[ idx ].s = 1.0f - (GLfloat)sliceNum / (GLfloat)cylData.slices;
             texCoords[ idx ].t = (GLfloat)(stackNum+1) / (GLfloat)cylData.stacks;
 
             idx++;
