@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.18.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.19.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -131,6 +131,10 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> ()=0<
 <tr class="memitem:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a22d9d1ed576a697c79ec43aa92aff8e3">shutdown</a> ()</td></tr>
 <tr class="memdesc:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleanup everything needed for OpenGL Rendering. This includes freeing memory for data used in: any Scene information, Textures, Buffer Objects, Shader Programs, OpenGL, function pointers, GLFW.  <br /></td></tr>
 <tr class="separator:a22d9d1ed576a697c79ec43aa92aff8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c837294324cb4b9413a8063b8144d32"><td class="memItemLeft" align="right" valign="top"><a id="a1c837294324cb4b9413a8063b8144d32" name="a1c837294324cb4b9413a8063b8144d32"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>saveScreenshot</b> (const char *FILENAME) noexcept final</td></tr>
+<tr class="memdesc:a1c837294324cb4b9413a8063b8144d32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save a PNG screenshot of the viewport. <br /></td></tr>
+<tr class="separator:a1c837294324cb4b9413a8063b8144d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c4db87b2fc822713b5cd1557964ebf4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a6c4db87b2fc822713b5cd1557964ebf4">turnDebuggingOn</a> () noexcept final</td></tr>
 <tr class="memdesc:a6c4db87b2fc822713b5cd1557964ebf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable logging to command line.  <br /></td></tr>
 <tr class="separator:a6c4db87b2fc822713b5cd1557964ebf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,8 +194,12 @@ static constexpr unsigned short&#160;</td><td class="memItemRight" valign="botto
 static constexpr unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_GLAD_INIT</b> = 4</td></tr>
 <tr class="memdesc:a38097878713e23a154c0a1408309baba"><td class="mdescLeft">&#160;</td><td class="mdescRight">an error occurred while initializing GLAD <br /></td></tr>
 <tr class="separator:a38097878713e23a154c0a1408309baba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b75b8da8b9d10ec20266f884c49e948"><td class="memItemLeft" align="right" valign="top"><a id="a6b75b8da8b9d10ec20266f884c49e948" name="a6b75b8da8b9d10ec20266f884c49e948"></a>
+static constexpr unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_TAKE_SCREENSHOT</b> = 5</td></tr>
+<tr class="memdesc:a6b75b8da8b9d10ec20266f884c49e948"><td class="mdescLeft">&#160;</td><td class="mdescRight">an error occurred while taking a screenshot <br /></td></tr>
+<tr class="separator:a6b75b8da8b9d10ec20266f884c49e948"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5bc9ea6d7937dc14cebf0ce84378796"><td class="memItemLeft" align="right" valign="top"><a id="af5bc9ea6d7937dc14cebf0ce84378796" name="af5bc9ea6d7937dc14cebf0ce84378796"></a>
-static constexpr unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_UNKNOWN</b> = 5</td></tr>
+static constexpr unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>OPENGL_ENGINE_ERROR_UNKNOWN</b> = 6</td></tr>
 <tr class="memdesc:af5bc9ea6d7937dc14cebf0ce84378796"><td class="mdescLeft">&#160;</td><td class="mdescRight">a new error that does not correspond to a predefined scenario has occurred <br /></td></tr>
 <tr class="separator:af5bc9ea6d7937dc14cebf0ce84378796"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8dbbbdcf7da3eae8d6bd550ecab0b02c"><td class="memItemLeft" align="right" valign="top"><a id="a8dbbbdcf7da3eae8d6bd550ecab0b02c" name="a8dbbbdcf7da3eae8d6bd550ecab0b02c"></a>
