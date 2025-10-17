@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.19.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.19.1</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -1631,43 +1631,41 @@ $(function() {
 <div class="line"><a id="l02297" name="l02297"></a><span class="lineno"> 2297</span>        _skeleton[i].parent = skeletonA[i].parent;</div>
 <div class="line"><a id="l02298" name="l02298"></a><span class="lineno"> 2298</span> </div>
 <div class="line"><a id="l02299" name="l02299"></a><span class="lineno"> 2299</span>        <span class="comment">// Linear interpolation for position</span></div>
-<div class="line"><a id="l02300" name="l02300"></a><span class="lineno"> 2300</span>        _skeleton[i].position[0] = skeletonA[i].position[0] + interp * (skeletonB[i].position[0] - skeletonA[i].position[0]);</div>
-<div class="line"><a id="l02301" name="l02301"></a><span class="lineno"> 2301</span>        _skeleton[i].position[1] = skeletonA[i].position[1] + interp * (skeletonB[i].position[1] - skeletonA[i].position[1]);</div>
-<div class="line"><a id="l02302" name="l02302"></a><span class="lineno"> 2302</span>        _skeleton[i].position[2] = skeletonA[i].position[2] + interp * (skeletonB[i].position[2] - skeletonA[i].position[2]);</div>
-<div class="line"><a id="l02303" name="l02303"></a><span class="lineno"> 2303</span> </div>
-<div class="line"><a id="l02304" name="l02304"></a><span class="lineno"> 2304</span>        <span class="comment">// Spherical linear interpolation for orientation</span></div>
-<div class="line"><a id="l02305" name="l02305"></a><span class="lineno"> 2305</span>        _skeleton[i].orientation = glm::slerp(skeletonA[i].orientation, skeletonB[i].orientation, interp);</div>
-<div class="line"><a id="l02306" name="l02306"></a><span class="lineno"> 2306</span>    }</div>
-<div class="line"><a id="l02307" name="l02307"></a><span class="lineno"> 2307</span>}</div>
-<div class="line"><a id="l02308" name="l02308"></a><span class="lineno"> 2308</span> </div>
-<div class="line"><a id="l02309" name="l02309"></a><span class="lineno"> 2309</span><span class="comment">// Perform animation related computations.  Calculate the current and</span></div>
-<div class="line"><a id="l02310" name="l02310"></a><span class="lineno"> 2310</span><span class="comment">// next frames, given a delta time.</span></div>
-<div class="line"><a id="l02311" name="l02311"></a><span class="lineno"> 2311</span><span class="keyword">inline</span> <span class="keywordtype">void</span></div>
-<div class="line"><a id="l02312" name="l02312"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_model.html#a9f543c02e8352463961ebacc982d990c"> 2312</a></span><a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_model.html#a9f543c02e8352463961ebacc982d990c">CSCI441::MD5Model::animate</a>(<span class="keyword">const</span> GLfloat dt)</div>
-<div class="line"><a id="l02313" name="l02313"></a><span class="lineno"> 2313</span>{</div>
-<div class="line"><a id="l02314" name="l02314"></a><span class="lineno"> 2314</span>    <span class="keyword">const</span> GLint maxFrames = _animation-&gt;getNumberOfFrames() - 1;</div>
-<div class="line"><a id="l02315" name="l02315"></a><span class="lineno"> 2315</span>    <span class="keywordflow">if</span> (maxFrames &lt;= 0) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l02300" name="l02300"></a><span class="lineno"> 2300</span>        _skeleton[i].position = glm::mix(skeletonA[i].position, skeletonB[i].position, interp);</div>
+<div class="line"><a id="l02301" name="l02301"></a><span class="lineno"> 2301</span> </div>
+<div class="line"><a id="l02302" name="l02302"></a><span class="lineno"> 2302</span>        <span class="comment">// Spherical linear interpolation for orientation</span></div>
+<div class="line"><a id="l02303" name="l02303"></a><span class="lineno"> 2303</span>        _skeleton[i].orientation = glm::slerp(skeletonA[i].orientation, skeletonB[i].orientation, interp);</div>
+<div class="line"><a id="l02304" name="l02304"></a><span class="lineno"> 2304</span>    }</div>
+<div class="line"><a id="l02305" name="l02305"></a><span class="lineno"> 2305</span>}</div>
+<div class="line"><a id="l02306" name="l02306"></a><span class="lineno"> 2306</span> </div>
+<div class="line"><a id="l02307" name="l02307"></a><span class="lineno"> 2307</span><span class="comment">// Perform animation related computations.  Calculate the current and</span></div>
+<div class="line"><a id="l02308" name="l02308"></a><span class="lineno"> 2308</span><span class="comment">// next frames, given a delta time.</span></div>
+<div class="line"><a id="l02309" name="l02309"></a><span class="lineno"> 2309</span><span class="keyword">inline</span> <span class="keywordtype">void</span></div>
+<div class="line"><a id="l02310" name="l02310"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_model.html#a9f543c02e8352463961ebacc982d990c"> 2310</a></span><a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_model.html#a9f543c02e8352463961ebacc982d990c">CSCI441::MD5Model::animate</a>(<span class="keyword">const</span> GLfloat dt)</div>
+<div class="line"><a id="l02311" name="l02311"></a><span class="lineno"> 2311</span>{</div>
+<div class="line"><a id="l02312" name="l02312"></a><span class="lineno"> 2312</span>    <span class="keyword">const</span> GLint maxFrames = _animation-&gt;getNumberOfFrames() - 1;</div>
+<div class="line"><a id="l02313" name="l02313"></a><span class="lineno"> 2313</span>    <span class="keywordflow">if</span> (maxFrames &lt;= 0) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l02314" name="l02314"></a><span class="lineno"> 2314</span> </div>
+<div class="line"><a id="l02315" name="l02315"></a><span class="lineno"> 2315</span>    _animationInfo.lastTime += dt;</div>
 <div class="line"><a id="l02316" name="l02316"></a><span class="lineno"> 2316</span> </div>
-<div class="line"><a id="l02317" name="l02317"></a><span class="lineno"> 2317</span>    _animationInfo.lastTime += dt;</div>
-<div class="line"><a id="l02318" name="l02318"></a><span class="lineno"> 2318</span> </div>
-<div class="line"><a id="l02319" name="l02319"></a><span class="lineno"> 2319</span>    <span class="comment">// move to next frame</span></div>
-<div class="line"><a id="l02320" name="l02320"></a><span class="lineno"> 2320</span>    <span class="keywordflow">if</span>( _animationInfo.lastTime &gt;= _animationInfo.maxTime ) {</div>
-<div class="line"><a id="l02321" name="l02321"></a><span class="lineno"> 2321</span>        _animationInfo.currFrame++;</div>
-<div class="line"><a id="l02322" name="l02322"></a><span class="lineno"> 2322</span>        _animationInfo.nextFrame++;</div>
-<div class="line"><a id="l02323" name="l02323"></a><span class="lineno"> 2323</span>        _animationInfo.lastTime = 0.0;</div>
-<div class="line"><a id="l02324" name="l02324"></a><span class="lineno"> 2324</span> </div>
-<div class="line"><a id="l02325" name="l02325"></a><span class="lineno"> 2325</span>        <span class="keywordflow">if</span>( _animationInfo.currFrame &gt; maxFrames )</div>
-<div class="line"><a id="l02326" name="l02326"></a><span class="lineno"> 2326</span>            _animationInfo.currFrame = 0;</div>
-<div class="line"><a id="l02327" name="l02327"></a><span class="lineno"> 2327</span> </div>
-<div class="line"><a id="l02328" name="l02328"></a><span class="lineno"> 2328</span>        <span class="keywordflow">if</span>( _animationInfo.nextFrame &gt; maxFrames )</div>
-<div class="line"><a id="l02329" name="l02329"></a><span class="lineno"> 2329</span>            _animationInfo.nextFrame = 0;</div>
-<div class="line"><a id="l02330" name="l02330"></a><span class="lineno"> 2330</span>    }</div>
-<div class="line"><a id="l02331" name="l02331"></a><span class="lineno"> 2331</span> </div>
-<div class="line"><a id="l02332" name="l02332"></a><span class="lineno"> 2332</span>    <span class="comment">// Interpolate skeletons between two frames</span></div>
-<div class="line"><a id="l02333" name="l02333"></a><span class="lineno"> 2333</span>    _interpolateSkeletons( _animationInfo.lastTime * <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(_animation-&gt;frameRate) );</div>
-<div class="line"><a id="l02334" name="l02334"></a><span class="lineno"> 2334</span>}</div>
-<div class="line"><a id="l02335" name="l02335"></a><span class="lineno"> 2335</span> </div>
-<div class="line"><a id="l02336" name="l02336"></a><span class="lineno"> 2336</span><span class="preprocessor">#endif</span><span class="comment">//CSCI441_MD5_MODEL_HPP</span></div>
+<div class="line"><a id="l02317" name="l02317"></a><span class="lineno"> 2317</span>    <span class="comment">// move to next frame</span></div>
+<div class="line"><a id="l02318" name="l02318"></a><span class="lineno"> 2318</span>    <span class="keywordflow">if</span>( _animationInfo.lastTime &gt;= _animationInfo.maxTime ) {</div>
+<div class="line"><a id="l02319" name="l02319"></a><span class="lineno"> 2319</span>        _animationInfo.currFrame++;</div>
+<div class="line"><a id="l02320" name="l02320"></a><span class="lineno"> 2320</span>        _animationInfo.nextFrame++;</div>
+<div class="line"><a id="l02321" name="l02321"></a><span class="lineno"> 2321</span>        _animationInfo.lastTime = 0.0;</div>
+<div class="line"><a id="l02322" name="l02322"></a><span class="lineno"> 2322</span> </div>
+<div class="line"><a id="l02323" name="l02323"></a><span class="lineno"> 2323</span>        <span class="keywordflow">if</span>( _animationInfo.currFrame &gt; maxFrames )</div>
+<div class="line"><a id="l02324" name="l02324"></a><span class="lineno"> 2324</span>            _animationInfo.currFrame = 0;</div>
+<div class="line"><a id="l02325" name="l02325"></a><span class="lineno"> 2325</span> </div>
+<div class="line"><a id="l02326" name="l02326"></a><span class="lineno"> 2326</span>        <span class="keywordflow">if</span>( _animationInfo.nextFrame &gt; maxFrames )</div>
+<div class="line"><a id="l02327" name="l02327"></a><span class="lineno"> 2327</span>            _animationInfo.nextFrame = 0;</div>
+<div class="line"><a id="l02328" name="l02328"></a><span class="lineno"> 2328</span>    }</div>
+<div class="line"><a id="l02329" name="l02329"></a><span class="lineno"> 2329</span> </div>
+<div class="line"><a id="l02330" name="l02330"></a><span class="lineno"> 2330</span>    <span class="comment">// Interpolate skeletons between two frames</span></div>
+<div class="line"><a id="l02331" name="l02331"></a><span class="lineno"> 2331</span>    _interpolateSkeletons( _animationInfo.lastTime * <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(_animation-&gt;frameRate) );</div>
+<div class="line"><a id="l02332" name="l02332"></a><span class="lineno"> 2332</span>}</div>
+<div class="line"><a id="l02333" name="l02333"></a><span class="lineno"> 2333</span> </div>
+<div class="line"><a id="l02334" name="l02334"></a><span class="lineno"> 2334</span><span class="preprocessor">#endif</span><span class="comment">//CSCI441_MD5_MODEL_HPP</span></div>
 <div class="ttc" id="a_texture_utils_8hpp_html"><div class="ttname"><a href="_texture_utils_8hpp.html">TextureUtils.hpp</a></div><div class="ttdoc">Helper functions to work with OpenGL Textures.</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation.html">CSCI441::MD5Model::MD5Animation</a></div><div class="ttdoc">stores an entire animation sequence for a given MD5 Model</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:879</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_html_a00649f6d76edd70ad1b2f0a2b4a94a86"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation.html#a00649f6d76edd70ad1b2f0a2b4a94a86">CSCI441::MD5Model::MD5Animation::operator=</a></div><div class="ttdeci">MD5Animation &amp; operator=(MD5Animation &amp;&amp;src) noexcept</div><div class="ttdoc">reassign object by moving an existing object</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:1054</div></div>
@@ -1694,7 +1692,7 @@ $(function() {
 <div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_a7a3900accea578287ebd1787cd9e4168"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#a7a3900accea578287ebd1787cd9e4168">CSCI441::MD5Model::operator=</a></div><div class="ttdeci">MD5Model &amp; operator=(const MD5Model &amp;)=delete</div><div class="ttdoc">do not allow MD5 models to be copied</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_a9a0d5630539276f1bbd1d2bcac44f89f"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#a9a0d5630539276f1bbd1d2bcac44f89f">CSCI441::MD5Model::readMD5Anim</a></div><div class="ttdeci">bool readMD5Anim(const char *filename)</div><div class="ttdoc">reads in an animation sequence from an external file</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:2075</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_a9b98a82c47b19c88da5aac08cc813490"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#a9b98a82c47b19c88da5aac08cc813490">CSCI441::MD5Model::allocVertexArrays</a></div><div class="ttdeci">void allocVertexArrays(GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc)</div><div class="ttdoc">binds model VBOs to attribute pointer locations</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:1819</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_a9f543c02e8352463961ebacc982d990c"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#a9f543c02e8352463961ebacc982d990c">CSCI441::MD5Model::animate</a></div><div class="ttdeci">void animate(GLfloat dt)</div><div class="ttdoc">advances the model forward in its animation sequence the corresponding amount of time based on frame ...</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:2312</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_a9f543c02e8352463961ebacc982d990c"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#a9f543c02e8352463961ebacc982d990c">CSCI441::MD5Model::animate</a></div><div class="ttdeci">void animate(GLfloat dt)</div><div class="ttdoc">advances the model forward in its animation sequence the corresponding amount of time based on frame ...</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:2310</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_aafa90fcec92fe9863c38416da39c13fe"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#aafa90fcec92fe9863c38416da39c13fe">CSCI441::MD5Model::operator=</a></div><div class="ttdeci">MD5Model &amp; operator=(MD5Model &amp;&amp;src) noexcept</div><div class="ttdoc">do not allow MD5 models to be moved</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:1220</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_ae2236334c39d3866dc0c8ef3746017a0"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#ae2236334c39d3866dc0c8ef3746017a0">CSCI441::MD5Model::MD5Model</a></div><div class="ttdeci">MD5Model(const MD5Model &amp;)=delete</div><div class="ttdoc">do not allow MD5 models to be copied</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_ae3f0a7571ef430924045aafc1c2e1298"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#ae3f0a7571ef430924045aafc1c2e1298">CSCI441::MD5Model::MD5Model</a></div><div class="ttdeci">MD5Model(MD5Model &amp;&amp;src) noexcept</div><div class="ttdoc">do not allow MD5 models to be moved</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:1214</div></div>

@@ -24,7 +24,7 @@ namespace CSCI441 {
     /**
      * @brief library patch version
      */
-    constexpr int VERSION_PATCH = 0;
+    constexpr int VERSION_PATCH = 1;
 
 #ifdef CSCI441_USE_GLEW
     /**

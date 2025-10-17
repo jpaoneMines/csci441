@@ -1,7 +1,7 @@
 # Revision History
 
-## v ?.??.? - ?? ??? ????
-- 
+## v 5.19.1 - 17 Oct 2025
+- Patched OpenGLEngine to avoid redefinition errors
 
 ## v 5.19.0 - 14 Oct 2025
 - OpenGLEngine has built-in utility to save screenshot of internal viewport 

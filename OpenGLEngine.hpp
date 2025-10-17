@@ -40,6 +40,8 @@ namespace CSCI441 {
      * must be overridden:<br>
      *  - mSetupOpenGL()<br>
      *  - run()<br>
+     * @note In the implementation file of the concrete class, must include prior
+     * #define STB_IMAGE_WRITE_IMPLEMENTATION
      */
     class OpenGLEngine {
     public:
