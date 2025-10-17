@@ -2297,9 +2297,7 @@ CSCI441::MD5Model::_interpolateSkeletons(const GLfloat interp)
         _skeleton[i].parent = skeletonA[i].parent;
 
         // Linear interpolation for position
-        _skeleton[i].position[0] = skeletonA[i].position[0] + interp * (skeletonB[i].position[0] - skeletonA[i].position[0]);
-        _skeleton[i].position[1] = skeletonA[i].position[1] + interp * (skeletonB[i].position[1] - skeletonA[i].position[1]);
-        _skeleton[i].position[2] = skeletonA[i].position[2] + interp * (skeletonB[i].position[2] - skeletonA[i].position[2]);
+        _skeleton[i].position = glm::mix(skeletonA[i].position, skeletonB[i].position, interp);
 
         // Spherical linear interpolation for orientation
         _skeleton[i].orientation = glm::slerp(skeletonA[i].orientation, skeletonB[i].orientation, interp);
