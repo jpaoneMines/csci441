@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.20.0 - 24 Oct 2025
+- Need to define CSCI441_SCREENSHOT_IMPLEMENTATION for building
+
 ## v 5.19.1 - 17 Oct 2025
 - Patched OpenGLEngine to avoid redefinition errors
 

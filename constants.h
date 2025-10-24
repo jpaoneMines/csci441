@@ -20,11 +20,11 @@ namespace CSCI441 {
     /**
      * @brief library minor version
      */
-    constexpr int VERSION_MINOR = 19;
+    constexpr int VERSION_MINOR = 20;
     /**
      * @brief library patch version
      */
-    constexpr int VERSION_PATCH = 1;
+    constexpr int VERSION_PATCH = 0;
 
 #ifdef CSCI441_USE_GLEW
     /**

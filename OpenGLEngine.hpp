@@ -23,6 +23,9 @@
 
 #include <GLFW/glfw3.h>
 
+#ifdef CSCI441_SCREENSHOT_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#endif
 #include <stb_image_write.h>
 
 #include <cstdio>
@@ -40,8 +43,8 @@ namespace CSCI441 {
      * must be overridden:<br>
      *  - mSetupOpenGL()<br>
      *  - run()<br>
-     * @note In the implementation file of the concrete class, must include prior
-     * #define STB_IMAGE_WRITE_IMPLEMENTATION
+     * @note In the implementation file of the concrete class, must define
+     * CSCI441_SCREENSHOT_IMPLEMENTATION prior to inclusion
      */
     class OpenGLEngine {
     public:
