@@ -172,7 +172,7 @@ namespace CSCI441 {
 		bool _loadOFFFile( bool INFO, bool ERRORS );
 		bool _loadPLYFile( bool INFO, bool ERRORS );
 		bool _loadSTLFile( bool INFO, bool ERRORS );
-		static std::vector<std::string> _tokenizeString( std::string input, const std::string& delimiters );
+		static std::vector<std::string> _tokenizeString( const std::string& input, const std::string& delimiters );
         void _allocateAttributeArrays(GLuint numVertices, GLuint numIndices);
         void _bufferData() const;
 
@@ -237,7 +237,6 @@ inline CSCI441::ModelLoader& CSCI441::ModelLoader::operator=(ModelLoader&& src) 
 	}
 	return *this;
 }
-
 
 inline void CSCI441::ModelLoader::_init() {
 	_modelType = CSCI441_INTERNAL::MODEL_TYPE::UNKNOWN;
@@ -434,7 +433,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
 
                 std::stringstream currentFaceTokenStream;
 
-                auto signedVertexIndex = (GLint) strtol(groupTokens[0].c_str(), nullptr, 10);
+                auto signedVertexIndex = static_cast<GLint>(strtol(groupTokens[0].c_str(), nullptr, 10));
                 GLuint vertexIndex = signedVertexIndex;
                 if (signedVertexIndex < 0) vertexIndex = numVertices + signedVertexIndex + 1;
 
@@ -444,7 +443,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
                 if (groupTokens.size() == 2 && numSlashes == 1) {
                     _hasVertexTexCoords = true;
 
-                    auto signedTexCoordIndex = (GLint) strtol(groupTokens[1].c_str(), nullptr, 10);
+                    auto signedTexCoordIndex = static_cast<GLint>(strtol(groupTokens[1].c_str(), nullptr, 10));
                     GLuint texCoordIndex = signedTexCoordIndex;
                     if (signedTexCoordIndex < 0) texCoordIndex = numTexCoords + signedTexCoordIndex + 1;
 
@@ -452,7 +451,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
                 } else if (groupTokens.size() == 2 && numSlashes == 2) {
                     _hasVertexNormals = true;
 
-                    auto signedNormalIndex = (GLint) strtol(groupTokens[1].c_str(), nullptr, 10);
+                    auto signedNormalIndex = static_cast<GLint>(strtol(groupTokens[1].c_str(), nullptr, 10));
                     GLuint normalIndex = signedNormalIndex;
                     if (signedNormalIndex < 0) normalIndex = numNormals + signedNormalIndex + 1;
 
@@ -461,11 +460,11 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
                     _hasVertexTexCoords = true;
                     _hasVertexNormals = true;
 
-                    auto signedTexCoordIndex = (GLint) strtol(groupTokens[1].c_str(), nullptr, 10);
+                    auto signedTexCoordIndex = static_cast<GLint>(strtol(groupTokens[1].c_str(), nullptr, 10));
                     GLuint texCoordIndex = signedTexCoordIndex;
                     if (signedTexCoordIndex < 0) texCoordIndex = numTexCoords + signedTexCoordIndex + 1;
 
-                    auto signedNormalIndex = (GLint) strtol(groupTokens[2].c_str(), nullptr, 10);
+                    auto signedNormalIndex = static_cast<GLint>(strtol(groupTokens[2].c_str(), nullptr, 10));
                     GLuint normalIndex = signedNormalIndex;
                     if (signedNormalIndex < 0) normalIndex = numNormals + signedNormalIndex + 1;
 
@@ -609,13 +608,14 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
                     if(j == '/') numAttributeSlashes++;
                 }
 
-                GLuint vertexIndex = 0, texCoordIndex = 0, normalIndex = 0;
-
                 std::stringstream currentFaceTokenStream;
-                auto signedVertexIndex = (GLint)strtol(vertexAttributeTokens[0].c_str(), nullptr, 10);
-                vertexIndex = signedVertexIndex;
+
+                auto signedVertexIndex = static_cast<GLint>(strtol(vertexAttributeTokens[0].c_str(), nullptr, 10));
+                GLuint vertexIndex = signedVertexIndex;
                 if(signedVertexIndex < 0) vertexIndex = verticesSeen + signedVertexIndex + 1;
                 currentFaceTokenStream << vertexIndex;
+
+            	GLuint texCoordIndex = 0, normalIndex = 0;
 
                 //based on combination of number of tokens and slashes, we can determine what we have.
                 if(vertexAttributeTokens.size() == 2 && numAttributeSlashes == 1) {
@@ -623,7 +623,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
                     _hasVertexTexCoords = true;
                     faceHasTextureCoordinates = true;
 
-                    auto signedTexCoordIndex = (GLint)strtol(vertexAttributeTokens[1].c_str(), nullptr, 10);
+                    auto signedTexCoordIndex = static_cast<GLint>(strtol(vertexAttributeTokens[1].c_str(), nullptr, 10));
                     texCoordIndex = signedTexCoordIndex;
                     if(signedTexCoordIndex < 0) texCoordIndex = texCoordsSeen + signedTexCoordIndex + 1;
                     currentFaceTokenStream << "/" << texCoordIndex;
@@ -632,7 +632,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
                     _hasVertexNormals = true;
                     faceHasVertexNormals = true;
 
-                    auto signedNormalIndex = (GLint)strtol(vertexAttributeTokens[1].c_str(), nullptr, 10);
+                    auto signedNormalIndex = static_cast<GLint>(strtol(vertexAttributeTokens[1].c_str(), nullptr, 10));
                     normalIndex = signedNormalIndex;
                     if(signedNormalIndex < 0) normalIndex = normalsSeen + signedNormalIndex + 1;
                     currentFaceTokenStream << "//" << normalIndex;
@@ -643,11 +643,11 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
                     _hasVertexNormals = true;
                     faceHasVertexNormals = true;
 
-                    auto signedTexCoordIndex = (GLint)strtol(vertexAttributeTokens[1].c_str(), nullptr, 10);
+                    auto signedTexCoordIndex = static_cast<GLint>(strtol(vertexAttributeTokens[1].c_str(), nullptr, 10));
                     texCoordIndex = signedTexCoordIndex;
                     if(signedTexCoordIndex < 0) texCoordIndex = texCoordsSeen + signedTexCoordIndex + 1;
 
-                    auto signedNormalIndex = (GLint)strtol(vertexAttributeTokens[2].c_str(), nullptr, 10);
+                    auto signedNormalIndex = static_cast<GLint>(strtol(vertexAttributeTokens[2].c_str(), nullptr, 10));
                     normalIndex = signedNormalIndex;
                     if(signedNormalIndex < 0) normalIndex = normalsSeen + signedNormalIndex + 1;
 
@@ -1031,8 +1031,8 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( const bool INFO, const bool ERRO
 					return false;
 				}
 				// read in number of expected vertices, faces, and edges
-				numVertices = (GLuint)strtol( tokens[0].c_str(), nullptr, 10 );
-				numFaces = (GLuint)strtol( tokens[1].c_str(), nullptr, 10 );
+				numVertices = static_cast<GLuint>(strtol(tokens[0].c_str(), nullptr, 10));
+				numFaces = static_cast<GLuint>(strtol(tokens[1].c_str(), nullptr, 10));
 
 				// ignore tokens[2] - number of edges -- unnecessary information
 				// numEdges = (GLuint)strtol( tokens[2].c_str(), nullptr, 10 );
@@ -1056,7 +1056,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( const bool INFO, const bool ERRO
 			if( vSeen == numVertices )
 				fileState = FACES;
 		} else if( fileState == FACES ) {
-			auto numberOfVerticesInFace = (GLuint)strtol( tokens[0].c_str(), nullptr, 10 );
+			auto numberOfVerticesInFace = static_cast<GLuint>(strtol(tokens[0].c_str(), nullptr, 10));
 
 			numTriangles += numberOfVerticesInFace - 3 + 1;
 
@@ -1145,7 +1145,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( const bool INFO, const bool ERRO
 			if( _uniqueIndex == numVertices || vSeen == numVertices )
 				fileState = FACES;
 		} else if( fileState == FACES ) {
-			auto numberOfVerticesInFace = (GLuint)strtol( tokens[0].c_str(), nullptr, 10 );
+			auto numberOfVerticesInFace = static_cast<GLuint>(strtol(tokens[0].c_str(), nullptr, 10));
 
 			// read in each vertex index of the face
 			for(GLuint i = 2; i <= numberOfVerticesInFace - 1; i++) {
@@ -1300,15 +1300,15 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRO
 				}
 			} else if( tokens[0] == "element" ) {		// an element (vertex, face, material)
 				if( tokens[1] == "vertex" ) {
-					numVertices = (GLuint)strtol( tokens[2].c_str(), nullptr, 10 );
+					numVertices = static_cast<GLuint>(strtol(tokens[2].c_str(), nullptr, 10));
 					elemType = VERTEX;
 				} else if( tokens[1] == "face" ) {
-					numFaces = (GLuint)strtol( tokens[2].c_str(), nullptr, 10 );
+					numFaces = static_cast<GLuint>(strtol(tokens[2].c_str(), nullptr, 10));
 					elemType = FACE;
 				} else if( tokens[1] == "edge" ) {
 
 				} else if( tokens[1] == "material" ) {
-					numMaterials = (GLuint)strtol( tokens[2].c_str(), nullptr, 10 );
+					numMaterials = static_cast<GLuint>(strtol(tokens[2].c_str(), nullptr, 10));
 					elemType = MATERIAL;
 				} else {
 
@@ -1342,7 +1342,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRO
 			if( vSeen == numVertices )
 				fileState = FACES;
 		} else if( fileState == FACES ) {
-			auto numberOfVerticesInFace = (GLuint)strtol( tokens[0].c_str(), nullptr, 10);
+			auto numberOfVerticesInFace = static_cast<GLuint>(strtol(tokens[0].c_str(), nullptr, 10));
 			numTriangles += numberOfVerticesInFace - 3 + 1;
 		} else {
 			if (INFO) printf( "[.ply]: unknown file state: %d\n", fileState );
@@ -1423,15 +1423,15 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRO
 				}
 			} else if( tokens[0] == "element" ) {		// an element (vertex, face, material)
 				if( tokens[1] == "vertex" ) {
-					numVertices = (GLuint)strtol( tokens[2].c_str(), nullptr, 10 );
+					numVertices = static_cast<GLuint>(strtol(tokens[2].c_str(), nullptr, 10));
 					elemType = VERTEX;
 				} else if( tokens[1] == "face" ) {
-					numFaces = (GLuint)strtol( tokens[2].c_str(), nullptr, 10 );
+					numFaces = static_cast<GLuint>(strtol(tokens[2].c_str(), nullptr, 10));
 					elemType = FACE;
 				} else if( tokens[1] == "edge" ) {
 
 				} else if( tokens[1] == "material" ) {
-					numMaterials = (GLuint)strtol( tokens[2].c_str(), nullptr, 10 );
+					numMaterials = static_cast<GLuint>(strtol(tokens[2].c_str(), nullptr, 10));
 					elemType = MATERIAL;
 				} else {
 
@@ -1464,17 +1464,17 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRO
 			if( _uniqueIndex == numVertices || vSeen == numVertices )
 				fileState = FACES;
 		} else if( fileState == FACES ) {
-			auto numberOfVerticesInFace = (GLuint)strtol( tokens[0].c_str(), nullptr, 10 );
+			auto numberOfVerticesInFace = static_cast<GLuint>(strtol(tokens[0].c_str(), nullptr, 10));
 
 			for( GLuint i = 2; i <= numberOfVerticesInFace - 1; i++ ) {
 				if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
-					_indices[ _numIndices++ ] = (GLuint)strtol( tokens[1].c_str(), nullptr, 10 );
-					_indices[ _numIndices++ ] = (GLuint)strtol( tokens[i].c_str(), nullptr, 10 );
-					_indices[ _numIndices++ ] = (GLuint)strtol( tokens[i+1].c_str(), nullptr, 10 );
+					_indices[ _numIndices++ ] = static_cast<GLuint>(strtol(tokens[1].c_str(), nullptr, 10));
+					_indices[ _numIndices++ ] = static_cast<GLuint>(strtol(tokens[i].c_str(), nullptr, 10));
+					_indices[ _numIndices++ ] = static_cast<GLuint>(strtol(tokens[i + 1].c_str(), nullptr, 10));
 				} else {
-					auto aI = (GLuint)strtol( tokens[1].c_str(), nullptr, 10 );
-					auto bI = (GLuint)strtol( tokens[i].c_str(), nullptr, 10 );
-					auto cI = (GLuint)strtol( tokens[i+1].c_str(), nullptr, 10 );
+					auto aI = static_cast<GLuint>(strtol(tokens[1].c_str(), nullptr, 10));
+					auto bI = static_cast<GLuint>(strtol(tokens[i].c_str(), nullptr, 10));
+					auto cI = static_cast<GLuint>(strtol(tokens[i + 1].c_str(), nullptr, 10));
 
 					glm::vec3 a = verticesTemp[aI];
 					glm::vec3 b = verticesTemp[bI];
@@ -1750,7 +1750,7 @@ inline void CSCI441::ModelLoader::_bufferData() const {
 //      This is a helper function to break a single string into std::vector
 //  of strings, based on a given set of delimiter characters.
 //
-inline std::vector<std::string> CSCI441::ModelLoader::_tokenizeString(std::string input, const std::string& delimiters) {
+inline std::vector<std::string> CSCI441::ModelLoader::_tokenizeString(const std::string& input, const std::string& delimiters) {
 	if(input.empty())
 		return {};
 
