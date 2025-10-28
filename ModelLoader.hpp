@@ -180,7 +180,7 @@ namespace CSCI441 {
 		CSCI441_INTERNAL::MODEL_TYPE _modelType;
 
 		GLuint _vaod;
-		GLuint _vbods[2];
+		GLuint _vbods[2] = {0};
 
 		glm::vec3* _vertices;
         glm::vec3* _normals;
@@ -212,12 +212,34 @@ namespace CSCI441_INTERNAL {
 
 inline bool CSCI441::ModelLoader::sAUTO_GEN_NORMALS = false;
 
-inline CSCI441::ModelLoader::ModelLoader() {
+inline CSCI441::ModelLoader::ModelLoader() :
+	_modelType(CSCI441_INTERNAL::MODEL_TYPE::UNKNOWN),
+	_vaod(0),
+	_vertices(nullptr),
+	_normals(nullptr),
+	_texCoords(nullptr),
+	_indices(nullptr),
+	_uniqueIndex(0),
+	_numIndices(0),
+	_hasVertexTexCoords(false),
+	_hasVertexNormals(false)
+{
 	_init();
 }
 
 [[maybe_unused]]
-inline CSCI441::ModelLoader::ModelLoader( const char* filename ) {
+inline CSCI441::ModelLoader::ModelLoader( const char* filename ) :
+	_modelType(CSCI441_INTERNAL::MODEL_TYPE::UNKNOWN),
+	_vaod(0),
+	_vertices(nullptr),
+	_normals(nullptr),
+	_texCoords(nullptr),
+	_indices(nullptr),
+	_uniqueIndex(0),
+	_numIndices(0),
+	_hasVertexTexCoords(false),
+	_hasVertexNormals(false)
+{
 	_init();
 	loadModelFile( filename );
 }
@@ -226,7 +248,18 @@ inline CSCI441::ModelLoader::~ModelLoader() {
 	_cleanupSelf();
 }
 
-inline CSCI441::ModelLoader::ModelLoader(ModelLoader&& src) noexcept {
+inline CSCI441::ModelLoader::ModelLoader(ModelLoader&& src) noexcept :
+	_modelType(CSCI441_INTERNAL::MODEL_TYPE::UNKNOWN),
+	_vaod(0),
+	_vertices(nullptr),
+	_normals(nullptr),
+	_texCoords(nullptr),
+	_indices(nullptr),
+	_uniqueIndex(0),
+	_numIndices(0),
+	_hasVertexTexCoords(false),
+	_hasVertexNormals(false)
+{
 	_moveFromSrc(src);
 }
 
@@ -239,19 +272,6 @@ inline CSCI441::ModelLoader& CSCI441::ModelLoader::operator=(ModelLoader&& src) 
 }
 
 inline void CSCI441::ModelLoader::_init() {
-	_modelType = CSCI441_INTERNAL::MODEL_TYPE::UNKNOWN;
-
-	_hasVertexTexCoords = false;
-	_hasVertexNormals = false;
-
-	_vertices = nullptr;
-	_texCoords = nullptr;
-	_normals = nullptr;
-	_indices = nullptr;
-
-    _uniqueIndex = 0;
-    _numIndices = 0;
-
 	glGenVertexArrays( 1, &_vaod );
 	glGenBuffers( 2, _vbods );
 }
