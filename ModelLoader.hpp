@@ -4,7 +4,7 @@
   *
   * @copyright MIT License Copyright (c) 2017 Dr. Jeffrey Paone
   *
-  *	This class will load and render object files.  Currently supports:
+  *	This class will load and render object files.  Currently, supports:
   *		.obj + .mtl
   *		.off
   *     .ply
@@ -353,6 +353,13 @@ inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
 inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	bool result = true;
 
+	std::string path;
+	if( _filename.find('/') != std::string::npos ) {
+		path = _filename.substr( 0, _filename.find_last_of('/')+1 );
+	} else {
+		path = "./";
+	}
+
 	if ( INFO ) fprintf( stdout, "[.obj]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=- \n", _filename.c_str() );
 
 	time_t start, end;
@@ -392,8 +399,9 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 			numObjects++;
 		} else if( tokens[0] == "g" ) {						// polygon group name ignore
 			numGroups++;
-		} else if( tokens[0] == "mtllib" ) {					// material library
-			_loadMTLFile( tokens[1].c_str(), INFO, ERRORS );
+		} else if( tokens[0] == "mtllib" ) {				// material library
+			std::string mtlFilename = path + tokens[1];
+			_loadMTLFile( mtlFilename.c_str(), INFO, ERRORS );
 		} else if( tokens[0] == "v" ) {						//vertex
 			numVertices++;
 
@@ -780,8 +788,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 	std::ifstream in;
 	in.open( mtlFilename );
 	if( !in.is_open() ) {
-		std::string folderMtlFile = path + mtlFilename;
-		in.open( folderMtlFile.c_str() );
+		in.open( mtlFilename );
 		if( !in.is_open() ) {
 			if (ERRORS) fprintf( stderr, "[.mtl]: [ERROR]: could not open material file: %s\n", mtlFilename );
 			if ( INFO ) printf( "[.mtl]: -*-*-*-*-*-*-*-  END %s Info  -*-*-*-*-*-*-*-\n", mtlFilename );
