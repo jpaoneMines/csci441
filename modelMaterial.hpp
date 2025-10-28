@@ -45,7 +45,7 @@ namespace CSCI441_INTERNAL {
       }
   };
 
-  enum class MODEL_TYPE {OBJ, OFF, PLY, STL};
+  enum class MODEL_TYPE {OBJ, OFF, PLY, STL, UNKNOWN};
 }
 
 #endif // CSCI441_MODEL_MATERIAL_H

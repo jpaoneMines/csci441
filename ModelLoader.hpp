@@ -240,6 +240,8 @@ inline CSCI441::ModelLoader& CSCI441::ModelLoader::operator=(ModelLoader&& src) 
 
 
 inline void CSCI441::ModelLoader::_init() {
+	_modelType = CSCI441_INTERNAL::MODEL_TYPE::UNKNOWN;
+
 	_hasVertexTexCoords = false;
 	_hasVertexNormals = false;
 
@@ -313,10 +315,8 @@ inline bool CSCI441::ModelLoader::draw( const GLuint shaderProgramHandle,
 			if( _materials.find( materialName ) != _materials.end() )
 				material = _materials.find( materialName )->second;
 
-			for(auto & idxIter : indexStartStop) {
-				auto start = idxIter.first;
-				auto end = idxIter.second;
-				const GLsizei length = (GLsizei)(end - start) + 1;
+			for(const auto &[start, end] : indexStartStop) {
+				const GLsizei length = static_cast<GLsizei>(end - start) + 1;
 
 //				printf( "rendering material %s (%u, %u) = %u\n", materialName.c_str(), start, end, length );
 
