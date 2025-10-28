@@ -174,7 +174,7 @@ namespace CSCI441 {
 		bool _loadSTLFile( bool INFO, bool ERRORS );
 		static std::vector<std::string> _tokenizeString( std::string input, const std::string& delimiters );
         void _allocateAttributeArrays(GLuint numVertices, GLuint numIndices);
-        void _bufferData();
+        void _bufferData() const;
 
 		std::string _filename;
 		CSCI441_INTERNAL::MODEL_TYPE _modelType;
@@ -255,7 +255,7 @@ inline void CSCI441::ModelLoader::_init() {
 	glGenBuffers( 2, _vbods );
 }
 
-inline bool CSCI441::ModelLoader::loadModelFile( std::string filename, bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::loadModelFile( std::string filename, bool const INFO, const bool ERRORS ) {
 	bool result = true;
 	_filename = std::move(filename);
 	if( _filename.find(".obj") != std::string::npos ) {
@@ -283,7 +283,7 @@ inline bool CSCI441::ModelLoader::loadModelFile( std::string filename, bool INFO
 }
 
 [[maybe_unused]]
-inline void CSCI441::ModelLoader::setAttributeLocations(GLint positionLocation, GLint normalLocation, GLint texCoordLocation) const {
+inline void CSCI441::ModelLoader::setAttributeLocations(const GLint positionLocation, const GLint normalLocation, const GLint texCoordLocation) const {
     glBindVertexArray( _vaod );
     glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
 
@@ -298,9 +298,9 @@ inline void CSCI441::ModelLoader::setAttributeLocations(GLint positionLocation, 
 }
 
 [[maybe_unused]]
-inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
-                                        GLint matDiffLocation, GLint matSpecLocation, GLint matShinLocation, GLint matAmbLocation,
-                                        GLenum diffuseTexture ) const {
+inline bool CSCI441::ModelLoader::draw( const GLuint shaderProgramHandle,
+                                        const GLint matDiffLocation, const GLint matSpecLocation, const GLint matShinLocation, const GLint matAmbLocation,
+                                        const GLenum diffuseTexture ) const {
     glBindVertexArray( _vaod );
 
     bool result = true;
@@ -316,7 +316,7 @@ inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
 			for(auto & idxIter : indexStartStop) {
 				auto start = idxIter.first;
 				auto end = idxIter.second;
-				GLsizei length = (GLsizei)(end - start) + 1;
+				const GLsizei length = (GLsizei)(end - start) + 1;
 
 //				printf( "rendering material %s (%u, %u) = %u\n", materialName.c_str(), start, end, length );
 
@@ -343,14 +343,14 @@ inline bool CSCI441::ModelLoader::draw( GLuint shaderProgramHandle,
 }
 
 [[maybe_unused]] inline GLuint CSCI441::ModelLoader::getNumberOfVertices() const { return _uniqueIndex; }
-[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getVertices() const { return (_vertices != nullptr ? (GLfloat*)&_vertices[0] : nullptr); }
-[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getNormals() const { return (_normals != nullptr ? (GLfloat*)&_normals[0] : nullptr); }
-[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getTexCoords() const { return (_texCoords != nullptr ? (GLfloat*)&_texCoords[0] : nullptr); }
+[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getVertices() const { return (_vertices != nullptr ? reinterpret_cast<GLfloat *>(&_vertices[0]) : nullptr); }
+[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getNormals() const { return (_normals != nullptr ? reinterpret_cast<GLfloat *>(&_normals[0]) : nullptr); }
+[[maybe_unused]] inline GLfloat* CSCI441::ModelLoader::getTexCoords() const { return (_texCoords != nullptr ? reinterpret_cast<GLfloat *>(&_texCoords[0]) : nullptr); }
 [[maybe_unused]] inline GLuint CSCI441::ModelLoader::getNumberOfIndices() const { return _numIndices; }
 [[maybe_unused]] inline GLuint* CSCI441::ModelLoader::getIndices() const { return _indices; }
 
 // Read in a WaveFront *.obj File
-inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRORS ) {
 	bool result = true;
 
 	std::string path;
@@ -772,7 +772,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( bool INFO, bool ERRORS ) {
 	return result;
 }
 
-inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, const bool INFO, const bool ERRORS ) {
 	bool result = true;
 
 	if (INFO) printf( "[.mtl]: -*-*-*-*-*-*-*- BEGIN %s Info -*-*-*-*-*-*-*-\n", mtlFilename );
@@ -986,7 +986,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, bool IN
 	return result;
 }
 
-inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::_loadOFFFile( const bool INFO, const bool ERRORS ) {
 	bool result = true;
 
 	if (INFO ) printf( "[.off]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename.c_str() );
@@ -1250,7 +1250,7 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( bool INFO, bool ERRORS ) {
 }
 
 // notes on PLY format: http://paulbourke.net/dataformats/ply/
-inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRORS ) {
 	bool result = true;
 
 	if (INFO ) printf( "[.ply]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename.c_str() );
@@ -1538,7 +1538,7 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( bool INFO, bool ERRORS ) {
 	return result;
 }
 
-inline bool CSCI441::ModelLoader::_loadSTLFile( bool INFO, bool ERRORS ) {
+inline bool CSCI441::ModelLoader::_loadSTLFile( const bool INFO, const bool ERRORS ) {
 	bool result = true;
 
 	if (INFO) printf( "[.stl]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename.c_str() );
@@ -1731,7 +1731,7 @@ inline void CSCI441::ModelLoader::_allocateAttributeArrays(const GLuint numVerti
     _indices   = new GLuint[numIndices];
 }
 
-inline void CSCI441::ModelLoader::_bufferData() {
+inline void CSCI441::ModelLoader::_bufferData() const {
     glBindVertexArray( _vaod );
 
     glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
@@ -1754,35 +1754,36 @@ inline std::vector<std::string> CSCI441::ModelLoader::_tokenizeString(std::strin
 	if(input.empty())
 		return {};
 
-	std::vector<std::string> retVec = std::vector<std::string>();
+	auto retVec = std::vector<std::string>();
 	size_t oldR = 0, r = 0;
 
 	//strip all delimiter characters from the front and end of the input string.
-	std::string strippedInput;
-	GLint lowerValidIndex = 0, upperValidIndex = (GLint)input.size() - 1;
-	while((GLuint)lowerValidIndex < input.size() && delimiters.find_first_of(input.at(lowerValidIndex), 0) != std::string::npos)
+	GLint lowerValidIndex = 0, upperValidIndex = static_cast<GLint>(input.size()) - 1;
+	while(static_cast<GLuint>(lowerValidIndex) < input.size() && delimiters.find_first_of(input.at(lowerValidIndex), 0) != std::string::npos)
 		lowerValidIndex++;
 
 	while(upperValidIndex >= 0 && delimiters.find_first_of(input.at(upperValidIndex), 0) != std::string::npos)
 		upperValidIndex--;
 
 	//if the lowest valid index is higher than the highest valid index, they're all delimiters! return nothing.
-	if((GLuint)lowerValidIndex >= input.size() || upperValidIndex < 0 || lowerValidIndex > upperValidIndex)
+	if(static_cast<GLuint>(lowerValidIndex) >= input.size() || upperValidIndex < 0 || lowerValidIndex > upperValidIndex)
 		return {};
 
 	//remove the delimiters from the beginning and end of the string, if any.
-	strippedInput = input.substr(lowerValidIndex, upperValidIndex-lowerValidIndex+1);
+	const std::string strippedInput = input.substr(lowerValidIndex, upperValidIndex-lowerValidIndex+1);
 
 	//search for each instance of a delimiter character, and create a new token spanning
 	//from the last valid character up to the delimiter character.
-	while((r = strippedInput.find_first_of(delimiters, oldR)) != std::string::npos)
-	{
-		if(oldR != r)           //but watch out for multiple consecutive delimiters!
+	while((r = strippedInput.find_first_of(delimiters, oldR)) != std::string::npos) {
+		if(oldR != r) {
+			//but watch out for multiple consecutive delimiters!
 			retVec.push_back(strippedInput.substr(oldR, r-oldR));
+		}
 		oldR = r+1;
 	}
-	if(r != 0)
+	if(r != 0) {
 		retVec.push_back(strippedInput.substr(oldR, r-oldR));
+	}
 
 	return retVec;
 }
@@ -1855,7 +1856,7 @@ inline void CSCI441::ModelLoader::_cleanupSelf() {
 	_numIndices = 0;
 	_filename = "";
 
-	for( auto [name, material] : _materials ) {
+	for( const auto& [name, material] : _materials ) {
 		delete material;
 	}
 	_materials.clear();
@@ -1863,7 +1864,7 @@ inline void CSCI441::ModelLoader::_cleanupSelf() {
 	_materialIndexStartStop.clear();
 }
 
-inline unsigned char* CSCI441_INTERNAL::createTransparentTexture( const unsigned char * imageData, const unsigned char *imageMask, int texWidth, int texHeight, int texChannels, int maskChannels ) {
+inline unsigned char* CSCI441_INTERNAL::createTransparentTexture( const unsigned char * imageData, const unsigned char *imageMask, const int texWidth, const int texHeight, const int texChannels, const int maskChannels ) {
 	//combine the 'mask' array with the image data array into an RGBA array.
 	auto *fullData = new unsigned char[texWidth*texHeight*4];
 
@@ -1890,17 +1891,16 @@ inline unsigned char* CSCI441_INTERNAL::createTransparentTexture( const unsigned
 }
 
 [[maybe_unused]]
-inline void CSCI441_INTERNAL::flipImageY( int texWidth, int texHeight, int textureChannels, unsigned char *textureData ) {
+inline void CSCI441_INTERNAL::flipImageY( const int texWidth, const int texHeight, const int textureChannels, unsigned char *textureData ) {
 	for( int j = 0; j < texHeight / 2; j++ ) {
 		for( int i = 0; i < texWidth; i++ ) {
 			for( int k = 0; k < textureChannels; k++ ) {
-				int top = (j*texWidth + i)*textureChannels + k;
-				int bot = ((texHeight-j-1)*texWidth + i)*textureChannels + k;
+				const int top = (j*texWidth + i)*textureChannels + k;
+				const int bot = ((texHeight-j-1)*texWidth + i)*textureChannels + k;
 
-				unsigned char t = textureData[top];
+				const unsigned char t = textureData[top];
 				textureData[top] = textureData[bot];
 				textureData[bot] = t;
-
 			}
 		}
 	}
