@@ -35,13 +35,15 @@ namespace CSCI441_INTERNAL {
       [[maybe_unused]] GLuint map_d;
 
       ModelMaterial() :
+        ambient( 0.0f, 0.0f, 0.0f, 1.0f ),
+        diffuse( 0.0f, 0.0f, 0.0f, 1.0f ),
+        specular( 0.0f, 0.0f, 0.0f, 1.0f ),
         shininess(0.0f),
+        emissive( 0.0f, 0.0f, 0.0f, 1.0f ),
         map_Kd(0),
-        map_d(0) {
-          for(size_t i = 0; i < 3; i++) {
-              ambient[i] = diffuse[i] = specular[i] = emissive[i] = 0.0f;
-          }
-          ambient[3] = diffuse[3] = specular[3] = emissive[3] = 1.0f;
+        map_d(0)
+      {
+
       }
   };
 
