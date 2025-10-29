@@ -1,5 +1,8 @@
 # Revision History
 
+## v ?.??.?.? - ?? ??? ????
+- ShaderProgramPipeline can hold a Computer Shader Program
+
 ## v 5.21.0.0 - 29 Oct 2025
 - Need to define CSCI441_TEXTURE_UTILS_IMPLEMENTATION for building
 - Revamping numbering to MAJOR.MINOR.REVISION.PATCH
