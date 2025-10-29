@@ -22,6 +22,9 @@
     #include <glad/gl.h>
 #endif
 
+#ifdef CSCI441_TEXTURE_UTILS_IMPLEMENTATION
+#define STB_IMAGE_IMPLEMENTATION
+#endif
 #include <stb_image.h>
 
 #include <cstdio>
