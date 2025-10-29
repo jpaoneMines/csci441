@@ -2,6 +2,7 @@
 
 ## v ?.??.?.? - ?? ??? ????
 - ShaderProgramPipeline can hold a Computer Shader Program
+- If ShaderProgram doesn't link, still print final bottom header line
 
 ## v 5.21.0.0 - 29 Oct 2025
 - Need to define CSCI441_TEXTURE_UTILS_IMPLEMENTATION for building

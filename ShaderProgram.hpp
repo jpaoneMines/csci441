@@ -1312,6 +1312,8 @@ inline bool CSCI441::ShaderProgram::mRegisterShaderProgram(
                                                               mTessellationEvaluationShaderHandle != 0,
                                                               mGeometryShaderHandle != 0, mFragmentShaderHandle != 0,
                                                               false, true);
+    } else {
+        if(sDEBUG) printf( "[INFO]: \\--------------------------------------------------------/\n\n");
     }
     // return handle
     return mShaderProgramHandle != 0;
