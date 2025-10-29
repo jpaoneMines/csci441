@@ -62,7 +62,7 @@ namespace CSCI441 {
         ShaderProgramPipeline(ShaderProgramPipeline&&) noexcept;
         /**
          * @brief move assign a shader program pipeline
-         * @return the newly assigne dobject
+         * @return the newly assigned object
          */
         ShaderProgramPipeline& operator=(ShaderProgramPipeline&&) noexcept;
 
@@ -173,18 +173,29 @@ inline void CSCI441::ShaderProgramPipeline::printPipelineInfo() const {
 		
 		printf( "[INFO]: >--------------------------------------------------------<\n");
 
-		GLint vs, tcs, tes, gs, fs;
+		GLint vs, tcs, tes, gs, fs, cs;
 		glGetProgramPipelineiv( _pipelineHandle, GL_VERTEX_SHADER, &vs );
 		glGetProgramPipelineiv( _pipelineHandle, GL_TESS_CONTROL_SHADER, &tcs );
 		glGetProgramPipelineiv( _pipelineHandle, GL_TESS_EVALUATION_SHADER, &tes );
 		glGetProgramPipelineiv( _pipelineHandle, GL_GEOMETRY_SHADER, &gs );
 		glGetProgramPipelineiv( _pipelineHandle, GL_FRAGMENT_SHADER, &fs );
+
+        GLint major, minor;
+        glGetIntegerv(GL_MAJOR_VERSION, &major);
+        glGetIntegerv(GL_MINOR_VERSION, &minor);
+
+        if(major > 4 || (major == 4 && minor >= 3)) {
+            glGetProgramPipelineiv( _pipelineHandle, GL_COMPUTE_SHADER, &cs );
+        }
 		
 		if( vs != 0 )  printf( "[INFO]: |   Vertex    Shader Program Handle: %2d                  |\n", vs );
 		if( tcs != 0 ) printf( "[INFO]: |   Tess Ctrl Shader Program Handle: %2d                  |\n", tcs );
 		if( tes != 0 ) printf( "[INFO]: |   Tess Eval Shader Program Handle: %2d                  |\n", tes );
 		if( gs != 0 )  printf( "[INFO]: |   Geometry  Shader Program Handle: %2d                  |\n", gs );
 		if( fs != 0 )  printf( "[INFO]: |   Fragment  Shader Program Handle: %2d                  |\n", fs );
+        if(major < 4 || (major == 4 && minor >= 3)) {
+            if( cs != 0 )  printf( "[INFO]: |   Compute   Shader Program Handle: %2d                  |\n", cs );
+        }
 
         printf( "[INFO]: \\--------------------------------------------------------/\n");
         printf( "\n");
