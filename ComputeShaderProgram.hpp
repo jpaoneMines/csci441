@@ -62,13 +62,23 @@ namespace CSCI441 {
          * @param numGroupsZ number of work groups in Z dimension (defaults to 1)
          * @note call after calling ShaderProgram::useProgram()
          */
-        [[maybe_unused]] void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ);
+        [[maybe_unused]] void dispatchWork(GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ) const;
+
+        /**
+         * @brief returns a single value corresponding to which shader stages are present in this shader program
+         * @return bitfield of shader stages
+         */
+        [[maybe_unused]] [[nodiscard]] GLbitfield getProgramStages() const override;
+
+    protected:
+        GLuint mComputeShaderHandle;
     };
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeShaderFilename ) {
+inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeShaderFilename ) : mComputeShaderHandle(0) {
     GLint major, minor;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
@@ -80,23 +90,20 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
 
     if( sDEBUG ) printf( "\n[INFO]: /--------------------------------------------------------\\\n");
 
-    // stores shader program handle
-    GLuint computeShaderHandle;
-
     // compile each one of our shaders
     if( strcmp( computeShaderFilename, "" ) != 0 ) {
         if( sDEBUG ) printf( "[INFO]: | Compute Shader: %38s |\n", computeShaderFilename );
-        computeShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(computeShaderFilename, GL_COMPUTE_SHADER );
+        mComputeShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(computeShaderFilename, GL_COMPUTE_SHADER );
     } else {
-        computeShaderHandle = 0;
+        mComputeShaderHandle = 0;
     }
 
     // get a handle to a shader program
     mShaderProgramHandle = glCreateProgram();
 
     // attach the computer fragment shader to the shader program
-    if(computeShaderHandle != 0 ) {
-        glAttachShader(mShaderProgramHandle, computeShaderHandle );
+    if(mComputeShaderHandle != 0 ) {
+        glAttachShader(mShaderProgramHandle, mComputeShaderHandle );
     }
 
     // link all the programs together on the GPU
@@ -108,9 +115,9 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
     CSCI441_INTERNAL::ShaderUtils::printProgramLog(mShaderProgramHandle );
 
     // detach & delete the vertex and fragment shaders to the shader program
-    if(computeShaderHandle != 0 ) {
-        glDetachShader(mShaderProgramHandle, computeShaderHandle );
-        glDeleteShader(computeShaderHandle );
+    if(mComputeShaderHandle != 0 ) {
+        glDetachShader(mShaderProgramHandle, mComputeShaderHandle );
+        glDeleteShader(mComputeShaderHandle );
     }
 
     // map uniforms
@@ -150,13 +157,20 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
     if(linkStatus == 1) {
         // print shader info for uniforms & attributes
         CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(mShaderProgramHandle, false, false, false, false, false,
-                                                              computeShaderHandle != 0, true);
+                                                              mComputeShaderHandle != 0, true);
     }
 }
 
 [[maybe_unused]]
-inline void CSCI441::ComputeShaderProgram::dispatchWork(const GLuint numGroupsX = 1, const GLuint numGroupsY = 1, const GLuint numGroupsZ = 1) {
+inline void CSCI441::ComputeShaderProgram::dispatchWork(const GLuint numGroupsX = 1, const GLuint numGroupsY = 1, const GLuint numGroupsZ = 1) const {
     glDispatchCompute(numGroupsX, numGroupsY, numGroupsZ);
+}
+
+[[maybe_unused]]
+inline GLbitfield CSCI441::ComputeShaderProgram::getProgramStages() const {
+    GLbitfield shaderBits = 0;
+    if( mComputeShaderHandle != 0 ) shaderBits |= GL_COMPUTE_SHADER_BIT;
+    return shaderBits;
 }
 
 #endif // CSCI441_COMPUTE_SHADER_PROGRAM_HPP

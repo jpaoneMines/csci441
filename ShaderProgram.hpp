@@ -855,7 +855,7 @@ namespace CSCI441 {
          * @brief returns a single value corresponding to which shader stages are present in this shader program
          * @return bitfield of shader stages
          */
-        [[maybe_unused]] [[nodiscard]] virtual GLbitfield getProgramStages() const final;
+        [[maybe_unused]] [[nodiscard]] virtual GLbitfield getProgramStages() const;
 
     protected:
         /**
