@@ -517,7 +517,7 @@ void CSCI441::OpenGLEngine::initialize()
 {
     if( !_isInitialized ) {
         if (DEBUG) {
-            fprintf(stdout, "[INFO]: Using CSCI441 Library v%d.%d.%d\n", CSCI441::VERSION_MAJOR, CSCI441::VERSION_MINOR, CSCI441::VERSION_PATCH);
+            fprintf(stdout, "[INFO]: Using CSCI441 Library v%d.%d.%d.%d\n", CSCI441::VERSION_MAJOR, CSCI441::VERSION_MINOR, CSCI441::VERSION_REVISION, CSCI441::VERSION_PATCH);
         }
 
         mSetupGLFW();                   // initialize GLFW and set up a window
