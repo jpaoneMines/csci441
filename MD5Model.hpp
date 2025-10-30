@@ -66,6 +66,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <stdexcept>
 
 namespace CSCI441 {
 
