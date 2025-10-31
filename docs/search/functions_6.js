@@ -30,7 +30,7 @@ var searchData=
   ['getnumuniforms_27',['getNumUniforms',['../class_c_s_c_i441_1_1_shader_program.html#a3c49103697d7142fe12cfdeb9e19da8f',1,'CSCI441::ShaderProgram']]],
   ['getphi_28',['getPhi',['../class_c_s_c_i441_1_1_camera.html#a148c00d9ae923278909a79d00eae8c8d',1,'CSCI441::Camera']]],
   ['getposition_29',['getPosition',['../class_c_s_c_i441_1_1_camera.html#a63c6a518a2979b82bcc046b68c5fc042',1,'CSCI441::Camera']]],
-  ['getprogramstages_30',['getProgramStages',['../class_c_s_c_i441_1_1_shader_program.html#a3b7450cd2f596bbfc87b7e83a2549a09',1,'CSCI441::ShaderProgram']]],
+  ['getprogramstages_30',['getProgramStages',['../class_c_s_c_i441_1_1_compute_shader_program.html#ad2e752579a540a31eda55f50f95eb625',1,'CSCI441::ComputeShaderProgram::getProgramStages()'],['../class_c_s_c_i441_1_1_shader_program.html#a0647c2993274266ca65fad408c3c2afc',1,'CSCI441::ShaderProgram::getProgramStages()']]],
   ['getprojectionmatrix_31',['getProjectionMatrix',['../class_c_s_c_i441_1_1_camera.html#abfe977c13b9072a52b148447ea54667b',1,'CSCI441::Camera']]],
   ['getradius_32',['getRadius',['../class_c_s_c_i441_1_1_camera.html#a06e0196575202457f5946af8eade0426',1,'CSCI441::Camera']]],
   ['getshaderprogramhandle_33',['getShaderProgramHandle',['../class_c_s_c_i441_1_1_shader_program.html#a679f8aefe1d0f2fc3a4881c2bfcf2ea6',1,'CSCI441::ShaderProgram']]],

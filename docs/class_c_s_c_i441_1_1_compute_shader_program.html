@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.21.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.21.1.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -76,6 +76,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_c_s_c_i441_1_1_compute_shader_program-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">CSCI441::ComputeShaderProgram Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
 </div><!--header-->
@@ -118,9 +119,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a25d26d1cf731ccef3c77cb5e3a5bbd2d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_s_c_i441_1_1_compute_shader_program.html">ComputeShaderProgram</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_compute_shader_program.html#a25d26d1cf731ccef3c77cb5e3a5bbd2d">operator=</a> (<a class="el" href="class_c_s_c_i441_1_1_compute_shader_program.html">ComputeShaderProgram</a> &amp;&amp;) noexcept=default</td></tr>
 <tr class="memdesc:a25d26d1cf731ccef3c77cb5e3a5bbd2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">assign this compute shader program by moving an existing computer shader program  <br /></td></tr>
 <tr class="separator:a25d26d1cf731ccef3c77cb5e3a5bbd2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9343b72b40396f369da312af5de30ba3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_compute_shader_program.html#a9343b72b40396f369da312af5de30ba3">dispatchWork</a> (GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ)</td></tr>
-<tr class="memdesc:a9343b72b40396f369da312af5de30ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">dispatches work to the Compute Shader on the GPU  <br /></td></tr>
-<tr class="separator:a9343b72b40396f369da312af5de30ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8df45481766147f112b0b184a7412b75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_compute_shader_program.html#a8df45481766147f112b0b184a7412b75">dispatchWork</a> (GLuint numGroupsX, GLuint numGroupsY, GLuint numGroupsZ) const</td></tr>
+<tr class="memdesc:a8df45481766147f112b0b184a7412b75"><td class="mdescLeft">&#160;</td><td class="mdescRight">dispatches work to the Compute Shader on the GPU  <br /></td></tr>
+<tr class="separator:a8df45481766147f112b0b184a7412b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2e752579a540a31eda55f50f95eb625"><td class="memItemLeft" align="right" valign="top">GLbitfield&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_compute_shader_program.html#ad2e752579a540a31eda55f50f95eb625">getProgramStages</a> () const override</td></tr>
+<tr class="memdesc:ad2e752579a540a31eda55f50f95eb625"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns a single value corresponding to which shader stages are present in this shader program  <br /></td></tr>
+<tr class="separator:ad2e752579a540a31eda55f50f95eb625"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_c_s_c_i441_1_1_shader_program"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_c_s_c_i441_1_1_shader_program')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a></td></tr>
 <tr class="memitem:a0f51bed7fb1b24075b96be6c7a490f8d inherit pub_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a0f51bed7fb1b24075b96be6c7a490f8d">ShaderProgram</a> (const char *vertexShaderFilename, const char *fragmentShaderFilename)</td></tr>
 <tr class="memdesc:a0f51bed7fb1b24075b96be6c7a490f8d inherit pub_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a Shader Program using a Vertex Shader and Fragment Shader.  <br /></td></tr>
@@ -448,30 +452,15 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>useProgram</b
 <tr class="memitem:a62609c6e219f435553ca7947ffbdffd4 inherit pub_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a62609c6e219f435553ca7947ffbdffd4">setProgramUniform</a> (GLint uniformLocation, GLuint dim, GLsizei count, const GLuint *value) const final</td></tr>
 <tr class="memdesc:a62609c6e219f435553ca7947ffbdffd4 inherit pub_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the program uniform consisting of unsigned integers  <br /></td></tr>
 <tr class="separator:a62609c6e219f435553ca7947ffbdffd4 inherit pub_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b7450cd2f596bbfc87b7e83a2549a09 inherit pub_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">virtual GLbitfield&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a3b7450cd2f596bbfc87b7e83a2549a09">getProgramStages</a> () const final</td></tr>
-<tr class="memdesc:a3b7450cd2f596bbfc87b7e83a2549a09 inherit pub_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns a single value corresponding to which shader stages are present in this shader program  <br /></td></tr>
-<tr class="separator:a3b7450cd2f596bbfc87b7e83a2549a09 inherit pub_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0647c2993274266ca65fad408c3c2afc inherit pub_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">virtual GLbitfield&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a0647c2993274266ca65fad408c3c2afc">getProgramStages</a> () const</td></tr>
+<tr class="memdesc:a0647c2993274266ca65fad408c3c2afc inherit pub_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns a single value corresponding to which shader stages are present in this shader program  <br /></td></tr>
+<tr class="separator:a0647c2993274266ca65fad408c3c2afc inherit pub_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_c_s_c_i441_1_1_shader_program')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a></td></tr>
-<tr class="memitem:aa7cf75ce6605ac1f6ca660f98b88ebba inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aa7cf75ce6605ac1f6ca660f98b88ebba">enableDebugMessages</a> ()</td></tr>
-<tr class="memdesc:aa7cf75ce6605ac1f6ca660f98b88ebba inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables debug messages from Shader Program functions.  <br /></td></tr>
-<tr class="separator:aa7cf75ce6605ac1f6ca660f98b88ebba inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9358a3f05e8432707d8ec89d1cd9d248 inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a9358a3f05e8432707d8ec89d1cd9d248">disableDebugMessages</a> ()</td></tr>
-<tr class="memdesc:a9358a3f05e8432707d8ec89d1cd9d248 inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables debug messages from Shader Program functions.  <br /></td></tr>
-<tr class="separator:a9358a3f05e8432707d8ec89d1cd9d248 inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1566ee033344561a85325c05c175015b inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a1566ee033344561a85325c05c175015b">loadShaderProgramFromBinaryFile</a> (const char *BINARY_FILE_NAME, GLenum format)</td></tr>
-<tr class="memdesc:a1566ee033344561a85325c05c175015b inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads precompiled shader program binary from external file  <br /></td></tr>
-<tr class="separator:a1566ee033344561a85325c05c175015b inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_c_s_c_i441_1_1_shader_program"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_c_s_c_i441_1_1_shader_program')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a></td></tr>
-<tr class="memitem:ae7c4ac0656d76729fe9510659f66ba2e inherit pro_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top"><a id="ae7c4ac0656d76729fe9510659f66ba2e" name="ae7c4ac0656d76729fe9510659f66ba2e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ShaderProgram</b> ()</td></tr>
-<tr class="memdesc:ae7c4ac0656d76729fe9510659f66ba2e inherit pro_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates an empty shader program object <br /></td></tr>
-<tr class="separator:ae7c4ac0656d76729fe9510659f66ba2e inherit pro_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb11e887f6b78901740cb27cd5e85ef1 inherit pro_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#afb11e887f6b78901740cb27cd5e85ef1">mRegisterShaderProgram</a> (const char *vertexShaderFilename, const char *tessellationControlShaderFilename, const char *tessellationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable) final</td></tr>
-<tr class="memdesc:afb11e887f6b78901740cb27cd5e85ef1 inherit pro_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a shader program with the GPU  <br /></td></tr>
-<tr class="separator:afb11e887f6b78901740cb27cd5e85ef1 inherit pro_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a1dd52e792e85857cbb158c1f2104abbf"><td class="memItemLeft" align="right" valign="top"><a id="a1dd52e792e85857cbb158c1f2104abbf" name="a1dd52e792e85857cbb158c1f2104abbf"></a>
+GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>mComputeShaderHandle</b></td></tr>
+<tr class="separator:a1dd52e792e85857cbb158c1f2104abbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_c_s_c_i441_1_1_shader_program"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_c_s_c_i441_1_1_shader_program')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a></td></tr>
 <tr class="memitem:a0cb9c3152f238eb5ccb57f6d3cc4ca83 inherit pro_attribs_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top"><a id="a0cb9c3152f238eb5ccb57f6d3cc4ca83" name="a0cb9c3152f238eb5ccb57f6d3cc4ca83"></a>
 GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>mVertexShaderHandle</b></td></tr>
@@ -505,6 +494,27 @@ std::map&lt; std::string, GLint &gt; *&#160;</td><td class="memItemRight" valign
 std::map&lt; std::string, GLint &gt; *&#160;</td><td class="memItemRight" valign="bottom"><b>mpAttributeLocationsMap</b></td></tr>
 <tr class="memdesc:ab4d9940a36ff5a670b18b4d68c536625 inherit pro_attribs_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">caches locations of attribute names within shader program <br /></td></tr>
 <tr class="separator:ab4d9940a36ff5a670b18b4d68c536625 inherit pro_attribs_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_c_s_c_i441_1_1_shader_program')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a></td></tr>
+<tr class="memitem:aa7cf75ce6605ac1f6ca660f98b88ebba inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#aa7cf75ce6605ac1f6ca660f98b88ebba">enableDebugMessages</a> ()</td></tr>
+<tr class="memdesc:aa7cf75ce6605ac1f6ca660f98b88ebba inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables debug messages from Shader Program functions.  <br /></td></tr>
+<tr class="separator:aa7cf75ce6605ac1f6ca660f98b88ebba inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9358a3f05e8432707d8ec89d1cd9d248 inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a9358a3f05e8432707d8ec89d1cd9d248">disableDebugMessages</a> ()</td></tr>
+<tr class="memdesc:a9358a3f05e8432707d8ec89d1cd9d248 inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables debug messages from Shader Program functions.  <br /></td></tr>
+<tr class="separator:a9358a3f05e8432707d8ec89d1cd9d248 inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1566ee033344561a85325c05c175015b inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">ShaderProgram</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a1566ee033344561a85325c05c175015b">loadShaderProgramFromBinaryFile</a> (const char *BINARY_FILE_NAME, GLenum format)</td></tr>
+<tr class="memdesc:a1566ee033344561a85325c05c175015b inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads precompiled shader program binary from external file  <br /></td></tr>
+<tr class="separator:a1566ee033344561a85325c05c175015b inherit pub_static_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_c_s_c_i441_1_1_shader_program"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_c_s_c_i441_1_1_shader_program')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a></td></tr>
+<tr class="memitem:ae7c4ac0656d76729fe9510659f66ba2e inherit pro_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top"><a id="ae7c4ac0656d76729fe9510659f66ba2e" name="ae7c4ac0656d76729fe9510659f66ba2e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ShaderProgram</b> ()</td></tr>
+<tr class="memdesc:ae7c4ac0656d76729fe9510659f66ba2e inherit pro_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates an empty shader program object <br /></td></tr>
+<tr class="separator:ae7c4ac0656d76729fe9510659f66ba2e inherit pro_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb11e887f6b78901740cb27cd5e85ef1 inherit pro_methods_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#afb11e887f6b78901740cb27cd5e85ef1">mRegisterShaderProgram</a> (const char *vertexShaderFilename, const char *tessellationControlShaderFilename, const char *tessellationEvaluationShaderFilename, const char *geometryShaderFilename, const char *fragmentShaderFilename, bool isSeparable) final</td></tr>
+<tr class="memdesc:afb11e887f6b78901740cb27cd5e85ef1 inherit pro_methods_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a shader program with the GPU  <br /></td></tr>
+<tr class="separator:afb11e887f6b78901740cb27cd5e85ef1 inherit pro_methods_class_c_s_c_i441_1_1_shader_program"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_static_attribs_class_c_s_c_i441_1_1_shader_program"><td colspan="2" onclick="javascript:toggleInherit('pro_static_attribs_class_c_s_c_i441_1_1_shader_program')"><img src="closed.png" alt="-"/>&#160;Static Protected Attributes inherited from <a class="el" href="class_c_s_c_i441_1_1_shader_program.html">CSCI441::ShaderProgram</a></td></tr>
 <tr class="memitem:a7f391cfbedd306d3e5d9ae47ff01bc4c inherit pro_static_attribs_class_c_s_c_i441_1_1_shader_program"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a7f391cfbedd306d3e5d9ae47ff01bc4c">sDEBUG</a> = true</td></tr>
 <tr class="memdesc:a7f391cfbedd306d3e5d9ae47ff01bc4c inherit pro_static_attribs_class_c_s_c_i441_1_1_shader_program"><td class="mdescLeft">&#160;</td><td class="mdescRight">if DEBUG information should be printed or not  <br /></td></tr>
@@ -577,8 +587,8 @@ std::map&lt; std::string, GLint &gt; *&#160;</td><td class="memItemRight" valign
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9343b72b40396f369da312af5de30ba3" name="a9343b72b40396f369da312af5de30ba3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9343b72b40396f369da312af5de30ba3">&#9670;&#160;</a></span>dispatchWork()</h2>
+<a id="a8df45481766147f112b0b184a7412b75" name="a8df45481766147f112b0b184a7412b75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8df45481766147f112b0b184a7412b75">&#9670;&#160;</a></span>dispatchWork()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -607,7 +617,7 @@ std::map&lt; std::string, GLint &gt; *&#160;</td><td class="memItemRight" valign
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -627,6 +637,36 @@ std::map&lt; std::string, GLint &gt; *&#160;</td><td class="memItemRight" valign
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>call after calling <a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a2145012fa06c678521886f904645b229" title="Sets the Shader Program to be active.">ShaderProgram::useProgram()</a> </dd></dl>
+
+</div>
+</div>
+<a id="ad2e752579a540a31eda55f50f95eb625" name="ad2e752579a540a31eda55f50f95eb625"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2e752579a540a31eda55f50f95eb625">&#9670;&#160;</a></span>getProgramStages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLbitfield CSCI441::ComputeShaderProgram::getProgramStages </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns a single value corresponding to which shader stages are present in this shader program </p>
+<dl class="section return"><dt>Returns</dt><dd>bitfield of shader stages </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_c_s_c_i441_1_1_shader_program.html#a0647c2993274266ca65fad408c3c2afc">CSCI441::ShaderProgram</a>.</p>
 
 </div>
 </div>
