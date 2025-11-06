@@ -71,6 +71,9 @@ namespace CSCI441 {
         [[maybe_unused]] [[nodiscard]] GLbitfield getProgramStages() const override;
 
     protected:
+        /**
+         * @brief compute shader handle
+         */
         GLuint mComputeShaderHandle;
     };
 
