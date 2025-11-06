@@ -1194,7 +1194,15 @@ namespace CSCI441 {
          * @brief initializes an empty MD5 Model
          * @note need to call loadMD5Model() or readMD5Model() after construction to actually load in a mesh file
          */
-        MD5Model() : _animation( new MD5Animation() ) {}
+        MD5Model() {
+            // allocate space for one animation by default
+            _numAnimations = 1;
+            // create the initial animation
+            _animations = new MD5Animation*[_numAnimations];
+            _animations[0] = new MD5Animation();
+            // and the associated animation state information
+            _animationInfos = new MD5AnimationState[_numAnimations];
+        }
         /**
          * @brief deallocates any used memory on the CPU and GPU
          */
@@ -1278,9 +1286,34 @@ namespace CSCI441 {
         /**
          * @brief reads in an animation sequence from an external file
          * @param filename *.md5anim file to open
+         * @param targetAnimationIndex animation index sequence to read into (defaults to first)
          * @returns true iff mesh and animation are compatible
          */
-        [[nodiscard]] bool readMD5Anim(const char* filename);
+        [[nodiscard]] bool readMD5Anim(const char* filename, GLushort targetAnimationIndex = 0);
+        /**
+         * @brief adds another MD5 Animation sequence to the model's set of animation
+         * @param filename *.md5anim file to open add to animation list
+         * @return true iff mesh and animation are compatible
+         */
+        [[nodiscard]] bool addMD5Anim(const char* filename);
+        /**
+         * @brief returns the number of animations that were successfully loaded against the model
+         * @return number of animations loaded against the mesh
+         * @note if model is not animated, will return 0
+         * @note calling addMD5Anim() increments this number when successfully loaded
+         */
+        [[nodiscard]] GLushort getNumberOfAnimations() const {
+            // one slot is always allocated, but if model is not allocated then return 0
+            if (!_isAnimated) return 0;
+            // model is animated, return number of animations that were successfully loaded
+            return _numAnimations;
+        }
+        /**
+         * @brief update current animation to be running through
+         * @param targetAnimationIndex animation index to animate model through
+         * @note targetAnimationIndex must be within the range [0, getNumberOfAnimations()]
+         */
+        void useTargetAnimationIndex(GLushort targetAnimationIndex);
         /**
          * @brief advances the model forward in its animation sequence the corresponding amount of time based on frame rate
          * @param dt delta time since last frame
@@ -1362,17 +1395,25 @@ namespace CSCI441 {
 
         // animation related stuff
         /**
-         * @brief the MD5 animation frame sequence
+         * @brief the MD5 animation frame sequences
          */
-        MD5Animation* _animation = nullptr;
+        MD5Animation** _animations = nullptr;
+        /**
+         * @brief number of animations loaded against the model
+         */
+        GLushort _numAnimations = 0;
+        /**
+         * @brief index of current animation being applied
+         */
+        GLushort _currentAnimationIndex = 0;
         /**
          * @brief flag stating if the loaded MD5 model has a corresponding animation or not
          */
         bool _isAnimated = false;
         /**
-         * @brief current animation frame state
+         * @brief animation frame states
          */
-        MD5AnimationState _animationInfo;
+        MD5AnimationState* _animationInfos = nullptr;
 
         /**
          * @brief active texture diffuse map should be bound to
@@ -1406,9 +1447,10 @@ namespace CSCI441 {
         /**
          * @brief Check if an animation can be used for a given model.  Model's
          * skeleton and animation's skeleton must match.
+         * @param targetAnimationIndex index of animations array to test validity of
          * @return true if animation can be used
          */
-        [[nodiscard]] bool _checkAnimValidity() const;
+        [[nodiscard]] bool _checkAnimValidity(GLushort targetAnimationIndex) const;
         /**
          * @brief Build _skeleton for a given frame data.
          * @param pJOINT_INFOS array of joint infos
@@ -1958,34 +2000,34 @@ CSCI441::MD5Model::drawSkeleton() const
 }
 
 inline bool
-CSCI441::MD5Model::_checkAnimValidity() const
+CSCI441::MD5Model::_checkAnimValidity(const GLushort targetAnimationIndex) const
 {
     // md5mesh and md5anim must have the same number of joints
-    if( _numJoints != _animation->getNumberOfJoints() ) {
-        fprintf(stdout, "\n[.md5anim]: skeleton and animation do not have same number of joints.  cannot apply animation to skeleton\n\n");
+    if( _numJoints != _animations[targetAnimationIndex]->getNumberOfJoints() ) {
+        fprintf(stdout, "\n[.md5anim]: skeleton and animation do not have same number of joints.  cannot apply animation %u to skeleton\n\n", targetAnimationIndex);
         return false;
     }
-    if (_animation->getNumberOfJoints() == 0 ) {
-        fprintf(stdout, "\n[.md5anim]: animation has zero joints.  cannot apply animation to skeleton\n\n");
+    if (_animations[targetAnimationIndex]->getNumberOfJoints() == 0 ) {
+        fprintf(stdout, "\n[.md5anim]: animation has zero joints.  cannot apply animation %u to skeleton\n\n", targetAnimationIndex);
         return false;
     }
 
     // We just check with frame[0]
     for(GLint i = 0; i < _numJoints; ++i) {
         // Joints must have the same parent index
-        if (_baseSkeleton[i].parent != _animation->getSkeletonFrameJoint(0, i).parent) {
-            fprintf(stdout, "\n[.md5anim]: skeleton and animation joints do not have same parent index.  cannot apply animation to skeleton\n\n");
+        if (_baseSkeleton[i].parent != _animations[targetAnimationIndex]->getSkeletonFrameJoint(0, i).parent) {
+            fprintf(stdout, "\n[.md5anim]: skeleton and animation joints do not have same parent index.  cannot apply animation %u to skeleton\n\n", targetAnimationIndex);
             return false;
         }
 
         // Joints must have the same name
-        if (strcmp (_baseSkeleton[i].name, _animation->getSkeletonFrameJoint(0, i).name) != 0) {
-            fprintf(stdout, "\n[.md5anim]: skeleton and animation joints do not have same name.  cannot apply animation to skeleton\n\n");
+        if (strcmp (_baseSkeleton[i].name, _animations[targetAnimationIndex]->getSkeletonFrameJoint(0, i).name) != 0) {
+            fprintf(stdout, "\n[.md5anim]: skeleton and animation joints do not have same name.  cannot apply animation %u to skeleton\n\n", targetAnimationIndex);
             return false;
         }
     }
 
-    fprintf(stdout, "\n[.md5anim]: skeleton and animation match.  animation can be applied to skeleton\n\n");
+    fprintf(stdout, "\n[.md5anim]: skeleton and animation match.  animation %u can be applied to skeleton\n\n", targetAnimationIndex);
     return true;
 }
 
@@ -2074,8 +2116,15 @@ CSCI441::MD5Model::_buildFrameSkeleton(
 
 inline bool
 CSCI441::MD5Model::readMD5Anim(
-        const char *filename
+        const char *filename,
+        const GLushort targetAnimationIndex
 ) {
+    if (targetAnimationIndex >= _numAnimations) {
+        fprintf (stderr, "[.md5anim]: Error: target animation index %u is out of range for currently allocated animations (which is %u)\n", targetAnimationIndex, _numAnimations);
+        fprintf (stderr, "[.md5anim]: Hey Developer, if you wish to add an animation to the sequence, use CSCI441::MD5Model::addMD5Anim(const char*)\n");
+        return false;
+    }
+
     char buff[512];
     MD5JointInfo *jointInfos = nullptr;
     MD5BaseFrameJoint *baseFrame = nullptr;
@@ -2085,7 +2134,7 @@ CSCI441::MD5Model::readMD5Anim(
     GLint frameIndex, numFrames, numJoints;
     GLint i;
 
-    printf( "[.md5anim]: about to read %s\n", filename );
+    printf( "[.md5anim]: about to read %s into animation %u\n", filename, targetAnimationIndex );
 
     FILE *fp = fopen( filename, "rb" );
     if( !fp ) {
@@ -2106,19 +2155,19 @@ CSCI441::MD5Model::readMD5Anim(
             }
         } else if( sscanf(buff, " numFrames %d", &numFrames) == 1 ) {
             // Allocate memory for skeleton frames and bounding boxes
-            _animation->setNumberOfFrames(numFrames);
+            _animations[targetAnimationIndex]->setNumberOfFrames(numFrames);
         } else if( sscanf(buff, " numJoints %d", &numJoints) == 1 ) {
             if (jointInfos != nullptr) {
                 fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numJoints already specified\n" );
             }
             if( numJoints > 0 ) {
-                _animation->setNumberOfJoints(numJoints);
+                _animations[targetAnimationIndex]->setNumberOfJoints(numJoints);
 
                 // Allocate temporary memory for building skeleton frames
                 jointInfos = new MD5JointInfo[numJoints];
                 baseFrame = new MD5BaseFrameJoint[numJoints];
             }
-        } else if( sscanf(buff, " frameRate %d", &_animation->frameRate) == 1 ) {
+        } else if( sscanf(buff, " frameRate %d", &_animations[targetAnimationIndex]->frameRate) == 1 ) {
 
         } else if( sscanf(buff, " numAnimatedComponents %d", &numAnimatedComponents) == 1 ) {
             if (animFrameData != nullptr) {
@@ -2143,17 +2192,17 @@ CSCI441::MD5Model::readMD5Anim(
                 }
             }
         } else if( strncmp(buff, "bounds {", 8) == 0 ) {
-            if (_animation->getNumberOfFrames() == 0) {
+            if (_animations[targetAnimationIndex]->getNumberOfFrames() == 0) {
                 fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numFrames not specified prior to bounds\n" );
             } else {
-                for(i = 0; i < _animation->getNumberOfFrames(); ++i) {
+                for(i = 0; i < _animations[targetAnimationIndex]->getNumberOfFrames(); ++i) {
                     // Read whole line
                     fgets( buff, sizeof(buff), fp );
 
                     // Read bounding box
                     sscanf(buff, " ( %f %f %f ) ( %f %f %f )",
-                           &_animation->getBoundingBox(i).min[0], &_animation->getBoundingBox(i).min[1], &_animation->getBoundingBox(i).min[2],
-                           &_animation->getBoundingBox(i).max[0], &_animation->getBoundingBox(i).max[1], &_animation->getBoundingBox(i).max[2]);
+                           &_animations[targetAnimationIndex]->getBoundingBox(i).min[0], &_animations[targetAnimationIndex]->getBoundingBox(i).min[1], &_animations[targetAnimationIndex]->getBoundingBox(i).min[2],
+                           &_animations[targetAnimationIndex]->getBoundingBox(i).max[0], &_animations[targetAnimationIndex]->getBoundingBox(i).max[1], &_animations[targetAnimationIndex]->getBoundingBox(i).max[2]);
                 }
             }
         } else if( strncmp(buff, "baseframe {", 10) == 0 ) {
@@ -2176,7 +2225,7 @@ CSCI441::MD5Model::readMD5Anim(
         } else if(sscanf(buff, " frame %d", &frameIndex) == 1 ) {
             if (animFrameData == nullptr) {
                 fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numAnimatedComponents not specified prior to frame\n" );
-            } else if (_animation->getNumberOfFrames() == 0) {
+            } else if (_animations[targetAnimationIndex]->getNumberOfFrames() == 0) {
                 fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numFrames not specified prior to frame\n" );
             } else if (baseFrame == nullptr) {
                 fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. baseframe not specified prior to frame\n" );
@@ -2189,7 +2238,7 @@ CSCI441::MD5Model::readMD5Anim(
 
                 // Build frame _skeleton from the collected data
                 _buildFrameSkeleton(jointInfos, baseFrame, animFrameData,
-                                    _animation->getSkeletonFrame(frameIndex),
+                                    _animations[targetAnimationIndex]->getSkeletonFrame(frameIndex),
                                     numJoints);
             }
         }
@@ -2197,9 +2246,9 @@ CSCI441::MD5Model::readMD5Anim(
 
     fclose( fp );
 
-    printf( "[.md5anim]: finished reading %s\n", filename );
-    printf( "[.md5anim]: read in %d frames of %d joints with %d animated components\n", _animation->getNumberOfFrames(), _animation->getNumberOfJoints(), numAnimatedComponents );
-    printf( "[.md5anim]: animation's frame rate is %d\n", _animation->frameRate );
+    printf( "[.md5anim]: finished reading %s into animation %u\n", filename, targetAnimationIndex );
+    printf( "[.md5anim]: read in %d frames of %d joints with %d animated components\n", _animations[targetAnimationIndex]->getNumberOfFrames(), _animations[targetAnimationIndex]->getNumberOfJoints(), numAnimatedComponents );
+    printf( "[.md5anim]: animation's frame rate is %d\n", _animations[targetAnimationIndex]->frameRate );
 
     // Free temporary data allocated
     delete[] animFrameData;
@@ -2207,20 +2256,20 @@ CSCI441::MD5Model::readMD5Anim(
     delete[] jointInfos;
 
     // successful loading...set up animation parameters
-    _animationInfo.currFrame = 0;
-    _animationInfo.nextFrame = 1;
+    _animationInfos[targetAnimationIndex].currFrame = 0;
+    _animationInfos[targetAnimationIndex].nextFrame = 1;
 
-    _animationInfo.lastTime = 0.0f;
-    _animationInfo.maxTime = 1.0f / static_cast<GLfloat>(_animation->frameRate);
+    _animationInfos[targetAnimationIndex].lastTime = 0.0f;
+    _animationInfos[targetAnimationIndex].maxTime = 1.0f / static_cast<GLfloat>(_animations[targetAnimationIndex]->frameRate);
 
     // Allocate memory for animated _skeleton
-    if (_animation->getNumberOfJoints() == 0) {
+    if (_animations[targetAnimationIndex]->getNumberOfJoints() == 0) {
         fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numJoints never specified\n" );
     } else {
-        _skeleton = new MD5Joint[_animation->getNumberOfJoints()];
+        _skeleton = new MD5Joint[_animations[targetAnimationIndex]->getNumberOfJoints()];
     }
 
-    if( _checkAnimValidity() ) {
+    if( _checkAnimValidity(targetAnimationIndex) ) {
         _isAnimated = true;
         // compute initial pose
         animate(0.0);
@@ -2229,14 +2278,93 @@ CSCI441::MD5Model::readMD5Anim(
     return true;
 }
 
+inline bool
+CSCI441::MD5Model::addMD5Anim(
+    const char* filename
+) {
+    // extend animation array
+    auto newAnimations = new MD5Animation*[_numAnimations + 1];
+    auto newAnimationInfos = new MD5AnimationState[_numAnimations + 1];
+
+    for( int i = 0; i < _numAnimations; ++i ) {
+        newAnimations[i] = _animations[i];
+        newAnimationInfos[i] = _animationInfos[i];
+    }
+    newAnimations[_numAnimations] = new MD5Animation();
+
+    delete[] _animations;
+    delete[] _animationInfos;
+
+    _animations = newAnimations;
+    _animationInfos = newAnimationInfos;
+
+    _numAnimations++;
+
+    // read animation into new array position
+    fprintf( stdout, "[.md5anim]: preparing to read %s into new animation %u\n", filename, (_numAnimations-1) );
+    const bool readSuccess = readMD5Anim(filename, _numAnimations - 1);
+
+    if (readSuccess) {
+        fprintf( stdout, "[.md5anim]: successfully read %s into new animation %u\n", filename, (_numAnimations-1) );
+    } else {
+        fprintf( stderr, "[.md5anim]: Error: could not read %s into new animation %u\n", filename, (_numAnimations-1) );
+
+        // undo array growth
+        newAnimations = new MD5Animation*[_numAnimations-1];
+        newAnimationInfos = new MD5AnimationState[_numAnimations-1];
+
+        for (int i = 0; i < _numAnimations - 1; ++i) {
+            newAnimations[i] = _animations[i];
+            newAnimationInfos[i] = _animationInfos[i];
+        }
+        delete _animations[_numAnimations-1];
+
+        delete[] _animations;
+        delete[] _animationInfos;
+
+        _animations = newAnimations;
+        _animationInfos = newAnimationInfos;
+
+        _numAnimations--;
+    }
+
+    return readSuccess;
+}
+
+inline void
+CSCI441::MD5Model::useTargetAnimationIndex(
+    const GLushort targetAnimationIndex
+) {
+    // if target index is within range
+    if (targetAnimationIndex < _numAnimations) {
+        // update animation to run through
+        _currentAnimationIndex = targetAnimationIndex;
+
+        // set to base animation
+        _animationInfos[targetAnimationIndex].currFrame = 0;
+        _animationInfos[targetAnimationIndex].nextFrame = 1;
+
+        _animationInfos[targetAnimationIndex].lastTime = 0.0f;
+        _animationInfos[targetAnimationIndex].maxTime = 1.0f / static_cast<GLfloat>(_animations[targetAnimationIndex]->frameRate);
+
+        animate(0.f);
+    }
+}
+
 inline void
 CSCI441::MD5Model::_freeAnim()
 {
     delete[] _skeleton;
     _skeleton = nullptr;
 
-    delete _animation;
-    _animation = nullptr;
+    for (int i = 0; i < _numAnimations; i++) {
+        delete _animations[i];
+    }
+    delete[] _animations;
+    _animations = nullptr;
+
+    delete[] _animationInfos;
+    _animationInfos = nullptr;
 }
 
 inline void CSCI441::MD5Model::_moveFromSrc(MD5Model &src) {
@@ -2278,22 +2406,29 @@ inline void CSCI441::MD5Model::_moveFromSrc(MD5Model &src) {
     this->_skeleton = src._skeleton;
     src._skeleton = nullptr;
 
-    this->_animation = src._animation;
-    src._animation = nullptr;
+    this->_animations = src._animations;
+    src._animations = nullptr;
+
+    this->_numAnimations = src._numAnimations;
+    src._numAnimations = 0;
+
+    this->_currentAnimationIndex = src._currentAnimationIndex;
+    src._currentAnimationIndex = 0;
 
     this->_isAnimated = src._isAnimated;
     src._isAnimated = false;
 
-    this->_animationInfo = std::move( src._animationInfo );
+    this->_animationInfos = src._animationInfos;
+    src._animationInfos = nullptr;
 }
 
 inline void
 CSCI441::MD5Model::_interpolateSkeletons(const GLfloat interp)
 {
-    const MD5Joint *skeletonA = _animation->getSkeletonFrame(_animationInfo.currFrame);
-    const MD5Joint *skeletonB = _animation->getSkeletonFrame(_animationInfo.nextFrame);
+    const MD5Joint *skeletonA = _animations[_currentAnimationIndex]->getSkeletonFrame(_animationInfos[_currentAnimationIndex].currFrame);
+    const MD5Joint *skeletonB = _animations[_currentAnimationIndex]->getSkeletonFrame(_animationInfos[_currentAnimationIndex].nextFrame);
 
-    for(GLint i = 0; i < _animation->getNumberOfJoints(); ++i) {
+    for(GLint i = 0; i < _animations[_currentAnimationIndex]->getNumberOfJoints(); ++i) {
         // Copy parent index
         _skeleton[i].parent = skeletonA[i].parent;
 
@@ -2310,26 +2445,26 @@ CSCI441::MD5Model::_interpolateSkeletons(const GLfloat interp)
 inline void
 CSCI441::MD5Model::animate(const GLfloat dt)
 {
-    const GLint maxFrames = _animation->getNumberOfFrames() - 1;
+    const GLint maxFrames = _animations[_currentAnimationIndex]->getNumberOfFrames() - 1;
     if (maxFrames <= 0) return;
 
-    _animationInfo.lastTime += dt;
+    _animationInfos[_currentAnimationIndex].lastTime += dt;
 
     // move to next frame
-    if( _animationInfo.lastTime >= _animationInfo.maxTime ) {
-        _animationInfo.currFrame++;
-        _animationInfo.nextFrame++;
-        _animationInfo.lastTime = 0.0;
+    if( _animationInfos[_currentAnimationIndex].lastTime >= _animationInfos[_currentAnimationIndex].maxTime ) {
+        _animationInfos[_currentAnimationIndex].currFrame++;
+        _animationInfos[_currentAnimationIndex].nextFrame++;
+        _animationInfos[_currentAnimationIndex].lastTime = 0.0;
 
-        if( _animationInfo.currFrame > maxFrames )
-            _animationInfo.currFrame = 0;
+        if( _animationInfos[_currentAnimationIndex].currFrame > maxFrames )
+            _animationInfos[_currentAnimationIndex].currFrame = 0;
 
-        if( _animationInfo.nextFrame > maxFrames )
-            _animationInfo.nextFrame = 0;
+        if( _animationInfos[_currentAnimationIndex].nextFrame > maxFrames )
+            _animationInfos[_currentAnimationIndex].nextFrame = 0;
     }
 
     // Interpolate skeletons between two frames
-    _interpolateSkeletons( _animationInfo.lastTime * static_cast<GLfloat>(_animation->frameRate) );
+    _interpolateSkeletons( _animationInfos[_currentAnimationIndex].lastTime * static_cast<GLfloat>(_animations[_currentAnimationIndex]->frameRate) );
 }
 
 #endif//CSCI441_MD5_MODEL_HPP
