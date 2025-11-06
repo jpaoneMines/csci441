@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.21.1.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.22.0.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -171,9 +171,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> () const</td
 void&#160;</td><td class="memItemRight" valign="bottom"><b>drawSkeleton</b> () const</td></tr>
 <tr class="memdesc:af6769fe5752e9594a54325e8a3ef7e0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">draws the skeleton joints (as points) and bones (as lines) <br /></td></tr>
 <tr class="separator:af6769fe5752e9594a54325e8a3ef7e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a0d5630539276f1bbd1d2bcac44f89f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a9a0d5630539276f1bbd1d2bcac44f89f">readMD5Anim</a> (const char *filename)</td></tr>
-<tr class="memdesc:a9a0d5630539276f1bbd1d2bcac44f89f"><td class="mdescLeft">&#160;</td><td class="mdescRight">reads in an animation sequence from an external file  <br /></td></tr>
-<tr class="separator:a9a0d5630539276f1bbd1d2bcac44f89f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41c88901f4771668043a590d61eb4972"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a41c88901f4771668043a590d61eb4972">readMD5Anim</a> (const char *filename, GLushort targetAnimationIndex=0)</td></tr>
+<tr class="memdesc:a41c88901f4771668043a590d61eb4972"><td class="mdescLeft">&#160;</td><td class="mdescRight">reads in an animation sequence from an external file  <br /></td></tr>
+<tr class="separator:a41c88901f4771668043a590d61eb4972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e959bd3a5f80173b72a83ef14abf150"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a1e959bd3a5f80173b72a83ef14abf150">addMD5Anim</a> (const char *filename)</td></tr>
+<tr class="memdesc:a1e959bd3a5f80173b72a83ef14abf150"><td class="mdescLeft">&#160;</td><td class="mdescRight">adds another MD5 Animation sequence to the model's set of animation  <br /></td></tr>
+<tr class="separator:a1e959bd3a5f80173b72a83ef14abf150"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ee262fabc0a24e01413a37f0bd82369"><td class="memItemLeft" align="right" valign="top">GLushort&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a2ee262fabc0a24e01413a37f0bd82369">getNumberOfAnimations</a> () const</td></tr>
+<tr class="memdesc:a2ee262fabc0a24e01413a37f0bd82369"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the number of animations that were successfully loaded against the model  <br /></td></tr>
+<tr class="separator:a2ee262fabc0a24e01413a37f0bd82369"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8ba36e8a7f1cf8fb11c29c794db0f34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#ac8ba36e8a7f1cf8fb11c29c794db0f34">useTargetAnimationIndex</a> (GLushort targetAnimationIndex)</td></tr>
+<tr class="memdesc:ac8ba36e8a7f1cf8fb11c29c794db0f34"><td class="mdescLeft">&#160;</td><td class="mdescRight">update current animation to be running through  <br /></td></tr>
+<tr class="separator:ac8ba36e8a7f1cf8fb11c29c794db0f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f543c02e8352463961ebacc982d990c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a9f543c02e8352463961ebacc982d990c">animate</a> (GLfloat dt)</td></tr>
 <tr class="memdesc:a9f543c02e8352463961ebacc982d990c"><td class="mdescLeft">&#160;</td><td class="mdescRight">advances the model forward in its animation sequence the corresponding amount of time based on frame rate  <br /></td></tr>
 <tr class="separator:a9f543c02e8352463961ebacc982d990c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -210,6 +219,41 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drawSkeleton</b> () c
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1e959bd3a5f80173b72a83ef14abf150" name="a1e959bd3a5f80173b72a83ef14abf150"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e959bd3a5f80173b72a83ef14abf150">&#9670;&#160;</a></span>addMD5Anim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CSCI441::MD5Model::addMD5Anim </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>adds another MD5 Animation sequence to the model's set of animation </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>*.md5anim file to open add to animation list </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true iff mesh and animation are compatible </dd></dl>
+
+</div>
+</div>
 <a id="a9b98a82c47b19c88da5aac08cc813490" name="a9b98a82c47b19c88da5aac08cc813490"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9b98a82c47b19c88da5aac08cc813490">&#9670;&#160;</a></span>allocVertexArrays()</h2>
 
@@ -299,6 +343,37 @@ texCoord attribute used when drawing the mesh </dd></dl>
 
 </div>
 </div>
+<a id="a2ee262fabc0a24e01413a37f0bd82369" name="a2ee262fabc0a24e01413a37f0bd82369"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ee262fabc0a24e01413a37f0bd82369">&#9670;&#160;</a></span>getNumberOfAnimations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLushort CSCI441::MD5Model::getNumberOfAnimations </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns the number of animations that were successfully loaded against the model </p>
+<dl class="section return"><dt>Returns</dt><dd>number of animations loaded against the mesh </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>if model is not animated, will return 0 </dd>
+<dd>
+calling <a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a1e959bd3a5f80173b72a83ef14abf150" title="adds another MD5 Animation sequence to the model&#39;s set of animation">addMD5Anim()</a> increments this number when successfully loaded </dd></dl>
+
+</div>
+</div>
 <a id="a54c6369dad9bc960320cc613ead962f0" name="a54c6369dad9bc960320cc613ead962f0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a54c6369dad9bc960320cc613ead962f0">&#9670;&#160;</a></span>isAnimated()</h2>
 
@@ -373,8 +448,8 @@ texCoord attribute used when drawing the mesh </dd></dl>
 
 </div>
 </div>
-<a id="a9a0d5630539276f1bbd1d2bcac44f89f" name="a9a0d5630539276f1bbd1d2bcac44f89f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a0d5630539276f1bbd1d2bcac44f89f">&#9670;&#160;</a></span>readMD5Anim()</h2>
+<a id="a41c88901f4771668043a590d61eb4972" name="a41c88901f4771668043a590d61eb4972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41c88901f4771668043a590d61eb4972">&#9670;&#160;</a></span>readMD5Anim()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -386,8 +461,18 @@ texCoord attribute used when drawing the mesh </dd></dl>
           <td class="memname">bool CSCI441::MD5Model::readMD5Anim </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">GLushort&#160;</td>
+          <td class="paramname"><em>targetAnimationIndex</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -401,6 +486,7 @@ texCoord attribute used when drawing the mesh </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>*.md5anim file to open </td></tr>
+    <tr><td class="paramname">targetAnimationIndex</td><td>animation index sequence to read into (defaults to first) </td></tr>
   </table>
   </dd>
 </dl>
@@ -499,6 +585,41 @@ texCoord attribute used when drawing the mesh </dd></dl>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ac8ba36e8a7f1cf8fb11c29c794db0f34" name="ac8ba36e8a7f1cf8fb11c29c794db0f34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8ba36e8a7f1cf8fb11c29c794db0f34">&#9670;&#160;</a></span>useTargetAnimationIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::MD5Model::useTargetAnimationIndex </td>
+          <td>(</td>
+          <td class="paramtype">GLushort&#160;</td>
+          <td class="paramname"><em>targetAnimationIndex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>update current animation to be running through </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">targetAnimationIndex</td><td>animation index to animate model through </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>targetAnimationIndex must be within the range [0, <a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a2ee262fabc0a24e01413a37f0bd82369" title="returns the number of animations that were successfully loaded against the model">getNumberOfAnimations()</a>] </dd></dl>
 
 </div>
 </div>

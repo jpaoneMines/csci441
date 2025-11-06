@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.22.0.0 - 06 Nov 2025
+- MD5Model can hold multiple animations to toggle between
+
 ## v 5.21.1.0 - 31 Oct 2025
 - ShaderProgramPipeline can hold a Compute Shader Program
 - If ShaderProgram doesn't link, still print final bottom header line
