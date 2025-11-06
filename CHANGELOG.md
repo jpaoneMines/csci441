@@ -193,7 +193,7 @@
 - Warnings removed
 
 ## v 4.9.1 - 20 Sep 2023
-- Fixed doxygen version number
+- Fixed Doxygen version number
 
 ## v 4.9.0 - 20 Sep 2023
 - Fixed aspect ratio calculation in OpenGL3DEngine
@@ -218,9 +218,9 @@
 
 ## v 4.5.0 - 31 Aug 2023
 - Camera stores projection matrix along with view matrix
-    - ArcballCam, FixedCam, FreeCam operate with perspective projections
+- ArcballCam, FixedCam, FreeCam operate with perspective projections
 - MD5Camera class loads and steps through frames of md5camera file
-    - MD5Camera operates with perspective projection
+- MD5Camera operates with perspective projection
 
 ## v 4.4.0 - 29 Aug 2023
 - ShaderProgram::getProgramStages() returns GLbitfield of shader stages
