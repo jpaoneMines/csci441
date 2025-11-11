@@ -1,6 +1,6 @@
 /**
  * @file OpenGLEngine.hpp
- * @brief Abstract class engine class to setup window, register callbacks, vaos, textures, and shaders, draw, update
+ * @brief Abstract class engine class to set up window, register callbacks, vaos, textures, and shaders, draw, update
  * @author Dr. Jeffrey Paone
  *
  * @copyright MIT License Copyright (c) 2021 Dr. Jeffrey Paone
@@ -23,7 +23,7 @@
 
 #include <GLFW/glfw3.h>
 
-#ifdef CSCI441_SCREENSHOT_IMPLEMENTATION
+#ifdef CSCI441_OPENGL_ENGINE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #endif
 #include <stb_image_write.h>
@@ -44,7 +44,7 @@ namespace CSCI441 {
      *  - mSetupOpenGL()<br>
      *  - run()<br>
      * @note In the implementation file of the concrete class, must define
-     * CSCI441_SCREENSHOT_IMPLEMENTATION prior to inclusion
+     * CSCI441_OPENGL_ENGINE_IMPLEMENTATION prior to inclusion
      */
     class OpenGLEngine {
     public:

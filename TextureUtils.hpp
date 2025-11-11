@@ -23,7 +23,9 @@
 #endif
 
 #ifdef CSCI441_TEXTURE_UTILS_IMPLEMENTATION
-#define STB_IMAGE_IMPLEMENTATION
+#	ifndef STB_IMAGE_WRITE_IMPLEMENTATION		// guard against redefinition errors
+#		define STB_IMAGE_IMPLEMENTATION
+#	endif
 #endif
 #include <stb_image.h>
 

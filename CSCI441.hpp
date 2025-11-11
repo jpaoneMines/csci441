@@ -31,6 +31,7 @@
 #ifndef CSCI441_CSCI441_HPP
 #define CSCI441_CSCI441_HPP
 
+#include "OpenGLEngine.hpp"         // to create a concrete Rendering engine
 #include "ArcballCam.hpp"           // arcball cam implementation
 #include "Camera.hpp"               // abstract Camera class
 #include "ComputeShaderProgram.hpp" // helper class to compile and use compute shaders
@@ -42,10 +43,8 @@
 #include "materials.hpp"            // predefined material properties
 #include "MD5Camera.hpp"            // MD5 camera implementation
 #include "MD5Model.hpp"             // MD5 mesh and anim implementation
-#include "ModelLoader.hpp"          // to load OBJ, OFF, PLY, STL files
 #include "objects.hpp"              // include 3D objects (cube, cylinder, cone, torus, sphere, disk, teapot)
 #include "OpenGL3DEngine.hpp"       // to create a concrete 3D Rendering engine
-#include "OpenGLEngine.hpp"         // to create a concrete Rendering engine
 #include "OpenGLUtils.hpp"          // to query OpenGL features
 #include "OrthographicCamera.hpp"   // to create a camera with an orthographic projection
 #include "PerspectiveCamera.hpp"    // to create a camera with a perspective projection
@@ -55,5 +54,6 @@
 #include "SimpleShader.hpp"         // default shader programs for 2D and 3D applications
 #include "TextureUtils.hpp"         // helper functions for registering textures
 #include "UniformBufferObject.hpp"  // helper class to use UBOs
+#include "ModelLoader.hpp"          // to load OBJ, OFF, PLY, STL files
 
 #endif // CSCI441_CSCI441_HPP
