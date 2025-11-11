@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.23.0.0 - 11 Nov 2025
+- Need to define CSCI441_OPENGL_ENGINE_IMPLEMENTATION for building
+
 ## v 5.22.0.0 - 06 Nov 2025
 - MD5Model can hold multiple animations to toggle between
 

@@ -20,7 +20,7 @@ namespace CSCI441 {
     /**
      * @brief library minor version
      */
-    constexpr int VERSION_MINOR = 22;
+    constexpr int VERSION_MINOR = 23;
     /**
      * @brief library revision version
      */
