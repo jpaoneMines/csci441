@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.23.1.0 - 14 Nov 2025
+- OpenGLEngine stores the version requested and actually created
+
 ## v 5.23.0.0 - 11 Nov 2025
 - Need to define CSCI441_OPENGL_ENGINE_IMPLEMENTATION for building
 
