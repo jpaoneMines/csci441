@@ -243,6 +243,10 @@ namespace CSCI441 {
          * @note may not correspond to the actual OpenGL context created
          */
         int mOpenGLMinorVersion;
+        int mOpenGLMajorVersionRequested;
+        int mOpenGLMinorVersionRequested;
+        int mOpenGLMajorVersionCreated;
+        int mOpenGLMinorVersionCreated;
         /**
          * @brief the window width of the requested GLFW window
          * @note may not correspond to the actual GLFW window created
@@ -415,6 +419,10 @@ CSCI441::OpenGLEngine::OpenGLEngine(
     mErrorCode(OPENGL_ENGINE_ERROR_NO_ERROR),
     mOpenGLMajorVersion(OPENGL_MAJOR_VERSION),
     mOpenGLMinorVersion(OPENGL_MINOR_VERSION),
+    mOpenGLMajorVersionRequested(OPENGL_MAJOR_VERSION),
+    mOpenGLMinorVersionRequested(OPENGL_MINOR_VERSION),
+    mOpenGLMajorVersionCreated(0),
+    mOpenGLMinorVersionCreated(0),
     mWindowWidth(WINDOW_WIDTH),
     mWindowHeight(WINDOW_HEIGHT),
     mWindowResizable(WINDOW_RESIZABLE),
@@ -435,6 +443,10 @@ CSCI441::OpenGLEngine::OpenGLEngine(
     mErrorCode(OPENGL_ENGINE_ERROR_NO_ERROR),
     mOpenGLMajorVersion(0),
     mOpenGLMinorVersion(0),
+    mOpenGLMajorVersionRequested(0),
+    mOpenGLMinorVersionRequested(0),
+    mOpenGLMajorVersionCreated(0),
+    mOpenGLMinorVersionCreated(0),
     mWindowWidth(0),
     mWindowHeight(0),
     mWindowResizable(false),
@@ -487,6 +499,18 @@ void CSCI441::OpenGLEngine::_moveFromSource(
 
     mOpenGLMinorVersion = src.mOpenGLMinorVersion;
     src.mOpenGLMinorVersion = 0;
+
+    mOpenGLMajorVersionRequested = src.mOpenGLMajorVersionRequested;
+    src.mOpenGLMajorVersionRequested = 0;
+
+    mOpenGLMinorVersionRequested = src.mOpenGLMinorVersionRequested;
+    src.mOpenGLMinorVersionRequested = 0;
+
+    mOpenGLMajorVersionCreated = src.mOpenGLMajorVersionCreated;
+    src.mOpenGLMajorVersionCreated = 0;
+
+    mOpenGLMinorVersionCreated = src.mOpenGLMinorVersionCreated;
+    src.mOpenGLMinorVersionCreated = 0;
 
     mWindowWidth = src.mWindowWidth;
     src.mWindowWidth = 0;
@@ -617,7 +641,7 @@ void CSCI441::OpenGLEngine::mSetupGLFW()
         fprintf( stderr, "[ERROR]: Could not initialize GLFW\n" );
         mErrorCode = OPENGL_ENGINE_ERROR_GLFW_INIT;
     } else {
-        if(DEBUG) fprintf( stdout, "[INFO]: GLFW %d.%d.%d initialized\n", GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION );
+        if(DEBUG) fprintf( stdout, "[INFO]: GLFW v%d.%d.%d initialized\n", GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION );
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, mOpenGLMajorVersion );	        // request OpenGL vX.
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, mOpenGLMinorVersion );	        // request OpenGL v .X
@@ -664,25 +688,31 @@ void CSCI441::OpenGLEngine::_setupGLFunctions()
         mErrorCode = OPENGL_ENGINE_ERROR_GLEW_INIT;
     } else {
         if(DEBUG) {
-            fprintf(stdout, "\n[INFO]: GLEW initialized\n");
+            fprintf(stdout, "[INFO]: GLEW initialized\n");
             fprintf(stdout, "[INFO]: Using GLEW %s\n", reinterpret_cast<const char *>(glewGetString(GLEW_VERSION)));
         }
     }
 #else
     int version = gladLoadGL(glfwGetProcAddress);
     if(version == 0) {
-        fprintf(stderr, "Failed to initialize GLAD\n" );
+        fprintf(stderr, "[ERROR]: Failed to initialize GLAD\n" );
         mErrorCode = OPENGL_ENGINE_ERROR_GLAD_INIT;
     } else {
         if(DEBUG) {
             // Successfully loaded OpenGL
-            fprintf(stdout, "\n[INFO]: GLAD initialized\n");
-            fprintf(stdout, "[INFO]: Loaded OpenGL %d.%d\n", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
+            fprintf(stdout, "[INFO]: GLAD initialized v%d.%d\n", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
         }
     }
 #endif
 
     if(mErrorCode == OPENGL_ENGINE_ERROR_NO_ERROR) {
+        glGetIntegerv(GL_MAJOR_VERSION, &mOpenGLMajorVersionCreated);
+        glGetIntegerv(GL_MINOR_VERSION, &mOpenGLMinorVersionCreated);
+        if(DEBUG) {
+            fprintf(stdout, "[INFO]: OpenGL v%d.%d requested\n", mOpenGLMajorVersionRequested, mOpenGLMinorVersionRequested);
+            fprintf(stdout, "[INFO]: OpenGL v%d.%d created\n", mOpenGLMajorVersionCreated, mOpenGLMinorVersionCreated);
+        }
+
         GLint numExtensions = 0;
         glGetIntegerv(GL_NUM_EXTENSIONS, &numExtensions);
         for (int i = 0; i < numExtensions; i++) {
