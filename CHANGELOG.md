@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.23.1.1 - 14 Nov 2025
+- Patching included examples
+
 ## v 5.23.1.0 - 14 Nov 2025
 - OpenGLEngine stores the version requested and actually created
 

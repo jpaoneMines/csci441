@@ -2,6 +2,7 @@
 #define CSCI441_USE_GLEW
 #endif
 
+#define CSCI441_OPENGL_ENGINE_IMPLEMENTATION
 #include "../OpenGLEngine.hpp"
 #include "../SimpleShader.hpp"
 

@@ -2,6 +2,7 @@
 #define CSCI441_USE_GLEW
 #endif
 
+#define CSCI441_OPENGL_ENGINE_IMPLEMENTATION
 #include "../OpenGL3DEngine.hpp"
 #include "../materials.hpp"
 #include "../objects.hpp"

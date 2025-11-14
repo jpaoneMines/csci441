@@ -3,7 +3,10 @@
 #endif
 
 #include "../HUDCamera.hpp"
+
+#define CSCI441_OPENGL_ENGINE_IMPLEMENTATION
 #include "../OpenGL3DEngine.hpp"
+
 #include "../materials.hpp"
 #include "../objects.hpp"
 #include "../SimpleShader.hpp"
