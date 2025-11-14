@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.23.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.23.1.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -295,6 +295,18 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>mErrorCode</b
 <tr class="memitem:a0f8edec5537a058dd1fa1952426d0f4a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a0f8edec5537a058dd1fa1952426d0f4a">mOpenGLMinorVersion</a></td></tr>
 <tr class="memdesc:a0f8edec5537a058dd1fa1952426d0f4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">the minor version of the requested OpenGL context  <br /></td></tr>
 <tr class="separator:a0f8edec5537a058dd1fa1952426d0f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80b65384dd6d2b07a6223048e6e8510a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a80b65384dd6d2b07a6223048e6e8510a">mOpenGLMajorVersionRequested</a></td></tr>
+<tr class="memdesc:a80b65384dd6d2b07a6223048e6e8510a"><td class="mdescLeft">&#160;</td><td class="mdescRight">the major version of the requested OpenGL context  <br /></td></tr>
+<tr class="separator:a80b65384dd6d2b07a6223048e6e8510a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6235e9e603006346fa76dd20cd618427"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a6235e9e603006346fa76dd20cd618427">mOpenGLMinorVersionRequested</a></td></tr>
+<tr class="memdesc:a6235e9e603006346fa76dd20cd618427"><td class="mdescLeft">&#160;</td><td class="mdescRight">the minor version of the requested OpenGL context  <br /></td></tr>
+<tr class="separator:a6235e9e603006346fa76dd20cd618427"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaff141a41c3cc2714e06c50c6efb4957"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aaff141a41c3cc2714e06c50c6efb4957">mOpenGLMajorVersionCreated</a></td></tr>
+<tr class="memdesc:aaff141a41c3cc2714e06c50c6efb4957"><td class="mdescLeft">&#160;</td><td class="mdescRight">the major version of the created OpenGL context  <br /></td></tr>
+<tr class="separator:aaff141a41c3cc2714e06c50c6efb4957"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf1b14da4a98b7114f3d92732dfc5276"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#adf1b14da4a98b7114f3d92732dfc5276">mOpenGLMinorVersionCreated</a></td></tr>
+<tr class="memdesc:adf1b14da4a98b7114f3d92732dfc5276"><td class="mdescLeft">&#160;</td><td class="mdescRight">the minor version of the created OpenGL context  <br /></td></tr>
+<tr class="separator:adf1b14da4a98b7114f3d92732dfc5276"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae428647eee31a7288e7ce035838b6f4d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ae428647eee31a7288e7ce035838b6f4d">mWindowWidth</a></td></tr>
 <tr class="memdesc:ae428647eee31a7288e7ce035838b6f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">the window width of the requested GLFW window  <br /></td></tr>
 <tr class="separator:ae428647eee31a7288e7ce035838b6f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1130,6 +1142,58 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
 
 </div>
 </div>
+<a id="aaff141a41c3cc2714e06c50c6efb4957" name="aaff141a41c3cc2714e06c50c6efb4957"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaff141a41c3cc2714e06c50c6efb4957">&#9670;&#160;</a></span>mOpenGLMajorVersionCreated</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CSCI441::OpenGLEngine::mOpenGLMajorVersionCreated</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the major version of the created OpenGL context </p>
+<dl class="section note"><dt>Note</dt><dd>may not correspond to the OpenGL context that was requested </dd></dl>
+
+</div>
+</div>
+<a id="a80b65384dd6d2b07a6223048e6e8510a" name="a80b65384dd6d2b07a6223048e6e8510a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80b65384dd6d2b07a6223048e6e8510a">&#9670;&#160;</a></span>mOpenGLMajorVersionRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CSCI441::OpenGLEngine::mOpenGLMajorVersionRequested</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the major version of the requested OpenGL context </p>
+<dl class="section note"><dt>Note</dt><dd>may not correspond to the actual OpenGL context created </dd>
+<dd>
+equivalent to mOpenGLMajorVersion </dd></dl>
+
+</div>
+</div>
 <a id="a0f8edec5537a058dd1fa1952426d0f4a" name="a0f8edec5537a058dd1fa1952426d0f4a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0f8edec5537a058dd1fa1952426d0f4a">&#9670;&#160;</a></span>mOpenGLMinorVersion</h2>
 
@@ -1152,6 +1216,58 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
 
 <p>the minor version of the requested OpenGL context </p>
 <dl class="section note"><dt>Note</dt><dd>may not correspond to the actual OpenGL context created </dd></dl>
+
+</div>
+</div>
+<a id="adf1b14da4a98b7114f3d92732dfc5276" name="adf1b14da4a98b7114f3d92732dfc5276"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf1b14da4a98b7114f3d92732dfc5276">&#9670;&#160;</a></span>mOpenGLMinorVersionCreated</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CSCI441::OpenGLEngine::mOpenGLMinorVersionCreated</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the minor version of the created OpenGL context </p>
+<dl class="section note"><dt>Note</dt><dd>may not correspond to the OpenGL context that was requested </dd></dl>
+
+</div>
+</div>
+<a id="a6235e9e603006346fa76dd20cd618427" name="a6235e9e603006346fa76dd20cd618427"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6235e9e603006346fa76dd20cd618427">&#9670;&#160;</a></span>mOpenGLMinorVersionRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CSCI441::OpenGLEngine::mOpenGLMinorVersionRequested</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the minor version of the requested OpenGL context </p>
+<dl class="section note"><dt>Note</dt><dd>may not correspond to the actual OpenGL context created </dd>
+<dd>
+equivalent to mOpenGLMinorVersion </dd></dl>
 
 </div>
 </div>

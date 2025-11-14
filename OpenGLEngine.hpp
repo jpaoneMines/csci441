@@ -243,9 +243,27 @@ namespace CSCI441 {
          * @note may not correspond to the actual OpenGL context created
          */
         int mOpenGLMinorVersion;
+        /**
+         * @brief the major version of the requested OpenGL context
+         * @note may not correspond to the actual OpenGL context created
+         * @note equivalent to mOpenGLMajorVersion
+         */
         int mOpenGLMajorVersionRequested;
+        /**
+         * @brief the minor version of the requested OpenGL context
+         * @note may not correspond to the actual OpenGL context created
+        * @note equivalent to mOpenGLMinorVersion
+         */
         int mOpenGLMinorVersionRequested;
+        /**
+         * @brief the major version of the created OpenGL context
+         * @note may not correspond to the OpenGL context that was requested
+         */
         int mOpenGLMajorVersionCreated;
+        /**
+         * @brief the minor version of the created OpenGL context
+         * @note may not correspond to the OpenGL context that was requested
+         */
         int mOpenGLMinorVersionCreated;
         /**
          * @brief the window width of the requested GLFW window
