@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['filename_0',['filename',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_texture.html#a3ae71bf75f365c44ea3f6de3b19dc85c',1,'CSCI441::MD5Model::MD5Texture']]],
-  ['flags_1',['flags',['../struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint_info.html#af5d146ba93f51a9f3a2d12bbe5b05e1e',1,'CSCI441::MD5Model::MD5JointInfo']]],
-  ['framerate_2',['frameRate',['../class_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation.html#aaba0557c5b40f40b8cccfd23635048a1',1,'CSCI441::MD5Model::MD5Animation']]]
+  ['gold_0',['GOLD',['../materials_8hpp.html#a381d77047e170c0fbafc8196ff8ee495',1,'CSCI441::Materials']]],
+  ['gold_5fpolished_1',['GOLD_POLISHED',['../materials_8hpp.html#a1e487e45e55e4ad3f7358cbd8e49ce24',1,'CSCI441::Materials']]],
+  ['green_5fplastic_2',['GREEN_PLASTIC',['../materials_8hpp.html#a77ecf4e96555256ef2157b5de6f746e5',1,'CSCI441::Materials']]],
+  ['green_5frubber_3',['GREEN_RUBBER',['../materials_8hpp.html#afad718549ad8a11a0a3cf3890b51d1bc',1,'CSCI441::Materials']]]
 ];

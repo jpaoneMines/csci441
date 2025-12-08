@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.23.1.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.24.0.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -81,18 +81,17 @@ $(function() {
 <p>Doom3 MD5 Model + Animation implementations.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;constants.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="_m_d5_model__types_8hpp_source.html">MD5Model_types.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_texture_utils_8hpp_source.html">TextureUtils.hpp</a>&quot;</code><br />
 <code>#include &lt;glad/gl.h&gt;</code><br />
 <code>#include &lt;glm/exponential.hpp&gt;</code><br />
 <code>#include &lt;glm/ext/quaternion_common.hpp&gt;</code><br />
-<code>#include &lt;glm/ext/quaternion_float.hpp&gt;</code><br />
 <code>#include &lt;glm/gtx/quaternion.hpp&gt;</code><br />
 <code>#include &lt;cassert&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;cstdio&gt;</code><br />
 <code>#include &lt;cstdlib&gt;</code><br />
-<code>#include &lt;cstring&gt;</code><br />
-<code>#include &lt;stdexcept&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
 </div>
 <p><a href="_m_d5_model_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -100,39 +99,6 @@ $(function() {
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html">CSCI441::MD5Model</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores a Doom3 MD5 Mesh + Animation  <a href="class_c_s_c_i441_1_1_m_d5_model.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint.html">CSCI441::MD5Model::MD5Joint</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a joint of the MD5 Skeleton  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_vertex.html">CSCI441::MD5Model::MD5Vertex</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a vertex on the mesh  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_vertex.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">CSCI441::MD5Model::MD5Triangle</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a triangle on the mesh  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_weight.html">CSCI441::MD5Model::MD5Weight</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">the weight for a mesh vertex  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_weight.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_texture.html">CSCI441::MD5Model::MD5Texture</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">texture handle for the model  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_texture.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html">CSCI441::MD5Model::MD5Mesh</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">mesh that comprises the model's skin  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint_info.html">CSCI441::MD5Model::MD5JointInfo</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">information pertaining to each animation joint  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint_info.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_base_frame_joint.html">CSCI441::MD5Model::MD5BaseFrameJoint</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">base frame joint  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_base_frame_joint.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_bounding_box.html">CSCI441::MD5Model::MD5BoundingBox</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">bounding box containing the model during animation  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_bounding_box.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation.html">CSCI441::MD5Model::MD5Animation</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores an entire animation sequence for a given MD5 Model  <a href="class_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_state.html">CSCI441::MD5Model::MD5AnimationState</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores state of current animation frame  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_state.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>

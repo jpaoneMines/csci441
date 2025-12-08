@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.23.1.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.24.0.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -75,8 +75,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_c_s_c_i441_1_1_m_d5_model-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">CSCI441::MD5Model Class Reference</div></div>
 </div><!--header-->
@@ -87,42 +87,6 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="_m_d5_model_8hpp_source.html">MD5Model.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation.html">MD5Animation</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores an entire animation sequence for a given MD5 Model  <a href="class_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_state.html">MD5AnimationState</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores state of current animation frame  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_animation_state.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_base_frame_joint.html">MD5BaseFrameJoint</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">base frame joint  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_base_frame_joint.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_bounding_box.html">MD5BoundingBox</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">bounding box containing the model during animation  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_bounding_box.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint.html">MD5Joint</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a joint of the MD5 Skeleton  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint_info.html">MD5JointInfo</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">information pertaining to each animation joint  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_joint_info.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html">MD5Mesh</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">mesh that comprises the model's skin  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_mesh.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_texture.html">MD5Texture</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">texture handle for the model  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_texture.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html">MD5Triangle</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a triangle on the mesh  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_triangle.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_vertex.html">MD5Vertex</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a vertex on the mesh  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_vertex.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_weight.html">MD5Weight</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">the weight for a mesh vertex  <a href="struct_c_s_c_i441_1_1_m_d5_model_1_1_m_d5_weight.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a647116079ef9d541b40268d7f8a22b54"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a647116079ef9d541b40268d7f8a22b54">MD5Model</a> ()</td></tr>
@@ -186,6 +150,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drawSkeleton</b> () c
 <tr class="memitem:a9f543c02e8352463961ebacc982d990c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a9f543c02e8352463961ebacc982d990c">animate</a> (GLfloat dt)</td></tr>
 <tr class="memdesc:a9f543c02e8352463961ebacc982d990c"><td class="mdescLeft">&#160;</td><td class="mdescRight">advances the model forward in its animation sequence the corresponding amount of time based on frame rate  <br /></td></tr>
 <tr class="separator:a9f543c02e8352463961ebacc982d990c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a1ede01f8f88bcc50ca367cf3adc1c8f1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a1ede01f8f88bcc50ca367cf3adc1c8f1">readMD5Material</a> (const char *FILENAME)</td></tr>
+<tr class="memdesc:a1ede01f8f88bcc50ca367cf3adc1c8f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads textures corresponding to MD5 Shaders  <br /></td></tr>
+<tr class="separator:a1ede01f8f88bcc50ca367cf3adc1c8f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1a582788b43e3b7689aeef03b2edda2"><td class="memItemLeft" align="right" valign="top"><a id="af1a582788b43e3b7689aeef03b2edda2" name="af1a582788b43e3b7689aeef03b2edda2"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>releaseMD5Materials</b> ()</td></tr>
+<tr class="memdesc:af1a582788b43e3b7689aeef03b2edda2"><td class="mdescLeft">&#160;</td><td class="mdescRight">deletes textures from GPU that were registered during parsing of *.mtr file <br /></td></tr>
+<tr class="separator:af1a582788b43e3b7689aeef03b2edda2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>stores a Doom3 MD5 Mesh + Animation </p>
@@ -491,6 +465,41 @@ calling <a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a1e959bd3a5f801
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true iff mesh and animation are compatible </dd></dl>
+
+</div>
+</div>
+<a id="a1ede01f8f88bcc50ca367cf3adc1c8f1" name="a1ede01f8f88bcc50ca367cf3adc1c8f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ede01f8f88bcc50ca367cf3adc1c8f1">&#9670;&#160;</a></span>readMD5Material()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::MD5Model::readMD5Material </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>FILENAME</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>loads textures corresponding to MD5 Shaders </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FILENAME</td><td>*.mtr file to open and load textures from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>registers textures on GPU </dd></dl>
 
 </div>
 </div>

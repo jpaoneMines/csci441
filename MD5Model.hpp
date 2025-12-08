@@ -46,6 +46,7 @@
  */
 
 #include "constants.h"
+#include "MD5Model_types.hpp"
 #include "TextureUtils.hpp"
 
 #ifdef CSCI441_USE_GLEW
@@ -56,7 +57,6 @@
 
 #include <glm/exponential.hpp>
 #include <glm/ext/quaternion_common.hpp>
-#include <glm/ext/quaternion_float.hpp>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
@@ -65,8 +65,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
-#include <cstring>
-#include <stdexcept>
+#include <map>
 
 namespace CSCI441 {
 
@@ -75,1120 +74,6 @@ namespace CSCI441 {
      * @brief stores a Doom3 MD5 Mesh + Animation
      */
     class [[maybe_unused]] MD5Model {
-    protected:
-        // md5mesh types
-        /**
-         * @brief a joint of the MD5 Skeleton
-         */
-        struct MD5Joint {
-            /**
-             * @brief a non-existent joint.  used to identify joints at the root of a skeleton
-             */
-            static constexpr GLint NULL_JOINT = -1;
-            /**
-             * @brief max length of joint name string
-             */
-            static constexpr GLshort MAX_NAME_LENGTH = 256;
-            /**
-             * @brief joint identifier
-             */
-            char name[MAX_NAME_LENGTH] = "";
-            /**
-             * @brief index of the parent joint on skeletal tree
-             */
-            GLint parent = NULL_JOINT;
-            /**
-             * @brief position of the joint in object space
-             */
-            glm::vec3 position = {0.0f, 0.0f, 0.0f};
-            /**
-             * @brief joint orientation expressed as a quaternion in object space
-             */
-            glm::quat orientation = {0.0f, 0.0f, 0.0f, 0.0f};
-
-            /**
-             * @brief construct a default joint object
-             */
-            MD5Joint() = default;
-            /**
-             * @brief construct a joint object by copying an existing joint
-             * @param OTHER existing joint object
-             */
-            MD5Joint(const MD5Joint &OTHER) {
-                _copyFromSrc(OTHER);
-            }
-            /**
-             * @brief reassign an existing joint object by copying another joint object
-             * @param OTHER existing joint object to copy
-             * @return the now modified joint object
-             */
-            MD5Joint& operator=(const MD5Joint &OTHER) {
-                if (this != &OTHER) {
-                    _copyFromSrc(OTHER);
-                }
-                return *this;
-            }
-            /**
-             * @brief construct a joint object by moving an existing object
-             * @param src existing joint object to move
-             */
-            MD5Joint(MD5Joint&& src) noexcept {
-                _moveFromSrc(src);
-            }
-            /**
-             * @brief reassign an existing joint object by moving another joint object
-             * @param src existing joint object to move
-             * @return the now modified joint object
-             */
-            MD5Joint& operator=(MD5Joint&& src) noexcept {
-                if (this != &src) {
-                    _moveFromSrc(src);
-                }
-                return *this;
-            }
-        private:
-            /**
-             * @brief deep copies all the data members from another joint object
-             * @param src existing joint object to copy
-             */
-            void _copyFromSrc(const MD5Joint& src) {
-                strncpy(this->name, src.name, MAX_NAME_LENGTH);
-                this->parent = src.parent;
-                this->position = src.position;
-                this->orientation = src.orientation;
-            }
-            /**
-             * @brief moves data members from another joint object, resetting the other joint object
-             * back to its default state
-             * @param src existing joint object to move
-             */
-            void _moveFromSrc(MD5Joint& src) {
-                // copy values from source
-                _copyFromSrc(src);
-                // reset source
-                strncpy(src.name, "", MAX_NAME_LENGTH);
-                src.parent = NULL_JOINT;
-                src.position = glm::vec3(0.0f, 0.0f, 0.0f);
-                src.orientation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f);
-            }
-        };
-
-        /**
-         * @brief a vertex on the mesh
-         */
-        struct MD5Vertex {
-            /**
-             * @brief texture coordinate for vertex
-             */
-            glm::vec2 texCoord = {0.0f, 0.0f};
-            /**
-             * @brief index of starting weight
-             */
-            GLint start = 0;
-            /**
-             * @brief number of weights that determine vertex's position
-             */
-            GLint count = 0;
-
-            /**
-             * @brief construct a default vertex object
-             */
-            MD5Vertex() = default;
-            /**
-             * @brief construct a vertex object by copying an existing vertex
-             * @param OTHER existing vertex object to copy
-             */
-            MD5Vertex(const MD5Vertex &OTHER) {
-                _copyFromSrc(OTHER);
-            }
-            /**
-             * @brief reassign existing vertex object by copying an existing vertex object
-             * @param OTHER existing vertex object to copy
-             * @return now modified vertex object
-             */
-            MD5Vertex& operator=(const MD5Vertex &OTHER) {
-                if (this != &OTHER) {
-                    _copyFromSrc(OTHER);
-                }
-                return *this;
-            }
-            /**
-             * @brief construct a vertex object by moving an existing vertex
-             * @param src existing vertex object to move
-             */
-            MD5Vertex(MD5Vertex&& src) noexcept {
-                _moveFromSrc(src);
-            }
-            /**
-             * @brief reassign existing vertex object by moving an existing vertex object
-             * @param src existing vertex object move
-             * @return now modified vertex object
-             */
-            MD5Vertex& operator=(MD5Vertex&& src) noexcept {
-                if (this != &src) {
-                    _moveFromSrc(src);
-                }
-                return *this;
-            }
-        private:
-            /**
-             * @brief deep copy vertex data members
-             * @param src existing vertex to copy
-             */
-            void _copyFromSrc(const MD5Vertex &src) {
-                this->texCoord = src.texCoord;
-                this->start = src.start;
-                this->count = src.count;
-            }
-            /**
-             * @brief move data members and reset existing vertex to default state
-             * @param src existing vertex to move
-             */
-            void _moveFromSrc(MD5Vertex& src) {
-                _copyFromSrc(src);
-
-                src.texCoord = glm::vec2(0.0f, 0.0f);
-                src.start = 0;
-                src.count = 0;
-            }
-        };
-
-        /**
-         * @brief a triangle on the mesh
-         */
-        struct MD5Triangle {
-            /**
-             * @brief number of vertices that make up a triangle
-             */
-            static constexpr GLshort NUM_VERTICES = 3;
-            /**
-             * @brief vertex indices that make up triangle
-             */
-            GLint index[NUM_VERTICES] = {0};
-
-            /**
-             * @brief construct a default triangle object
-             */
-            MD5Triangle() = default;
-            /**
-             * @brief construct a triangle by copying an existing triangle
-             * @param OTHER existing triangle object to copy
-             */
-            MD5Triangle(const MD5Triangle &OTHER) {
-                _copyFromSrc(OTHER);
-            }
-            /**
-             * @brief reassign triangle object by copying an existing triangle
-             * @param OTHER existing triangle object to copy
-             * @return now modified triangle object
-             */
-            MD5Triangle& operator=(const MD5Triangle &OTHER) {
-                if (this != &OTHER) {
-                    _copyFromSrc(OTHER);
-                }
-                return *this;
-            }
-            /**
-             * @brief construct a triangle object by moving an existing triangle
-             * @param src existing triangle object to move
-             */
-            MD5Triangle(MD5Triangle&& src) noexcept {
-                _moveFromSrc(src);
-            }
-            /**
-             * @brief reassign triangle object by moving an existing triangle
-             * @param src existing triangle object to move
-             * @return now modified triangle object
-             */
-            MD5Triangle& operator=(MD5Triangle&& src) noexcept {
-                if (this != &src) {
-                    _moveFromSrc(src);
-                }
-                return *this;
-            }
-        private:
-            /**
-             * @brief deep copy triangle data members
-             * @param src triangle object to copy
-             */
-            void _copyFromSrc(const MD5Triangle &src) {
-                for (GLshort i = 0; i < NUM_VERTICES; i++) {
-                    this->index[i] = src.index[i];
-                }
-            }
-            /**
-             * @brief move triangle object and reset existing triangle to default state
-             * @param src triangle object to move
-             */
-            void _moveFromSrc(MD5Triangle &src) {
-                _copyFromSrc(src);
-
-                for (GLint & i : src.index) {
-                    i = 0;
-                }
-            }
-        };
-
-        /**
-         * @brief the weight for a mesh vertex
-         */
-        struct MD5Weight {
-            /**
-             * @brief index of joint the weight depends on
-             */
-            GLint joint = MD5Joint::NULL_JOINT;
-            /**
-             * @brief contribution of the weight
-             */
-            GLfloat bias = 0.f;
-            /**
-             * @brief weight's position in object space
-             */
-            glm::vec3 position = {0.0f, 0.0f, 0.0f};
-
-            /**
-             * @brief construct a default weight object
-             */
-            MD5Weight() = default;
-            /**
-             * @brief construct a weight object by copying an existing weight
-             * @param OTHER existing weight object to copy
-             */
-            MD5Weight(const MD5Weight &OTHER) {
-                _copyFromSrc(OTHER);
-            }
-            /**
-             * @brief reassign an existing weight object by copying another
-             * @param OTHER existing weight object to copy
-             * @return now modified weight object
-             */
-            MD5Weight& operator=(const MD5Weight &OTHER) {
-                if (this != &OTHER) {
-                    _copyFromSrc(OTHER);
-                }
-                return *this;
-            }
-            /**
-             * @brief construct a weight object by moving an existing object
-             * @param src existing weight object to move
-             */
-            MD5Weight(MD5Weight&& src) noexcept {
-                _moveFromSrc(src);
-            }
-            /**
-             * @brief reassign an existing weight object by moving another
-             * @param src existing weight object to move
-             * @return now modified weight object
-             */
-            MD5Weight& operator=(MD5Weight&& src) noexcept {
-                if (this != &src) {
-                    _moveFromSrc(src);
-                }
-                return *this;
-            }
-        private:
-            /**
-             * @brief deep copy data members
-             * @param src weight object to copy
-             */
-            void _copyFromSrc(const MD5Weight &src) {
-                this->joint = src.joint;
-                this->bias = src.bias;
-                this->position = src.position;
-            }
-            /**
-             * @brief move data members and reset existing object to default state
-             * @param src weight object to move
-             */
-            void _moveFromSrc(MD5Weight &src) {
-                _copyFromSrc(src);
-
-                src.joint = MD5Joint::NULL_JOINT;
-                src.bias = 0.0f;
-                src.position = glm::vec3(0.0f, 0.0f, 0.0f);
-            }
-        };
-
-        /**
-         * @brief texture handle for the model
-         */
-        struct MD5Texture {
-            /**
-             * @brief max length of texture name string
-             */
-            static constexpr GLshort MAX_NAME_LENGTH = 512;
-            /**
-             * @brief handle of texture stored on the GPU
-             */
-            GLuint texHandle = 0;
-            /**
-             * @brief filename texture was loaded from
-             */
-            char filename[MAX_NAME_LENGTH] = "";
-
-            /**
-             * @brief constructs a default texture object
-             */
-            MD5Texture() = default;
-            /**
-             * @brief construct a texture object by copying an existing object
-             * @param OTHER texture object to copy
-             */
-            MD5Texture(const MD5Texture &OTHER) {
-                _copyFromSrc(OTHER);
-            }
-            /**
-             * @brief reassign texture object by copying an existing object
-             * @param OTHER existing object to copy
-             * @return now modified texture object
-             */
-            MD5Texture& operator=(const MD5Texture &OTHER) {
-                if (this != &OTHER) {
-                    _copyFromSrc(OTHER);
-                }
-                return *this;
-            }
-            /**
-             * @brief construct a texture object by moving an existing object
-             * @param src existing object to move
-             */
-            MD5Texture(MD5Texture&& src) noexcept {
-                _moveFromSrc(src);
-            }
-            /**
-             * @brief reassign texture object by moving an existing object
-             * @param src existing object to move
-             * @return now modified texture object
-             */
-            MD5Texture& operator=(MD5Texture&& src) noexcept {
-                if (this != &src) {
-                    _moveFromSrc(src);
-                }
-                return *this;
-            }
-        private:
-            /**
-             * @brief deep copy data members from an existing object
-             * @param src object to copy
-             */
-            void _copyFromSrc(const MD5Texture &src) {
-                this->texHandle = src.texHandle;
-                strncpy(this->filename, src.filename, MAX_NAME_LENGTH);
-            }
-            /**
-             * @brief move data members and return existing object to default state
-             * @param src object to move
-             */
-            void _moveFromSrc(MD5Texture& src) {
-                _copyFromSrc(src);
-
-                src.texHandle = 0;
-                strncpy(src.filename, "", MAX_NAME_LENGTH);
-            }
-        };
-
-        /**
-         * @brief mesh that comprises the model's skin
-         */
-        struct MD5Mesh {
-            /**
-             * @brief max length of shader name string
-             */
-            static constexpr GLshort MAX_NAME_LENGTH = 512;
-            /**
-             * @brief number of textures applied to mesh
-             */
-            static constexpr GLshort NUM_TEXTURES = 4;
-            /**
-             * @brief array of vertices comprising the mesh
-             */
-            MD5Vertex* vertices = nullptr;
-            /**
-             * @brief array triangles comprising the mesh
-             */
-            MD5Triangle* triangles = nullptr;
-            /**
-             * @brief array of weights to determine vertex position based on joint positions
-             */
-            MD5Weight* weights = nullptr;
-            /**
-             * @brief texture map array
-             */
-            MD5Texture textures[NUM_TEXTURES];
-            /**
-             * @brief named entities for different texture maps applied to the model
-             */
-            enum TextureMap {
-                /**
-                 * @brief diffuse map
-                 */
-                DIFFUSE,
-                /**
-                 * @brief specular map
-                 */
-                SPECULAR,
-                /**
-                 * @brief normal map
-                 */
-                NORMAL,
-                /**
-                 * @brief height map
-                 */
-                HEIGHT
-            };
-            /**
-             * @brief number of vertices in the mesh vertex array
-             */
-            GLint numVertices = 0;
-            /**
-             * @brief number of triangles in the mesh triangle array
-             */
-            GLint numTriangles = 0;
-            /**
-             * @brief number of weights in the mesh weight array
-             */
-            GLint numWeights = 0;
-
-            /**
-             * @brief base filename for all textures applied to mesh
-             */
-            char shader[MAX_NAME_LENGTH] = "";
-
-            /**
-             * @brief construct a default mesh object
-             */
-             MD5Mesh() = default;
-            /**
-             * @brief deallocate member arrays
-             */
-            ~MD5Mesh() {
-                delete[] vertices;
-                vertices = nullptr;
-
-                delete[] triangles;
-                triangles = nullptr;
-
-                delete[] weights;
-                weights = nullptr;
-            }
-
-            /**
-             * @brief do not allow meshes to be copied
-             * @param OTHER unused
-             */
-            MD5Mesh(const MD5Mesh &OTHER) = delete;
-            /**
-             * @brief do not allow meshes to be copied
-             * @param OTHER unused
-             */
-            MD5Mesh& operator=(const MD5Mesh &OTHER) = delete;
-
-            /**
-             * @brief construct a new mesh by moving an existing object
-             * @param src object to move
-             */
-            MD5Mesh(MD5Mesh&& src) noexcept {
-                _moveFromSrc(src);
-            }
-            /**
-             * @brief reassign mesh object by moving an existing object
-             * @param src object to move
-             * @return now modified object
-             */
-            MD5Mesh& operator=(MD5Mesh&& src) noexcept {
-                if (this != &src) {
-                    _moveFromSrc(src);
-                }
-                return *this;
-            }
-        private:
-            /**
-             * @brief move data members from an existing object and reset to default state
-             * @param src object to move
-             */
-            void _moveFromSrc(MD5Mesh& src) {
-                this->vertices = src.vertices;
-                src.vertices = nullptr;
-
-                this->triangles = src.triangles;
-                src.triangles = nullptr;
-
-                this->weights = src.weights;
-                src.weights = nullptr;
-
-                for (GLshort i = 0; i < NUM_TEXTURES; i++) {
-                    this->textures[i] = std::move( src.textures[i] );
-                }
-
-                this->numVertices = src.numVertices;
-                src.numVertices = 0;
-
-                this->numTriangles = src.numTriangles;
-                src.numTriangles = 0;
-
-                this->numWeights = src.numWeights;
-                src.numWeights = 0;
-
-                strncpy(this->shader, src.shader, MAX_NAME_LENGTH);
-                strncpy(src.shader, "", MAX_NAME_LENGTH);
-            }
-        };
-
-        // md5anim types
-        /**
-         * @brief information pertaining to each animation joint
-         */
-        struct MD5JointInfo {
-            /**
-             * @brief max length of joint identifier string
-             */
-            static constexpr GLshort MAX_NAME_LENGTH = 256;
-            /**
-             * @brief joint identifier
-             */
-            char name[MAX_NAME_LENGTH] = "";
-            /**
-             * @brief index of parent joint on skeletal tree
-             */
-            GLint parent = MD5Joint::NULL_JOINT;
-            /**
-             * @brief bit flags denoted how to compute the skeleton of a frame for this joint
-             */
-            GLuint flags = 0;
-            /**
-             * @brief index of starting parameter
-             */
-            GLint startIndex = 0;
-
-            /**
-             * @brief construct a default joint info object
-             */
-            MD5JointInfo() = default;
-            /**
-             * @brief construct a joint info object by copying an existing object
-             * @param OTHER object to copy
-             */
-            MD5JointInfo(const MD5JointInfo& OTHER) {
-                _copyFromSrc(OTHER);
-            }
-            /**
-             * @brief reassign object by copying an existing object
-             * @param OTHER object to copy
-             * @return now modified object
-             */
-            MD5JointInfo& operator=(const MD5JointInfo& OTHER) {
-                if (this != &OTHER) {
-                    _copyFromSrc(OTHER);
-                }
-                return *this;
-            }
-            /**
-             * @brief construct joint info object by moving an existing object
-             * @param src object to move
-             */
-            MD5JointInfo(MD5JointInfo&& src) noexcept {
-                _moveFromSrc(src);
-            }
-            /**
-             * @brief reassign object by moving an existing object
-             * @param src object to move
-             * @return now modified object
-             */
-            MD5JointInfo& operator=(MD5JointInfo&& src) noexcept {
-                if (this != &src) {
-                    _moveFromSrc(src);
-                }
-                return *this;
-            }
-        private:
-            /**
-             * @brief deep copy data members
-             * @param src object to copy
-             */
-            void _copyFromSrc(const MD5JointInfo &src) {
-                strncpy(this->name, src.name, MAX_NAME_LENGTH);
-                this->parent = src.parent;
-                this->flags = src.flags;
-                this->startIndex = src.startIndex;
-            }
-            /**
-             * @brief move object and reset to default state
-             * @param src object to move
-             */
-            void _moveFromSrc(MD5JointInfo &src) {
-                _copyFromSrc(src);
-
-                strncpy(src.name, "", MAX_NAME_LENGTH);
-                src.parent = MD5Joint::NULL_JOINT;
-                src.flags = 0;
-                src.startIndex = 0;
-            }
-        };
-
-        /**
-         * @brief base frame joint
-         */
-        struct MD5BaseFrameJoint {
-            /**
-             * @brief position of the joint in object space
-             */
-            glm::vec3 position = {0.0f, 0.0f, 0.0f};
-            /**
-             * @brief joint orientation expressed as a quaternion in object space
-             */
-            glm::quat orientation = {0.0f, 0.0f, 0.0f, 0.0f};
-
-            /**
-             * @brief construct a default object
-             */
-            MD5BaseFrameJoint() = default;
-            /**
-             * @brief construct an object by copying an existing object
-             * @param OTHER object to copy
-             */
-            MD5BaseFrameJoint(const MD5BaseFrameJoint& OTHER) {
-                _copyFromSrc(OTHER);
-            }
-            /**
-             * @brief reassign object by copying an existing object
-             * @param OTHER object to copy
-             * @return now modified object
-             */
-            MD5BaseFrameJoint& operator=(const MD5BaseFrameJoint &OTHER) {
-                if (this != &OTHER) {
-                    _copyFromSrc(OTHER);
-                }
-                return *this;
-            }
-            /**
-             * @brief construct object by moving an existing object
-             * @param src object to move
-             */
-            MD5BaseFrameJoint(MD5BaseFrameJoint&& src) noexcept {
-                _moveFromSrc(src);
-            }
-            /**
-             * @brief reassign object by moving an existing object
-             * @param src object to move
-             * @return now modified object
-             */
-            MD5BaseFrameJoint& operator=(MD5BaseFrameJoint&& src) noexcept {
-                if (this != &src) {
-                    _moveFromSrc(src);
-                }
-                return *this;
-            }
-        private:
-            /**
-             * @brief deep copy data members
-             * @param src object to copy
-             */
-            void _copyFromSrc(const MD5BaseFrameJoint &src) {
-                this->position = src.position;
-                this->orientation = src.orientation;
-            }
-            /**
-             * @brief move data members and reset object to default state
-             * @param src object to move
-             */
-            void _moveFromSrc(MD5BaseFrameJoint &src) {
-                _copyFromSrc(src);
-
-                src.position = glm::vec3(0.0f, 0.0f, 0.0f);
-                src.orientation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f);
-            }
-        };
-
-        /**
-         * @brief bounding box containing the model during animation
-         * @note can be useful for computing AABB or OBB for frustum culling and basic collision detection
-         */
-        struct MD5BoundingBox {
-            /**
-             * @brief minimum dimension bound
-             */
-            glm::vec3 min = {0.0f, 0.0f, 0.0f};
-            /**
-             * @brief maximum dimension bound
-             */
-            glm::vec3 max = {0.0f, 0.0f, 0.0f};
-
-            /**
-             * @brief construct a default object
-             */
-            MD5BoundingBox() = default;
-            /**
-             * @brief construct an object by copying an existing object
-             * @param OTHER object to copy
-             */
-            MD5BoundingBox(const MD5BoundingBox &OTHER) {
-                _copyFromSrc(OTHER);
-            }
-            /**
-             * @brief reassign object by copying an existing object
-             * @param OTHER object to copy
-             * @return now modified object
-             */
-            MD5BoundingBox& operator=(const MD5BoundingBox &OTHER) {
-                if (this != &OTHER) {
-                    _copyFromSrc(OTHER);
-                }
-                return *this;
-            }
-            /**
-             * @brief construct an object by moving an existing object
-             * @param src object to move
-             */
-            MD5BoundingBox(MD5BoundingBox&& src) noexcept {
-                _moveFromSrc(src);
-            }
-            /**
-             * @brief reassign object by moving an existing object
-             * @param src object to move
-             * @return now modified object
-             */
-            MD5BoundingBox& operator=(MD5BoundingBox&& src) noexcept {
-                if (this != &src) {
-                    _moveFromSrc(src);
-                }
-                return *this;
-            }
-        private:
-            /**
-             * @brief deep copy data members
-             * @param src object to copy
-             */
-            void _copyFromSrc(const MD5BoundingBox& src) {
-                this->min = src.min;
-                this->max = src.max;
-            }
-            /**
-             * @brief move data members and reset object to default state
-             * @param src object to move
-             */
-            void _moveFromSrc(MD5BoundingBox& src) {
-                _copyFromSrc(src);
-
-                src.min = glm::vec3(0.0f, 0.0f, 0.0f);
-                src.max = glm::vec3(0.0f, 0.0f, 0.0f);
-            }
-        };
-
-        /**
-         * @brief stores an entire animation sequence for a given MD5 Model
-         */
-        class MD5Animation {
-        public:
-            /**
-             * @brief number of frames per second to draw for the animation
-             * @note duration of a frame can be computed by inverting the frame rate
-             */
-            GLint frameRate = 0;
-
-            /**
-             * @brief getter to retrieve number of frames within the animation
-             * @return number of frames in this animation
-             */
-            [[nodiscard]] GLint getNumberOfFrames() const { return _numFrames; }
-            /**
-             * @brief sets the number of frames and allocates skeletonFrames and boundingBoxes to the associated size
-             * @param numFrames number of frames this animation is made up of
-             * @note will first deallocate any memory associated with frames to prevent memory leaks
-             * @note setNumberOfJoints() must be called after this method
-             */
-            void setNumberOfFrames(const GLint numFrames) {
-                // if previously set, delete prior allocation to avoid memory leak
-                if(_skeletonFrames != nullptr) {
-                    for (GLint i = 0; i < _numFrames; ++i) {
-                        delete _skeletonFrames[i];
-                    }
-                }
-                delete[] _skeletonFrames;
-                _skeletonFrames = nullptr;   // no longer exists, in event new set equals zero
-                delete[] _boundingBoxes;
-                _boundingBoxes = nullptr;    // no longer exists, in event new set equals zero
-
-                _numFrames = numFrames;
-                if ( _numFrames > 0 ) {
-                    _skeletonFrames = new MD5Joint*[_numFrames];
-                    for (GLint i = 0; i < _numFrames; ++i) {
-                        _skeletonFrames[i] = nullptr;
-                    }
-                    _boundingBoxes = new MD5BoundingBox[_numFrames];
-                }
-            }
-
-            /**
-             * @brief get the number of joints in each skeleton frame
-             * @return number of joints in the skeleton
-             */
-            [[nodiscard]] GLint getNumberOfJoints() const { return _numJoints; }
-            /**
-             * @brief set the number of joints in the skeleton of each animation frame and allocates each
-             * frame of skeletonFrames
-             * @param numJoints number of joints in the skeleton of each animation frame
-             * @note will first deallocate any memory associated with the skeleton frame to prevent memory leaks
-             * @note call setNumberOfFrames() first or this method will have no effect
-             */
-            void setNumberOfJoints(const GLint numJoints) {
-                // if previously set, delete prior allocation to avoid memory leak
-                if(_skeletonFrames != nullptr) {
-                    for (GLint i = 0; i < _numFrames; ++i) {
-                        delete _skeletonFrames[i];
-                        _skeletonFrames[i] = nullptr;    // no longer exists, in event new set equals zero
-                    }
-                }
-
-                _numJoints = numJoints;
-                if (_numJoints > 0) {
-                    if(_skeletonFrames != nullptr) {
-                        for(GLint i = 0; i < _numFrames; ++i) {
-                            // Allocate memory for joints of each frame
-                            _skeletonFrames[i] = new MD5Joint[_numJoints];
-                        }
-                    }
-                }
-            }
-
-            /**
-             * @brief get the skeleton for a specific animation frame
-             * @param frameIndex animation frame to retrieve skeleton for
-             * @return pointer to skeleton
-             * @throws std::out_of_range if frameIndex < 0 or >= number of frames
-             * @throws std::out_of_range if skeletonFrames is null and setNumberOfFrames has not been previously called
-             */
-            [[nodiscard]] const MD5Joint* getSkeletonFrame(const GLint frameIndex) const {
-                if ( frameIndex < 0 || frameIndex >= _numFrames ) {
-                    throw std::out_of_range("frameIndex out of range");
-                }
-                if (_skeletonFrames == nullptr) {
-                    throw std::out_of_range("skeleton frames are null, setNumberOfFrames() may not have been called");
-                }
-                return _skeletonFrames[frameIndex];
-            }
-            /**
-             * @brief get the specific joint from a skeleton for a specific animation frame
-             * @param frameIndex animation frame to retrieve skeleton for
-             * @param jointIndex joint to retrieve from skeleton
-             * @return pointer to joint
-             * @throws std::out_of_range if frameIndex < 0 or >= number of frames
-             * @throws std::out_of_range if jointIndex < 0 or >= number of joints
-             * @throws std::out_of_range if skeletonFrames[frameIndex] is null and setNumberOfJoints has not been previously called
-             */
-            [[nodiscard]] MD5Joint& getSkeletonFrameJoint(const GLint frameIndex, const GLint jointIndex) const {
-                if ( frameIndex < 0 || frameIndex >= _numFrames ) {
-                    throw std::out_of_range("frameIndex out of range");
-                }
-                if ( jointIndex < 0 || jointIndex >= _numJoints ) {
-                    throw std::out_of_range("jointIndex out of range");
-                }
-                if (_skeletonFrames == nullptr) {
-                    throw std::out_of_range("skeleton frames are null, setNumberOfFrames() may not have been called");
-                }
-                if (_skeletonFrames[frameIndex] == nullptr) {
-                    throw std::out_of_range("skeleton joints are null, setNumberOfJoints() may not have been called");
-                }
-                return _skeletonFrames[frameIndex][jointIndex];
-            }
-
-            /**
-             * @brief get the specific bounding box for a target frame
-             * @param frameIndex frame index to retrieve bounding box for
-             * @return bounding box
-             * @throws std::out_of_range if frameIndex < 0 or >= number of frames
-             * @throws std::out_of_range if boundingBoxes is null and setNumberOfFrames has not been previously called
-             */
-            [[nodiscard]] MD5BoundingBox& getBoundingBox(const GLint frameIndex) const {
-                if(frameIndex < 0 || frameIndex >= _numFrames) {
-                    throw std::out_of_range("frameIndex out of range");
-                }
-                if (_boundingBoxes == nullptr) {
-                    throw std::out_of_range("bounding boxes are null, setNumberOfFrames() may not have been called");
-                }
-                return _boundingBoxes[frameIndex];
-            }
-
-            /**
-             * @brief construct a default animation object
-             */
-            MD5Animation() = default;
-            /**
-             * @brief deallocate animation arrays
-             */
-            ~MD5Animation() {
-                if(_skeletonFrames != nullptr) {
-                    for (GLint i = 0; i < _numFrames; i++) {
-                        delete[] _skeletonFrames[i];
-                        _skeletonFrames[i] = nullptr;
-                    }
-                }
-                delete[] _skeletonFrames;
-                _skeletonFrames = nullptr;
-
-                delete[] _boundingBoxes;
-                _boundingBoxes = nullptr;
-            }
-
-            /**
-             * @brief do not allow animation objects to be copied
-             * @param OTHER unused
-             */
-            MD5Animation(const MD5Animation& OTHER) = delete;
-            /**
-             * @brief do not allow animation objects to be copied
-             * @param OTHER unused
-             */
-            MD5Animation& operator=(const MD5Animation& OTHER) = delete;
-
-            /**
-             * @brief construct an animation object by moving an existing object
-             * @param src object to move
-             */
-            MD5Animation(MD5Animation&& src) noexcept {
-                _moveFromSrc(src);
-            }
-            /**
-             * @brief reassign object by moving an existing object
-             * @param src object to be moved
-             * @return now modified object
-             */
-            MD5Animation& operator=(MD5Animation&& src) noexcept {
-                if (this != &src) {
-                    _moveFromSrc(src);
-                }
-                return *this;
-            }
-        private:
-            /**
-             * @brief number of frames in the animation
-             * @note corresponds to size of skeletonFrames and boundingBoxes
-             */
-            GLint _numFrames = 0;
-            /**
-             * @brief number of joints of the frame skeletons
-             * @note must be the same as the number of joints on the model the animation is applied to
-             */
-            GLint _numJoints = 0;
-            /**
-             * @brief skeletal pose for each frame
-             * @note size tracked in numFrames
-             */
-            MD5Joint** _skeletonFrames = nullptr;
-            /**
-             * @brief bounding box for each frame
-             * @note size tracked in numFrames
-             */
-            MD5BoundingBox* _boundingBoxes = nullptr;
-
-            /**
-             * @brief move data members and reset object to default state
-             * @param src object to move
-             */
-            void _moveFromSrc(MD5Animation &src) {
-                this->_numFrames = src._numFrames;
-                src._numFrames = 0;
-
-                this->_numJoints = src._numJoints;
-                src._numJoints = 0;
-
-                this->frameRate = src.frameRate;
-                src.frameRate = 0;
-
-                this->_skeletonFrames = src._skeletonFrames;
-                src._skeletonFrames = nullptr;
-
-                this->_boundingBoxes = src._boundingBoxes;
-                src._boundingBoxes = nullptr;
-            }
-        };
-
-        /**
-         * @brief stores state of current animation frame
-         */
-        struct MD5AnimationState {
-            /**
-             * @brief index of current frame model is in
-             */
-            GLint currFrame = 0;
-            /**
-             * @brief index of next frame model will move to
-             */
-            GLint nextFrame = 0;
-            /**
-             * @brief time of last frame interpolation
-             */
-            GLfloat lastTime = 0.0f;
-            /**
-             * @brief duration of a single frame
-             * @note equivalent to inverse of frame rate
-             */
-            GLfloat maxTime = 0.0f;
-
-            /**
-             * @brief construct a default object
-             */
-            MD5AnimationState() = default;
-            /**
-             * @brief construct an object by copying an existing object
-             * @param OTHER object to copy
-             */
-            MD5AnimationState(const MD5AnimationState &OTHER) {
-                _copyFromSrc(OTHER);
-            }
-            /**
-             * @brief reassign object by copying an existing object
-             * @param OTHER object to copy
-             * @return now modified object
-             */
-            MD5AnimationState& operator=(const MD5AnimationState &OTHER) {
-                if (this != &OTHER) {
-                    _copyFromSrc(OTHER);
-                }
-                return *this;
-            }
-            /**
-             * @brief construct an object by moving an existing object
-             * @param src object to move
-             */
-            MD5AnimationState(MD5AnimationState&& src) noexcept {
-                _moveFromSrc(src);
-            }
-            /**
-             * @brief reassign object by moving an existing object
-             * @param src object to move
-             * @return now modified object
-             */
-            MD5AnimationState& operator=(MD5AnimationState&& src) noexcept {
-                if (this != &src) {
-                    _moveFromSrc(src);
-                }
-                return *this;
-            }
-        private:
-            /**
-             * @brief deep copy data members
-             * @param src object to copy
-             */
-            void _copyFromSrc(const MD5AnimationState &src) {
-                this->currFrame = src.currFrame;
-                this->nextFrame = src.nextFrame;
-                this->lastTime = src.lastTime;
-                this->maxTime = src.maxTime;
-            }
-            /**
-             * @brief move data members and reset object to default state
-             * @param src object to move
-             */
-            void _moveFromSrc(MD5AnimationState &src) {
-                _copyFromSrc(src);
-
-                src.currFrame = 0;
-                src.nextFrame = 0;
-                src.lastTime = 0.0f;
-                src.maxTime = 0.0f;
-            }
-        };
-
     public:
         /**
          * @brief initializes an empty MD5 Model
@@ -1198,10 +83,10 @@ namespace CSCI441 {
             // allocate space for one animation by default
             _numAnimations = 1;
             // create the initial animation
-            _animations = new MD5Animation*[_numAnimations];
-            _animations[0] = new MD5Animation();
+            _animations = new CSCI441_INTERNAL::MD5Animation*[_numAnimations];
+            _animations[0] = new CSCI441_INTERNAL::MD5Animation();
             // and the associated animation state information
-            _animationInfos = new MD5AnimationState[_numAnimations];
+            _animationInfos = new CSCI441_INTERNAL::MD5AnimationState[_numAnimations];
         }
         /**
          * @brief deallocates any used memory on the CPU and GPU
@@ -1320,17 +205,29 @@ namespace CSCI441 {
          */
         void animate(GLfloat dt);
 
+        // md5material prototypes
+        /**
+         * @brief loads textures corresponding to MD5 Shaders
+         * @param FILENAME *.mtr file to open and load textures from
+         * @note registers textures on GPU
+         */
+        static void readMD5Material(const char* FILENAME);
+        /**
+         * @brief deletes textures from GPU that were registered during parsing of *.mtr file
+         */
+        static void releaseMD5Materials();
+
     private:
         /**
          * @brief array of joints making up model skeleton
          * @note allocated size is tracked in _numJoints
          */
-        MD5Joint* _baseSkeleton = nullptr;
+        CSCI441_INTERNAL::MD5Joint* _baseSkeleton = nullptr;
         /**
          * @brief array of meshes making up model
          * @note allocated size is tracked in _numMeshes
          */
-        MD5Mesh* _meshes = nullptr;
+        CSCI441_INTERNAL::MD5Mesh* _meshes = nullptr;
         /**
          * @brief number of joints in model
          * @note corresponds to size of _baseSkeleton
@@ -1391,13 +288,13 @@ namespace CSCI441 {
         /**
          * @brief the MD5 skeletal joint data
          */
-        MD5Joint* _skeleton = nullptr;
+        CSCI441_INTERNAL::MD5Joint* _skeleton = nullptr;
 
         // animation related stuff
         /**
          * @brief the MD5 animation frame sequences
          */
-        MD5Animation** _animations = nullptr;
+        CSCI441_INTERNAL::MD5Animation** _animations = nullptr;
         /**
          * @brief number of animations loaded against the model
          */
@@ -1413,7 +310,11 @@ namespace CSCI441 {
         /**
          * @brief animation frame states
          */
-        MD5AnimationState* _animationInfos = nullptr;
+        CSCI441_INTERNAL::MD5AnimationState* _animationInfos = nullptr;
+
+        // material related stuff
+        static std::map< std::string, CSCI441_INTERNAL::MD5MaterialShader* > _materials;
+        static std::map< std::string, GLuint > _textureMap;
 
         /**
          * @brief active texture diffuse map should be bound to
@@ -1438,12 +339,12 @@ namespace CSCI441 {
          * given a skeleton.  Put the vertices in vertex arrays.
          * @param pMESH mesh to load into vertex arrays
          */
-        void _prepareMesh(const MD5Mesh* pMESH) const;
+        void _prepareMesh(const CSCI441_INTERNAL::MD5Mesh* pMESH) const;
         /**
          * @brief bind mesh's texture and vao, then call glDraw
          * @param pMESH mesh to draw
          */
-        void _drawMesh(const MD5Mesh* pMESH) const;
+        auto _drawMesh(const CSCI441_INTERNAL::MD5Mesh* pMESH) const -> void;
         /**
          * @brief Check if an animation can be used for a given model.  Model's
          * skeleton and animation's skeleton must match.
@@ -1459,10 +360,10 @@ namespace CSCI441 {
          * @param pSkeletonFrame skeleton array
          * @param NUM_JOINTS number of joints in each array
          */
-        static void _buildFrameSkeleton(const MD5JointInfo* pJOINT_INFOS,
-                                        const MD5BaseFrameJoint* pBASE_FRAME,
+        static void _buildFrameSkeleton(const CSCI441_INTERNAL::MD5JointInfo* pJOINT_INFOS,
+                                        const CSCI441_INTERNAL::MD5BaseFrameJoint* pBASE_FRAME,
                                         const GLfloat* pANIM_FRAME_DATA,
-                                        const MD5Joint* pSkeletonFrame,
+                                        const CSCI441_INTERNAL::MD5Joint* pSkeletonFrame,
                                         GLint NUM_JOINTS);
         /**
          * @brief Smoothly interpolate two skeletons
@@ -1487,6 +388,25 @@ namespace CSCI441 {
          * @param src object to move
          */
         void _moveFromSrc(MD5Model &src);
+
+        /**
+         * @brief trims whitespace from beginning and end of string
+         * @param out string with whitespace trimmed
+         * @param len length of original string
+         * @param str original string
+         * @return size of trimmed string
+         * @note out needs to be allocated prior to function call
+         */
+        static size_t _trim(char* out, size_t len, const char* str);
+
+        /**
+         * @brief registers the texture handle for a given texture filename
+         * @param texture texture object to register
+         * @return true iff a new texture object was registered on the GPU
+         * @note MD5Texture::filename needs to be assigned before calling this method
+         * @note upon completion, MD5Texture::texHandle will be overwritten with GPU texture handle
+         */
+        static bool _registerShaderTexture( CSCI441_INTERNAL::MD5Texture* texture );
     };
 }
 
@@ -1541,7 +461,7 @@ CSCI441::MD5Model::readMD5Model(
     GLfloat minX =  999999, minY =  999999, minZ =  999999;
     GLfloat maxX = -999999, maxY = -999999, maxZ = -999999;
 
-    printf("[.md5mesh]: about to read %s\n", FILENAME );
+    fprintf(stdout, "[.md5mesh]: about to read %s\n", FILENAME );
 
     FILE *fp = fopen(FILENAME, "rb" );
     if( !fp ) {
@@ -1563,17 +483,17 @@ CSCI441::MD5Model::readMD5Model(
         } else if( sscanf(buff, " numJoints %d", &_numJoints) == 1 ) {
             if( _numJoints > 0 ) {
                 // Allocate memory for base skeleton joints
-                _baseSkeleton = new MD5Joint[_numJoints];
+                _baseSkeleton = new CSCI441_INTERNAL::MD5Joint[_numJoints];
             }
         } else if( sscanf(buff, " numMeshes %d", &_numMeshes) == 1 ) {
             if( _numMeshes > 0 ) {
                 // Allocate memory for meshes
-                _meshes = new MD5Mesh[_numMeshes];
+                _meshes = new CSCI441_INTERNAL::MD5Mesh[_numMeshes];
             }
         } else if( strncmp(buff, "joints {", 8) == 0 ) {
             // Read each joint
             for(GLint i = 0; i < _numJoints; ++i) {
-                MD5Joint *joint = &_baseSkeleton[i];
+                CSCI441_INTERNAL::MD5Joint *joint = &_baseSkeleton[i];
 
                 // Read whole line
                 fgets( buff, sizeof(buff), fp );
@@ -1588,7 +508,7 @@ CSCI441::MD5Model::readMD5Model(
                 }
             }
         } else if( strncmp(buff, "mesh {", 6) == 0 ) {
-            MD5Mesh *mesh = &_meshes[currentMesh];
+            CSCI441_INTERNAL::MD5Mesh *mesh = &_meshes[currentMesh];
             GLint vert_index = 0;
             GLint tri_index = 0;
             GLint weight_index = 0;
@@ -1602,79 +522,31 @@ CSCI441::MD5Model::readMD5Model(
                 if( strstr( buff, "shader ") ) {
                     GLint quote = 0, j = 0;
 
+                    char shaderName[512] = "";
+
                     // Copy the shader name without the quote marks
                     for(unsigned long uli = 0; uli < sizeof(buff) && (quote < 2); ++uli) {
                         if( buff[uli] == '\"' )
                             quote++;
 
                         if( (quote == 1) && (buff[uli] != '\"') ) {
-                            mesh->shader[j] = buff[uli];
+                            shaderName[j] = buff[uli];
                             j++;
                         }
                     }
                     // there was a shader name
                     if( j > 0 ) {
-                        // diffuse map
-                        strcpy(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, mesh->shader);
-                        strcat(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, ".tga");
-                        mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE);
-                        if( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle == 0 ) {
-                            strcpy(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, mesh->shader);
-                            strcat(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, "_d.tga");
-                            mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
-                            if( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle == 0 ) {
-                                strcpy(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, mesh->shader);
-                                strcat(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, ".png");
-                                mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture(mesh->textures[MD5Mesh::TextureMap::DIFFUSE].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
-                                if( mesh->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle == 0 ) {
-                                    fprintf(stderr, "[.md5mesh | ERROR]: Could not load diffuse map for shader %s\n", mesh->shader);
-                                }
-                            }
-                        }
-
-                        // specular map
-                        strcpy(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, mesh->shader);
-                        strcat(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, "_s.tga");
-                        mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
-                        if( mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle == 0 ) {
-                            strcpy(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, mesh->shader);
-                            strcat(mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, "_s.png");
-                            mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::SPECULAR].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
-                            if( mesh->textures[MD5Mesh::TextureMap::SPECULAR].texHandle == 0 ) {
-                                fprintf(stderr, "[.md5mesh | ERROR]: Could not load specular map for shader %s\n", mesh->shader);
-                            }
-                        }
-
-                        // normal map
-                        strcpy(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, mesh->shader);
-                        strcat(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, "_local.tga");
-                        mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
-                        if( mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle == 0 ) {
-                            strcpy(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, mesh->shader);
-                            strcat(mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, "_local.png");
-                            mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::NORMAL].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
-                            if( mesh->textures[MD5Mesh::TextureMap::NORMAL].texHandle == 0 ) {
-                                fprintf(stderr, "[.md5mesh | ERROR]: Could not load normal map for shader %s\n", mesh->shader);
-                            }
-                        }
-
-                        // height map
-                        strcpy(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, mesh->shader);
-                        strcat(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, "_h.tga");
-                        mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
-                        if( mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle == 0 ) {
-                            strcpy(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, mesh->shader);
-                            strcat(mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, "_h.png");
-                            mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( mesh->textures[MD5Mesh::TextureMap::HEIGHT].filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE );
-                            if( mesh->textures[MD5Mesh::TextureMap::HEIGHT].texHandle == 0 ) {
-                                fprintf(stderr, "[.md5mesh | ERROR]: Could not load height map for shader %s\n", mesh->shader);
-                            }
+                        auto materialIter = _materials.find(shaderName);
+                        if (materialIter != _materials.end()) {
+                            mesh->shader = materialIter->second;
+                        } else {
+                            fprintf(stderr, "[.md5mesh | ERROR]: Could not find material shader \"%s\"\n", shaderName);
                         }
                     }
                 } else if( sscanf(buff, " numverts %d", &mesh->numVertices) == 1 ) {
                     if( mesh->numVertices > 0 ) {
                         // Allocate memory for vertices
-                        mesh->vertices = new MD5Vertex[mesh->numVertices];
+                        mesh->vertices = new CSCI441_INTERNAL::MD5Vertex[mesh->numVertices];
                     }
 
                     if( mesh->numVertices > _maxVertices )
@@ -1684,7 +556,7 @@ CSCI441::MD5Model::readMD5Model(
                 } else if( sscanf(buff, " numtris %d", &mesh->numTriangles) == 1 ) {
                     if( mesh->numTriangles > 0 ) {
                         // Allocate memory for triangles
-                        mesh->triangles = new MD5Triangle[mesh->numTriangles];
+                        mesh->triangles = new CSCI441_INTERNAL::MD5Triangle[mesh->numTriangles];
                     }
 
                     if( mesh->numTriangles > _maxTriangles )
@@ -1694,7 +566,7 @@ CSCI441::MD5Model::readMD5Model(
                 } else if( sscanf(buff, " numweights %d", &mesh->numWeights) == 1 ) {
                     if( mesh->numWeights > 0 ) {
                         // Allocate memory for vertex weights
-                        mesh->weights = new MD5Weight[mesh->numWeights];
+                        mesh->weights = new CSCI441_INTERNAL::MD5Weight[mesh->numWeights];
                     }
 
                     totalWeights += mesh->numWeights;
@@ -1744,10 +616,10 @@ CSCI441::MD5Model::readMD5Model(
 
     _skeleton = _baseSkeleton;
 
-    printf("[.md5mesh]: finished reading %s\n", FILENAME );
-    printf("[.md5mesh]: read in %d meshes, %d joints, %d vertices, %d weights, and %d triangles\n", _numMeshes, _numJoints, totalVertices, totalWeights, totalTriangles );
-    printf( "[.md5mesh]: base pose %f units across in X, %f units across in Y, %f units across in Z\n", (maxX - minX), (maxY-minY), (maxZ - minZ) );
-    printf( "\n" );
+    fprintf(stdout, "[.md5mesh]: finished reading %s\n", FILENAME );
+    fprintf(stdout, "[.md5mesh]: read in %d meshes, %d joints, %d vertices, %d weights, and %d triangles\n", _numMeshes, _numJoints, totalVertices, totalWeights, totalTriangles );
+    fprintf(stdout, "[.md5mesh]: base pose %f units across in X, %f units across in Y, %f units across in Z\n", (maxX - minX), (maxY-minY), (maxZ - minZ) );
+    fprintf(stdout, "\n" );
 
     return true;
 }
@@ -1769,15 +641,15 @@ CSCI441::MD5Model::draw() const
 {
     // Draw each mesh of the model
     for(GLint i = 0; i < _numMeshes; ++i) {
-        MD5Mesh& mesh = _meshes[i];                  // get the mesh
-        _prepareMesh(&mesh);                // do some preprocessing on it
-        _drawMesh(&mesh);
+        CSCI441_INTERNAL::MD5Mesh& mesh = _meshes[i];    // get the mesh
+        _prepareMesh(&mesh);                             // do some preprocessing on it
+        _drawMesh(&mesh);                                // draw it
     }
 }
 
 inline void
 CSCI441::MD5Model::_prepareMesh(
-    const MD5Mesh *pMESH
+    const CSCI441_INTERNAL::MD5Mesh *pMESH
 ) const {
     GLint i, j, k;
 
@@ -1793,8 +665,8 @@ CSCI441::MD5Model::_prepareMesh(
 
         // Calculate final vertex to draw with weights
         for(j = 0; j < pMESH->vertices[i].count; ++j) {
-            const MD5Weight *weight = &pMESH->weights[pMESH->vertices[i].start + j];
-            const MD5Joint  *joint  = &_skeleton[weight->joint];
+            const CSCI441_INTERNAL::MD5Weight *weight = &pMESH->weights[pMESH->vertices[i].start + j];
+            const CSCI441_INTERNAL::MD5Joint  *joint  = &_skeleton[weight->joint];
 
             // Calculate transformed vertex for this weight
             const glm::vec3 weightedVertex = glm::rotate(joint->orientation, glm::vec4(weight->position, 0.0f));
@@ -1825,32 +697,37 @@ CSCI441::MD5Model::_prepareMesh(
 
 inline void
 CSCI441::MD5Model::_drawMesh(
-    const MD5Mesh *pMESH
+    const CSCI441_INTERNAL::MD5Mesh *pMESH
 ) const {
-    if (pMESH->textures[MD5Mesh::TextureMap::SPECULAR].texHandle != 0) {
-        // Bind Specular Map if exists
-        glActiveTexture(_specularActiveTexture);
-        glBindTexture(GL_TEXTURE_2D, pMESH->textures[MD5Mesh::TextureMap::SPECULAR].texHandle );
-    }
-    if (pMESH->textures[MD5Mesh::TextureMap::NORMAL].texHandle != 0) {
-        // Bind Normal Map if exists
-        glActiveTexture(_normalActiveTexture);
-        glBindTexture(GL_TEXTURE_2D, pMESH->textures[MD5Mesh::TextureMap::NORMAL].texHandle );
-    }
-    if (pMESH->textures[MD5Mesh::TextureMap::HEIGHT].texHandle != 0) {
-        // Bind Height Map if exists
-        glActiveTexture(_heightActiveTexture);
-        glBindTexture(GL_TEXTURE_2D, pMESH->textures[MD5Mesh::TextureMap::HEIGHT].texHandle );
-    }
-    // bind diffuse last because ideally it is texture 0 and will remain for future renderings
-    if (pMESH->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle != 0) {
-        // Bind Diffuse Map if exists
-        glActiveTexture(_diffuseActiveTexture);
-        glBindTexture(GL_TEXTURE_2D, pMESH->textures[MD5Mesh::TextureMap::DIFFUSE].texHandle );
-    }
-    if (_diffuseActiveTexture != GL_TEXTURE0) {
-        // reset back to active texture being zero
-        glActiveTexture(GL_TEXTURE0);
+    if (pMESH->shader != nullptr) {
+        // fprintf(stdout, "applying shader %s\n", pMESH->shader->name);
+        if (pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::SPECULAR].texHandle != 0) {
+            // Bind Specular Map if exists
+            glActiveTexture(_specularActiveTexture);
+            glBindTexture(GL_TEXTURE_2D, pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::SPECULAR].texHandle );
+            // fprintf(stdout, "bound specular texture %u to %d (%d)\n", pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::SPECULAR].texHandle, _specularActiveTexture, GL_TEXTURE0);
+        }
+        if (pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::NORMAL].texHandle != 0) {
+            // Bind Normal Map if exists
+            glActiveTexture(_normalActiveTexture);
+            glBindTexture(GL_TEXTURE_2D, pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::NORMAL].texHandle );
+        }
+        if (pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::HEIGHT].texHandle != 0) {
+            // Bind Height Map if exists
+            glActiveTexture(_heightActiveTexture);
+            glBindTexture(GL_TEXTURE_2D, pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::HEIGHT].texHandle );
+        }
+        // bind diffuse last because ideally it is texture 0 and will remain for future renderings
+        if (pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::DIFFUSE].texHandle != 0) {
+            // Bind Diffuse Map if exists
+            glActiveTexture(_diffuseActiveTexture);
+            glBindTexture(GL_TEXTURE_2D, pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::DIFFUSE].texHandle );
+            // fprintf(stdout, "bound diffuse texture %u to %d (%d)\n", pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::DIFFUSE].texHandle, _diffuseActiveTexture, GL_TEXTURE0);
+        }
+        if (_diffuseActiveTexture != GL_TEXTURE0) {
+            // reset back to active texture being zero
+            glActiveTexture(GL_TEXTURE0);
+        }
     }
 
     glBindVertexArray(_vao );
@@ -1960,7 +837,7 @@ CSCI441::MD5Model::drawSkeleton() const
     // put in lines for bones
     GLint numBones = 0;
     for(GLint i = 0; i < _numJoints; ++i ) {
-        if( _skeleton[i].parent != MD5Joint::NULL_JOINT ) {
+        if( _skeleton[i].parent != CSCI441_INTERNAL::MD5Joint::NULL_JOINT ) {
             glBufferSubData(
                 GL_ARRAY_BUFFER,
                 static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _numJoints + (i * 2) * static_cast<GLsizeiptr>(sizeof(glm::vec3)),
@@ -2004,11 +881,11 @@ CSCI441::MD5Model::_checkAnimValidity(const GLushort targetAnimationIndex) const
 {
     // md5mesh and md5anim must have the same number of joints
     if( _numJoints != _animations[targetAnimationIndex]->getNumberOfJoints() ) {
-        fprintf(stdout, "\n[.md5anim]: skeleton and animation do not have same number of joints.  cannot apply animation %u to skeleton\n\n", targetAnimationIndex);
+        fprintf(stderr, "[.md5anim | ERROR]: skeleton and animation do not have same number of joints.  cannot apply animation %u to skeleton\n", targetAnimationIndex);
         return false;
     }
     if (_animations[targetAnimationIndex]->getNumberOfJoints() == 0 ) {
-        fprintf(stdout, "\n[.md5anim]: animation has zero joints.  cannot apply animation %u to skeleton\n\n", targetAnimationIndex);
+        fprintf(stderr, "[.md5anim | ERROR]: animation has zero joints.  cannot apply animation %u to skeleton\n\n", targetAnimationIndex);
         return false;
     }
 
@@ -2016,27 +893,27 @@ CSCI441::MD5Model::_checkAnimValidity(const GLushort targetAnimationIndex) const
     for(GLint i = 0; i < _numJoints; ++i) {
         // Joints must have the same parent index
         if (_baseSkeleton[i].parent != _animations[targetAnimationIndex]->getSkeletonFrameJoint(0, i).parent) {
-            fprintf(stdout, "\n[.md5anim]: skeleton and animation joints do not have same parent index.  cannot apply animation %u to skeleton\n\n", targetAnimationIndex);
+            fprintf(stderr, "[.md5anim | ERROR]: skeleton and animation joints do not have same parent index.  cannot apply animation %u to skeleton\n", targetAnimationIndex);
             return false;
         }
 
         // Joints must have the same name
         if (strcmp (_baseSkeleton[i].name, _animations[targetAnimationIndex]->getSkeletonFrameJoint(0, i).name) != 0) {
-            fprintf(stdout, "\n[.md5anim]: skeleton and animation joints do not have same name.  cannot apply animation %u to skeleton\n\n", targetAnimationIndex);
+            fprintf(stderr, "[.md5anim | ERROR]: skeleton and animation joints do not have same name.  cannot apply animation %u to skeleton\n", targetAnimationIndex);
             return false;
         }
     }
 
-    fprintf(stdout, "\n[.md5anim]: skeleton and animation match.  animation %u can be applied to skeleton\n\n", targetAnimationIndex);
+    fprintf(stdout, "[.md5anim]: skeleton and animation match.  animation %u can be applied to skeleton\n", targetAnimationIndex);
     return true;
 }
 
 inline void
 CSCI441::MD5Model::_buildFrameSkeleton(
-        const MD5JointInfo* pJOINT_INFOS,
-        const MD5BaseFrameJoint* pBASE_FRAME,
+        const CSCI441_INTERNAL::MD5JointInfo* pJOINT_INFOS,
+        const CSCI441_INTERNAL::MD5BaseFrameJoint* pBASE_FRAME,
         const GLfloat* pANIM_FRAME_DATA,
-        const MD5Joint* pSkeletonFrame,
+        const CSCI441_INTERNAL::MD5Joint* pSkeletonFrame,
         const GLint NUM_JOINTS
 ) {
     if(pJOINT_INFOS == nullptr
@@ -2045,7 +922,7 @@ CSCI441::MD5Model::_buildFrameSkeleton(
        || pSkeletonFrame == nullptr) return;
 
     for(GLint i = 0; i < NUM_JOINTS; ++i) {
-        const MD5BaseFrameJoint *baseJoint = &pBASE_FRAME[i];
+        const CSCI441_INTERNAL::MD5BaseFrameJoint *baseJoint = &pBASE_FRAME[i];
         glm::vec3 animatedPosition = baseJoint->position;
         glm::quat animatedOrientation = baseJoint->orientation;
         GLint j = 0;
@@ -2091,18 +968,18 @@ CSCI441::MD5Model::_buildFrameSkeleton(
         // NOTE: we assume that this joint's parent has
         // already been calculated, i.e. joint's ID should
         // never be smaller than its parent ID.
-        const auto thisJoint = const_cast<MD5Joint *>(&pSkeletonFrame[i]);
+        const auto thisJoint = const_cast<CSCI441_INTERNAL::MD5Joint *>(&pSkeletonFrame[i]);
 
         const GLint parent = pJOINT_INFOS[i].parent;
         thisJoint->parent = parent;
         strcpy (thisJoint->name, pJOINT_INFOS[i].name);
 
         // Has parent?
-        if( thisJoint->parent == MD5Joint::NULL_JOINT ) {
+        if( thisJoint->parent == CSCI441_INTERNAL::MD5Joint::NULL_JOINT ) {
             thisJoint->position = animatedPosition;
             thisJoint->orientation = animatedOrientation;
         } else {
-            const MD5Joint *parentJoint = &pSkeletonFrame[parent];
+            const CSCI441_INTERNAL::MD5Joint *parentJoint = &pSkeletonFrame[parent];
             glm::vec3 rotatedPosition = glm::rotate(parentJoint->orientation, glm::vec4(animatedPosition, 0.0f));
 
             // Add positions
@@ -2126,8 +1003,8 @@ CSCI441::MD5Model::readMD5Anim(
     }
 
     char buff[512];
-    MD5JointInfo *jointInfos = nullptr;
-    MD5BaseFrameJoint *baseFrame = nullptr;
+    CSCI441_INTERNAL::MD5JointInfo *jointInfos = nullptr;
+    CSCI441_INTERNAL::MD5BaseFrameJoint *baseFrame = nullptr;
     GLfloat *animFrameData = nullptr;
     GLint version;
     GLint numAnimatedComponents;
@@ -2164,8 +1041,8 @@ CSCI441::MD5Model::readMD5Anim(
                 _animations[targetAnimationIndex]->setNumberOfJoints(numJoints);
 
                 // Allocate temporary memory for building skeleton frames
-                jointInfos = new MD5JointInfo[numJoints];
-                baseFrame = new MD5BaseFrameJoint[numJoints];
+                jointInfos = new CSCI441_INTERNAL::MD5JointInfo[numJoints];
+                baseFrame = new CSCI441_INTERNAL::MD5BaseFrameJoint[numJoints];
             }
         } else if( sscanf(buff, " frameRate %d", &_animations[targetAnimationIndex]->frameRate) == 1 ) {
 
@@ -2266,7 +1143,7 @@ CSCI441::MD5Model::readMD5Anim(
     if (_animations[targetAnimationIndex]->getNumberOfJoints() == 0) {
         fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numJoints never specified\n" );
     } else {
-        _skeleton = new MD5Joint[_animations[targetAnimationIndex]->getNumberOfJoints()];
+        _skeleton = new CSCI441_INTERNAL::MD5Joint[_animations[targetAnimationIndex]->getNumberOfJoints()];
     }
 
     if( _checkAnimValidity(targetAnimationIndex) ) {
@@ -2283,14 +1160,14 @@ CSCI441::MD5Model::addMD5Anim(
     const char* filename
 ) {
     // extend animation array
-    auto newAnimations = new MD5Animation*[_numAnimations + 1];
-    auto newAnimationInfos = new MD5AnimationState[_numAnimations + 1];
+    auto newAnimations = new CSCI441_INTERNAL::MD5Animation*[_numAnimations + 1];
+    auto newAnimationInfos = new CSCI441_INTERNAL::MD5AnimationState[_numAnimations + 1];
 
     for( int i = 0; i < _numAnimations; ++i ) {
         newAnimations[i] = _animations[i];
         newAnimationInfos[i] = _animationInfos[i];
     }
-    newAnimations[_numAnimations] = new MD5Animation();
+    newAnimations[_numAnimations] = new CSCI441_INTERNAL::MD5Animation();
 
     delete[] _animations;
     delete[] _animationInfos;
@@ -2301,7 +1178,7 @@ CSCI441::MD5Model::addMD5Anim(
     _numAnimations++;
 
     // read animation into new array position
-    fprintf( stdout, "[.md5anim]: preparing to read %s into new animation %u\n", filename, (_numAnimations-1) );
+    fprintf( stdout, "\n[.md5anim]: preparing to read %s into new animation %u\n", filename, (_numAnimations-1) );
     const bool readSuccess = readMD5Anim(filename, _numAnimations - 1);
 
     if (readSuccess) {
@@ -2310,8 +1187,8 @@ CSCI441::MD5Model::addMD5Anim(
         fprintf( stderr, "[.md5anim]: Error: could not read %s into new animation %u\n", filename, (_numAnimations-1) );
 
         // undo array growth
-        newAnimations = new MD5Animation*[_numAnimations-1];
-        newAnimationInfos = new MD5AnimationState[_numAnimations-1];
+        newAnimations = new CSCI441_INTERNAL::MD5Animation*[_numAnimations-1];
+        newAnimationInfos = new CSCI441_INTERNAL::MD5AnimationState[_numAnimations-1];
 
         for (int i = 0; i < _numAnimations - 1; ++i) {
             newAnimations[i] = _animations[i];
@@ -2425,8 +1302,8 @@ inline void CSCI441::MD5Model::_moveFromSrc(MD5Model &src) {
 inline void
 CSCI441::MD5Model::_interpolateSkeletons(const GLfloat interp)
 {
-    const MD5Joint *skeletonA = _animations[_currentAnimationIndex]->getSkeletonFrame(_animationInfos[_currentAnimationIndex].currFrame);
-    const MD5Joint *skeletonB = _animations[_currentAnimationIndex]->getSkeletonFrame(_animationInfos[_currentAnimationIndex].nextFrame);
+    const CSCI441_INTERNAL::MD5Joint *skeletonA = _animations[_currentAnimationIndex]->getSkeletonFrame(_animationInfos[_currentAnimationIndex].currFrame);
+    const CSCI441_INTERNAL::MD5Joint *skeletonB = _animations[_currentAnimationIndex]->getSkeletonFrame(_animationInfos[_currentAnimationIndex].nextFrame);
 
     for(GLint i = 0; i < _animations[_currentAnimationIndex]->getNumberOfJoints(); ++i) {
         // Copy parent index
@@ -2465,6 +1342,185 @@ CSCI441::MD5Model::animate(const GLfloat dt)
 
     // Interpolate skeletons between two frames
     _interpolateSkeletons( _animationInfos[_currentAnimationIndex].lastTime * static_cast<GLfloat>(_animations[_currentAnimationIndex]->frameRate) );
+}
+
+inline std::map< std::string, CSCI441_INTERNAL::MD5MaterialShader* > CSCI441::MD5Model::_materials;
+inline std::map< std::string, GLuint > CSCI441::MD5Model::_textureMap;
+
+
+inline size_t CSCI441::MD5Model::_trim(char* out, const size_t len, const char* str) {
+    if(len == 0)
+        return 0;
+
+    // Trim leading space
+    while( isspace(static_cast<unsigned char>(*str)) ) str++;
+
+    if(*str == 0)  // All spaces?
+    {
+        *out = 0;
+        return 1;
+    }
+
+    // Trim trailing space
+    const char *end = str + strlen(str) - 1;
+    while( end > str && isspace(static_cast<unsigned char>(*end)) ) end--;
+    end++;
+
+    // Set output size to minimum of trimmed string length and buffer size minus 1
+    const size_t out_size = (end - str) < len - 1 ? (end - str) : len - 1;
+
+    // Copy trimmed string and add null terminator
+    memcpy(out, str, out_size);
+    out[out_size] = '\0';
+
+    return out_size;
+}
+
+inline bool CSCI441::MD5Model::_registerShaderTexture(CSCI441_INTERNAL::MD5Texture *texture) {
+    if (const auto textureIter = _textureMap.find( texture->filename ); textureIter == _textureMap.end()) {
+        texture->texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( texture->filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE);
+        if( texture->texHandle == 0 ) {
+            // silently failing to avoid many unnecessary error messages
+            //fprintf(stderr, "[.md5mtr | ERROR]: Could not load diffuse map %s for shader %s\n", shader->textures[MD5MaterialShader::TextureMap::DIFFUSE].filename, shader->shader);
+        } else {
+            // only display successes which likely refer to what we are using
+            _textureMap.insert( std::pair( texture->filename, texture->texHandle) );
+            return true;
+        }
+    } else {
+        texture->texHandle = textureIter->second;
+    }
+    return false;
+}
+
+inline void
+CSCI441::MD5Model::readMD5Material(const char *FILENAME) {
+    char buff[512], buff2[512];
+    GLushort numTextures = 0;
+
+    fprintf(stdout, "\n[.md5mtr]: about to read %s\n", FILENAME );
+
+    FILE *fp = fopen(FILENAME, "rb" );
+    if( !fp ) {
+        fprintf (stderr, "[.md5mtr]: Error: couldn't open \"%s\"!\n", FILENAME);
+        return;
+    }
+
+    while( !feof(fp) ) {
+        // Read whole line
+        fgets( buff, sizeof(buff), fp );
+
+        _trim(buff, 512, buff);
+
+        if( sscanf(buff, "table %s", buff2) == 1 ) {
+            // fprintf(stdout, "[.md5mtr]: ignoring table line\n");
+        } else if ( sscanf(buff, "//%s", buff2) == 1 ) {
+            // fprintf(stdout, "[.md5mtr]: ignoring comment\n");
+        } else if (strnlen(buff, sizeof(buff)) == 0) {
+            // fprintf(stdout, "[.md5mtr]: ignoring empty line\n");
+        } else {
+            // assuming this begins a shader
+            auto shader = new CSCI441_INTERNAL::MD5MaterialShader();
+
+            strncpy(shader->name, buff, sizeof(buff));
+            // fprintf(stdout, "[.md5mtr]: parsing shader \"%s\"\n", shader->shader);
+
+            unsigned short numBlocks = 0;
+
+            // read line, fails in event of malformed file
+            while ( fgets( buff, sizeof(buff), fp ) != nullptr) {
+                _trim(buff, 512, buff);
+
+                if (strchr(buff, '{') != nullptr) {
+                    // found opening block
+                    ++numBlocks;
+                }
+                else if (sscanf(buff, " diffusemap %s", buff2) == 1) {
+                    // fprintf(stdout, "[.md5mtr]: attempting to read diffusemap %s\n", buff2);
+                    strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].filename, buff2, sizeof(buff2) );
+                    if (_registerShaderTexture( &shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE] )) {
+                        ++numTextures;
+                    }
+                }
+                else if (sscanf(buff, " specularmap %s", buff2) == 1) {
+                    // fprintf(stdout, "[.md5mtr]: attempting to read specularmap %s\n", buff2);
+                    strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].filename, buff2, sizeof(buff2) );
+                    if (_registerShaderTexture( &shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR] )) {
+                        ++numTextures;
+                    }
+                }
+                // make sure getting top level shader bumpmap
+                else if (numBlocks == 1 && sscanf(buff, " bumpmap %s", buff2) == 1) {
+                    // fprintf(stdout, "[.md5mtr]: attempting to read bumpmap line \"%s\"\n", buff);
+                    // tokenize string
+                    std::vector< char* > tokens;
+                    char* pch = strtok(buff, " \t(),");
+                    while (pch != NULL) {
+                        tokens.push_back( pch );
+                        pch = strtok(NULL, " \t(),");
+                    }
+                    // fprintf(stdout, "[.md5mtr]: found %lu tokens\n", tokens.size());
+                    // line is formatted: bumpmap normalTxtr
+                    // normal map texture filename is in tokens[1]
+                    if (tokens.size() == 2) {
+                        strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, tokens[1], strlen(tokens[1]) );
+                        if (_registerShaderTexture( &shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL] )) {
+                            ++numTextures;
+                        }
+                    }
+                    // line is formatted: bumpmap heightmap(heightTxtr, scale)
+                    // height map texture filename is in tokens[2]
+                    // displacement scale is in tokens[3]
+                    else if (tokens.size() == 4) {
+                        strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, tokens[2], strlen(tokens[2]) );
+                        shader->displacementScale = strtol(tokens[3], NULL, 10);
+                        if (_registerShaderTexture( &shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT] )) {
+                            ++numTextures;
+                        }
+                    }
+                    // line is formatted: bumpmap addnormals(normalTxtr, heightMap(heightTxtr, scale))
+                    // normal map texture filename is in tokens[2]
+                    // height map texture filename is in tokens[4]
+                    // displacement scale is in tokens[5]
+                    else if (tokens.size() == 6) {
+                        strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, tokens[2], strlen(tokens[2]) );
+                        if (_registerShaderTexture( &shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL] )) {
+                            ++numTextures;
+                        }
+                        strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, tokens[4], strlen(tokens[4]) );
+                        shader->displacementScale = strtol(tokens[5], NULL, 10);
+                        if (_registerShaderTexture( &shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT] )) {
+                            ++numTextures;
+                        }
+                    }
+                }
+                else if (strchr(buff, '}') != nullptr) {
+                    --numBlocks;
+                    // if all blocks have been closed, then we are at end of shader
+                    if (numBlocks == 0) {
+                        break;
+                    }
+                }
+            }
+
+            _materials.insert( std::pair(shader->name, shader) );
+        }
+    }
+    fclose(fp);
+
+    fprintf(stdout, "[.md5mtr]: finished reading %s\n", FILENAME );
+    fprintf(stdout, "[.md5mtr]: read in %lu shaders and %u textures\n\n", _materials.size(), numTextures );
+}
+
+inline void
+CSCI441::MD5Model::releaseMD5Materials() {
+    for (auto &[name, material] : _materials) {
+        glDeleteTextures(1, &material->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].texHandle);
+        glDeleteTextures(1, &material->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].texHandle);
+        glDeleteTextures(1, &material->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].texHandle);
+        glDeleteTextures(1, &material->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].texHandle);
+        delete material;
+    }
 }
 
 #endif//CSCI441_MD5_MODEL_HPP

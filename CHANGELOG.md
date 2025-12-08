@@ -1,5 +1,8 @@
 # Revision History
 
+## v 5.24.0.0 - 08 Dec 2025
+- MD5Models can read *.mtr file and apply shaders for diffuse, specular, normal, and height maps
+
 ## v 5.23.1.1 - 14 Nov 2025
 - Patching included examples
 
