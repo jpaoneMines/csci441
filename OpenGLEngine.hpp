@@ -449,8 +449,8 @@ CSCI441::OpenGLEngine::OpenGLEngine(
     _isInitialized(false),
     _isCleanedUp(false)
 {
-    mWindowTitle = new char[ strlen(WINDOW_TITLE) ];
-    strcpy(mWindowTitle, WINDOW_TITLE);
+    mWindowTitle = new char[ strlen(WINDOW_TITLE) + 1 ];
+    strncpy(mWindowTitle, WINDOW_TITLE, strlen(WINDOW_TITLE) + 1);
 }
 
 inline
