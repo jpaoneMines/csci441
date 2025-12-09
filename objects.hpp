@@ -550,7 +550,7 @@ namespace CSCI441_INTERNAL {
 ////////////////////////////////////////////////////////////////////////////////////
 // Outward facing function implementations
 
-inline void CSCI441::setVertexAttributeLocations( GLint positionLocation, GLint normalLocation, GLint texCoordLocation ) {
+inline void CSCI441::setVertexAttributeLocations( const GLint positionLocation, const GLint normalLocation, const GLint texCoordLocation ) {
     CSCI441_INTERNAL::_positionAttributeLocation = positionLocation;
     CSCI441_INTERNAL::_normalAttributeLocation = normalLocation;
     CSCI441_INTERNAL::_texCoordAttributeLocation = texCoordLocation;
@@ -568,7 +568,7 @@ inline void CSCI441::deleteObjectVBOs() {
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawSolidCone( GLfloat base, GLfloat height, GLint stacks, GLint slices ) {
+inline void CSCI441::drawSolidCone( const GLfloat base, const GLfloat height, const GLint stacks, const GLint slices ) {
     assert( base > 0.0f );
     assert( height > 0.0f );
     assert( stacks > 0 );
@@ -578,7 +578,7 @@ inline void CSCI441::drawSolidCone( GLfloat base, GLfloat height, GLint stacks, 
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawWireCone( GLfloat base, GLfloat height, GLint stacks, GLint slices ) {
+inline void CSCI441::drawWireCone( const GLfloat base, const GLfloat height, const GLint stacks, const GLint slices ) {
     assert( base > 0.0f );
     assert( height > 0.0f );
     assert( stacks > 0 );
@@ -588,43 +588,43 @@ inline void CSCI441::drawWireCone( GLfloat base, GLfloat height, GLint stacks, G
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawSolidCube( GLfloat sideLength ) {
+inline void CSCI441::drawSolidCube( const GLfloat sideLength ) {
     drawSolidCubeIndexed(sideLength);
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawSolidCubeTextured( GLfloat sideLength ) {
+inline void CSCI441::drawSolidCubeTextured( const GLfloat sideLength ) {
     drawSolidCubeFlat(sideLength);
 }
 
-inline void CSCI441::drawSolidCubeIndexed(GLfloat sideLength) {
+inline void CSCI441::drawSolidCubeIndexed(const GLfloat sideLength) {
     assert( sideLength > 0.0f );
 
     CSCI441_INTERNAL::drawCube( sideLength, GL_FILL );
 }
 
-inline void CSCI441::drawSolidCubeFlat(GLfloat sideLength) {
+inline void CSCI441::drawSolidCubeFlat(const GLfloat sideLength) {
     assert( sideLength > 0.0f );
 
     CSCI441_INTERNAL::drawCubeFlat( sideLength, GL_FILL );
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawWireCube( GLfloat sideLength ) {
+inline void CSCI441::drawWireCube( const GLfloat sideLength ) {
     assert( sideLength > 0.0f );
 
     CSCI441_INTERNAL::drawCube( sideLength, GL_LINE );
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawCubeMap(GLfloat sideLength) {
+inline void CSCI441::drawCubeMap(const GLfloat sideLength) {
     assert(sideLength > 0.0f);
 
     CSCI441_INTERNAL::drawCube( sideLength, GL_FILL );
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawSolidCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices ) {
+inline void CSCI441::drawSolidCylinder( const GLfloat base, const GLfloat top, const GLfloat height, const GLint stacks, const GLint slices ) {
     assert( (base >= 0.0f && top > 0.0f) || (base > 0.0f && top >= 0.0f) );
     assert( height > 0.0f );
     assert( stacks > 0 );
@@ -634,7 +634,7 @@ inline void CSCI441::drawSolidCylinder( GLfloat base, GLfloat top, GLfloat heigh
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawWireCylinder( GLfloat base, GLfloat top, GLfloat height, GLint stacks, GLint slices ) {
+inline void CSCI441::drawWireCylinder( const GLfloat base, const GLfloat top, const GLfloat height, const GLint stacks, const GLint slices ) {
     assert( (base >= 0.0f && top > 0.0f) || (base > 0.0f && top >= 0.0f) );
     assert( height > 0.0f );
     assert( stacks > 0 );
@@ -644,7 +644,7 @@ inline void CSCI441::drawWireCylinder( GLfloat base, GLfloat top, GLfloat height
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawSolidDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings ) {
+inline void CSCI441::drawSolidDisk( const GLfloat inner, const GLfloat outer, const GLint slices, const GLint rings ) {
     assert( inner >= 0.0f );
     assert( outer > 0.0f );
     assert( outer > inner );
@@ -655,7 +655,7 @@ inline void CSCI441::drawSolidDisk( GLfloat inner, GLfloat outer, GLint slices, 
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawWireDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings ) {
+inline void CSCI441::drawWireDisk( const GLfloat inner, const GLfloat outer, const GLint slices, const GLint rings ) {
     assert( inner >= 0.0f );
     assert( outer > 0.0f );
     assert( outer > inner );
@@ -666,7 +666,7 @@ inline void CSCI441::drawWireDisk( GLfloat inner, GLfloat outer, GLint slices, G
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawSolidPartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep ) {
+inline void CSCI441::drawSolidPartialDisk( const GLfloat inner, const GLfloat outer, const GLint slices, const GLint rings, const GLfloat start, const GLfloat sweep ) {
     assert( inner >= 0.0f );
     assert( outer > 0.0f );
     assert( outer > inner );
@@ -679,7 +679,7 @@ inline void CSCI441::drawSolidPartialDisk( GLfloat inner, GLfloat outer, GLint s
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawWirePartialDisk( GLfloat inner, GLfloat outer, GLint slices, GLint rings, GLfloat start, GLfloat sweep ) {
+inline void CSCI441::drawWirePartialDisk( const GLfloat inner, const GLfloat outer, const GLint slices, const GLint rings, const GLfloat start, const GLfloat sweep ) {
     assert( inner >= 0.0f );
     assert( outer > 0.0f );
     assert( outer > inner );
@@ -692,7 +692,7 @@ inline void CSCI441::drawWirePartialDisk( GLfloat inner, GLfloat outer, GLint sl
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawSolidSphere( GLfloat radius, GLint stacks, GLint slices ) {
+inline void CSCI441::drawSolidSphere( const GLfloat radius, const GLint stacks, const GLint slices ) {
     assert( radius > 0.0f );
     assert( stacks > 1 );
     assert( slices > 2 );
@@ -701,7 +701,7 @@ inline void CSCI441::drawSolidSphere( GLfloat radius, GLint stacks, GLint slices
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawWireSphere( GLfloat radius, GLint stacks, GLint slices ) {
+inline void CSCI441::drawWireSphere( const GLfloat radius, const GLint stacks, const GLint slices ) {
     assert( radius > 0.0f );
     assert( stacks > 1);
     assert( slices > 2 );
@@ -710,7 +710,7 @@ inline void CSCI441::drawWireSphere( GLfloat radius, GLint stacks, GLint slices 
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawSolidHalfSphere( GLfloat radius, GLint stacks, GLint slices ) {
+inline void CSCI441::drawSolidHalfSphere( const GLfloat radius, const GLint stacks, const GLint slices ) {
     assert( radius > 0.0f );
     assert( stacks > 1 );
     assert( slices > 2 );
@@ -719,7 +719,7 @@ inline void CSCI441::drawSolidHalfSphere( GLfloat radius, GLint stacks, GLint sl
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawWireHalfSphere( GLfloat radius, GLint stacks, GLint slices ) {
+inline void CSCI441::drawWireHalfSphere( const GLfloat radius, const GLint stacks, const GLint slices ) {
     assert( radius > 0.0f );
     assert( stacks > 1);
     assert( slices > 2 );
@@ -728,7 +728,7 @@ inline void CSCI441::drawWireHalfSphere( GLfloat radius, GLint stacks, GLint sli
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawSolidDome( GLfloat radius, GLint stacks, GLint slices ) {
+inline void CSCI441::drawSolidDome( const GLfloat radius, const GLint stacks, const GLint slices ) {
     assert( radius > 0.0f );
     assert( stacks > 1 );
     assert( slices > 2 );
@@ -737,7 +737,7 @@ inline void CSCI441::drawSolidDome( GLfloat radius, GLint stacks, GLint slices )
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawWireDome( GLfloat radius, GLint stacks, GLint slices ) {
+inline void CSCI441::drawWireDome( const GLfloat radius, const GLint stacks, const GLint slices ) {
     assert( radius > 0.0f );
     assert( stacks > 1);
     assert( slices > 2 );
@@ -746,17 +746,17 @@ inline void CSCI441::drawWireDome( GLfloat radius, GLint stacks, GLint slices ) 
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawSolidTeapot( [[maybe_unused]] GLfloat unused ) {
+inline void CSCI441::drawSolidTeapot( [[maybe_unused]] const GLfloat unused ) {
     CSCI441_INTERNAL::drawTeapot(GL_FILL);
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawWireTeapot( [[maybe_unused]] GLfloat unused ) {
+inline void CSCI441::drawWireTeapot( [[maybe_unused]] const GLfloat unused ) {
     CSCI441_INTERNAL::drawTeapot(GL_LINE);
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawSolidTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings ) {
+inline void CSCI441::drawSolidTorus( const GLfloat innerRadius, const GLfloat outerRadius, const GLint sides, const GLint rings ) {
     assert( innerRadius > 0.0f );
     assert( outerRadius > 0.0f );
     assert( sides > 2 );
@@ -766,7 +766,7 @@ inline void CSCI441::drawSolidTorus( GLfloat innerRadius, GLfloat outerRadius, G
 }
 
 [[maybe_unused]]
-inline void CSCI441::drawWireTorus( GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings ) {
+inline void CSCI441::drawWireTorus( const GLfloat innerRadius, const GLfloat outerRadius, const GLint sides, const GLint rings ) {
     assert( innerRadius > 0.0f );
     assert( outerRadius > 0.0f );
     assert( sides > 2 );
@@ -848,16 +848,16 @@ inline void CSCI441_INTERNAL::deleteObjectVBOs() {
     _torusVBO.clear();
 }
 
-inline void CSCI441_INTERNAL::drawCube( GLfloat sideLength, GLenum renderMode ) {
+inline void CSCI441_INTERNAL::drawCube( const GLfloat sideLength, const GLenum renderMode ) {
     drawCubeIndexed(sideLength, renderMode);
 }
 
-inline void CSCI441_INTERNAL::drawCubeFlat( GLfloat sideLength, GLenum renderMode ) {
+inline void CSCI441_INTERNAL::drawCubeFlat( const GLfloat sideLength, const GLenum renderMode ) {
     if( CSCI441_INTERNAL::_cubeVAO.count( sideLength ) == 0 ) {
         CSCI441_INTERNAL::generateCubeVAOFlat( sideLength );
     }
 
-    const GLuint64 NUM_VERTICES = 36;
+    constexpr GLuint64 NUM_VERTICES = 36;
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -883,12 +883,12 @@ inline void CSCI441_INTERNAL::drawCubeFlat( GLfloat sideLength, GLenum renderMod
     glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
-inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum renderMode ) {
+inline void CSCI441_INTERNAL::drawCubeIndexed( const GLfloat sideLength, const GLenum renderMode ) {
     if( CSCI441_INTERNAL::_cubeVAOIndexed.count( sideLength ) == 0 ) {
         CSCI441_INTERNAL::generateCubeVAOIndexed( sideLength );
     }
 
-    const GLuint64 NUM_VERTICES = 8;
+    constexpr GLuint64 NUM_VERTICES = 8;
 
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
@@ -914,8 +914,8 @@ inline void CSCI441_INTERNAL::drawCubeIndexed( GLfloat sideLength, GLenum render
     glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
-inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat height, GLuint stacks, GLuint slices, GLenum renderMode ) {
-    CylinderData cylData = { base, top, height, stacks, slices };
+inline void CSCI441_INTERNAL::drawCylinder( const GLfloat base, const GLfloat top, const GLfloat height, const GLuint stacks, const GLuint slices, const GLenum renderMode ) {
+    const CylinderData cylData = { base, top, height, stacks, slices };
     if( CSCI441_INTERNAL::_cylinderVAO.count( cylData ) == 0 ) {
         CSCI441_INTERNAL::generateCylinderVAO( cylData );
     }
@@ -948,8 +948,8 @@ inline void CSCI441_INTERNAL::drawCylinder( GLfloat base, GLfloat top, GLfloat h
     glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
-inline void CSCI441_INTERNAL::drawPartialDisk(GLfloat innerRadius, GLfloat outerRadius, GLuint slices, GLuint rings, GLfloat startAngle, GLfloat sweepAngle, GLenum renderMode ) {
-    DiskData diskData = {innerRadius, outerRadius, startAngle, sweepAngle, slices, rings };
+inline void CSCI441_INTERNAL::drawPartialDisk(const GLfloat innerRadius, const GLfloat outerRadius, const GLuint slices, const GLuint rings, const GLfloat startAngle, const GLfloat sweepAngle, const GLenum renderMode ) {
+    const DiskData diskData = {innerRadius, outerRadius, startAngle, sweepAngle, slices, rings };
     if( CSCI441_INTERNAL::_diskVAO.count( diskData ) == 0 ) {
         CSCI441_INTERNAL::generateDiskVAO( diskData );
     }
@@ -982,8 +982,8 @@ inline void CSCI441_INTERNAL::drawPartialDisk(GLfloat innerRadius, GLfloat outer
     glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
-inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode ) {
-    SphereData sphereData = { radius, stacks, slices };
+inline void CSCI441_INTERNAL::drawSphere( const GLfloat radius, const GLuint stacks, const GLuint slices, const GLenum renderMode ) {
+    const SphereData sphereData = { radius, stacks, slices };
     if( CSCI441_INTERNAL::_sphereVAO.count( sphereData ) == 0 ) {
         CSCI441_INTERNAL::generateSphereVAO( sphereData );
     }
@@ -1020,8 +1020,8 @@ inline void CSCI441_INTERNAL::drawSphere( GLfloat radius, GLuint stacks, GLuint 
     glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
-inline void CSCI441_INTERNAL::drawHalfSphere( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode ) {
-    SphereData sphereData = { radius, stacks, slices };
+inline void CSCI441_INTERNAL::drawHalfSphere( const GLfloat radius, const GLuint stacks, const GLuint slices, const GLenum renderMode ) {
+    const SphereData sphereData = { radius, stacks, slices };
     if( CSCI441_INTERNAL::_sphereVAO.count( sphereData ) == 0 ) {
         CSCI441_INTERNAL::generateSphereVAO( sphereData );
     }
@@ -1060,7 +1060,7 @@ inline void CSCI441_INTERNAL::drawHalfSphere( GLfloat radius, GLuint stacks, GLu
     drawPartialDisk(0.0f, radius, slices, stacks, 0.0f, glm::two_pi<float>(), renderMode);
 }
 
-inline void CSCI441_INTERNAL::drawDome( GLfloat radius, GLuint stacks, GLuint slices, GLenum renderMode ) {
+inline void CSCI441_INTERNAL::drawDome( const GLfloat radius, const GLuint stacks, const GLuint slices, const GLenum renderMode ) {
     SphereData sphereData = { radius, stacks, slices };
     if( CSCI441_INTERNAL::_sphereVAO.count( sphereData ) == 0 ) {
         CSCI441_INTERNAL::generateSphereVAO( sphereData );
@@ -1096,8 +1096,8 @@ inline void CSCI441_INTERNAL::drawDome( GLfloat radius, GLuint stacks, GLuint sl
     glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
-inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadius, GLuint sides, GLuint rings, GLenum renderMode ) {
-    TorusData torusData = { innerRadius, outerRadius, sides, rings };
+inline void CSCI441_INTERNAL::drawTorus( const GLfloat innerRadius, const GLfloat outerRadius, const GLuint sides, const GLuint rings, const GLenum renderMode ) {
+    const TorusData torusData = { innerRadius, outerRadius, sides, rings };
     if( CSCI441_INTERNAL::_torusVAO.count( torusData ) == 0 ) {
         CSCI441_INTERNAL::generateTorusVAO( torusData );
     }
@@ -1130,7 +1130,7 @@ inline void CSCI441_INTERNAL::drawTorus( GLfloat innerRadius, GLfloat outerRadiu
     glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
-inline void CSCI441_INTERNAL::drawTeapot( GLenum renderMode ) {
+inline void CSCI441_INTERNAL::drawTeapot( const GLenum renderMode ) {
     GLint currentPolygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, currentPolygonMode);
 
@@ -1139,7 +1139,7 @@ inline void CSCI441_INTERNAL::drawTeapot( GLenum renderMode ) {
     glPolygonMode( GL_FRONT_AND_BACK, currentPolygonMode[0] );
 }
 
-inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLfloat sideLength ) {
+inline void CSCI441_INTERNAL::generateCubeVAOFlat( const GLfloat sideLength ) {
     GLuint vaod;
     glGenVertexArrays( 1, &vaod );
     glBindVertexArray( vaod );
@@ -1150,9 +1150,9 @@ inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLfloat sideLength ) {
 
     const GLfloat CORNER_POINT = sideLength / 2.0f;
 
-    const GLuint64 NUM_VERTICES = 36;
+    constexpr GLuint64 NUM_VERTICES = 36;
 
-    glm::vec3 vertices[NUM_VERTICES] = {
+    const glm::vec3 vertices[NUM_VERTICES] = {
             // Left Face
             {-CORNER_POINT, -CORNER_POINT, -CORNER_POINT}, {-CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {-CORNER_POINT, CORNER_POINT, -CORNER_POINT},
             {-CORNER_POINT, CORNER_POINT,  -CORNER_POINT}, {-CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {-CORNER_POINT, CORNER_POINT, CORNER_POINT},
@@ -1172,7 +1172,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLfloat sideLength ) {
             {-CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {-CORNER_POINT, CORNER_POINT, CORNER_POINT},
             {-CORNER_POINT, CORNER_POINT,  CORNER_POINT}, {CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {CORNER_POINT, CORNER_POINT, CORNER_POINT}
     };
-    glm::vec3 normals[NUM_VERTICES] = {
+    const glm::vec3 normals[NUM_VERTICES] = {
             // Left Face
             {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f},
             {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f},
@@ -1192,7 +1192,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLfloat sideLength ) {
             {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f},
             {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}
     };
-    glm::vec2 texCoords[NUM_VERTICES] = {
+    const glm::vec2 texCoords[NUM_VERTICES] = {
             // Left Face
             {0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 1.0f},
             {0.0f, 1.0f}, {1.0f, 0.0f}, {1.0f, 1.0f},
@@ -1222,12 +1222,12 @@ inline void CSCI441_INTERNAL::generateCubeVAOFlat( GLfloat sideLength ) {
     CSCI441_INTERNAL::_cubeVBO.insert( std::pair<GLfloat, GLuint>( sideLength, vbod ) );
 }
 
-inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
+inline void CSCI441_INTERNAL::generateCubeVAOIndexed( const GLfloat sideLength ) {
     const GLfloat CORNER_POINT = sideLength / 2.0f;
 
-    const GLuint64 NUM_VERTICES = 8;
+    constexpr GLuint64 NUM_VERTICES = 8;
 
-    glm::vec3 vertices[NUM_VERTICES] = {
+    const glm::vec3 vertices[NUM_VERTICES] = {
             { -CORNER_POINT, -CORNER_POINT, -CORNER_POINT }, // 0 - bln
             {  CORNER_POINT, -CORNER_POINT, -CORNER_POINT }, // 1 - brn
             {  CORNER_POINT,  CORNER_POINT, -CORNER_POINT }, // 2 - trn
@@ -1237,7 +1237,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
             {  CORNER_POINT,  CORNER_POINT,  CORNER_POINT }, // 6 - trf
             { -CORNER_POINT,  CORNER_POINT,  CORNER_POINT }  // 7 - tlf
     };
-    glm::vec3 normals[NUM_VERTICES] = {
+    const glm::vec3 normals[NUM_VERTICES] = {
             {-1.0f, -1.0f, -1.0f}, // 0 bln
             { 1.0f, -1.0f, -1.0f}, // 1 brn
             { 1.0f,  1.0f, -1.0f}, // 2 trn
@@ -1247,7 +1247,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
             { 1.0f,  1.0f,  1.0f}, // 6 trf
             {-1.0f,  1.0f,  1.0f}  // 7 tlf
     };
-    glm::vec3 texCoords[NUM_VERTICES] = {
+    const glm::vec3 texCoords[NUM_VERTICES] = {
             {-1.0f, -1.0f, -1.0f}, // 0 bln
             { 1.0f, -1.0f, -1.0f}, // 1.0f brn
             { 1.0f,  1.0f, -1.0f}, // 2 trn
@@ -1257,7 +1257,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
             { 1.0f,  1.0f,  1.0f}, // 6 trf
             {-1.0f,  1.0f,  1.0f}  // 7 tlf
     };
-    GLushort indices[36] = {
+    const GLushort indices[36] = {
             0, 2, 1,   0, 3, 2, // near
             1, 2, 5,   5, 2, 6, // right
             2, 7, 6,   3, 7, 2, // top
@@ -1287,7 +1287,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( GLfloat sideLength ) {
     CSCI441_INTERNAL::_cubeIBOIndexed.insert( std::pair<GLfloat, GLuint>( sideLength, vbods[1] ) );
 }
 
-inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
+inline void CSCI441_INTERNAL::generateCylinderVAO( const CylinderData cylData ) {
     GLuint vaod;
     glGenVertexArrays( 1, &vaod );
     glBindVertexArray( vaod );
@@ -1298,18 +1298,18 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
 
     const GLuint64 NUM_VERTICES = cylData.numVertices();
 
-    GLfloat sliceStep = glm::two_pi<float>() / (GLfloat)cylData.slices;
-    GLfloat stackStep = cylData.height / (GLfloat)cylData.stacks;
+    const GLfloat sliceStep = glm::two_pi<float>() / (GLfloat)cylData.slices;
+    const GLfloat stackStep = cylData.height / (GLfloat)cylData.stacks;
 
-    auto vertices  = new glm::vec3[NUM_VERTICES];
-    auto normals   = new glm::vec3[NUM_VERTICES];
-    auto texCoords = new glm::vec2[NUM_VERTICES];
+    const auto vertices  = new glm::vec3[NUM_VERTICES];
+    const auto normals   = new glm::vec3[NUM_VERTICES];
+    const auto texCoords = new glm::vec2[NUM_VERTICES];
 
     GLuint64 idx = 0;
 
     for(GLuint stackNum = 0; stackNum < cylData.stacks; stackNum++ ) {
-        GLfloat botRadius = cylData.radiusBase * (GLfloat)(cylData.stacks - stackNum) / (GLfloat)cylData.stacks + cylData.top * (GLfloat)stackNum / (GLfloat)cylData.stacks;
-        GLfloat topRadius = cylData.radiusBase * (GLfloat)(cylData.stacks - stackNum - 1) / (GLfloat)cylData.stacks + cylData.top * (GLfloat)(stackNum + 1) / (GLfloat)cylData.stacks;
+        const GLfloat botRadius = cylData.radiusBase * (GLfloat)(cylData.stacks - stackNum) / (GLfloat)cylData.stacks + cylData.top * (GLfloat)stackNum / (GLfloat)cylData.stacks;
+        const GLfloat topRadius = cylData.radiusBase * (GLfloat)(cylData.stacks - stackNum - 1) / (GLfloat)cylData.stacks + cylData.top * (GLfloat)(stackNum + 1) / (GLfloat)cylData.stacks;
 
         for(GLuint sliceNum = 0; sliceNum <= cylData.slices; sliceNum++ ) {
             vertices[ idx ].x = glm::cos( sliceNum * sliceStep )*botRadius;
@@ -1353,7 +1353,7 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( CylinderData cylData ) {
     delete[] normals;
 }
 
-inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
+inline void CSCI441_INTERNAL::generateDiskVAO( const DiskData diskData ) {
     GLuint vaod;
     glGenVertexArrays( 1, &vaod );
     glBindVertexArray( vaod );
@@ -1364,18 +1364,18 @@ inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
 
     const GLuint64 NUM_VERTICES = diskData.numVertices();
 
-    GLfloat sliceStep = diskData.sweepAngle / (GLfloat)diskData.slices;
-    GLfloat ringStep = (diskData.outerRadius - diskData.innerRadius) / (GLfloat)diskData.rings;
+    const GLfloat sliceStep = diskData.sweepAngle / (GLfloat)diskData.slices;
+    const GLfloat ringStep = (diskData.outerRadius - diskData.innerRadius) / (GLfloat)diskData.rings;
 
-    auto vertices  = new glm::vec3[NUM_VERTICES];
-    auto normals   = new glm::vec3[NUM_VERTICES];
-    auto texCoords = new glm::vec2[NUM_VERTICES];
+    const auto vertices  = new glm::vec3[NUM_VERTICES];
+    const auto normals   = new glm::vec3[NUM_VERTICES];
+    const auto texCoords = new glm::vec2[NUM_VERTICES];
 
     GLuint64 idx = 0;
 
     for(GLuint ringNum = 0; ringNum < diskData.rings; ringNum++ ) {
-        GLfloat currRadius = diskData.innerRadius + (GLfloat)ringNum * ringStep;
-        GLfloat nextRadius = diskData.innerRadius + (GLfloat)(ringNum + 1) * ringStep;
+        const GLfloat currRadius = diskData.innerRadius + (GLfloat)ringNum * ringStep;
+        const GLfloat nextRadius = diskData.innerRadius + (GLfloat)(ringNum + 1) * ringStep;
 
         GLfloat theta = diskData.startAngle;
         for(GLuint i = 0; i <= diskData.slices; i++ ) {
@@ -1421,7 +1421,7 @@ inline void CSCI441_INTERNAL::generateDiskVAO( DiskData diskData ) {
     delete[] normals;
 }
 
-inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
+inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData sphereData ) {
     GLuint vaod;
     glGenVertexArrays( 1, &vaod );
     glBindVertexArray( vaod );
@@ -1432,12 +1432,12 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
 
     const GLuint64 NUM_VERTICES = sphereData.numVertices();
 
-    GLfloat sliceStep = glm::two_pi<float>() / (GLfloat)sphereData.slices;
-    GLfloat stackStep = glm::pi<float>() / (GLfloat)sphereData.stacks;
+    const GLfloat sliceStep = glm::two_pi<float>() / (GLfloat)sphereData.slices;
+    const GLfloat stackStep = glm::pi<float>() / (GLfloat)sphereData.stacks;
 
-    auto vertices  = new glm::vec3[NUM_VERTICES];
-    auto normals   = new glm::vec3[NUM_VERTICES];
-    auto texCoords = new glm::vec2[NUM_VERTICES];
+    const auto vertices  = new glm::vec3[NUM_VERTICES];
+    const auto normals   = new glm::vec3[NUM_VERTICES];
+    const auto texCoords = new glm::vec2[NUM_VERTICES];
 
     GLuint64 idx = 0;
 
@@ -1459,7 +1459,7 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
     idx++;
 
     for(GLuint sliceNum = 0; sliceNum <= sphereData.slices; sliceNum++ ) {
-        GLfloat theta = sliceStep * (GLfloat)sliceNum;
+        const GLfloat theta = sliceStep * (GLfloat)sliceNum;
 
         vertices[ idx ].x = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;
         vertices[ idx ].y = -glm::cos( phiNext )*sphereData.radius;
@@ -1481,7 +1481,7 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
         phiNext = stackStep * (GLfloat)(stackNum + 1);
 
         for(GLuint sliceNum = sphereData.slices; sliceNum > 0; sliceNum-- ) {
-            GLfloat theta = sliceStep * (GLfloat)sliceNum;
+            const GLfloat theta = sliceStep * (GLfloat)sliceNum;
 
             vertices[ idx ].x = -glm::cos( theta )*glm::sin( phi )*sphereData.radius;
             vertices[ idx ].y = -glm::cos( phi )*sphereData.radius;
@@ -1555,7 +1555,7 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
     idx++;
 
     for(GLuint sliceNum = sphereData.slices; sliceNum > 0; sliceNum--) {
-        GLfloat theta = sliceStep * (GLfloat)sliceNum;
+        const GLfloat theta = sliceStep * (GLfloat)sliceNum;
 
         vertices[ idx ].x = -glm::cos( theta )*glm::sin( phiNext )*sphereData.radius;
         vertices[ idx ].y = -glm::cos( phiNext )*sphereData.radius;
@@ -1595,7 +1595,7 @@ inline void CSCI441_INTERNAL::generateSphereVAO( SphereData sphereData ) {
     delete[] normals;
 }
 
-inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
+inline void CSCI441_INTERNAL::generateTorusVAO( const TorusData torusData ) {
     GLuint vaod;
     glGenVertexArrays( 1, &vaod );
     glBindVertexArray( vaod );
@@ -1606,22 +1606,22 @@ inline void CSCI441_INTERNAL::generateTorusVAO( TorusData torusData ) {
 
     const GLuint64 NUM_VERTICES = torusData.numVertices();
 
-    auto vertices  = new glm::vec3[NUM_VERTICES];
-    auto normals   = new glm::vec3[NUM_VERTICES];
-    auto texCoords = new glm::vec2[NUM_VERTICES];
+    const auto vertices  = new glm::vec3[NUM_VERTICES];
+    const auto normals   = new glm::vec3[NUM_VERTICES];
+    const auto texCoords = new glm::vec2[NUM_VERTICES];
 
     GLuint64 idx = 0;
 
-    GLfloat sideStep = glm::two_pi<float>() / (GLfloat)torusData.sides;
-    GLfloat ringStep = glm::two_pi<float>() / (GLfloat)torusData.rings;
+    const GLfloat sideStep = glm::two_pi<float>() / (GLfloat)torusData.sides;
+    const GLfloat ringStep = glm::two_pi<float>() / (GLfloat)torusData.rings;
 
     for(GLuint ringNum = 0; ringNum < torusData.rings; ringNum++ ) {
-        GLfloat currTheta = ringStep * (GLfloat)ringNum;
-        GLfloat nextTheta = ringStep * (GLfloat)(ringNum+1);
+        const GLfloat currTheta = ringStep * (GLfloat)ringNum;
+        const GLfloat nextTheta = ringStep * (GLfloat)(ringNum+1);
 
         for(GLuint sideNum = 0; sideNum < torusData.sides; sideNum++ ) {
-            GLfloat currPhi = sideStep * (GLfloat)sideNum;
-            GLfloat nextPhi = sideStep * (GLfloat)(sideNum+1);
+            const GLfloat currPhi = sideStep * (GLfloat)sideNum;
+            const GLfloat nextPhi = sideStep * (GLfloat)(sideNum+1);
 
             vertices[ idx ].x = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::cos(currTheta );
             vertices[ idx ].y = (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi ) ) * glm::sin(currTheta );
