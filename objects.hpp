@@ -456,7 +456,7 @@ namespace CSCI441_INTERNAL {
             return false;
         }
     };
-    void generateCylinderVAO( CylinderData cylData );
+    void generateCylinderVAO( const CylinderData& cylData );
     inline std::map< CylinderData, GLuint > _cylinderVAO;
     inline std::map< CylinderData, GLuint > _cylinderVBO;
 
@@ -491,7 +491,7 @@ namespace CSCI441_INTERNAL {
             return false;
         }
     };
-    void generateDiskVAO( DiskData diskData );
+    void generateDiskVAO( const DiskData& diskData );
     inline std::map< DiskData, GLuint > _diskVAO;
     inline std::map< DiskData, GLuint > _diskVBO;
 
@@ -514,7 +514,7 @@ namespace CSCI441_INTERNAL {
             return false;
         }
     };
-    void generateSphereVAO( SphereData sphereData );
+    void generateSphereVAO( const SphereData& sphereData );
     inline std::map< SphereData, GLuint > _sphereVAO;
     inline std::map< SphereData, GLuint > _sphereVBO;
 
@@ -541,7 +541,7 @@ namespace CSCI441_INTERNAL {
             return false;
         }
     };
-    void generateTorusVAO( TorusData torusData );
+    void generateTorusVAO( const TorusData& torusData );
     inline std::map< TorusData, GLuint > _torusVAO;
     inline std::map< TorusData, GLuint > _torusVBO;
 }
@@ -1287,7 +1287,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( const GLfloat sideLength )
     CSCI441_INTERNAL::_cubeIBOIndexed.insert( std::pair<GLfloat, GLuint>( sideLength, vbods[1] ) );
 }
 
-inline void CSCI441_INTERNAL::generateCylinderVAO( const CylinderData cylData ) {
+inline void CSCI441_INTERNAL::generateCylinderVAO( const CylinderData& cylData ) {
     GLuint vaod;
     glGenVertexArrays( 1, &vaod );
     glBindVertexArray( vaod );
@@ -1353,7 +1353,7 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( const CylinderData cylData ) 
     delete[] normals;
 }
 
-inline void CSCI441_INTERNAL::generateDiskVAO( const DiskData diskData ) {
+inline void CSCI441_INTERNAL::generateDiskVAO( const DiskData& diskData ) {
     GLuint vaod;
     glGenVertexArrays( 1, &vaod );
     glBindVertexArray( vaod );
@@ -1421,7 +1421,7 @@ inline void CSCI441_INTERNAL::generateDiskVAO( const DiskData diskData ) {
     delete[] normals;
 }
 
-inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData sphereData ) {
+inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) {
     GLuint vaod;
     glGenVertexArrays( 1, &vaod );
     glBindVertexArray( vaod );
@@ -1595,7 +1595,7 @@ inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData sphereData ) {
     delete[] normals;
 }
 
-inline void CSCI441_INTERNAL::generateTorusVAO( const TorusData torusData ) {
+inline void CSCI441_INTERNAL::generateTorusVAO( const TorusData& torusData ) {
     GLuint vaod;
     glGenVertexArrays( 1, &vaod );
     glBindVertexArray( vaod );
