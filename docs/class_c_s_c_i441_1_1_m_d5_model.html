@@ -121,9 +121,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3e01d573a7b2517f1f4eec30322912ec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a3e01d573a7b2517f1f4eec30322912ec">readMD5Model</a> (const char *FILENAME)</td></tr>
 <tr class="memdesc:a3e01d573a7b2517f1f4eec30322912ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">parses md5mesh file and allocates corresponding mesh data  <br /></td></tr>
 <tr class="separator:a3e01d573a7b2517f1f4eec30322912ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b98a82c47b19c88da5aac08cc813490"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a9b98a82c47b19c88da5aac08cc813490">allocVertexArrays</a> (GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc)</td></tr>
-<tr class="memdesc:a9b98a82c47b19c88da5aac08cc813490"><td class="mdescLeft">&#160;</td><td class="mdescRight">binds model VBOs to attribute pointer locations  <br /></td></tr>
-<tr class="separator:a9b98a82c47b19c88da5aac08cc813490"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d1ad81a66cef48b91d8c454e570cf27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a9d1ad81a66cef48b91d8c454e570cf27">allocVertexArrays</a> (GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc, GLuint vNormalAttribLoc=0, GLuint vTangentAttribLoc=0)</td></tr>
+<tr class="memdesc:a9d1ad81a66cef48b91d8c454e570cf27"><td class="mdescLeft">&#160;</td><td class="mdescRight">binds model VBOs to attribute pointer locations  <br /></td></tr>
+<tr class="separator:a9d1ad81a66cef48b91d8c454e570cf27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f8eb75b2500a62405b2e03d7e4e5c24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a5f8eb75b2500a62405b2e03d7e4e5c24">setActiveTextures</a> (GLint diffuseMapActiveTexture, GLint specularMapActiveTexture, GLint normalMapActiveTexture, GLint heightMapActiveTexture)</td></tr>
 <tr class="memdesc:a5f8eb75b2500a62405b2e03d7e4e5c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">specify which texture targets each texture map should be bound to when rendering  <br /></td></tr>
 <tr class="separator:a5f8eb75b2500a62405b2e03d7e4e5c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -228,8 +228,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>releaseMD5Mate
 
 </div>
 </div>
-<a id="a9b98a82c47b19c88da5aac08cc813490" name="a9b98a82c47b19c88da5aac08cc813490"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b98a82c47b19c88da5aac08cc813490">&#9670;&#160;</a></span>allocVertexArrays()</h2>
+<a id="a9d1ad81a66cef48b91d8c454e570cf27" name="a9d1ad81a66cef48b91d8c454e570cf27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d1ad81a66cef48b91d8c454e570cf27">&#9670;&#160;</a></span>allocVertexArrays()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,7 +253,19 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>releaseMD5Mate
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLuint&#160;</td>
-          <td class="paramname"><em>vTexCoordAttribLoc</em>&#160;</td>
+          <td class="paramname"><em>vTexCoordAttribLoc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>vNormalAttribLoc</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>vTangentAttribLoc</em> = <code>0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -274,12 +286,16 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>releaseMD5Mate
     <tr><td class="paramname">vPosAttribLoc</td><td>location of vertex position attribute </td></tr>
     <tr><td class="paramname">vColorAttribLoc</td><td>location of vertex color attribute </td></tr>
     <tr><td class="paramname">vTexCoordAttribLoc</td><td>location of vertex texture coordinate attribute </td></tr>
+    <tr><td class="paramname">vNormalAttribLoc</td><td>location of vertex normal attribute (defaults to 0 to disable usage) </td></tr>
+    <tr><td class="paramname">vTangentAttribLoc</td><td>location of vertex tangent attribute (defaults to 0 to disable usage) </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>color attribute used when drawing the skeleton </dd>
 <dd>
-texCoord attribute used when drawing the mesh </dd></dl>
+texCoord attribute used when drawing the mesh </dd>
+<dd>
+vertex position attribute must not be zero, if any other attribute is zero it disables it </dd></dl>
 
 </div>
 </div>

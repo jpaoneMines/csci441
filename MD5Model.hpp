@@ -144,10 +144,13 @@ namespace CSCI441 {
          * @param vPosAttribLoc location of vertex position attribute
          * @param vColorAttribLoc location of vertex color attribute
          * @param vTexCoordAttribLoc location of vertex texture coordinate attribute
+         * @param vNormalAttribLoc location of vertex normal attribute (defaults to 0 to disable usage)
+         * @param vTangentAttribLoc location of vertex tangent attribute (defaults to 0 to disable usage)
          * @note color attribute used when drawing the skeleton
          * @note texCoord attribute used when drawing the mesh
+         * @note vertex position attribute must not be zero, if any other attribute is zero it disables it
          */
-        [[maybe_unused]] void allocVertexArrays(GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc);
+        [[maybe_unused]] void allocVertexArrays(GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc, GLuint vNormalAttribLoc = 0, GLuint vTangentAttribLoc = 0);
 
         /**
          * @brief specify which texture targets each texture map should be bound to when rendering
@@ -255,6 +258,17 @@ namespace CSCI441 {
          * @note allocated size is tracked in _maxVertices
          */
         glm::vec3* _vertexArray = nullptr;
+        /**
+         * @brief array of vertex normals for a single mesh
+         * @note allocated size is tracked in _maxVertices
+         */
+        glm::vec3* _normalArray = nullptr;
+        /**
+         * @brief array of vertex tangents for a single mesh
+         * @note allocated size is tracked in _maxVertices
+         * @note w-coordinate stores handedness
+         */
+        glm::vec4* _tangentArray = nullptr;
         /**
          * @brief array of texel coordinates for a single mesh
          * @note allocated size is tracked in _maxVertices
@@ -660,7 +674,15 @@ CSCI441::MD5Model::_prepareMesh(
     }
 
     // Setup vertices
+    auto normalAccum    = new glm::vec3[pMESH->numVertices];
+    auto tangentAccum   = new glm::vec3[pMESH->numVertices];
+    auto bitangentAccum = new glm::vec3[pMESH->numVertices];
+
     for(i = 0; i < pMESH->numVertices; ++i) {
+        normalAccum[i] = glm::vec3(0.0f);
+        tangentAccum[i] = glm::vec3(0.0f);
+        bitangentAccum[i] = glm::vec3(0.0f);
+
         glm::vec3 finalVertex = {0.0f, 0.0f, 0.0f };
 
         // Calculate final vertex to draw with weights
@@ -685,11 +707,63 @@ CSCI441::MD5Model::_prepareMesh(
         _texelArray[i].t = pMESH->vertices[i].texCoord.t;
     }
 
+    for(i = 0; i < pMESH->numTriangles; ++i) {
+        GLint idx0 = pMESH->triangles[i].index[0];
+        GLint idx1 = pMESH->triangles[i].index[1];
+        GLint idx2 = pMESH->triangles[i].index[2];
+
+        glm::vec3 v0 = _vertexArray[ idx0 ];
+        glm::vec3 v1 = _vertexArray[ idx1 ];
+        glm::vec3 v2 = _vertexArray[ idx2 ];
+
+        glm::vec2 uv0 = _texelArray[ idx0 ];
+        glm::vec2 uv1 = _texelArray[ idx1 ];
+        glm::vec2 uv2 = _texelArray[ idx2 ];
+
+        glm::vec3 edge1 = v1 - v0;
+        glm::vec3 edge2 = v2 - v0;
+        glm::vec2 deltaUV1 = uv1 - uv0;
+        glm::vec2 deltaUV2 = uv2 - uv0;
+
+        GLfloat f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
+
+        glm::vec3 normal    = cross(edge1, edge2);
+        glm::vec3 tangent   = f * (deltaUV2.y * edge1 - deltaUV1.y * edge2);
+        glm::vec3 bitangent = f * (deltaUV2.x * edge1 - deltaUV1.x * edge2);
+
+        normalAccum[ idx0 ] += normal;  tangentAccum[ idx0 ] += tangent;    bitangentAccum[ idx0 ] += bitangent;
+        normalAccum[ idx1 ] += normal;  tangentAccum[ idx1 ] += tangent;    bitangentAccum[ idx1 ] += bitangent;
+        normalAccum[ idx2 ] += normal;  tangentAccum[ idx2 ] += tangent;    bitangentAccum[ idx2 ] += bitangent;
+    }
+
+    for(i = 0; i < pMESH->numVertices; ++i) {
+        glm::vec3& n = normalAccum[i];
+        glm::vec3& t = tangentAccum[i];
+        glm::vec3& b = bitangentAccum[i];
+
+        glm::vec3 normal  = glm::normalize( n );
+        // Gram-Schmidt Orthogonalization
+        glm::vec3 tangent = glm::normalize( t - (glm::dot(normal, t) * normal) );
+        glm::vec3 bitangent = glm::normalize( b );
+
+        _normalArray[ i ] = normal;
+
+        _tangentArray[ i ] = glm::vec4(tangent, 0.0f);
+        // store handedness in w
+        _tangentArray[ i ].w = (glm::dot( glm::cross(normal, tangent), bitangent) < 0.0f) ? -1.0f : 1.0f;
+    }
+
+    delete[] normalAccum;
+    delete[] tangentAccum;
+    delete[] bitangentAccum;
+
     glBindVertexArray(_vao );
 
     glBindBuffer(GL_ARRAY_BUFFER, _vbo[0] );
     glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * pMESH->numVertices, &_vertexArray[0] );
-    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _maxVertices, static_cast<GLsizeiptr>(sizeof(glm::vec2)) * pMESH->numVertices, &_texelArray[0] );
+    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _maxVertices * 1, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * pMESH->numVertices, &_normalArray[0] );
+    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _maxVertices * 2, static_cast<GLsizeiptr>(sizeof(glm::vec4)) * pMESH->numVertices, &_tangentArray[0] );
+    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _maxVertices * 2 + static_cast<GLsizeiptr>(sizeof(glm::vec4)) * _maxVertices, static_cast<GLsizeiptr>(sizeof(glm::vec2)) * pMESH->numVertices, &_texelArray[0] );
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _vbo[1] );
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(GLuint)) * pMESH->numTriangles * 3, _vertexIndicesArray );
@@ -739,10 +813,17 @@ inline void
 CSCI441::MD5Model::allocVertexArrays(
     const GLuint vPosAttribLoc,
     const GLuint vColorAttribLoc,
-    const GLuint vTexCoordAttribLoc
+    const GLuint vTexCoordAttribLoc,
+    const GLuint vNormalAttribLoc,
+    const GLuint vTangentAttribLoc
 ) {
-    _vertexArray = new glm::vec3[_maxVertices];
-    _texelArray = new glm::vec2[_maxVertices];
+    // layout
+    // position normal tangent texCoord
+
+    _vertexArray    = new glm::vec3[_maxVertices];
+    _normalArray    = new glm::vec3[_maxVertices];
+    _tangentArray   = new glm::vec4[_maxVertices];
+    _texelArray     = new glm::vec2[_maxVertices];
     _vertexIndicesArray = new GLuint[_maxTriangles * 3];
 
     glGenVertexArrays( 1, &_vao );
@@ -750,13 +831,25 @@ CSCI441::MD5Model::allocVertexArrays(
 
     glGenBuffers(2, _vbo );
     glBindBuffer(GL_ARRAY_BUFFER, _vbo[0] );
-    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _maxVertices + static_cast<GLsizeiptr>(sizeof(glm::vec2)) * _maxVertices, nullptr, GL_DYNAMIC_DRAW );
+    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _maxVertices * 2 + static_cast<GLsizeiptr>(sizeof(glm::vec4)) * _maxVertices + static_cast<GLsizeiptr>(sizeof(glm::vec2)) * _maxVertices, nullptr, GL_DYNAMIC_DRAW );
 
     glEnableVertexAttribArray( vPosAttribLoc );
     glVertexAttribPointer( vPosAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr) );
 
-    glEnableVertexAttribArray( vTexCoordAttribLoc );
-    glVertexAttribPointer( vTexCoordAttribLoc, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _maxVertices) );
+    if (vNormalAttribLoc != 0) {
+        glEnableVertexAttribArray( vNormalAttribLoc );
+        glVertexAttribPointer( vNormalAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _maxVertices * 1) );
+    }
+
+    if (vTangentAttribLoc != 0) {
+        glEnableVertexAttribArray( vTangentAttribLoc );
+        glVertexAttribPointer( vTangentAttribLoc, 4, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _maxVertices * 2) );
+    }
+
+    if (vTexCoordAttribLoc != 0) {
+        glEnableVertexAttribArray( vTexCoordAttribLoc );
+        glVertexAttribPointer( vTexCoordAttribLoc, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _maxVertices * 2 + sizeof(glm::vec4) * _maxVertices) );
+    }
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _vbo[1] );
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(GLuint)) * _maxTriangles * 3, nullptr, GL_DYNAMIC_DRAW );
@@ -773,8 +866,10 @@ CSCI441::MD5Model::allocVertexArrays(
     glEnableVertexAttribArray( vPosAttribLoc ); // vPos
     glVertexAttribPointer( vPosAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr) );
 
-    glEnableVertexAttribArray( vColorAttribLoc ); // vColor
-    glVertexAttribPointer( vColorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _numJoints * 3) );
+    if (vColorAttribLoc != 0) {
+        glEnableVertexAttribArray( vColorAttribLoc ); // vColor
+        glVertexAttribPointer( vColorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _numJoints * 3) );
+    }
 
     printf("[.md5mesh]: Skeleton VAO/VBO registered at %u/%u\n", _skeletonVAO, _skeletonVBO );
 }
@@ -797,6 +892,12 @@ CSCI441::MD5Model::_freeVertexArrays()
 {
     delete[] _vertexArray;
     _vertexArray = nullptr;
+
+    delete[] _normalArray;
+    _normalArray = nullptr;
+
+    delete[] _tangentArray;
+    _tangentArray = nullptr;
 
     delete[] _vertexIndicesArray;
     _vertexIndicesArray = nullptr;
@@ -1259,6 +1360,12 @@ inline void CSCI441::MD5Model::_moveFromSrc(MD5Model &src) {
 
     this->_vertexArray = src._vertexArray;
     src._vertexArray = nullptr;
+
+    this->_normalArray = src._normalArray;
+    src._normalArray = nullptr;
+
+    this->_tangentArray = src._tangentArray;
+    src._tangentArray = nullptr;
 
     this->_texelArray = src._texelArray;
     src._texelArray = nullptr;
