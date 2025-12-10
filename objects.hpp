@@ -557,7 +557,7 @@ inline void CSCI441::setVertexAttributeLocations( const GLint positionLocation, 
     CSCI441_INTERNAL::_normalAttributeLocation = normalLocation;
     CSCI441_INTERNAL::_texCoordAttributeLocation = texCoordLocation;
     CSCI441_INTERNAL::_tangentAttributeLocation = tangentLocation;
-    CSCI441_INTERNAL::setTeapotAttributeLocations(positionLocation, normalLocation, texCoordLocation);
+    CSCI441_INTERNAL::setTeapotAttributeLocations(positionLocation, normalLocation, texCoordLocation, tangentLocation);
 }
 
 [[maybe_unused]]

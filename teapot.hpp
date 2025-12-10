@@ -36,13 +36,13 @@ namespace CSCI441_INTERNAL {
     // GLint vertex position attribute location within shader program
     // GLint vertex normal attribute location within shader program (defaults to -1 and unused)
     // GLint vertex texture coordinate attribute location within shader program (defaults to -1 and unused)
-    [[maybe_unused]] void teapot( GLfloat size, GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1);
+    [[maybe_unused]] void teapot( GLfloat size, GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1, GLint tangentLocation = -1 );
 
     // Enables VBO attribute array locations
     // GLint vertex position attribute location within shader program
     // GLint vertex normal attribute location within shader program (defaults to -1 and unused)
     // GLint vertex texture coordinate attribute location within shader program (defaults to -1 and unused)
-    void setTeapotAttributeLocations(GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1);
+    void setTeapotAttributeLocations(GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1, GLint tangentLocation = -1);
 
     // Draws the Utah teapot as a static collection of Bezier surfaces with position, normal, and
     // texture vertex data
@@ -52,10 +52,10 @@ namespace CSCI441_INTERNAL {
     //************************************************************************************************
     //************************************************************************************************
 
-    const GLuint TEAPOT_NUMBER_PATCHES = 28;
-    const GLuint TEAPOT_PATCH_DIMENSION = 3;
-    const GLuint TEAPOT_RES_U = 10;
-    const GLuint TEAPOT_RES_V = 10;
+    constexpr GLuint TEAPOT_NUMBER_PATCHES = 28;
+    constexpr GLuint TEAPOT_PATCH_DIMENSION = 3;
+    constexpr GLuint TEAPOT_RES_U = 10;
+    constexpr GLuint TEAPOT_RES_V = 10;
 
     inline GLuint teapot_vao;
     inline GLuint teapot_vbo, teapot_ibo;
@@ -396,17 +396,19 @@ namespace CSCI441_INTERNAL {
             // no bottom!
     };
 
-    inline glm::vec3 teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 3];
+    inline glm::vec3 teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 4];
     inline GLushort teapot_elements[TEAPOT_NUMBER_PATCHES * (TEAPOT_RES_U - 1) * (TEAPOT_RES_V - 1) * 2 * 3];
 
     inline GLboolean teapot_built = GL_FALSE;
     inline GLint teapot_pos_attr_loc = -1;
     inline GLint teapot_norm_attr_loc = -1;
     inline GLint teapot_tex_attr_loc = -1;
+    inline GLint teapot_tang_attr_loc = -1;
 
     void teapot_build_control_points_k(GLint p, glm::vec3** control_points_k);
     glm::vec3 teapot_compute_position(glm::vec3** control_points_k, GLfloat u, GLfloat v);
     glm::vec3 teapot_compute_normal(glm::vec3** control_points_k, GLfloat u, GLfloat v);
+    glm::vec3 teapot_compute_tangent(glm::vec3** control_points_k, GLfloat u, GLfloat v);
     glm::vec3 teapot_compute_texture(glm::vec3 position);
     glm::vec3 eval_bezier_curve_du(glm::vec3** control_points_k, GLfloat u, GLfloat v);
     glm::vec3 eval_bezier_curve_dv(glm::vec3** control_points_k, GLfloat u, GLfloat v);
@@ -431,6 +433,7 @@ namespace CSCI441_INTERNAL {
                     teapot_vertices[                    p * TEAPOT_RES_U * TEAPOT_RES_V                                       + ru * TEAPOT_RES_V + rv ] = teapot_compute_position(control_points_k, u, v);
                     teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V     + p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv ] = teapot_compute_normal(control_points_k, u, v);
                     teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 2 + p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv ] = teapot_compute_texture(teapot_vertices[p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv]);
+                    teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 3 + p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv ] = teapot_compute_tangent(control_points_k, u, v);
                 }
             }
         }
@@ -514,6 +517,10 @@ namespace CSCI441_INTERNAL {
         return normal;
     }
 
+    inline glm::vec3 teapot_compute_tangent(glm::vec3** const control_points_k, const GLfloat u, const GLfloat v) {
+        return glm::normalize( eval_bezier_curve_du(control_points_k, u, v) );
+    }
+
     inline glm::vec3 teapot_compute_texture(const glm::vec3 position) {
         glm::vec3 textureCoordinate = {0.0f, 0.0f, 0.0f};
         const GLfloat PI = 3.14159265f;
@@ -565,17 +572,17 @@ namespace CSCI441_INTERNAL {
     }
 
     [[maybe_unused]]
-    inline void teapot( const GLfloat size, const GLint positionLocation, const GLint normalLocation, const GLint texCoordLocation ) {
+    inline void teapot( const GLfloat size, const GLint positionLocation, const GLint normalLocation, const GLint texCoordLocation, const GLint tangentLocation ) {
         if( !teapot_built ) {
             teapot_init_resources();
         }
-        if( positionLocation != teapot_pos_attr_loc || normalLocation != teapot_norm_attr_loc || texCoordLocation != teapot_tex_attr_loc ) {
-            setTeapotAttributeLocations(positionLocation, normalLocation, texCoordLocation);
+        if( positionLocation != teapot_pos_attr_loc || normalLocation != teapot_norm_attr_loc || texCoordLocation != teapot_tex_attr_loc || tangentLocation != teapot_tang_attr_loc ) {
+            setTeapotAttributeLocations(positionLocation, normalLocation, texCoordLocation, tangentLocation);
         }
         teapot();
     }
 
-    inline void setTeapotAttributeLocations(const GLint positionLocation, const GLint normalLocation, const GLint texCoordLocation) {
+    inline void setTeapotAttributeLocations(const GLint positionLocation, const GLint normalLocation, const GLint texCoordLocation, const GLint tangentLocation) {
         if( !teapot_built ) {
             teapot_init_resources();
         }
@@ -586,10 +593,12 @@ namespace CSCI441_INTERNAL {
         if(teapot_pos_attr_loc != -1)  glDisableVertexAttribArray(teapot_pos_attr_loc);
         if(teapot_norm_attr_loc != -1) glDisableVertexAttribArray(teapot_norm_attr_loc);
         if(teapot_tex_attr_loc != -1)  glDisableVertexAttribArray(teapot_tex_attr_loc);
+        if(teapot_tang_attr_loc != -1)  glDisableVertexAttribArray(teapot_tang_attr_loc);
 
         teapot_pos_attr_loc = positionLocation;
         teapot_norm_attr_loc = normalLocation;
         teapot_tex_attr_loc = texCoordLocation;
+        teapot_tang_attr_loc = tangentLocation;
 
         // Describe our vertices array to OpenGL (it can't guess its format automatically)
         if(teapot_pos_attr_loc != -1) {
@@ -623,6 +632,17 @@ namespace CSCI441_INTERNAL {
                     GL_FALSE,          // take our values as-is
                     sizeof(glm::vec3),                 // no extra data between each position
                     (void*)(TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 2 * sizeof(glm::vec3))                  // offset of first element
+            );
+        }
+        if(teapot_tang_attr_loc != -1) {
+            glEnableVertexAttribArray(teapot_tang_attr_loc);
+            glVertexAttribPointer(
+                    teapot_tang_attr_loc,  // attribute
+                    3,                 // number of elements per vertex, here (s,t)
+                    GL_FLOAT,          // the type of each element
+                    GL_FALSE,          // take our values as-is
+                    0,                 // no extra data between each position
+                    (void*)(TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 3 * sizeof(glm::vec3))                  // offset of first element
             );
         }
     }
