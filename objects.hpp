@@ -1015,6 +1015,10 @@ inline void CSCI441_INTERNAL::drawSphere( const GLfloat radius, const GLuint sta
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
         glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2) );
     }
+    if (CSCI441_INTERNAL::_tangentAttributeLocation != -1) {
+        glEnableVertexAttribArray( CSCI441_INTERNAL::_tangentAttributeLocation );
+        glVertexAttribPointer( CSCI441_INTERNAL::_tangentAttributeLocation, 4, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES) );
+    }
 
     glDrawArrays( GL_TRIANGLE_FAN, 0, static_cast<GLint>(slices+2) );
 
@@ -1466,6 +1470,7 @@ inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) 
 
     const auto vertices  = new glm::vec3[NUM_VERTICES];
     const auto normals   = new glm::vec3[NUM_VERTICES];
+    const auto tangents  = new glm::vec4[NUM_VERTICES];
     const auto texCoords = new glm::vec2[NUM_VERTICES];
 
     GLuint64 idx = 0;
@@ -1474,16 +1479,10 @@ inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) 
     GLfloat phi = stackStep * static_cast<GLfloat>(sphereData.stacks);
     GLfloat phiNext = stackStep * static_cast<GLfloat>(sphereData.stacks - 1);
 
-    vertices[ idx ].x = 0.0f;
-    vertices[ idx ].y = -glm::cos( phi )*sphereData.radius;
-    vertices[ idx ].z = 0.0f;
-
-    normals[ idx ].x = 0.0f;
-    normals[ idx ].y = 1.0f;
-    normals[ idx ].z = 0.0f;
-
-    texCoords[ idx ].s = 0.5f;
-    texCoords[ idx ].t = 1.0f;
+    vertices[ idx ] = glm::vec3( 0.0f, -glm::cos( phi )*sphereData.radius, 0.0f );
+    normals [ idx ] = glm::vec3( 0.0f, 1.0f, 0.0f );
+    tangents[ idx ] = glm::vec4( 0.0f, 0.0f, 1.0f, 1.0f );
+    texCoords[idx ] = glm::vec2( 0.5f, 1.0f );
 
     idx++;
 
@@ -1497,6 +1496,11 @@ inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) 
         normals[ idx ].x = -glm::cos( theta )*glm::sin( phiNext );
         normals[ idx ].y = -glm::cos( phiNext );
         normals[ idx ].z =  glm::sin( theta )*glm::sin( phiNext );
+
+        tangents[ idx ] = glm::vec4(
+            glm::normalize(glm::cross(CSCI441::Y_AXIS, normals[idx]) ),
+            1.0f
+        );
 
         texCoords[ idx ].s = static_cast<GLfloat>(sliceNum) / static_cast<GLfloat>(sphereData.slices);
         texCoords[ idx ].t = 1.0f;
@@ -1520,6 +1524,11 @@ inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) 
             normals[ idx ].y = -glm::cos( phi );
             normals[ idx ].z =  glm::sin( theta )*glm::sin( phi );
 
+            tangents[ idx ] = glm::vec4(
+                glm::normalize(glm::cross(CSCI441::Y_AXIS, glm::normalize(normals[idx])) ),
+                1.0f
+            );
+
             texCoords[ idx ].s = static_cast<GLfloat>(sliceNum) / static_cast<GLfloat>(sphereData.slices);
             texCoords[ idx ].t = static_cast<GLfloat>(stackNum - 1) / static_cast<GLfloat>(sphereData.stacks - 2);
 
@@ -1532,6 +1541,11 @@ inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) 
             normals[ idx ].x = -glm::cos( theta )*glm::sin( phiNext );
             normals[ idx ].y = -glm::cos( phiNext );
             normals[ idx ].z =  glm::sin( theta )*glm::sin( phiNext );
+
+            tangents[ idx ] = glm::vec4(
+                glm::normalize(glm::cross(CSCI441::Y_AXIS, glm::normalize(normals[idx])) ),
+                1.0f
+            );
 
             texCoords[ idx ].s = static_cast<GLfloat>(sliceNum) / static_cast<GLfloat>(sphereData.slices);
             texCoords[ idx ].t = static_cast<GLfloat>(stackNum) / static_cast<GLfloat>(sphereData.stacks - 2);
@@ -1547,6 +1561,11 @@ inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) 
         normals[ idx ].y = -glm::cos( phi );
         normals[ idx ].z =  0.0f;
 
+        tangents[ idx ] = glm::vec4(
+            glm::normalize(glm::cross(CSCI441::Y_AXIS, normals[idx]) ),
+            1.0f
+        );
+
         texCoords[ idx ].s = 0.0f;
         texCoords[ idx ].t = static_cast<GLfloat>(stackNum - 1) / static_cast<GLfloat>(sphereData.stacks - 2);
 
@@ -1559,6 +1578,11 @@ inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) 
         normals[ idx ].x = -glm::sin( phiNext );
         normals[ idx ].y = -glm::cos( phiNext );
         normals[ idx ].z =  0.0f;
+
+        tangents[ idx ] = glm::vec4(
+            glm::normalize(glm::cross(CSCI441::Y_AXIS, normals[idx]) ),
+            1.0f
+        );
 
         texCoords[ idx ].s = 0.0f;
         texCoords[ idx ].t = static_cast<GLfloat>(stackNum) / static_cast<GLfloat>(sphereData.stacks - 2);
@@ -1578,6 +1602,8 @@ inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) 
     normals[ idx ].y = -1.0f;
     normals[ idx ].z =  0.0f;
 
+    tangents[ idx ] = glm::vec4( 0.0f, 0.0f, -1.0f, 1.0f );
+
     texCoords[ idx ].s = 0.5f;
     texCoords[ idx ].t = 0.0f;
 
@@ -1594,6 +1620,11 @@ inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) 
         normals[ idx ].y = -glm::cos( phiNext );
         normals[ idx ].z = glm::sin( theta )*glm::sin( phiNext );
 
+        tangents[ idx ] = glm::vec4(
+            glm::normalize(glm::cross(CSCI441::Y_AXIS, normals[idx]) ),
+            1.0f
+        );
+
         texCoords[ idx ].s = static_cast<GLfloat>(sliceNum) / static_cast<GLfloat>(sphereData.slices);
         texCoords[ idx ].t = 0.0f;
 
@@ -1608,13 +1639,19 @@ inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) 
     normals[ idx ].y = -glm::cos( phiNext );
     normals[ idx ].z =  0.0f;
 
+    tangents[ idx ] = glm::vec4(
+        glm::normalize(glm::cross(CSCI441::Y_AXIS, normals[idx]) ),
+        1.0f
+    );
+
     texCoords[ idx ].s = 0.0f;
     texCoords[ idx ].t = 0.0f;
 
-    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
+    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2) + sizeof(glm::vec4)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * NUM_VERTICES, vertices );
     glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES, sizeof(glm::vec3) * NUM_VERTICES, normals );
     glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2, sizeof(glm::vec2) * NUM_VERTICES, texCoords );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES, sizeof(glm::vec4) * NUM_VERTICES, tangents );
 
     CSCI441_INTERNAL::_sphereVAO.insert( std::pair<SphereData, GLuint>( sphereData, vaod ) );
     CSCI441_INTERNAL::_sphereVBO.insert( std::pair<SphereData, GLuint>( sphereData, vbod ) );
@@ -1622,6 +1659,7 @@ inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) 
     delete[] vertices;
     delete[] texCoords;
     delete[] normals;
+    delete[] tangents;
 }
 
 inline void CSCI441_INTERNAL::generateTorusVAO( const TorusData& torusData ) {
