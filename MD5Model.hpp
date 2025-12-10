@@ -743,9 +743,9 @@ CSCI441::MD5Model::_prepareMesh(
         glm::vec3& t = tangentAccum[i];
         glm::vec3& b = bitangentAccum[i];
 
-        glm::vec3 normal  = glm::normalize( n );
+        glm::vec3 normal  = -glm::normalize( n );
         // Gram-Schmidt Orthogonalization
-        glm::vec3 tangent = glm::normalize( t - (glm::dot(normal, t) * normal) );
+        glm::vec3 tangent = -glm::normalize( t - (glm::dot(normal, t) * normal) );
         glm::vec3 bitangent = glm::normalize( b );
 
         _normalArray[ i ] = normal;
