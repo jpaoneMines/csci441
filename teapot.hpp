@@ -511,9 +511,9 @@ namespace CSCI441_INTERNAL {
     }
 
     inline glm::vec3 teapot_compute_normal(glm::vec3** const control_points_k, const GLfloat u, const GLfloat v) {
-        glm::vec3 du = eval_bezier_curve_du(control_points_k, u, v);
-        glm::vec3 dv = eval_bezier_curve_dv(control_points_k, u, v);
-        glm::vec3 normal = -glm::normalize(glm::cross(du, dv));
+        const glm::vec3 du = eval_bezier_curve_du(control_points_k, u, v);
+        const glm::vec3 dv = eval_bezier_curve_dv(control_points_k, u, v);
+        const glm::vec3 normal = -glm::normalize(glm::cross(du, dv));
         return normal;
     }
 
@@ -523,8 +523,8 @@ namespace CSCI441_INTERNAL {
 
     inline glm::vec3 teapot_compute_texture(const glm::vec3 position) {
         glm::vec3 textureCoordinate = {0.0f, 0.0f, 0.0f};
-        const GLfloat PI = 3.14159265f;
-        GLfloat theta = atan2(position.y, position.x);
+        constexpr GLfloat PI = glm::pi<GLfloat>();
+        const GLfloat theta = atan2(position.y, position.x);
         textureCoordinate.x = (theta + PI) / (2.0f * PI);
         textureCoordinate.y = position.z / 3.15f;
         return textureCoordinate;
