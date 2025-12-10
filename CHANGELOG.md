@@ -4,6 +4,7 @@
 - MD5Materials can be read from a PATH location
 - Expanded UBO support to more cleanly set uniforms within buffer block
 - teapot supports normal mapping
+- OpenGLEngine times startup and shutdown steps and reports time spent
 
 ## v 5.25.0.0 - 09 Dec 2025
 - MD5Models support normal mapping

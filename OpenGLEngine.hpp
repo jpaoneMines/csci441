@@ -28,6 +28,7 @@
 #endif
 #include <stb_image_write.h>
 
+#include <chrono>
 #include <cstdio>
 #include <cstring>
 #include <ctime>
@@ -558,11 +559,17 @@ inline
 void CSCI441::OpenGLEngine::initialize()
 {
     if( !_isInitialized ) {
+        const std::chrono::steady_clock::time_point initBegin = std::chrono::steady_clock::now();
+
         if (DEBUG) {
             fprintf(stdout, "[INFO]: Using CSCI441 Library v%d.%d.%d.%d\n", CSCI441::VERSION_MAJOR, CSCI441::VERSION_MINOR, CSCI441::VERSION_REVISION, CSCI441::VERSION_PATCH);
         }
 
+        const std::chrono::steady_clock::time_point glfwBegin = std::chrono::steady_clock::now();
         mSetupGLFW();                   // initialize GLFW and set up a window
+        const std::chrono::steady_clock::time_point glfwEnd = std::chrono::steady_clock::now();
+
+        const std::chrono::steady_clock::time_point openGLBegin = std::chrono::steady_clock::now();
         _setupGLFunctions();            // create OpenGL function pointers
         mSetupOpenGL();                 // create the OpenGL context
 
@@ -583,15 +590,38 @@ void CSCI441::OpenGLEngine::initialize()
 
             CSCI441::OpenGLUtils::printOpenGLInfo();
         }
+        const std::chrono::steady_clock::time_point openGLEnd = std::chrono::steady_clock::now();
 
+        const std::chrono::steady_clock::time_point shadersBegin = std::chrono::steady_clock::now();
         mSetupShaders();                // transfer, compile, link shaders on GPU
+        const std::chrono::steady_clock::time_point shadersEnd = std::chrono::steady_clock::now();
+
+        const std::chrono::steady_clock::time_point buffersBegin = std::chrono::steady_clock::now();
         mSetupBuffers();                // register Buffers on GPU
+        const std::chrono::steady_clock::time_point buffersEnd = std::chrono::steady_clock::now();
+
+        const std::chrono::steady_clock::time_point texturesBegin = std::chrono::steady_clock::now();
         mSetupTextures();               // register Textures on GPU
+        const std::chrono::steady_clock::time_point texturesEnd = std::chrono::steady_clock::now();
+
+        const std::chrono::steady_clock::time_point sceneBegin = std::chrono::steady_clock::now();
         mSetupScene();                  // setup any scene specific information
+        const std::chrono::steady_clock::time_point sceneEnd = std::chrono::steady_clock::now();
 
         _isInitialized = true;
         _isCleanedUp = false;
-        if (DEBUG) fprintf(stdout, "\n[INFO]: Setup complete\n");
+
+        const std::chrono::steady_clock::time_point initEnd = std::chrono::steady_clock::now();
+        if (DEBUG) {
+            fprintf(stdout, "\n[INFO]: Setup complete\n");
+            fprintf(stdout, "[INFO]: GLFW:     %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: OpenGL:   %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: Shaders:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shadersEnd  - shadersBegin ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: Buffers:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(buffersEnd  - buffersBegin ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: Textures: %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(texturesEnd - texturesBegin).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: Scene:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: Init:     %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(initEnd     - initBegin    ).count() ) / 1000000.0);
+        }
     }
 }
 
@@ -753,15 +783,45 @@ inline
 void CSCI441::OpenGLEngine::shutdown()
 {
     if( !_isCleanedUp ) {
+        const std::chrono::steady_clock::time_point shutdownBegin = std::chrono::steady_clock::now();
         if (DEBUG) fprintf(stdout, "\n[INFO]: Shutting down.......\n");
-        mCleanupShaders();                                  // delete shaders from GPU
-        mCleanupBuffers();                                  // delete VAOs/VBOs from GPU
-        mCleanupTextures();                                 // delete textures from GPU
+
+        const std::chrono::steady_clock::time_point sceneBegin = std::chrono::steady_clock::now();
         mCleanupScene();                                    // delete scene info from CPU
+        const std::chrono::steady_clock::time_point sceneEnd = std::chrono::steady_clock::now();
+
+        const std::chrono::steady_clock::time_point texturesBegin = std::chrono::steady_clock::now();
+        mCleanupTextures();                                 // delete textures from GPU
+        const std::chrono::steady_clock::time_point texturesEnd = std::chrono::steady_clock::now();
+
+        const std::chrono::steady_clock::time_point buffersBegin = std::chrono::steady_clock::now();
+        mCleanupBuffers();                                  // delete VAOs/VBOs from GPU
+        const std::chrono::steady_clock::time_point buffersEnd = std::chrono::steady_clock::now();
+
+        const std::chrono::steady_clock::time_point shadersBegin = std::chrono::steady_clock::now();
+        mCleanupShaders();                                  // delete shaders from GPU
+        const std::chrono::steady_clock::time_point shadersEnd = std::chrono::steady_clock::now();
+
+        const std::chrono::steady_clock::time_point openGLBegin = std::chrono::steady_clock::now();
         mCleanupOpenGL();                                   // cleanup anything OpenGL related
         _cleanupGLFunctions();                              // cleanup anything function pointer related
+        const std::chrono::steady_clock::time_point openGLEnd = std::chrono::steady_clock::now();
+
+        const std::chrono::steady_clock::time_point glfwBegin = std::chrono::steady_clock::now();
         mCleanupGLFW();                                     // shut down GLFW to clean up our context
-        if (DEBUG) fprintf(stdout, "[INFO]: ..shut down complete!\n");
+        const std::chrono::steady_clock::time_point glfwEnd = std::chrono::steady_clock::now();
+
+        const std::chrono::steady_clock::time_point shutdownEnd = std::chrono::steady_clock::now();
+        if (DEBUG) {
+            fprintf(stdout, "[INFO]: ..shut down complete!\n");
+            fprintf(stdout, "[INFO]: Scene:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: Textures: %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(texturesEnd - texturesBegin).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: Buffers:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(buffersEnd  - buffersBegin ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: Shaders:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shadersEnd  - shadersBegin ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: OpenGL:   %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: GLFW:     %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: Init:     %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shutdownEnd - shutdownBegin).count() ) / 1000000.0);
+        }
         _isCleanedUp = true;
         _isInitialized = false;
     }
