@@ -118,6 +118,12 @@ namespace CSCI441 {
         /**
          * @brief sets the uniform value within the uniform buffer block
          * @param UNIFORM_NAME uniform to set
+         * @param value value to set
+         */
+        [[maybe_unused]] void setUniform( const char* UNIFORM_NAME, GLfloat value );
+        /**
+         * @brief sets the uniform value within the uniform buffer block
+         * @param UNIFORM_NAME uniform to set
          * @param vec value to set
          */
         [[maybe_unused]] void setUniform( const char* UNIFORM_NAME, glm::vec3 vec );
@@ -249,6 +255,11 @@ inline void CSCI441::UniformBufferObject::copyToBuffer( const char* UNIFORM_NAME
 [[maybe_unused]]
 inline void CSCI441::UniformBufferObject::setUniform( const char* UNIFORM_NAME, const GLint value ) {
     copyToBuffer(UNIFORM_NAME, &value, sizeof(GLint));
+}
+
+[[maybe_unused]]
+inline void CSCI441::UniformBufferObject::setUniform( const char* UNIFORM_NAME, const GLfloat value ) {
+    copyToBuffer(UNIFORM_NAME, &value, sizeof(GLfloat));
 }
 
 [[maybe_unused]]
