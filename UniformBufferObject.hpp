@@ -82,24 +82,51 @@ namespace CSCI441 {
          * uniform block for the provided ShaderProgram to the same binding point.
          * @param shaderProgram ShaderProgram object that utilizes the uniformBlock
          * @param bindingPoint Binding point to bind the UBO and ShaderProgram Uniform Block to
+         * @note need to call before calling UniformBufferObject::bindToShaderProgram() for a second shader program
          */
         [[maybe_unused]] void setupWithShaderProgram( ShaderProgram *shaderProgram, GLuint bindingPoint );
 
         /**
+         * @brief sets the shader programs binding point to match this uniform buffer object
+         * @param shaderProgram
+         * @note need to call UniformBufferObject::setupWithShaderProgram() before calling this with a second shader program
+         */
+        [[maybe_unused]] void bindToShaderProgram( ShaderProgram *shaderProgram );
+
+        /**
          * @brief copies the value pointed to by addr to the corresponding location within the UBO as denoted by the offset
          * @param offset UBO offset to copy value to
-         * @param addr starting address of source to copy from
+         * @param src starting address of source to copy from
          * @param len length of buffer to copy
          */
-        [[maybe_unused]] void copyToOffset( unsigned int offset, void* addr, size_t len );
+        [[maybe_unused]] void copyToOffset( unsigned int offset, const void * src, size_t len );
 
         /**
          * @brief copies the value pointed to by addr to the corresponding location within the UBO as denoted by the uniform name
          * @param UNIFORM_NAME name of the uniform within the block to copy value to
-         * @param addr starting address of source to copy from
+         * @param src starting address of source to copy from
          * @param len length of buffer to copy
          */
-        [[maybe_unused]] void copyToBuffer( const char* UNIFORM_NAME, void* addr, size_t len );
+        [[maybe_unused]] void copyToBuffer( const char* UNIFORM_NAME, const void * src, size_t len );
+
+        /**
+         * @brief sets the uniform value within the uniform buffer block
+         * @param UNIFORM_NAME uniform to set
+         * @param vec value to set
+         */
+        [[maybe_unused]] void setUniform( const char* UNIFORM_NAME, glm::vec3 vec );
+        /**
+         * @brief sets the uniform value within the uniform buffer block
+         * @param UNIFORM_NAME uniform to set
+         * @param vec value to set
+         */
+        [[maybe_unused]] void setUniform( const char* UNIFORM_NAME, glm::vec4 vec );
+        /**
+         * @brief sets the uniform value within the uniform buffer block
+         * @param UNIFORM_NAME uniform to set
+         * @param mtx value to set
+         */
+        [[maybe_unused]] void setUniform( const char* UNIFORM_NAME, glm::mat4 mtx );
 
         /**
          * @brief binds UBO object to UBO buffer
@@ -168,7 +195,7 @@ inline CSCI441::UniformBufferObject::~UniformBufferObject() {
 }
 
 [[maybe_unused]]
-inline void CSCI441::UniformBufferObject::setupWithShaderProgram( ShaderProgram *shaderProgram, GLuint bindingPoint ) {
+inline void CSCI441::UniformBufferObject::setupWithShaderProgram( ShaderProgram * shaderProgram, const GLuint bindingPoint ) {
     _blockSize = shaderProgram->getUniformBlockSize( _blockName );
     _buffer = new GLubyte[ _blockSize ];
 
@@ -185,20 +212,25 @@ inline void CSCI441::UniformBufferObject::setupWithShaderProgram( ShaderProgram 
 }
 
 [[maybe_unused]]
-inline void CSCI441::UniformBufferObject::copyToOffset( const unsigned int offset, void* addr, const size_t len ) {
+inline void CSCI441::UniformBufferObject::bindToShaderProgram( ShaderProgram *shaderProgram ) {
+    shaderProgram->setUniformBlockBinding(_blockName, _bindingPoint);
+}
+
+[[maybe_unused]]
+inline void CSCI441::UniformBufferObject::copyToOffset( const unsigned int offset, const void * src, const size_t len ) {
     if(offset < _numUniforms) {
-        memcpy(_buffer + _uniformOffsets[offset], addr, len);
+        memcpy(_buffer + _uniformOffsets[offset], src, len);
     } else {
         fprintf(stderr, "[ERROR]: Offset %d exceeds size of Uniform Block %s which is %d\n", offset, _blockName, _numUniforms);
     }
 }
 
 [[maybe_unused]]
-inline void CSCI441::UniformBufferObject::copyToBuffer( const char* UNIFORM_NAME, void* addr, const size_t len ) {
+inline void CSCI441::UniformBufferObject::copyToBuffer( const char* UNIFORM_NAME, const void * src, const size_t len ) {
     bool found = false;
     for(GLuint i = 0; i < _numUniforms; i++) {
         if( strcmp(_uniformNames[i], UNIFORM_NAME) == 0 ) {
-            memcpy( _buffer + _uniformOffsets[i], addr, len );
+            memcpy( _buffer + _uniformOffsets[i], src, len );
             found = true;
             break;
         }
@@ -206,6 +238,21 @@ inline void CSCI441::UniformBufferObject::copyToBuffer( const char* UNIFORM_NAME
     if(!found) {
         fprintf(stderr, "[ERROR]: Uniform Name \"%s\" not found within Uniform Block \"%s\"\n", UNIFORM_NAME, _blockName);
     }
+}
+
+[[maybe_unused]]
+inline void CSCI441::UniformBufferObject::setUniform( const char* UNIFORM_NAME, const glm::vec3 vec ) {
+    copyToBuffer(UNIFORM_NAME, glm::value_ptr(vec), sizeof(glm::vec3));
+}
+
+[[maybe_unused]]
+inline void CSCI441::UniformBufferObject::setUniform( const char* UNIFORM_NAME, const glm::vec4 vec ) {
+    copyToBuffer(UNIFORM_NAME, glm::value_ptr(vec), sizeof(glm::vec4));
+}
+
+[[maybe_unused]]
+inline void CSCI441::UniformBufferObject::setUniform( const char* UNIFORM_NAME, const glm::mat4 mtx ) {
+    copyToBuffer(UNIFORM_NAME, glm::value_ptr(mtx), sizeof(glm::mat4));
 }
 
 inline void CSCI441::UniformBufferObject::bindBuffer() const {
