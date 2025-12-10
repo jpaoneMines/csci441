@@ -436,6 +436,10 @@ namespace CSCI441_INTERNAL {
                     teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 3 + p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv ] = teapot_compute_tangent(control_points_k, u, v);
                 }
             }
+
+            for(GLuint i = 0; i < TEAPOT_PATCH_DIMENSION + 1; i++)
+                free( control_points_k[i] );
+            free( control_points_k );
         }
 
         // Elements
