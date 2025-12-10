@@ -41,9 +41,10 @@ namespace CSCI441 {
      * @param positionLocation location of the vertex position attribute
      * @param normalLocation location of the vertex normal attribute
      * @param texCoordLocation location of the vertex texture coordinate attribute
+     * @param tangentLocation location of the vertex tangent attribute
      * @note Needs to be called after a shader program is being used and before drawing geometry
      */
-    void setVertexAttributeLocations( GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1 );
+    void setVertexAttributeLocations( GLint positionLocation, GLint normalLocation = -1, GLint texCoordLocation = -1, GLint tangentLocation = -1 );
 
     /**
      * @brief deletes the VAOs stored for all object types
@@ -405,6 +406,7 @@ namespace CSCI441_INTERNAL {
      * @brief location of the vertex texture coordinate attribute within the shader being rendered with
      */
     inline GLint _texCoordAttributeLocation = -1;
+    inline GLint _tangentAttributeLocation = -1;
 
     /**
      * @brief creates the VAO + VBO
@@ -550,10 +552,11 @@ namespace CSCI441_INTERNAL {
 ////////////////////////////////////////////////////////////////////////////////////
 // Outward facing function implementations
 
-inline void CSCI441::setVertexAttributeLocations( const GLint positionLocation, const GLint normalLocation, const GLint texCoordLocation ) {
+inline void CSCI441::setVertexAttributeLocations( const GLint positionLocation, const GLint normalLocation, const GLint texCoordLocation, const GLint tangentLocation ) {
     CSCI441_INTERNAL::_positionAttributeLocation = positionLocation;
     CSCI441_INTERNAL::_normalAttributeLocation = normalLocation;
     CSCI441_INTERNAL::_texCoordAttributeLocation = texCoordLocation;
+    CSCI441_INTERNAL::_tangentAttributeLocation = tangentLocation;
     CSCI441_INTERNAL::setTeapotAttributeLocations(positionLocation, normalLocation, texCoordLocation);
 }
 
@@ -877,6 +880,10 @@ inline void CSCI441_INTERNAL::drawCubeFlat( const GLfloat sideLength, const GLen
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
         glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2) );
     }
+    if (CSCI441_INTERNAL::_tangentAttributeLocation != -1) {
+        glEnableVertexAttribArray( CSCI441_INTERNAL::_tangentAttributeLocation );
+        glVertexAttribPointer( CSCI441_INTERNAL::_tangentAttributeLocation, 4, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES) );
+    }
 
     glDrawArrays( GL_TRIANGLES, 0, 36 );
 
@@ -1173,24 +1180,45 @@ inline void CSCI441_INTERNAL::generateCubeVAOFlat( const GLfloat sideLength ) {
             {-CORNER_POINT, CORNER_POINT,  CORNER_POINT}, {CORNER_POINT, -CORNER_POINT, CORNER_POINT}, {CORNER_POINT, CORNER_POINT, CORNER_POINT}
     };
     const glm::vec3 normals[NUM_VERTICES] = {
-            // Left Face
-            {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f},
-            {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f},
-            // Right Face
-            {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f},
-            {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f},
-            // Top Face
-            {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f, 0.0f},
-            {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f, 0.0f},
-            // Bottom Face
-            {0.0f, -1.0f, 0.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, -1.0f, 0.0f},
-            {0.0f, -1.0f, 0.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, -1.0f, 0.0f},
-            // Back Face
-            {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f, -1.0f},
-            {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f, -1.0f},
-            // Front Face
-            {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f},
-            {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}
+            // Left Face = -X Axis
+            CSCI441::X_AXIS_NEG, CSCI441::X_AXIS_NEG, CSCI441::X_AXIS_NEG,
+            CSCI441::X_AXIS_NEG, CSCI441::X_AXIS_NEG, CSCI441::X_AXIS_NEG,
+            // Right Face = +X Axis
+            CSCI441::X_AXIS_POS, CSCI441::X_AXIS_POS, CSCI441::X_AXIS_POS,
+            CSCI441::X_AXIS_POS, CSCI441::X_AXIS_POS, CSCI441::X_AXIS_POS,
+            // Top Face = +Y Axis
+            CSCI441::Y_AXIS_POS, CSCI441::Y_AXIS_POS, CSCI441::Y_AXIS_POS,
+            CSCI441::Y_AXIS_POS, CSCI441::Y_AXIS_POS, CSCI441::Y_AXIS_POS,
+            // Bottom Face = -Y Axis
+            CSCI441::Y_AXIS_NEG, CSCI441::Y_AXIS_NEG, CSCI441::Y_AXIS_NEG,
+            CSCI441::Y_AXIS_NEG, CSCI441::Y_AXIS_NEG, CSCI441::Y_AXIS_NEG,
+            // Back Face = -Z Axis
+            CSCI441::Z_AXIS_NEG, CSCI441::Z_AXIS_NEG, CSCI441::Z_AXIS_NEG,
+            CSCI441::Z_AXIS_NEG, CSCI441::Z_AXIS_NEG, CSCI441::Z_AXIS_NEG,
+            // Front Face = +Z Axis
+            CSCI441::Z_AXIS_POS, CSCI441::Z_AXIS_POS, CSCI441::Z_AXIS_POS,
+            CSCI441::Z_AXIS_POS, CSCI441::Z_AXIS_POS, CSCI441::Z_AXIS_POS
+    };
+    constexpr GLfloat handedness = 1.0f;
+    const glm::vec4 tangents[NUM_VERTICES] = {
+            // Left Face = -Y Axis
+            glm::vec4(CSCI441::Y_AXIS_NEG, handedness), glm::vec4(CSCI441::Y_AXIS_NEG, handedness), glm::vec4(CSCI441::Y_AXIS_NEG, handedness),
+            glm::vec4(CSCI441::Y_AXIS_NEG, handedness), glm::vec4(CSCI441::Y_AXIS_NEG, handedness), glm::vec4(CSCI441::Y_AXIS_NEG, handedness),
+            // Right Face = +Y Axis
+            glm::vec4(CSCI441::Y_AXIS_POS, handedness), glm::vec4(CSCI441::Y_AXIS_POS, handedness), glm::vec4(CSCI441::Y_AXIS_POS, handedness),
+            glm::vec4(CSCI441::Y_AXIS_POS, handedness), glm::vec4(CSCI441::Y_AXIS_POS, handedness), glm::vec4(CSCI441::Y_AXIS_POS, handedness),
+            // Top Face = +Z Axis
+            glm::vec4(CSCI441::Z_AXIS_POS, handedness), glm::vec4(CSCI441::Z_AXIS_POS, handedness), glm::vec4(CSCI441::Z_AXIS_POS, handedness),
+            glm::vec4(CSCI441::Z_AXIS_POS, handedness), glm::vec4(CSCI441::Z_AXIS_POS, handedness), glm::vec4(CSCI441::Z_AXIS_POS, handedness),
+            // Bottom Face = -Z Axis
+            glm::vec4(CSCI441::Z_AXIS_NEG, handedness), glm::vec4(CSCI441::Z_AXIS_NEG, handedness), glm::vec4(CSCI441::Z_AXIS_NEG, handedness),
+            glm::vec4(CSCI441::Z_AXIS_NEG, handedness), glm::vec4(CSCI441::Z_AXIS_NEG, handedness), glm::vec4(CSCI441::Z_AXIS_NEG, handedness),
+            // Back Face = -X Axis
+            glm::vec4(CSCI441::X_AXIS_NEG, handedness), glm::vec4(CSCI441::X_AXIS_NEG, handedness), glm::vec4(CSCI441::X_AXIS_NEG, handedness),
+            glm::vec4(CSCI441::X_AXIS_NEG, handedness), glm::vec4(CSCI441::X_AXIS_NEG, handedness), glm::vec4(CSCI441::X_AXIS_NEG, handedness),
+            // Front Face = +X Axis
+            glm::vec4(CSCI441::X_AXIS_POS, handedness), glm::vec4(CSCI441::X_AXIS_POS, handedness), glm::vec4(CSCI441::X_AXIS_POS, handedness),
+            glm::vec4(CSCI441::X_AXIS_POS, handedness), glm::vec4(CSCI441::X_AXIS_POS, handedness), glm::vec4(CSCI441::X_AXIS_POS, handedness)
     };
     const glm::vec2 texCoords[NUM_VERTICES] = {
             // Left Face
@@ -1213,10 +1241,11 @@ inline void CSCI441_INTERNAL::generateCubeVAOFlat( const GLfloat sideLength ) {
             {0.0f, 1.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}
     };
 
-    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
+    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2) + sizeof(glm::vec4)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * NUM_VERTICES, vertices );
     glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES, sizeof(glm::vec3) * NUM_VERTICES, normals );
     glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2, sizeof(glm::vec2) * NUM_VERTICES, texCoords );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES, sizeof(glm::vec4) * NUM_VERTICES, tangents );
 
     CSCI441_INTERNAL::_cubeVAO.insert( std::pair<GLfloat, GLuint>( sideLength, vaod ) );
     CSCI441_INTERNAL::_cubeVBO.insert( std::pair<GLfloat, GLuint>( sideLength, vbod ) );
