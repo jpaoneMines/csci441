@@ -915,6 +915,10 @@ inline void CSCI441_INTERNAL::drawCubeIndexed( const GLfloat sideLength, const G
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
         glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2) );
     }
+    if (CSCI441_INTERNAL::_tangentAttributeLocation != -1) {
+        glEnableVertexAttribArray( CSCI441_INTERNAL::_tangentAttributeLocation );
+        glVertexAttribPointer( CSCI441_INTERNAL::_tangentAttributeLocation, 4, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES) );
+    }
 
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*)nullptr);
 
@@ -946,6 +950,10 @@ inline void CSCI441_INTERNAL::drawCylinder( const GLfloat base, const GLfloat to
     if(CSCI441_INTERNAL::_texCoordAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
         glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2) );
+    }
+    if (CSCI441_INTERNAL::_tangentAttributeLocation != -1) {
+        glEnableVertexAttribArray( CSCI441_INTERNAL::_tangentAttributeLocation );
+        glVertexAttribPointer( CSCI441_INTERNAL::_tangentAttributeLocation, 4, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES) );
     }
 
     for(GLuint stackNum = 0; stackNum < stacks; stackNum++) {
@@ -980,6 +988,10 @@ inline void CSCI441_INTERNAL::drawPartialDisk(const GLfloat innerRadius, const G
     if(CSCI441_INTERNAL::_texCoordAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
         glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2) );
+    }
+    if (CSCI441_INTERNAL::_tangentAttributeLocation != -1) {
+        glEnableVertexAttribArray( CSCI441_INTERNAL::_tangentAttributeLocation );
+        glVertexAttribPointer( CSCI441_INTERNAL::_tangentAttributeLocation, 4, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES) );
     }
 
     for(GLuint ringNum = 0; ringNum < rings; ringNum++) {
@@ -1057,6 +1069,10 @@ inline void CSCI441_INTERNAL::drawHalfSphere( const GLfloat radius, const GLuint
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
         glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2) );
     }
+    if (CSCI441_INTERNAL::_tangentAttributeLocation != -1) {
+        glEnableVertexAttribArray( CSCI441_INTERNAL::_tangentAttributeLocation );
+        glVertexAttribPointer( CSCI441_INTERNAL::_tangentAttributeLocation, 4, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES) );
+    }
 
     glDrawArrays( GL_TRIANGLE_FAN, static_cast<GLint>((slices+2)/2), static_cast<GLint>((slices+2)/2) );
 
@@ -1097,6 +1113,10 @@ inline void CSCI441_INTERNAL::drawDome( const GLfloat radius, const GLuint stack
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
         glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2) );
     }
+    if (CSCI441_INTERNAL::_tangentAttributeLocation != -1) {
+        glEnableVertexAttribArray( CSCI441_INTERNAL::_tangentAttributeLocation );
+        glVertexAttribPointer( CSCI441_INTERNAL::_tangentAttributeLocation, 4, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES) );
+    }
 
     glDrawArrays( GL_TRIANGLE_FAN, 0, static_cast<GLint>(slices+2) );
 
@@ -1132,6 +1152,10 @@ inline void CSCI441_INTERNAL::drawTorus( const GLfloat innerRadius, const GLfloa
     if(CSCI441_INTERNAL::_texCoordAttributeLocation != -1) {
         glEnableVertexAttribArray( CSCI441_INTERNAL::_texCoordAttributeLocation );
         glVertexAttribPointer( CSCI441_INTERNAL::_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2) );
+    }
+    if (CSCI441_INTERNAL::_tangentAttributeLocation != -1) {
+        glEnableVertexAttribArray( CSCI441_INTERNAL::_tangentAttributeLocation );
+        glVertexAttribPointer( CSCI441_INTERNAL::_tangentAttributeLocation, 4, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES) );
     }
 
     for(GLuint ringNum = 0; ringNum < rings; ringNum++) {
@@ -1282,7 +1306,7 @@ inline void CSCI441_INTERNAL::generateCubeVAOIndexed( const GLfloat sideLength )
     };
     const glm::vec3 texCoords[NUM_VERTICES] = {
             {-1.0f, -1.0f, -1.0f}, // 0 bln
-            { 1.0f, -1.0f, -1.0f}, // 1.0f brn
+            { 1.0f, -1.0f, -1.0f}, // 1 brn
             { 1.0f,  1.0f, -1.0f}, // 2 trn
             {-1.0f,  1.0f, -1.0f}, // 3 tln
             {-1.0f, -1.0f,  1.0f}, // 4 blf
@@ -1333,9 +1357,11 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( const CylinderData& cylData )
 
     const GLfloat sliceStep = glm::two_pi<float>() / static_cast<GLfloat>(cylData.slices);
     const GLfloat stackStep = cylData.height / static_cast<GLfloat>(cylData.stacks);
+    constexpr GLfloat PIover4 = glm::pi<GLfloat>() / 4.0f;
 
     const auto vertices  = new glm::vec3[NUM_VERTICES];
     const auto normals   = new glm::vec3[NUM_VERTICES];
+    const auto tangents  = new glm::vec4[NUM_VERTICES];
     const auto texCoords = new glm::vec2[NUM_VERTICES];
 
     GLuint64 idx = 0;
@@ -1353,6 +1379,11 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( const CylinderData& cylData )
             normals[ idx ].y = 0.0f;
             normals[ idx ].z = glm::sin( sliceNum * sliceStep );
 
+            tangents[ idx ].x = glm::cos( sliceNum * sliceStep + PIover4 );
+            tangents[ idx ].y = 0.0f;
+            tangents[ idx ].z = glm::sin( sliceNum * sliceStep + PIover4 );
+            tangents[ idx ].w = 1;
+
             texCoords[ idx ].s = 1.0f - static_cast<GLfloat>(sliceNum) / static_cast<GLfloat>(cylData.slices);
             texCoords[ idx ].t = static_cast<GLfloat>(stackNum) / static_cast<GLfloat>(cylData.stacks);
 
@@ -1366,6 +1397,11 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( const CylinderData& cylData )
             normals[ idx ].y = 0.0f;
             normals[ idx ].z = glm::sin( sliceNum * sliceStep );
 
+            tangents[ idx ].x = glm::cos( sliceNum * sliceStep + PIover4 );
+            tangents[ idx ].y = 0.0f;
+            tangents[ idx ].z = glm::sin( sliceNum * sliceStep + PIover4 );
+            tangents[ idx ].w = 1;
+
             texCoords[ idx ].s = 1.0f - static_cast<GLfloat>(sliceNum) / static_cast<GLfloat>(cylData.slices);
             texCoords[ idx ].t = static_cast<GLfloat>(stackNum + 1) / static_cast<GLfloat>(cylData.stacks);
 
@@ -1373,17 +1409,19 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( const CylinderData& cylData )
         }
     }
 
-    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
+    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2) + sizeof(glm::vec4)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
     glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(glm::vec3) * NUM_VERTICES), vertices );
     glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(glm::vec3) * NUM_VERTICES), static_cast<GLsizeiptr>(sizeof(glm::vec3) * NUM_VERTICES), normals );
     glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(glm::vec3) * NUM_VERTICES * 2), static_cast<GLsizeiptr>(sizeof(glm::vec2) * NUM_VERTICES), texCoords );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES, sizeof(glm::vec4) * NUM_VERTICES, tangents );
 
     CSCI441_INTERNAL::_cylinderVAO.insert( std::pair<CylinderData, GLuint>( cylData, vaod ) );
     CSCI441_INTERNAL::_cylinderVBO.insert( std::pair<CylinderData, GLuint>( cylData, vbod ) );
 
     delete[] vertices;
-    delete[] texCoords;
     delete[] normals;
+    delete[] tangents;
+    delete[] texCoords;
 }
 
 inline void CSCI441_INTERNAL::generateDiskVAO( const DiskData& diskData ) {
@@ -1402,6 +1440,7 @@ inline void CSCI441_INTERNAL::generateDiskVAO( const DiskData& diskData ) {
 
     const auto vertices  = new glm::vec3[NUM_VERTICES];
     const auto normals   = new glm::vec3[NUM_VERTICES];
+    const auto tangents  = new glm::vec4[NUM_VERTICES];
     const auto texCoords = new glm::vec2[NUM_VERTICES];
 
     GLuint64 idx = 0;
@@ -1441,17 +1480,19 @@ inline void CSCI441_INTERNAL::generateDiskVAO( const DiskData& diskData ) {
         }
     }
 
-    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * NUM_VERTICES, vertices );
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES, sizeof(glm::vec3) * NUM_VERTICES, normals );
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2, sizeof(glm::vec2) * NUM_VERTICES, texCoords );
+    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2) + sizeof(glm::vec4)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
+    glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(glm::vec3) * NUM_VERTICES), vertices );
+    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(glm::vec3) * NUM_VERTICES), static_cast<GLsizeiptr>(sizeof(glm::vec3) * NUM_VERTICES), normals );
+    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(glm::vec3) * NUM_VERTICES * 2), static_cast<GLsizeiptr>(sizeof(glm::vec2) * NUM_VERTICES), texCoords );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES, sizeof(glm::vec4) * NUM_VERTICES, tangents );
 
     CSCI441_INTERNAL::_diskVAO.insert( std::pair<DiskData, GLuint>( diskData, vaod ) );
     CSCI441_INTERNAL::_diskVBO.insert( std::pair<DiskData, GLuint>( diskData, vbod ) );
 
     delete[] vertices;
-    delete[] texCoords;
     delete[] normals;
+    delete[] tangents;
+    delete[] texCoords;
 }
 
 inline void CSCI441_INTERNAL::generateSphereVAO( const SphereData& sphereData ) {
@@ -1675,6 +1716,7 @@ inline void CSCI441_INTERNAL::generateTorusVAO( const TorusData& torusData ) {
 
     const auto vertices  = new glm::vec3[NUM_VERTICES];
     const auto normals   = new glm::vec3[NUM_VERTICES];
+    const auto tangents  = new glm::vec4[NUM_VERTICES];
     const auto texCoords = new glm::vec2[NUM_VERTICES];
 
     GLuint64 idx = 0;
@@ -1744,17 +1786,19 @@ inline void CSCI441_INTERNAL::generateTorusVAO( const TorusData& torusData ) {
         }
     }
 
-    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * NUM_VERTICES, vertices );
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES, sizeof(glm::vec3) * NUM_VERTICES, normals );
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2, sizeof(glm::vec2) * NUM_VERTICES, texCoords );
+    glBufferData(GL_ARRAY_BUFFER, (sizeof(glm::vec3)*2 + sizeof(glm::vec2) + sizeof(glm::vec4)) * NUM_VERTICES, nullptr, GL_STATIC_DRAW );
+    glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(sizeof(glm::vec3) * NUM_VERTICES), vertices );
+    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(glm::vec3) * NUM_VERTICES), static_cast<GLsizeiptr>(sizeof(glm::vec3) * NUM_VERTICES), normals );
+    glBufferSubData(GL_ARRAY_BUFFER, static_cast<GLintptr>(sizeof(glm::vec3) * NUM_VERTICES * 2), static_cast<GLsizeiptr>(sizeof(glm::vec2) * NUM_VERTICES), texCoords );
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * NUM_VERTICES * 2 + sizeof(glm::vec2) * NUM_VERTICES, sizeof(glm::vec4) * NUM_VERTICES, tangents );
 
     CSCI441_INTERNAL::_torusVAO.insert( std::pair<TorusData, GLuint>( torusData, vaod ) );
     CSCI441_INTERNAL::_torusVBO.insert( std::pair<TorusData, GLuint>( torusData, vbod ) );
 
     delete[] vertices;
-    delete[] texCoords;
     delete[] normals;
+    delete[] tangents;
+    delete[] texCoords;
 }
 
 #endif // __CSCI441_OBJECTS_HPP__
