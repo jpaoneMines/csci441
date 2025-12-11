@@ -1437,6 +1437,7 @@ inline void CSCI441_INTERNAL::generateDiskVAO( const DiskData& diskData ) {
 
     const GLfloat sliceStep = diskData.sweepAngle / static_cast<GLfloat>(diskData.slices);
     const GLfloat ringStep = (diskData.outerRadius - diskData.innerRadius) / static_cast<GLfloat>(diskData.rings);
+    constexpr GLfloat PIover4 = glm::pi<GLfloat>() / 4.0f;
 
     const auto vertices  = new glm::vec3[NUM_VERTICES];
     const auto normals   = new glm::vec3[NUM_VERTICES];
@@ -1459,6 +1460,11 @@ inline void CSCI441_INTERNAL::generateDiskVAO( const DiskData& diskData ) {
             normals[ idx ].y = 0.0f;
             normals[ idx ].z = 1.0f;
 
+            tangents[ idx ].x = glm::cos(theta + PIover4);
+            tangents[ idx ].y = glm::sin(theta + PIover4);
+            tangents[ idx ].z = 0.0f;
+            tangents[ idx ].w = 1.0f;
+
             texCoords[ idx ].s = glm::cos(theta)*(currRadius/diskData.outerRadius);
             texCoords[ idx ].t = glm::sin(theta)*(currRadius/diskData.outerRadius);
 
@@ -1471,6 +1477,11 @@ inline void CSCI441_INTERNAL::generateDiskVAO( const DiskData& diskData ) {
             normals[ idx ].x = 0.0f;
             normals[ idx ].y = 0.0f;
             normals[ idx ].z = 1.0f;
+
+            tangents[ idx ].x = glm::cos(theta + PIover4);
+            tangents[ idx ].y = glm::sin(theta + PIover4);
+            tangents[ idx ].z = 0.0f;
+            tangents[ idx ].w = 1.0f;
 
             texCoords[ idx ].s = glm::cos(theta)*(nextRadius/diskData.outerRadius);
             texCoords[ idx ].t = glm::sin(theta)*(nextRadius/diskData.outerRadius);
