@@ -1751,6 +1751,11 @@ inline void CSCI441_INTERNAL::generateTorusVAO( const TorusData& torusData ) {
             normals[ idx ].y = glm::cos( currPhi ) * glm::sin( currTheta );
             normals[ idx ].z = glm::sin( currPhi );
 
+            tangents[ idx ].x = -(torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi) ) * glm::sin(currTheta);
+            tangents[ idx ].y =  (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi) ) * glm::cos(currTheta);
+            tangents[ idx ].z = 0.0f;
+            tangents[ idx ].w = 1.0f;
+
             texCoords[ idx ].s = static_cast<GLfloat>(sideNum) / static_cast<GLfloat>(torusData.sides);
             texCoords[ idx ].t = static_cast<GLfloat>(ringNum) / static_cast<GLfloat>(torusData.rings);
 
@@ -1763,6 +1768,11 @@ inline void CSCI441_INTERNAL::generateTorusVAO( const TorusData& torusData ) {
             normals[ idx ].x = glm::cos( currPhi ) * glm::cos( nextTheta );
             normals[ idx ].y = glm::cos( currPhi ) * glm::sin( nextTheta );
             normals[ idx ].z = glm::sin( currPhi );
+
+            tangents[ idx ].x = -(torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi) ) * glm::sin(nextTheta);
+            tangents[ idx ].y =  (torusData.outerRadius + torusData.innerRadius * glm::cos(currPhi) ) * glm::cos(nextTheta);
+            tangents[ idx ].z = 0.0f;
+            tangents[ idx ].w = 1.0f;
 
             texCoords[ idx ].s = static_cast<GLfloat>(sideNum) / static_cast<GLfloat>(torusData.sides);
             texCoords[ idx ].t = static_cast<GLfloat>(ringNum + 1) / static_cast<GLfloat>(torusData.rings);
@@ -1777,6 +1787,11 @@ inline void CSCI441_INTERNAL::generateTorusVAO( const TorusData& torusData ) {
             normals[ idx ].y = glm::cos( nextPhi ) * glm::sin( currTheta );
             normals[ idx ].z = glm::sin( nextPhi );
 
+            tangents[ idx ].x = -(torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi) ) * glm::sin(currTheta);
+            tangents[ idx ].y =  (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi) ) * glm::cos(currTheta);
+            tangents[ idx ].z = 0.0f;
+            tangents[ idx ].w = 1.0f;
+
             texCoords[ idx ].s = static_cast<GLfloat>(sideNum + 1) / static_cast<GLfloat>(torusData.sides);
             texCoords[ idx ].t = static_cast<GLfloat>(ringNum) / static_cast<GLfloat>(torusData.rings);
 
@@ -1789,6 +1804,11 @@ inline void CSCI441_INTERNAL::generateTorusVAO( const TorusData& torusData ) {
             normals[ idx ].x = glm::cos( nextPhi ) * glm::cos( nextTheta );
             normals[ idx ].y = glm::cos( nextPhi ) * glm::sin( nextTheta );
             normals[ idx ].z = glm::sin( nextPhi );
+
+            tangents[ idx ].x = -(torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi) ) * glm::sin(nextTheta);
+            tangents[ idx ].y =  (torusData.outerRadius + torusData.innerRadius * glm::cos(nextPhi) ) * glm::cos(nextTheta);
+            tangents[ idx ].z = 0.0f;
+            tangents[ idx ].w = 1.0f;
 
             texCoords[ idx ].s = static_cast<GLfloat>(sideNum + 1) / static_cast<GLfloat>(torusData.sides);
             texCoords[ idx ].t = static_cast<GLfloat>(ringNum + 1) / static_cast<GLfloat>(torusData.rings);
