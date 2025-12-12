@@ -534,18 +534,24 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
             GLint actual_length = 0, size = 0, location = -1;
             GLenum type = GL_NONE;
             glGetActiveUniform(programHandle, uIdx, maxUniformNameLength, &actual_length, &size, &type, name );
-            if(size > 1) {
+            // if a uniform array
+        	if(size > 1) {
+        		const char* arrayIndexPos = strstr(name, "[");
                 for(int j = 0; j < size; j++) {
                     int max_array_size = actual_length + 4 + 2 + 1;
 					const auto array_name = new GLchar[max_array_size];
-                    snprintf(array_name, max_array_size, "%s[%i]", name, j);
+                	strncpy(array_name, name, arrayIndexPos - name + 1);
+                	strncat(array_name, std::to_string(j).c_str(), std::to_string(j).length());
+                	strncat(array_name, "]", 1);
                     location = glGetUniformLocation(programHandle, array_name);
                     if(location != -1) {
                         if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", uIdx, GLSL_type_to_string(type), array_name, location);
                     }
                     delete[] array_name;
                 }
-            } else {
+            }
+        	// if uniform singleton
+        	else {
                 location = glGetUniformLocation(programHandle, name);
                 if(location != -1) {
                     if (sDEBUG) printf("[INFO]: |  %2i) type: %-15s name: %-13s loc: %2i |\n", uIdx, GLSL_type_to_string(type), name, location);
