@@ -15,6 +15,7 @@ School of Mines but can be used with any OpenGL application.
 - [glad2](https://github.com/Dav1dde/glad)
 - [glm v1.0.1](https://github.com/g-truc/glm)
 - [stb_image](https://github.com/nothings/stb)
+- [freetype v2.14.1](https://freetype.org/)
 
 The corresponding header files are included with this distribution for proper compilation.
 
@@ -22,6 +23,7 @@ The corresponding header files are included with this distribution for proper co
 - [OpenGL v3.3+](https://www.opengl.org/)
 - [GLFW v3.4](https://www.glfw.org/)
 - [glad2](https://github.com/Dav1dde/glad)
+- [freetype v2.14.1](https://freetype.org/)
 
 The OpenGL, GLFW, and glad libraries must be previously built and installed on your machine.  Proper linking is left to the user to ensure success.
 
