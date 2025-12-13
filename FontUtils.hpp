@@ -1,5 +1,5 @@
-#ifndef CSCI441_FONT_UTILITY_HPP
-#define CSCI441_FONT_UTILITY_HPP
+#ifndef CSCI441_FONT_UTIS_HPP
+#define CSCI441_FONT_UTILS_HPP
 
 #include "constants.h"
 #include "Font.hpp"
@@ -30,7 +30,7 @@ namespace CSCI441 {
      * (3) Subsequently call renderText() for every string to be rendered to screen\n
      * (4) During cleanup, call releaseFont() to deallocate font memory
      */
-    namespace FontUtility {
+    namespace FontUtils {
         /**
          * @brief registers a TrueTypeFont file with a shader program to render text to screen
          * @param filename ttf font file to load
@@ -81,7 +81,7 @@ namespace CSCI441 {
 // Inward Facing Utilities
 
 namespace CSCI441_INTERNAL {
-    namespace FontUtility {
+    namespace FontUtils {
         static bool loadFontShader();
         static CSCI441::Font* currentFont = nullptr;
         static GLuint fontShaderHandle = 0;
@@ -93,69 +93,69 @@ namespace CSCI441_INTERNAL {
 //************************************************
 // Outward Facing Definitions
 
-inline bool CSCI441::FontUtility::loadFont(const char * const filename) {
-    if (CSCI441_INTERNAL::FontUtility::currentFont != nullptr) {
-        delete CSCI441_INTERNAL::FontUtility::currentFont;
-        CSCI441_INTERNAL::FontUtility::currentFont = nullptr;
+inline bool CSCI441::FontUtils::loadFont(const char * const filename) {
+    if (CSCI441_INTERNAL::FontUtils::currentFont != nullptr) {
+        delete CSCI441_INTERNAL::FontUtils::currentFont;
+        CSCI441_INTERNAL::FontUtils::currentFont = nullptr;
     }
 
     bool success = true;
 
-    if (CSCI441_INTERNAL::FontUtility::fontShaderHandle == 0) {
-        success &= CSCI441_INTERNAL::FontUtility::loadFontShader();
+    if (CSCI441_INTERNAL::FontUtils::fontShaderHandle == 0) {
+        success &= CSCI441_INTERNAL::FontUtils::loadFontShader();
     }
 
-    CSCI441_INTERNAL::FontUtility::currentFont = new CSCI441::Font(filename);
+    CSCI441_INTERNAL::FontUtils::currentFont = new CSCI441::Font(filename);
 
-    return success && CSCI441_INTERNAL::FontUtility::currentFont->isLoaded();;
+    return success && CSCI441_INTERNAL::FontUtils::currentFont->isLoaded();;
 }
 
-inline void CSCI441::FontUtility::releaseFont() {
-    glDeleteProgram(CSCI441_INTERNAL::FontUtility::fontShaderHandle);
-    CSCI441_INTERNAL::FontUtility::fontShaderHandle = 0;
+inline void CSCI441::FontUtils::releaseFont() {
+    glDeleteProgram(CSCI441_INTERNAL::FontUtils::fontShaderHandle);
+    CSCI441_INTERNAL::FontUtils::fontShaderHandle = 0;
 
-    delete CSCI441_INTERNAL::FontUtility::currentFont;
-    CSCI441_INTERNAL::FontUtility::currentFont = nullptr;
+    delete CSCI441_INTERNAL::FontUtils::currentFont;
+    CSCI441_INTERNAL::FontUtils::currentFont = nullptr;
 }
 
-inline void CSCI441::FontUtility::bindFont() {
-    if (CSCI441_INTERNAL::FontUtility::fontShaderHandle != 0 && CSCI441_INTERNAL::FontUtility::currentFont != nullptr) {
-        glUseProgram( CSCI441_INTERNAL::FontUtility::fontShaderHandle );
-        CSCI441_INTERNAL::FontUtility::currentFont->bind();
+inline void CSCI441::FontUtils::bindFont() {
+    if (CSCI441_INTERNAL::FontUtils::fontShaderHandle != 0 && CSCI441_INTERNAL::FontUtils::currentFont != nullptr) {
+        glUseProgram( CSCI441_INTERNAL::FontUtils::fontShaderHandle );
+        CSCI441_INTERNAL::FontUtils::currentFont->bind();
     } else {
         fprintf(stderr, "[FontUtil | ERROR]: bindFont() called without loading a font.  Call loadFont() first\n");
     }
 }
 
-inline void CSCI441::FontUtility::setColor(const glm::vec3 color) {
+inline void CSCI441::FontUtils::setColor(const glm::vec3 color) {
     const glm::vec4 colorA = glm::vec4(color, 1.0f);
-    glProgramUniform4fv(CSCI441_INTERNAL::FontUtility::fontShaderHandle, CSCI441_INTERNAL::FontUtility::fontColorUniformLocation, 1, glm::value_ptr(colorA));
+    glProgramUniform4fv(CSCI441_INTERNAL::FontUtils::fontShaderHandle, CSCI441_INTERNAL::FontUtils::fontColorUniformLocation, 1, glm::value_ptr(colorA));
 }
 
-inline void CSCI441::FontUtility::setColor(const glm::vec4 color) {
-    glProgramUniform4fv(CSCI441_INTERNAL::FontUtility::fontShaderHandle, CSCI441_INTERNAL::FontUtility::fontColorUniformLocation, 1, glm::value_ptr(color));
+inline void CSCI441::FontUtils::setColor(const glm::vec4 color) {
+    glProgramUniform4fv(CSCI441_INTERNAL::FontUtils::fontShaderHandle, CSCI441_INTERNAL::FontUtils::fontColorUniformLocation, 1, glm::value_ptr(color));
 }
 
-inline void CSCI441::FontUtility::setWindowSize(const GLfloat width, const GLfloat height) {
-    CSCI441_INTERNAL::FontUtility::windowSize = glm::vec2(width, height);
+inline void CSCI441::FontUtils::setWindowSize(const GLfloat width, const GLfloat height) {
+    CSCI441_INTERNAL::FontUtils::windowSize = glm::vec2(width, height);
 }
 
-inline void CSCI441::FontUtility::setFontSize(const GLfloat scaleX, const GLfloat scaleY) {
-    if (CSCI441_INTERNAL::FontUtility::currentFont != nullptr) {
-        CSCI441_INTERNAL::FontUtility::currentFont->setScale(scaleX, scaleY);
+inline void CSCI441::FontUtils::setFontSize(const GLfloat scaleX, const GLfloat scaleY) {
+    if (CSCI441_INTERNAL::FontUtils::currentFont != nullptr) {
+        CSCI441_INTERNAL::FontUtils::currentFont->setScale(scaleX, scaleY);
     } else {
         fprintf(stderr, "[FontUtil | ERROR]: setFontSize() called without loading a font.  Call loadFont() first\n");
     }
 }
 
-inline void CSCI441::FontUtility::renderText(const char* str, const GLfloat x, const GLfloat y) {
-    if (CSCI441_INTERNAL::FontUtility::currentFont != nullptr) {
-        if (CSCI441_INTERNAL::FontUtility::windowSize.x == 0.0f ) {
-            CSCI441_INTERNAL::FontUtility::currentFont->draw(str, x, y);
+inline void CSCI441::FontUtils::renderText(const char* str, const GLfloat x, const GLfloat y) {
+    if (CSCI441_INTERNAL::FontUtils::currentFont != nullptr) {
+        if (CSCI441_INTERNAL::FontUtils::windowSize.x == 0.0f ) {
+            CSCI441_INTERNAL::FontUtils::currentFont->draw(str, x, y);
         } else {
-            const GLfloat normalizedX = x / CSCI441_INTERNAL::FontUtility::windowSize.x * 2.0f - 1.0f;
-            const GLfloat normalizedY = y / CSCI441_INTERNAL::FontUtility::windowSize.y * 2.0f - 1.0f;
-            CSCI441_INTERNAL::FontUtility::currentFont->draw(str, normalizedX, normalizedY);
+            const GLfloat normalizedX = x / CSCI441_INTERNAL::FontUtils::windowSize.x * 2.0f - 1.0f;
+            const GLfloat normalizedY = y / CSCI441_INTERNAL::FontUtils::windowSize.y * 2.0f - 1.0f;
+            CSCI441_INTERNAL::FontUtils::currentFont->draw(str, normalizedX, normalizedY);
         }
     } else {
         fprintf(stderr, "[FontUtil | ERROR]: renderText() called without loading a font.  Call loadFont() first and then bindFont()\n");
@@ -165,7 +165,7 @@ inline void CSCI441::FontUtility::renderText(const char* str, const GLfloat x, c
 //************************************************
 // Inward Facing Definitions
 
-inline bool CSCI441_INTERNAL::FontUtility::loadFontShader() {
+inline bool CSCI441_INTERNAL::FontUtils::loadFontShader() {
     const std::string vertex_shader_src =
 R"_(#version 410 core
 
@@ -233,4 +233,4 @@ void main() {
 
 }
 
-#endif//CSCI441_FONT_UTILITY_HPP
+#endif//CSCI441_FONT_UTILS_HPP
