@@ -153,9 +153,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drawSkeleton</b> () c
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a1ede01f8f88bcc50ca367cf3adc1c8f1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a1ede01f8f88bcc50ca367cf3adc1c8f1">readMD5Material</a> (const char *FILENAME)</td></tr>
-<tr class="memdesc:a1ede01f8f88bcc50ca367cf3adc1c8f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads textures corresponding to MD5 Shaders  <br /></td></tr>
-<tr class="separator:a1ede01f8f88bcc50ca367cf3adc1c8f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a6d9cfaf6befb9704a4eeac9dd3bc7a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a6a6d9cfaf6befb9704a4eeac9dd3bc7a">readMD5Material</a> (const char *FILENAME, const char *PATH=&quot;./&quot;)</td></tr>
+<tr class="memdesc:a6a6d9cfaf6befb9704a4eeac9dd3bc7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads textures corresponding to MD5 Shaders  <br /></td></tr>
+<tr class="separator:a6a6d9cfaf6befb9704a4eeac9dd3bc7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1a582788b43e3b7689aeef03b2edda2"><td class="memItemLeft" align="right" valign="top"><a id="af1a582788b43e3b7689aeef03b2edda2" name="af1a582788b43e3b7689aeef03b2edda2"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>releaseMD5Materials</b> ()</td></tr>
 <tr class="memdesc:af1a582788b43e3b7689aeef03b2edda2"><td class="mdescLeft">&#160;</td><td class="mdescRight">deletes textures from GPU that were registered during parsing of *.mtr file <br /></td></tr>
@@ -484,8 +484,8 @@ calling <a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a1e959bd3a5f801
 
 </div>
 </div>
-<a id="a1ede01f8f88bcc50ca367cf3adc1c8f1" name="a1ede01f8f88bcc50ca367cf3adc1c8f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ede01f8f88bcc50ca367cf3adc1c8f1">&#9670;&#160;</a></span>readMD5Material()</h2>
+<a id="a6a6d9cfaf6befb9704a4eeac9dd3bc7a" name="a6a6d9cfaf6befb9704a4eeac9dd3bc7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a6d9cfaf6befb9704a4eeac9dd3bc7a">&#9670;&#160;</a></span>readMD5Material()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -497,8 +497,18 @@ calling <a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a1e959bd3a5f801
           <td class="memname">void CSCI441::MD5Model::readMD5Material </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>FILENAME</em></td><td>)</td>
+          <td class="paramname"><em>FILENAME</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>PATH</em> = <code>&quot;./&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -512,6 +522,7 @@ calling <a class="el" href="class_c_s_c_i441_1_1_m_d5_model.html#a1e959bd3a5f801
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">FILENAME</td><td>*.mtr file to open and load textures from </td></tr>
+    <tr><td class="paramname">PATH</td><td>file path to prepend to all texture files during loading from disk (defaults to "./") </td></tr>
   </table>
   </dd>
 </dl>
