@@ -201,8 +201,6 @@ void main() {
     const char* vertexShaders[1] = { vertex_shader_src.c_str() };
     const char* fragmentShaders[1] = { fragment_shader_src.c_str() };
 
-    fprintf(stdout, "[INFO]: /--------------------------------------------------------\\\n" );
-
     const GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );
     glShaderSource(vertexShaderHandle, 1, vertexShaders, nullptr);
     glCompileShader(vertexShaderHandle);
@@ -224,8 +222,6 @@ void main() {
 
     glDetachShader(fontShaderHandle, fragmentShaderHandle);
     glDeleteShader(fragmentShaderHandle);
-
-    ShaderUtils::printShaderProgramInfo(fontShaderHandle, true, false, false, false, true, false, true);
 
     const GLint texUniformLocation = glGetUniformLocation(fontShaderHandle, "tex");
     fontColorUniformLocation     = glGetUniformLocation(fontShaderHandle, "color");
