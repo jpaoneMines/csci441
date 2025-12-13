@@ -124,7 +124,7 @@ namespace CSCI441 {
         [[maybe_unused]] [[nodiscard]] virtual bool isExtensionEnabled(const std::string EXT) const noexcept final { return _extensions.find(EXT) != _extensions.end(); }
 
         /**
-         * @brief Set the new window size
+         * @brief Stores the new window size
          * @param WINDOW_WIDTH width of the new window
          * @param WINDOW_HEIGHT height of the new window
          * @warning This function does not cause the window to be resized, rather after the window
@@ -132,6 +132,15 @@ namespace CSCI441 {
          * window size.
          */
         virtual void setCurrentWindowSize(const int WINDOW_WIDTH, const int WINDOW_HEIGHT) final { mWindowWidth = WINDOW_WIDTH; mWindowHeight = WINDOW_HEIGHT; }
+        /**
+         * @brief Stores the framebuffer size
+         * @param FRAMEBUFFER_WIDTH width of the framebuffer
+         * @param FRAMEBUFFER_HEIGHT height of the framebuffer
+         * @warning This function does not cause the framebuffer to be resized, rather after the framebuffer
+         * has been resized this function is used to update the data members storing the current
+         * framebuffer size.
+         */
+        virtual void setCurrentFramebufferSize(const int FRAMEBUFFER_WIDTH, const int FRAMEBUFFER_HEIGHT) final { mFramebufferWidth = FRAMEBUFFER_WIDTH; mFramebufferHeight = FRAMEBUFFER_HEIGHT; }
         /**
          * @brief Return the height of the window
          */
@@ -277,6 +286,14 @@ namespace CSCI441 {
          * @note may not correspond to the actual GLFW window created
          */
         int mWindowHeight;
+        /**
+         * @brief the framebuffer height of the requested GLFW window
+         */
+        int mFramebufferWidth;
+        /**
+         * @brief the framebuffer width of the requested GLFW window
+         */
+        int mFramebufferHeight;
         /**
          * @brief if the GLFW window can be resized while open
          * @note by default false
@@ -456,6 +473,8 @@ CSCI441::OpenGLEngine::OpenGLEngine(
     mOpenGLMinorVersionCreated(0),
     mWindowWidth(WINDOW_WIDTH),
     mWindowHeight(WINDOW_HEIGHT),
+    mFramebufferWidth(WINDOW_WIDTH),
+    mFramebufferHeight(WINDOW_HEIGHT),
     mWindowResizable(WINDOW_RESIZABLE),
     mWindowTitle(nullptr),
     mpWindow(nullptr),
@@ -482,6 +501,8 @@ CSCI441::OpenGLEngine::OpenGLEngine(
     mOpenGLMinorVersionCreated(0),
     mWindowWidth(0),
     mWindowHeight(0),
+    mFramebufferWidth(0),
+    mFramebufferHeight(0),
     mWindowResizable(false),
     mWindowTitle(nullptr),
     mpWindow(nullptr),
@@ -581,6 +602,7 @@ void CSCI441::OpenGLEngine::initialize()
 
         const std::chrono::steady_clock::time_point glfwBegin = std::chrono::steady_clock::now();
         mSetupGLFW();                   // initialize GLFW and set up a window
+        glfwGetFramebufferSize( mpWindow, &mFramebufferWidth, &mFramebufferHeight );
         const std::chrono::steady_clock::time_point glfwEnd = std::chrono::steady_clock::now();
 
         const std::chrono::steady_clock::time_point openGLBegin = std::chrono::steady_clock::now();
@@ -861,6 +883,10 @@ void CSCI441::OpenGLEngine::mWindowResizeCallback(
     const auto pEngine = static_cast<OpenGLEngine *>(glfwGetWindowUserPointer(pWindow));
     pEngine->setCurrentWindowSize(width, height);
     CSCI441::FontUtils::setWindowSize(width, height);
+
+    GLint framebufferWidth, framebufferHeight;
+    glfwGetFramebufferSize( pEngine->getWindow(), &framebufferWidth, &framebufferHeight );
+    pEngine->setCurrentFramebufferSize(framebufferWidth, framebufferHeight);
 }
 
 inline
