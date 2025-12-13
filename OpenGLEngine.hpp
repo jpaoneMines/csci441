@@ -13,6 +13,7 @@
 #define CSCI441_OPENGL_ENGINE_HPP
 
 #include "constants.h"
+#include "FontUtils.hpp"
 #include "OpenGLUtils.hpp"
 
 #ifdef CSCI441_USE_GLEW
@@ -463,6 +464,8 @@ CSCI441::OpenGLEngine::OpenGLEngine(
 {
     mWindowTitle = new char[ strlen(WINDOW_TITLE) + 1 ];
     strncpy(mWindowTitle, WINDOW_TITLE, strlen(WINDOW_TITLE) + 1);
+
+    CSCI441::FontUtils::setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 inline
@@ -857,6 +860,7 @@ void CSCI441::OpenGLEngine::mWindowResizeCallback(
 ) {
     const auto pEngine = static_cast<OpenGLEngine *>(glfwGetWindowUserPointer(pWindow));
     pEngine->setCurrentWindowSize(width, height);
+    CSCI441::FontUtils::setWindowSize(width, height);
 }
 
 inline

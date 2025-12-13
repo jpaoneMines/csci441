@@ -63,6 +63,7 @@ namespace CSCI441 {
          * @param color text color
          */
         void setColor(glm::vec4 color);
+        void setWindowSize(GLint width, GLint height);
         void setWindowSize(GLfloat width, GLfloat height);
         void setFontSize(GLfloat scaleX, GLfloat scaleY);
 
@@ -134,6 +135,10 @@ inline void CSCI441::FontUtils::setColor(const glm::vec3 color) {
 
 inline void CSCI441::FontUtils::setColor(const glm::vec4 color) {
     glProgramUniform4fv(CSCI441_INTERNAL::FontUtils::fontShaderHandle, CSCI441_INTERNAL::FontUtils::fontColorUniformLocation, 1, glm::value_ptr(color));
+}
+
+inline void CSCI441::FontUtils::setWindowSize(const GLint width, const GLint height) {
+    setWindowSize(static_cast<GLfloat>(width), static_cast<GLfloat>(height));
 }
 
 inline void CSCI441::FontUtils::setWindowSize(const GLfloat width, const GLfloat height) {
