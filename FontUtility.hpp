@@ -11,6 +11,7 @@
     #include <glad/gl.h>
 #endif
 
+#include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 
@@ -30,15 +31,39 @@ namespace CSCI441 {
      * (4) During cleanup, call releaseFont() to deallocate font memory
      */
     namespace FontUtility {
+        /**
+         * @brief registers a TrueTypeFont file with a shader program to render text to screen
+         * @param filename ttf font file to load
+         * @return true if font file was successfully loaded AND internal font shader program successfully compiled
+         */
         bool loadFont(const char* filename);
+        /**
+         * @brief deallocates CPU and GPU memory related to text rendering
+         */
         void releaseFont();
 
         /**
+         * @brief sets all necessary font contexts
+         * @note binds VertexArray and GL_ARRAY_BUFFER
+         * @note binds GL_TEXTURE_2D to GL_TEXTURE0
+         * @note uses shader program
          * @pre MUST call CSCI441::FontUtility::loadFont(const char*) prior to this call
          */
         void bindFont();
+
+        /**
+         * @brief specify the color to render the text
+         * @param color text color
+         * @note sets alpha channel to 1.0
+         */
         void setColor(glm::vec3 color);
+
+        /**
+         * @brief specify the color to render the text
+         * @param color text color
+         */
         void setColor(glm::vec4 color);
+        void setWindowSize(GLfloat width, GLfloat height);
         void setFontSize(GLfloat scaleX, GLfloat scaleY);
 
         /**
@@ -57,10 +82,11 @@ namespace CSCI441 {
 
 namespace CSCI441_INTERNAL {
     namespace FontUtility {
-        static CSCI441::Font* currentFont = nullptr;
-        static GLuint fontShader = 0;
-        static GLint colorUniformLocation = -1;
         static bool loadFontShader();
+        static CSCI441::Font* currentFont = nullptr;
+        static GLuint fontShaderHandle = 0;
+        static GLint fontColorUniformLocation = -1;
+        static glm::vec2 windowSize = glm::vec2(0.0f);
     }
 }
 
@@ -75,7 +101,7 @@ inline bool CSCI441::FontUtility::loadFont(const char * const filename) {
 
     bool success = true;
 
-    if (CSCI441_INTERNAL::FontUtility::fontShader == 0) {
+    if (CSCI441_INTERNAL::FontUtility::fontShaderHandle == 0) {
         success &= CSCI441_INTERNAL::FontUtility::loadFontShader();
     }
 
@@ -85,16 +111,16 @@ inline bool CSCI441::FontUtility::loadFont(const char * const filename) {
 }
 
 inline void CSCI441::FontUtility::releaseFont() {
-    glDeleteProgram(CSCI441_INTERNAL::FontUtility::fontShader);
-    CSCI441_INTERNAL::FontUtility::fontShader = 0;
+    glDeleteProgram(CSCI441_INTERNAL::FontUtility::fontShaderHandle);
+    CSCI441_INTERNAL::FontUtility::fontShaderHandle = 0;
 
     delete CSCI441_INTERNAL::FontUtility::currentFont;
     CSCI441_INTERNAL::FontUtility::currentFont = nullptr;
 }
 
 inline void CSCI441::FontUtility::bindFont() {
-    if (CSCI441_INTERNAL::FontUtility::fontShader != 0 && CSCI441_INTERNAL::FontUtility::currentFont != nullptr) {
-        glUseProgram( CSCI441_INTERNAL::FontUtility::fontShader );
+    if (CSCI441_INTERNAL::FontUtility::fontShaderHandle != 0 && CSCI441_INTERNAL::FontUtility::currentFont != nullptr) {
+        glUseProgram( CSCI441_INTERNAL::FontUtility::fontShaderHandle );
         CSCI441_INTERNAL::FontUtility::currentFont->bind();
     } else {
         fprintf(stderr, "[FontUtil | ERROR]: bindFont() called without loading a font.  Call loadFont() first\n");
@@ -102,12 +128,16 @@ inline void CSCI441::FontUtility::bindFont() {
 }
 
 inline void CSCI441::FontUtility::setColor(const glm::vec3 color) {
-    glm::vec4 colorA = glm::vec4(color, 1.0f);
-    glProgramUniform4fv(CSCI441_INTERNAL::FontUtility::fontShader, CSCI441_INTERNAL::FontUtility::colorUniformLocation, 1, glm::value_ptr(colorA));
+    const glm::vec4 colorA = glm::vec4(color, 1.0f);
+    glProgramUniform4fv(CSCI441_INTERNAL::FontUtility::fontShaderHandle, CSCI441_INTERNAL::FontUtility::fontColorUniformLocation, 1, glm::value_ptr(colorA));
 }
 
 inline void CSCI441::FontUtility::setColor(const glm::vec4 color) {
-    glProgramUniform4fv(CSCI441_INTERNAL::FontUtility::fontShader, CSCI441_INTERNAL::FontUtility::colorUniformLocation, 1, glm::value_ptr(color));
+    glProgramUniform4fv(CSCI441_INTERNAL::FontUtility::fontShaderHandle, CSCI441_INTERNAL::FontUtility::fontColorUniformLocation, 1, glm::value_ptr(color));
+}
+
+inline void CSCI441::FontUtility::setWindowSize(const GLfloat width, const GLfloat height) {
+    CSCI441_INTERNAL::FontUtility::windowSize = glm::vec2(width, height);
 }
 
 inline void CSCI441::FontUtility::setFontSize(const GLfloat scaleX, const GLfloat scaleY) {
@@ -120,7 +150,13 @@ inline void CSCI441::FontUtility::setFontSize(const GLfloat scaleX, const GLfloa
 
 inline void CSCI441::FontUtility::renderText(const char* str, const GLfloat x, const GLfloat y) {
     if (CSCI441_INTERNAL::FontUtility::currentFont != nullptr) {
-        CSCI441_INTERNAL::FontUtility::currentFont->draw(str, x, y);
+        if (CSCI441_INTERNAL::FontUtility::windowSize.x == 0.0f ) {
+            CSCI441_INTERNAL::FontUtility::currentFont->draw(str, x, y);
+        } else {
+            const GLfloat normalizedX = x / CSCI441_INTERNAL::FontUtility::windowSize.x * 2.0f - 1.0f;
+            const GLfloat normalizedY = y / CSCI441_INTERNAL::FontUtility::windowSize.y * 2.0f - 1.0f;
+            CSCI441_INTERNAL::FontUtility::currentFont->draw(str, normalizedX, normalizedY);
+        }
     } else {
         fprintf(stderr, "[FontUtil | ERROR]: renderText() called without loading a font.  Call loadFont() first and then bindFont()\n");
     }
@@ -172,28 +208,28 @@ void main() {
     glCompileShader(fragmentShaderHandle);
     ShaderUtils::printShaderLog(fragmentShaderHandle);
 
-    fontShader = glCreateProgram();
-    glAttachShader(fontShader, vertexShaderHandle);
-    glAttachShader(fontShader, fragmentShaderHandle);
-    glLinkProgram(fontShader);
-    ShaderUtils::printProgramLog(fontShader);
+    fontShaderHandle = glCreateProgram();
+    glAttachShader(fontShaderHandle, vertexShaderHandle);
+    glAttachShader(fontShaderHandle, fragmentShaderHandle);
+    glLinkProgram(fontShaderHandle);
+    ShaderUtils::printProgramLog(fontShaderHandle);
 
-    glDetachShader(fontShader, vertexShaderHandle);
+    glDetachShader(fontShaderHandle, vertexShaderHandle);
     glDeleteShader(vertexShaderHandle);
 
-    glDetachShader(fontShader, fragmentShaderHandle);
+    glDetachShader(fontShaderHandle, fragmentShaderHandle);
     glDeleteShader(fragmentShaderHandle);
 
-    ShaderUtils::printShaderProgramInfo(fontShader, true, false, false, false, true, false, true);
+    ShaderUtils::printShaderProgramInfo(fontShaderHandle, true, false, false, false, true, false, true);
 
-    const GLint texUniformLocation = glGetUniformLocation(fontShader, "tex");
-    colorUniformLocation     = glGetUniformLocation(fontShader, "color");
+    const GLint texUniformLocation = glGetUniformLocation(fontShaderHandle, "tex");
+    fontColorUniformLocation     = glGetUniformLocation(fontShaderHandle, "color");
 
-    glProgramUniform1i(fontShader, texUniformLocation, 0);
+    glProgramUniform1i(fontShaderHandle, texUniformLocation, 0);
     constexpr glm::vec4 white(1.0f, 1.0f, 1.0f, 1.0f);
-    glProgramUniform4fv(fontShader, colorUniformLocation, 1, glm::value_ptr(white));
+    glProgramUniform4fv(fontShaderHandle, fontColorUniformLocation, 1, glm::value_ptr(white));
 
-    return fontShader != 0;
+    return fontShaderHandle != 0;
 
 }
 
