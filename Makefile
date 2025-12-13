@@ -23,11 +23,8 @@ doxygen:
 
 install:
 	sudo mkdir -p /usr/local/include/CSCI441
-	sudo mkdir -p /usr/local/include/CSCI441/assets
-	sudo mkdir -p /usr/local/include/CSCI441/assets/fonts
 	sudo cp *.hpp /usr/local/include/CSCI441/.
 	sudo cp constants.h /usr/local/include/CSCI441/.
-	sudo cp assets/fonts/DroidSansMono.ttf /usr/local/include/CSCI441/assets/fonts/.
 
 examples: clean $(PROGRAMS)
 
