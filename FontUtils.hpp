@@ -1,4 +1,4 @@
-#ifndef CSCI441_FONT_UTIS_HPP
+#ifndef CSCI441_FONT_UTILS_HPP
 #define CSCI441_FONT_UTILS_HPP
 
 #include "constants.h"
