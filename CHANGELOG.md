@@ -8,6 +8,7 @@
 - sphere, cylinder, cone, disk, torus supports normal mapping
 - OBJ models can auto-generate tangents for normal mapping
 - Fixed bug for shader introspection displaying uniform array names
+- FontUtility and Font class added to simply the process of rendering text to the screen
 
 ## v 5.25.0.0 - 09 Dec 2025
 - MD5Models support normal mapping

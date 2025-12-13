@@ -362,10 +362,16 @@ namespace CSCI441 {
         virtual void mSetupBuffers() {};
         /**
          * @brief override to register any textures with the GPU
-         * @note called after buffer objects are setup and prior to scene setup has been performed
+         * @note called after buffer objects are setup and prior to fonts setup has been performed
          * @note If overridden, then it is likely that mCleanupTextures should be overridden as well
          */
         virtual void mSetupTextures() {}
+        /**
+         * @brief override to register any fonts with the GPU
+         * @note called after textures objects are setup and prior to scene setup has been performed
+         * @note If overridden, then it is likely that mCleanupFonts should be overridden as well
+         */
+        virtual void mSetupFonts() {}
         /**
          * @brief override to setup any scene specific information
          * @note final setup method to be called
@@ -378,6 +384,11 @@ namespace CSCI441 {
          * @note first cleanup method to be called
          */
         virtual void mCleanupScene() {};
+        /**
+         * @brief override to cleanup any fonts from the GPU
+         * @note called after scene cleanup and prior to any other cleanup processes
+         */
+        virtual void mCleanupFonts() {}
         /**
          * @brief override to cleanup any textures from the GPU
          * @note called after scene cleanup and prior to any other cleanup processes
@@ -604,6 +615,10 @@ void CSCI441::OpenGLEngine::initialize()
         mSetupTextures();               // register Textures on GPU
         const std::chrono::steady_clock::time_point texturesEnd = std::chrono::steady_clock::now();
 
+        const std::chrono::steady_clock::time_point fontsBegin = std::chrono::steady_clock::now();
+        mSetupFonts();                  // register Fonts on GPU
+        const std::chrono::steady_clock::time_point fontsEnd = std::chrono::steady_clock::now();
+
         const std::chrono::steady_clock::time_point sceneBegin = std::chrono::steady_clock::now();
         mSetupScene();                  // setup any scene specific information
         const std::chrono::steady_clock::time_point sceneEnd = std::chrono::steady_clock::now();
@@ -614,13 +629,15 @@ void CSCI441::OpenGLEngine::initialize()
         const std::chrono::steady_clock::time_point initEnd = std::chrono::steady_clock::now();
         if (DEBUG) {
             fprintf(stdout, "\n[INFO]: Setup complete\n");
-            fprintf(stdout, "[INFO]: GLFW:     %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: OpenGL:   %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: Shaders:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shadersEnd  - shadersBegin ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: Buffers:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(buffersEnd  - buffersBegin ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: Textures: %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(texturesEnd - texturesBegin).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: Scene:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: Init:     %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(initEnd     - initBegin    ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: Init Time:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(initEnd     - initBegin    ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tGLFW:     %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tOpenGL:   %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tShaders:  %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shadersEnd  - shadersBegin ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tBuffers:  %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(buffersEnd  - buffersBegin ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tTextures: %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(texturesEnd - texturesBegin).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tFonts:    %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(fontsEnd    - fontsBegin   ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tScene:    %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);
+
         }
     }
 }
@@ -790,6 +807,10 @@ void CSCI441::OpenGLEngine::shutdown()
         mCleanupScene();                                    // delete scene info from CPU
         const std::chrono::steady_clock::time_point sceneEnd = std::chrono::steady_clock::now();
 
+        const std::chrono::steady_clock::time_point fontsBegin = std::chrono::steady_clock::now();
+        mCleanupFonts();                                    // delete textures from GPU
+        const std::chrono::steady_clock::time_point fontsEnd = std::chrono::steady_clock::now();
+
         const std::chrono::steady_clock::time_point texturesBegin = std::chrono::steady_clock::now();
         mCleanupTextures();                                 // delete textures from GPU
         const std::chrono::steady_clock::time_point texturesEnd = std::chrono::steady_clock::now();
@@ -814,13 +835,14 @@ void CSCI441::OpenGLEngine::shutdown()
         const std::chrono::steady_clock::time_point shutdownEnd = std::chrono::steady_clock::now();
         if (DEBUG) {
             fprintf(stdout, "[INFO]: ..shut down complete!\n");
-            fprintf(stdout, "[INFO]: Scene:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: Textures: %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(texturesEnd - texturesBegin).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: Buffers:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(buffersEnd  - buffersBegin ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: Shaders:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shadersEnd  - shadersBegin ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: OpenGL:   %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: GLFW:     %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: Init:     %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shutdownEnd - shutdownBegin).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: Shutdown:   %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shutdownEnd - shutdownBegin).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tScene:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tFonts:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(fontsEnd    - fontsBegin   ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tTextures: %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(texturesEnd - texturesBegin).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tBuffers:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(buffersEnd  - buffersBegin ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tShaders:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shadersEnd  - shadersBegin ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tOpenGL:   %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);
+            fprintf(stdout, "[INFO]: \tGLFW:     %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);
         }
         _isCleanedUp = true;
         _isInitialized = false;
