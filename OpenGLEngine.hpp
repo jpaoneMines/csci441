@@ -485,6 +485,7 @@ CSCI441::OpenGLEngine::OpenGLEngine(
     strncpy(mWindowTitle, WINDOW_TITLE, strlen(WINDOW_TITLE) + 1);
 
     CSCI441::FontUtils::setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    CSCI441::FontUtils::setFontSize(1.0f / static_cast<GLfloat>(WINDOW_WIDTH), 1.0f / static_cast<GLfloat>(WINDOW_HEIGHT) );
 }
 
 inline
@@ -883,6 +884,7 @@ void CSCI441::OpenGLEngine::mWindowResizeCallback(
     const auto pEngine = static_cast<OpenGLEngine *>(glfwGetWindowUserPointer(pWindow));
     pEngine->setCurrentWindowSize(width, height);
     CSCI441::FontUtils::setWindowSize(width, height);
+    CSCI441::FontUtils::setFontSize(1.0f / static_cast<GLfloat>(width), 1.0f / static_cast<GLfloat>(height) );
 
     GLint framebufferWidth, framebufferHeight;
     glfwGetFramebufferSize( pEngine->getWindow(), &framebufferWidth, &framebufferHeight );

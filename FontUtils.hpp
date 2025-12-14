@@ -88,6 +88,7 @@ namespace CSCI441_INTERNAL {
         static GLuint fontShaderHandle = 0;
         static GLint fontColorUniformLocation = -1;
         static glm::vec2 windowSize = glm::vec2(0.0f);
+        static glm::vec2 fontSize = glm::vec2(1.0f);
     }
 }
 
@@ -107,6 +108,7 @@ inline bool CSCI441::FontUtils::loadFont(const char * const filename) {
     }
 
     CSCI441_INTERNAL::FontUtils::currentFont = new CSCI441::Font(filename);
+    CSCI441_INTERNAL::FontUtils::currentFont->setScale(CSCI441_INTERNAL::FontUtils::fontSize.x, CSCI441_INTERNAL::FontUtils::fontSize.y);
 
     return success && CSCI441_INTERNAL::FontUtils::currentFont->isLoaded();;
 }
@@ -146,10 +148,9 @@ inline void CSCI441::FontUtils::setWindowSize(const GLfloat width, const GLfloat
 }
 
 inline void CSCI441::FontUtils::setFontSize(const GLfloat scaleX, const GLfloat scaleY) {
+    CSCI441_INTERNAL::FontUtils::fontSize = glm::vec2(scaleX, scaleY);
     if (CSCI441_INTERNAL::FontUtils::currentFont != nullptr) {
         CSCI441_INTERNAL::FontUtils::currentFont->setScale(scaleX, scaleY);
-    } else {
-        fprintf(stderr, "[FontUtil | ERROR]: setFontSize() called without loading a font.  Call loadFont() first\n");
     }
 }
 
