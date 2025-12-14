@@ -205,18 +205,15 @@ void main() {
     const GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );
     glShaderSource(vertexShaderHandle, 1, vertexShaders, nullptr);
     glCompileShader(vertexShaderHandle);
-    ShaderUtils::printShaderLog(vertexShaderHandle);
 
     const GLuint fragmentShaderHandle = glCreateShader( GL_FRAGMENT_SHADER );
     glShaderSource(fragmentShaderHandle, 1, fragmentShaders, nullptr);
     glCompileShader(fragmentShaderHandle);
-    ShaderUtils::printShaderLog(fragmentShaderHandle);
 
     fontShaderHandle = glCreateProgram();
     glAttachShader(fontShaderHandle, vertexShaderHandle);
     glAttachShader(fontShaderHandle, fragmentShaderHandle);
     glLinkProgram(fontShaderHandle);
-    ShaderUtils::printProgramLog(fontShaderHandle);
 
     glDetachShader(fontShaderHandle, vertexShaderHandle);
     glDeleteShader(vertexShaderHandle);
