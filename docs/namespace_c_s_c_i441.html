@@ -71,6 +71,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">CSCI441 Namespace Reference</div></div>
@@ -80,6 +81,20 @@ $(function() {
 <p><a class="el" href="namespace_c_s_c_i441.html" title="CSCI441 Helper Functions for OpenGL.">CSCI441</a> Helper Functions for OpenGL.  
 <a href="namespace_c_s_c_i441.html#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespace_c_s_c_i441_1_1_font_utils"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441_1_1_font_utils.html">FontUtils</a></td></tr>
+<tr class="memdesc:namespace_c_s_c_i441_1_1_font_utils"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to render text overlays on screen<br  />
+<br  />
+Usage:<br  />
+(1) During setup, call <a class="el" href="namespace_c_s_c_i441_1_1_font_utils.html#aa3b681010798eeb83e1d0bac1b88e371" title="registers a TrueTypeFont file with a shader program to render text to screen">loadFont()</a> to load a ttf font file<br  />
+(2) Immediately prior to rendering, call <a class="el" href="namespace_c_s_c_i441_1_1_font_utils.html#ae8805306d5ad1ea977a080ae36caeeea" title="sets all necessary font contexts">bindFont()</a> to load font context<br  />
+(3) Subsequently call <a class="el" href="namespace_c_s_c_i441_1_1_font_utils.html#a220cb982477ea36c3f28a82ff66ca651" title="draws the given text starting at the top left (x, y) coordinate specified">renderText()</a> for every string to be rendered to screen<br  />
+(4) During cleanup, call <a class="el" href="namespace_c_s_c_i441_1_1_font_utils.html#ae43828b8cd012c7bd87e532c002d1e02" title="deallocates CPU and GPU memory related to text rendering">releaseFont()</a> to deallocate font memory<br  />
+<br  />
+To make placement of text within window easier, such that the (x, y) coordinate corresponds to the pixel location, call <a class="el" href="namespace_c_s_c_i441_1_1_font_utils.html#afe985192e010f192a1e1d745dde93faf" title="store the size of the window">setWindowSize()</a> after loading the font (and anytime the window size changes).. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_arcball_cam.html">ArcballCam</a></td></tr>
@@ -93,6 +108,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_fixed_cam.html">FixedCam</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A camera that can be positioned and oriented but never moved or rotated.  <a href="class_c_s_c_i441_1_1_fixed_cam.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_font.html">Font</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores character glyphs corresponding to a ttf file and draws text to the screen.  <a href="class_c_s_c_i441_1_1_font.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_free_cam.html">FreeCam</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A camera that implements a <a class="el" href="class_c_s_c_i441_1_1_free_cam.html" title="A camera that implements a FreeCam camera model.">FreeCam</a> camera model.  <a href="class_c_s_c_i441_1_1_free_cam.html#details">More...</a><br /></td></tr>
@@ -210,12 +228,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteObjectVBOs</b> 
 <tr class="memitem:a76bfd64bfd8b183f61d30564cf74e367"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441.html#a76bfd64bfd8b183f61d30564cf74e367">drawWireDome</a> (GLfloat radius, GLint stacks, GLint slices)</td></tr>
 <tr class="memdesc:a76bfd64bfd8b183f61d30564cf74e367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a wireframe dome.  <br /></td></tr>
 <tr class="separator:a76bfd64bfd8b183f61d30564cf74e367"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c5bd6dd17a191c5ca52526acbace216"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441.html#a0c5bd6dd17a191c5ca52526acbace216">drawSolidTeapot</a> (GLfloat unused=1.0f)</td></tr>
-<tr class="memdesc:a0c5bd6dd17a191c5ca52526acbace216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a solid teapot.  <br /></td></tr>
-<tr class="separator:a0c5bd6dd17a191c5ca52526acbace216"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ffbf1f63d7e37af238f92bd127c75d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441.html#a0ffbf1f63d7e37af238f92bd127c75d5">drawWireTeapot</a> (GLfloat unused=1.0f)</td></tr>
-<tr class="memdesc:a0ffbf1f63d7e37af238f92bd127c75d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a wireframe teapot.  <br /></td></tr>
-<tr class="separator:a0ffbf1f63d7e37af238f92bd127c75d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa6592be12d2eb37418ae00a3ece561c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441.html#aaa6592be12d2eb37418ae00a3ece561c">drawSolidTeapot</a> (GLfloat unused=0.0f)</td></tr>
+<tr class="memdesc:aaa6592be12d2eb37418ae00a3ece561c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a solid teapot.  <br /></td></tr>
+<tr class="separator:aaa6592be12d2eb37418ae00a3ece561c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a072330796bcb4d9c3895d6e24a5c7b18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441.html#a072330796bcb4d9c3895d6e24a5c7b18">drawWireTeapot</a> (GLfloat unused=0.0f)</td></tr>
+<tr class="memdesc:a072330796bcb4d9c3895d6e24a5c7b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a wireframe teapot.  <br /></td></tr>
+<tr class="separator:a072330796bcb4d9c3895d6e24a5c7b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4b881451b21b3c54e4c7dcf46a7dfd9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441.html#aa4b881451b21b3c54e4c7dcf46a7dfd9">drawSolidTorus</a> (GLfloat innerRadius, GLfloat outerRadius, GLint sides, GLint rings)</td></tr>
 <tr class="memdesc:aa4b881451b21b3c54e4c7dcf46a7dfd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a solid torus.  <br /></td></tr>
 <tr class="separator:aa4b881451b21b3c54e4c7dcf46a7dfd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -876,8 +894,8 @@ slices must be greater than 2 </dd></dl>
 
 </div>
 </div>
-<a id="a0c5bd6dd17a191c5ca52526acbace216" name="a0c5bd6dd17a191c5ca52526acbace216"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c5bd6dd17a191c5ca52526acbace216">&#9670;&#160;</a></span>drawSolidTeapot()</h2>
+<a id="aaa6592be12d2eb37418ae00a3ece561c" name="aaa6592be12d2eb37418ae00a3ece561c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa6592be12d2eb37418ae00a3ece561c">&#9670;&#160;</a></span>drawSolidTeapot()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -889,7 +907,7 @@ slices must be greater than 2 </dd></dl>
           <td class="memname">void CSCI441::drawSolidTeapot </td>
           <td>(</td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>unused</em> = <code>1.0f</code></td><td>)</td>
+          <td class="paramname"><em>unused</em> = <code>0.0f</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1486,8 +1504,8 @@ slices must be greater than 2 </dd></dl>
 
 </div>
 </div>
-<a id="a0ffbf1f63d7e37af238f92bd127c75d5" name="a0ffbf1f63d7e37af238f92bd127c75d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ffbf1f63d7e37af238f92bd127c75d5">&#9670;&#160;</a></span>drawWireTeapot()</h2>
+<a id="a072330796bcb4d9c3895d6e24a5c7b18" name="a072330796bcb4d9c3895d6e24a5c7b18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a072330796bcb4d9c3895d6e24a5c7b18">&#9670;&#160;</a></span>drawWireTeapot()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1499,7 +1517,7 @@ slices must be greater than 2 </dd></dl>
           <td class="memname">void CSCI441::drawWireTeapot </td>
           <td>(</td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>unused</em> = <code>1.0f</code></td><td>)</td>
+          <td class="paramname"><em>unused</em> = <code>0.0f</code></td><td>)</td>
           <td></td>
         </tr>
       </table>

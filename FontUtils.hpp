@@ -28,7 +28,10 @@ namespace CSCI441 {
      * (1) During setup, call loadFont() to load a ttf font file\n
      * (2) Immediately prior to rendering, call bindFont() to load font context\n
      * (3) Subsequently call renderText() for every string to be rendered to screen\n
-     * (4) During cleanup, call releaseFont() to deallocate font memory
+     * (4) During cleanup, call releaseFont() to deallocate font memory\n\n
+     * To make placement of text within window easier, such that the (x, y) coordinate corresponds
+     * to the pixel location, call setWindowSize() after loading the font (and anytime the window
+     * size changes)..
      */
     namespace FontUtils {
         /**
@@ -63,16 +66,43 @@ namespace CSCI441 {
          * @param color text color
          */
         void setColor(glm::vec4 color);
+
+        /**
+         * @brief store the size of the window
+         * @param width window width
+         * @param height window height
+         * @note this allows CSCI441::FontUtils::renderText() to specify the (x, y) coordinate
+         * in screen space.  The (x, y) coordinate then corresponds to the top left pixel to
+         * begin drawing at.
+         */
         void setWindowSize(GLint width, GLint height);
+        /**
+         * @brief store the size of the window
+         * @param width window width
+         * @param height window height
+         * @note this allows CSCI441::FontUtils::renderText() to specify the (x, y) coordinate
+         * in screen space.  The (x, y) coordinate then corresponds to the top left pixel to
+         * begin drawing at.
+         */
         void setWindowSize(GLfloat width, GLfloat height);
+
+        /**
+         * @brief set the amount to scale font when drawing
+         * @param scaleX amount to scale font horizontally
+         * @param scaleY amount to scale font vertically
+         * @note values typically refer to inverse screen size, e.g. the size of each pixel
+         */
         void setFontSize(GLfloat scaleX, GLfloat scaleY);
 
         /**
-         *
-         * @param str
-         * @param x
-         * @param y
+         * @brief draws the given text starting at the top left (x, y) coordinate specified
+         * @param str text to render to screen
+         * @param x x coordinate in screen space to place text within window (corresponds to left edge of text)
+         * @param y y coordinate in screen space to place text within window (corresponds to top edge of text)
          * @pre MUST call CSCI441::FontUtility::bindFont() prior to this call
+         * @note see CSCI441::FontUtils::setWindowSize() for help in specifying the
+         * (x, y) coordinate
+         * @note see CSCI441::FontUtility::setColor()  to change the displayed color
          */
         void renderText(const char* str, GLfloat x, GLfloat y);
     }

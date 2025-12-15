@@ -117,9 +117,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6a41de5f070d8cf0964e47729c1d8482"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a6a41de5f070d8cf0964e47729c1d8482">loadModelFile</a> (std::string filename, bool INFO=true, bool ERRORS=true)</td></tr>
 <tr class="memdesc:a6a41de5f070d8cf0964e47729c1d8482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a model from the given file.  <br /></td></tr>
 <tr class="separator:a6a41de5f070d8cf0964e47729c1d8482"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a219e23f5fdc0efccb4a49138da240197"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a219e23f5fdc0efccb4a49138da240197">setAttributeLocations</a> (GLint positionLocation, GLint normalLocation=-1, GLint texCoordLocation=-1) const</td></tr>
-<tr class="memdesc:a219e23f5fdc0efccb4a49138da240197"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables VBO attribute array locations.  <br /></td></tr>
-<tr class="separator:a219e23f5fdc0efccb4a49138da240197"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e61662c9d698b8e10c1d7f88d99e1a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a6e61662c9d698b8e10c1d7f88d99e1a0">setAttributeLocations</a> (GLint positionLocation, GLint normalLocation=-1, GLint texCoordLocation=-1, GLint tangentLocation=-1) const</td></tr>
+<tr class="memdesc:a6e61662c9d698b8e10c1d7f88d99e1a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables VBO attribute array locations.  <br /></td></tr>
+<tr class="separator:a6e61662c9d698b8e10c1d7f88d99e1a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fb084faddc03520932564e627490654"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a8fb084faddc03520932564e627490654">draw</a> (GLuint shaderProgramHandle, GLint matDiffLocation=-1, GLint matSpecLocation=-1, GLint matShinLocation=-1, GLint matAmbLocation=-1, GLenum diffuseTexture=GL_TEXTURE0) const</td></tr>
 <tr class="memdesc:a8fb084faddc03520932564e627490654"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders a model.  <br /></td></tr>
 <tr class="separator:a8fb084faddc03520932564e627490654"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,6 +132,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8efabf9b18c039ee93367ab33d092b4e"><td class="memItemLeft" align="right" valign="top">GLfloat *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a8efabf9b18c039ee93367ab33d092b4e">getNormals</a> () const</td></tr>
 <tr class="memdesc:a8efabf9b18c039ee93367ab33d092b4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the normal array that corresponds to the model mesh.  <br /></td></tr>
 <tr class="separator:a8efabf9b18c039ee93367ab33d092b4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fa24bed3e5880847b3563c09b64f79b"><td class="memItemLeft" align="right" valign="top">GLfloat *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a5fa24bed3e5880847b3563c09b64f79b">getTangents</a> () const</td></tr>
+<tr class="memdesc:a5fa24bed3e5880847b3563c09b64f79b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the tangent array that corresponds to the model mesh.  <br /></td></tr>
+<tr class="separator:a5fa24bed3e5880847b3563c09b64f79b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98b9c1bc899975fcbf0710a018b2c121"><td class="memItemLeft" align="right" valign="top">GLfloat *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a98b9c1bc899975fcbf0710a018b2c121">getTexCoords</a> () const</td></tr>
 <tr class="memdesc:a98b9c1bc899975fcbf0710a018b2c121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the texture coordinates array that corresponds to the model mesh.  <br /></td></tr>
 <tr class="separator:a98b9c1bc899975fcbf0710a018b2c121"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,6 +153,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aaf1ec38a0f551569ccf1a47af2a561f3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#aaf1ec38a0f551569ccf1a47af2a561f3">disableAutoGenerateNormals</a> ()</td></tr>
 <tr class="memdesc:aaf1ec38a0f551569ccf1a47af2a561f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable auto-generation of vertex normals.  <br /></td></tr>
 <tr class="separator:aaf1ec38a0f551569ccf1a47af2a561f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42f2f1f5a5e2c64243b14bb69a987a72"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a42f2f1f5a5e2c64243b14bb69a987a72">enableAutoGenerateTangents</a> ()</td></tr>
+<tr class="memdesc:a42f2f1f5a5e2c64243b14bb69a987a72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable auto-generation of vertex tangents.  <br /></td></tr>
+<tr class="separator:a42f2f1f5a5e2c64243b14bb69a987a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f7ffb1399db8af89d18103eff22b593"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_model_loader.html#a9f7ffb1399db8af89d18103eff22b593">disableAutoGenerateTangents</a> ()</td></tr>
+<tr class="memdesc:a9f7ffb1399db8af89d18103eff22b593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable auto-generation of vertex tangents.  <br /></td></tr>
+<tr class="separator:a9f7ffb1399db8af89d18103eff22b593"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Loads object models from file and renders using VBOs/VAOs. </p>
@@ -217,6 +226,37 @@ Static Public Member Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>No normals are generated by default </dd>
 <dd>
 To enable, call enableAutoGenerateNormals </dd></dl>
+
+</div>
+</div>
+<a id="a9f7ffb1399db8af89d18103eff22b593" name="a9f7ffb1399db8af89d18103eff22b593"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f7ffb1399db8af89d18103eff22b593">&#9670;&#160;</a></span>disableAutoGenerateTangents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::ModelLoader::disableAutoGenerateTangents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Disable auto-generation of vertex tangents. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Must be called prior to loading in a model from file </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>No tangents are generated by default </dd>
+<dd>
+To enable, call enableAutoGenerateTangents </dd></dl>
 
 </div>
 </div>
@@ -324,6 +364,37 @@ To enable, call enableAutoGenerateNormals </dd></dl>
 No normals are generated by default </dd>
 <dd>
 To disable, call disableAutoGenerateNormals </dd></dl>
+
+</div>
+</div>
+<a id="a42f2f1f5a5e2c64243b14bb69a987a72" name="a42f2f1f5a5e2c64243b14bb69a987a72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42f2f1f5a5e2c64243b14bb69a987a72">&#9670;&#160;</a></span>enableAutoGenerateTangents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::ModelLoader::enableAutoGenerateTangents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enable auto-generation of vertex tangents. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Must be called prior to loading in a model from file </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>No tangents are generated by default </dd>
+<dd>
+To disable, call disableAutoGenerateTangents </dd></dl>
 
 </div>
 </div>
@@ -438,6 +509,35 @@ To disable, call disableAutoGenerateNormals </dd></dl>
 
 <p>Return the number of vertices the model is made up of. This value corresponds to the size of the Vertices, TexCoords, and Normals arrays. </p>
 <dl class="section return"><dt>Returns</dt><dd>the number of vertices within the model </dd></dl>
+
+</div>
+</div>
+<a id="a5fa24bed3e5880847b3563c09b64f79b" name="a5fa24bed3e5880847b3563c09b64f79b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fa24bed3e5880847b3563c09b64f79b">&#9670;&#160;</a></span>getTangents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLfloat * CSCI441::ModelLoader::getTangents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the tangent array that corresponds to the model mesh. </p>
+<dl class="section return"><dt>Returns</dt><dd>pointer to the tangent array </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>For use with VBOs </dd></dl>
 
 </div>
 </div>
@@ -579,8 +679,8 @@ To disable, call disableAutoGenerateNormals </dd></dl>
 
 </div>
 </div>
-<a id="a219e23f5fdc0efccb4a49138da240197" name="a219e23f5fdc0efccb4a49138da240197"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a219e23f5fdc0efccb4a49138da240197">&#9670;&#160;</a></span>setAttributeLocations()</h2>
+<a id="a6e61662c9d698b8e10c1d7f88d99e1a0" name="a6e61662c9d698b8e10c1d7f88d99e1a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e61662c9d698b8e10c1d7f88d99e1a0">&#9670;&#160;</a></span>setAttributeLocations()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -604,7 +704,13 @@ To disable, call disableAutoGenerateNormals </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLint&#160;</td>
-          <td class="paramname"><em>texCoordLocation</em> = <code>-1</code>&#160;</td>
+          <td class="paramname"><em>texCoordLocation</em> = <code>-1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>tangentLocation</em> = <code>-1</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -625,6 +731,7 @@ To disable, call disableAutoGenerateNormals </dd></dl>
     <tr><td class="paramname">positionLocation</td><td>attribute location of vertex position </td></tr>
     <tr><td class="paramname">normalLocation</td><td>attribute location of vertex normal </td></tr>
     <tr><td class="paramname">texCoordLocation</td><td>attribute location of vertex texture coordinate </td></tr>
+    <tr><td class="paramname">tangentLocation</td><td>attribute location of vertex tangent </td></tr>
   </table>
   </dd>
 </dl>

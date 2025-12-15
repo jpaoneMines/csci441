@@ -150,8 +150,11 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isDebuggingEn
 <tr class="memdesc:a06acf19b9e3f98180a21e0c9cee2d1da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if OpenGL extension exists.  <br /></td></tr>
 <tr class="separator:a06acf19b9e3f98180a21e0c9cee2d1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1cab5dfa1632f7dc805edbe5313bd69f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1cab5dfa1632f7dc805edbe5313bd69f">setCurrentWindowSize</a> (const int WINDOW_WIDTH, const int WINDOW_HEIGHT) final</td></tr>
-<tr class="memdesc:a1cab5dfa1632f7dc805edbe5313bd69f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the new window size.  <br /></td></tr>
+<tr class="memdesc:a1cab5dfa1632f7dc805edbe5313bd69f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the new window size.  <br /></td></tr>
 <tr class="separator:a1cab5dfa1632f7dc805edbe5313bd69f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43fbab4f8ca1ac8c62df47e7cdc7c57b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a43fbab4f8ca1ac8c62df47e7cdc7c57b">setCurrentFramebufferSize</a> (const int FRAMEBUFFER_WIDTH, const int FRAMEBUFFER_HEIGHT) final</td></tr>
+<tr class="memdesc:a43fbab4f8ca1ac8c62df47e7cdc7c57b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the framebuffer size.  <br /></td></tr>
+<tr class="separator:a43fbab4f8ca1ac8c62df47e7cdc7c57b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30662e0c1e3e63d9ae37ca74e2392223"><td class="memItemLeft" align="right" valign="top"><a id="a30662e0c1e3e63d9ae37ca74e2392223" name="a30662e0c1e3e63d9ae37ca74e2392223"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getWindowHeight</b> () const noexcept final</td></tr>
 <tr class="memdesc:a30662e0c1e3e63d9ae37ca74e2392223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the height of the window. <br /></td></tr>
@@ -241,12 +244,18 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a2e67b86e0ea4e5f46b2d18ffa7cfab7f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a2e67b86e0ea4e5f46b2d18ffa7cfab7f">mSetupTextures</a> ()</td></tr>
 <tr class="memdesc:a2e67b86e0ea4e5f46b2d18ffa7cfab7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to register any textures with the GPU  <br /></td></tr>
 <tr class="separator:a2e67b86e0ea4e5f46b2d18ffa7cfab7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43c2125412264c5d99f9fe2ebf020fb2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a43c2125412264c5d99f9fe2ebf020fb2">mSetupFonts</a> ()</td></tr>
+<tr class="memdesc:a43c2125412264c5d99f9fe2ebf020fb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to register any fonts with the GPU  <br /></td></tr>
+<tr class="separator:a43c2125412264c5d99f9fe2ebf020fb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af55b52fa0357f2d53eeb0c344c4b70e5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#af55b52fa0357f2d53eeb0c344c4b70e5">mSetupScene</a> ()</td></tr>
 <tr class="memdesc:af55b52fa0357f2d53eeb0c344c4b70e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to setup any scene specific information  <br /></td></tr>
 <tr class="separator:af55b52fa0357f2d53eeb0c344c4b70e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cffe78bca54dec27398073ad32b7cc7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a3cffe78bca54dec27398073ad32b7cc7">mCleanupScene</a> ()</td></tr>
 <tr class="memdesc:a3cffe78bca54dec27398073ad32b7cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to cleanup any scene specific information  <br /></td></tr>
 <tr class="separator:a3cffe78bca54dec27398073ad32b7cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ed91a7f173fe68a8ca5e4d1411456b6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a7ed91a7f173fe68a8ca5e4d1411456b6">mCleanupFonts</a> ()</td></tr>
+<tr class="memdesc:a7ed91a7f173fe68a8ca5e4d1411456b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to cleanup any fonts from the GPU  <br /></td></tr>
+<tr class="separator:a7ed91a7f173fe68a8ca5e4d1411456b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a557d64c66539960e8c8125cebb3d0a2a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a557d64c66539960e8c8125cebb3d0a2a">mCleanupTextures</a> ()</td></tr>
 <tr class="memdesc:a557d64c66539960e8c8125cebb3d0a2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">override to cleanup any textures from the GPU  <br /></td></tr>
 <tr class="separator:a557d64c66539960e8c8125cebb3d0a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -266,6 +275,11 @@ Protected Member Functions</h2></td></tr>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mReloadShaders</b> () final</td></tr>
 <tr class="memdesc:ab5bce5d6c1bd4cdc28adfe5ab8415eed"><td class="mdescLeft">&#160;</td><td class="mdescRight">calls <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a454bb86bbad5810352c976a3c6da53ee" title="override to cleanup any shaders from the GPU">mCleanupShaders()</a> followed by <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ab8281273cadfa571c7271ddcb2a85f2e" title="override to register any shaders with the GPU">mSetupShaders()</a> to reload shader source code from file <br /></td></tr>
 <tr class="separator:ab5bce5d6c1bd4cdc28adfe5ab8415eed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a42b086ef2a1a2be28342887356f443"><td class="memItemLeft" align="right" valign="top">virtual GLdouble&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5a42b086ef2a1a2be28342887356f443">clockFrame</a> () final</td></tr>
+<tr class="memdesc:a5a42b086ef2a1a2be28342887356f443"><td class="mdescLeft">&#160;</td><td class="mdescRight">measures the amount of time elapsed since the last time this method was called  <br /></td></tr>
+<tr class="separator:a5a42b086ef2a1a2be28342887356f443"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae0e989d3398dc3fc18f98c7edfd99b2"><td class="memItemLeft" align="right" valign="top">virtual GLdouble&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aae0e989d3398dc3fc18f98c7edfd99b2">fpsAverage</a> () final</td></tr>
+<tr class="separator:aae0e989d3398dc3fc18f98c7edfd99b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
@@ -313,6 +327,14 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>mErrorCode</b
 <tr class="memitem:aaadbb956e0f118c18895adfc5ab76a01"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aaadbb956e0f118c18895adfc5ab76a01">mWindowHeight</a></td></tr>
 <tr class="memdesc:aaadbb956e0f118c18895adfc5ab76a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">the window height of the requested GLFW window  <br /></td></tr>
 <tr class="separator:aaadbb956e0f118c18895adfc5ab76a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ec91dc3462e79c425494d29a440b232"><td class="memItemLeft" align="right" valign="top"><a id="a0ec91dc3462e79c425494d29a440b232" name="a0ec91dc3462e79c425494d29a440b232"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>mFramebufferWidth</b></td></tr>
+<tr class="memdesc:a0ec91dc3462e79c425494d29a440b232"><td class="mdescLeft">&#160;</td><td class="mdescRight">the framebuffer height of the requested GLFW window <br /></td></tr>
+<tr class="separator:a0ec91dc3462e79c425494d29a440b232"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bc0fbd275f7d25e85eb0387bfa277cb"><td class="memItemLeft" align="right" valign="top"><a id="a6bc0fbd275f7d25e85eb0387bfa277cb" name="a6bc0fbd275f7d25e85eb0387bfa277cb"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>mFramebufferHeight</b></td></tr>
+<tr class="memdesc:a6bc0fbd275f7d25e85eb0387bfa277cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">the framebuffer width of the requested GLFW window <br /></td></tr>
+<tr class="separator:a6bc0fbd275f7d25e85eb0387bfa277cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d7eff405db5721345bf06b1178e4102"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5d7eff405db5721345bf06b1178e4102">mWindowResizable</a></td></tr>
 <tr class="memdesc:a5d7eff405db5721345bf06b1178e4102"><td class="mdescLeft">&#160;</td><td class="mdescRight">if the GLFW window can be resized while open  <br /></td></tr>
 <tr class="separator:a5d7eff405db5721345bf06b1178e4102"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -411,6 +433,64 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWindow</b><
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5a42b086ef2a1a2be28342887356f443" name="a5a42b086ef2a1a2be28342887356f443"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a42b086ef2a1a2be28342887356f443">&#9670;&#160;</a></span>clockFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLdouble CSCI441::OpenGLEngine::clockFrame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>measures the amount of time elapsed since the last time this method was called </p>
+<dl class="section return"><dt>Returns</dt><dd>time difference since last time <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5a42b086ef2a1a2be28342887356f443" title="measures the amount of time elapsed since the last time this method was called">clockFrame()</a> was called </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>intended to be called once per time the frame is rendered </dd>
+<dd>
+if less than 1/60th of a second has elapsed, increments number of frames rendered but does not measure time until a larger measurable time has elapsed on subsequent calls </dd></dl>
+
+</div>
+</div>
+<a id="aae0e989d3398dc3fc18f98c7edfd99b2" name="aae0e989d3398dc3fc18f98c7edfd99b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae0e989d3398dc3fc18f98c7edfd99b2">&#9670;&#160;</a></span>fpsAverage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLdouble CSCI441::OpenGLEngine::fpsAverage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>computes average frames per second over last 10 clocked frames </p><dl class="section return"><dt>Returns</dt><dd>average of last 10 clocked frames </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>will return 0.0 unless <a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5a42b086ef2a1a2be28342887356f443" title="measures the amount of time elapsed since the last time this method was called">CSCI441::OpenGLEngine::clockFrame()</a> is consistently called one per fendered frame </dd></dl>
+
+</div>
+</div>
 <a id="ac2b1fdda2a82e50f315464b387759639" name="ac2b1fdda2a82e50f315464b387759639"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac2b1fdda2a82e50f315464b387759639">&#9670;&#160;</a></span>getErrorStringDescription()</h2>
 
@@ -534,6 +614,34 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWindow</b><
 
 <p>override to cleanup any buffer objects from the GPU </p>
 <dl class="section note"><dt>Note</dt><dd>called after textures have been cleaned up and prior to shaders, OpenGL, or GLFW being cleaned </dd></dl>
+
+</div>
+</div>
+<a id="a7ed91a7f173fe68a8ca5e4d1411456b6" name="a7ed91a7f173fe68a8ca5e4d1411456b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ed91a7f173fe68a8ca5e4d1411456b6">&#9670;&#160;</a></span>mCleanupFonts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::mCleanupFonts </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override to cleanup any fonts from the GPU </p>
+<dl class="section note"><dt>Note</dt><dd>called after scene cleanup and prior to any other cleanup processes </dd></dl>
 
 </div>
 </div>
@@ -708,6 +816,36 @@ If overridden, then it is likely that mCleanupBuffers should be overridden as we
 
 </div>
 </div>
+<a id="a43c2125412264c5d99f9fe2ebf020fb2" name="a43c2125412264c5d99f9fe2ebf020fb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43c2125412264c5d99f9fe2ebf020fb2">&#9670;&#160;</a></span>mSetupFonts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::mSetupFonts </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override to register any fonts with the GPU </p>
+<dl class="section note"><dt>Note</dt><dd>called after textures objects are setup and prior to scene setup has been performed </dd>
+<dd>
+If overridden, then it is likely that mCleanupFonts should be overridden as well </dd></dl>
+
+</div>
+</div>
 <a id="aeb69657b6166b852dcd3cd96d14ac9a2" name="aeb69657b6166b852dcd3cd96d14ac9a2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb69657b6166b852dcd3cd96d14ac9a2">&#9670;&#160;</a></span>mSetupGLFW()</h2>
 
@@ -876,7 +1014,7 @@ If overridden, then it is likely that mCleanupShaders should be overridden as we
 </div><div class="memdoc">
 
 <p>override to register any textures with the GPU </p>
-<dl class="section note"><dt>Note</dt><dd>called after buffer objects are setup and prior to scene setup has been performed </dd>
+<dl class="section note"><dt>Note</dt><dd>called after buffer objects are setup and prior to fonts setup has been performed </dd>
 <dd>
 If overridden, then it is likely that mCleanupTextures should be overridden as well </dd></dl>
 
@@ -961,6 +1099,52 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
 
 </div>
 </div>
+<a id="a43fbab4f8ca1ac8c62df47e7cdc7c57b" name="a43fbab4f8ca1ac8c62df47e7cdc7c57b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43fbab4f8ca1ac8c62df47e7cdc7c57b">&#9670;&#160;</a></span>setCurrentFramebufferSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void CSCI441::OpenGLEngine::setCurrentFramebufferSize </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>FRAMEBUFFER_WIDTH</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>FRAMEBUFFER_HEIGHT</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stores the framebuffer size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FRAMEBUFFER_WIDTH</td><td>width of the framebuffer </td></tr>
+    <tr><td class="paramname">FRAMEBUFFER_HEIGHT</td><td>height of the framebuffer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>This function does not cause the framebuffer to be resized, rather after the framebuffer has been resized this function is used to update the data members storing the current framebuffer size. </dd></dl>
+
+</div>
+</div>
 <a id="a1cab5dfa1632f7dc805edbe5313bd69f" name="a1cab5dfa1632f7dc805edbe5313bd69f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1cab5dfa1632f7dc805edbe5313bd69f">&#9670;&#160;</a></span>setCurrentWindowSize()</h2>
 
@@ -995,7 +1179,7 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
 </table>
 </div><div class="memdoc">
 
-<p>Set the new window size. </p>
+<p>Stores the new window size. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">WINDOW_WIDTH</td><td>width of the new window </td></tr>
