@@ -33,6 +33,7 @@
 #include <cstdio>
 #include <cstring>
 #include <ctime>
+#include <deque>
 #include <set>
 #include <string>
 #include <memory>
