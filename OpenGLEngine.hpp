@@ -441,6 +441,23 @@ namespace CSCI441 {
          */
         virtual void mReloadShaders() final;
 
+        /**
+         * @brief measures the amount of time elapsed since the last time this method was called
+         * @return time difference since last time clockFrame() was called
+         * @note intended to be called once per time the frame is rendered
+         * @note if less than 1/60th of a second has elapsed, increments number of frames rendered
+         * but does not measure time until a larger measurable time has elapsed on subsequent calls
+         */
+        virtual GLdouble clockFrame() final;
+
+        /**
+         * computes average frames per second over last 10 clocked frames
+         * @return average of last 10 clocked frames
+         * @note will return 0.0 unless CSCI441::OpenGLEngine::clockFrame() is consistently called
+         * one per fendered frame
+         */
+        virtual GLdouble fpsAverage() final;
+
     private:
         void _setupGLFunctions();           // initialize OpenGL functions
         void _cleanupGLFunctions() {}       // nothing to be done at this time
@@ -452,6 +469,10 @@ namespace CSCI441 {
         bool _isCleanedUp;                  // makes cleanup a singleton process
 
         std::set< std::string > _extensions;// set of all available OpenGL extensions
+
+        GLdouble _lastFrameTime;
+        std::deque<GLdouble> _frameTimes;
+        GLint _numFrames;
     };
 }
 
@@ -479,7 +500,9 @@ CSCI441::OpenGLEngine::OpenGLEngine(
     mWindowTitle(nullptr),
     mpWindow(nullptr),
     _isInitialized(false),
-    _isCleanedUp(false)
+    _isCleanedUp(false),
+    _lastFrameTime(0),
+    _numFrames(0)
 {
     mWindowTitle = new char[ strlen(WINDOW_TITLE) + 1 ];
     strncpy(mWindowTitle, WINDOW_TITLE, strlen(WINDOW_TITLE) + 1);
@@ -508,7 +531,9 @@ CSCI441::OpenGLEngine::OpenGLEngine(
     mWindowTitle(nullptr),
     mpWindow(nullptr),
     _isInitialized(false),
-    _isCleanedUp(false)
+    _isCleanedUp(false),
+    _lastFrameTime(0),
+    _numFrames(0)
 {
     _moveFromSource(src);
 }
@@ -899,6 +924,31 @@ void CSCI441::OpenGLEngine::mReloadShaders()
     if (DEBUG) fprintf(stdout, "\n[INFO]: Reloading shaders...\n");
     mSetupShaders();
     if (DEBUG) fprintf(stdout, "\n[INFO]: Shaders reloaded\n");
+}
+
+inline
+GLdouble CSCI441::OpenGLEngine::clockFrame() {
+    const GLdouble currentTime = glfwGetTime();
+    ++_numFrames;
+    GLdouble fps = ( !_frameTimes.empty() ? _frameTimes.back() : 0.0 );
+    if (currentTime - _lastFrameTime > 0.1667) {
+        fps = static_cast<GLdouble>(_numFrames)/(currentTime - _lastFrameTime);
+        _numFrames = 0;
+        _lastFrameTime = currentTime;
+
+        if (_frameTimes.size() >= 10) _frameTimes.pop_front();
+        _frameTimes.push_back( fps );
+    }
+    return fps;
+}
+
+inline
+GLdouble CSCI441::OpenGLEngine::fpsAverage() {
+    GLdouble totalFPS = 0;
+    for( const auto& fpsUnit : _frameTimes ) {
+        totalFPS += fpsUnit;
+    }
+    return totalFPS / static_cast<GLdouble>(_frameTimes.size());
 }
 
 #endif //CSCI441_OPENGL_ENGINE_HPP

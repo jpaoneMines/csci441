@@ -10,6 +10,7 @@
 - Fixed bug for shader introspection displaying uniform array names
 - FontUtils and Font class added to simply the process of rendering text to the screen
 - OpenGLEngine sets FontUtils window size and stores framebuffer size
+- OpenGLEngine measures frame time
 
 ## v 5.25.0.0 - 09 Dec 2025
 - MD5Models support normal mapping
