@@ -27,7 +27,10 @@
 #endif
 
 #include <glm/glm.hpp>
-#include <stb_image.h>
+
+#ifndef CSCI441_TEXTURE_UTILS_HPP
+	#include <stb_image.h>
+#endif
 
 #include <cstdio>
 #include <cstdlib>
