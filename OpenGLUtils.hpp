@@ -38,39 +38,39 @@ namespace CSCI441 {
     /**
       * @brief constant for positive X_AXIS
       */
-    static const glm::vec3 X_AXIS( 1.0f, 0.0f, 0.0f );
+    static constexpr glm::vec3 X_AXIS( 1.0f, 0.0f, 0.0f );
     /**
      * @brief constant for positive Y_AXIS
      */
-    static const glm::vec3 Y_AXIS( 0.0f, 1.0f, 0.0f );
+    static constexpr glm::vec3 Y_AXIS( 0.0f, 1.0f, 0.0f );
     /**
      * @brief constant for positive Z_AXIS
      */
-    static const glm::vec3 Z_AXIS( 0.0f, 0.0f, 1.0f );
+    static constexpr glm::vec3 Z_AXIS( 0.0f, 0.0f, 1.0f );
     /**
      * @brief alias for constant for positive X_AXIS
      */
-    [[maybe_unused]] static const glm::vec3 X_AXIS_POS = X_AXIS;
+    [[maybe_unused]] static constexpr glm::vec3 X_AXIS_POS = X_AXIS;
     /**
      * @brief alias for constant for positive Y_AXIS
      */
-    [[maybe_unused]] static const glm::vec3 Y_AXIS_POS = Y_AXIS;
+    [[maybe_unused]] static constexpr glm::vec3 Y_AXIS_POS = Y_AXIS;
     /**
      * @brief alias for constant for positive Z_AXIS
      */
-    [[maybe_unused]] static const glm::vec3 Z_AXIS_POS = Z_AXIS;
+    [[maybe_unused]] static constexpr glm::vec3 Z_AXIS_POS = Z_AXIS;
     /**
      * @brief constant for negative X_AXIS
      */
-    [[maybe_unused]] static const glm::vec3 X_AXIS_NEG( -1.0f,  0.0f,  0.0f );
+    [[maybe_unused]] static constexpr glm::vec3 X_AXIS_NEG( -1.0f,  0.0f,  0.0f );
     /**
      * @brief constant for negative Y_AXIS
      */
-    [[maybe_unused]] static const glm::vec3 Y_AXIS_NEG(  0.0f, -1.0f,  0.0f );
+    [[maybe_unused]] static constexpr glm::vec3 Y_AXIS_NEG(  0.0f, -1.0f,  0.0f );
     /**
      * @brief constant for negative Z_AXIS
      */
-    [[maybe_unused]] static const glm::vec3 Z_AXIS_NEG(  0.0f,  0.0f, -1.0f );
+    [[maybe_unused]] static constexpr glm::vec3 Z_AXIS_NEG(  0.0f,  0.0f, -1.0f );
 
     /**
      * @namespace OpenGLUtils
@@ -88,8 +88,10 @@ namespace CSCI441 {
         /**
          * @brief Checks if there are any OpenGL errors, printing them if so,
          * and clearing the error flag.
+         * @param str optional string to display if errors do occur (useful
+         * to help determine which call to this function triggered the errors)
          */
-        [[maybe_unused]] void checkOpenGLErrors();
+        [[maybe_unused]] void checkOpenGLErrors(const char * str = "");
 
         /**
          * @brief Converts error value to string representation
@@ -289,14 +291,14 @@ inline void CSCI441::OpenGLUtils::printOpenGLExtensions() {
 }
 
 [[maybe_unused]]
-inline void CSCI441::OpenGLUtils::checkOpenGLErrors() {
+inline void CSCI441::OpenGLUtils::checkOpenGLErrors(const char * const str) {
     GLenum err;
     while( (err = glGetError()) != GL_NO_ERROR ) {
-        fprintf( stderr, "[ERROR]: OpenGL Error (%d): %s\n", err, CSCI441::OpenGLUtils::openGLErrorMessage(err) );
+        fprintf( stderr, "[ERROR %s]: OpenGL Error (%d): %s\n", str, err, CSCI441::OpenGLUtils::openGLErrorMessage(err) );
     }
 }
 
-inline const char* CSCI441::OpenGLUtils::openGLErrorMessage(GLenum err) {
+inline const char* CSCI441::OpenGLUtils::openGLErrorMessage(const GLenum err) {
     switch(err) {
         case GL_NO_ERROR:                       return "No error";
         case GL_INVALID_ENUM:                   return "Invalid enum";
@@ -312,7 +314,7 @@ inline const char* CSCI441::OpenGLUtils::openGLErrorMessage(GLenum err) {
 }
 
 [[maybe_unused]]
-inline const char* CSCI441::OpenGLUtils::debugSourceToString(GLenum source) {
+inline const char* CSCI441::OpenGLUtils::debugSourceToString(const GLenum source) {
     switch(source) {
         case GL_DEBUG_SOURCE_API:               return "API";
         case GL_DEBUG_SOURCE_WINDOW_SYSTEM:     return "Window System";
@@ -325,7 +327,7 @@ inline const char* CSCI441::OpenGLUtils::debugSourceToString(GLenum source) {
 }
 
 [[maybe_unused]]
-inline const char* CSCI441::OpenGLUtils::debugTypeToString(GLenum type) {
+inline const char* CSCI441::OpenGLUtils::debugTypeToString(const GLenum type) {
     switch(type) {
         case GL_DEBUG_TYPE_ERROR:               return "Error";
         case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR: return "Deprecated Behavior";
@@ -341,7 +343,7 @@ inline const char* CSCI441::OpenGLUtils::debugTypeToString(GLenum type) {
 }
 
 [[maybe_unused]]
-inline const char* CSCI441::OpenGLUtils::debugSeverityToString(GLenum severity) {
+inline const char* CSCI441::OpenGLUtils::debugSeverityToString(const GLenum severity) {
     switch(severity) {
         case GL_DEBUG_SEVERITY_HIGH:            return "High";
         case GL_DEBUG_SEVERITY_MEDIUM:          return "Medium";
