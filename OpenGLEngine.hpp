@@ -654,26 +654,32 @@ void CSCI441::OpenGLEngine::initialize()
             CSCI441::OpenGLUtils::printOpenGLInfo();
         }
         const std::chrono::steady_clock::time_point openGLEnd = std::chrono::steady_clock::now();
+        CSCI441::OpenGLUtils::checkOpenGLErrors("post mSetupOpenGL()");
 
         const std::chrono::steady_clock::time_point shadersBegin = std::chrono::steady_clock::now();
         mSetupShaders();                // transfer, compile, link shaders on GPU
         const std::chrono::steady_clock::time_point shadersEnd = std::chrono::steady_clock::now();
+        CSCI441::OpenGLUtils::checkOpenGLErrors("post mSetupShaders()");
 
         const std::chrono::steady_clock::time_point buffersBegin = std::chrono::steady_clock::now();
         mSetupBuffers();                // register Buffers on GPU
         const std::chrono::steady_clock::time_point buffersEnd = std::chrono::steady_clock::now();
+        CSCI441::OpenGLUtils::checkOpenGLErrors("post mSetupBuffers()");
 
         const std::chrono::steady_clock::time_point texturesBegin = std::chrono::steady_clock::now();
         mSetupTextures();               // register Textures on GPU
         const std::chrono::steady_clock::time_point texturesEnd = std::chrono::steady_clock::now();
+        CSCI441::OpenGLUtils::checkOpenGLErrors("post mSetupTextures()");
 
         const std::chrono::steady_clock::time_point fontsBegin = std::chrono::steady_clock::now();
         mSetupFonts();                  // register Fonts on GPU
         const std::chrono::steady_clock::time_point fontsEnd = std::chrono::steady_clock::now();
+        CSCI441::OpenGLUtils::checkOpenGLErrors("post mSetupFonts()");
 
         const std::chrono::steady_clock::time_point sceneBegin = std::chrono::steady_clock::now();
         mSetupScene();                  // setup any scene specific information
         const std::chrono::steady_clock::time_point sceneEnd = std::chrono::steady_clock::now();
+        CSCI441::OpenGLUtils::checkOpenGLErrors("post mSetupScene()");
 
         _isInitialized = true;
         _isCleanedUp = false;
@@ -858,27 +864,33 @@ void CSCI441::OpenGLEngine::shutdown()
         const std::chrono::steady_clock::time_point sceneBegin = std::chrono::steady_clock::now();
         mCleanupScene();                                    // delete scene info from CPU
         const std::chrono::steady_clock::time_point sceneEnd = std::chrono::steady_clock::now();
+        CSCI441::OpenGLUtils::checkOpenGLErrors("post mCleanupScene()");
 
         const std::chrono::steady_clock::time_point fontsBegin = std::chrono::steady_clock::now();
         mCleanupFonts();                                    // delete textures from GPU
         const std::chrono::steady_clock::time_point fontsEnd = std::chrono::steady_clock::now();
+        CSCI441::OpenGLUtils::checkOpenGLErrors("post mCleanupFonts()");
 
         const std::chrono::steady_clock::time_point texturesBegin = std::chrono::steady_clock::now();
         mCleanupTextures();                                 // delete textures from GPU
         const std::chrono::steady_clock::time_point texturesEnd = std::chrono::steady_clock::now();
+        CSCI441::OpenGLUtils::checkOpenGLErrors("post mCleanupTextures()");
 
         const std::chrono::steady_clock::time_point buffersBegin = std::chrono::steady_clock::now();
         mCleanupBuffers();                                  // delete VAOs/VBOs from GPU
         const std::chrono::steady_clock::time_point buffersEnd = std::chrono::steady_clock::now();
+        CSCI441::OpenGLUtils::checkOpenGLErrors("post mCleanupBuffers()");
 
         const std::chrono::steady_clock::time_point shadersBegin = std::chrono::steady_clock::now();
         mCleanupShaders();                                  // delete shaders from GPU
         const std::chrono::steady_clock::time_point shadersEnd = std::chrono::steady_clock::now();
+        CSCI441::OpenGLUtils::checkOpenGLErrors("post mCleanupShaders()");
 
         const std::chrono::steady_clock::time_point openGLBegin = std::chrono::steady_clock::now();
         mCleanupOpenGL();                                   // cleanup anything OpenGL related
         _cleanupGLFunctions();                              // cleanup anything function pointer related
         const std::chrono::steady_clock::time_point openGLEnd = std::chrono::steady_clock::now();
+        CSCI441::OpenGLUtils::checkOpenGLErrors("post mCleanupOpenGL()");
 
         const std::chrono::steady_clock::time_point glfwBegin = std::chrono::steady_clock::now();
         mCleanupGLFW();                                     // shut down GLFW to clean up our context
