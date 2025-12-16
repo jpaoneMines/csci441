@@ -14,6 +14,7 @@
 #define CSCI441_SHADER_PROGRAM_HPP
 
 #include "constants.h"
+#include "OpenGLUtils.hpp"
 #include "ShaderUtils.hpp"
 
 #include <glm/glm.hpp>
@@ -2163,28 +2164,10 @@ inline CSCI441::ShaderProgram &CSCI441::ShaderProgram::operator=(ShaderProgram&&
 }
 
 inline void CSCI441::ShaderProgram::_cleanupSelf() {
-    GLint status;
-    GLint infoLogLength = 0;
-    constexpr int maxLength = 1000;
-
-    glDeleteProgram(mShaderProgramHandle );
-
-    // create a buffer of designated length
-    const auto infoLog = new GLchar[maxLength];
-
-    glGetProgramiv(mShaderProgramHandle, GL_DELETE_STATUS, &status );
-
-    // get the info log for the vertex/tessellation/geometry/fragment/compute shader
-    glGetProgramInfoLog(mShaderProgramHandle, maxLength, &infoLogLength, infoLog );
-
-    if(infoLogLength > 0 ) {
-        // print info to terminal
-        if( sDEBUG ) printf("[INFO]: Program Handle %d Delete Status %s: %s\n", mShaderProgramHandle, (status == GL_TRUE ? "Success" : " Error"), infoLog );
-    }
+    glDeleteProgram(mShaderProgramHandle);
 
     delete mpUniformLocationsMap;
     delete mpAttributeLocationsMap;
-    delete[] infoLog;
 
     mVertexShaderHandle = 0;
     mTessellationControlShaderHandle = 0;
