@@ -184,7 +184,7 @@ inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filen
             imageChannels = 3;
         }
         if( !data ) {
-            if(printAllMessages) printf( "[ERROR]: CSCI441::TextureUtils::loadAndRegister2DTexture(): Could not load texture \"%s\"\n", filename );
+            if(printAllMessages) fprintf( stderr, "[ERROR]: CSCI441::TextureUtils::loadAndRegister2DTexture(): Could not load texture \"%s\"\n", filename );
             return texHandle;
         }
 	}
@@ -213,7 +213,7 @@ inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filen
         }
     }
 
-    printf( "[INFO]: Successfully loaded texture \"%s\" with handle %d\n", filename, texHandle );
+    fprintf( stdout, "[INFO]: Successfully loaded texture \"%s\" with handle %d\n", filename, texHandle );
 
 	return texHandle;
 }
