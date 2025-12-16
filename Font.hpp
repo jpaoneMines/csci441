@@ -190,7 +190,6 @@ inline CSCI441::Font::Font(const char *filename) :
     _atlasWidth = w;
     _atlasHeight = h;
 
-    glEnable( GL_TEXTURE_2D );
     glActiveTexture(GL_TEXTURE0);
     glGenTextures(1, &_texHandle);
     glBindTexture(GL_TEXTURE_2D, _texHandle);
