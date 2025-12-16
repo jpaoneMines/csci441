@@ -14,7 +14,6 @@
 #define CSCI441_SHADER_PROGRAM_HPP
 
 #include "constants.h"
-#include "OpenGLUtils.hpp"
 #include "ShaderUtils.hpp"
 
 #include <glm/glm.hpp>
@@ -2250,7 +2249,7 @@ inline CSCI441::ShaderProgram* CSCI441::ShaderProgram::loadShaderProgramFromBina
     inputStream.close();
 
     // Install shader binary
-    glProgramBinary(program, FORMAT, buffer.data(), buffer.size() );
+    glProgramBinary(program, FORMAT, buffer.data(), static_cast<GLsizei>(buffer.size()) );
 
     // Check for success/failure
     GLint status;
