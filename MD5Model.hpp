@@ -1487,7 +1487,7 @@ inline size_t CSCI441::MD5Model::_trim(char* out, const size_t len, const char* 
 
 inline bool CSCI441::MD5Model::_registerShaderTexture(CSCI441_INTERNAL::MD5Texture *texture) {
     if (const auto textureIter = _textureMap.find( texture->filename ); textureIter == _textureMap.end()) {
-        texture->texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( texture->filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE);
+        texture->texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( texture->filename, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE, GL_TRUE);
         if( texture->texHandle == 0 ) {
             // silently failing to avoid many unnecessary error messages
             //fprintf(stderr, "[.md5mtr | ERROR]: Could not load diffuse map %s for shader %s\n", shader->textures[MD5MaterialShader::TextureMap::DIFFUSE].filename, shader->shader);
