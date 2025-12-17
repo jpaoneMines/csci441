@@ -15,6 +15,7 @@
 #ifndef CSCI441_OBJECTS_IMPL_HPP
 #define CSCI441_OBJECTS_IMPL_HPP
 
+#include "OpenGLUtils.hpp"
 #include "teapot.hpp"
 
 #ifdef CSCI441_USE_GLEW
