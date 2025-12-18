@@ -25,6 +25,8 @@
     #include <glad/gl.h>
 #endif
 
+#include <glm/gtc/constants.hpp>
+
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>

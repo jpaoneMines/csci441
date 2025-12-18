@@ -24,6 +24,7 @@
     #include <glad/gl.h>
 #endif
 
+#include <glm/gtc/constants.hpp>
 #include <glm/trigonometric.hpp>
 
 #include <map>							// for map
@@ -902,7 +903,7 @@ inline void CSCI441_INTERNAL::generateCylinderVAO( const CylinderData& cylData )
 
     const GLfloat sliceDelta = glm::two_pi<GLfloat>() / NUM_SLICES_GL_FLOAT;
     const GLfloat stackDelta = cylData.height / NUM_STACKS_GL_FLOAT;
-    constexpr GLfloat quarterPI = glm::pi<GLfloat>() / 4.0f;
+    constexpr GLfloat quarterPI = glm::quarter_pi<GLfloat>();
 
     const auto vertices  = new glm::vec3[NUM_VERTICES];
     const auto normals   = new glm::vec3[NUM_VERTICES];
