@@ -1,5 +1,8 @@
 # Revision History
 
+## v 6.0.1.0 - 21 Jan 2026
+- Expanded UniformBufferObject uniform types
+
 ## v 6.0.0.0 - 21 Jan 2026
 - MD5Materials can be read from a PATH location
 - Expanded UBO support to more cleanly set uniforms within buffer block

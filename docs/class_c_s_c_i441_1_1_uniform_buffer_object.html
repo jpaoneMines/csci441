@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.1.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -146,6 +146,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a80024378d2db2c37ea4dc98e9943455f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a80024378d2db2c37ea4dc98e9943455f">setUniform</a> (const char *UNIFORM_NAME, glm::mat4 mtx)</td></tr>
 <tr class="memdesc:a80024378d2db2c37ea4dc98e9943455f"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the uniform value within the uniform buffer block  <br /></td></tr>
 <tr class="separator:a80024378d2db2c37ea4dc98e9943455f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e218fbe16b9c450999dc905e4483971"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a7e218fbe16b9c450999dc905e4483971">setUniform</a> (const char *UNIFORM_NAME, const GLint *pArray, GLint count)</td></tr>
+<tr class="memdesc:a7e218fbe16b9c450999dc905e4483971"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the uniform value within the uniform buffer block  <br /></td></tr>
+<tr class="separator:a7e218fbe16b9c450999dc905e4483971"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac888038edd49de8810d55c05d6e7651b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ac888038edd49de8810d55c05d6e7651b">setUniform</a> (const char *UNIFORM_NAME, const glm::ivec4 *pArray, GLint count)</td></tr>
+<tr class="memdesc:ac888038edd49de8810d55c05d6e7651b"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the uniform value within the uniform buffer block  <br /></td></tr>
+<tr class="separator:ac888038edd49de8810d55c05d6e7651b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a90e0cf0530bdbef8fcfc160ff5d645"><td class="memItemLeft" align="right" valign="top"><a id="a1a90e0cf0530bdbef8fcfc160ff5d645" name="a1a90e0cf0530bdbef8fcfc160ff5d645"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>bindBuffer</b> () const</td></tr>
 <tr class="memdesc:a1a90e0cf0530bdbef8fcfc160ff5d645"><td class="mdescLeft">&#160;</td><td class="mdescRight">binds UBO object to UBO buffer <br /></td></tr>
@@ -452,8 +458,112 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>bufferSubData</b> () 
 
 </div>
 </div>
+<a id="a7e218fbe16b9c450999dc905e4483971" name="a7e218fbe16b9c450999dc905e4483971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e218fbe16b9c450999dc905e4483971">&#9670;&#160;</a></span>setUniform() <span class="overload">[1/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::UniformBufferObject::setUniform </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>UNIFORM_NAME</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const GLint *&#160;</td>
+          <td class="paramname"><em>pArray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>sets the uniform value within the uniform buffer block </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">UNIFORM_NAME</td><td>uniform to set </td></tr>
+    <tr><td class="paramname">pArray</td><td>pointer to array of values to set </td></tr>
+    <tr><td class="paramname">count</td><td>size of array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac888038edd49de8810d55c05d6e7651b" name="ac888038edd49de8810d55c05d6e7651b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac888038edd49de8810d55c05d6e7651b">&#9670;&#160;</a></span>setUniform() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::UniformBufferObject::setUniform </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>UNIFORM_NAME</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::ivec4 *&#160;</td>
+          <td class="paramname"><em>pArray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>sets the uniform value within the uniform buffer block </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">UNIFORM_NAME</td><td>uniform to set </td></tr>
+    <tr><td class="paramname">pArray</td><td>pointer to array of values to set </td></tr>
+    <tr><td class="paramname">count</td><td>size of array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a49788be71b11888e551da8cd3eab00ed" name="a49788be71b11888e551da8cd3eab00ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49788be71b11888e551da8cd3eab00ed">&#9670;&#160;</a></span>setUniform() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a49788be71b11888e551da8cd3eab00ed">&#9670;&#160;</a></span>setUniform() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -498,7 +608,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>bufferSubData</b> () 
 </div>
 </div>
 <a id="abab44c758b45d51dd42872f8f0555ac9" name="abab44c758b45d51dd42872f8f0555ac9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abab44c758b45d51dd42872f8f0555ac9">&#9670;&#160;</a></span>setUniform() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abab44c758b45d51dd42872f8f0555ac9">&#9670;&#160;</a></span>setUniform() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -543,7 +653,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>bufferSubData</b> () 
 </div>
 </div>
 <a id="afd3e8f9937ab55351d9629867ef64b93" name="afd3e8f9937ab55351d9629867ef64b93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd3e8f9937ab55351d9629867ef64b93">&#9670;&#160;</a></span>setUniform() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afd3e8f9937ab55351d9629867ef64b93">&#9670;&#160;</a></span>setUniform() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -588,7 +698,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>bufferSubData</b> () 
 </div>
 </div>
 <a id="a80024378d2db2c37ea4dc98e9943455f" name="a80024378d2db2c37ea4dc98e9943455f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80024378d2db2c37ea4dc98e9943455f">&#9670;&#160;</a></span>setUniform() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a80024378d2db2c37ea4dc98e9943455f">&#9670;&#160;</a></span>setUniform() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -633,7 +743,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>bufferSubData</b> () 
 </div>
 </div>
 <a id="ab178b5151e74e3cbb5f8c6650af461ef" name="ab178b5151e74e3cbb5f8c6650af461ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab178b5151e74e3cbb5f8c6650af461ef">&#9670;&#160;</a></span>setUniform() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab178b5151e74e3cbb5f8c6650af461ef">&#9670;&#160;</a></span>setUniform() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -678,7 +788,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>bufferSubData</b> () 
 </div>
 </div>
 <a id="ac91d7be52af64e7af3d21d0051858b50" name="ac91d7be52af64e7af3d21d0051858b50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac91d7be52af64e7af3d21d0051858b50">&#9670;&#160;</a></span>setUniform() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac91d7be52af64e7af3d21d0051858b50">&#9670;&#160;</a></span>setUniform() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
