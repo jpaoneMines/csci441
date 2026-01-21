@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.25.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.0.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -1311,7 +1311,7 @@ $(function() {
 <div class="line"><a id="l01487" name="l01487"></a><span class="lineno"> 1487</span> </div>
 <div class="line"><a id="l01488" name="l01488"></a><span class="lineno"> 1488</span><span class="keyword">inline</span> <span class="keywordtype">bool</span> CSCI441::MD5Model::_registerShaderTexture(CSCI441_INTERNAL::MD5Texture *texture) {</div>
 <div class="line"><a id="l01489" name="l01489"></a><span class="lineno"> 1489</span>    <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> textureIter = _textureMap.find( texture-&gt;filename ); textureIter == _textureMap.end()) {</div>
-<div class="line"><a id="l01490" name="l01490"></a><span class="lineno"> 1490</span>        texture-&gt;texHandle = <a class="code hl_function" href="_texture_utils_8hpp.html#a7760a68a85880637fe696d1ef0a2f19a">CSCI441::TextureUtils::loadAndRegisterTexture</a>( texture-&gt;filename, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE);</div>
+<div class="line"><a id="l01490" name="l01490"></a><span class="lineno"> 1490</span>        texture-&gt;texHandle = <a class="code hl_function" href="_texture_utils_8hpp.html#a7760a68a85880637fe696d1ef0a2f19a">CSCI441::TextureUtils::loadAndRegisterTexture</a>( texture-&gt;filename, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE, GL_TRUE);</div>
 <div class="line"><a id="l01491" name="l01491"></a><span class="lineno"> 1491</span>        <span class="keywordflow">if</span>( texture-&gt;texHandle == 0 ) {</div>
 <div class="line"><a id="l01492" name="l01492"></a><span class="lineno"> 1492</span>            <span class="comment">// silently failing to avoid many unnecessary error messages</span></div>
 <div class="line"><a id="l01493" name="l01493"></a><span class="lineno"> 1493</span>            <span class="comment">//fprintf(stderr, &quot;[.md5mtr | ERROR]: Could not load diffuse map %s for shader %s\n&quot;, shader-&gt;textures[MD5MaterialShader::TextureMap::DIFFUSE].filename, shader-&gt;shader);</span></div>

@@ -1,6 +1,6 @@
 # Revision History
 
-## v ?.??.?.? - ?? ??? ????
+## v 6.0.0.0 - 21 Jan 2026
 - MD5Materials can be read from a PATH location
 - Expanded UBO support to more cleanly set uniforms within buffer block
 - teapot supports normal mapping
@@ -8,7 +8,7 @@
 - sphere, cylinder, cone, disk, torus supports normal mapping
 - OBJ models can auto-generate tangents for normal mapping
 - Fixed bug for shader introspection displaying uniform array names
-- FontUtils and Font class added to simply the process of rendering text to the screen
+- FontUtils and Font class added to simplify the process of rendering text to the screen
 - OpenGLEngine sets FontUtils window size and stores framebuffer size
 - OpenGLEngine measures frame time
 

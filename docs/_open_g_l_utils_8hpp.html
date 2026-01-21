@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;5.25.0.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.0.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -106,10 +106,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441::OpenGLUtils:
 void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441::OpenGLUtils::printOpenGLExtensions</b> ()</td></tr>
 <tr class="memdesc:a854077564452ce02c385eba5f33f4d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the list of available extensions. <br /></td></tr>
 <tr class="separator:a854077564452ce02c385eba5f33f4d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e12bc3ac0ce7e01c50191b09c889a2c"><td class="memItemLeft" align="right" valign="top"><a id="a5e12bc3ac0ce7e01c50191b09c889a2c" name="a5e12bc3ac0ce7e01c50191b09c889a2c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441::OpenGLUtils::checkOpenGLErrors</b> ()</td></tr>
-<tr class="memdesc:a5e12bc3ac0ce7e01c50191b09c889a2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if there are any OpenGL errors, printing them if so, and clearing the error flag. <br /></td></tr>
-<tr class="separator:a5e12bc3ac0ce7e01c50191b09c889a2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b1ecd78df9b83592a9eaf7edfa53c50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_open_g_l_utils_8hpp.html#a7b1ecd78df9b83592a9eaf7edfa53c50">CSCI441::OpenGLUtils::checkOpenGLErrors</a> (const char *str=&quot;&quot;)</td></tr>
+<tr class="memdesc:a7b1ecd78df9b83592a9eaf7edfa53c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if there are any OpenGL errors, printing them if so, and clearing the error flag.  <br /></td></tr>
+<tr class="separator:a7b1ecd78df9b83592a9eaf7edfa53c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1473b4a80cac441807ed56deb1cebce9"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_open_g_l_utils_8hpp.html#a1473b4a80cac441807ed56deb1cebce9">CSCI441::OpenGLUtils::openGLErrorMessage</a> (GLenum err)</td></tr>
 <tr class="memdesc:a1473b4a80cac441807ed56deb1cebce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts error value to string representation.  <br /></td></tr>
 <tr class="separator:a1473b4a80cac441807ed56deb1cebce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,6 +131,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CSCI441::OpenGLUtils:
 <dd>
 NOTE: This header file depends upon glm </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a7b1ecd78df9b83592a9eaf7edfa53c50" name="a7b1ecd78df9b83592a9eaf7edfa53c50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b1ecd78df9b83592a9eaf7edfa53c50">&#9670;&#160;</a></span>checkOpenGLErrors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::OpenGLUtils::checkOpenGLErrors </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em> = <code>&quot;&quot;</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if there are any OpenGL errors, printing them if so, and clearing the error flag. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>optional string to display if errors do occur (useful to help determine which call to this function triggered the errors) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a43a1a3cd63b4068ab8cf621b2d01c285" name="a43a1a3cd63b4068ab8cf621b2d01c285"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a43a1a3cd63b4068ab8cf621b2d01c285">&#9670;&#160;</a></span>debugSeverityToString()</h2>
 

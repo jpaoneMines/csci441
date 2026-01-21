@@ -16,11 +16,11 @@ namespace CSCI441 {
     /**
      * @brief library major version
      */
-    constexpr int VERSION_MAJOR = 5;
+    constexpr int VERSION_MAJOR = 6;
     /**
      * @brief library minor version
      */
-    constexpr int VERSION_MINOR = 25;
+    constexpr int VERSION_MINOR = 0;
     /**
      * @brief library revision version
      */
