@@ -145,6 +145,20 @@ namespace CSCI441 {
          * @param mtx value to set
          */
         [[maybe_unused]] void setUniform( const char* UNIFORM_NAME, glm::mat4 mtx );
+        /**
+         * @brief sets the uniform value within the uniform buffer block
+         * @param UNIFORM_NAME uniform to set
+         * @param pArray pointer to array of values to set
+         * @param count size of array
+         */
+        [[maybe_unused]] void setUniform( const char* UNIFORM_NAME, const GLint* pArray, GLint count );
+        /**
+         * @brief sets the uniform value within the uniform buffer block
+         * @param UNIFORM_NAME uniform to set
+         * @param pArray pointer to array of values to set
+         * @param count size of array
+         */
+        [[maybe_unused]] void setUniform( const char* UNIFORM_NAME, const glm::ivec4* pArray, GLint count );
 
         /**
          * @brief binds UBO object to UBO buffer
@@ -286,6 +300,16 @@ inline void CSCI441::UniformBufferObject::setUniform( const char* UNIFORM_NAME, 
 [[maybe_unused]]
 inline void CSCI441::UniformBufferObject::setUniform( const char* UNIFORM_NAME, const glm::mat4 mtx ) {
     copyToBuffer(UNIFORM_NAME, glm::value_ptr(mtx), sizeof(glm::mat4));
+}
+
+[[maybe_unused]]
+inline void CSCI441::UniformBufferObject::setUniform( const char* UNIFORM_NAME, const GLint * const pArray, const GLint count ) {
+    copyToBuffer(UNIFORM_NAME, pArray, sizeof(GLint) * count);
+}
+
+[[maybe_unused]]
+inline void CSCI441::UniformBufferObject::setUniform( const char* UNIFORM_NAME, const glm::ivec4 * const pArray, const GLint count ) {
+    copyToBuffer(UNIFORM_NAME, pArray, sizeof(glm::ivec4) * count);
 }
 
 inline void CSCI441::UniformBufferObject::bindBuffer() const {
