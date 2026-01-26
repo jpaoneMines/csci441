@@ -594,7 +594,8 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
             if( sDEBUG ) printf("[INFO]: | %d) %-19s     binding: %3d                |\n", i, name, bindingPoint);
 
             GLint vs, tcs, tes, gs, fs, cs;
-            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER, &vs);				if( vs ) vsCount++;
+        	vs = tcs = tes = gs = fs = cs = 0;
+            glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER, &vs);			if( vs ) vsCount++;
             glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER, &tcs);		if( tcs) tcsCount++;
             glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER, &tes);	if( tes) tesCount++;
             glGetActiveUniformBlockiv(programHandle, i, GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER, &gs);			if( gs ) gsCount++;
