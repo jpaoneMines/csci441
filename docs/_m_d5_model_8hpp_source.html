@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.1.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.1.1</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -1359,113 +1359,120 @@ $(function() {
 <div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span>            <span class="keyword">auto</span> shader = <span class="keyword">new</span> CSCI441_INTERNAL::MD5MaterialShader();</div>
 <div class="line"><a id="l01536" name="l01536"></a><span class="lineno"> 1536</span> </div>
 <div class="line"><a id="l01537" name="l01537"></a><span class="lineno"> 1537</span>            strncpy(shader-&gt;name, buff, CSCI441_INTERNAL::MD5MaterialShader::MAX_NAME_LENGTH);</div>
-<div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span>            <span class="comment">// fprintf(stdout, &quot;[.md5mtr]: parsing shader \&quot;%s\&quot;\n&quot;, shader-&gt;shader);</span></div>
-<div class="line"><a id="l01539" name="l01539"></a><span class="lineno"> 1539</span> </div>
-<div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span>            <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> numBlocks = 0;</div>
-<div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span> </div>
-<div class="line"><a id="l01542" name="l01542"></a><span class="lineno"> 1542</span>            <span class="comment">// read line, fails in event of malformed file</span></div>
-<div class="line"><a id="l01543" name="l01543"></a><span class="lineno"> 1543</span>            <span class="keywordflow">while</span> ( fgets( buff, <span class="keyword">sizeof</span>(buff), fp ) != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a id="l01544" name="l01544"></a><span class="lineno"> 1544</span>                _trim(buff, <span class="keyword">sizeof</span>(buff), buff);</div>
-<div class="line"><a id="l01545" name="l01545"></a><span class="lineno"> 1545</span> </div>
-<div class="line"><a id="l01546" name="l01546"></a><span class="lineno"> 1546</span>                <span class="keywordflow">if</span> (strchr(buff, <span class="charliteral">&#39;{&#39;</span>) != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a id="l01547" name="l01547"></a><span class="lineno"> 1547</span>                    <span class="comment">// found opening block</span></div>
-<div class="line"><a id="l01548" name="l01548"></a><span class="lineno"> 1548</span>                    ++numBlocks;</div>
-<div class="line"><a id="l01549" name="l01549"></a><span class="lineno"> 1549</span>                }</div>
-<div class="line"><a id="l01550" name="l01550"></a><span class="lineno"> 1550</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sscanf(buff, <span class="stringliteral">&quot; diffusemap %s&quot;</span>, buff2) == 1) {</div>
-<div class="line"><a id="l01551" name="l01551"></a><span class="lineno"> 1551</span>                    <span class="comment">// fprintf(stdout, &quot;[.md5mtr]: attempting to read diffusemap %s\n&quot;, buff2);</span></div>
-<div class="line"><a id="l01552" name="l01552"></a><span class="lineno"> 1552</span>                    strncpy( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
-<div class="line"><a id="l01553" name="l01553"></a><span class="lineno"> 1553</span>                    strncat( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].filename, buff2, CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
-<div class="line"><a id="l01554" name="l01554"></a><span class="lineno"> 1554</span>                    <span class="keywordflow">if</span> (_registerShaderTexture( &amp;shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE] )) {</div>
-<div class="line"><a id="l01555" name="l01555"></a><span class="lineno"> 1555</span>                        ++numTextures;</div>
-<div class="line"><a id="l01556" name="l01556"></a><span class="lineno"> 1556</span>                    }</div>
-<div class="line"><a id="l01557" name="l01557"></a><span class="lineno"> 1557</span>                }</div>
-<div class="line"><a id="l01558" name="l01558"></a><span class="lineno"> 1558</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sscanf(buff, <span class="stringliteral">&quot; specularmap %s&quot;</span>, buff2) == 1) {</div>
-<div class="line"><a id="l01559" name="l01559"></a><span class="lineno"> 1559</span>                    <span class="comment">// fprintf(stdout, &quot;[.md5mtr]: attempting to read specularmap %s\n&quot;, buff2);</span></div>
-<div class="line"><a id="l01560" name="l01560"></a><span class="lineno"> 1560</span>                    strncpy( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
-<div class="line"><a id="l01561" name="l01561"></a><span class="lineno"> 1561</span>                    strncat( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].filename, buff2, CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
-<div class="line"><a id="l01562" name="l01562"></a><span class="lineno"> 1562</span>                    <span class="keywordflow">if</span> (_registerShaderTexture( &amp;shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR] )) {</div>
-<div class="line"><a id="l01563" name="l01563"></a><span class="lineno"> 1563</span>                        ++numTextures;</div>
-<div class="line"><a id="l01564" name="l01564"></a><span class="lineno"> 1564</span>                    }</div>
-<div class="line"><a id="l01565" name="l01565"></a><span class="lineno"> 1565</span>                }</div>
-<div class="line"><a id="l01566" name="l01566"></a><span class="lineno"> 1566</span>                <span class="comment">// make sure getting top level shader bumpmap</span></div>
-<div class="line"><a id="l01567" name="l01567"></a><span class="lineno"> 1567</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (numBlocks == 1 &amp;&amp; sscanf(buff, <span class="stringliteral">&quot; bumpmap %s&quot;</span>, buff2) == 1) {</div>
-<div class="line"><a id="l01568" name="l01568"></a><span class="lineno"> 1568</span>                    <span class="comment">// fprintf(stdout, &quot;[.md5mtr]: attempting to read bumpmap line \&quot;%s\&quot;\n&quot;, buff);</span></div>
-<div class="line"><a id="l01569" name="l01569"></a><span class="lineno"> 1569</span>                    <span class="comment">// tokenize string</span></div>
-<div class="line"><a id="l01570" name="l01570"></a><span class="lineno"> 1570</span>                    std::vector&lt; char* &gt; tokens;</div>
-<div class="line"><a id="l01571" name="l01571"></a><span class="lineno"> 1571</span>                    <span class="keywordtype">char</span>* pch = strtok(buff, <span class="stringliteral">&quot; \t(),&quot;</span>);</div>
-<div class="line"><a id="l01572" name="l01572"></a><span class="lineno"> 1572</span>                    <span class="keywordflow">while</span> (pch != NULL) {</div>
-<div class="line"><a id="l01573" name="l01573"></a><span class="lineno"> 1573</span>                        tokens.push_back( pch );</div>
-<div class="line"><a id="l01574" name="l01574"></a><span class="lineno"> 1574</span>                        pch = strtok(NULL, <span class="stringliteral">&quot; \t(),&quot;</span>);</div>
-<div class="line"><a id="l01575" name="l01575"></a><span class="lineno"> 1575</span>                    }</div>
-<div class="line"><a id="l01576" name="l01576"></a><span class="lineno"> 1576</span>                    <span class="comment">// fprintf(stdout, &quot;[.md5mtr]: found %lu tokens\n&quot;, tokens.size());</span></div>
-<div class="line"><a id="l01577" name="l01577"></a><span class="lineno"> 1577</span>                    <span class="comment">// line is formatted: bumpmap normalTxtr</span></div>
-<div class="line"><a id="l01578" name="l01578"></a><span class="lineno"> 1578</span>                    <span class="comment">// normal map texture filename is in tokens[1]</span></div>
-<div class="line"><a id="l01579" name="l01579"></a><span class="lineno"> 1579</span>                    <span class="keywordflow">if</span> (tokens.size() == 2) {</div>
-<div class="line"><a id="l01580" name="l01580"></a><span class="lineno"> 1580</span>                        strncpy( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
-<div class="line"><a id="l01581" name="l01581"></a><span class="lineno"> 1581</span>                        strncat( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, tokens[1], CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
-<div class="line"><a id="l01582" name="l01582"></a><span class="lineno"> 1582</span>                        <span class="keywordflow">if</span> (_registerShaderTexture( &amp;shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL] )) {</div>
-<div class="line"><a id="l01583" name="l01583"></a><span class="lineno"> 1583</span>                            ++numTextures;</div>
-<div class="line"><a id="l01584" name="l01584"></a><span class="lineno"> 1584</span>                        }</div>
-<div class="line"><a id="l01585" name="l01585"></a><span class="lineno"> 1585</span>                    }</div>
-<div class="line"><a id="l01586" name="l01586"></a><span class="lineno"> 1586</span>                    <span class="comment">// line is formatted: bumpmap heightmap(heightTxtr, scale)</span></div>
-<div class="line"><a id="l01587" name="l01587"></a><span class="lineno"> 1587</span>                    <span class="comment">// height map texture filename is in tokens[2]</span></div>
-<div class="line"><a id="l01588" name="l01588"></a><span class="lineno"> 1588</span>                    <span class="comment">// displacement scale is in tokens[3]</span></div>
-<div class="line"><a id="l01589" name="l01589"></a><span class="lineno"> 1589</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tokens.size() == 4) {</div>
-<div class="line"><a id="l01590" name="l01590"></a><span class="lineno"> 1590</span>                        strncpy( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
-<div class="line"><a id="l01591" name="l01591"></a><span class="lineno"> 1591</span>                        strncat( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, tokens[2], CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
-<div class="line"><a id="l01592" name="l01592"></a><span class="lineno"> 1592</span>                        shader-&gt;displacementScale = strtol(tokens[3], NULL, 10);</div>
-<div class="line"><a id="l01593" name="l01593"></a><span class="lineno"> 1593</span>                        <span class="keywordflow">if</span> (_registerShaderTexture( &amp;shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT] )) {</div>
-<div class="line"><a id="l01594" name="l01594"></a><span class="lineno"> 1594</span>                            ++numTextures;</div>
-<div class="line"><a id="l01595" name="l01595"></a><span class="lineno"> 1595</span>                        }</div>
-<div class="line"><a id="l01596" name="l01596"></a><span class="lineno"> 1596</span>                    }</div>
-<div class="line"><a id="l01597" name="l01597"></a><span class="lineno"> 1597</span>                    <span class="comment">// line is formatted: bumpmap addnormals(normalTxtr, heightMap(heightTxtr, scale))</span></div>
-<div class="line"><a id="l01598" name="l01598"></a><span class="lineno"> 1598</span>                    <span class="comment">// normal map texture filename is in tokens[2]</span></div>
-<div class="line"><a id="l01599" name="l01599"></a><span class="lineno"> 1599</span>                    <span class="comment">// height map texture filename is in tokens[4]</span></div>
-<div class="line"><a id="l01600" name="l01600"></a><span class="lineno"> 1600</span>                    <span class="comment">// displacement scale is in tokens[5]</span></div>
-<div class="line"><a id="l01601" name="l01601"></a><span class="lineno"> 1601</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tokens.size() == 6) {</div>
-<div class="line"><a id="l01602" name="l01602"></a><span class="lineno"> 1602</span>                        strncpy( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
-<div class="line"><a id="l01603" name="l01603"></a><span class="lineno"> 1603</span>                        strncat( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, tokens[2], CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
-<div class="line"><a id="l01604" name="l01604"></a><span class="lineno"> 1604</span>                        <span class="keywordflow">if</span> (_registerShaderTexture( &amp;shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL] )) {</div>
-<div class="line"><a id="l01605" name="l01605"></a><span class="lineno"> 1605</span>                            ++numTextures;</div>
-<div class="line"><a id="l01606" name="l01606"></a><span class="lineno"> 1606</span>                        }</div>
-<div class="line"><a id="l01607" name="l01607"></a><span class="lineno"> 1607</span>                        strncpy( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
-<div class="line"><a id="l01608" name="l01608"></a><span class="lineno"> 1608</span>                        strncat( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, tokens[4], CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
-<div class="line"><a id="l01609" name="l01609"></a><span class="lineno"> 1609</span>                        shader-&gt;displacementScale = strtol(tokens[5], NULL, 10);</div>
-<div class="line"><a id="l01610" name="l01610"></a><span class="lineno"> 1610</span>                        <span class="keywordflow">if</span> (_registerShaderTexture( &amp;shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT] )) {</div>
+<div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span>            shader-&gt;name[ strlen(buff) ] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a id="l01539" name="l01539"></a><span class="lineno"> 1539</span>            <span class="comment">// fprintf(stdout, &quot;[.md5mtr]: parsing shader \&quot;%s\&quot;\n&quot;, shader-&gt;shader);</span></div>
+<div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span> </div>
+<div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span>            <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> numBlocks = 0;</div>
+<div class="line"><a id="l01542" name="l01542"></a><span class="lineno"> 1542</span> </div>
+<div class="line"><a id="l01543" name="l01543"></a><span class="lineno"> 1543</span>            <span class="comment">// read line, fails in event of malformed file</span></div>
+<div class="line"><a id="l01544" name="l01544"></a><span class="lineno"> 1544</span>            <span class="keywordflow">while</span> ( fgets( buff, <span class="keyword">sizeof</span>(buff), fp ) != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l01545" name="l01545"></a><span class="lineno"> 1545</span>                _trim(buff, <span class="keyword">sizeof</span>(buff), buff);</div>
+<div class="line"><a id="l01546" name="l01546"></a><span class="lineno"> 1546</span> </div>
+<div class="line"><a id="l01547" name="l01547"></a><span class="lineno"> 1547</span>                <span class="keywordflow">if</span> (strchr(buff, <span class="charliteral">&#39;{&#39;</span>) != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l01548" name="l01548"></a><span class="lineno"> 1548</span>                    <span class="comment">// found opening block</span></div>
+<div class="line"><a id="l01549" name="l01549"></a><span class="lineno"> 1549</span>                    ++numBlocks;</div>
+<div class="line"><a id="l01550" name="l01550"></a><span class="lineno"> 1550</span>                }</div>
+<div class="line"><a id="l01551" name="l01551"></a><span class="lineno"> 1551</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sscanf(buff, <span class="stringliteral">&quot; diffusemap %s&quot;</span>, buff2) == 1) {</div>
+<div class="line"><a id="l01552" name="l01552"></a><span class="lineno"> 1552</span>                    <span class="comment">// fprintf(stdout, &quot;[.md5mtr]: attempting to read diffusemap %s\n&quot;, buff2);</span></div>
+<div class="line"><a id="l01553" name="l01553"></a><span class="lineno"> 1553</span>                    strncpy( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
+<div class="line"><a id="l01554" name="l01554"></a><span class="lineno"> 1554</span>                    shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].filename[ path.length() ] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a id="l01555" name="l01555"></a><span class="lineno"> 1555</span>                    strncat( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].filename, buff2, CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
+<div class="line"><a id="l01556" name="l01556"></a><span class="lineno"> 1556</span>                    <span class="keywordflow">if</span> (_registerShaderTexture( &amp;shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE] )) {</div>
+<div class="line"><a id="l01557" name="l01557"></a><span class="lineno"> 1557</span>                        ++numTextures;</div>
+<div class="line"><a id="l01558" name="l01558"></a><span class="lineno"> 1558</span>                    }</div>
+<div class="line"><a id="l01559" name="l01559"></a><span class="lineno"> 1559</span>                }</div>
+<div class="line"><a id="l01560" name="l01560"></a><span class="lineno"> 1560</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sscanf(buff, <span class="stringliteral">&quot; specularmap %s&quot;</span>, buff2) == 1) {</div>
+<div class="line"><a id="l01561" name="l01561"></a><span class="lineno"> 1561</span>                    <span class="comment">// fprintf(stdout, &quot;[.md5mtr]: attempting to read specularmap %s\n&quot;, buff2);</span></div>
+<div class="line"><a id="l01562" name="l01562"></a><span class="lineno"> 1562</span>                    strncpy( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
+<div class="line"><a id="l01563" name="l01563"></a><span class="lineno"> 1563</span>                    shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].filename[ path.length() ] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a id="l01564" name="l01564"></a><span class="lineno"> 1564</span>                    strncat( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].filename, buff2, CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
+<div class="line"><a id="l01565" name="l01565"></a><span class="lineno"> 1565</span>                    <span class="keywordflow">if</span> (_registerShaderTexture( &amp;shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR] )) {</div>
+<div class="line"><a id="l01566" name="l01566"></a><span class="lineno"> 1566</span>                        ++numTextures;</div>
+<div class="line"><a id="l01567" name="l01567"></a><span class="lineno"> 1567</span>                    }</div>
+<div class="line"><a id="l01568" name="l01568"></a><span class="lineno"> 1568</span>                }</div>
+<div class="line"><a id="l01569" name="l01569"></a><span class="lineno"> 1569</span>                <span class="comment">// make sure getting top level shader bumpmap</span></div>
+<div class="line"><a id="l01570" name="l01570"></a><span class="lineno"> 1570</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (numBlocks == 1 &amp;&amp; sscanf(buff, <span class="stringliteral">&quot; bumpmap %s&quot;</span>, buff2) == 1) {</div>
+<div class="line"><a id="l01571" name="l01571"></a><span class="lineno"> 1571</span>                    <span class="comment">// fprintf(stdout, &quot;[.md5mtr]: attempting to read bumpmap line \&quot;%s\&quot;\n&quot;, buff);</span></div>
+<div class="line"><a id="l01572" name="l01572"></a><span class="lineno"> 1572</span>                    <span class="comment">// tokenize string</span></div>
+<div class="line"><a id="l01573" name="l01573"></a><span class="lineno"> 1573</span>                    std::vector&lt; char* &gt; tokens;</div>
+<div class="line"><a id="l01574" name="l01574"></a><span class="lineno"> 1574</span>                    <span class="keywordtype">char</span>* pch = strtok(buff, <span class="stringliteral">&quot; \t(),&quot;</span>);</div>
+<div class="line"><a id="l01575" name="l01575"></a><span class="lineno"> 1575</span>                    <span class="keywordflow">while</span> (pch != NULL) {</div>
+<div class="line"><a id="l01576" name="l01576"></a><span class="lineno"> 1576</span>                        tokens.push_back( pch );</div>
+<div class="line"><a id="l01577" name="l01577"></a><span class="lineno"> 1577</span>                        pch = strtok(NULL, <span class="stringliteral">&quot; \t(),&quot;</span>);</div>
+<div class="line"><a id="l01578" name="l01578"></a><span class="lineno"> 1578</span>                    }</div>
+<div class="line"><a id="l01579" name="l01579"></a><span class="lineno"> 1579</span>                    <span class="comment">// fprintf(stdout, &quot;[.md5mtr]: found %lu tokens\n&quot;, tokens.size());</span></div>
+<div class="line"><a id="l01580" name="l01580"></a><span class="lineno"> 1580</span>                    <span class="comment">// line is formatted: bumpmap normalTxtr</span></div>
+<div class="line"><a id="l01581" name="l01581"></a><span class="lineno"> 1581</span>                    <span class="comment">// normal map texture filename is in tokens[1]</span></div>
+<div class="line"><a id="l01582" name="l01582"></a><span class="lineno"> 1582</span>                    <span class="keywordflow">if</span> (tokens.size() == 2) {</div>
+<div class="line"><a id="l01583" name="l01583"></a><span class="lineno"> 1583</span>                        strncpy( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
+<div class="line"><a id="l01584" name="l01584"></a><span class="lineno"> 1584</span>                        shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename[ path.length() ] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a id="l01585" name="l01585"></a><span class="lineno"> 1585</span>                        strncat( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, tokens[1], CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
+<div class="line"><a id="l01586" name="l01586"></a><span class="lineno"> 1586</span>                        <span class="keywordflow">if</span> (_registerShaderTexture( &amp;shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL] )) {</div>
+<div class="line"><a id="l01587" name="l01587"></a><span class="lineno"> 1587</span>                            ++numTextures;</div>
+<div class="line"><a id="l01588" name="l01588"></a><span class="lineno"> 1588</span>                        }</div>
+<div class="line"><a id="l01589" name="l01589"></a><span class="lineno"> 1589</span>                    }</div>
+<div class="line"><a id="l01590" name="l01590"></a><span class="lineno"> 1590</span>                    <span class="comment">// line is formatted: bumpmap heightmap(heightTxtr, scale)</span></div>
+<div class="line"><a id="l01591" name="l01591"></a><span class="lineno"> 1591</span>                    <span class="comment">// height map texture filename is in tokens[2]</span></div>
+<div class="line"><a id="l01592" name="l01592"></a><span class="lineno"> 1592</span>                    <span class="comment">// displacement scale is in tokens[3]</span></div>
+<div class="line"><a id="l01593" name="l01593"></a><span class="lineno"> 1593</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tokens.size() == 4) {</div>
+<div class="line"><a id="l01594" name="l01594"></a><span class="lineno"> 1594</span>                        strncpy( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
+<div class="line"><a id="l01595" name="l01595"></a><span class="lineno"> 1595</span>                        shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename[ path.length() ] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a id="l01596" name="l01596"></a><span class="lineno"> 1596</span>                        strncat( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, tokens[2], CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
+<div class="line"><a id="l01597" name="l01597"></a><span class="lineno"> 1597</span>                        shader-&gt;displacementScale = strtol(tokens[3], NULL, 10);</div>
+<div class="line"><a id="l01598" name="l01598"></a><span class="lineno"> 1598</span>                        <span class="keywordflow">if</span> (_registerShaderTexture( &amp;shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT] )) {</div>
+<div class="line"><a id="l01599" name="l01599"></a><span class="lineno"> 1599</span>                            ++numTextures;</div>
+<div class="line"><a id="l01600" name="l01600"></a><span class="lineno"> 1600</span>                        }</div>
+<div class="line"><a id="l01601" name="l01601"></a><span class="lineno"> 1601</span>                    }</div>
+<div class="line"><a id="l01602" name="l01602"></a><span class="lineno"> 1602</span>                    <span class="comment">// line is formatted: bumpmap addnormals(normalTxtr, heightMap(heightTxtr, scale))</span></div>
+<div class="line"><a id="l01603" name="l01603"></a><span class="lineno"> 1603</span>                    <span class="comment">// normal map texture filename is in tokens[2]</span></div>
+<div class="line"><a id="l01604" name="l01604"></a><span class="lineno"> 1604</span>                    <span class="comment">// height map texture filename is in tokens[4]</span></div>
+<div class="line"><a id="l01605" name="l01605"></a><span class="lineno"> 1605</span>                    <span class="comment">// displacement scale is in tokens[5]</span></div>
+<div class="line"><a id="l01606" name="l01606"></a><span class="lineno"> 1606</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tokens.size() == 6) {</div>
+<div class="line"><a id="l01607" name="l01607"></a><span class="lineno"> 1607</span>                        strncpy( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
+<div class="line"><a id="l01608" name="l01608"></a><span class="lineno"> 1608</span>                        shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename[ path.length() ] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a id="l01609" name="l01609"></a><span class="lineno"> 1609</span>                        strncat( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, tokens[2], CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
+<div class="line"><a id="l01610" name="l01610"></a><span class="lineno"> 1610</span>                        <span class="keywordflow">if</span> (_registerShaderTexture( &amp;shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL] )) {</div>
 <div class="line"><a id="l01611" name="l01611"></a><span class="lineno"> 1611</span>                            ++numTextures;</div>
 <div class="line"><a id="l01612" name="l01612"></a><span class="lineno"> 1612</span>                        }</div>
-<div class="line"><a id="l01613" name="l01613"></a><span class="lineno"> 1613</span>                    }</div>
-<div class="line"><a id="l01614" name="l01614"></a><span class="lineno"> 1614</span>                }</div>
-<div class="line"><a id="l01615" name="l01615"></a><span class="lineno"> 1615</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strchr(buff, <span class="charliteral">&#39;}&#39;</span>) != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a id="l01616" name="l01616"></a><span class="lineno"> 1616</span>                    --numBlocks;</div>
-<div class="line"><a id="l01617" name="l01617"></a><span class="lineno"> 1617</span>                    <span class="comment">// if all blocks have been closed, then we are at end of shader</span></div>
-<div class="line"><a id="l01618" name="l01618"></a><span class="lineno"> 1618</span>                    <span class="keywordflow">if</span> (numBlocks == 0) {</div>
-<div class="line"><a id="l01619" name="l01619"></a><span class="lineno"> 1619</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01613" name="l01613"></a><span class="lineno"> 1613</span>                        strncpy( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
+<div class="line"><a id="l01614" name="l01614"></a><span class="lineno"> 1614</span>                        shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename[ path.length() ] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a id="l01615" name="l01615"></a><span class="lineno"> 1615</span>                        strncat( shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, tokens[4], CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );</div>
+<div class="line"><a id="l01616" name="l01616"></a><span class="lineno"> 1616</span>                        shader-&gt;displacementScale = strtol(tokens[5], NULL, 10);</div>
+<div class="line"><a id="l01617" name="l01617"></a><span class="lineno"> 1617</span>                        <span class="keywordflow">if</span> (_registerShaderTexture( &amp;shader-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT] )) {</div>
+<div class="line"><a id="l01618" name="l01618"></a><span class="lineno"> 1618</span>                            ++numTextures;</div>
+<div class="line"><a id="l01619" name="l01619"></a><span class="lineno"> 1619</span>                        }</div>
 <div class="line"><a id="l01620" name="l01620"></a><span class="lineno"> 1620</span>                    }</div>
 <div class="line"><a id="l01621" name="l01621"></a><span class="lineno"> 1621</span>                }</div>
-<div class="line"><a id="l01622" name="l01622"></a><span class="lineno"> 1622</span>            }</div>
-<div class="line"><a id="l01623" name="l01623"></a><span class="lineno"> 1623</span> </div>
-<div class="line"><a id="l01624" name="l01624"></a><span class="lineno"> 1624</span>            _materials.insert( std::pair(shader-&gt;name, shader) );</div>
-<div class="line"><a id="l01625" name="l01625"></a><span class="lineno"> 1625</span>        }</div>
-<div class="line"><a id="l01626" name="l01626"></a><span class="lineno"> 1626</span>    }</div>
-<div class="line"><a id="l01627" name="l01627"></a><span class="lineno"> 1627</span>    fclose(fp);</div>
-<div class="line"><a id="l01628" name="l01628"></a><span class="lineno"> 1628</span> </div>
-<div class="line"><a id="l01629" name="l01629"></a><span class="lineno"> 1629</span>    fprintf(stdout, <span class="stringliteral">&quot;[.md5mtr]: finished reading %s\n&quot;</span>, FILENAME );</div>
-<div class="line"><a id="l01630" name="l01630"></a><span class="lineno"> 1630</span>    fprintf(stdout, <span class="stringliteral">&quot;[.md5mtr]: read in %lu shaders and %u textures\n\n&quot;</span>, _materials.size(), numTextures );</div>
-<div class="line"><a id="l01631" name="l01631"></a><span class="lineno"> 1631</span>}</div>
-<div class="line"><a id="l01632" name="l01632"></a><span class="lineno"> 1632</span> </div>
-<div class="line"><a id="l01633" name="l01633"></a><span class="lineno"> 1633</span><span class="keyword">inline</span> <span class="keywordtype">void</span></div>
-<div class="line"><a id="l01634" name="l01634"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_model.html#af1a582788b43e3b7689aeef03b2edda2"> 1634</a></span><a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_model.html#af1a582788b43e3b7689aeef03b2edda2">CSCI441::MD5Model::releaseMD5Materials</a>() {</div>
-<div class="line"><a id="l01635" name="l01635"></a><span class="lineno"> 1635</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;[name, material] : _materials) {</div>
-<div class="line"><a id="l01636" name="l01636"></a><span class="lineno"> 1636</span>        glDeleteTextures(1, &amp;material-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].texHandle);</div>
-<div class="line"><a id="l01637" name="l01637"></a><span class="lineno"> 1637</span>        glDeleteTextures(1, &amp;material-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].texHandle);</div>
-<div class="line"><a id="l01638" name="l01638"></a><span class="lineno"> 1638</span>        glDeleteTextures(1, &amp;material-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].texHandle);</div>
-<div class="line"><a id="l01639" name="l01639"></a><span class="lineno"> 1639</span>        glDeleteTextures(1, &amp;material-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].texHandle);</div>
-<div class="line"><a id="l01640" name="l01640"></a><span class="lineno"> 1640</span>        <span class="keyword">delete</span> material;</div>
-<div class="line"><a id="l01641" name="l01641"></a><span class="lineno"> 1641</span>    }</div>
-<div class="line"><a id="l01642" name="l01642"></a><span class="lineno"> 1642</span>}</div>
-<div class="line"><a id="l01643" name="l01643"></a><span class="lineno"> 1643</span> </div>
-<div class="line"><a id="l01644" name="l01644"></a><span class="lineno"> 1644</span><span class="preprocessor">#endif</span><span class="comment">//CSCI441_MD5_MODEL_HPP</span></div>
+<div class="line"><a id="l01622" name="l01622"></a><span class="lineno"> 1622</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strchr(buff, <span class="charliteral">&#39;}&#39;</span>) != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l01623" name="l01623"></a><span class="lineno"> 1623</span>                    --numBlocks;</div>
+<div class="line"><a id="l01624" name="l01624"></a><span class="lineno"> 1624</span>                    <span class="comment">// if all blocks have been closed, then we are at end of shader</span></div>
+<div class="line"><a id="l01625" name="l01625"></a><span class="lineno"> 1625</span>                    <span class="keywordflow">if</span> (numBlocks == 0) {</div>
+<div class="line"><a id="l01626" name="l01626"></a><span class="lineno"> 1626</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01627" name="l01627"></a><span class="lineno"> 1627</span>                    }</div>
+<div class="line"><a id="l01628" name="l01628"></a><span class="lineno"> 1628</span>                }</div>
+<div class="line"><a id="l01629" name="l01629"></a><span class="lineno"> 1629</span>            }</div>
+<div class="line"><a id="l01630" name="l01630"></a><span class="lineno"> 1630</span> </div>
+<div class="line"><a id="l01631" name="l01631"></a><span class="lineno"> 1631</span>            _materials.insert( std::pair(shader-&gt;name, shader) );</div>
+<div class="line"><a id="l01632" name="l01632"></a><span class="lineno"> 1632</span>        }</div>
+<div class="line"><a id="l01633" name="l01633"></a><span class="lineno"> 1633</span>    }</div>
+<div class="line"><a id="l01634" name="l01634"></a><span class="lineno"> 1634</span>    fclose(fp);</div>
+<div class="line"><a id="l01635" name="l01635"></a><span class="lineno"> 1635</span> </div>
+<div class="line"><a id="l01636" name="l01636"></a><span class="lineno"> 1636</span>    fprintf(stdout, <span class="stringliteral">&quot;[.md5mtr]: finished reading %s\n&quot;</span>, FILENAME );</div>
+<div class="line"><a id="l01637" name="l01637"></a><span class="lineno"> 1637</span>    fprintf(stdout, <span class="stringliteral">&quot;[.md5mtr]: read in %lu shaders and %u textures\n\n&quot;</span>, _materials.size(), numTextures );</div>
+<div class="line"><a id="l01638" name="l01638"></a><span class="lineno"> 1638</span>}</div>
+<div class="line"><a id="l01639" name="l01639"></a><span class="lineno"> 1639</span> </div>
+<div class="line"><a id="l01640" name="l01640"></a><span class="lineno"> 1640</span><span class="keyword">inline</span> <span class="keywordtype">void</span></div>
+<div class="line"><a id="l01641" name="l01641"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_m_d5_model.html#af1a582788b43e3b7689aeef03b2edda2"> 1641</a></span><a class="code hl_function" href="class_c_s_c_i441_1_1_m_d5_model.html#af1a582788b43e3b7689aeef03b2edda2">CSCI441::MD5Model::releaseMD5Materials</a>() {</div>
+<div class="line"><a id="l01642" name="l01642"></a><span class="lineno"> 1642</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;[name, material] : _materials) {</div>
+<div class="line"><a id="l01643" name="l01643"></a><span class="lineno"> 1643</span>        glDeleteTextures(1, &amp;material-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].texHandle);</div>
+<div class="line"><a id="l01644" name="l01644"></a><span class="lineno"> 1644</span>        glDeleteTextures(1, &amp;material-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].texHandle);</div>
+<div class="line"><a id="l01645" name="l01645"></a><span class="lineno"> 1645</span>        glDeleteTextures(1, &amp;material-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].texHandle);</div>
+<div class="line"><a id="l01646" name="l01646"></a><span class="lineno"> 1646</span>        glDeleteTextures(1, &amp;material-&gt;textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].texHandle);</div>
+<div class="line"><a id="l01647" name="l01647"></a><span class="lineno"> 1647</span>        <span class="keyword">delete</span> material;</div>
+<div class="line"><a id="l01648" name="l01648"></a><span class="lineno"> 1648</span>    }</div>
+<div class="line"><a id="l01649" name="l01649"></a><span class="lineno"> 1649</span>}</div>
+<div class="line"><a id="l01650" name="l01650"></a><span class="lineno"> 1650</span> </div>
+<div class="line"><a id="l01651" name="l01651"></a><span class="lineno"> 1651</span><span class="preprocessor">#endif</span><span class="comment">//CSCI441_MD5_MODEL_HPP</span></div>
 <div class="ttc" id="a_m_d5_model__types_8hpp_html"><div class="ttname"><a href="_m_d5_model__types_8hpp.html">MD5Model_types.hpp</a></div><div class="ttdoc">Doom3 MD5 Model + Animation type implementations.</div></div>
 <div class="ttc" id="a_texture_utils_8hpp_html"><div class="ttname"><a href="_texture_utils_8hpp.html">TextureUtils.hpp</a></div><div class="ttdoc">Helper functions to work with OpenGL Textures.</div></div>
 <div class="ttc" id="a_texture_utils_8hpp_html_a7760a68a85880637fe696d1ef0a2f19a"><div class="ttname"><a href="_texture_utils_8hpp.html#a7760a68a85880637fe696d1ef0a2f19a">CSCI441::TextureUtils::loadAndRegisterTexture</a></div><div class="ttdeci">GLuint loadAndRegisterTexture(const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT, GLboolean flipOnY=GL_TRUE, GLboolean printAllMessages=GL_TRUE, GLboolean enableMipmaps=GL_TRUE, GLboolean enableAniso=GL_TRUE)</div><div class="ttdoc">loads and registers a texture into memory returning a texture handle</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:171</div></div>
@@ -1488,7 +1495,7 @@ $(function() {
 <div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_ae2236334c39d3866dc0c8ef3746017a0"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#ae2236334c39d3866dc0c8ef3746017a0">CSCI441::MD5Model::MD5Model</a></div><div class="ttdeci">MD5Model(const MD5Model &amp;)=delete</div><div class="ttdoc">do not allow MD5 models to be copied</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_ae3f0a7571ef430924045aafc1c2e1298"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#ae3f0a7571ef430924045aafc1c2e1298">CSCI441::MD5Model::MD5Model</a></div><div class="ttdeci">MD5Model(MD5Model &amp;&amp;src) noexcept</div><div class="ttdoc">do not allow MD5 models to be moved</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:109</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_aeaf15af7fb507f9d3ead30e1157fe1de"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#aeaf15af7fb507f9d3ead30e1157fe1de">CSCI441::MD5Model::~MD5Model</a></div><div class="ttdeci">~MD5Model()</div><div class="ttdoc">deallocates any used memory on the CPU and GPU</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:432</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_af1a582788b43e3b7689aeef03b2edda2"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#af1a582788b43e3b7689aeef03b2edda2">CSCI441::MD5Model::releaseMD5Materials</a></div><div class="ttdeci">static void releaseMD5Materials()</div><div class="ttdoc">deletes textures from GPU that were registered during parsing of *.mtr file</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:1634</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_af1a582788b43e3b7689aeef03b2edda2"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#af1a582788b43e3b7689aeef03b2edda2">CSCI441::MD5Model::releaseMD5Materials</a></div><div class="ttdeci">static void releaseMD5Materials()</div><div class="ttdoc">deletes textures from GPU that were registered during parsing of *.mtr file</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:1641</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_m_d5_model_html_af6769fe5752e9594a54325e8a3ef7e0a"><div class="ttname"><a href="class_c_s_c_i441_1_1_m_d5_model.html#af6769fe5752e9594a54325e8a3ef7e0a">CSCI441::MD5Model::drawSkeleton</a></div><div class="ttdeci">void drawSkeleton() const</div><div class="ttdoc">draws the skeleton joints (as points) and bones (as lines)</div><div class="ttdef"><b>Definition:</b> MD5Model.hpp:926</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->

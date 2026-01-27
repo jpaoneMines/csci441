@@ -541,6 +541,7 @@ inline void CSCI441_INTERNAL::ShaderUtils::printShaderProgramInfo(
                     int max_array_size = actual_length + 4 + 2 + 1;
 					const auto array_name = new GLchar[max_array_size];
                 	strncpy(array_name, name, arrayIndexPos - name + 1);
+                	array_name[ strlen(name) ] = '\0';
                 	strncat(array_name, std::to_string(j).c_str(), std::to_string(j).length());
                 	strncat(array_name, "]", 1);
                     location = glGetUniformLocation(programHandle, array_name);

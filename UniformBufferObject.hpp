@@ -189,9 +189,10 @@ namespace CSCI441 {
 //******************************************************************************
 
 [[maybe_unused]]
-inline CSCI441::UniformBufferObject::UniformBufferObject(const char* UNIFORM_BLOCK_NAME, std::initializer_list<const char*> uniformNamesList) {
+inline CSCI441::UniformBufferObject::UniformBufferObject(const char* UNIFORM_BLOCK_NAME, const std::initializer_list<const char*> uniformNamesList) {
     _blockName = new char[strlen(UNIFORM_BLOCK_NAME) + 1];
     strncpy(_blockName, UNIFORM_BLOCK_NAME, strlen(UNIFORM_BLOCK_NAME));
+    _blockName[ strlen(UNIFORM_BLOCK_NAME) ] = '\0';
 
     _numUniforms = uniformNamesList.size();
 

@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.1.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.1.1</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -264,464 +264,465 @@ $(function() {
 <div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>{</div>
 <div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aa079c2374e6f4f68fe0e963b839809d6">mWindowTitle</a> = <span class="keyword">new</span> <span class="keywordtype">char</span>[ strlen(WINDOW_TITLE) + 1 ];</div>
 <div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>    strncpy(<a class="code hl_variable" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aa079c2374e6f4f68fe0e963b839809d6">mWindowTitle</a>, WINDOW_TITLE, strlen(WINDOW_TITLE) + 1);</div>
-<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span> </div>
-<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_font_utils.html#afe985192e010f192a1e1d745dde93faf">CSCI441::FontUtils::setWindowSize</a>(WINDOW_WIDTH, WINDOW_HEIGHT);</div>
-<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_font_utils.html#a9a6c339739f50acee6cf029bb4d73770">CSCI441::FontUtils::setFontSize</a>(1.0f / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(WINDOW_WIDTH), 1.0f / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(WINDOW_HEIGHT) );</div>
-<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>}</div>
-<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span> </div>
-<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00516" name="l00516"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5e60c1aa8e53bdb46ca2c0d2643d05e5">  516</a></span><a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a65dd75e0bfc33c4c665253402713216f">CSCI441::OpenGLEngine::OpenGLEngine</a>(</div>
-<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>    <a class="code hl_class" href="class_c_s_c_i441_1_1_open_g_l_engine.html">CSCI441::OpenGLEngine</a>&amp;&amp; src</div>
-<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>) noexcept :</div>
-<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    DEBUG(<span class="keyword">true</span>),</div>
-<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    mErrorCode(OPENGL_ENGINE_ERROR_NO_ERROR),</div>
-<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    mOpenGLMajorVersion(0),</div>
-<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    mOpenGLMinorVersion(0),</div>
-<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    mOpenGLMajorVersionRequested(0),</div>
-<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    mOpenGLMinorVersionRequested(0),</div>
-<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>    mOpenGLMajorVersionCreated(0),</div>
-<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>    mOpenGLMinorVersionCreated(0),</div>
-<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>    mWindowWidth(0),</div>
-<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>    mWindowHeight(0),</div>
-<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    mFramebufferWidth(0),</div>
-<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>    mFramebufferHeight(0),</div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>    mWindowResizable(<span class="keyword">false</span>),</div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>    mWindowTitle(<span class="keyword">nullptr</span>),</div>
-<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>    mpWindow(<span class="keyword">nullptr</span>),</div>
-<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>    _isInitialized(<span class="keyword">false</span>),</div>
-<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>    _isCleanedUp(<span class="keyword">false</span>),</div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>    _lastFrameTime(0),</div>
-<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    _numFrames(0)</div>
-<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>{</div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>    _moveFromSource(src);</div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>}</div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span> </div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aca3c2bfad54840ae3a909aa3635f421b">  543</a></span><a class="code hl_class" href="class_c_s_c_i441_1_1_open_g_l_engine.html">CSCI441::OpenGLEngine</a>&amp; <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a0c4c3fbb1559c437f75eb97ea791c39c">CSCI441::OpenGLEngine::operator=</a>(</div>
-<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>    <a class="code hl_class" href="class_c_s_c_i441_1_1_open_g_l_engine.html">OpenGLEngine</a>&amp;&amp; src</div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>) <span class="keyword">noexcept</span></div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>{</div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>    <span class="keywordflow">if</span> (<span class="keyword">this</span> != &amp;src) {</div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>        _cleanupSelf();</div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>        _moveFromSource(src);</div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    }</div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>}</div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span> </div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>    <a class="code hl_variable" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aa079c2374e6f4f68fe0e963b839809d6">mWindowTitle</a>[strlen(WINDOW_TITLE)] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span> </div>
+<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_font_utils.html#afe985192e010f192a1e1d745dde93faf">CSCI441::FontUtils::setWindowSize</a>(WINDOW_WIDTH, WINDOW_HEIGHT);</div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_font_utils.html#a9a6c339739f50acee6cf029bb4d73770">CSCI441::FontUtils::setFontSize</a>(1.0f / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(WINDOW_WIDTH), 1.0f / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(WINDOW_HEIGHT) );</div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>}</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span> </div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5e60c1aa8e53bdb46ca2c0d2643d05e5">  517</a></span><a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a65dd75e0bfc33c4c665253402713216f">CSCI441::OpenGLEngine::OpenGLEngine</a>(</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>    <a class="code hl_class" href="class_c_s_c_i441_1_1_open_g_l_engine.html">CSCI441::OpenGLEngine</a>&amp;&amp; src</div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>) noexcept :</div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    DEBUG(<span class="keyword">true</span>),</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    mErrorCode(OPENGL_ENGINE_ERROR_NO_ERROR),</div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    mOpenGLMajorVersion(0),</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    mOpenGLMinorVersion(0),</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    mOpenGLMajorVersionRequested(0),</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>    mOpenGLMinorVersionRequested(0),</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>    mOpenGLMajorVersionCreated(0),</div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>    mOpenGLMinorVersionCreated(0),</div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>    mWindowWidth(0),</div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    mWindowHeight(0),</div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>    mFramebufferWidth(0),</div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>    mFramebufferHeight(0),</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>    mWindowResizable(<span class="keyword">false</span>),</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>    mWindowTitle(<span class="keyword">nullptr</span>),</div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>    mpWindow(<span class="keyword">nullptr</span>),</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>    _isInitialized(<span class="keyword">false</span>),</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>    _isCleanedUp(<span class="keyword">false</span>),</div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    _lastFrameTime(0),</div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>    _numFrames(0)</div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>{</div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>    _moveFromSource(src);</div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>}</div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span> </div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aca3c2bfad54840ae3a909aa3635f421b">  544</a></span><a class="code hl_class" href="class_c_s_c_i441_1_1_open_g_l_engine.html">CSCI441::OpenGLEngine</a>&amp; <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a0c4c3fbb1559c437f75eb97ea791c39c">CSCI441::OpenGLEngine::operator=</a>(</div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>    <a class="code hl_class" href="class_c_s_c_i441_1_1_open_g_l_engine.html">OpenGLEngine</a>&amp;&amp; src</div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>) <span class="keyword">noexcept</span></div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>{</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>    <span class="keywordflow">if</span> (<span class="keyword">this</span> != &amp;src) {</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>        _cleanupSelf();</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>        _moveFromSource(src);</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>    }</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>}</div>
 <div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span> </div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ad9ccaca4981c588c874cb70329cb9cb8">  556</a></span><a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ad9ccaca4981c588c874cb70329cb9cb8">CSCI441::OpenGLEngine::~OpenGLEngine</a>()</div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>{</div>
-<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>    _cleanupSelf();</div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>}</div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span> </div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span><span class="keywordtype">void</span> CSCI441::OpenGLEngine::_cleanupSelf()</div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>{</div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    <span class="keyword">delete</span>[] mWindowTitle;</div>
-<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    mWindowTitle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>}</div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span> </div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span><span class="keywordtype">void</span> CSCI441::OpenGLEngine::_moveFromSource(</div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>    OpenGLEngine&amp; src</div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>) {</div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>    DEBUG = src.DEBUG;</div>
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>    src.DEBUG = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span> </div>
-<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>    mErrorCode = src.mErrorCode;</div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>    src.mErrorCode = OPENGL_ENGINE_ERROR_NO_ERROR;</div>
-<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span> </div>
-<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>    mOpenGLMajorVersion = src.mOpenGLMajorVersion;</div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>    src.mOpenGLMajorVersion = 0;</div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span> </div>
-<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>    mOpenGLMinorVersion = src.mOpenGLMinorVersion;</div>
-<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>    src.mOpenGLMinorVersion = 0;</div>
-<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span> </div>
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>    mOpenGLMajorVersionRequested = src.mOpenGLMajorVersionRequested;</div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>    src.mOpenGLMajorVersionRequested = 0;</div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span> </div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>    mOpenGLMinorVersionRequested = src.mOpenGLMinorVersionRequested;</div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>    src.mOpenGLMinorVersionRequested = 0;</div>
-<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span> </div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>    mOpenGLMajorVersionCreated = src.mOpenGLMajorVersionCreated;</div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    src.mOpenGLMajorVersionCreated = 0;</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span> </div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>    mOpenGLMinorVersionCreated = src.mOpenGLMinorVersionCreated;</div>
-<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    src.mOpenGLMinorVersionCreated = 0;</div>
-<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span> </div>
-<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>    mWindowWidth = src.mWindowWidth;</div>
-<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>    src.mWindowWidth = 0;</div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span> </div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>    mWindowHeight = src.mWindowHeight;</div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>    src.mWindowHeight = 0;</div>
-<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span> </div>
-<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>    mWindowResizable = src.mWindowResizable;</div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    src.mWindowResizable = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span> </div>
-<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>    mWindowTitle = src.mWindowTitle;</div>
-<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>    src.mWindowTitle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span> </div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>    mpWindow = src.mpWindow;</div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>    src.mpWindow = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span> </div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>    _isInitialized = src._isInitialized;</div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>    src._isInitialized = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span> </div>
-<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>    _isCleanedUp = src._isCleanedUp;</div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    src._isCleanedUp = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span> </div>
-<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>    _extensions = std::move(src._extensions);</div>
-<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>}</div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span> </div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884">  621</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884">CSCI441::OpenGLEngine::initialize</a>()</div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>{</div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>    <span class="keywordflow">if</span>( !_isInitialized ) {</div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point initBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span> </div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>        <span class="keywordflow">if</span> (DEBUG) {</div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: Using CSCI441 Library v%d.%d.%d.%d\n&quot;</span>, CSCI441::VERSION_MAJOR, CSCI441::VERSION_MINOR, CSCI441::VERSION_REVISION, CSCI441::VERSION_PATCH);</div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>        }</div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span> </div>
-<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point glfwBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>        mSetupGLFW();                   <span class="comment">// initialize GLFW and set up a window</span></div>
-<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>        glfwGetFramebufferSize( mpWindow, &amp;mFramebufferWidth, &amp;mFramebufferHeight );</div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point glfwEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span> </div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point openGLBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>        _setupGLFunctions();            <span class="comment">// create OpenGL function pointers</span></div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>        mSetupOpenGL();                 <span class="comment">// create the OpenGL context</span></div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span> </div>
-<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>        <span class="comment">// get OpenGL context information</span></div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>        <span class="keywordflow">if</span>( DEBUG ) {</div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>            <span class="comment">// if wanting debug information with Version 4.3 or higher</span></div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>            <span class="keywordflow">if</span>( mOpenGLMajorVersion &gt; 4 || (mOpenGLMajorVersion == 4 &amp;&amp; mOpenGLMinorVersion &gt;= 3) ) {</div>
-<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>                <span class="comment">// check if debug context was created</span></div>
-<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>                <span class="keywordtype">int</span> flags; glGetIntegerv(GL_CONTEXT_FLAGS, &amp;flags);</div>
-<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>                <span class="keywordflow">if</span> (flags &amp; GL_CONTEXT_FLAG_DEBUG_BIT) {</div>
-<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>                    <span class="comment">// register callback to synchronously print any debug messages without having to call glGetError()</span></div>
-<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>                    glEnable(GL_DEBUG_OUTPUT);</div>
-<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>                    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);</div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>                    glDebugMessageCallback(mDebugMessageCallback, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>                    glDebugMessageControl( GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, <span class="keyword">nullptr</span>, GL_TRUE );</div>
-<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>                }</div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>            }</div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span> </div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>            CSCI441::OpenGLUtils::printOpenGLInfo();</div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>        }</div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point openGLEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mSetupOpenGL()&quot;</span>);</div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span> </div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point shadersBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        mSetupShaders();                <span class="comment">// transfer, compile, link shaders on GPU</span></div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point shadersEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mSetupShaders()&quot;</span>);</div>
-<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span> </div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point buffersBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>        mSetupBuffers();                <span class="comment">// register Buffers on GPU</span></div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point buffersEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mSetupBuffers()&quot;</span>);</div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span> </div>
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point texturesBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>        mSetupTextures();               <span class="comment">// register Textures on GPU</span></div>
-<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point texturesEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mSetupTextures()&quot;</span>);</div>
-<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span> </div>
-<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point fontsBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>        mSetupFonts();                  <span class="comment">// register Fonts on GPU</span></div>
-<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point fontsEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mSetupFonts()&quot;</span>);</div>
-<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span> </div>
-<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point sceneBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>        mSetupScene();                  <span class="comment">// setup any scene specific information</span></div>
-<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point sceneEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mSetupScene()&quot;</span>);</div>
-<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span> </div>
-<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>        _isInitialized = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>        _isCleanedUp = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span> </div>
-<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point initEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>        <span class="keywordflow">if</span> (DEBUG) {</div>
-<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>            fprintf(stdout, <span class="stringliteral">&quot;\n[INFO]: Setup complete\n&quot;</span>);</div>
-<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: Init Time:    %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(initEnd     - initBegin    ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tGLFW:     %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tOpenGL:   %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tShaders:  %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(shadersEnd  - shadersBegin ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tBuffers:  %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(buffersEnd  - buffersBegin ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tTextures: %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(texturesEnd - texturesBegin).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tFonts:    %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(fontsEnd    - fontsBegin   ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tScene:    %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span> </div>
-<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>        }</div>
-<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>    }</div>
-<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>}</div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span> </div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00704" name="l00704"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ac2b1fdda2a82e50f315464b387759639">  704</a></span><span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ac2b1fdda2a82e50f315464b387759639">CSCI441::OpenGLEngine::getErrorStringDescription</a>(</div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> ERROR_CODE</div>
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>    <span class="keywordflow">switch</span> (ERROR_CODE) {</div>
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>        <span class="keywordflow">case</span> OPENGL_ENGINE_ERROR_NO_ERROR:          <span class="keywordflow">return</span> <span class="stringliteral">&quot;No error&quot;</span>;</div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>        <span class="keywordflow">case</span> OPENGL_ENGINE_ERROR_GLFW_INIT:         <span class="keywordflow">return</span> <span class="stringliteral">&quot;Error initializing GLFW&quot;</span>;</div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>        <span class="keywordflow">case</span> OPENGL_ENGINE_ERROR_GLFW_WINDOW:       <span class="keywordflow">return</span> <span class="stringliteral">&quot;Error initializing GLFW window&quot;</span>;</div>
-<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>        <span class="keywordflow">case</span> OPENGL_ENGINE_ERROR_GLEW_INIT:         <span class="keywordflow">return</span> <span class="stringliteral">&quot;Error initializing GLEW&quot;</span>;</div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>        <span class="keywordflow">case</span> OPENGL_ENGINE_ERROR_GLAD_INIT:         <span class="keywordflow">return</span> <span class="stringliteral">&quot;Error initializing GLAD&quot;</span>;</div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>        <span class="keywordflow">case</span> OPENGL_ENGINE_ERROR_TAKE_SCREENSHOT:   <span class="keywordflow">return</span> <span class="stringliteral">&quot;Error saving screenshot&quot;</span>;</div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>        <span class="keywordflow">default</span>:                                    <span class="keywordflow">return</span> <span class="stringliteral">&quot;Unknown error code&quot;</span>;</div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>    }</div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>}</div>
-<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span> </div>
-<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00719" name="l00719"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1c837294324cb4b9413a8063b8144d32">  719</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1c837294324cb4b9413a8063b8144d32">CSCI441::OpenGLEngine::saveScreenshot</a>(</div>
-<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* FILENAME</div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>    <span class="comment">// Generate a name based on current timestamp if not provided</span></div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>    <span class="keyword">const</span> std::string filename =</div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>        (</div>
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>            FILENAME == <span class="keyword">nullptr</span></div>
-<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>            ? <span class="stringliteral">&quot;Screenshot_&quot;</span> + std::to_string(time(<span class="keyword">nullptr</span>)) + <span class="stringliteral">&quot;.png&quot;</span></div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>            : FILENAME</div>
-<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>        );</div>
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span> </div>
-<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>    <span class="comment">// Get size</span></div>
-<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>    GLint viewport[4];</div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    glGetIntegerv(GL_VIEWPORT, viewport);</div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>    <span class="keyword">const</span> GLsizei x = viewport[0], y = viewport[1], width = viewport[2], height = viewport[3];</div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span> </div>
-<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>    <span class="comment">// Read pixel data</span></div>
-<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>    <span class="keyword">constexpr</span> <span class="keywordtype">int</span> CHANNELS = 4; <span class="comment">// RGBA</span></div>
-<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>    <span class="keyword">const</span> <span class="keyword">auto</span> bytes = <span class="keyword">new</span> GLubyte[width*height*CHANNELS];</div>
-<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>    glReadPixels(x, y, width, height, GL_RGBA, GL_UNSIGNED_BYTE, bytes);</div>
-<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span> </div>
-<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>    stbi_flip_vertically_on_write(<span class="keyword">true</span>);</div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span> </div>
-<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>    <span class="keywordflow">if</span>( !stbi_write_png(filename.c_str(), width, height, CHANNELS, bytes, width*CHANNELS) ) {</div>
-<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Could not save screenshot\n&quot;</span>);</div>
-<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>        mErrorCode = OPENGL_ENGINE_ERROR_TAKE_SCREENSHOT;</div>
-<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(DEBUG) {</div>
-<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>        fprintf(stdout, <span class="stringliteral">&quot;[INFO]: Screenshot saved to %s\n&quot;</span>, filename.c_str());</div>
-<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>    }</div>
-<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span> </div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>    <span class="keyword">delete</span>[] bytes;</div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span> </div>
-<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>    <span class="keywordflow">return</span> (mErrorCode == OPENGL_ENGINE_ERROR_NO_ERROR);</div>
-<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>}</div>
-<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span> </div>
-<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00755" name="l00755"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aeb69657b6166b852dcd3cd96d14ac9a2">  755</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aeb69657b6166b852dcd3cd96d14ac9a2">CSCI441::OpenGLEngine::mSetupGLFW</a>()</div>
-<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>{</div>
-<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>    <span class="comment">// set what function to use when registering errors</span></div>
-<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>    <span class="comment">// this is the ONLY GLFW function that can be called BEFORE GLFW is initialized</span></div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>    <span class="comment">// all other GLFW calls must be performed after GLFW has been initialized</span></div>
-<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>    glfwSetErrorCallback(mErrorCallback);</div>
-<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span> </div>
-<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>    <span class="comment">// initialize GLFW</span></div>
-<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>    <span class="keywordflow">if</span>( !glfwInit() ) {</div>
-<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>        fprintf( stderr, <span class="stringliteral">&quot;[ERROR]: Could not initialize GLFW\n&quot;</span> );</div>
-<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>        mErrorCode = OPENGL_ENGINE_ERROR_GLFW_INIT;</div>
-<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>        <span class="keywordflow">if</span>(DEBUG) fprintf( stdout, <span class="stringliteral">&quot;[INFO]: GLFW v%d.%d.%d initialized\n&quot;</span>, GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION );</div>
-<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span> </div>
-<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, mOpenGLMajorVersion );           <span class="comment">// request OpenGL vX.</span></div>
-<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, mOpenGLMinorVersion );           <span class="comment">// request OpenGL v .X</span></div>
-<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );                       <span class="comment">// request forward compatible OpenGL context</span></div>
-<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );             <span class="comment">// request OpenGL Core Profile context</span></div>
-<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>        glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE );                              <span class="comment">// request double buffering</span></div>
-<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>        glfwWindowHint(GLFW_RESIZABLE, mWindowResizable );                          <span class="comment">// set if our window should be able to be resized</span></div>
-<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span> </div>
-<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>        <span class="comment">// if wanting debug information with Version 4.3 or higher</span></div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>        <span class="keywordflow">if</span>( DEBUG</div>
-<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>            &amp;&amp; (mOpenGLMajorVersion &gt; 4 || (mOpenGLMajorVersion == 4 &amp;&amp; mOpenGLMinorVersion &gt;= 3)) ) {</div>
-<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>            glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, <span class="keyword">true</span>);                        <span class="comment">// request a debug context</span></div>
-<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>        }</div>
-<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span> </div>
-<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>        <span class="comment">// create a window for a given size, with a given title</span></div>
-<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>        mpWindow = glfwCreateWindow(mWindowWidth, mWindowHeight, mWindowTitle, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span> );</div>
-<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>        <span class="keywordflow">if</span>( !mpWindow ) {                                                                       <span class="comment">// if the window could not be created, NULL is returned</span></div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>            fprintf( stderr, <span class="stringliteral">&quot;[ERROR]: GLFW Window could not be created\n&quot;</span> );</div>
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>            glfwTerminate();</div>
-<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>            mErrorCode = OPENGL_ENGINE_ERROR_GLFW_WINDOW;</div>
-<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>            <span class="keywordflow">if</span>(DEBUG) fprintf( stdout, <span class="stringliteral">&quot;[INFO]: GLFW Window created\n&quot;</span> );</div>
-<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>            glfwMakeContextCurrent(mpWindow);                                           <span class="comment">// make the created window the current window</span></div>
-<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>            glfwSwapInterval(1);                                                        <span class="comment">// update our screen after at least 1 screen refresh</span></div>
-<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>            glfwSetInputMode(mpWindow, GLFW_LOCK_KEY_MODS, GLFW_TRUE);      <span class="comment">// track state of Caps Lock and Num Lock keys</span></div>
-<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>            glfwSetWindowUserPointer(mpWindow, (<span class="keywordtype">void</span>*)<span class="keyword">this</span>);</div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>            glfwSetWindowSizeCallback(mpWindow, mWindowResizeCallback);</div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>        }</div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>    }</div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>}</div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span> </div>
-<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span><span class="keywordtype">void</span> CSCI441::OpenGLEngine::_setupGLFunctions()</div>
-<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>{</div>
-<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span> </div>
-<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span><span class="preprocessor">#ifdef CSCI441_USE_GLEW</span></div>
-<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>    glewExperimental = GL_TRUE;</div>
-<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>    <span class="keyword">const</span> GLenum glewResult = glewInit();                                             <span class="comment">// initialize GLEW</span></div>
-<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span> </div>
-<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>    <span class="comment">// check for an error</span></div>
-<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>    <span class="keywordflow">if</span>( glewResult != GLEW_OK ) {</div>
-<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>        fprintf( stderr, <span class="stringliteral">&quot;[ERROR]: Error initializing GLEW\n&quot;</span>);</div>
-<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>        fprintf( stderr, <span class="stringliteral">&quot;[ERROR]: %s\n&quot;</span>, <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(glewGetErrorString(glewResult)) );</div>
-<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>        mErrorCode = OPENGL_ENGINE_ERROR_GLEW_INIT;</div>
-<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>        <span class="keywordflow">if</span>(DEBUG) {</div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: GLEW initialized\n&quot;</span>);</div>
-<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: Using GLEW %s\n&quot;</span>, <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(glewGetString(GLEW_VERSION)));</div>
-<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>        }</div>
-<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>    }</div>
-<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>    <span class="keywordtype">int</span> version = gladLoadGL(glfwGetProcAddress);</div>
-<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>    <span class="keywordflow">if</span>(version == 0) {</div>
-<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Failed to initialize GLAD\n&quot;</span> );</div>
-<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>        mErrorCode = OPENGL_ENGINE_ERROR_GLAD_INIT;</div>
-<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>        <span class="keywordflow">if</span>(DEBUG) {</div>
-<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>            <span class="comment">// Successfully loaded OpenGL</span></div>
-<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: GLAD initialized v%d.%d\n&quot;</span>, GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));</div>
-<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>        }</div>
-<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>    }</div>
-<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span> </div>
-<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>    <span class="keywordflow">if</span>(mErrorCode == OPENGL_ENGINE_ERROR_NO_ERROR) {</div>
-<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>        glGetIntegerv(GL_MAJOR_VERSION, &amp;mOpenGLMajorVersionCreated);</div>
-<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>        glGetIntegerv(GL_MINOR_VERSION, &amp;mOpenGLMinorVersionCreated);</div>
-<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>        <span class="keywordflow">if</span>(DEBUG) {</div>
-<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: OpenGL v%d.%d requested\n&quot;</span>, mOpenGLMajorVersionRequested, mOpenGLMinorVersionRequested);</div>
-<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: OpenGL v%d.%d created\n&quot;</span>, mOpenGLMajorVersionCreated, mOpenGLMinorVersionCreated);</div>
-<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>        }</div>
-<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span> </div>
-<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>        GLint numExtensions = 0;</div>
-<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>        glGetIntegerv(GL_NUM_EXTENSIONS, &amp;numExtensions);</div>
-<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; numExtensions; i++) {</div>
-<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>            _extensions.insert(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(glGetStringi(GL_EXTENSIONS, i)) );</div>
-<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>        }</div>
-<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>    }</div>
-<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>}</div>
-<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span> </div>
-<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00848" name="l00848"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#adc423914e8bc5518a9be0f45f328664e">  848</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#adc423914e8bc5518a9be0f45f328664e">CSCI441::OpenGLEngine::mCleanupGLFW</a>()</div>
-<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>{</div>
-<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>    <span class="keywordflow">if</span>(DEBUG) fprintf( stdout, <span class="stringliteral">&quot;[INFO]: ...closing window...\n&quot;</span> );</div>
-<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>    glfwDestroyWindow(mpWindow );                        <span class="comment">// close our window</span></div>
-<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>    mpWindow = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span>    <span class="keywordflow">if</span>(DEBUG) fprintf( stdout, <span class="stringliteral">&quot;[INFO]: ...closing GLFW.....\n&quot;</span> );</div>
-<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span>    glfwTerminate();</div>
-<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>}</div>
-<div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span> </div>
-<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00858" name="l00858"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a22d9d1ed576a697c79ec43aa92aff8e3">  858</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a22d9d1ed576a697c79ec43aa92aff8e3">CSCI441::OpenGLEngine::shutdown</a>()</div>
-<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span>{</div>
-<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span>    <span class="keywordflow">if</span>( !_isCleanedUp ) {</div>
-<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point shutdownBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>        <span class="keywordflow">if</span> (DEBUG) fprintf(stdout, <span class="stringliteral">&quot;\n[INFO]: Shutting down.......\n&quot;</span>);</div>
-<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span> </div>
-<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point sceneBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span>        mCleanupScene();                                    <span class="comment">// delete scene info from CPU</span></div>
-<div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point sceneEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mCleanupScene()&quot;</span>);</div>
-<div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span> </div>
-<div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point fontsBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>        mCleanupFonts();                                    <span class="comment">// delete textures from GPU</span></div>
-<div class="line"><a id="l00871" name="l00871"></a><span class="lineno">  871</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point fontsEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00872" name="l00872"></a><span class="lineno">  872</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mCleanupFonts()&quot;</span>);</div>
-<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span> </div>
-<div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point texturesBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>        mCleanupTextures();                                 <span class="comment">// delete textures from GPU</span></div>
-<div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point texturesEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mCleanupTextures()&quot;</span>);</div>
-<div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span> </div>
-<div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point buffersBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>        mCleanupBuffers();                                  <span class="comment">// delete VAOs/VBOs from GPU</span></div>
-<div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point buffersEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mCleanupBuffers()&quot;</span>);</div>
-<div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span> </div>
-<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point shadersBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>        mCleanupShaders();                                  <span class="comment">// delete shaders from GPU</span></div>
-<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point shadersEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mCleanupShaders()&quot;</span>);</div>
-<div class="line"><a id="l00888" name="l00888"></a><span class="lineno">  888</span> </div>
-<div class="line"><a id="l00889" name="l00889"></a><span class="lineno">  889</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point openGLBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00890" name="l00890"></a><span class="lineno">  890</span>        mCleanupOpenGL();                                   <span class="comment">// cleanup anything OpenGL related</span></div>
-<div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span>        _cleanupGLFunctions();                              <span class="comment">// cleanup anything function pointer related</span></div>
-<div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point openGLEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mCleanupOpenGL()&quot;</span>);</div>
-<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span> </div>
-<div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point glfwBegin = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>        mCleanupGLFW();                                     <span class="comment">// shut down GLFW to clean up our context</span></div>
-<div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point glfwEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00898" name="l00898"></a><span class="lineno">  898</span> </div>
-<div class="line"><a id="l00899" name="l00899"></a><span class="lineno">  899</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point shutdownEnd = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span>        <span class="keywordflow">if</span> (DEBUG) {</div>
-<div class="line"><a id="l00901" name="l00901"></a><span class="lineno">  901</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: ..shut down complete!\n&quot;</span>);</div>
-<div class="line"><a id="l00902" name="l00902"></a><span class="lineno">  902</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: Shutdown:   %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(shutdownEnd - shutdownBegin).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00903" name="l00903"></a><span class="lineno">  903</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tScene:    %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00904" name="l00904"></a><span class="lineno">  904</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tFonts:    %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(fontsEnd    - fontsBegin   ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00905" name="l00905"></a><span class="lineno">  905</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tTextures: %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(texturesEnd - texturesBegin).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00906" name="l00906"></a><span class="lineno">  906</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tBuffers:  %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(buffersEnd  - buffersBegin ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00907" name="l00907"></a><span class="lineno">  907</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tShaders:  %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(shadersEnd  - shadersBegin ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00908" name="l00908"></a><span class="lineno">  908</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tOpenGL:   %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00909" name="l00909"></a><span class="lineno">  909</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tGLFW:     %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);</div>
-<div class="line"><a id="l00910" name="l00910"></a><span class="lineno">  910</span>        }</div>
-<div class="line"><a id="l00911" name="l00911"></a><span class="lineno">  911</span>        _isCleanedUp = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00912" name="l00912"></a><span class="lineno">  912</span>        _isInitialized = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00913" name="l00913"></a><span class="lineno">  913</span>    }</div>
-<div class="line"><a id="l00914" name="l00914"></a><span class="lineno">  914</span>}</div>
-<div class="line"><a id="l00915" name="l00915"></a><span class="lineno">  915</span> </div>
-<div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00917" name="l00917"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a3561ad6dfca7fef3d8eab0c32213d0ec">  917</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a3561ad6dfca7fef3d8eab0c32213d0ec">CSCI441::OpenGLEngine::mWindowResizeCallback</a>(</div>
-<div class="line"><a id="l00918" name="l00918"></a><span class="lineno">  918</span>    GLFWwindow* pWindow,</div>
-<div class="line"><a id="l00919" name="l00919"></a><span class="lineno">  919</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> width,</div>
-<div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> height</div>
-<div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span>) {</div>
-<div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span>    <span class="keyword">const</span> <span class="keyword">auto</span> pEngine = <span class="keyword">static_cast&lt;</span><a class="code hl_class" href="class_c_s_c_i441_1_1_open_g_l_engine.html">OpenGLEngine</a> *<span class="keyword">&gt;</span>(glfwGetWindowUserPointer(pWindow));</div>
-<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span>    pEngine-&gt;<a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1cab5dfa1632f7dc805edbe5313bd69f">setCurrentWindowSize</a>(width, height);</div>
-<div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_font_utils.html#afe985192e010f192a1e1d745dde93faf">CSCI441::FontUtils::setWindowSize</a>(width, height);</div>
-<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_font_utils.html#a9a6c339739f50acee6cf029bb4d73770">CSCI441::FontUtils::setFontSize</a>(1.0f / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(width), 1.0f / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(height) );</div>
-<div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span> </div>
-<div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span>    GLint framebufferWidth, framebufferHeight;</div>
-<div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span>    glfwGetFramebufferSize( pEngine-&gt;getWindow(), &amp;framebufferWidth, &amp;framebufferHeight );</div>
-<div class="line"><a id="l00929" name="l00929"></a><span class="lineno">  929</span>    pEngine-&gt;setCurrentFramebufferSize(framebufferWidth, framebufferHeight);</div>
-<div class="line"><a id="l00930" name="l00930"></a><span class="lineno">  930</span>}</div>
-<div class="line"><a id="l00931" name="l00931"></a><span class="lineno">  931</span> </div>
-<div class="line"><a id="l00932" name="l00932"></a><span class="lineno">  932</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00933" name="l00933"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ab5bce5d6c1bd4cdc28adfe5ab8415eed">  933</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ab5bce5d6c1bd4cdc28adfe5ab8415eed">CSCI441::OpenGLEngine::mReloadShaders</a>()</div>
-<div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span>{</div>
-<div class="line"><a id="l00935" name="l00935"></a><span class="lineno">  935</span>    <span class="keywordflow">if</span> (DEBUG) fprintf(stdout, <span class="stringliteral">&quot;\n[INFO]: Removing old shaders...\n&quot;</span>);</div>
-<div class="line"><a id="l00936" name="l00936"></a><span class="lineno">  936</span>    mCleanupShaders();</div>
-<div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span>    <span class="keywordflow">if</span> (DEBUG) fprintf(stdout, <span class="stringliteral">&quot;\n[INFO]: Reloading shaders...\n&quot;</span>);</div>
-<div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span>    mSetupShaders();</div>
-<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>    <span class="keywordflow">if</span> (DEBUG) fprintf(stdout, <span class="stringliteral">&quot;\n[INFO]: Shaders reloaded\n&quot;</span>);</div>
-<div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span>}</div>
-<div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span> </div>
-<div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00943" name="l00943"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5a42b086ef2a1a2be28342887356f443">  943</a></span>GLdouble <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5a42b086ef2a1a2be28342887356f443">CSCI441::OpenGLEngine::clockFrame</a>() {</div>
-<div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span>    <span class="keyword">const</span> GLdouble currentTime = glfwGetTime();</div>
-<div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span>    ++_numFrames;</div>
-<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>    GLdouble fps = ( !_frameTimes.empty() ? _frameTimes.back() : 0.0 );</div>
-<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span>    <span class="keywordflow">if</span> (currentTime - _lastFrameTime &gt; 0.1667) {</div>
-<div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span>        fps = <span class="keyword">static_cast&lt;</span>GLdouble<span class="keyword">&gt;</span>(_numFrames)/(currentTime - _lastFrameTime);</div>
-<div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span>        _numFrames = 0;</div>
-<div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span>        _lastFrameTime = currentTime;</div>
-<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span> </div>
-<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span>        <span class="keywordflow">if</span> (_frameTimes.size() &gt;= 10) _frameTimes.pop_front();</div>
-<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span>        _frameTimes.push_back( fps );</div>
-<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>    }</div>
-<div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span>    <span class="keywordflow">return</span> fps;</div>
-<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>}</div>
-<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span> </div>
-<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span><span class="keyword">inline</span></div>
-<div class="line"><a id="l00959" name="l00959"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aae0e989d3398dc3fc18f98c7edfd99b2">  959</a></span>GLdouble <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aae0e989d3398dc3fc18f98c7edfd99b2">CSCI441::OpenGLEngine::fpsAverage</a>() {</div>
-<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span>    GLdouble totalFPS = 0;</div>
-<div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>    <span class="keywordflow">for</span>( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; fpsUnit : _frameTimes ) {</div>
-<div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span>        totalFPS += fpsUnit;</div>
-<div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span>    }</div>
-<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>    <span class="keywordflow">return</span> totalFPS / <span class="keyword">static_cast&lt;</span>GLdouble<span class="keyword">&gt;</span>(_frameTimes.size());</div>
-<div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span>}</div>
-<div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span> </div>
-<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span><span class="preprocessor">#endif </span><span class="comment">//CSCI441_OPENGL_ENGINE_HPP</span></div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span> </div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ad9ccaca4981c588c874cb70329cb9cb8">  557</a></span><a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ad9ccaca4981c588c874cb70329cb9cb8">CSCI441::OpenGLEngine::~OpenGLEngine</a>()</div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>{</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>    _cleanupSelf();</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>}</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span> </div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span><span class="keywordtype">void</span> CSCI441::OpenGLEngine::_cleanupSelf()</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>{</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    <span class="keyword">delete</span>[] mWindowTitle;</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    mWindowTitle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>}</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span> </div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span><span class="keywordtype">void</span> CSCI441::OpenGLEngine::_moveFromSource(</div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>    OpenGLEngine&amp; src</div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>) {</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>    DEBUG = src.DEBUG;</div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>    src.DEBUG = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span> </div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>    mErrorCode = src.mErrorCode;</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>    src.mErrorCode = OPENGL_ENGINE_ERROR_NO_ERROR;</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span> </div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>    mOpenGLMajorVersion = src.mOpenGLMajorVersion;</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>    src.mOpenGLMajorVersion = 0;</div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span> </div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>    mOpenGLMinorVersion = src.mOpenGLMinorVersion;</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>    src.mOpenGLMinorVersion = 0;</div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span> </div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>    mOpenGLMajorVersionRequested = src.mOpenGLMajorVersionRequested;</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>    src.mOpenGLMajorVersionRequested = 0;</div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span> </div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>    mOpenGLMinorVersionRequested = src.mOpenGLMinorVersionRequested;</div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>    src.mOpenGLMinorVersionRequested = 0;</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span> </div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    mOpenGLMajorVersionCreated = src.mOpenGLMajorVersionCreated;</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>    src.mOpenGLMajorVersionCreated = 0;</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span> </div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    mOpenGLMinorVersionCreated = src.mOpenGLMinorVersionCreated;</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>    src.mOpenGLMinorVersionCreated = 0;</div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span> </div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>    mWindowWidth = src.mWindowWidth;</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>    src.mWindowWidth = 0;</div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span> </div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>    mWindowHeight = src.mWindowHeight;</div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>    src.mWindowHeight = 0;</div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span> </div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    mWindowResizable = src.mWindowResizable;</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>    src.mWindowResizable = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span> </div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>    mWindowTitle = src.mWindowTitle;</div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>    src.mWindowTitle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span> </div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>    mpWindow = src.mpWindow;</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>    src.mpWindow = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span> </div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>    _isInitialized = src._isInitialized;</div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    src._isInitialized = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span> </div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    _isCleanedUp = src._isCleanedUp;</div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    src._isCleanedUp = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span> </div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>    _extensions = std::move(src._extensions);</div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>}</div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span> </div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884">  622</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884">CSCI441::OpenGLEngine::initialize</a>()</div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>{</div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>    <span class="keywordflow">if</span>( !_isInitialized ) {</div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point initBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span> </div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>        <span class="keywordflow">if</span> (DEBUG) {</div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: Using CSCI441 Library v%d.%d.%d.%d\n&quot;</span>, CSCI441::VERSION_MAJOR, CSCI441::VERSION_MINOR, CSCI441::VERSION_REVISION, CSCI441::VERSION_PATCH);</div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>        }</div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span> </div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point glfwBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>        mSetupGLFW();                   <span class="comment">// initialize GLFW and set up a window</span></div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>        glfwGetFramebufferSize( mpWindow, &amp;mFramebufferWidth, &amp;mFramebufferHeight );</div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point glfwEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span> </div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point openGLBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>        _setupGLFunctions();            <span class="comment">// create OpenGL function pointers</span></div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>        mSetupOpenGL();                 <span class="comment">// create the OpenGL context</span></div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span> </div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>        <span class="comment">// get OpenGL context information</span></div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>        <span class="keywordflow">if</span>( DEBUG ) {</div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>            <span class="comment">// if wanting debug information with Version 4.3 or higher</span></div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>            <span class="keywordflow">if</span>( mOpenGLMajorVersion &gt; 4 || (mOpenGLMajorVersion == 4 &amp;&amp; mOpenGLMinorVersion &gt;= 3) ) {</div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>                <span class="comment">// check if debug context was created</span></div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>                <span class="keywordtype">int</span> flags; glGetIntegerv(GL_CONTEXT_FLAGS, &amp;flags);</div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>                <span class="keywordflow">if</span> (flags &amp; GL_CONTEXT_FLAG_DEBUG_BIT) {</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>                    <span class="comment">// register callback to synchronously print any debug messages without having to call glGetError()</span></div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>                    glEnable(GL_DEBUG_OUTPUT);</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>                    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>                    glDebugMessageCallback(mDebugMessageCallback, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>                    glDebugMessageControl( GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, <span class="keyword">nullptr</span>, GL_TRUE );</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>                }</div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>            }</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span> </div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>            CSCI441::OpenGLUtils::printOpenGLInfo();</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>        }</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point openGLEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mSetupOpenGL()&quot;</span>);</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span> </div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point shadersBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>        mSetupShaders();                <span class="comment">// transfer, compile, link shaders on GPU</span></div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point shadersEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mSetupShaders()&quot;</span>);</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span> </div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point buffersBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>        mSetupBuffers();                <span class="comment">// register Buffers on GPU</span></div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point buffersEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mSetupBuffers()&quot;</span>);</div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span> </div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point texturesBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>        mSetupTextures();               <span class="comment">// register Textures on GPU</span></div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point texturesEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mSetupTextures()&quot;</span>);</div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span> </div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point fontsBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>        mSetupFonts();                  <span class="comment">// register Fonts on GPU</span></div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point fontsEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mSetupFonts()&quot;</span>);</div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span> </div>
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point sceneBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>        mSetupScene();                  <span class="comment">// setup any scene specific information</span></div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point sceneEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mSetupScene()&quot;</span>);</div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span> </div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>        _isInitialized = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>        _isCleanedUp = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span> </div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point initEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>        <span class="keywordflow">if</span> (DEBUG) {</div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>            fprintf(stdout, <span class="stringliteral">&quot;\n[INFO]: Setup complete\n&quot;</span>);</div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: Init Time:    %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(initEnd     - initBegin    ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tGLFW:     %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tOpenGL:   %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tShaders:  %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(shadersEnd  - shadersBegin ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tBuffers:  %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(buffersEnd  - buffersBegin ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tTextures: %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(texturesEnd - texturesBegin).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tFonts:    %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(fontsEnd    - fontsBegin   ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tScene:    %2.3fs\n&quot;</span>,   <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span> </div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>        }</div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>    }</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>}</div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span> </div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ac2b1fdda2a82e50f315464b387759639">  705</a></span><span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ac2b1fdda2a82e50f315464b387759639">CSCI441::OpenGLEngine::getErrorStringDescription</a>(</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> ERROR_CODE</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>    <span class="keywordflow">switch</span> (ERROR_CODE) {</div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>        <span class="keywordflow">case</span> OPENGL_ENGINE_ERROR_NO_ERROR:          <span class="keywordflow">return</span> <span class="stringliteral">&quot;No error&quot;</span>;</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>        <span class="keywordflow">case</span> OPENGL_ENGINE_ERROR_GLFW_INIT:         <span class="keywordflow">return</span> <span class="stringliteral">&quot;Error initializing GLFW&quot;</span>;</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>        <span class="keywordflow">case</span> OPENGL_ENGINE_ERROR_GLFW_WINDOW:       <span class="keywordflow">return</span> <span class="stringliteral">&quot;Error initializing GLFW window&quot;</span>;</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>        <span class="keywordflow">case</span> OPENGL_ENGINE_ERROR_GLEW_INIT:         <span class="keywordflow">return</span> <span class="stringliteral">&quot;Error initializing GLEW&quot;</span>;</div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>        <span class="keywordflow">case</span> OPENGL_ENGINE_ERROR_GLAD_INIT:         <span class="keywordflow">return</span> <span class="stringliteral">&quot;Error initializing GLAD&quot;</span>;</div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>        <span class="keywordflow">case</span> OPENGL_ENGINE_ERROR_TAKE_SCREENSHOT:   <span class="keywordflow">return</span> <span class="stringliteral">&quot;Error saving screenshot&quot;</span>;</div>
+<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>        <span class="keywordflow">default</span>:                                    <span class="keywordflow">return</span> <span class="stringliteral">&quot;Unknown error code&quot;</span>;</div>
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>    }</div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>}</div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span> </div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1c837294324cb4b9413a8063b8144d32">  720</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1c837294324cb4b9413a8063b8144d32">CSCI441::OpenGLEngine::saveScreenshot</a>(</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* FILENAME</div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>    <span class="comment">// Generate a name based on current timestamp if not provided</span></div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>    <span class="keyword">const</span> std::string filename =</div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>        (</div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>            FILENAME == <span class="keyword">nullptr</span></div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>            ? <span class="stringliteral">&quot;Screenshot_&quot;</span> + std::to_string(time(<span class="keyword">nullptr</span>)) + <span class="stringliteral">&quot;.png&quot;</span></div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>            : FILENAME</div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>        );</div>
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span> </div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>    <span class="comment">// Get size</span></div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    GLint viewport[4];</div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>    glGetIntegerv(GL_VIEWPORT, viewport);</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    <span class="keyword">const</span> GLsizei x = viewport[0], y = viewport[1], width = viewport[2], height = viewport[3];</div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span> </div>
+<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>    <span class="comment">// Read pixel data</span></div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>    <span class="keyword">constexpr</span> <span class="keywordtype">int</span> CHANNELS = 4; <span class="comment">// RGBA</span></div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>    <span class="keyword">const</span> <span class="keyword">auto</span> bytes = <span class="keyword">new</span> GLubyte[width*height*CHANNELS];</div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>    glReadPixels(x, y, width, height, GL_RGBA, GL_UNSIGNED_BYTE, bytes);</div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span> </div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>    stbi_flip_vertically_on_write(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span> </div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>    <span class="keywordflow">if</span>( !stbi_write_png(filename.c_str(), width, height, CHANNELS, bytes, width*CHANNELS) ) {</div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Could not save screenshot\n&quot;</span>);</div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>        mErrorCode = OPENGL_ENGINE_ERROR_TAKE_SCREENSHOT;</div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(DEBUG) {</div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>        fprintf(stdout, <span class="stringliteral">&quot;[INFO]: Screenshot saved to %s\n&quot;</span>, filename.c_str());</div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>    }</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span> </div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>    <span class="keyword">delete</span>[] bytes;</div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span> </div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>    <span class="keywordflow">return</span> (mErrorCode == OPENGL_ENGINE_ERROR_NO_ERROR);</div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>}</div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span> </div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aeb69657b6166b852dcd3cd96d14ac9a2">  756</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aeb69657b6166b852dcd3cd96d14ac9a2">CSCI441::OpenGLEngine::mSetupGLFW</a>()</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>{</div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>    <span class="comment">// set what function to use when registering errors</span></div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>    <span class="comment">// this is the ONLY GLFW function that can be called BEFORE GLFW is initialized</span></div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>    <span class="comment">// all other GLFW calls must be performed after GLFW has been initialized</span></div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>    glfwSetErrorCallback(mErrorCallback);</div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span> </div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>    <span class="comment">// initialize GLFW</span></div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    <span class="keywordflow">if</span>( !glfwInit() ) {</div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>        fprintf( stderr, <span class="stringliteral">&quot;[ERROR]: Could not initialize GLFW\n&quot;</span> );</div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>        mErrorCode = OPENGL_ENGINE_ERROR_GLFW_INIT;</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>        <span class="keywordflow">if</span>(DEBUG) fprintf( stdout, <span class="stringliteral">&quot;[INFO]: GLFW v%d.%d.%d initialized\n&quot;</span>, GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION );</div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span> </div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, mOpenGLMajorVersion );           <span class="comment">// request OpenGL vX.</span></div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, mOpenGLMinorVersion );           <span class="comment">// request OpenGL v .X</span></div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );                       <span class="comment">// request forward compatible OpenGL context</span></div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );             <span class="comment">// request OpenGL Core Profile context</span></div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>        glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE );                              <span class="comment">// request double buffering</span></div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>        glfwWindowHint(GLFW_RESIZABLE, mWindowResizable );                          <span class="comment">// set if our window should be able to be resized</span></div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span> </div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>        <span class="comment">// if wanting debug information with Version 4.3 or higher</span></div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>        <span class="keywordflow">if</span>( DEBUG</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>            &amp;&amp; (mOpenGLMajorVersion &gt; 4 || (mOpenGLMajorVersion == 4 &amp;&amp; mOpenGLMinorVersion &gt;= 3)) ) {</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>            glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, <span class="keyword">true</span>);                        <span class="comment">// request a debug context</span></div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>        }</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span> </div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>        <span class="comment">// create a window for a given size, with a given title</span></div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>        mpWindow = glfwCreateWindow(mWindowWidth, mWindowHeight, mWindowTitle, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span> );</div>
+<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>        <span class="keywordflow">if</span>( !mpWindow ) {                                                                       <span class="comment">// if the window could not be created, NULL is returned</span></div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>            fprintf( stderr, <span class="stringliteral">&quot;[ERROR]: GLFW Window could not be created\n&quot;</span> );</div>
+<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>            glfwTerminate();</div>
+<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>            mErrorCode = OPENGL_ENGINE_ERROR_GLFW_WINDOW;</div>
+<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>            <span class="keywordflow">if</span>(DEBUG) fprintf( stdout, <span class="stringliteral">&quot;[INFO]: GLFW Window created\n&quot;</span> );</div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>            glfwMakeContextCurrent(mpWindow);                                           <span class="comment">// make the created window the current window</span></div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>            glfwSwapInterval(1);                                                        <span class="comment">// update our screen after at least 1 screen refresh</span></div>
+<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>            glfwSetInputMode(mpWindow, GLFW_LOCK_KEY_MODS, GLFW_TRUE);      <span class="comment">// track state of Caps Lock and Num Lock keys</span></div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>            glfwSetWindowUserPointer(mpWindow, (<span class="keywordtype">void</span>*)<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>            glfwSetWindowSizeCallback(mpWindow, mWindowResizeCallback);</div>
+<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>        }</div>
+<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>    }</div>
+<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>}</div>
+<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span> </div>
+<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span><span class="keywordtype">void</span> CSCI441::OpenGLEngine::_setupGLFunctions()</div>
+<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>{</div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span> </div>
+<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span><span class="preprocessor">#ifdef CSCI441_USE_GLEW</span></div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>    glewExperimental = GL_TRUE;</div>
+<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>    <span class="keyword">const</span> GLenum glewResult = glewInit();                                             <span class="comment">// initialize GLEW</span></div>
+<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span> </div>
+<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>    <span class="comment">// check for an error</span></div>
+<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>    <span class="keywordflow">if</span>( glewResult != GLEW_OK ) {</div>
+<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>        fprintf( stderr, <span class="stringliteral">&quot;[ERROR]: Error initializing GLEW\n&quot;</span>);</div>
+<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>        fprintf( stderr, <span class="stringliteral">&quot;[ERROR]: %s\n&quot;</span>, <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(glewGetErrorString(glewResult)) );</div>
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>        mErrorCode = OPENGL_ENGINE_ERROR_GLEW_INIT;</div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>        <span class="keywordflow">if</span>(DEBUG) {</div>
+<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: GLEW initialized\n&quot;</span>);</div>
+<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: Using GLEW %s\n&quot;</span>, <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(glewGetString(GLEW_VERSION)));</div>
+<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>        }</div>
+<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>    }</div>
+<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>    <span class="keywordtype">int</span> version = gladLoadGL(glfwGetProcAddress);</div>
+<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>    <span class="keywordflow">if</span>(version == 0) {</div>
+<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>        fprintf(stderr, <span class="stringliteral">&quot;[ERROR]: Failed to initialize GLAD\n&quot;</span> );</div>
+<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>        mErrorCode = OPENGL_ENGINE_ERROR_GLAD_INIT;</div>
+<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>        <span class="keywordflow">if</span>(DEBUG) {</div>
+<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>            <span class="comment">// Successfully loaded OpenGL</span></div>
+<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: GLAD initialized v%d.%d\n&quot;</span>, GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));</div>
+<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>        }</div>
+<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span>    }</div>
+<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span> </div>
+<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>    <span class="keywordflow">if</span>(mErrorCode == OPENGL_ENGINE_ERROR_NO_ERROR) {</div>
+<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>        glGetIntegerv(GL_MAJOR_VERSION, &amp;mOpenGLMajorVersionCreated);</div>
+<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>        glGetIntegerv(GL_MINOR_VERSION, &amp;mOpenGLMinorVersionCreated);</div>
+<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>        <span class="keywordflow">if</span>(DEBUG) {</div>
+<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: OpenGL v%d.%d requested\n&quot;</span>, mOpenGLMajorVersionRequested, mOpenGLMinorVersionRequested);</div>
+<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: OpenGL v%d.%d created\n&quot;</span>, mOpenGLMajorVersionCreated, mOpenGLMinorVersionCreated);</div>
+<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>        }</div>
+<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span> </div>
+<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>        GLint numExtensions = 0;</div>
+<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>        glGetIntegerv(GL_NUM_EXTENSIONS, &amp;numExtensions);</div>
+<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; numExtensions; i++) {</div>
+<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>            _extensions.insert(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(glGetStringi(GL_EXTENSIONS, i)) );</div>
+<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>        }</div>
+<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>    }</div>
+<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>}</div>
+<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span> </div>
+<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00849" name="l00849"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#adc423914e8bc5518a9be0f45f328664e">  849</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#adc423914e8bc5518a9be0f45f328664e">CSCI441::OpenGLEngine::mCleanupGLFW</a>()</div>
+<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>{</div>
+<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>    <span class="keywordflow">if</span>(DEBUG) fprintf( stdout, <span class="stringliteral">&quot;[INFO]: ...closing window...\n&quot;</span> );</div>
+<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>    glfwDestroyWindow(mpWindow );                        <span class="comment">// close our window</span></div>
+<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span>    mpWindow = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span>    <span class="keywordflow">if</span>(DEBUG) fprintf( stdout, <span class="stringliteral">&quot;[INFO]: ...closing GLFW.....\n&quot;</span> );</div>
+<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>    glfwTerminate();</div>
+<div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span>}</div>
+<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span> </div>
+<div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00859" name="l00859"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a22d9d1ed576a697c79ec43aa92aff8e3">  859</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a22d9d1ed576a697c79ec43aa92aff8e3">CSCI441::OpenGLEngine::shutdown</a>()</div>
+<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span>{</div>
+<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>    <span class="keywordflow">if</span>( !_isCleanedUp ) {</div>
+<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point shutdownBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span>        <span class="keywordflow">if</span> (DEBUG) fprintf(stdout, <span class="stringliteral">&quot;\n[INFO]: Shutting down.......\n&quot;</span>);</div>
+<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span> </div>
+<div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point sceneBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span>        mCleanupScene();                                    <span class="comment">// delete scene info from CPU</span></div>
+<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point sceneEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mCleanupScene()&quot;</span>);</div>
+<div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span> </div>
+<div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point fontsBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00871" name="l00871"></a><span class="lineno">  871</span>        mCleanupFonts();                                    <span class="comment">// delete textures from GPU</span></div>
+<div class="line"><a id="l00872" name="l00872"></a><span class="lineno">  872</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point fontsEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mCleanupFonts()&quot;</span>);</div>
+<div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span> </div>
+<div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point texturesBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span>        mCleanupTextures();                                 <span class="comment">// delete textures from GPU</span></div>
+<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point texturesEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mCleanupTextures()&quot;</span>);</div>
+<div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span> </div>
+<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point buffersBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span>        mCleanupBuffers();                                  <span class="comment">// delete VAOs/VBOs from GPU</span></div>
+<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point buffersEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mCleanupBuffers()&quot;</span>);</div>
+<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span> </div>
+<div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point shadersBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>        mCleanupShaders();                                  <span class="comment">// delete shaders from GPU</span></div>
+<div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point shadersEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00888" name="l00888"></a><span class="lineno">  888</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mCleanupShaders()&quot;</span>);</div>
+<div class="line"><a id="l00889" name="l00889"></a><span class="lineno">  889</span> </div>
+<div class="line"><a id="l00890" name="l00890"></a><span class="lineno">  890</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point openGLBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span>        mCleanupOpenGL();                                   <span class="comment">// cleanup anything OpenGL related</span></div>
+<div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span>        _cleanupGLFunctions();                              <span class="comment">// cleanup anything function pointer related</span></div>
+<div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point openGLEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>        CSCI441::OpenGLUtils::checkOpenGLErrors(<span class="stringliteral">&quot;post mCleanupOpenGL()&quot;</span>);</div>
+<div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span> </div>
+<div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point glfwBegin = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>        mCleanupGLFW();                                     <span class="comment">// shut down GLFW to clean up our context</span></div>
+<div class="line"><a id="l00898" name="l00898"></a><span class="lineno">  898</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point glfwEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00899" name="l00899"></a><span class="lineno">  899</span> </div>
+<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span>        <span class="keyword">const</span> std::chrono::steady_clock::time_point shutdownEnd = std::chrono::steady_clock::now();</div>
+<div class="line"><a id="l00901" name="l00901"></a><span class="lineno">  901</span>        <span class="keywordflow">if</span> (DEBUG) {</div>
+<div class="line"><a id="l00902" name="l00902"></a><span class="lineno">  902</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: ..shut down complete!\n&quot;</span>);</div>
+<div class="line"><a id="l00903" name="l00903"></a><span class="lineno">  903</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: Shutdown:   %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(shutdownEnd - shutdownBegin).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00904" name="l00904"></a><span class="lineno">  904</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tScene:    %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00905" name="l00905"></a><span class="lineno">  905</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tFonts:    %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(fontsEnd    - fontsBegin   ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00906" name="l00906"></a><span class="lineno">  906</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tTextures: %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(texturesEnd - texturesBegin).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00907" name="l00907"></a><span class="lineno">  907</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tBuffers:  %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(buffersEnd  - buffersBegin ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00908" name="l00908"></a><span class="lineno">  908</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tShaders:  %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(shadersEnd  - shadersBegin ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00909" name="l00909"></a><span class="lineno">  909</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tOpenGL:   %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00910" name="l00910"></a><span class="lineno">  910</span>            fprintf(stdout, <span class="stringliteral">&quot;[INFO]: \tGLFW:     %2.3fs\n&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);</div>
+<div class="line"><a id="l00911" name="l00911"></a><span class="lineno">  911</span>        }</div>
+<div class="line"><a id="l00912" name="l00912"></a><span class="lineno">  912</span>        _isCleanedUp = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00913" name="l00913"></a><span class="lineno">  913</span>        _isInitialized = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00914" name="l00914"></a><span class="lineno">  914</span>    }</div>
+<div class="line"><a id="l00915" name="l00915"></a><span class="lineno">  915</span>}</div>
+<div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span> </div>
+<div class="line"><a id="l00917" name="l00917"></a><span class="lineno">  917</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00918" name="l00918"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a3561ad6dfca7fef3d8eab0c32213d0ec">  918</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a3561ad6dfca7fef3d8eab0c32213d0ec">CSCI441::OpenGLEngine::mWindowResizeCallback</a>(</div>
+<div class="line"><a id="l00919" name="l00919"></a><span class="lineno">  919</span>    GLFWwindow* pWindow,</div>
+<div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> width,</div>
+<div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> height</div>
+<div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span>) {</div>
+<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span>    <span class="keyword">const</span> <span class="keyword">auto</span> pEngine = <span class="keyword">static_cast&lt;</span><a class="code hl_class" href="class_c_s_c_i441_1_1_open_g_l_engine.html">OpenGLEngine</a> *<span class="keyword">&gt;</span>(glfwGetWindowUserPointer(pWindow));</div>
+<div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span>    pEngine-&gt;<a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1cab5dfa1632f7dc805edbe5313bd69f">setCurrentWindowSize</a>(width, height);</div>
+<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_font_utils.html#afe985192e010f192a1e1d745dde93faf">CSCI441::FontUtils::setWindowSize</a>(width, height);</div>
+<div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_font_utils.html#a9a6c339739f50acee6cf029bb4d73770">CSCI441::FontUtils::setFontSize</a>(1.0f / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(width), 1.0f / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(height) );</div>
+<div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span> </div>
+<div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span>    GLint framebufferWidth, framebufferHeight;</div>
+<div class="line"><a id="l00929" name="l00929"></a><span class="lineno">  929</span>    glfwGetFramebufferSize( pEngine-&gt;getWindow(), &amp;framebufferWidth, &amp;framebufferHeight );</div>
+<div class="line"><a id="l00930" name="l00930"></a><span class="lineno">  930</span>    pEngine-&gt;setCurrentFramebufferSize(framebufferWidth, framebufferHeight);</div>
+<div class="line"><a id="l00931" name="l00931"></a><span class="lineno">  931</span>}</div>
+<div class="line"><a id="l00932" name="l00932"></a><span class="lineno">  932</span> </div>
+<div class="line"><a id="l00933" name="l00933"></a><span class="lineno">  933</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00934" name="l00934"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ab5bce5d6c1bd4cdc28adfe5ab8415eed">  934</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#ab5bce5d6c1bd4cdc28adfe5ab8415eed">CSCI441::OpenGLEngine::mReloadShaders</a>()</div>
+<div class="line"><a id="l00935" name="l00935"></a><span class="lineno">  935</span>{</div>
+<div class="line"><a id="l00936" name="l00936"></a><span class="lineno">  936</span>    <span class="keywordflow">if</span> (DEBUG) fprintf(stdout, <span class="stringliteral">&quot;\n[INFO]: Removing old shaders...\n&quot;</span>);</div>
+<div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span>    mCleanupShaders();</div>
+<div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span>    <span class="keywordflow">if</span> (DEBUG) fprintf(stdout, <span class="stringliteral">&quot;\n[INFO]: Reloading shaders...\n&quot;</span>);</div>
+<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>    mSetupShaders();</div>
+<div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span>    <span class="keywordflow">if</span> (DEBUG) fprintf(stdout, <span class="stringliteral">&quot;\n[INFO]: Shaders reloaded\n&quot;</span>);</div>
+<div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span>}</div>
+<div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span> </div>
+<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00944" name="l00944"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5a42b086ef2a1a2be28342887356f443">  944</a></span>GLdouble <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5a42b086ef2a1a2be28342887356f443">CSCI441::OpenGLEngine::clockFrame</a>() {</div>
+<div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span>    <span class="keyword">const</span> GLdouble currentTime = glfwGetTime();</div>
+<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>    ++_numFrames;</div>
+<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span>    GLdouble fps = ( !_frameTimes.empty() ? _frameTimes.back() : 0.0 );</div>
+<div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span>    <span class="keywordflow">if</span> (currentTime - _lastFrameTime &gt; 0.1667) {</div>
+<div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span>        fps = <span class="keyword">static_cast&lt;</span>GLdouble<span class="keyword">&gt;</span>(_numFrames)/(currentTime - _lastFrameTime);</div>
+<div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span>        _numFrames = 0;</div>
+<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span>        _lastFrameTime = currentTime;</div>
+<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span> </div>
+<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span>        <span class="keywordflow">if</span> (_frameTimes.size() &gt;= 10) _frameTimes.pop_front();</div>
+<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>        _frameTimes.push_back( fps );</div>
+<div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span>    }</div>
+<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>    <span class="keywordflow">return</span> fps;</div>
+<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span>}</div>
+<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span> </div>
+<div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span><span class="keyword">inline</span></div>
+<div class="line"><a id="l00960" name="l00960"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aae0e989d3398dc3fc18f98c7edfd99b2">  960</a></span>GLdouble <a class="code hl_function" href="class_c_s_c_i441_1_1_open_g_l_engine.html#aae0e989d3398dc3fc18f98c7edfd99b2">CSCI441::OpenGLEngine::fpsAverage</a>() {</div>
+<div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>    GLdouble totalFPS = 0;</div>
+<div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span>    <span class="keywordflow">for</span>( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; fpsUnit : _frameTimes ) {</div>
+<div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span>        totalFPS += fpsUnit;</div>
+<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>    }</div>
+<div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span>    <span class="keywordflow">return</span> totalFPS / <span class="keyword">static_cast&lt;</span>GLdouble<span class="keyword">&gt;</span>(_frameTimes.size());</div>
+<div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span>}</div>
+<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span> </div>
+<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span><span class="preprocessor">#endif </span><span class="comment">//CSCI441_OPENGL_ENGINE_HPP</span></div>
 <div class="ttc" id="a_open_g_l_utils_8hpp_html"><div class="ttname"><a href="_open_g_l_utils_8hpp.html">OpenGLUtils.hpp</a></div><div class="ttdoc">Helper functions to work with OpenGL 3.0+.</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html">CSCI441::OpenGLEngine</a></div><div class="ttdoc">Abstract Class to run an OpenGL application. The following methods must be overridden:</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:52</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a0027c22f89579c16f5ee45d473a470d3"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a0027c22f89579c16f5ee45d473a470d3">CSCI441::OpenGLEngine::mSetupOpenGL</a></div><div class="ttdeci">virtual void mSetupOpenGL()=0</div><div class="ttdoc">override to enable specific OpenGL features</div></div>
@@ -732,15 +733,15 @@ $(function() {
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a0f8edec5537a058dd1fa1952426d0f4a"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a0f8edec5537a058dd1fa1952426d0f4a">CSCI441::OpenGLEngine::mOpenGLMinorVersion</a></div><div class="ttdeci">int mOpenGLMinorVersion</div><div class="ttdoc">the minor version of the requested OpenGL context</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:257</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a163b512667c14260cf432dea9ad61e15"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a163b512667c14260cf432dea9ad61e15">CSCI441::OpenGLEngine::mOpenGLMajorVersion</a></div><div class="ttdeci">int mOpenGLMajorVersion</div><div class="ttdoc">the major version of the requested OpenGL context</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:252</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a1ac20519b962e798e6e4ba4a209ac05c"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1ac20519b962e798e6e4ba4a209ac05c">CSCI441::OpenGLEngine::OPENGL_ENGINE_ERROR_NO_ERROR</a></div><div class="ttdeci">static constexpr unsigned short OPENGL_ENGINE_ERROR_NO_ERROR</div><div class="ttdoc">no error is present, everything is currently working</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:178</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a1c837294324cb4b9413a8063b8144d32"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1c837294324cb4b9413a8063b8144d32">CSCI441::OpenGLEngine::saveScreenshot</a></div><div class="ttdeci">virtual bool saveScreenshot(const char *FILENAME) noexcept final</div><div class="ttdoc">Save a PNG screenshot of the viewport.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:719</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a1c837294324cb4b9413a8063b8144d32"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1c837294324cb4b9413a8063b8144d32">CSCI441::OpenGLEngine::saveScreenshot</a></div><div class="ttdeci">virtual bool saveScreenshot(const char *FILENAME) noexcept final</div><div class="ttdoc">Save a PNG screenshot of the viewport.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:720</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a1cab5dfa1632f7dc805edbe5313bd69f"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a1cab5dfa1632f7dc805edbe5313bd69f">CSCI441::OpenGLEngine::setCurrentWindowSize</a></div><div class="ttdeci">virtual void setCurrentWindowSize(const int WINDOW_WIDTH, const int WINDOW_HEIGHT) final</div><div class="ttdoc">Stores the new window size.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:135</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a20e62bf4168a3f252cdecc9413088884"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884">CSCI441::OpenGLEngine::initialize</a></div><div class="ttdeci">virtual void initialize()</div><div class="ttdoc">Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, function pointers,...</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:621</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a22d9d1ed576a697c79ec43aa92aff8e3"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a22d9d1ed576a697c79ec43aa92aff8e3">CSCI441::OpenGLEngine::shutdown</a></div><div class="ttdeci">virtual void shutdown()</div><div class="ttdoc">Cleanup everything needed for OpenGL Rendering. This includes freeing memory for data used in: any Sc...</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:858</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a20e62bf4168a3f252cdecc9413088884"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a20e62bf4168a3f252cdecc9413088884">CSCI441::OpenGLEngine::initialize</a></div><div class="ttdeci">virtual void initialize()</div><div class="ttdoc">Initialize everything needed for OpenGL Rendering. This includes in order: GLFW, function pointers,...</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:622</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a22d9d1ed576a697c79ec43aa92aff8e3"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a22d9d1ed576a697c79ec43aa92aff8e3">CSCI441::OpenGLEngine::shutdown</a></div><div class="ttdeci">virtual void shutdown()</div><div class="ttdoc">Cleanup everything needed for OpenGL Rendering. This includes freeing memory for data used in: any Sc...</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:859</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a2a4e2be9f67d7512704bcb0fcc16229e"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a2a4e2be9f67d7512704bcb0fcc16229e">CSCI441::OpenGLEngine::getError</a></div><div class="ttdeci">virtual unsigned short getError() noexcept final</div><div class="ttdoc">Return current value of error code and clear the error code back to no error.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:166</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a2e67b86e0ea4e5f46b2d18ffa7cfab7f"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a2e67b86e0ea4e5f46b2d18ffa7cfab7f">CSCI441::OpenGLEngine::mSetupTextures</a></div><div class="ttdeci">virtual void mSetupTextures()</div><div class="ttdoc">override to register any textures with the GPU</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:387</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a30662e0c1e3e63d9ae37ca74e2392223"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a30662e0c1e3e63d9ae37ca74e2392223">CSCI441::OpenGLEngine::getWindowHeight</a></div><div class="ttdeci">virtual int getWindowHeight() const noexcept final</div><div class="ttdoc">Return the height of the window.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:148</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a33b5f2ee125f2c52e0badd71984d9842"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a33b5f2ee125f2c52e0badd71984d9842">CSCI441::OpenGLEngine::isDebuggingEnabled</a></div><div class="ttdeci">virtual bool isDebuggingEnabled() const noexcept final</div><div class="ttdoc">Returns if logging is enabled.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:118</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a3561ad6dfca7fef3d8eab0c32213d0ec"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a3561ad6dfca7fef3d8eab0c32213d0ec">CSCI441::OpenGLEngine::mWindowResizeCallback</a></div><div class="ttdeci">static void mWindowResizeCallback(GLFWwindow *pWindow, int width, int height)</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:917</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a3561ad6dfca7fef3d8eab0c32213d0ec"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a3561ad6dfca7fef3d8eab0c32213d0ec">CSCI441::OpenGLEngine::mWindowResizeCallback</a></div><div class="ttdeci">static void mWindowResizeCallback(GLFWwindow *pWindow, int width, int height)</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:918</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a38097878713e23a154c0a1408309baba"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a38097878713e23a154c0a1408309baba">CSCI441::OpenGLEngine::OPENGL_ENGINE_ERROR_GLAD_INIT</a></div><div class="ttdeci">static constexpr unsigned short OPENGL_ENGINE_ERROR_GLAD_INIT</div><div class="ttdoc">an error occurred while initializing GLAD</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:194</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a390f132c8592268d6a845b23e52ec587"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a390f132c8592268d6a845b23e52ec587">CSCI441::OpenGLEngine::mCleanupBuffers</a></div><div class="ttdeci">virtual void mCleanupBuffers()</div><div class="ttdoc">override to cleanup any buffer objects from the GPU</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:420</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a3cffe78bca54dec27398073ad32b7cc7"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a3cffe78bca54dec27398073ad32b7cc7">CSCI441::OpenGLEngine::mCleanupScene</a></div><div class="ttdeci">virtual void mCleanupScene()</div><div class="ttdoc">override to cleanup any scene specific information</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:405</div></div>
@@ -748,7 +749,7 @@ $(function() {
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a43fbab4f8ca1ac8c62df47e7cdc7c57b"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a43fbab4f8ca1ac8c62df47e7cdc7c57b">CSCI441::OpenGLEngine::setCurrentFramebufferSize</a></div><div class="ttdeci">virtual void setCurrentFramebufferSize(const int FRAMEBUFFER_WIDTH, const int FRAMEBUFFER_HEIGHT) final</div><div class="ttdoc">Stores the framebuffer size.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:144</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a454bb86bbad5810352c976a3c6da53ee"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a454bb86bbad5810352c976a3c6da53ee">CSCI441::OpenGLEngine::mCleanupShaders</a></div><div class="ttdeci">virtual void mCleanupShaders()</div><div class="ttdoc">override to cleanup any shaders from the GPU</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:425</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a557d64c66539960e8c8125cebb3d0a2a"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a557d64c66539960e8c8125cebb3d0a2a">CSCI441::OpenGLEngine::mCleanupTextures</a></div><div class="ttdeci">virtual void mCleanupTextures()</div><div class="ttdoc">override to cleanup any textures from the GPU</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:415</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a5a42b086ef2a1a2be28342887356f443"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5a42b086ef2a1a2be28342887356f443">CSCI441::OpenGLEngine::clockFrame</a></div><div class="ttdeci">virtual GLdouble clockFrame() final</div><div class="ttdoc">measures the amount of time elapsed since the last time this method was called</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:943</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a5a42b086ef2a1a2be28342887356f443"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5a42b086ef2a1a2be28342887356f443">CSCI441::OpenGLEngine::clockFrame</a></div><div class="ttdeci">virtual GLdouble clockFrame() final</div><div class="ttdoc">measures the amount of time elapsed since the last time this method was called</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:944</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a5d7eff405db5721345bf06b1178e4102"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a5d7eff405db5721345bf06b1178e4102">CSCI441::OpenGLEngine::mWindowResizable</a></div><div class="ttdeci">bool mWindowResizable</div><div class="ttdoc">if the GLFW window can be resized while open</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:302</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a6235e9e603006346fa76dd20cd618427"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a6235e9e603006346fa76dd20cd618427">CSCI441::OpenGLEngine::mOpenGLMinorVersionRequested</a></div><div class="ttdeci">int mOpenGLMinorVersionRequested</div><div class="ttdoc">the minor version of the requested OpenGL context</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:269</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a65dd75e0bfc33c4c665253402713216f"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a65dd75e0bfc33c4c665253402713216f">CSCI441::OpenGLEngine::OpenGLEngine</a></div><div class="ttdeci">OpenGLEngine(const OpenGLEngine &amp;)=delete</div><div class="ttdoc">do not allow engines to be copied</div></div>
@@ -766,24 +767,24 @@ $(function() {
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_a9a1c32c14879d39356289d350e010f7d"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#a9a1c32c14879d39356289d350e010f7d">CSCI441::OpenGLEngine::mDebugMessageCallback</a></div><div class="ttdeci">static void APIENTRY mDebugMessageCallback(const GLenum source, const GLenum type, const GLuint id, const GLenum severity, const GLsizei length, const GLchar *message, const void *userParam)</div><div class="ttdoc">callback called whenever a debug message is signaled</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:323</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_aa079c2374e6f4f68fe0e963b839809d6"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#aa079c2374e6f4f68fe0e963b839809d6">CSCI441::OpenGLEngine::mWindowTitle</a></div><div class="ttdeci">char * mWindowTitle</div><div class="ttdoc">the title of the GLFW window</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:306</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_aaadbb956e0f118c18895adfc5ab76a01"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#aaadbb956e0f118c18895adfc5ab76a01">CSCI441::OpenGLEngine::mWindowHeight</a></div><div class="ttdeci">int mWindowHeight</div><div class="ttdoc">the window height of the requested GLFW window</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:289</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_aae0e989d3398dc3fc18f98c7edfd99b2"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#aae0e989d3398dc3fc18f98c7edfd99b2">CSCI441::OpenGLEngine::fpsAverage</a></div><div class="ttdeci">virtual GLdouble fpsAverage() final</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:959</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_aae0e989d3398dc3fc18f98c7edfd99b2"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#aae0e989d3398dc3fc18f98c7edfd99b2">CSCI441::OpenGLEngine::fpsAverage</a></div><div class="ttdeci">virtual GLdouble fpsAverage() final</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:960</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_aaf7a8a6f8545e87540f97639702446ba"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#aaf7a8a6f8545e87540f97639702446ba">CSCI441::OpenGLEngine::setWindowShouldClose</a></div><div class="ttdeci">virtual void setWindowShouldClose() final</div><div class="ttdoc">Tell our engine's window to close.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:161</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_aaff141a41c3cc2714e06c50c6efb4957"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#aaff141a41c3cc2714e06c50c6efb4957">CSCI441::OpenGLEngine::mOpenGLMajorVersionCreated</a></div><div class="ttdeci">int mOpenGLMajorVersionCreated</div><div class="ttdoc">the major version of the created OpenGL context</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:274</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ab25e5b9fd3bfa762dbe5112b4a889f0b"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ab25e5b9fd3bfa762dbe5112b4a889f0b">CSCI441::OpenGLEngine::OPENGL_ENGINE_ERROR_SIZE</a></div><div class="ttdeci">static constexpr unsigned short OPENGL_ENGINE_ERROR_SIZE</div><div class="ttdoc">stores the number of unique error codes that can be generated</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:214</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ab5bce5d6c1bd4cdc28adfe5ab8415eed"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ab5bce5d6c1bd4cdc28adfe5ab8415eed">CSCI441::OpenGLEngine::mReloadShaders</a></div><div class="ttdeci">virtual void mReloadShaders() final</div><div class="ttdoc">calls mCleanupShaders() followed by mSetupShaders() to reload shader source code from file</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:933</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ab5bce5d6c1bd4cdc28adfe5ab8415eed"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ab5bce5d6c1bd4cdc28adfe5ab8415eed">CSCI441::OpenGLEngine::mReloadShaders</a></div><div class="ttdeci">virtual void mReloadShaders() final</div><div class="ttdoc">calls mCleanupShaders() followed by mSetupShaders() to reload shader source code from file</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:934</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ab8281273cadfa571c7271ddcb2a85f2e"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ab8281273cadfa571c7271ddcb2a85f2e">CSCI441::OpenGLEngine::mSetupShaders</a></div><div class="ttdeci">virtual void mSetupShaders()</div><div class="ttdoc">override to register any shaders with the GPU</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:375</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_abf23f7676630ddb9e20e548701d5d892"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#abf23f7676630ddb9e20e548701d5d892">CSCI441::OpenGLEngine::mpWindow</a></div><div class="ttdeci">GLFWwindow * mpWindow</div><div class="ttdoc">pointer to the GLFW window object</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:310</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ac04998aae94ca2ed91d85296accb2b51"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ac04998aae94ca2ed91d85296accb2b51">CSCI441::OpenGLEngine::turnDebuggingOff</a></div><div class="ttdeci">virtual void turnDebuggingOff() noexcept final</div><div class="ttdoc">Disable logging to command line.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:114</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ac2b1fdda2a82e50f315464b387759639"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ac2b1fdda2a82e50f315464b387759639">CSCI441::OpenGLEngine::getErrorStringDescription</a></div><div class="ttdeci">static const char * getErrorStringDescription(unsigned short ERROR_CODE) noexcept</div><div class="ttdoc">Returns a string describing what the error code corresponds to.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:704</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ac2b1fdda2a82e50f315464b387759639"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ac2b1fdda2a82e50f315464b387759639">CSCI441::OpenGLEngine::getErrorStringDescription</a></div><div class="ttdeci">static const char * getErrorStringDescription(unsigned short ERROR_CODE) noexcept</div><div class="ttdoc">Returns a string describing what the error code corresponds to.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:705</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_acb0f51fbd8524cd577684e46d9b4c2d5"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#acb0f51fbd8524cd577684e46d9b4c2d5">CSCI441::OpenGLEngine::getWindowWidth</a></div><div class="ttdeci">virtual int getWindowWidth() const noexcept final</div><div class="ttdoc">Return the width of the window.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:152</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ad0dd244f89a9b1302509a348c7e74394"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ad0dd244f89a9b1302509a348c7e74394">CSCI441::OpenGLEngine::mSetupBuffers</a></div><div class="ttdeci">virtual void mSetupBuffers()</div><div class="ttdoc">override to register any buffer objects with the GPU</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:381</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ad9ccaca4981c588c874cb70329cb9cb8"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ad9ccaca4981c588c874cb70329cb9cb8">CSCI441::OpenGLEngine::~OpenGLEngine</a></div><div class="ttdeci">virtual ~OpenGLEngine()</div><div class="ttdoc">cleans up our OpenGL Engine by destroying the OpenGL context, GLFW window, and cleaning up all GPU re...</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:556</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_adc423914e8bc5518a9be0f45f328664e"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#adc423914e8bc5518a9be0f45f328664e">CSCI441::OpenGLEngine::mCleanupGLFW</a></div><div class="ttdeci">virtual void mCleanupGLFW()</div><div class="ttdoc">Destroys the associated GLFW window and terminates the GLFW instance.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:848</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ad9ccaca4981c588c874cb70329cb9cb8"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ad9ccaca4981c588c874cb70329cb9cb8">CSCI441::OpenGLEngine::~OpenGLEngine</a></div><div class="ttdeci">virtual ~OpenGLEngine()</div><div class="ttdoc">cleans up our OpenGL Engine by destroying the OpenGL context, GLFW window, and cleaning up all GPU re...</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:557</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_adc423914e8bc5518a9be0f45f328664e"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#adc423914e8bc5518a9be0f45f328664e">CSCI441::OpenGLEngine::mCleanupGLFW</a></div><div class="ttdeci">virtual void mCleanupGLFW()</div><div class="ttdoc">Destroys the associated GLFW window and terminates the GLFW instance.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:849</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_adf1b14da4a98b7114f3d92732dfc5276"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#adf1b14da4a98b7114f3d92732dfc5276">CSCI441::OpenGLEngine::mOpenGLMinorVersionCreated</a></div><div class="ttdeci">int mOpenGLMinorVersionCreated</div><div class="ttdoc">the minor version of the created OpenGL context</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:279</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ae428647eee31a7288e7ce035838b6f4d"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ae428647eee31a7288e7ce035838b6f4d">CSCI441::OpenGLEngine::mWindowWidth</a></div><div class="ttdeci">int mWindowWidth</div><div class="ttdoc">the window width of the requested GLFW window</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:284</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ae6d4ff8b9d60381fc78cba8ad21eb166"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ae6d4ff8b9d60381fc78cba8ad21eb166">CSCI441::OpenGLEngine::mCleanupOpenGL</a></div><div class="ttdeci">virtual void mCleanupOpenGL()</div><div class="ttdoc">override to cleanup any specific OpenGL features</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:430</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_ae99f4a18cd6d75b1636437d351446f1d"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#ae99f4a18cd6d75b1636437d351446f1d">CSCI441::OpenGLEngine::OPENGL_ENGINE_ERROR_GLFW_INIT</a></div><div class="ttdeci">static constexpr unsigned short OPENGL_ENGINE_ERROR_GLFW_INIT</div><div class="ttdoc">an error occurred while initializing GLFW</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:182</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_aeb69657b6166b852dcd3cd96d14ac9a2"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#aeb69657b6166b852dcd3cd96d14ac9a2">CSCI441::OpenGLEngine::mSetupGLFW</a></div><div class="ttdeci">virtual void mSetupGLFW()</div><div class="ttdoc">Used to setup everything GLFW related. This includes the OpenGL context and our window....</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:755</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_aeb69657b6166b852dcd3cd96d14ac9a2"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#aeb69657b6166b852dcd3cd96d14ac9a2">CSCI441::OpenGLEngine::mSetupGLFW</a></div><div class="ttdeci">virtual void mSetupGLFW()</div><div class="ttdoc">Used to setup everything GLFW related. This includes the OpenGL context and our window....</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:756</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_af55b52fa0357f2d53eeb0c344c4b70e5"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#af55b52fa0357f2d53eeb0c344c4b70e5">CSCI441::OpenGLEngine::mSetupScene</a></div><div class="ttdeci">virtual void mSetupScene()</div><div class="ttdoc">override to setup any scene specific information</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:399</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_af5bc9ea6d7937dc14cebf0ce84378796"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#af5bc9ea6d7937dc14cebf0ce84378796">CSCI441::OpenGLEngine::OPENGL_ENGINE_ERROR_UNKNOWN</a></div><div class="ttdeci">static constexpr unsigned short OPENGL_ENGINE_ERROR_UNKNOWN</div><div class="ttdoc">a new error that does not correspond to a predefined scenario has occurred</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:202</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_open_g_l_engine_html_afb261c4b30d2726e458a684240a2cdcd"><div class="ttname"><a href="class_c_s_c_i441_1_1_open_g_l_engine.html#afb261c4b30d2726e458a684240a2cdcd">CSCI441::OpenGLEngine::getWindow</a></div><div class="ttdeci">virtual GLFWwindow * getWindow() const noexcept final</div><div class="ttdoc">Return the window object.</div><div class="ttdef"><b>Definition:</b> OpenGLEngine.hpp:156</div></div>

@@ -1,5 +1,10 @@
 # Revision History
 
+## v 6.0.1.1 - 26 Jan 2026
+- Fixed ShaderUtils displaying UBOs in correct shaders
+- Fixed UniformBufferObject name c-strings
+- Fixed all instances of strncpy to set null terminator after copy
+
 ## v 6.0.1.0 - 21 Jan 2026
 - Expanded UniformBufferObject uniform types
 

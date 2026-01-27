@@ -507,6 +507,7 @@ CSCI441::OpenGLEngine::OpenGLEngine(
 {
     mWindowTitle = new char[ strlen(WINDOW_TITLE) + 1 ];
     strncpy(mWindowTitle, WINDOW_TITLE, strlen(WINDOW_TITLE) + 1);
+    mWindowTitle[strlen(WINDOW_TITLE)] = '\0';
 
     CSCI441::FontUtils::setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     CSCI441::FontUtils::setFontSize(1.0f / static_cast<GLfloat>(WINDOW_WIDTH), 1.0f / static_cast<GLfloat>(WINDOW_HEIGHT) );

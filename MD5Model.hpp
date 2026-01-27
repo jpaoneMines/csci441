@@ -1535,6 +1535,7 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
             auto shader = new CSCI441_INTERNAL::MD5MaterialShader();
 
             strncpy(shader->name, buff, CSCI441_INTERNAL::MD5MaterialShader::MAX_NAME_LENGTH);
+            shader->name[ strlen(buff) ] = '\0';
             // fprintf(stdout, "[.md5mtr]: parsing shader \"%s\"\n", shader->shader);
 
             unsigned short numBlocks = 0;
@@ -1550,6 +1551,7 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
                 else if (sscanf(buff, " diffusemap %s", buff2) == 1) {
                     // fprintf(stdout, "[.md5mtr]: attempting to read diffusemap %s\n", buff2);
                     strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
+                    shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].filename[ path.length() ] = '\0';
                     strncat( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].filename, buff2, CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
                     if (_registerShaderTexture( &shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE] )) {
                         ++numTextures;
@@ -1558,6 +1560,7 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
                 else if (sscanf(buff, " specularmap %s", buff2) == 1) {
                     // fprintf(stdout, "[.md5mtr]: attempting to read specularmap %s\n", buff2);
                     strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
+                    shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].filename[ path.length() ] = '\0';
                     strncat( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].filename, buff2, CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
                     if (_registerShaderTexture( &shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR] )) {
                         ++numTextures;
@@ -1578,6 +1581,7 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
                     // normal map texture filename is in tokens[1]
                     if (tokens.size() == 2) {
                         strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
+                        shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename[ path.length() ] = '\0';
                         strncat( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, tokens[1], CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
                         if (_registerShaderTexture( &shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL] )) {
                             ++numTextures;
@@ -1588,6 +1592,7 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
                     // displacement scale is in tokens[3]
                     else if (tokens.size() == 4) {
                         strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
+                        shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename[ path.length() ] = '\0';
                         strncat( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, tokens[2], CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
                         shader->displacementScale = strtol(tokens[3], NULL, 10);
                         if (_registerShaderTexture( &shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT] )) {
@@ -1600,11 +1605,13 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
                     // displacement scale is in tokens[5]
                     else if (tokens.size() == 6) {
                         strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
+                        shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename[ path.length() ] = '\0';
                         strncat( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL].filename, tokens[2], CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
                         if (_registerShaderTexture( &shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::NORMAL] )) {
                             ++numTextures;
                         }
                         strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
+                        shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename[ path.length() ] = '\0';
                         strncat( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT].filename, tokens[4], CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
                         shader->displacementScale = strtol(tokens[5], NULL, 10);
                         if (_registerShaderTexture( &shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::HEIGHT] )) {

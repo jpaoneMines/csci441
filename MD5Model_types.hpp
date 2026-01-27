@@ -126,6 +126,7 @@ namespace CSCI441_INTERNAL {
         void _copyFromSrc(const MD5Texture &src) {
             this->texHandle = src.texHandle;
             strncpy(this->filename, src.filename, MAX_NAME_LENGTH);
+            this->filename[ strlen(src.filename) ] = '\0';
         }
         /**
          * @brief move data members and return existing object to default state
@@ -136,6 +137,7 @@ namespace CSCI441_INTERNAL {
 
             src.texHandle = 0;
             strncpy(src.filename, "", MAX_NAME_LENGTH);
+            src.filename[0] = '\0';
         }
     };
 
@@ -207,13 +209,16 @@ namespace CSCI441_INTERNAL {
                 this->textures[i] = src.textures[i];
             }
             strncpy(this->name, src.name, MAX_NAME_LENGTH);
+            this->name[ strlen(src.name) ] = '\0';
         }
         void _moveFromSrc(MD5MaterialShader &src) {
             for (GLshort i = 0; i < NUM_TEXTURES; i++) {
                 this->textures[i] = std::move( src.textures[i] );
             }
             strncpy(this->name, src.name, MAX_NAME_LENGTH);
+            this->name[ strlen(src.name) ] = '\0';
             strncpy(src.name, "", MAX_NAME_LENGTH);
+            src.name[0] = '\0';
         }
     };
 
@@ -296,6 +301,7 @@ namespace CSCI441_INTERNAL {
          */
         void _copyFromSrc(const MD5Joint& src) {
             strncpy(this->name, src.name, MAX_NAME_LENGTH);
+            this->name[ strlen(src.name) ] = '\0';
             this->parent = src.parent;
             this->position = src.position;
             this->orientation = src.orientation;
@@ -310,6 +316,7 @@ namespace CSCI441_INTERNAL {
             _copyFromSrc(src);
             // reset source
             strncpy(src.name, "", MAX_NAME_LENGTH);
+            src.name[0] = '\0';
             src.parent = NULL_JOINT;
             src.position = glm::vec3(0.0f, 0.0f, 0.0f);
             src.orientation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f);
@@ -734,6 +741,7 @@ namespace CSCI441_INTERNAL {
          */
         void _copyFromSrc(const MD5JointInfo &src) {
             strncpy(this->name, src.name, MAX_NAME_LENGTH);
+            this->name[ strlen(src.name) ] = '\0';
             this->parent = src.parent;
             this->flags = src.flags;
             this->startIndex = src.startIndex;
@@ -746,6 +754,7 @@ namespace CSCI441_INTERNAL {
             _copyFromSrc(src);
 
             strncpy(src.name, "", MAX_NAME_LENGTH);
+            src.name[0] = '\0';
             src.parent = MD5Joint::NULL_JOINT;
             src.flags = 0;
             src.startIndex = 0;
