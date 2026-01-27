@@ -198,6 +198,7 @@ inline CSCI441::UniformBufferObject::UniformBufferObject(const char* UNIFORM_BLO
     for(const auto &uniformName : uniformNamesList ) {
         const auto un = new char[ strlen(uniformName) + 1];
         strncpy(un, uniformName, strlen(uniformName));
+        un[strlen(uniformName)] = '\0';
         _uniformNames.push_back(un);
     }
 
