@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.1.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.2.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -149,6 +149,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>computeViewMa
 <tr class="memitem:a06e0196575202457f5946af8eade0426"><td class="memItemLeft" align="right" valign="top">virtual GLfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a06e0196575202457f5946af8eade0426">getRadius</a> () const final</td></tr>
 <tr class="memdesc:a06e0196575202457f5946af8eade0426"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current radius in world space  <br /></td></tr>
 <tr class="separator:a06e0196575202457f5946af8eade0426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cbdfac3a8f455cd3cc077cc0cbfba33"><td class="memItemLeft" align="right" valign="top">virtual glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a7cbdfac3a8f455cd3cc077cc0cbfba33">getViewDirection</a> () const final</td></tr>
+<tr class="memdesc:a7cbdfac3a8f455cd3cc077cc0cbfba33"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current direction the camera is facing  <br /></td></tr>
+<tr class="separator:a7cbdfac3a8f455cd3cc077cc0cbfba33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a515b13553f9c7486249b85d586cb31b8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_camera.html#a515b13553f9c7486249b85d586cb31b8">setPosition</a> (const glm::vec3 pos) final</td></tr>
 <tr class="memdesc:a515b13553f9c7486249b85d586cb31b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the camera's position in world space  <br /></td></tr>
 <tr class="separator:a515b13553f9c7486249b85d586cb31b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -260,7 +263,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 </div><div class="memdoc">
 
 <p>returns the current lookAt point in world space </p>
-<dl class="section return"><dt>Returns</dt><dd>homogeneous world space point </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>world space point </dd></dl>
 
 </div>
 </div>
@@ -316,7 +319,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 </div><div class="memdoc">
 
 <p>returns the current camera position in world space </p>
-<dl class="section return"><dt>Returns</dt><dd>homogeneous world space point </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>world space point </dd></dl>
 
 </div>
 </div>
@@ -428,7 +431,35 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 </div><div class="memdoc">
 
 <p>returns the current up vector in world space </p>
-<dl class="section return"><dt>Returns</dt><dd>homogeneous world space vector </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>world space vector of unit length </dd></dl>
+
+</div>
+</div>
+<a id="a7cbdfac3a8f455cd3cc077cc0cbfba33" name="a7cbdfac3a8f455cd3cc077cc0cbfba33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cbdfac3a8f455cd3cc077cc0cbfba33">&#9670;&#160;</a></span>getViewDirection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual glm::vec3 CSCI441::Camera::getViewDirection </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns the current direction the camera is facing </p>
+<dl class="section return"><dt>Returns</dt><dd>world space vector of unit length </dd></dl>
 
 </div>
 </div>

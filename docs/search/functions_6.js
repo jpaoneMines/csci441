@@ -46,8 +46,9 @@ var searchData=
   ['getuniformlocation_43',['getUniformLocation',['../class_c_s_c_i441_1_1_shader_program.html#af73c70088a3afda90579a491abcc070c',1,'CSCI441::ShaderProgram']]],
   ['getupvector_44',['getUpVector',['../class_c_s_c_i441_1_1_camera.html#a7820032831a78553f146195820bbee30',1,'CSCI441::Camera']]],
   ['getvertices_45',['getVertices',['../class_c_s_c_i441_1_1_model_loader.html#a5c2d76360ed4fb7b31bf49aa8d9e35c7',1,'CSCI441::ModelLoader']]],
-  ['getviewmatrix_46',['getViewMatrix',['../class_c_s_c_i441_1_1_camera.html#a46666bbceb34797248460bdf82f26d1e',1,'CSCI441::Camera']]],
-  ['getwindow_47',['getWindow',['../class_c_s_c_i441_1_1_open_g_l_engine.html#afb261c4b30d2726e458a684240a2cdcd',1,'CSCI441::OpenGLEngine']]],
-  ['getwindowheight_48',['getWindowHeight',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a30662e0c1e3e63d9ae37ca74e2392223',1,'CSCI441::OpenGLEngine']]],
-  ['getwindowwidth_49',['getWindowWidth',['../class_c_s_c_i441_1_1_open_g_l_engine.html#acb0f51fbd8524cd577684e46d9b4c2d5',1,'CSCI441::OpenGLEngine']]]
+  ['getviewdirection_46',['getViewDirection',['../class_c_s_c_i441_1_1_camera.html#a7cbdfac3a8f455cd3cc077cc0cbfba33',1,'CSCI441::Camera']]],
+  ['getviewmatrix_47',['getViewMatrix',['../class_c_s_c_i441_1_1_camera.html#a46666bbceb34797248460bdf82f26d1e',1,'CSCI441::Camera']]],
+  ['getwindow_48',['getWindow',['../class_c_s_c_i441_1_1_open_g_l_engine.html#afb261c4b30d2726e458a684240a2cdcd',1,'CSCI441::OpenGLEngine']]],
+  ['getwindowheight_49',['getWindowHeight',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a30662e0c1e3e63d9ae37ca74e2392223',1,'CSCI441::OpenGLEngine']]],
+  ['getwindowwidth_50',['getWindowWidth',['../class_c_s_c_i441_1_1_open_g_l_engine.html#acb0f51fbd8524cd577684e46d9b4c2d5',1,'CSCI441::OpenGLEngine']]]
 ];
