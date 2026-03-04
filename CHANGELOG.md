@@ -1,5 +1,8 @@
 # Revision History
 
+## v 6.0.2.0 - 04 Mar 2026
+- Can query Camera view direction
+
 ## v 6.0.1.1 - 26 Jan 2026
 - Fixed ShaderUtils displaying UBOs in correct shaders
 - Fixed UniformBufferObject name c-strings

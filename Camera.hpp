@@ -93,19 +93,19 @@ namespace CSCI441 {
         [[maybe_unused]] [[nodiscard]] virtual glm::mat4 getViewMatrix() const final { return mViewMatrix; }
         /**
          * @brief returns the current camera position in world space
-         * @returns homogeneous world space point
+         * @returns world space point
          */
         [[nodiscard]] virtual glm::vec3 getPosition() const final { return mCameraPosition; }
         /**
          * @brief returns the current lookAt point in world space
-         * @returns homogeneous world space point
+         * @returns world space point
          */
         [[nodiscard]] virtual glm::vec3 getLookAtPoint() const final { return mCameraLookAtPoint; }
         /**
          * @brief returns the current up vector in world space
-         * @returns homogeneous world space vector
+         * @returns world space vector of unit length
          */
-        [[nodiscard]] virtual glm::vec3 getUpVector() const final { return mCameraUpVector; }
+        [[nodiscard]] virtual glm::vec3 getUpVector() const final { return glm::normalize(mCameraUpVector); }
         /**
          * @brief returns the current theta value in radians
          * @returns spherical theta coordinate
@@ -121,6 +121,11 @@ namespace CSCI441 {
          * @returns spherical radius coordinate
          */
         [[maybe_unused]] [[nodiscard]] virtual GLfloat getRadius() const final { return mCameraRadius; }
+        /**
+         * @brief returns the current direction the camera is facing
+         * @returns world space vector of unit length
+         */
+        [[maybe_unused]] [[nodiscard]] virtual glm::vec3 getViewDirection() const final { return glm::normalize(mCameraDirection); }
 
         /**
          * @brief sets the camera's position in world space
