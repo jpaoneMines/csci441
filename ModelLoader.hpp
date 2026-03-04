@@ -339,17 +339,25 @@ inline void CSCI441::ModelLoader::setAttributeLocations(const GLint positionLoca
     glBindVertexArray( _vaod );
     glBindBuffer( GL_ARRAY_BUFFER, _vbods[0] );
 
-    glEnableVertexAttribArray( positionLocation );
-    glVertexAttribPointer( positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)nullptr );
+	if (positionLocation >= 0) {
+		glEnableVertexAttribArray( positionLocation );
+		glVertexAttribPointer( positionLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)nullptr );
+	}
 
-    glEnableVertexAttribArray( normalLocation );
-    glVertexAttribPointer( normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * _uniqueIndex) );
+	if (normalLocation >= 0) {
+		glEnableVertexAttribArray( normalLocation );
+		glVertexAttribPointer( normalLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * _uniqueIndex) );
+	}
 
-    glEnableVertexAttribArray( texCoordLocation );
-    glVertexAttribPointer( texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * _uniqueIndex * 2) );
+	if (texCoordLocation >= 0) {
+		glEnableVertexAttribArray( texCoordLocation );
+		glVertexAttribPointer( texCoordLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * _uniqueIndex * 2) );
+	}
 
-    glEnableVertexAttribArray( tangentLocation );
-    glVertexAttribPointer( tangentLocation, 4, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * _uniqueIndex * 2 + sizeof(glm::vec2) * _uniqueIndex) );
+	if (tangentLocation >= 0) {
+		glEnableVertexAttribArray( tangentLocation );
+		glVertexAttribPointer( tangentLocation, 4, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(glm::vec3) * _uniqueIndex * 2 + sizeof(glm::vec2) * _uniqueIndex) );
+	}
 }
 
 [[maybe_unused]]
