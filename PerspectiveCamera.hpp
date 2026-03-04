@@ -24,12 +24,12 @@ namespace CSCI441 {
         /**
          * @brief initializes the Perspective Camera
          * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
-         * @param fovy vertical field of view (defaults to 45.0f)
+         * @param fovy vertical field of view (defaults to pi/2 radians)
          * @param nearClipPlane near z clip plane (defaults to 0.001f)
          * @param farClipPlane far z clip plane (defaults to 1000.0f)
          * @note field of view specified in degrees
          */
-        explicit PerspectiveCamera(GLfloat aspectRatio = 1.0f, GLfloat fovy = 45.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);
+        explicit PerspectiveCamera(GLfloat aspectRatio = 1.0f, GLfloat fovy = glm::half_pi<GLfloat>(), GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f);
 
         /**
          * @brief properly destroy concrete children

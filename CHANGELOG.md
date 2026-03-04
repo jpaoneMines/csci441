@@ -2,6 +2,7 @@
 
 ## v 6.0.2.0 - 04 Mar 2026
 - Can query Camera view direction
+- Perspective Cameras default FOV is now correctly PI/2 radians (not 45 degrees as function expects radians)
 
 ## v 6.0.1.1 - 26 Jan 2026
 - Fixed ShaderUtils displaying UBOs in correct shaders

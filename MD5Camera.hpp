@@ -62,14 +62,14 @@ namespace CSCI441 {
          * @param advancementStrategy what to do after last frame of cut - one of RUN_SINGLE_CUT, LOOP_SINGLE_CUT, RUN_ALL_CUTS, LOOP_ALL_CUTS
          * @param firstCutToRun index of first cut scene to run (defaults to 0)
          * @param aspectRatio aspect ratio of view plane (defaults to 1.0f)
-         * @param fovy vertical field of view (defaults to 45.0f)
+         * @param fovy vertical field of view (defaults to pi/2 radians)
          * @param nearClipPlane near z clip plane (defaults to 0.001f)
          * @param farClipPlane far z clip plane (defaults to 1000.0f)
          * @param INFO if file loading information should be printed to standard out (defaults to true)
          * @param ERRORS if file loading errors should be printed to standard error (defaults to true)
          * @note field of view specified in degrees
          */
-        explicit MD5Camera(const char* MD5CAMERA_FILE, AdvancementStrategy advancementStrategy, GLuint firstCutToRun = 0, GLfloat aspectRatio = 1.0f, GLfloat fovy = 45.0f, GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f, GLboolean INFO = true, GLboolean ERRORS = true);
+        explicit MD5Camera(const char* MD5CAMERA_FILE, AdvancementStrategy advancementStrategy, GLuint firstCutToRun = 0, GLfloat aspectRatio = 1.0f, GLfloat fovy = glm::half_pi<GLfloat>(), GLfloat nearClipPlane = 0.001f, GLfloat farClipPlane = 1000.0f, GLboolean INFO = true, GLboolean ERRORS = true);
 
         /**
          * @brief deep copy another MD5Camera
