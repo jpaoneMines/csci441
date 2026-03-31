@@ -38,39 +38,39 @@ namespace CSCI441 {
     /**
       * @brief constant for positive X_AXIS
       */
-    static constexpr glm::vec3 X_AXIS( 1.0f, 0.0f, 0.0f );
+    inline constexpr glm::vec3 X_AXIS( 1.0f, 0.0f, 0.0f );
     /**
      * @brief constant for positive Y_AXIS
      */
-    static constexpr glm::vec3 Y_AXIS( 0.0f, 1.0f, 0.0f );
+    inline constexpr glm::vec3 Y_AXIS( 0.0f, 1.0f, 0.0f );
     /**
      * @brief constant for positive Z_AXIS
      */
-    static constexpr glm::vec3 Z_AXIS( 0.0f, 0.0f, 1.0f );
+    inline constexpr glm::vec3 Z_AXIS( 0.0f, 0.0f, 1.0f );
     /**
      * @brief alias for constant for positive X_AXIS
      */
-    [[maybe_unused]] static constexpr glm::vec3 X_AXIS_POS = X_AXIS;
+    [[maybe_unused]] inline constexpr glm::vec3 X_AXIS_POS = X_AXIS;
     /**
      * @brief alias for constant for positive Y_AXIS
      */
-    [[maybe_unused]] static constexpr glm::vec3 Y_AXIS_POS = Y_AXIS;
+    [[maybe_unused]] inline constexpr glm::vec3 Y_AXIS_POS = Y_AXIS;
     /**
      * @brief alias for constant for positive Z_AXIS
      */
-    [[maybe_unused]] static constexpr glm::vec3 Z_AXIS_POS = Z_AXIS;
+    [[maybe_unused]] inline constexpr glm::vec3 Z_AXIS_POS = Z_AXIS;
     /**
      * @brief constant for negative X_AXIS
      */
-    [[maybe_unused]] static constexpr glm::vec3 X_AXIS_NEG( -1.0f,  0.0f,  0.0f );
+    [[maybe_unused]] inline constexpr glm::vec3 X_AXIS_NEG( -1.0f,  0.0f,  0.0f );
     /**
      * @brief constant for negative Y_AXIS
      */
-    [[maybe_unused]] static constexpr glm::vec3 Y_AXIS_NEG(  0.0f, -1.0f,  0.0f );
+    [[maybe_unused]] inline constexpr glm::vec3 Y_AXIS_NEG(  0.0f, -1.0f,  0.0f );
     /**
      * @brief constant for negative Z_AXIS
      */
-    [[maybe_unused]] static constexpr glm::vec3 Z_AXIS_NEG(  0.0f,  0.0f, -1.0f );
+    [[maybe_unused]] inline constexpr glm::vec3 Z_AXIS_NEG(  0.0f,  0.0f, -1.0f );
 
     /**
      * @namespace OpenGLUtils

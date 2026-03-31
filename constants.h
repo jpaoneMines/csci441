@@ -16,38 +16,38 @@ namespace CSCI441 {
     /**
      * @brief library major version
      */
-    constexpr int VERSION_MAJOR = 6;
+    inline constexpr int VERSION_MAJOR = 6;
     /**
      * @brief library minor version
      */
-    constexpr int VERSION_MINOR = 0;
+    inline constexpr int VERSION_MINOR = 0;
     /**
      * @brief library revision version
      */
-    constexpr int VERSION_REVISION = 2;
+    inline constexpr int VERSION_REVISION = 2;
     /**
      * @brief library patch version
      */
-    constexpr int VERSION_PATCH = 0;
+    inline constexpr int VERSION_PATCH = 0;
 
 #ifdef CSCI441_USE_GLEW
     /**
      * @brief true if the library is dependent upon GLEW
      */
-    constexpr bool USING_GLEW = true;
+    inline constexpr bool USING_GLEW = true;
     /**
      * @brief true if the library is dependent upon GLAD
      */
-    constexpr bool USING_GLAD = false;
+    inline constexpr bool USING_GLAD = false;
 #else
     /**
      * @brief true if the library is dependent upon GLEW
      */
-    constexpr bool USING_GLEW = false;
+    inline constexpr bool USING_GLEW = false;
     /**
      * @brief true if the library is dependent upon GLAD
      */
-    constexpr bool USING_GLAD = true;
+    inline constexpr bool USING_GLAD = true;
 #endif
 }
 

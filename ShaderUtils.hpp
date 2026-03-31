@@ -30,7 +30,7 @@
 //********************************************************************************************************************
 
 namespace CSCI441_INTERNAL::ShaderUtils {
-    static bool sDEBUG = true;
+    inline bool sDEBUG = true;
 
     // Enables console output
     [[maybe_unused]] void enableDebugMessages();

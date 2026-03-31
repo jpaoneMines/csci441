@@ -113,12 +113,12 @@ namespace CSCI441 {
 
 namespace CSCI441_INTERNAL {
     namespace FontUtils {
-        static bool loadFontShader();
-        static CSCI441::Font* currentFont = nullptr;
-        static GLuint fontShaderHandle = 0;
-        static GLint fontColorUniformLocation = -1;
-        static glm::vec2 windowSize = glm::vec2(0.0f);
-        static glm::vec2 fontSize = glm::vec2(1.0f);
+        bool loadFontShader();
+        inline CSCI441::Font* currentFont = nullptr;
+        inline GLuint fontShaderHandle = 0;
+        inline GLint fontColorUniformLocation = -1;
+        inline glm::vec2 windowSize = glm::vec2(0.0f);
+        inline glm::vec2 fontSize = glm::vec2(1.0f);
     }
 }
 
