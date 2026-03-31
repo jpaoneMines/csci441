@@ -1,20 +1,8 @@
 var searchData=
 [
-  ['_7earcballcam_0',['~ArcballCam',['../class_c_s_c_i441_1_1_arcball_cam.html#a72bc715008c1ba9e21e0e8a21a32bd3d',1,'CSCI441::ArcballCam']]],
-  ['_7ecamera_1',['~Camera',['../class_c_s_c_i441_1_1_camera.html#a812c4b551be79e31f634eb6b41ae2315',1,'CSCI441::Camera']]],
-  ['_7ecomputeshaderprogram_2',['~ComputeShaderProgram',['../class_c_s_c_i441_1_1_compute_shader_program.html#ae239f9787de9c890677078c9cd0560c7',1,'CSCI441::ComputeShaderProgram']]],
-  ['_7efixedcam_3',['~FixedCam',['../class_c_s_c_i441_1_1_fixed_cam.html#a32e5f7d55dc61c5134948e9025191d08',1,'CSCI441::FixedCam']]],
-  ['_7efont_4',['~Font',['../class_c_s_c_i441_1_1_font.html#a2a902a7591640ea639da0d1b38bd975d',1,'CSCI441::Font']]],
-  ['_7efreecam_5',['~FreeCam',['../class_c_s_c_i441_1_1_free_cam.html#a667e5da91ea2cb952c088c6130f454c3',1,'CSCI441::FreeCam']]],
-  ['_7ehudcamera_6',['~HUDCamera',['../class_c_s_c_i441_1_1_h_u_d_camera.html#aa4913f4bcd13c39e49adc54ff34cbbfd',1,'CSCI441::HUDCamera']]],
-  ['_7emd5camera_7',['~MD5Camera',['../class_c_s_c_i441_1_1_m_d5_camera.html#a2af8e26df2a1a3f3b85df90e36d88923',1,'CSCI441::MD5Camera']]],
-  ['_7emd5model_8',['~MD5Model',['../class_c_s_c_i441_1_1_m_d5_model.html#aeaf15af7fb507f9d3ead30e1157fe1de',1,'CSCI441::MD5Model']]],
-  ['_7emodelloader_9',['~ModelLoader',['../class_c_s_c_i441_1_1_model_loader.html#ab30fbbe152e05c88300f98fa33998102',1,'CSCI441::ModelLoader']]],
-  ['_7eopengl3dengine_10',['~OpenGL3DEngine',['../class_c_s_c_i441_1_1_open_g_l3_d_engine.html#aa5d547356721aa7d8e6c3a6ac66bcd23',1,'CSCI441::OpenGL3DEngine']]],
-  ['_7eopenglengine_11',['~OpenGLEngine',['../class_c_s_c_i441_1_1_open_g_l_engine.html#ad9ccaca4981c588c874cb70329cb9cb8',1,'CSCI441::OpenGLEngine']]],
-  ['_7eorthographiccamera_12',['~OrthographicCamera',['../class_c_s_c_i441_1_1_orthographic_camera.html#ae5d2d81caa5a6d38a9a18267b050cf7a',1,'CSCI441::OrthographicCamera']]],
-  ['_7eperspectivecamera_13',['~PerspectiveCamera',['../class_c_s_c_i441_1_1_perspective_camera.html#ab8476fad0f9dc10a62580280a676be1b',1,'CSCI441::PerspectiveCamera']]],
-  ['_7eshaderprogram_14',['~ShaderProgram',['../class_c_s_c_i441_1_1_shader_program.html#a64b295be7ca8f309dfc085f8c0cf631a',1,'CSCI441::ShaderProgram']]],
-  ['_7eshaderprogrampipeline_15',['~ShaderProgramPipeline',['../class_c_s_c_i441_1_1_shader_program_pipeline.html#aadebb4f866fa11fd7ab0de033af4b938',1,'CSCI441::ShaderProgramPipeline']]],
-  ['_7euniformbufferobject_16',['~UniformBufferObject',['../class_c_s_c_i441_1_1_uniform_buffer_object.html#a25509246b1331ac2c1792ee7500e9c01',1,'CSCI441::UniformBufferObject']]]
+  ['y_5faxis_0',['Y_AXIS',['../namespace_c_s_c_i441.html#ad1a798d79bb8a405de2b4b118c2d54a5',1,'CSCI441']]],
+  ['y_5faxis_5fneg_1',['Y_AXIS_NEG',['../namespace_c_s_c_i441.html#a828b09e7db41aaa5458230683a7c189c',1,'CSCI441']]],
+  ['y_5faxis_5fpos_2',['Y_AXIS_POS',['../namespace_c_s_c_i441.html#a91c835a5aefcbf62383f20d2000fa497',1,'CSCI441']]],
+  ['yellow_5fplastic_3',['YELLOW_PLASTIC',['../materials_8hpp.html#a3c099fcfab903d8940f01849504314be',1,'CSCI441::Materials']]],
+  ['yellow_5frubber_4',['YELLOW_RUBBER',['../materials_8hpp.html#abb8edc067f75ea0cd2c4a37279a0a809',1,'CSCI441::Materials']]]
 ];
