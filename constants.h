@@ -24,7 +24,7 @@ namespace CSCI441 {
     /**
      * @brief library revision version
      */
-    inline constexpr int VERSION_REVISION = 3;
+    inline constexpr int VERSION_REVISION = 4;
     /**
      * @brief library patch version
      */

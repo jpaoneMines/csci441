@@ -1,5 +1,8 @@
 # Revision History
 
+## v 6.0.4.0 - 07 Apr 2026
+- Option to enable multisampling when creating an OpenGLEngine
+
 ## v 6.0.3.0 - 30 Mar 2026
 - Using inline globals, instead of static globals, to ensure one instance exists across multiple translation units
 

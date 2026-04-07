@@ -229,10 +229,11 @@ namespace CSCI441 {
          * @param WINDOW_HEIGHT height of window to request creation of
          * @param WINDOW_TITLE title to place on window bar
          * @param WINDOW_RESIZABLE if window should be resizable or not (defaults to false)
+         * @param NUM_SAMPLES number of samples to fire per fragment (defaults to 0)
          * @note does not actually create the context nor the window at this time.  To do so, call the
          * initialize() method after the object has been created
          */
-        OpenGLEngine(int OPENGL_MAJOR_VERSION, int OPENGL_MINOR_VERSION, int WINDOW_WIDTH, int WINDOW_HEIGHT, const char* WINDOW_TITLE, bool WINDOW_RESIZABLE = GLFW_FALSE);
+        OpenGLEngine(int OPENGL_MAJOR_VERSION, int OPENGL_MINOR_VERSION, int WINDOW_WIDTH, int WINDOW_HEIGHT, const char* WINDOW_TITLE, bool WINDOW_RESIZABLE = GLFW_FALSE, GLushort NUM_SAMPLES = 0);
 
         /**
          * @brief if information should be printed to console while running
@@ -300,6 +301,12 @@ namespace CSCI441 {
          * @note by default false
          */
         bool mWindowResizable;
+        /**
+         * @brief how many samples to fire per fragment
+         * @note by default 0
+         * @note if 0, multisampling disabled
+         */
+        GLushort mNumSamplesPerFragment;
         /**
          * @brief the title of the GLFW window
          */
@@ -484,7 +491,8 @@ CSCI441::OpenGLEngine::OpenGLEngine(
     const int WINDOW_WIDTH,
     const int WINDOW_HEIGHT,
     const char* WINDOW_TITLE,
-    const bool WINDOW_RESIZABLE
+    const bool WINDOW_RESIZABLE,
+    const GLushort NUM_SAMPLES
 ) : DEBUG(true),
     mErrorCode(OPENGL_ENGINE_ERROR_NO_ERROR),
     mOpenGLMajorVersion(OPENGL_MAJOR_VERSION),
@@ -498,6 +506,7 @@ CSCI441::OpenGLEngine::OpenGLEngine(
     mFramebufferWidth(WINDOW_WIDTH),
     mFramebufferHeight(WINDOW_HEIGHT),
     mWindowResizable(WINDOW_RESIZABLE),
+    mNumSamplesPerFragment(NUM_SAMPLES),
     mWindowTitle(nullptr),
     mpWindow(nullptr),
     _isInitialized(false),
@@ -530,6 +539,7 @@ CSCI441::OpenGLEngine::OpenGLEngine(
     mFramebufferWidth(0),
     mFramebufferHeight(0),
     mWindowResizable(false),
+    mNumSamplesPerFragment(0),
     mWindowTitle(nullptr),
     mpWindow(nullptr),
     _isInitialized(false),
@@ -603,6 +613,9 @@ void CSCI441::OpenGLEngine::_moveFromSource(
     mWindowResizable = src.mWindowResizable;
     src.mWindowResizable = false;
 
+    mNumSamplesPerFragment = src.mNumSamplesPerFragment;
+    src.mNumSamplesPerFragment = 0;
+
     mWindowTitle = src.mWindowTitle;
     src.mWindowTitle = nullptr;
 
@@ -636,6 +649,13 @@ void CSCI441::OpenGLEngine::initialize()
         const std::chrono::steady_clock::time_point openGLBegin = std::chrono::steady_clock::now();
         _setupGLFunctions();            // create OpenGL function pointers
         mSetupOpenGL();                 // create the OpenGL context
+
+        // enable/disable multisampling as appropriate
+        if (mNumSamplesPerFragment > 0) {
+            glEnable(GL_MULTISAMPLE);
+        } else {
+            glDisable(GL_MULTISAMPLE);
+        }
 
         // get OpenGL context information
         if( DEBUG ) {
@@ -773,6 +793,7 @@ void CSCI441::OpenGLEngine::mSetupGLFW()
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );             // request OpenGL Core Profile context
         glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE );                              // request double buffering
         glfwWindowHint(GLFW_RESIZABLE, mWindowResizable );		                    // set if our window should be able to be resized
+        glfwWindowHint(GLFW_SAMPLES, mNumSamplesPerFragment);                       // request number of samples per fragment
 
         // if wanting debug information with Version 4.3 or higher
         if( DEBUG
@@ -782,7 +803,7 @@ void CSCI441::OpenGLEngine::mSetupGLFW()
 
         // create a window for a given size, with a given title
         mpWindow = glfwCreateWindow(mWindowWidth, mWindowHeight, mWindowTitle, nullptr, nullptr );
-        if( !mpWindow ) {						                                                // if the window could not be created, NULL is returned
+        if( !mpWindow ) {						                                        // if the window could not be created, NULL is returned
             fprintf( stderr, "[ERROR]: GLFW Window could not be created\n" );
             glfwTerminate();
             mErrorCode = OPENGL_ENGINE_ERROR_GLFW_WINDOW;

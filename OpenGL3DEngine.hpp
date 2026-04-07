@@ -227,10 +227,11 @@ namespace CSCI441 {
          * @param WINDOW_HEIGHT height of window to request creation of
          * @param WINDOW_TITLE title to place on window bar
          * @param WINDOW_RESIZABLE if window should be resizable or not (defaults to false)
+         * @param NUM_SAMPLES number of samples to fire per fragment (defaults to 0)
          * @note does not actually create the context nor the window at this time.  To do so, call the
          * initialize() method after the object has been created
          */
-        OpenGL3DEngine(int OPENGL_MAJOR_VERSION, int OPENGL_MINOR_VERSION, int WINDOW_WIDTH, int WINDOW_HEIGHT, const char* WINDOW_TITLE, bool WINDOW_RESIZABLE = GLFW_FALSE);
+        OpenGL3DEngine(int OPENGL_MAJOR_VERSION, int OPENGL_MINOR_VERSION, int WINDOW_WIDTH, int WINDOW_HEIGHT, const char* WINDOW_TITLE, bool WINDOW_RESIZABLE = GLFW_FALSE, GLushort NUM_SAMPLES = 0);
         /**
          * @brief cleans up OpenGL 3D Engine by deleting arcball camera object
          */
@@ -271,8 +272,8 @@ namespace CSCI441 {
 
 //*****************************************************************************************
 
-inline CSCI441::OpenGL3DEngine::OpenGL3DEngine(const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION, const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const char* WINDOW_TITLE, const bool WINDOW_RESIZABLE)
-        : OpenGLEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, WINDOW_RESIZABLE),
+inline CSCI441::OpenGL3DEngine::OpenGL3DEngine(const int OPENGL_MAJOR_VERSION, const int OPENGL_MINOR_VERSION, const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const char* WINDOW_TITLE, const bool WINDOW_RESIZABLE, const GLushort NUM_SAMPLES)
+        : OpenGLEngine(OPENGL_MAJOR_VERSION, OPENGL_MINOR_VERSION, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, WINDOW_RESIZABLE, NUM_SAMPLES),
           mpArcballCamera( new CSCI441::ArcballCam(2.0f, 30.0f, static_cast<GLfloat>(WINDOW_WIDTH) / static_cast<GLfloat>(WINDOW_HEIGHT)) ),
           mIsShiftDown( GL_FALSE ),
           mIsLeftMouseDown( GL_FALSE ),
