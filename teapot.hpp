@@ -422,16 +422,16 @@ namespace CSCI441_INTERNAL {
     inline void teapot_build_teapot() {
         // Vertices
         for (GLuint p = 0; p < TEAPOT_NUMBER_PATCHES; p++) {
-            auto control_points_k = (glm::vec3**)malloc(sizeof(glm::vec3*) * (TEAPOT_PATCH_DIMENSION + 1));
+            const auto control_points_k = (glm::vec3**)malloc(sizeof(glm::vec3*) * (TEAPOT_PATCH_DIMENSION + 1));
             for(GLuint i = 0; i < TEAPOT_PATCH_DIMENSION + 1; i++)
                 control_points_k[i] = (glm::vec3*)malloc(sizeof(glm::vec3) * (TEAPOT_PATCH_DIMENSION + 1));
 
             teapot_build_control_points_k(p, control_points_k);
 
             for (GLuint ru = 0; ru <= TEAPOT_RES_U - 1; ru++) {
-                GLfloat u = 1.0f * (GLfloat) ru / (TEAPOT_RES_U - 1);
+                const GLfloat u = 1.0f * static_cast<GLfloat>(ru) / (TEAPOT_RES_U - 1);
                 for (GLuint rv = 0; rv <= TEAPOT_RES_V - 1; rv++) {
-                    GLfloat v = 1.0f * (GLfloat) rv / (TEAPOT_RES_V - 1);
+                    const GLfloat v = 1.0f * static_cast<GLfloat>(rv) / (TEAPOT_RES_V - 1);
                     teapot_vertices[                    p * TEAPOT_RES_U * TEAPOT_RES_V                                       + ru * TEAPOT_RES_V + rv ] = teapot_compute_position(control_points_k, u, v);
                     teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V     + p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv ] = teapot_compute_normal(control_points_k, u, v);
                     teapot_vertices[TEAPOT_NUMBER_PATCHES * TEAPOT_RES_U * TEAPOT_RES_V * 2 + p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv ] = teapot_compute_texture(teapot_vertices[p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv]);
@@ -450,10 +450,10 @@ namespace CSCI441_INTERNAL {
             for (GLuint ru = 0; ru < TEAPOT_RES_U - 1; ru++)
                 for (GLuint rv = 0; rv < TEAPOT_RES_V - 1; rv++) {
                     // 1 square ABCD = 2 triangles ABC + CDA
-                    GLushort a = p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + rv      ;
-                    GLushort b = p * TEAPOT_RES_U * TEAPOT_RES_V + ru * TEAPOT_RES_V + (rv + 1);
-                    GLushort c = p * TEAPOT_RES_U * TEAPOT_RES_V + (ru + 1) * TEAPOT_RES_V + (rv + 1);
-                    GLushort d = p * TEAPOT_RES_U * TEAPOT_RES_V + (ru + 1) * TEAPOT_RES_V + rv      ;
+                    const GLushort a = p * TEAPOT_RES_U * TEAPOT_RES_V +  ru      * TEAPOT_RES_V +  rv     ;
+                    const GLushort b = p * TEAPOT_RES_U * TEAPOT_RES_V +  ru      * TEAPOT_RES_V + (rv + 1);
+                    const GLushort c = p * TEAPOT_RES_U * TEAPOT_RES_V + (ru + 1) * TEAPOT_RES_V + (rv + 1);
+                    const GLushort d = p * TEAPOT_RES_U * TEAPOT_RES_V + (ru + 1) * TEAPOT_RES_V +  rv     ;
                     // ABC
                     teapot_elements[n++] = a;
                     teapot_elements[n++] = b;
@@ -475,9 +475,9 @@ namespace CSCI441_INTERNAL {
     inline glm::vec3 teapot_compute_position(glm::vec3** const control_points_k, const GLfloat u, const GLfloat v) {
         glm::vec3 position = {0.0f, 0.0f, 0.0f };
         for (GLuint i = 0; i <= TEAPOT_PATCH_DIMENSION; i++) {
-            GLfloat poly_i = teapot_bernstein_polynomial(i, TEAPOT_PATCH_DIMENSION, u);
+            const GLfloat poly_i = teapot_bernstein_polynomial(i, TEAPOT_PATCH_DIMENSION, u);
             for (GLuint j = 0; j <= TEAPOT_PATCH_DIMENSION; j++) {
-                GLfloat poly_j = teapot_bernstein_polynomial(j, TEAPOT_PATCH_DIMENSION, v);
+                const GLfloat poly_j = teapot_bernstein_polynomial(j, TEAPOT_PATCH_DIMENSION, v);
                 position += poly_i * poly_j * control_points_k[i][j];
             }
         }
@@ -517,8 +517,34 @@ namespace CSCI441_INTERNAL {
     }
 
     inline glm::vec3 teapot_compute_normal(glm::vec3** const control_points_k, const GLfloat u, const GLfloat v) {
-        const glm::vec3 du = eval_bezier_curve_du(control_points_k, u, v);
-        const glm::vec3 dv = eval_bezier_curve_dv(control_points_k, u, v);
+        glm::vec3 du = eval_bezier_curve_du(control_points_k, u, v);
+        glm::vec3 dv = eval_bezier_curve_dv(control_points_k, u, v);
+
+        // if point is on edge/boundary or control points are degenerate
+        if ( glm::length(du) < 0.000001 ) {
+            // then approximate tangent vector
+            const glm::vec3 p = teapot_compute_position(control_points_k, u, v);
+            const glm::vec3 pu = teapot_compute_position(control_points_k, u + 0.1, v);
+            du = pu - p;
+            if ( glm::length(du) < 0.000001 ) {
+                // fallback to any vector not parallel to partial
+                const glm::vec3 puv = teapot_compute_position(control_points_k, u + 0.1, v + 0.1);
+                du = puv - p;
+            }
+        }
+        // if point is on edge/boundary or control points are degenerate
+        if ( glm::length(dv) < 0.000001 ) {
+            // then approximate tangent vector
+            const glm::vec3 p = teapot_compute_position(control_points_k, u, v);
+            const glm::vec3 pv = teapot_compute_position(control_points_k, u, v + 0.1);
+            dv = pv - p;
+            if ( glm::length(dv) < 0.000001 ) {
+                // fallback to any vector not parallel to partial
+                const glm::vec3 puv = teapot_compute_position(control_points_k, u + 0.1, v + 0.1);
+                dv = puv - p;
+            }
+        }
+
         const glm::vec3 normal = -glm::normalize(glm::cross(du, dv));
         return normal;
     }
@@ -529,7 +555,7 @@ namespace CSCI441_INTERNAL {
 
     inline glm::vec3 teapot_compute_texture(const glm::vec3 position) {
         glm::vec3 textureCoordinate = {0.0f, 0.0f, 0.0f};
-        constexpr GLfloat PI = glm::pi<GLfloat>();
+        constexpr auto PI = glm::pi<GLfloat>();
         const GLfloat theta = atan2(position.y, position.x);
         textureCoordinate.x = (theta + PI) / (2.0f * PI);
         textureCoordinate.y = position.z / 3.15f;
