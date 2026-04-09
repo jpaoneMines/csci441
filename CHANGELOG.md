@@ -1,5 +1,8 @@
 # Revision History
 
+## v ?.?.?.? - ?? ??? ????
+- Using unsigned int consistently
+
 ## v 6.0.4.1 - 08 Apr 2026
 - Teapot approximates tangent vectors when partial derivatives are zero to avoid an invalid surface normal
 
