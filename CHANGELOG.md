@@ -1,5 +1,8 @@
 # Revision History
 
+## v 6.0.4.1 - 08 Apr 2026
+- Teapot approximates tangent vectors when partial derivatives are zero to avoid an invalid surface normal
+
 ## v 6.0.4.0 - 07 Apr 2026
 - Option to enable multisampling when creating an OpenGLEngine
 
