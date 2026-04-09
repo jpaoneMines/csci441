@@ -101,11 +101,11 @@ namespace CSCI441 {
         /**
          * @brief width of the entire glyph set texture
          */
-        GLint _atlasWidth;
+        GLuint _atlasWidth;
         /**
          * @brief height of the entire glyph set texture
          */
-        GLint _atlasHeight;
+        GLuint _atlasHeight;
 
         /**
          * @brief texture data and size information for each character in the font set
@@ -173,8 +173,8 @@ inline CSCI441::Font::Font(const char *filename) :
     FT_Set_Pixel_Sizes(_fontFace, 0, 20);
 
     const auto g = _fontFace->glyph;
-    GLint w = 0;
-    GLint h = 0;
+    GLuint w = 0;
+    GLuint h = 0;
 
     for(int i = 32; i < 128; i++) {
       if(FT_Load_Char(_fontFace, i, FT_LOAD_RENDER)) {
@@ -198,9 +198,9 @@ inline CSCI441::Font::Font(const char *filename) :
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, w, h, 0, GL_RED, GL_UNSIGNED_BYTE, 0);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, static_cast<GLsizei>(w), static_cast<GLsizei>(h), 0, GL_RED, GL_UNSIGNED_BYTE, nullptr);
 
-    GLint x = 0;
+    GLuint x = 0;
 
     for(int i = 32; i < 128; i++) {
         if(FT_Load_Char(_fontFace, i, FT_LOAD_RENDER))
@@ -217,7 +217,7 @@ inline CSCI441::Font::Font(const char *filename) :
 
         _fontCharacters[i].tx = static_cast<GLfloat>(x) / static_cast<GLfloat>(w);
 
-        glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
+        glTexSubImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(x), 0, static_cast<GLint>(g->bitmap.width), static_cast<GLint>(g->bitmap.rows), GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
 
         x += g->bitmap.width;
     }
@@ -277,18 +277,18 @@ inline void CSCI441::Font::draw(const char* str, GLfloat x, GLfloat y) const {
         y += character.ay * _scaleY;
 
         // Skip glyphs that have no pixels
-        if(!w || !h)
+        if(w == 0 || h == 0)
             continue;
 
         coords[n++] = (FontPoint){x2,     -y2    , character.tx,                                0};
-        coords[n++] = (FontPoint){x2 + w, -y2    , character.tx + character.bw / _atlasWidth,   0};
-        coords[n++] = (FontPoint){x2,     -y2 - h, character.tx,                                character.bh / _atlasHeight}; //remember: each glyph occupies a different amount of vertical space
+        coords[n++] = (FontPoint){x2 + w, -y2    , character.tx + character.bw / static_cast<GLfloat>(_atlasWidth),   0};
+        coords[n++] = (FontPoint){x2,     -y2 - h, character.tx,                                character.bh / static_cast<GLfloat>(_atlasHeight)}; //remember: each glyph occupies a different amount of vertical space
 
-        coords[n++] = (FontPoint){x2 + w, -y2    , character.tx + character.bw / _atlasWidth,   0};
-        coords[n++] = (FontPoint){x2,     -y2 - h, character.tx,                                character.bh / _atlasHeight};
-        coords[n++] = (FontPoint){x2 + w, -y2 - h, character.tx + character.bw / _atlasWidth,   character.bh / _atlasHeight};
+        coords[n++] = (FontPoint){x2 + w, -y2    , character.tx + character.bw / static_cast<GLfloat>(_atlasWidth),   0};
+        coords[n++] = (FontPoint){x2,     -y2 - h, character.tx,                                character.bh / static_cast<GLfloat>(_atlasHeight)};
+        coords[n++] = (FontPoint){x2 + w, -y2 - h, character.tx + character.bw / static_cast<GLfloat>(_atlasWidth),   character.bh / static_cast<GLfloat>(_atlasHeight)};
     }
-    glBufferData(GL_ARRAY_BUFFER, sizeof( coords ), coords, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof( coords )), coords, GL_DYNAMIC_DRAW);
     glDrawArrays(GL_TRIANGLES, 0, n);
 }
 
