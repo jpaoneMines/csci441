@@ -260,7 +260,8 @@ inline void CSCI441::Font::draw(const char* str, GLfloat x, GLfloat y) const {
         GLfloat y;
         GLfloat s;
         GLfloat t;
-    } coords[6 * strlen(str)];
+    };
+    const auto coords = (FontPoint*)malloc(sizeof(FontPoint) * 6 * strlen(str));
 
     GLint n = 0;
 
@@ -288,8 +289,10 @@ inline void CSCI441::Font::draw(const char* str, GLfloat x, GLfloat y) const {
         coords[n++] = (FontPoint){x2,     -y2 - h, character.tx,                                character.bh / static_cast<GLfloat>(_atlasHeight)};
         coords[n++] = (FontPoint){x2 + w, -y2 - h, character.tx + character.bw / static_cast<GLfloat>(_atlasWidth),   character.bh / static_cast<GLfloat>(_atlasHeight)};
     }
-    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof( coords )), coords, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(FontPoint) * 6 * strlen(str)), coords, GL_DYNAMIC_DRAW);
     glDrawArrays(GL_TRIANGLES, 0, n);
+
+    free(coords);
 }
 
 #endif//CSCI441_FONT_HPP
