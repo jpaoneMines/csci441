@@ -215,7 +215,7 @@ namespace CSCI441 {
          * @return index of the given uniform block in this shader program
          * @note Prints an error message to standard error stream if the uniform block is not found
          */
-        virtual GLint getUniformBlockIndex( const GLchar *uniformBlockName ) const final;
+        virtual GLuint getUniformBlockIndex( const GLchar *uniformBlockName ) const final;
         /**
          * @brief Returns the size of the given uniform block in this shader program
          * @param uniformBlockName - name of the uniform block to get the size for
@@ -251,7 +251,7 @@ namespace CSCI441 {
          * @return array of offsets for the given uniform block in this shader program
          * @note Prints an error message to standard error stream if the uniform block is not found
          */
-        [[nodiscard]] virtual GLint* getUniformBlockOffsets(GLint uniformBlockIndex ) const final;
+        [[nodiscard]] virtual GLint* getUniformBlockOffsets(GLuint uniformBlockIndex ) const final;
         /**
          * @brief Returns an array of offsets into the buffer for the given uniform block and names in this shader program
          * @param uniformBlockIndex index uniform block to return offsets for
@@ -259,7 +259,7 @@ namespace CSCI441 {
          * @return array of offsets for the given uniform block in this shader program
          * @note Prints an error message to standard error stream if the uniform block is not found
          */
-        [[nodiscard]] virtual GLint* getUniformBlockOffsets(GLint uniformBlockIndex, const GLchar *names[] ) const final;
+        [[nodiscard]] virtual GLint* getUniformBlockOffsets(GLuint uniformBlockIndex, const GLchar *names[] ) const final;
         /**
          * @brief Set the binding point for the given uniform block in this shader program
          * @param uniformBlockName name of the uniform block to bind
@@ -1326,8 +1326,8 @@ inline GLint CSCI441::ShaderProgram::getUniformLocation( const GLchar *uniformNa
     return uniformLoc;
 }
 
-inline GLint CSCI441::ShaderProgram::getUniformBlockIndex( const GLchar *uniformBlockName ) const {
-    const GLint uniformBlockLoc = glGetUniformBlockIndex(mShaderProgramHandle, uniformBlockName );
+inline GLuint CSCI441::ShaderProgram::getUniformBlockIndex( const GLchar *uniformBlockName ) const {
+    const GLuint uniformBlockLoc = glGetUniformBlockIndex(mShaderProgramHandle, uniformBlockName );
     if( uniformBlockLoc == GL_INVALID_INDEX )
         fprintf(stderr, "[ERROR]: Could not find uniform block \"%s\" for Shader Program %u\n", uniformBlockName, mShaderProgramHandle );
     return uniformBlockLoc;
@@ -1355,7 +1355,7 @@ inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets( const GLchar* unif
     return getUniformBlockOffsets(getUniformBlockIndex(uniformBlockName), names);
 }
 
-inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets(const GLint uniformBlockIndex ) const {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets(const GLuint uniformBlockIndex ) const {
     GLint numUniforms;
     glGetActiveUniformBlockiv(mShaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
 
@@ -1367,7 +1367,7 @@ inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets(const GLint uniform
     return offsets;
 }
 
-inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets(const GLint uniformBlockIndex, const GLchar * names[] ) const {
+inline GLint* CSCI441::ShaderProgram::getUniformBlockOffsets(const GLuint uniformBlockIndex, const GLchar * names[] ) const {
     GLint numUniforms;
     glGetActiveUniformBlockiv(mShaderProgramHandle, uniformBlockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &numUniforms );
 
@@ -1419,7 +1419,7 @@ inline void CSCI441::ShaderProgram::setSubroutineIndices( const GLenum shaderSta
 inline GLint CSCI441::ShaderProgram::getImageBinding(const GLchar* imageName) const {
     const GLint imageLoc = getUniformLocation(imageName);
 
-    if(imageLoc == GL_INVALID_INDEX) {
+    if(imageLoc == -1) {
         fprintf(stderr, "[ERROR]: Could not find image \"%s\" for Shader Program %u\n", imageName, mShaderProgramHandle);
         return -1;
     }
