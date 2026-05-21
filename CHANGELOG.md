@@ -1,6 +1,6 @@
 # Revision History
 
-## v ?.?.?.? - ?? ??? ????
+## v 6.0.5.0 - 21 May 2026
 - Using unsigned int consistently
 - Separate Engine window resize and framebuffer resize
 

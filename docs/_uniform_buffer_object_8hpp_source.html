@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.4.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.5.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -103,7 +103,7 @@ $(function() {
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>(<a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>&amp;&amp;) noexcept;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>&amp; operator=(<a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>&amp;&amp;) noexcept;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a82ecc51521c3031a85312446877486d1">   65</a></span>        [[maybe_unused]] <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>(const <span class="keywordtype">char</span>* UNIFORM_BLOCK_NAME, std::initializer_list&lt;const <span class="keywordtype">char</span>*&gt; uniformNamesList);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        [[maybe_unused]] <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>(const <span class="keywordtype">char</span>* UNIFORM_BLOCK_NAME, const std::initializer_list&lt;const <span class="keywordtype">char</span>*&gt; uniformNamesList);</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        ~<a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>();</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#ad4476825e49e9554fc3b8cbbdfcc38b9">   74</a></span>        <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>(const <a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>&amp;) = delete;</div>
@@ -149,7 +149,7 @@ $(function() {
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment">//******************************************************************************</span></div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>[[maybe_unused]]</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>inline <a class="code hl_namespace" href="namespace_c_s_c_i441.html">CSCI441</a>::<a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>::<a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>(const <span class="keywordtype">char</span>* UNIFORM_BLOCK_NAME, const std::initializer_list&lt;const <span class="keywordtype">char</span>*&gt; uniformNamesList) {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a8052f1a10d40f46dd49e845f6ecba6ab">  192</a></span>inline <a class="code hl_namespace" href="namespace_c_s_c_i441.html">CSCI441</a>::<a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>::<a class="code hl_class" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a>(const <span class="keywordtype">char</span>* UNIFORM_BLOCK_NAME, const std::initializer_list&lt;const <span class="keywordtype">char</span>*&gt; uniformNamesList) {</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    _blockName = <span class="keyword">new</span> <span class="keywordtype">char</span>[strlen(UNIFORM_BLOCK_NAME) + 1];</div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    strncpy(_blockName, UNIFORM_BLOCK_NAME, strlen(UNIFORM_BLOCK_NAME));</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    _blockName[ strlen(UNIFORM_BLOCK_NAME) ] = <span class="charliteral">&#39;\0&#39;</span>;</div>

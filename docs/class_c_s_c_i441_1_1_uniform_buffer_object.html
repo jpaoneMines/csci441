@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.4.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.5.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -101,9 +101,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0372f4739b1ab51fd3c1f9055ce49dd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a0372f4739b1ab51fd3c1f9055ce49dd1">operator=</a> (<a class="el" href="class_c_s_c_i441_1_1_uniform_buffer_object.html">UniformBufferObject</a> &amp;&amp;) noexcept</td></tr>
 <tr class="memdesc:a0372f4739b1ab51fd3c1f9055ce49dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move Assign an existing UBO.  <br /></td></tr>
 <tr class="separator:a0372f4739b1ab51fd3c1f9055ce49dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82ecc51521c3031a85312446877486d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a82ecc51521c3031a85312446877486d1">UniformBufferObject</a> (const char *UNIFORM_BLOCK_NAME, std::initializer_list&lt; const char * &gt; uniformNamesList)</td></tr>
-<tr class="memdesc:a82ecc51521c3031a85312446877486d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="class_c_s_c_i441_1_1_uniform_buffer_object.html" title="Storage of UBO related data.">UniformBufferObject</a> object.  <br /></td></tr>
-<tr class="separator:a82ecc51521c3031a85312446877486d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8052f1a10d40f46dd49e845f6ecba6ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_uniform_buffer_object.html#a8052f1a10d40f46dd49e845f6ecba6ab">UniformBufferObject</a> (const char *UNIFORM_BLOCK_NAME, const std::initializer_list&lt; const char * &gt; uniformNamesList)</td></tr>
+<tr class="memdesc:a8052f1a10d40f46dd49e845f6ecba6ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="class_c_s_c_i441_1_1_uniform_buffer_object.html" title="Storage of UBO related data.">UniformBufferObject</a> object.  <br /></td></tr>
+<tr class="separator:a8052f1a10d40f46dd49e845f6ecba6ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25509246b1331ac2c1792ee7500e9c01"><td class="memItemLeft" align="right" valign="top"><a id="a25509246b1331ac2c1792ee7500e9c01" name="a25509246b1331ac2c1792ee7500e9c01"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>~UniformBufferObject</b> ()</td></tr>
 <tr class="memdesc:a25509246b1331ac2c1792ee7500e9c01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the UBO from the GPU and frees all memory on the CPU. <br /></td></tr>
@@ -217,11 +217,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>bufferSubData</b> () 
 
 </div>
 </div>
-<a id="a82ecc51521c3031a85312446877486d1" name="a82ecc51521c3031a85312446877486d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82ecc51521c3031a85312446877486d1">&#9670;&#160;</a></span>UniformBufferObject() <span class="overload">[3/3]</span></h2>
+<a id="a8052f1a10d40f46dd49e845f6ecba6ab" name="a8052f1a10d40f46dd49e845f6ecba6ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8052f1a10d40f46dd49e845f6ecba6ab">&#9670;&#160;</a></span>UniformBufferObject() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">CSCI441::UniformBufferObject::UniformBufferObject </td>
@@ -232,7 +235,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>bufferSubData</b> () 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::initializer_list&lt; const char * &gt;&#160;</td>
+          <td class="paramtype">const std::initializer_list&lt; const char * &gt;&#160;</td>
           <td class="paramname"><em>uniformNamesList</em>&#160;</td>
         </tr>
         <tr>
@@ -241,6 +244,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>bufferSubData</b> () 
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Initializes the <a class="el" href="class_c_s_c_i441_1_1_uniform_buffer_object.html" title="Storage of UBO related data.">UniformBufferObject</a> object. </p>

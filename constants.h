@@ -24,11 +24,11 @@ namespace CSCI441 {
     /**
      * @brief library revision version
      */
-    inline constexpr int VERSION_REVISION = 4;
+    inline constexpr int VERSION_REVISION = 5;
     /**
      * @brief library patch version
      */
-    inline constexpr int VERSION_PATCH = 1;
+    inline constexpr int VERSION_PATCH = 0;
 
 #ifdef CSCI441_USE_GLEW
     /**

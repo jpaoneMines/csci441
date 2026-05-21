@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.4.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.5.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -113,8 +113,8 @@ $(function() {
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        FT_Library _ftLibrary;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        FT_Face _fontFace;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        GLint _atlasWidth;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        GLint _atlasHeight;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        GLuint _atlasWidth;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        GLuint _atlasHeight;</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keyword">struct </span>CharacterInfo {</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            GLfloat ax = 0.f;</div>
@@ -157,8 +157,8 @@ $(function() {
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    FT_Set_Pixel_Sizes(_fontFace, 0, 20);</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keyword">const</span> <span class="keyword">auto</span> g = _fontFace-&gt;glyph;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    GLint w = 0;</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    GLint h = 0;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    GLuint w = 0;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    GLuint h = 0;</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 32; i &lt; 128; i++) {</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>      <span class="keywordflow">if</span>(FT_Load_Char(_fontFace, i, FT_LOAD_RENDER)) {</div>
@@ -182,9 +182,9 @@ $(function() {
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, w, h, 0, GL_RED, GL_UNSIGNED_BYTE, 0);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, <span class="keyword">static_cast&lt;</span>GLsizei<span class="keyword">&gt;</span>(w), <span class="keyword">static_cast&lt;</span>GLsizei<span class="keyword">&gt;</span>(h), 0, GL_RED, GL_UNSIGNED_BYTE, <span class="keyword">nullptr</span>);</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    GLint x = 0;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    GLuint x = 0;</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 32; i &lt; 128; i++) {</div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        <span class="keywordflow">if</span>(FT_Load_Char(_fontFace, i, FT_LOAD_RENDER))</div>
@@ -201,7 +201,7 @@ $(function() {
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        _fontCharacters[i].tx = <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(x) / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(w);</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g-&gt;bitmap.width, g-&gt;bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g-&gt;bitmap.buffer);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        glTexSubImage2D(GL_TEXTURE_2D, 0, <span class="keyword">static_cast&lt;</span>GLint<span class="keyword">&gt;</span>(x), 0, <span class="keyword">static_cast&lt;</span>GLint<span class="keyword">&gt;</span>(g-&gt;bitmap.width), <span class="keyword">static_cast&lt;</span>GLint<span class="keyword">&gt;</span>(g-&gt;bitmap.rows), GL_RED, GL_UNSIGNED_BYTE, g-&gt;bitmap.buffer);</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        x += g-&gt;bitmap.width;</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    }</div>
@@ -244,39 +244,42 @@ $(function() {
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        GLfloat y;</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        GLfloat s;</div>
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        GLfloat t;</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    } coords[6 * strlen(str)];</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    GLint n = 0;</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keywordtype">char</span> *p = str; *p; p++) {</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        <span class="keyword">const</span> <span class="keyword">auto</span> characterIndex = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(*p);</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        <span class="keyword">const</span> <span class="keyword">auto</span> character = _fontCharacters[characterIndex];</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keyword">const</span> <span class="keyword">auto</span> x2 =  x + character.bl * _scaleX;</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="keyword">const</span> <span class="keyword">auto</span> y2 = -y - character.bt * _scaleY;</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        <span class="keyword">const</span> <span class="keyword">auto</span> w = character.bw * _scaleX;</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        <span class="keyword">const</span> <span class="keyword">auto</span> h = character.bh * _scaleY;</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        <span class="comment">// Advance the cursor to the start of the next character</span></div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        x += character.ax * _scaleX;</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        y += character.ay * _scaleY;</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        <span class="comment">// Skip glyphs that have no pixels</span></div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        <span class="keywordflow">if</span>(!w || !h)</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        coords[n++] = (FontPoint){x2,     -y2    , character.tx,                                0};</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        coords[n++] = (FontPoint){x2 + w, -y2    , character.tx + character.bw / _atlasWidth,   0};</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        coords[n++] = (FontPoint){x2,     -y2 - h, character.tx,                                character.bh / _atlasHeight}; <span class="comment">//remember: each glyph occupies a different amount of vertical space</span></div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        coords[n++] = (FontPoint){x2 + w, -y2    , character.tx + character.bw / _atlasWidth,   0};</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        coords[n++] = (FontPoint){x2,     -y2 - h, character.tx,                                character.bh / _atlasHeight};</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        coords[n++] = (FontPoint){x2 + w, -y2 - h, character.tx + character.bw / _atlasWidth,   character.bh / _atlasHeight};</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    }</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    glBufferData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>( coords ), coords, GL_DYNAMIC_DRAW);</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    glDrawArrays(GL_TRIANGLES, 0, n);</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>}</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    };</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keyword">const</span> <span class="keyword">auto</span> coords = (FontPoint*)malloc(<span class="keyword">sizeof</span>(FontPoint) * 6 * strlen(str));</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    GLint n = 0;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keywordtype">char</span> *p = str; *p; p++) {</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        <span class="keyword">const</span> <span class="keyword">auto</span> characterIndex = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(*p);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keyword">const</span> <span class="keyword">auto</span> character = _fontCharacters[characterIndex];</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="keyword">const</span> <span class="keyword">auto</span> x2 =  x + character.bl * _scaleX;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        <span class="keyword">const</span> <span class="keyword">auto</span> y2 = -y - character.bt * _scaleY;</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        <span class="keyword">const</span> <span class="keyword">auto</span> w = character.bw * _scaleX;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <span class="keyword">const</span> <span class="keyword">auto</span> h = character.bh * _scaleY;</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        <span class="comment">// Advance the cursor to the start of the next character</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        x += character.ax * _scaleX;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        y += character.ay * _scaleY;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        <span class="comment">// Skip glyphs that have no pixels</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keywordflow">if</span>(w == 0 || h == 0)</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        coords[n++] = (FontPoint){x2,     -y2    , character.tx,                                0};</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        coords[n++] = (FontPoint){x2 + w, -y2    , character.tx + character.bw / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(_atlasWidth),   0};</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        coords[n++] = (FontPoint){x2,     -y2 - h, character.tx,                                character.bh / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(_atlasHeight)}; <span class="comment">//remember: each glyph occupies a different amount of vertical space</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        coords[n++] = (FontPoint){x2 + w, -y2    , character.tx + character.bw / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(_atlasWidth),   0};</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        coords[n++] = (FontPoint){x2,     -y2 - h, character.tx,                                character.bh / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(_atlasHeight)};</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        coords[n++] = (FontPoint){x2 + w, -y2 - h, character.tx + character.bw / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(_atlasWidth),   character.bh / <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(_atlasHeight)};</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    }</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    glBufferData(GL_ARRAY_BUFFER, <span class="keyword">static_cast&lt;</span>GLsizeiptr<span class="keyword">&gt;</span>(<span class="keyword">sizeof</span>(FontPoint) * 6 * strlen(str)), coords, GL_DYNAMIC_DRAW);</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    glDrawArrays(GL_TRIANGLES, 0, n);</div>
 <div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="preprocessor">#endif</span><span class="comment">//CSCI441_FONT_HPP</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    free(coords);</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>}</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="preprocessor">#endif</span><span class="comment">//CSCI441_FONT_HPP</span></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_font_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_font.html">CSCI441::Font</a></div><div class="ttdoc">Stores character glyphs corresponding to a ttf file and draws text to the screen.</div><div class="ttdef"><b>Definition:</b> Font.hpp:19</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_font_html_a10c14fce2ac8682e02f9537cb3ca8814"><div class="ttname"><a href="class_c_s_c_i441_1_1_font.html#a10c14fce2ac8682e02f9537cb3ca8814">CSCI441::Font::isLoaded</a></div><div class="ttdeci">GLboolean isLoaded() const</div><div class="ttdoc">tracks if font file was loaded successfully</div><div class="ttdef"><b>Definition:</b> Font.hpp:40</div></div>
 <div class="ttc" id="aclass_c_s_c_i441_1_1_font_html_a2a902a7591640ea639da0d1b38bd975d"><div class="ttname"><a href="class_c_s_c_i441_1_1_font.html#a2a902a7591640ea639da0d1b38bd975d">CSCI441::Font::~Font</a></div><div class="ttdeci">~Font()</div><div class="ttdoc">cleanup CPU and GPU memory</div><div class="ttdef"><b>Definition:</b> Font.hpp:235</div></div>

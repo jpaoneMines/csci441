@@ -62,7 +62,7 @@ namespace CSCI441 {
          * @param UNIFORM_BLOCK_NAME name of the uniform block
          * @param uniformNamesList list of names that makeup the uniform block components
          */
-        [[maybe_unused]] UniformBufferObject(const char* UNIFORM_BLOCK_NAME, std::initializer_list<const char*> uniformNamesList);
+        [[maybe_unused]] UniformBufferObject(const char* UNIFORM_BLOCK_NAME, const std::initializer_list<const char*> uniformNamesList);
         /**
          * @brief Deletes the UBO from the GPU and frees all memory on the CPU
          */

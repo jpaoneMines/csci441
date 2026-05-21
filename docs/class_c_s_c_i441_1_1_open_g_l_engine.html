@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.4.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.5.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -293,6 +293,8 @@ static void APIENTRY&#160;</td><td class="memItemRight" valign="bottom"><b>mDebu
 <tr class="separator:a9a1c32c14879d39356289d350e010f7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3561ad6dfca7fef3d8eab0c32213d0ec"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a3561ad6dfca7fef3d8eab0c32213d0ec">mWindowResizeCallback</a> (GLFWwindow *pWindow, int width, int height)</td></tr>
 <tr class="separator:a3561ad6dfca7fef3d8eab0c32213d0ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b57563eb503951c0cd29dc22ebb9ee5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_open_g_l_engine.html#a9b57563eb503951c0cd29dc22ebb9ee5">mFramebufferResizeCallback</a> (GLFWwindow *pWindow, int width, int height)</td></tr>
+<tr class="separator:a9b57563eb503951c0cd29dc22ebb9ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -796,6 +798,56 @@ if less than 1/60th of a second has elapsed, increments number of frames rendere
 
 </div>
 </div>
+<a id="a9b57563eb503951c0cd29dc22ebb9ee5" name="a9b57563eb503951c0cd29dc22ebb9ee5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b57563eb503951c0cd29dc22ebb9ee5">&#9670;&#160;</a></span>mFramebufferResizeCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CSCI441::OpenGLEngine::mFramebufferResizeCallback </td>
+          <td>(</td>
+          <td class="paramtype">GLFWwindow *&#160;</td>
+          <td class="paramname"><em>pWindow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>callback called when framebuffer is resized. internally updates mFramebufferWidth and mFramebufferHeight to new values </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pWindow</td><td>pointer to the window that was resized </td></tr>
+    <tr><td class="paramname">width</td><td>new width of the framebuffer </td></tr>
+    <tr><td class="paramname">height</td><td>new height of the framebuffer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ad0dd244f89a9b1302509a348c7e74394" name="ad0dd244f89a9b1302509a348c7e74394"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad0dd244f89a9b1302509a348c7e74394">&#9670;&#160;</a></span>mSetupBuffers()</h2>
 
@@ -1069,7 +1121,7 @@ If overridden, then it is likely that mCleanupTextures should be overridden as w
   </tr>
 </table>
 </div><div class="memdoc">
-<p>callback called when GLFW pWindow is resized. internally updated mWindowWidth and mWindowHeight to new values </p><dl class="params"><dt>Parameters</dt><dd>
+<p>callback called when GLFW pWindow is resized. internally updates mWindowWidth and mWindowHeight to new values </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pWindow</td><td>pointer to the window that was resized </td></tr>
     <tr><td class="paramname">width</td><td>new width of the window </td></tr>
