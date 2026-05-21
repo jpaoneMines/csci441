@@ -2,6 +2,7 @@
 
 ## v ?.?.?.? - ?? ??? ????
 - Using unsigned int consistently
+- Separate Engine window resize and framebuffer resize
 
 ## v 6.0.4.1 - 08 Apr 2026
 - Teapot approximates tangent vectors when partial derivatives are zero to avoid an invalid surface normal

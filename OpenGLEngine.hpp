@@ -338,13 +338,22 @@ namespace CSCI441 {
         }
 
         /**
-         * callback called when GLFW pWindow is resized.  internally updated mWindowWidth and
+         * callback called when GLFW pWindow is resized.  internally updates mWindowWidth and
          * mWindowHeight to new values
          * @param pWindow pointer to the window that was resized
          * @param width new width of the window
          * @param height new height of the window
          */
         static void mWindowResizeCallback(GLFWwindow* pWindow, int width, int height);
+
+        /**
+         * callback called when framebuffer is resized.  internally updates mFramebufferWidth
+         * and mFramebufferHeight to new values
+         * @param pWindow pointer to the window that was resized
+         * @param width new width of the framebuffer
+         * @param height new height of the framebuffer
+         */
+        static void mFramebufferResizeCallback(GLFWwindow* pWindow, int width, int height);
 
         /**
          * @brief Used to setup everything GLFW related.  This includes the OpenGL context
@@ -814,6 +823,7 @@ void CSCI441::OpenGLEngine::mSetupGLFW()
             glfwSetInputMode(mpWindow, GLFW_LOCK_KEY_MODS, GLFW_TRUE);      // track state of Caps Lock and Num Lock keys
             glfwSetWindowUserPointer(mpWindow, (void*)this);
             glfwSetWindowSizeCallback(mpWindow, mWindowResizeCallback);
+            glfwSetFramebufferSizeCallback(mpWindow, mWindowResizeCallback);
         }
     }
 }
@@ -945,10 +955,16 @@ void CSCI441::OpenGLEngine::mWindowResizeCallback(
     pEngine->setCurrentWindowSize(width, height);
     CSCI441::FontUtils::setWindowSize(width, height);
     CSCI441::FontUtils::setFontSize(1.0f / static_cast<GLfloat>(width), 1.0f / static_cast<GLfloat>(height) );
+}
 
-    GLint framebufferWidth, framebufferHeight;
-    glfwGetFramebufferSize( pEngine->getWindow(), &framebufferWidth, &framebufferHeight );
-    pEngine->setCurrentFramebufferSize(framebufferWidth, framebufferHeight);
+inline
+void CSCI441::OpenGLEngine::mFramebufferResizeCallback(
+    GLFWwindow* pWindow,
+    const int width,
+    const int height
+) {
+    const auto pEngine = static_cast<OpenGLEngine *>(glfwGetWindowUserPointer(pWindow));
+    pEngine->setCurrentFramebufferSize(width, height);
 }
 
 inline
