@@ -7,6 +7,8 @@
     #include <glad/gl.h>
 #endif
 
+#include "LogUtils.hpp"
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
@@ -161,12 +163,12 @@ inline CSCI441::Font::Font(const char *filename) :
 {
 
     if(FT_Init_FreeType(&_ftLibrary)) {
-        fprintf(stderr, "[font | ERROR]: Could not init freetype library\n");
+        CSCI441::LogUtils::logError("[font | ERROR]: Could not init freetype library\n");
         return;
     }
 
     if(FT_New_Face(_ftLibrary, filename, 0, &_fontFace)) {
-        fprintf(stderr, "[font | ERROR]: Could not open font\n");
+        CSCI441::LogUtils::logError("[font | ERROR]: Could not open font\n");
         return;
     }
 
@@ -178,7 +180,7 @@ inline CSCI441::Font::Font(const char *filename) :
 
     for(int i = 32; i < 128; i++) {
       if(FT_Load_Char(_fontFace, i, FT_LOAD_RENDER)) {
-        fprintf(stderr, "[font | ERROR]: Loading character %c failed!\n", i);
+        CSCI441::LogUtils::logError("[font | ERROR]: Loading character %c failed!\n", i);
         continue;
       }
 
