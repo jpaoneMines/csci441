@@ -453,7 +453,7 @@ CSCI441::MD5Model::loadMD5Model(
             }
         }
         if( !isAnimated() ) {
-            printf ("[.MD5_ANIM_FILE]: no animation loaded.\n");
+            CSCI441::LogUtils::log("[.MD5_ANIM_FILE]: no animation loaded.\n");
         }
     } else {
         return false;
@@ -477,11 +477,11 @@ CSCI441::MD5Model::readMD5Model(
     GLfloat minX =  999999, minY =  999999, minZ =  999999;
     GLfloat maxX = -999999, maxY = -999999, maxZ = -999999;
 
-    fprintf(stdout, "[.md5mesh]: about to read %s\n", FILENAME );
+    CSCI441::LogUtils::log("[.md5mesh]: about to read %s\n", FILENAME );
 
     FILE *fp = fopen(FILENAME, "rb" );
     if( !fp ) {
-        fprintf (stderr, "[.md5mesh]: Error: couldn't open \"%s\"!\n", FILENAME);
+        CSCI441::LogUtils::logError("[.md5mesh]: Error: couldn't open \"%s\"!\n", FILENAME);
         return false;
     }
 
@@ -492,7 +492,7 @@ CSCI441::MD5Model::readMD5Model(
         if( sscanf(buff, " MD5Version %d", &version) == 1 ) {
             if( version != 10 ) {
                 // Bad version
-                fprintf (stderr, "[.md5mesh]: Error: bad model version\n");
+                CSCI441::LogUtils::logError("[.md5mesh]: Error: bad model version\n");
                 fclose (fp);
                 return false;
             }
@@ -556,7 +556,7 @@ CSCI441::MD5Model::readMD5Model(
                         if (materialIter != _materials.end()) {
                             mesh->shader = materialIter->second;
                         } else {
-                            fprintf(stderr, "[.md5mesh | ERROR]: Could not find material shader \"%s\"\n", shaderName);
+                            CSCI441::LogUtils::logError("[.md5mesh | ERROR]: Could not find material shader \"%s\"\n", shaderName);
                         }
                     }
                 } else if( sscanf(buff, " numverts %d", &mesh->numVertices) == 1 ) {
@@ -632,10 +632,10 @@ CSCI441::MD5Model::readMD5Model(
 
     _skeleton = _baseSkeleton;
 
-    fprintf(stdout, "[.md5mesh]: finished reading %s\n", FILENAME );
-    fprintf(stdout, "[.md5mesh]: read in %d meshes, %d joints, %d vertices, %d weights, and %d triangles\n", _numMeshes, _numJoints, totalVertices, totalWeights, totalTriangles );
-    fprintf(stdout, "[.md5mesh]: base pose %f units across in X, %f units across in Y, %f units across in Z\n", (maxX - minX), (maxY-minY), (maxZ - minZ) );
-    fprintf(stdout, "\n" );
+    CSCI441::LogUtils::log("[.md5mesh]: finished reading %s\n", FILENAME );
+    CSCI441::LogUtils::log("[.md5mesh]: read in %d meshes, %d joints, %d vertices, %d weights, and %d triangles\n", _numMeshes, _numJoints, totalVertices, totalWeights, totalTriangles );
+    CSCI441::LogUtils::log("[.md5mesh]: base pose %f units across in X, %f units across in Y, %f units across in Z\n", (maxX - minX), (maxY-minY), (maxZ - minZ) );
+    CSCI441::LogUtils::log("\n" );
 
     return true;
 }
@@ -776,12 +776,12 @@ CSCI441::MD5Model::_drawMesh(
     const CSCI441_INTERNAL::MD5Mesh *pMESH
 ) const {
     if (pMESH->shader != nullptr) {
-        // fprintf(stdout, "applying shader %s\n", pMESH->shader->name);
+        // CSCI441::LogUtils::log("applying shader %s\n", pMESH->shader->name);
         if (pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::SPECULAR].texHandle != 0) {
             // Bind Specular Map if exists
             glActiveTexture(_specularActiveTexture);
             glBindTexture(GL_TEXTURE_2D, pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::SPECULAR].texHandle );
-            // fprintf(stdout, "bound specular texture %u to %d (%d)\n", pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::SPECULAR].texHandle, _specularActiveTexture, GL_TEXTURE0);
+            // CSCI441::LogUtils::log("bound specular texture %u to %d (%d)\n", pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::SPECULAR].texHandle, _specularActiveTexture, GL_TEXTURE0);
         }
         if (pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::NORMAL].texHandle != 0) {
             // Bind Normal Map if exists
@@ -798,7 +798,7 @@ CSCI441::MD5Model::_drawMesh(
             // Bind Diffuse Map if exists
             glActiveTexture(_diffuseActiveTexture);
             glBindTexture(GL_TEXTURE_2D, pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::DIFFUSE].texHandle );
-            // fprintf(stdout, "bound diffuse texture %u to %d (%d)\n", pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::DIFFUSE].texHandle, _diffuseActiveTexture, GL_TEXTURE0);
+            // CSCI441::LogUtils::log("bound diffuse texture %u to %d (%d)\n", pMESH->shader->textures[CSCI441_INTERNAL::MD5MaterialShader::DIFFUSE].texHandle, _diffuseActiveTexture, GL_TEXTURE0);
         }
         if (_diffuseActiveTexture != GL_TEXTURE0) {
             // reset back to active texture being zero
@@ -856,7 +856,7 @@ CSCI441::MD5Model::allocVertexArrays(
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _vbo[1] );
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(GLuint)) * _maxTriangles * 3, nullptr, GL_DYNAMIC_DRAW );
 
-    printf("[.md5mesh]: Model VAO/VBO/IBO registered at %u/%u/%u\n", _vao, _vbo[0], _vbo[1] );
+    CSCI441::LogUtils::log("[.md5mesh]: Model VAO/VBO/IBO registered at %u/%u/%u\n", _vao, _vbo[0], _vbo[1] );
 
     glGenVertexArrays( 1, &_skeletonVAO );
     glBindVertexArray(_skeletonVAO );
@@ -873,7 +873,7 @@ CSCI441::MD5Model::allocVertexArrays(
         glVertexAttribPointer( vColorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _numJoints * 3) );
     }
 
-    printf("[.md5mesh]: Skeleton VAO/VBO registered at %u/%u\n", _skeletonVAO, _skeletonVBO );
+    CSCI441::LogUtils::log("[.md5mesh]: Skeleton VAO/VBO registered at %u/%u\n", _skeletonVAO, _skeletonVBO );
 }
 
 inline void
@@ -984,11 +984,11 @@ CSCI441::MD5Model::_checkAnimValidity(const GLushort targetAnimationIndex) const
 {
     // md5mesh and md5anim must have the same number of joints
     if( _numJoints != _animations[targetAnimationIndex]->getNumberOfJoints() ) {
-        fprintf(stderr, "[.md5anim | ERROR]: skeleton and animation do not have same number of joints.  cannot apply animation %u to skeleton\n", targetAnimationIndex);
+        CSCI441::LogUtils::logError("[.md5anim | ERROR]: skeleton and animation do not have same number of joints.  cannot apply animation %u to skeleton\n", targetAnimationIndex);
         return false;
     }
     if (_animations[targetAnimationIndex]->getNumberOfJoints() == 0 ) {
-        fprintf(stderr, "[.md5anim | ERROR]: animation has zero joints.  cannot apply animation %u to skeleton\n\n", targetAnimationIndex);
+        CSCI441::LogUtils::logError("[.md5anim | ERROR]: animation has zero joints.  cannot apply animation %u to skeleton\n\n", targetAnimationIndex);
         return false;
     }
 
@@ -996,18 +996,18 @@ CSCI441::MD5Model::_checkAnimValidity(const GLushort targetAnimationIndex) const
     for(GLint i = 0; i < _numJoints; ++i) {
         // Joints must have the same parent index
         if (_baseSkeleton[i].parent != _animations[targetAnimationIndex]->getSkeletonFrameJoint(0, i).parent) {
-            fprintf(stderr, "[.md5anim | ERROR]: skeleton and animation joints do not have same parent index.  cannot apply animation %u to skeleton\n", targetAnimationIndex);
+            CSCI441::LogUtils::logError("[.md5anim | ERROR]: skeleton and animation joints do not have same parent index.  cannot apply animation %u to skeleton\n", targetAnimationIndex);
             return false;
         }
 
         // Joints must have the same name
         if (strcmp (_baseSkeleton[i].name, _animations[targetAnimationIndex]->getSkeletonFrameJoint(0, i).name) != 0) {
-            fprintf(stderr, "[.md5anim | ERROR]: skeleton and animation joints do not have same name.  cannot apply animation %u to skeleton\n", targetAnimationIndex);
+            CSCI441::LogUtils::logError("[.md5anim | ERROR]: skeleton and animation joints do not have same name.  cannot apply animation %u to skeleton\n", targetAnimationIndex);
             return false;
         }
     }
 
-    fprintf(stdout, "[.md5anim]: skeleton and animation match.  animation %u can be applied to skeleton\n", targetAnimationIndex);
+    CSCI441::LogUtils::log("[.md5anim]: skeleton and animation match.  animation %u can be applied to skeleton\n", targetAnimationIndex);
     return true;
 }
 
@@ -1100,8 +1100,8 @@ CSCI441::MD5Model::readMD5Anim(
         const GLushort targetAnimationIndex
 ) {
     if (targetAnimationIndex >= _numAnimations) {
-        fprintf (stderr, "[.md5anim]: Error: target animation index %u is out of range for currently allocated animations (which is %u)\n", targetAnimationIndex, _numAnimations);
-        fprintf (stderr, "[.md5anim]: Hey Developer, if you wish to add an animation to the sequence, use CSCI441::MD5Model::addMD5Anim(const char*)\n");
+        CSCI441::LogUtils::logError("[.md5anim]: Error: target animation index %u is out of range for currently allocated animations (which is %u)\n", targetAnimationIndex, _numAnimations);
+        CSCI441::LogUtils::logError("[.md5anim]: Hey Developer, if you wish to add an animation to the sequence, use CSCI441::MD5Model::addMD5Anim(const char*)\n");
         return false;
     }
 
@@ -1114,11 +1114,11 @@ CSCI441::MD5Model::readMD5Anim(
     GLint frameIndex, numFrames, numJoints;
     GLint i;
 
-    printf( "[.md5anim]: about to read %s into animation %u\n", filename, targetAnimationIndex );
+    CSCI441::LogUtils::log("[.md5anim]: about to read %s into animation %u\n", filename, targetAnimationIndex );
 
     FILE *fp = fopen( filename, "rb" );
     if( !fp ) {
-        fprintf (stderr, "[.md5anim]: Error: couldn't open \"%s\"!\n", filename);
+        CSCI441::LogUtils::logError("[.md5anim]: Error: couldn't open \"%s\"!\n", filename);
         return false;
     }
 
@@ -1129,7 +1129,7 @@ CSCI441::MD5Model::readMD5Anim(
         if( sscanf(buff, " MD5Version %d", &version) == 1 ) {
             if( version != 10 ) {
                 // Bad version
-                fprintf (stderr, "[.md5anim]: Error: bad animation version\n");
+                CSCI441::LogUtils::logError("[.md5anim]: Error: bad animation version\n");
                 fclose (fp);
                 return false;
             }
@@ -1138,7 +1138,7 @@ CSCI441::MD5Model::readMD5Anim(
             _animations[targetAnimationIndex]->setNumberOfFrames(numFrames);
         } else if( sscanf(buff, " numJoints %d", &numJoints) == 1 ) {
             if (jointInfos != nullptr) {
-                fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numJoints already specified\n" );
+                CSCI441::LogUtils::logError("[.md5anim]: Error: md5anim file malformed. numJoints already specified\n" );
             }
             if( numJoints > 0 ) {
                 _animations[targetAnimationIndex]->setNumberOfJoints(numJoints);
@@ -1151,7 +1151,7 @@ CSCI441::MD5Model::readMD5Anim(
 
         } else if( sscanf(buff, " numAnimatedComponents %d", &numAnimatedComponents) == 1 ) {
             if (animFrameData != nullptr) {
-                fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numAnimatedComponents already specified\n" );
+                CSCI441::LogUtils::logError("[.md5anim]: Error: md5anim file malformed. numAnimatedComponents already specified\n" );
             }
             if( numAnimatedComponents > 0 ) {
                 // Allocate memory for animation frame data
@@ -1159,7 +1159,7 @@ CSCI441::MD5Model::readMD5Anim(
             }
         } else if( strncmp(buff, "hierarchy {", 11) == 0 ) {
             if (jointInfos == nullptr) {
-                fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numJoints not specified prior to hierarchy\n" );
+                CSCI441::LogUtils::logError("[.md5anim]: Error: md5anim file malformed. numJoints not specified prior to hierarchy\n" );
             } else {
                 for(i = 0; i < numJoints; ++i) {
                     // Read whole line
@@ -1173,7 +1173,7 @@ CSCI441::MD5Model::readMD5Anim(
             }
         } else if( strncmp(buff, "bounds {", 8) == 0 ) {
             if (_animations[targetAnimationIndex]->getNumberOfFrames() == 0) {
-                fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numFrames not specified prior to bounds\n" );
+                CSCI441::LogUtils::logError("[.md5anim]: Error: md5anim file malformed. numFrames not specified prior to bounds\n" );
             } else {
                 for(i = 0; i < _animations[targetAnimationIndex]->getNumberOfFrames(); ++i) {
                     // Read whole line
@@ -1187,7 +1187,7 @@ CSCI441::MD5Model::readMD5Anim(
             }
         } else if( strncmp(buff, "baseframe {", 10) == 0 ) {
             if (baseFrame == nullptr) {
-                fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numJoints not specified prior to baseframe\n" );
+                CSCI441::LogUtils::logError("[.md5anim]: Error: md5anim file malformed. numJoints not specified prior to baseframe\n" );
             } else {
                 for(i = 0; i < numJoints; ++i) {
                     // Read whole line
@@ -1204,13 +1204,13 @@ CSCI441::MD5Model::readMD5Anim(
             }
         } else if(sscanf(buff, " frame %d", &frameIndex) == 1 ) {
             if (animFrameData == nullptr) {
-                fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numAnimatedComponents not specified prior to frame\n" );
+                CSCI441::LogUtils::logError("[.md5anim]: Error: md5anim file malformed. numAnimatedComponents not specified prior to frame\n" );
             } else if (_animations[targetAnimationIndex]->getNumberOfFrames() == 0) {
-                fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numFrames not specified prior to frame\n" );
+                CSCI441::LogUtils::logError("[.md5anim]: Error: md5anim file malformed. numFrames not specified prior to frame\n" );
             } else if (baseFrame == nullptr) {
-                fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. baseframe not specified prior to frame\n" );
+                CSCI441::LogUtils::logError("[.md5anim]: Error: md5anim file malformed. baseframe not specified prior to frame\n" );
             } else if (jointInfos == nullptr) {
-                fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numJoints not specified prior to frame\n" );
+                CSCI441::LogUtils::logError("[.md5anim]: Error: md5anim file malformed. numJoints not specified prior to frame\n" );
             } else {
                 // Read frame data
                 for(i = 0; i < numAnimatedComponents; ++i)
@@ -1226,9 +1226,9 @@ CSCI441::MD5Model::readMD5Anim(
 
     fclose( fp );
 
-    printf( "[.md5anim]: finished reading %s into animation %u\n", filename, targetAnimationIndex );
-    printf( "[.md5anim]: read in %d frames of %d joints with %d animated components\n", _animations[targetAnimationIndex]->getNumberOfFrames(), _animations[targetAnimationIndex]->getNumberOfJoints(), numAnimatedComponents );
-    printf( "[.md5anim]: animation's frame rate is %d\n", _animations[targetAnimationIndex]->frameRate );
+    CSCI441::LogUtils::log("[.md5anim]: finished reading %s into animation %u\n", filename, targetAnimationIndex );
+    CSCI441::LogUtils::log("[.md5anim]: read in %d frames of %d joints with %d animated components\n", _animations[targetAnimationIndex]->getNumberOfFrames(), _animations[targetAnimationIndex]->getNumberOfJoints(), numAnimatedComponents );
+    CSCI441::LogUtils::log("[.md5anim]: animation's frame rate is %d\n", _animations[targetAnimationIndex]->frameRate );
 
     // Free temporary data allocated
     delete[] animFrameData;
@@ -1244,7 +1244,7 @@ CSCI441::MD5Model::readMD5Anim(
 
     // Allocate memory for animated _skeleton
     if (_animations[targetAnimationIndex]->getNumberOfJoints() == 0) {
-        fprintf( stderr, "[.md5anim]: Error: md5anim file malformed. numJoints never specified\n" );
+        CSCI441::LogUtils::logError("[.md5anim]: Error: md5anim file malformed. numJoints never specified\n" );
     } else {
         _skeleton = new CSCI441_INTERNAL::MD5Joint[_animations[targetAnimationIndex]->getNumberOfJoints()];
     }
@@ -1281,13 +1281,13 @@ CSCI441::MD5Model::addMD5Anim(
     _numAnimations++;
 
     // read animation into new array position
-    fprintf( stdout, "\n[.md5anim]: preparing to read %s into new animation %u\n", filename, (_numAnimations-1) );
+    CSCI441::LogUtils::log("\n[.md5anim]: preparing to read %s into new animation %u\n", filename, (_numAnimations-1) );
     const bool readSuccess = readMD5Anim(filename, _numAnimations - 1);
 
     if (readSuccess) {
-        fprintf( stdout, "[.md5anim]: successfully read %s into new animation %u\n", filename, (_numAnimations-1) );
+        CSCI441::LogUtils::log("[.md5anim]: successfully read %s into new animation %u\n", filename, (_numAnimations-1) );
     } else {
-        fprintf( stderr, "[.md5anim]: Error: could not read %s into new animation %u\n", filename, (_numAnimations-1) );
+        CSCI441::LogUtils::logError("[.md5anim]: Error: could not read %s into new animation %u\n", filename, (_numAnimations-1) );
 
         // undo array growth
         newAnimations = new CSCI441_INTERNAL::MD5Animation*[_numAnimations-1];
@@ -1490,7 +1490,7 @@ inline bool CSCI441::MD5Model::_registerShaderTexture(CSCI441_INTERNAL::MD5Textu
         texture->texHandle = CSCI441::TextureUtils::loadAndRegisterTexture( texture->filename, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT, GL_FALSE, GL_FALSE, GL_TRUE);
         if( texture->texHandle == 0 ) {
             // silently failing to avoid many unnecessary error messages
-            //fprintf(stderr, "[.md5mtr | ERROR]: Could not load diffuse map %s for shader %s\n", shader->textures[MD5MaterialShader::TextureMap::DIFFUSE].filename, shader->shader);
+            //CSCI441::LogUtils::logError("[.md5mtr | ERROR]: Could not load diffuse map %s for shader %s\n", shader->textures[MD5MaterialShader::TextureMap::DIFFUSE].filename, shader->shader);
         } else {
             // only display successes which likely refer to what we are using
             _textureMap.insert( std::pair( texture->filename, texture->texHandle) );
@@ -1507,14 +1507,14 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
     char buff[512], buff2[512];
     GLushort numTextures = 0;
 
-    fprintf(stdout, "\n[.md5mtr]: about to read %s\n", FILENAME );
+    CSCI441::LogUtils::log("\n[.md5mtr]: about to read %s\n", FILENAME );
 
     std::string path = PATH;
     if (path.back() != '/') path += "/";
     const std::string filename = path + FILENAME;
     FILE *fp = fopen(filename.c_str(), "rb" );
     if( !fp ) {
-        fprintf (stderr, "[.md5mtr]: Error: couldn't open \"%s\"!\n", filename.c_str());
+        CSCI441::LogUtils::logError("[.md5mtr]: Error: couldn't open \"%s\"!\n", filename.c_str());
         return;
     }
 
@@ -1525,18 +1525,18 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
         _trim(buff, sizeof(buff), buff);
 
         if( sscanf(buff, "table %s", buff2) == 1 ) {
-            // fprintf(stdout, "[.md5mtr]: ignoring table line\n");
+            // CSCI441::LogUtils::log("[.md5mtr]: ignoring table line\n");
         } else if ( sscanf(buff, "//%s", buff2) == 1 ) {
-            // fprintf(stdout, "[.md5mtr]: ignoring comment\n");
+            // CSCI441::LogUtils::log("[.md5mtr]: ignoring comment\n");
         } else if (strnlen(buff, sizeof(buff)) == 0) {
-            // fprintf(stdout, "[.md5mtr]: ignoring empty line\n");
+            // CSCI441::LogUtils::log("[.md5mtr]: ignoring empty line\n");
         } else {
             // assuming this begins a shader
             auto shader = new CSCI441_INTERNAL::MD5MaterialShader();
 
             strncpy(shader->name, buff, CSCI441_INTERNAL::MD5MaterialShader::MAX_NAME_LENGTH);
             shader->name[ strlen(buff) ] = '\0';
-            // fprintf(stdout, "[.md5mtr]: parsing shader \"%s\"\n", shader->shader);
+            // CSCI441::LogUtils::log("[.md5mtr]: parsing shader \"%s\"\n", shader->shader);
 
             unsigned short numBlocks = 0;
 
@@ -1549,7 +1549,7 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
                     ++numBlocks;
                 }
                 else if (sscanf(buff, " diffusemap %s", buff2) == 1) {
-                    // fprintf(stdout, "[.md5mtr]: attempting to read diffusemap %s\n", buff2);
+                    // CSCI441::LogUtils::log("[.md5mtr]: attempting to read diffusemap %s\n", buff2);
                     strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
                     shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].filename[ path.length() ] = '\0';
                     strncat( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::DIFFUSE].filename, buff2, CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
@@ -1558,7 +1558,7 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
                     }
                 }
                 else if (sscanf(buff, " specularmap %s", buff2) == 1) {
-                    // fprintf(stdout, "[.md5mtr]: attempting to read specularmap %s\n", buff2);
+                    // CSCI441::LogUtils::log("[.md5mtr]: attempting to read specularmap %s\n", buff2);
                     strncpy( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].filename, path.c_str(), CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
                     shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].filename[ path.length() ] = '\0';
                     strncat( shader->textures[CSCI441_INTERNAL::MD5MaterialShader::TextureMap::SPECULAR].filename, buff2, CSCI441_INTERNAL::MD5Texture::MAX_NAME_LENGTH );
@@ -1568,7 +1568,7 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
                 }
                 // make sure getting top level shader bumpmap
                 else if (numBlocks == 1 && sscanf(buff, " bumpmap %s", buff2) == 1) {
-                    // fprintf(stdout, "[.md5mtr]: attempting to read bumpmap line \"%s\"\n", buff);
+                    // CSCI441::LogUtils::log("[.md5mtr]: attempting to read bumpmap line \"%s\"\n", buff);
                     // tokenize string
                     std::vector< char* > tokens;
                     char* pch = strtok(buff, " \t(),");
@@ -1576,7 +1576,7 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
                         tokens.push_back( pch );
                         pch = strtok(NULL, " \t(),");
                     }
-                    // fprintf(stdout, "[.md5mtr]: found %lu tokens\n", tokens.size());
+                    // CSCI441::LogUtils::log("[.md5mtr]: found %lu tokens\n", tokens.size());
                     // line is formatted: bumpmap normalTxtr
                     // normal map texture filename is in tokens[1]
                     if (tokens.size() == 2) {
@@ -1633,8 +1633,8 @@ CSCI441::MD5Model::readMD5Material(const char *FILENAME, const char* PATH) {
     }
     fclose(fp);
 
-    fprintf(stdout, "[.md5mtr]: finished reading %s\n", FILENAME );
-    fprintf(stdout, "[.md5mtr]: read in %lu shaders and %u textures\n\n", _materials.size(), numTextures );
+    CSCI441::LogUtils::log("[.md5mtr]: finished reading %s\n", FILENAME );
+    CSCI441::LogUtils::log("[.md5mtr]: read in %lu shaders and %u textures\n\n", _materials.size(), numTextures );
 }
 
 inline void
