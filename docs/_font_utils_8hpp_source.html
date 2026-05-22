@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.5.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.1.0.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -164,7 +164,7 @@ $(function() {
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        glUseProgram( CSCI441_INTERNAL::FontUtils::fontShaderHandle );</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        CSCI441_INTERNAL::FontUtils::currentFont-&gt;bind();</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        fprintf(stderr, <span class="stringliteral">&quot;[FontUtil | ERROR]: bindFont() called without loading a font.  Call loadFont() first\n&quot;</span>);</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a6ac38d53e243a22719c2f241352568aa">CSCI441::LogUtils::logError</a>(<span class="stringliteral">&quot;[FontUtil | ERROR]: bindFont() called without loading a font.  Call loadFont() first\n&quot;</span>);</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    }</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>}</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
@@ -202,7 +202,7 @@ $(function() {
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            CSCI441_INTERNAL::FontUtils::currentFont-&gt;draw(str, normalizedX, normalizedY);</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        }</div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        fprintf(stderr, <span class="stringliteral">&quot;[FontUtil | ERROR]: renderText() called without loading a font.  Call loadFont() first and then bindFont()\n&quot;</span>);</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a6ac38d53e243a22719c2f241352568aa">CSCI441::LogUtils::logError</a>(<span class="stringliteral">&quot;[FontUtil | ERROR]: renderText() called without loading a font.  Call loadFont() first and then bindFont()\n&quot;</span>);</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    }</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>}</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
@@ -272,7 +272,7 @@ $(function() {
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="preprocessor">#endif</span><span class="comment">//CSCI441_FONT_UTILS_HPP</span></div>
 <div class="ttc" id="a_shader_program_8hpp_html"><div class="ttname"><a href="_shader_program_8hpp.html">ShaderProgram.hpp</a></div><div class="ttdoc">Class to work with OpenGL 4.0+ Shaders.</div></div>
-<div class="ttc" id="aclass_c_s_c_i441_1_1_font_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_font.html">CSCI441::Font</a></div><div class="ttdoc">Stores character glyphs corresponding to a ttf file and draws text to the screen.</div><div class="ttdef"><b>Definition:</b> Font.hpp:19</div></div>
+<div class="ttc" id="aclass_c_s_c_i441_1_1_font_html"><div class="ttname"><a href="class_c_s_c_i441_1_1_font.html">CSCI441::Font</a></div><div class="ttdoc">Stores character glyphs corresponding to a ttf file and draws text to the screen.</div><div class="ttdef"><b>Definition:</b> Font.hpp:21</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_1_1_font_utils_html_a220cb982477ea36c3f28a82ff66ca651"><div class="ttname"><a href="namespace_c_s_c_i441_1_1_font_utils.html#a220cb982477ea36c3f28a82ff66ca651">CSCI441::FontUtils::renderText</a></div><div class="ttdeci">void renderText(const char *str, GLfloat x, GLfloat y)</div><div class="ttdoc">draws the given text starting at the top left (x, y) coordinate specified</div><div class="ttdef"><b>Definition:</b> FontUtils.hpp:187</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_1_1_font_utils_html_a9a6c339739f50acee6cf029bb4d73770"><div class="ttname"><a href="namespace_c_s_c_i441_1_1_font_utils.html#a9a6c339739f50acee6cf029bb4d73770">CSCI441::FontUtils::setFontSize</a></div><div class="ttdeci">void setFontSize(GLfloat scaleX, GLfloat scaleY)</div><div class="ttdoc">set the amount to scale font when drawing</div><div class="ttdef"><b>Definition:</b> FontUtils.hpp:180</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_1_1_font_utils_html_aa0bfd1c6b67da0370169432a0b53c9a0"><div class="ttname"><a href="namespace_c_s_c_i441_1_1_font_utils.html#aa0bfd1c6b67da0370169432a0b53c9a0">CSCI441::FontUtils::setColor</a></div><div class="ttdeci">void setColor(glm::vec3 color)</div><div class="ttdoc">specify the color to render the text</div><div class="ttdef"><b>Definition:</b> FontUtils.hpp:163</div></div>
@@ -280,6 +280,7 @@ $(function() {
 <div class="ttc" id="anamespace_c_s_c_i441_1_1_font_utils_html_ae43828b8cd012c7bd87e532c002d1e02"><div class="ttname"><a href="namespace_c_s_c_i441_1_1_font_utils.html#ae43828b8cd012c7bd87e532c002d1e02">CSCI441::FontUtils::releaseFont</a></div><div class="ttdeci">void releaseFont()</div><div class="ttdoc">deallocates CPU and GPU memory related to text rendering</div><div class="ttdef"><b>Definition:</b> FontUtils.hpp:146</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_1_1_font_utils_html_ae8805306d5ad1ea977a080ae36caeeea"><div class="ttname"><a href="namespace_c_s_c_i441_1_1_font_utils.html#ae8805306d5ad1ea977a080ae36caeeea">CSCI441::FontUtils::bindFont</a></div><div class="ttdeci">void bindFont()</div><div class="ttdoc">sets all necessary font contexts</div><div class="ttdef"><b>Definition:</b> FontUtils.hpp:154</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_1_1_font_utils_html_afe985192e010f192a1e1d745dde93faf"><div class="ttname"><a href="namespace_c_s_c_i441_1_1_font_utils.html#afe985192e010f192a1e1d745dde93faf">CSCI441::FontUtils::setWindowSize</a></div><div class="ttdeci">void setWindowSize(GLint width, GLint height)</div><div class="ttdoc">store the size of the window</div><div class="ttdef"><b>Definition:</b> FontUtils.hpp:172</div></div>
+<div class="ttc" id="anamespace_c_s_c_i441_1_1_log_utils_html_a6ac38d53e243a22719c2f241352568aa"><div class="ttname"><a href="namespace_c_s_c_i441_1_1_log_utils.html#a6ac38d53e243a22719c2f241352568aa">CSCI441::LogUtils::logError</a></div><div class="ttdeci">void logError(const char *MSG,...)</div><div class="ttdoc">log a message to both the standard error stream and file</div><div class="ttdef"><b>Definition:</b> LogUtils.hpp:128</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

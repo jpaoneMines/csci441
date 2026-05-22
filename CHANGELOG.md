@@ -1,5 +1,8 @@
 # Revision History
 
+## v 6.1.0.0 - 22 May 2026
+- All logging can go to terminal and save to file for review after program completion
+
 ## v 6.0.5.0 - 21 May 2026
 - Using unsigned int consistently
 - Separate Engine window resize and framebuffer resize

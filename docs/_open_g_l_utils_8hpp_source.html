@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.5.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.1.0.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -78,16 +78,16 @@ $(function() {
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#define CSCI441_OPENGL_UTILS_H</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;constants.h&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#ifdef CSCI441_USE_GLEW</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">    #include &lt;GL/glew.h&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">    #include &lt;glad/gl.h&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;cstdio&gt;</span>      <span class="comment">// for printf()</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;LogUtils.hpp&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#ifdef CSCI441_USE_GLEW</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">    #include &lt;GL/glew.h&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">    #include &lt;glad/gl.h&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;cstdlib&gt;</span>     <span class="comment">// for atoi()</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">//**********************************************************************************</span></div>
@@ -141,14 +141,14 @@ $(function() {
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    glGetIntegerv(GL_MINOR_VERSION, &amp;minor);</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    glGetIntegerv(GL_NUM_EXTENSIONS, &amp;numExtensions);</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    fprintf( stdout, <span class="stringliteral">&quot;\n[INFO]: /--------------------------------------------------------\\\n&quot;</span> );</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    fprintf( stdout, <span class="stringliteral">&quot;[INFO]: | OpenGL Information                                     |\n&quot;</span> );</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    fprintf( stdout, <span class="stringliteral">&quot;[INFO]: |--------------------------------------------------------|\n&quot;</span> );</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    fprintf( stdout, <span class="stringliteral">&quot;[INFO]: |   OpenGL Version:  %35s |\n&quot;</span>, glGetString(GL_VERSION) );</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    fprintf( stdout, <span class="stringliteral">&quot;[INFO]: |   OpenGL Renderer: %35s |\n&quot;</span>, glGetString(GL_RENDERER) );</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    fprintf( stdout, <span class="stringliteral">&quot;[INFO]: |   OpenGL Vendor:   %35s |\n&quot;</span>, glGetString(GL_VENDOR) );</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    fprintf( stdout, <span class="stringliteral">&quot;[INFO]: |   Shading Version: %35s |\n&quot;</span>, glGetString(GL_SHADING_LANGUAGE_VERSION) );</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    fprintf( stdout, <span class="stringliteral">&quot;[INFO]: |   Number of Extensions: %30d |\n&quot;</span>, numExtensions );</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;\n[INFO]: /--------------------------------------------------------\\\n&quot;</span> );</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: | OpenGL Information                                     |\n&quot;</span> );</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: |--------------------------------------------------------|\n&quot;</span> );</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: |   OpenGL Version:  %35s |\n&quot;</span>, glGetString(GL_VERSION) );</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: |   OpenGL Renderer: %35s |\n&quot;</span>, glGetString(GL_RENDERER) );</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: |   OpenGL Vendor:   %35s |\n&quot;</span>, glGetString(GL_VENDOR) );</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: |   Shading Version: %35s |\n&quot;</span>, glGetString(GL_SHADING_LANGUAGE_VERSION) );</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: |   Number of Extensions: %30d |\n&quot;</span>, numExtensions );</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordflow">if</span>( (major &gt;= 2 &amp;&amp; minor &gt;= 0) || major &gt; 2 ) {</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        CSCI441_INTERNAL::printOpenGLParamHeader( 2, 0 );</div>
@@ -272,7 +272,7 @@ $(function() {
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        CSCI441_INTERNAL::printOpenGLParam( <span class="stringliteral">&quot;[INFO]: |   Max # Combined Shader Output Resources:  %11d |\n&quot;</span>,            GL_MAX_COMBINED_SHADER_OUTPUT_RESOURCES );</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    }</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    fprintf( stdout, <span class="stringliteral">&quot;[INFO]: \\--------------------------------------------------------/\n\n&quot;</span>);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: \\--------------------------------------------------------/\n\n&quot;</span>);</div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>}</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>[[maybe_unused]]</div>
@@ -280,9 +280,9 @@ $(function() {
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    GLint numExtensions = 0;</div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    glGetIntegerv(GL_NUM_EXTENSIONS, &amp;numExtensions);</div>
 <div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    fprintf( stdout, <span class="stringliteral">&quot;[INFO]: Number of Extensions: %4d\n&quot;</span>, numExtensions );</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: Number of Extensions: %4d\n&quot;</span>, numExtensions );</div>
 <div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; numExtensions; i++) {</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        fprintf( stdout, <span class="stringliteral">&quot;[INFO]: Extension #%3d: %s \n&quot;</span>, (i+1), glGetStringi(GL_EXTENSIONS, i) );</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: Extension #%3d: %s \n&quot;</span>, (i+1), glGetStringi(GL_EXTENSIONS, i) );</div>
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    }</div>
 <div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>}</div>
 <div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
@@ -290,7 +290,7 @@ $(function() {
 <div class="line"><a id="l00295" name="l00295"></a><span class="lineno"><a class="line" href="_open_g_l_utils_8hpp.html#a7b1ecd78df9b83592a9eaf7edfa53c50">  295</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_open_g_l_utils_8hpp.html#a7b1ecd78df9b83592a9eaf7edfa53c50">CSCI441::OpenGLUtils::checkOpenGLErrors</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> str) {</div>
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    GLenum err;</div>
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <span class="keywordflow">while</span>( (err = glGetError()) != GL_NO_ERROR ) {</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        fprintf( stderr, <span class="stringliteral">&quot;[ERROR %s]: OpenGL Error (%d): %s\n&quot;</span>, str, err, <a class="code hl_function" href="_open_g_l_utils_8hpp.html#a1473b4a80cac441807ed56deb1cebce9">CSCI441::OpenGLUtils::openGLErrorMessage</a>(err) );</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a6ac38d53e243a22719c2f241352568aa">CSCI441::LogUtils::logError</a>( <span class="stringliteral">&quot;[ERROR %s]: OpenGL Error (%d): %s\n&quot;</span>, str, err, <a class="code hl_function" href="_open_g_l_utils_8hpp.html#a1473b4a80cac441807ed56deb1cebce9">CSCI441::OpenGLUtils::openGLErrorMessage</a>(err) );</div>
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    }</div>
 <div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>}</div>
 <div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
@@ -354,46 +354,46 @@ $(function() {
 <div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span><span class="comment">// Internal function implementations</span></div>
 <div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span> </div>
 <div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::printOpenGLParamHeader( <span class="keyword">const</span> <span class="keywordtype">int</span> MAJOR, <span class="keyword">const</span> <span class="keywordtype">int</span> MINOR ) {</div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    fprintf( stdout, <span class="stringliteral">&quot;[INFO]: &gt;--------------------------------------------------------&lt;\n&quot;</span> );</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    fprintf( stdout, <span class="stringliteral">&quot;[INFO]: | OpenGL %d.%d Settings                                    |\n&quot;</span>, MAJOR, MINOR );</div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    fprintf( stdout, <span class="stringliteral">&quot;[INFO]: |--------------------------------------------------------|\n&quot;</span> );</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: &gt;--------------------------------------------------------&lt;\n&quot;</span> );</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: | OpenGL %d.%d Settings                                    |\n&quot;</span>, MAJOR, MINOR );</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: |--------------------------------------------------------|\n&quot;</span> );</div>
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>}</div>
 <div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
 <div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::printOpenGLParamIndexed(<span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> FORMAT, <span class="keyword">const</span> GLenum name, <span class="keyword">const</span> GLuint index ) {</div>
 <div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    GLint value = 0;</div>
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    glGetIntegeri_v( name, index, &amp;value );</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    fprintf(stdout, FORMAT, value );</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(FORMAT, value );</div>
 <div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>}</div>
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span> </div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::printOpenGLParam(<span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> FORMAT, <span class="keyword">const</span> GLenum name ) {</div>
 <div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    GLint value = 0;</div>
 <div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    glGetIntegerv( name, &amp;value );</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    fprintf(stdout, FORMAT, value );</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(FORMAT, value );</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>}</div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::printOpenGLParam2(<span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> FORMAT, <span class="keyword">const</span> GLenum name ) {</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    GLint values[2] = {0,0};</div>
 <div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    glGetIntegerv( name, values );</div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    fprintf(stdout, FORMAT, values[0], values[1] );</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(FORMAT, values[0], values[1] );</div>
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>}</div>
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span> </div>
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::printOpenGLParam2f(<span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> FORMAT, <span class="keyword">const</span> GLenum name ) {</div>
 <div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    GLfloat values[2] = {0,0};</div>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    glGetFloatv( name, values );</div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>    fprintf(stdout, FORMAT, values[0], values[1] );</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(FORMAT, values[0], values[1] );</div>
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>}</div>
 <div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span> </div>
 <div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>[[maybe_unused]]</div>
 <div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::printOpenGLParam3(<span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> FORMAT, <span class="keyword">const</span> GLenum name ) {</div>
 <div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    GLint values[3] = {0,0,0};</div>
 <div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>    glGetIntegerv( name, values );</div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>    fprintf(stdout, FORMAT, values[0], values[1], values[2] );</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(FORMAT, values[0], values[1], values[2] );</div>
 <div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>}</div>
 <div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span> </div>
 <div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span><span class="keyword">inline</span> <span class="keywordtype">void</span> CSCI441_INTERNAL::printOpenGLParam4(<span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> FORMAT, <span class="keyword">const</span> GLenum name ) {</div>
 <div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>    GLint values[4] = {0,0,0,0};</div>
 <div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>    glGetIntegerv( name, values );</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>    fprintf(stdout, FORMAT, values[0], values[1], values[2], values[3] );</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(FORMAT, values[0], values[1], values[2], values[3] );</div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>}</div>
 <div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span> </div>
 <div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_OPENGL_UTILS_H</span></div>
@@ -404,6 +404,8 @@ $(function() {
 <div class="ttc" id="a_open_g_l_utils_8hpp_html_a854077564452ce02c385eba5f33f4d3c"><div class="ttname"><a href="_open_g_l_utils_8hpp.html#a854077564452ce02c385eba5f33f4d3c">CSCI441::OpenGLUtils::printOpenGLExtensions</a></div><div class="ttdeci">void printOpenGLExtensions()</div><div class="ttdoc">Prints the list of available extensions.</div><div class="ttdef"><b>Definition:</b> OpenGLUtils.hpp:284</div></div>
 <div class="ttc" id="a_open_g_l_utils_8hpp_html_aaef31c6765378095215ac30cb21e7f50"><div class="ttname"><a href="_open_g_l_utils_8hpp.html#aaef31c6765378095215ac30cb21e7f50">CSCI441::OpenGLUtils::debugTypeToString</a></div><div class="ttdeci">const char * debugTypeToString(GLenum type)</div><div class="ttdoc">Converts debug type value to string representation.</div><div class="ttdef"><b>Definition:</b> OpenGLUtils.hpp:331</div></div>
 <div class="ttc" id="a_open_g_l_utils_8hpp_html_abfc76f732258a960339ba703c1ff6367"><div class="ttname"><a href="_open_g_l_utils_8hpp.html#abfc76f732258a960339ba703c1ff6367">CSCI441::OpenGLUtils::debugSourceToString</a></div><div class="ttdeci">const char * debugSourceToString(GLenum source)</div><div class="ttdoc">Converts debug source value to string representation.</div><div class="ttdef"><b>Definition:</b> OpenGLUtils.hpp:318</div></div>
+<div class="ttc" id="anamespace_c_s_c_i441_1_1_log_utils_html_a0ec198d1f04685aba60dc082cb8435af"><div class="ttname"><a href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a></div><div class="ttdeci">void log(const char *MSG,...)</div><div class="ttdoc">log a message to both the standard output stream and file</div><div class="ttdef"><b>Definition:</b> LogUtils.hpp:116</div></div>
+<div class="ttc" id="anamespace_c_s_c_i441_1_1_log_utils_html_a6ac38d53e243a22719c2f241352568aa"><div class="ttname"><a href="namespace_c_s_c_i441_1_1_log_utils.html#a6ac38d53e243a22719c2f241352568aa">CSCI441::LogUtils::logError</a></div><div class="ttdeci">void logError(const char *MSG,...)</div><div class="ttdoc">log a message to both the standard error stream and file</div><div class="ttdef"><b>Definition:</b> LogUtils.hpp:128</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html"><div class="ttname"><a href="namespace_c_s_c_i441.html">CSCI441</a></div><div class="ttdoc">CSCI441 Helper Functions for OpenGL.</div><div class="ttdef"><b>Definition:</b> ArcballCam.hpp:17</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html_a33c952a4ee39d55abf8907424c314de8"><div class="ttname"><a href="namespace_c_s_c_i441.html#a33c952a4ee39d55abf8907424c314de8">CSCI441::X_AXIS</a></div><div class="ttdeci">constexpr glm::vec3 X_AXIS(1.0f, 0.0f, 0.0f)</div><div class="ttdoc">constant for positive X_AXIS</div></div>
 <div class="ttc" id="anamespace_c_s_c_i441_html_a828b09e7db41aaa5458230683a7c189c"><div class="ttname"><a href="namespace_c_s_c_i441.html#a828b09e7db41aaa5458230683a7c189c">CSCI441::Y_AXIS_NEG</a></div><div class="ttdeci">constexpr glm::vec3 Y_AXIS_NEG(0.0f, -1.0f, 0.0f)</div><div class="ttdoc">constant for negative Y_AXIS</div></div>

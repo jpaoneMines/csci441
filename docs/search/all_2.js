@@ -19,5 +19,6 @@ var searchData=
   ['csci441_2ehpp_16',['CSCI441.hpp',['../_c_s_c_i441_8hpp.html',1,'']]],
   ['cyan_5fplastic_17',['CYAN_PLASTIC',['../materials_8hpp.html#ae396f9bfb43c81e7c59c93c8fb3a0b92',1,'CSCI441::Materials']]],
   ['cyan_5frubber_18',['CYAN_RUBBER',['../materials_8hpp.html#ad4a660bd78221debed6fb7719d49fbf0',1,'CSCI441::Materials']]],
-  ['fontutils_19',['FontUtils',['../namespace_c_s_c_i441_1_1_font_utils.html',1,'CSCI441']]]
+  ['fontutils_19',['FontUtils',['../namespace_c_s_c_i441_1_1_font_utils.html',1,'CSCI441']]],
+  ['logutils_20',['LogUtils',['../namespace_c_s_c_i441_1_1_log_utils.html',1,'CSCI441']]]
 ];

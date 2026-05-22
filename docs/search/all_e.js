@@ -10,11 +10,12 @@ var searchData=
   ['releasefont_7',['releaseFont',['../namespace_c_s_c_i441_1_1_font_utils.html#ae43828b8cd012c7bd87e532c002d1e02',1,'CSCI441::FontUtils']]],
   ['releasemd5materials_8',['releaseMD5Materials',['../class_c_s_c_i441_1_1_m_d5_model.html#af1a582788b43e3b7689aeef03b2edda2',1,'CSCI441::MD5Model']]],
   ['rendertext_9',['renderText',['../namespace_c_s_c_i441_1_1_font_utils.html#a220cb982477ea36c3f28a82ff66ca651',1,'CSCI441::FontUtils']]],
-  ['resettransformationmatrix_10',['resetTransformationMatrix',['../_simple_shader_8hpp.html#a681036a52d58f3cc9381ebe9c6b1c3f6',1,'CSCI441::SimpleShader2::resetTransformationMatrix()'],['../_simple_shader_8hpp.html#a8b806aac138bb83636eb6b20014500d8',1,'CSCI441::SimpleShader3::resetTransformationMatrix()']]],
-  ['revision_20history_11',['Revision History',['../md__c_h_a_n_g_e_l_o_g.html',1,'']]],
-  ['rotate_12',['rotate',['../class_c_s_c_i441_1_1_camera.html#aefb6d39b085ffa3ab185048c91bab056',1,'CSCI441::Camera']]],
-  ['ruby_13',['RUBY',['../materials_8hpp.html#a3a968142bfccc191356cde18b511286b',1,'CSCI441::Materials']]],
-  ['run_14',['run',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a91a8498d1ab372a8d312720aa6df43f6',1,'CSCI441::OpenGLEngine']]],
-  ['run_5fall_5fcuts_15',['RUN_ALL_CUTS',['../class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a905bc554516ac7f6cadc1a7be1dcde7c',1,'CSCI441::MD5Camera']]],
-  ['run_5fsingle_5fcut_16',['RUN_SINGLE_CUT',['../class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a9b5fd92989ade47ee9e52de123b5fa4f',1,'CSCI441::MD5Camera']]]
+  ['resetlogfile_10',['resetLogFile',['../namespace_c_s_c_i441_1_1_log_utils.html#a34f81687e650c149c8b48c2c34b15ca0',1,'CSCI441::LogUtils']]],
+  ['resettransformationmatrix_11',['resetTransformationMatrix',['../_simple_shader_8hpp.html#a681036a52d58f3cc9381ebe9c6b1c3f6',1,'CSCI441::SimpleShader2::resetTransformationMatrix()'],['../_simple_shader_8hpp.html#a8b806aac138bb83636eb6b20014500d8',1,'CSCI441::SimpleShader3::resetTransformationMatrix()']]],
+  ['revision_20history_12',['Revision History',['../md__c_h_a_n_g_e_l_o_g.html',1,'']]],
+  ['rotate_13',['rotate',['../class_c_s_c_i441_1_1_camera.html#aefb6d39b085ffa3ab185048c91bab056',1,'CSCI441::Camera']]],
+  ['ruby_14',['RUBY',['../materials_8hpp.html#a3a968142bfccc191356cde18b511286b',1,'CSCI441::Materials']]],
+  ['run_15',['run',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a91a8498d1ab372a8d312720aa6df43f6',1,'CSCI441::OpenGLEngine']]],
+  ['run_5fall_5fcuts_16',['RUN_ALL_CUTS',['../class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a905bc554516ac7f6cadc1a7be1dcde7c',1,'CSCI441::MD5Camera']]],
+  ['run_5fsingle_5fcut_17',['RUN_SINGLE_CUT',['../class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a9b5fd92989ade47ee9e52de123b5fa4f',1,'CSCI441::MD5Camera']]]
 ];

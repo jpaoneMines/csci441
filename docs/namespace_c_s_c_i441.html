@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.0.5.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.1.0.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -94,6 +94,12 @@ Usage:<br  />
 (4) During cleanup, call <a class="el" href="namespace_c_s_c_i441_1_1_font_utils.html#ae43828b8cd012c7bd87e532c002d1e02" title="deallocates CPU and GPU memory related to text rendering">releaseFont()</a> to deallocate font memory<br  />
 <br  />
 To make placement of text within window easier, such that the (x, y) coordinate corresponds to the pixel location, call <a class="el" href="namespace_c_s_c_i441_1_1_font_utils.html#afe985192e010f192a1e1d745dde93faf" title="store the size of the window">setWindowSize()</a> after loading the font (and anytime the window size changes).. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespace_c_s_c_i441_1_1_log_utils"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c_s_c_i441_1_1_log_utils.html">LogUtils</a></td></tr>
+<tr class="memdesc:namespace_c_s_c_i441_1_1_log_utils"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to log information to the terminal and file<br  />
+<br  />
+Usage:<br  />
+(1) Filename defaults to 'csci441GL.log', call <a class="el" href="namespace_c_s_c_i441_1_1_log_utils.html#a0f5450db45007596bccb070b0295460e" title="change the name of the log file that messages are saved to">setLogFilename()</a> at program start to change the output file name (2) At program start, call <a class="el" href="namespace_c_s_c_i441_1_1_log_utils.html#a34f81687e650c149c8b48c2c34b15ca0" title="clears contents of log file (if it exists) and prints timestamp to file of when log was initially cre...">resetLogFile()</a> to clear prior file if one exists. Otherwise, new logs will continue to be appended to existing file. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>

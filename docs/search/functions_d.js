@@ -8,7 +8,8 @@ var searchData=
   ['releasefont_5',['releaseFont',['../namespace_c_s_c_i441_1_1_font_utils.html#ae43828b8cd012c7bd87e532c002d1e02',1,'CSCI441::FontUtils']]],
   ['releasemd5materials_6',['releaseMD5Materials',['../class_c_s_c_i441_1_1_m_d5_model.html#af1a582788b43e3b7689aeef03b2edda2',1,'CSCI441::MD5Model']]],
   ['rendertext_7',['renderText',['../namespace_c_s_c_i441_1_1_font_utils.html#a220cb982477ea36c3f28a82ff66ca651',1,'CSCI441::FontUtils']]],
-  ['resettransformationmatrix_8',['resetTransformationMatrix',['../_simple_shader_8hpp.html#a681036a52d58f3cc9381ebe9c6b1c3f6',1,'CSCI441::SimpleShader2::resetTransformationMatrix()'],['../_simple_shader_8hpp.html#a8b806aac138bb83636eb6b20014500d8',1,'CSCI441::SimpleShader3::resetTransformationMatrix()']]],
-  ['rotate_9',['rotate',['../class_c_s_c_i441_1_1_camera.html#aefb6d39b085ffa3ab185048c91bab056',1,'CSCI441::Camera']]],
-  ['run_10',['run',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a91a8498d1ab372a8d312720aa6df43f6',1,'CSCI441::OpenGLEngine']]]
+  ['resetlogfile_8',['resetLogFile',['../namespace_c_s_c_i441_1_1_log_utils.html#a34f81687e650c149c8b48c2c34b15ca0',1,'CSCI441::LogUtils']]],
+  ['resettransformationmatrix_9',['resetTransformationMatrix',['../_simple_shader_8hpp.html#a681036a52d58f3cc9381ebe9c6b1c3f6',1,'CSCI441::SimpleShader2::resetTransformationMatrix()'],['../_simple_shader_8hpp.html#a8b806aac138bb83636eb6b20014500d8',1,'CSCI441::SimpleShader3::resetTransformationMatrix()']]],
+  ['rotate_10',['rotate',['../class_c_s_c_i441_1_1_camera.html#aefb6d39b085ffa3ab185048c91bab056',1,'CSCI441::Camera']]],
+  ['run_11',['run',['../class_c_s_c_i441_1_1_open_g_l_engine.html#a91a8498d1ab372a8d312720aa6df43f6',1,'CSCI441::OpenGLEngine']]]
 ];

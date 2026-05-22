@@ -8,6 +8,10 @@ var searchData=
   ['loadmodelfile_5',['loadModelFile',['../class_c_s_c_i441_1_1_model_loader.html#a6a41de5f070d8cf0964e47729c1d8482',1,'CSCI441::ModelLoader']]],
   ['loadppm_6',['loadPPM',['../_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8',1,'CSCI441::TextureUtils']]],
   ['loadshaderprogramfrombinaryfile_7',['loadShaderProgramFromBinaryFile',['../class_c_s_c_i441_1_1_shader_program.html#a1566ee033344561a85325c05c175015b',1,'CSCI441::ShaderProgram']]],
-  ['loop_5fall_5fcuts_8',['LOOP_ALL_CUTS',['../class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a75f792d51f208ec41320e2d8c60e7aac',1,'CSCI441::MD5Camera']]],
-  ['loop_5fsingle_5fcut_9',['LOOP_SINGLE_CUT',['../class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a65bac82ab2f9764e9b488d703972fad2',1,'CSCI441::MD5Camera']]]
+  ['log_8',['log',['../namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af',1,'CSCI441::LogUtils']]],
+  ['logerror_9',['logError',['../namespace_c_s_c_i441_1_1_log_utils.html#a6ac38d53e243a22719c2f241352568aa',1,'CSCI441::LogUtils']]],
+  ['logtofile_10',['logToFile',['../namespace_c_s_c_i441_1_1_log_utils.html#aa5d457ee21b34652062d231affca588c',1,'CSCI441::LogUtils']]],
+  ['logtoterminal_11',['logToTerminal',['../namespace_c_s_c_i441_1_1_log_utils.html#a1cd09369c561cb4900891345086e726b',1,'CSCI441::LogUtils']]],
+  ['loop_5fall_5fcuts_12',['LOOP_ALL_CUTS',['../class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a75f792d51f208ec41320e2d8c60e7aac',1,'CSCI441::MD5Camera']]],
+  ['loop_5fsingle_5fcut_13',['LOOP_SINGLE_CUT',['../class_c_s_c_i441_1_1_m_d5_camera.html#a43f10ff32caa429439bbdbc3019f64c4a65bac82ab2f9764e9b488d703972fad2',1,'CSCI441::MD5Camera']]]
 ];
