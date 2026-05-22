@@ -255,7 +255,7 @@ inline void CSCI441::UniformBufferObject::copyToOffset( const unsigned int offse
     if(offset < _numUniforms) {
         memcpy(_buffer + _uniformOffsets[offset], src, len);
     } else {
-        fprintf(stderr, "[ERROR]: Offset %d exceeds size of Uniform Block %s which is %d\n", offset, _blockName, _numUniforms);
+        CSCI441::LogUtils::logError("[ERROR]: Offset %d exceeds size of Uniform Block %s which is %d\n", offset, _blockName, _numUniforms);
     }
 }
 
@@ -270,7 +270,7 @@ inline void CSCI441::UniformBufferObject::copyToBuffer( const char* UNIFORM_NAME
         }
     }
     if(!found) {
-        fprintf(stderr, "[ERROR]: Uniform Name \"%s\" not found within Uniform Block \"%s\"\n", UNIFORM_NAME, _blockName);
+        CSCI441::LogUtils::logError("[ERROR]: Uniform Name \"%s\" not found within Uniform Block \"%s\"\n", UNIFORM_NAME, _blockName);
     }
 }
 
