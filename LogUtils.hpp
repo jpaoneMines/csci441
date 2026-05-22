@@ -25,6 +25,7 @@ namespace CSCI441 {
 
 namespace CSCI441_INTERNAL {
     namespace LogUtils {
+        inline const char* logFilename = "csci441GL.log";;
         void setLogFilename(const char *filename);
         void resetLogFile();
         void logToFile(const char* MSG, const va_list& args);
@@ -85,7 +86,7 @@ inline void CSCI441::LogUtils::logToTerminal(const char* MSG, ...) {
 // Inward Facing Definitions
 
 inline void CSCI441_INTERNAL::LogUtils::setLogFilename(const char *filename) {
-
+    CSCI441_INTERNAL::LogUtils::logFilename = filename;
 }
 
 inline void CSCI441_INTERNAL::LogUtils::resetLogFile() {
@@ -93,20 +94,20 @@ inline void CSCI441_INTERNAL::LogUtils::resetLogFile() {
     const tm datetime = *localtime(&timestamp);
     char output[50];
     strftime(output, 50, "%H:%M:%S %e %b %Y\0", &datetime);
-    if (FILE* file = fopen("csci441GL.log", "w"); file != nullptr) {
+    if (FILE* file = fopen(logFilename, "w"); file != nullptr) {
         fprintf(file, "CSCI441 Log Generated at %s\n", output);
         fclose(file);
     } else {
-        fprintf(stderr, "[ERROR]: Could not open file \"csci441GL.log\" for logging\n");
+        fprintf(stderr, "[ERROR]: Could not open file \"%s\" for logging\n", logFilename);
     }
 }
 
 inline void CSCI441_INTERNAL::LogUtils::logToFile(const char* MSG, const va_list& args) {
-    if (FILE* file = fopen("csci441GL.log", "a"); file != nullptr) {
+    if (FILE* file = fopen(logFilename, "a"); file != nullptr) {
         CSCI441_INTERNAL::LogUtils::logToStream(file, MSG, args);
         fclose(file);
     } else {
-        fprintf(stderr, "[ERROR]: Could not open file \"csci441GL.log\" for logging\n");
+        fprintf(stderr, "[ERROR]: Could not open file \"%s\" for logging\n", logFilename);
     }
 }
 
