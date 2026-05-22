@@ -3,6 +3,7 @@
 #endif
 
 #define CSCI441_OPENGL_ENGINE_IMPLEMENTATION
+#include "../LogUtils.hpp"
 #include "../OpenGLEngine.hpp"
 #include "../SimpleShader.hpp"
 
@@ -88,11 +89,11 @@ protected:
         _triangleVAO2 = CSCI441::SimpleShader2::registerVertexArray( _trianglePoints, _triangleColorsRedAlpha );
     }
     void mCleanupShaders() override {
-        printf("[INFO]: ...deleting shaders.\n");
+        CSCI441::LogUtils::log("[INFO]: ...deleting shaders.\n");
         CSCI441::SimpleShader2::cleanupSimpleShader();
     }
     void mCleanupBuffers() override {
-        printf("[INFO]: ...deleting VAOs....\n");
+        CSCI441::LogUtils::log("[INFO]: ...deleting VAOs....\n");
         CSCI441::SimpleShader2::deleteVertexArray( _triangleVAO );
         _triangleVAO = 0;
 
@@ -178,6 +179,9 @@ void simple_tri_2_engine_keyboard_callback(GLFWwindow *window, const int key, co
 }
 
 int main() {
+    CSCI441::LogUtils::setLogFilename("simpletri2.log");
+    CSCI441::LogUtils::resetLogFile();
+
     const auto pSimpleTri2Engine = new SimpleTri2Engine(4, 1, 512, 512, "SimpleShader2 Triangle");
     pSimpleTri2Engine->initialize();
     if (pSimpleTri2Engine->getError() == CSCI441::OpenGLEngine::OPENGL_ENGINE_ERROR_NO_ERROR) {

@@ -5,10 +5,10 @@
 #include "../HUDCamera.hpp"
 
 #define CSCI441_OPENGL_ENGINE_IMPLEMENTATION
-#include "../OpenGL3DEngine.hpp"
-
+#include "../LogUtils.hpp"
 #include "../materials.hpp"
 #include "../objects.hpp"
+#include "../OpenGL3DEngine.hpp"
 #include "../SimpleShader.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -39,10 +39,10 @@ public:
     ~SimpleObjects3Engine() override = default;
 
     void run() override {
-        printf("  0-9   : change object\n");
-        printf("   W    : toggle wireframe\n");
-        printf("   R    : toggle rotation\n");
-        printf("Q / ESC : quit\n");
+        CSCI441::LogUtils::log("  0-9   : change object\n");
+        CSCI441::LogUtils::log("   W    : toggle wireframe\n");
+        CSCI441::LogUtils::log("   R    : toggle rotation\n");
+        CSCI441::LogUtils::log("Q / ESC : quit\n");
 
         //  This is our draw loop - all rendering is done here.  We use a loop to keep the window open
         //  until the user decides to close the window and quit the program.  Without a loop, the
@@ -76,7 +76,7 @@ public:
     void toggleRotation() { _rotate = !_rotate; }
     void toggleWireframe() { _wireframe = !_wireframe; }
 
-private:
+protected:
     //***************************************************************************
     // Engine Setup
     void mSetupGLFW() override {
@@ -121,6 +121,7 @@ private:
         _pHUDCamera = nullptr;
     }
 
+private:
     //***************************************************************************
     // Engine Rendering & Updating
 
@@ -357,6 +358,9 @@ void simple_objects_3_engine_window_size_callback(GLFWwindow *window, const int 
 }
 
 int main() {
+    CSCI441::LogUtils::setLogFilename("hudcamera.log");
+    CSCI441::LogUtils::resetLogFile();
+
     const auto pSimpleObjects3Engine = new SimpleObjects3Engine(4, 1, 512, 512, "HUD Display of Object Selection");
     pSimpleObjects3Engine->initialize();
     if (pSimpleObjects3Engine->getError() == CSCI441::OpenGLEngine::OPENGL_ENGINE_ERROR_NO_ERROR) {

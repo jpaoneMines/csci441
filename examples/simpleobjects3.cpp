@@ -3,9 +3,10 @@
 #endif
 
 #define CSCI441_OPENGL_ENGINE_IMPLEMENTATION
-#include "../OpenGL3DEngine.hpp"
+#include "../LogUtils.hpp"
 #include "../materials.hpp"
 #include "../objects.hpp"
+#include "../OpenGL3DEngine.hpp"
 #include "../SimpleShader.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -36,12 +37,12 @@ public:
     ~SimpleObjects3Engine() override = default;
 
     void run() override {
-        printf("  0-9   : change object\n");
-        printf("   W    : toggle wireframe\n");
-        printf("   R    : toggle rotation\n");
-        printf("   S    : toggle smooth shading\n");
-        printf("   T    : toggle transparency\n");
-        printf("Q / ESC : quit\n");
+        CSCI441::LogUtils::log("  0-9   : change object\n");
+        CSCI441::LogUtils::log("   W    : toggle wireframe\n");
+        CSCI441::LogUtils::log("   R    : toggle rotation\n");
+        CSCI441::LogUtils::log("   S    : toggle smooth shading\n");
+        CSCI441::LogUtils::log("   T    : toggle transparency\n");
+        CSCI441::LogUtils::log("Q / ESC : quit\n");
 
         //  This is our draw loop - all rendering is done here.  We use a loop to keep the window open
         //  until the user decides to close the window and quit the program.  Without a loop, the
@@ -127,12 +128,12 @@ protected:
     //***************************************************************************
     // Engine Cleanup
     void mCleanupShaders() override {
-        printf("[INFO]: ...deleting shaders.\n");
+        CSCI441::LogUtils::log("[INFO]: ...deleting shaders.\n");
         CSCI441::SimpleShader3::cleanupSimpleShader();
     }
 
     void mCleanupBuffers() override {
-        printf("[INFO]: ...deleting VAOs....\n");
+        CSCI441::LogUtils::log("[INFO]: ...deleting VAOs....\n");
         CSCI441::deleteObjectVAOs();
         CSCI441::deleteObjectVBOs();
     }
@@ -312,6 +313,9 @@ void simple_objects_3_engine_scroll_callback(GLFWwindow *window, const double xO
 }
 
 int main() {
+    CSCI441::LogUtils::setLogFilename("simpleobjects3.log");
+    CSCI441::LogUtils::resetLogFile();
+
     const auto pSimpleObjects3Engine = new SimpleObjects3Engine(4, 1, 512, 512, "SimpleShader3 Objects");
     pSimpleObjects3Engine->initialize();
     if (pSimpleObjects3Engine->getError() == CSCI441::OpenGLEngine::OPENGL_ENGINE_ERROR_NO_ERROR) {
