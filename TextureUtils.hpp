@@ -15,6 +15,7 @@
 #define CSCI441_TEXTURE_UTILS_HPP
 
 #include "constants.h"
+#include "LogUtils.hpp"
 
 #ifdef CSCI441_USE_GLEW
     #include <GL/glew.h>
@@ -131,7 +132,7 @@ inline bool CSCI441::TextureUtils::loadPPM( const char *filename, int &imageWidt
     int temp, maxValue;
     fscanf(fp, "P%d", &temp);
     if(temp != 3) {
-        fprintf(stderr, "[ERROR]: CSCI441::TextureUtils::loadPPM(): PPM file is not of correct format! (Must be P3, is P%d.)\n", temp);
+        CSCI441::LogUtils::logError("[ERROR]: CSCI441::TextureUtils::loadPPM(): PPM file is not of correct format! (Must be P3, is P%d.)\n", temp);
         fclose(fp);
         return false;
     }
@@ -144,7 +145,7 @@ inline bool CSCI441::TextureUtils::loadPPM( const char *filename, int &imageWidt
     //now that we know how big it is, allocate the buffer...
     imageData = new unsigned char[imageWidth*imageHeight*3];
     if(!imageData) {
-        fprintf(stderr, "[ERROR]: CSCI441::TextureUtils::loadPPM(): couldn't allocate image memory. Dimensions: %d x %d.\n", imageWidth, imageHeight);
+        CSCI441::LogUtils::logError("[ERROR]: CSCI441::TextureUtils::loadPPM(): couldn't allocate image memory. Dimensions: %d x %d.\n", imageWidth, imageHeight);
         fclose(fp);
         return false;
     }
@@ -184,7 +185,7 @@ inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filen
             imageChannels = 3;
         }
         if( !data ) {
-            if(printAllMessages) fprintf( stderr, "[ERROR]: CSCI441::TextureUtils::loadAndRegister2DTexture(): Could not load texture \"%s\"\n", filename );
+            if(printAllMessages) CSCI441::LogUtils::logError("[ERROR]: CSCI441::TextureUtils::loadAndRegister2DTexture(): Could not load texture \"%s\"\n", filename );
             return texHandle;
         }
 	}
@@ -213,7 +214,7 @@ inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filen
         }
     }
 
-    fprintf( stdout, "[INFO]: Successfully loaded texture \"%s\" with handle %d\n", filename, texHandle );
+    CSCI441::LogUtils::log("[INFO]: Successfully loaded texture \"%s\" with handle %d\n", filename, texHandle );
 
 	return texHandle;
 }
@@ -228,7 +229,7 @@ inline void CSCI441::TextureUtils::loadCubeMapFaceTexture(const GLint cubeMapFac
         glTexImage2D(cubeMapFace, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);
         stbi_image_free(data);
     } else {
-        fprintf( stderr, "[ERROR]: CSCI441::TextureUtils::loadCubeMapFaceTexture(): Could not load texture map \"%s\"\n", FILENAME );
+        CSCI441::LogUtils::logError("[ERROR]: CSCI441::TextureUtils::loadCubeMapFaceTexture(): Could not load texture map \"%s\"\n", FILENAME );
     }
 }
 
