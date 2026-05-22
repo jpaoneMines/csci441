@@ -9,13 +9,54 @@
 // Outward Facing Utilities
 
 namespace CSCI441 {
+    /**
+     * @brief Utility class to log information to the terminal and file\n\n
+     * Usage:\n
+     * (1) Filename defaults to 'csci441GL.log', call setLogFilename() at
+     * program start to change the output file name
+     * (2) At program start, call resetLogFile() to clear prior file if one
+     * exists.  Otherwise, new logs will continue to be appended to
+     * existing file.
+     */
     namespace LogUtils {
+        /**
+         * @brief change the name of the log file that messages are saved to
+         * @param filename name of file to write out to
+         */
         void setLogFilename(const char *filename);
+
+        /**
+         * @brief clears contents of log file (if it exists) and prints
+         * timestamp to file of when log was initially created
+         */
         void resetLogFile();
+
+        /**
+         * @brief log a message to both the standard output stream and file
+         * @param MSG formatted string to print
+         * @param ... optional arguments to inject into string
+         */
         void log(const char* MSG, ...);
 
+        /**
+         * @brief log a message to both the standard error stream and file
+         * @param MSG formatted string to print
+         * @param ... optional arguments to inject into string
+         */
         void logError(const char* MSG, ...);
+
+        /**
+         * @brief log a message to the standard output stream
+         * @param MSG formatted string to print
+         * @param ... optional arguments to inject into string
+         */
         void logToTerminal(const char* MSG, ...);
+
+        /**
+         * @brief log a message to file
+         * @param MSG formatted string to print
+         * @param ... optional arguments to inject into string
+         */
         void logToFile(const char* MSG, ...);
     }
 }
@@ -25,10 +66,38 @@ namespace CSCI441 {
 
 namespace CSCI441_INTERNAL {
     namespace LogUtils {
-        inline const char* logFilename = "csci441GL.log";;
+        /**
+         * @brief name of file to open
+         * @note can be changed through setLogFilename()
+         */
+        inline const char* logFilename = "csci441GL.log";
+
+        /**
+         * @brief change the name of the log file messages are written to
+         * @param filename name of file to write to
+         */
         void setLogFilename(const char *filename);
+
+        /**
+         * @brief clears contents of log file (if it exists) and prints
+         * timestamp to file of when log was initially created
+         */
         void resetLogFile();
+
+        /**
+         * @brief opens log file and appends message to file
+         * @param MSG formatted string to print
+         * @param args variadic list of arguments to inject into string
+         */
         void logToFile(const char* MSG, const va_list& args);
+
+        /**
+         * @brief prints message to file stream
+         * @param file pointer to already opened file stream
+         * @param MSG formatted string to print
+         * @param args variadic list of arguments to inject into string
+         * @note file must be open prior to logging
+         */
         void logToStream(FILE* file, const char* MSG, const va_list& args);
     }
 }
