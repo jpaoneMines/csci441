@@ -18,6 +18,7 @@
 #define CSCI441_MODEL_LOADER_HPP
 
 #include "constants.h"
+#include "LogUtils.hpp"
 #include "modelMaterial.hpp"
 
 #ifdef CSCI441_USE_GLEW
@@ -328,7 +329,7 @@ inline bool CSCI441::ModelLoader::loadModelFile( std::string filename, bool cons
 	}
 	else {
 		result = false;
-		if (ERRORS) fprintf( stderr, "[ERROR]:  Unsupported file format for file: %s\n", _filename.c_str() );
+		if (ERRORS) CSCI441::LogUtils::logError("[ERROR]:  Unsupported file format for file: %s\n", _filename.c_str() );
 	}
 
 	return result;
@@ -379,7 +380,7 @@ inline bool CSCI441::ModelLoader::draw( const GLuint shaderProgramHandle,
 			for(const auto &[start, end] : indexStartStop) {
 				const GLsizei length = static_cast<GLsizei>(end - start) + 1;
 
-//				printf( "rendering material %s (%u, %u) = %u\n", materialName.c_str(), start, end, length );
+//				CSCI441::LogUtils::log("rendering material %s (%u, %u) = %u\n", materialName.c_str(), start, end, length );
 
 				if( material != nullptr ) {
 					glProgramUniform4fv( shaderProgramHandle, matAmbLocation, 1, &material->ambient[0] );
@@ -422,15 +423,15 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
 		path = "./";
 	}
 
-	if ( INFO ) fprintf( stdout, "[.obj]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=- \n", _filename.c_str() );
+	if ( INFO ) CSCI441::LogUtils::log("[.obj]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=- \n", _filename.c_str() );
 
 	time_t start, end;
 	time(&start);
 
 	std::ifstream in( _filename );
 	if( !in.is_open() ) {
-		if (ERRORS) fprintf( stderr, "[.obj]: [ERROR]: Could not open \"%s\"\n", _filename.c_str() );
-		if ( INFO ) fprintf( stdout, "[.obj]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=- \n", _filename.c_str() );
+		if (ERRORS) CSCI441::LogUtils::logError("[.obj]: [ERROR]: Could not open \"%s\"\n", _filename.c_str() );
+		if ( INFO ) CSCI441::LogUtils::log("[.obj]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=- \n", _filename.c_str() );
 		return false;
 	}
 
@@ -533,7 +534,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
 
                     currentFaceTokenStream << "/" << texCoordIndex << "/" << normalIndex;
                 } else if (groupTokens.size() != 1) {
-                    if (ERRORS) fprintf(stderr, "[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename.c_str());
+                    if (ERRORS) CSCI441::LogUtils::logError("[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename.c_str());
                     return false;
                 }
 
@@ -550,18 +551,18 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
         } else if( tokens[0] == "usemtl" ) {					        // use material library
 
 		} else {
-            if (INFO) printf( "[.obj]: ignoring line: %s\n", line.c_str() );
+            if (INFO) CSCI441::LogUtils::log("[.obj]: ignoring line: %s\n", line.c_str() );
 		}
 
 		if (INFO) {
 			progressCounter++;
 			if( progressCounter % 5000 == 0 ) {
-				printf("\33[2K\r");
+				CSCI441::LogUtils::log("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.obj]: scanning %s...\\", _filename.c_str());	break;
-					case 10000:	printf("[.obj]: scanning %s...|", _filename.c_str());	break;
-					case 15000:	printf("[.obj]: scanning %s.../", _filename.c_str());	break;
-					case 20000:	printf("[.obj]: scanning %s...-", _filename.c_str());	break;
+					case 5000:	CSCI441::LogUtils::log("[.obj]: scanning %s...\\", _filename.c_str());	break;
+					case 10000:	CSCI441::LogUtils::log("[.obj]: scanning %s...|", _filename.c_str());	break;
+					case 15000:	CSCI441::LogUtils::log("[.obj]: scanning %s.../", _filename.c_str());	break;
+					case 20000:	CSCI441::LogUtils::log("[.obj]: scanning %s...-", _filename.c_str());	break;
                     default: break;
 				}
 				fflush(stdout);
@@ -573,27 +574,27 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
 	in.close();
 
 	if (INFO) {
-		printf( "\33[2K\r" );
-		printf( "[.obj]: scanning %s...done!\n", _filename.c_str() );
-		printf( "[.obj]: ------------\n" );
-		printf( "[.obj]: Model Stats:\n" );
-		printf( "[.obj]: Vertices:  \t%u\tNormals:  \t%u\tTex Coords:\t%u\n", numVertices, numNormals, numTexCoords );
-		printf( "[.obj]: Unique Verts:\t%u\n", _uniqueIndex );
-		printf( "[.obj]: Faces:     \t%u\tTriangles:\t%u\n", numFaces, numTriangles );
-		printf( "[.obj]: Objects:   \t%u\tGroups:   \t%u\n", numObjects, numGroups );
+		CSCI441::LogUtils::log("\33[2K\r" );
+		CSCI441::LogUtils::log("[.obj]: scanning %s...done!\n", _filename.c_str() );
+		CSCI441::LogUtils::log("[.obj]: ------------\n" );
+		CSCI441::LogUtils::log("[.obj]: Model Stats:\n" );
+		CSCI441::LogUtils::log("[.obj]: Vertices:  \t%u\tNormals:  \t%u\tTex Coords:\t%u\n", numVertices, numNormals, numTexCoords );
+		CSCI441::LogUtils::log("[.obj]: Unique Verts:\t%u\n", _uniqueIndex );
+		CSCI441::LogUtils::log("[.obj]: Faces:     \t%u\tTriangles:\t%u\n", numFaces, numTriangles );
+		CSCI441::LogUtils::log("[.obj]: Objects:   \t%u\tGroups:   \t%u\n", numObjects, numGroups );
 
         glm::vec3 sizeDimensions = maxDimension - minDimension;
-		printf( "[.obj]: Dimensions:\t(%f, %f, %f)\n", sizeDimensions.x, sizeDimensions.y, sizeDimensions.z );
+		CSCI441::LogUtils::log("[.obj]: Dimensions:\t(%f, %f, %f)\n", sizeDimensions.x, sizeDimensions.y, sizeDimensions.z );
 	}
 
 	if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 		if (INFO && !_hasVertexNormals)
-			printf( "[.obj]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
-		if (INFO && sAUTO_GEN_TANGENTS) fprintf( stdout, "[.obj]: Vertex tangents will be autogenerated\n" );
+			CSCI441::LogUtils::log("[.obj]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
+		if (INFO && sAUTO_GEN_TANGENTS) CSCI441::LogUtils::log("[.obj]: Vertex tangents will be autogenerated\n" );
         _allocateAttributeArrays(_uniqueIndex, numTriangles*3);
 	} else {
-		if (INFO) printf( "[.obj]: No vertex normals exist on model, vertex normals will be autogenerated\n" );
-		if (INFO && sAUTO_GEN_TANGENTS) fprintf( stdout, "[.obj]: Vertex tangents will be autogenerated\n" );
+		if (INFO) CSCI441::LogUtils::log("[.obj]: No vertex normals exist on model, vertex normals will be autogenerated\n" );
+		if (INFO && sAUTO_GEN_TANGENTS) CSCI441::LogUtils::log("[.obj]: Vertex tangents will be autogenerated\n" );
         _allocateAttributeArrays(numTriangles * 3, numTriangles*3);
 	}
 
@@ -604,7 +605,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
 	std::vector<glm::vec3> verticesTemps;
 	std::vector<glm::vec2> texCoordsTemp;
 
-	printf( "[.obj]: ------------\n" );
+	CSCI441::LogUtils::log("[.obj]: ------------\n" );
 
 	uniqueCounts.clear();
 	_uniqueIndex = 0;
@@ -718,7 +719,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
 
                     currentFaceTokenStream << "/" << texCoordIndex << "/" << normalIndex;
                 } else if(vertexAttributeTokens.size() != 1) {
-                    if (ERRORS) fprintf(stderr, "[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename.c_str());
+                    if (ERRORS) CSCI441::LogUtils::logError("[.obj]: [ERROR]: Malformed OBJ file, %s.\n", _filename.c_str());
                     return false;
                 }
 
@@ -742,7 +743,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
 						if( (vertexAttributeTokens.size() == 2 && numAttributeSlashes == 2)
                             || (vertexAttributeTokens.size() == 3) ) {
 							// should not occur if no normals
-							if (ERRORS) fprintf( stderr, "[.obj]: [ERROR]: no vertex normals were specified, should not be trying to access values\n" );
+							if (ERRORS) CSCI441::LogUtils::logError("[.obj]: [ERROR]: no vertex normals were specified, should not be trying to access values\n" );
 						}
 					}
 					uniqueNumVertices++;
@@ -817,12 +818,12 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
 		if (INFO) {
 			progressCounter++;
 			if( progressCounter % 5000 == 0 ) {
-				printf("\33[2K\r");
+				CSCI441::LogUtils::log("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.obj]: parsing %s...\\", _filename.c_str());	break;
-					case 10000:	printf("[.obj]: parsing %s...|", _filename.c_str());	break;
-					case 15000:	printf("[.obj]: parsing %s.../", _filename.c_str());	break;
-					case 20000:	printf("[.obj]: parsing %s...-", _filename.c_str());	break;
+					case 5000:	CSCI441::LogUtils::log("[.obj]: parsing %s...\\", _filename.c_str());	break;
+					case 10000:	CSCI441::LogUtils::log("[.obj]: parsing %s...|", _filename.c_str());	break;
+					case 15000:	CSCI441::LogUtils::log("[.obj]: parsing %s.../", _filename.c_str());	break;
+					case 20000:	CSCI441::LogUtils::log("[.obj]: parsing %s...-", _filename.c_str());	break;
                     default: break;
 				}
 				fflush(stdout);
@@ -835,8 +836,8 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
 	in.close();
 
 	if (INFO) {
-		printf( "\33[2K\r" );
-		printf( "[.obj]: parsing %s...done!\n", _filename.c_str() );
+		CSCI441::LogUtils::log("\33[2K\r" );
+		CSCI441::LogUtils::log("[.obj]: parsing %s...done!\n", _filename.c_str() );
 	}
 
 	_materialIndexStartStop.find( currentMaterial )->second.back().second = indicesSeen - 1;
@@ -847,8 +848,8 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
 	double seconds = difftime( end, start );
 
 	if (INFO) {
-		printf( "[.obj]: Completed in %.3fs\n", seconds );
-		printf( "[.obj]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=- \n\n", _filename.c_str() );
+		CSCI441::LogUtils::log("[.obj]: Completed in %.3fs\n", seconds );
+		CSCI441::LogUtils::log("[.obj]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=- \n\n", _filename.c_str() );
 	}
 
 	return result;
@@ -857,7 +858,7 @@ inline bool CSCI441::ModelLoader::_loadOBJFile( const bool INFO, const bool ERRO
 inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, const bool INFO, const bool ERRORS ) {
 	bool result = true;
 
-	if (INFO) printf( "[.mtl]: -*-*-*-*-*-*-*- BEGIN %s Info -*-*-*-*-*-*-*-\n", mtlFilename );
+	if (INFO) CSCI441::LogUtils::log("[.mtl]: -*-*-*-*-*-*-*- BEGIN %s Info -*-*-*-*-*-*-*-\n", mtlFilename );
 
 	std::string line;
 	std::string path;
@@ -872,8 +873,8 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, const b
 	if( !in.is_open() ) {
 		in.open( mtlFilename );
 		if( !in.is_open() ) {
-			if (ERRORS) fprintf( stderr, "[.mtl]: [ERROR]: could not open material file: %s\n", mtlFilename );
-			if ( INFO ) printf( "[.mtl]: -*-*-*-*-*-*-*-  END %s Info  -*-*-*-*-*-*-*-\n", mtlFilename );
+			if (ERRORS) CSCI441::LogUtils::logError("[.mtl]: [ERROR]: could not open material file: %s\n", mtlFilename );
+			if ( INFO ) CSCI441::LogUtils::log("[.mtl]: -*-*-*-*-*-*-*-  END %s Info  -*-*-*-*-*-*-*-\n", mtlFilename );
 			return false;
 		}
 	}
@@ -903,7 +904,7 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, const b
 		if( tokens[0] == "#" ) {							// comment
             // ignore
         } else if( tokens[0] == "newmtl" ) {				//new material
-			if (INFO) printf( "[.mtl]: Parsing material %s properties\n", tokens[1].c_str() );
+			if (INFO) CSCI441::LogUtils::log("[.mtl]: Parsing material %s properties\n", tokens[1].c_str() );
 			currentMaterial = new CSCI441_INTERNAL::ModelMaterial();
 			materialName = tokens[1];
 			_materials.insert( std::pair<std::string, CSCI441_INTERNAL::ModelMaterial*>( materialName, currentMaterial ) );
@@ -953,9 +954,9 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, const b
 				}
 
 				if( !textureData ) {
-					if (ERRORS) fprintf( stderr, "[.mtl]: [ERROR]: File Not Found: %s\n", tokens[1].c_str() );
+					if (ERRORS) CSCI441::LogUtils::logError("[.mtl]: [ERROR]: File Not Found: %s\n", tokens[1].c_str() );
 				} else {
-					if (INFO) printf( "[.mtl]: TextureMap:\t%s\tSize: %dx%d\tColors: %d\n", tokens[1].c_str(), texWidth, texHeight, textureChannels );
+					if (INFO) CSCI441::LogUtils::log("[.mtl]: TextureMap:\t%s\tSize: %dx%d\tColors: %d\n", tokens[1].c_str(), texWidth, texHeight, textureChannels );
 
 					if( maskData == nullptr ) {
 						if( textureHandle == 0 ) {
@@ -1014,9 +1015,9 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, const b
 				}
 
 				if( !maskData ) {
-					if (ERRORS) fprintf( stderr, "[.mtl]: [ERROR]: File Not Found: %s\n", tokens[1].c_str() );
+					if (ERRORS) CSCI441::LogUtils::logError("[.mtl]: [ERROR]: File Not Found: %s\n", tokens[1].c_str() );
 				} else {
-					if (INFO) printf( "[.mtl]: AlphaMap:  \t%s\tSize: %dx%d\tColors: %d\n", tokens[1].c_str(), texWidth, texHeight, maskChannels );
+					if (INFO) CSCI441::LogUtils::log("[.mtl]: AlphaMap:  \t%s\tSize: %dx%d\tColors: %d\n", tokens[1].c_str(), texWidth, texHeight, maskChannels );
 
 					if( textureData != nullptr ) {
 						fullData = CSCI441_INTERNAL::createTransparentTexture( textureData, maskData, texWidth, texHeight, textureChannels, maskChannels );
@@ -1054,15 +1055,15 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, const b
 					|| tokens[0] == "map_bump" ) {				// bump map
           // TODO bump map?
 		} else {
-			if (INFO) printf( "[.mtl]: ignoring line: %s\n", line.c_str() );
+			if (INFO) CSCI441::LogUtils::log("[.mtl]: ignoring line: %s\n", line.c_str() );
 		}
 	}
 
 	in.close();
 
 	if ( INFO ) {
-		printf( "[.mtl]: Materials:\t%d\n", numMaterials );
-		printf( "[.mtl]: -*-*-*-*-*-*-*-  END %s Info  -*-*-*-*-*-*-*-\n", mtlFilename );
+		CSCI441::LogUtils::log("[.mtl]: Materials:\t%d\n", numMaterials );
+		CSCI441::LogUtils::log("[.mtl]: -*-*-*-*-*-*-*-  END %s Info  -*-*-*-*-*-*-*-\n", mtlFilename );
 	}
 
 	return result;
@@ -1071,15 +1072,15 @@ inline bool CSCI441::ModelLoader::_loadMTLFile( const char* mtlFilename, const b
 inline bool CSCI441::ModelLoader::_loadOFFFile( const bool INFO, const bool ERRORS ) {
 	bool result = true;
 
-	if (INFO ) printf( "[.off]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename.c_str() );
+	if (INFO ) CSCI441::LogUtils::log("[.off]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename.c_str() );
 
 	time_t start, end;
 	time(&start);
 
 	std::ifstream in( _filename );
 	if( !in.is_open() ) {
-		if (ERRORS) fprintf( stderr, "[.off]: [ERROR]: Could not open \"%s\"\n", _filename.c_str() );
-		if ( INFO ) printf( "[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
+		if (ERRORS) CSCI441::LogUtils::logError("[.off]: [ERROR]: Could not open \"%s\"\n", _filename.c_str() );
+		if ( INFO ) CSCI441::LogUtils::log("[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 		return false;
 	}
 
@@ -1107,8 +1108,8 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( const bool INFO, const bool ERRO
 			if( tokens[0] == "OFF" ) {					// denotes OFF File type
 			} else {
 				if( tokens.size() != 3 ) {
-					if (ERRORS) fprintf( stderr, "[.off]: [ERROR]: Malformed OFF file.  # vertices, faces, edges not properly specified\n" );
-					if ( INFO ) printf( "[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
+					if (ERRORS) CSCI441::LogUtils::logError("[.off]: [ERROR]: Malformed OFF file.  # vertices, faces, edges not properly specified\n" );
+					if ( INFO ) CSCI441::LogUtils::log("[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 					in.close();
 					return false;
 				}
@@ -1145,33 +1146,33 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( const bool INFO, const bool ERRO
 			if( fSeen == numFaces )
 				fileState = DONE;
 		} else {
-			if (INFO) printf( "[.off]: unknown file state: %d\n", fileState );
+			if (INFO) CSCI441::LogUtils::log("[.off]: unknown file state: %d\n", fileState );
 		}
 	}
 	in.close();
 
 	if (INFO) {
-		printf( "\33[2K\r" );
-		printf( "[.off]: scanning %s...done!\n", _filename.c_str() );
-		printf( "[.off]: ------------\n" );
-		printf( "[.off]: Model Stats:\n" );
-		printf( "[.off]: Vertices:  \t%u\tNormals:   \t%u\tTex Coords:\t%u\n", numVertices, 0, 0 );
-		printf( "[.off]: Faces:     \t%u\tTriangles: \t%u\n", numFaces, numTriangles );
-		printf( "[.off]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
+		CSCI441::LogUtils::log("\33[2K\r" );
+		CSCI441::LogUtils::log("[.off]: scanning %s...done!\n", _filename.c_str() );
+		CSCI441::LogUtils::log("[.off]: ------------\n" );
+		CSCI441::LogUtils::log("[.off]: Model Stats:\n" );
+		CSCI441::LogUtils::log("[.off]: Vertices:  \t%u\tNormals:   \t%u\tTex Coords:\t%u\n", numVertices, 0, 0 );
+		CSCI441::LogUtils::log("[.off]: Faces:     \t%u\tTriangles: \t%u\n", numFaces, numTriangles );
+		CSCI441::LogUtils::log("[.off]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
 	}
 
 	if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 		if (INFO && !_hasVertexNormals)
-			printf( "[.off]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
+			CSCI441::LogUtils::log("[.off]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
         _allocateAttributeArrays(numVertices, numTriangles*3);
 	} else {
-		if (INFO) printf( "[.off]: No vertex normals exist on model, vertex normals will be autogenerated\n" );
+		if (INFO) CSCI441::LogUtils::log("[.off]: No vertex normals exist on model, vertex normals will be autogenerated\n" );
         _allocateAttributeArrays(numTriangles*3, numTriangles*3);
 	}
 
 	std::vector<glm::vec3> verticesTemp;
 
-	if (INFO) printf( "[.off]: ------------\n" );
+	if (INFO) CSCI441::LogUtils::log("[.off]: ------------\n" );
 
 	in.open( _filename );
 
@@ -1301,12 +1302,12 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( const bool INFO, const bool ERRO
 		if (INFO) {
 			progressCounter++;
 			if( progressCounter % 5000 == 0 ) {
-				printf("\33[2K\r");
+				CSCI441::LogUtils::log("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.off]: parsing %s...\\", _filename.c_str());	break;
-					case 10000:	printf("[.off]: parsing %s...|", _filename.c_str());	break;
-					case 15000:	printf("[.off]: parsing %s.../", _filename.c_str());	break;
-					case 20000:	printf("[.off]: parsing %s...-", _filename.c_str());	break;
+					case 5000:	CSCI441::LogUtils::log("[.off]: parsing %s...\\", _filename.c_str());	break;
+					case 10000:	CSCI441::LogUtils::log("[.off]: parsing %s...|", _filename.c_str());	break;
+					case 15000:	CSCI441::LogUtils::log("[.off]: parsing %s.../", _filename.c_str());	break;
+					case 20000:	CSCI441::LogUtils::log("[.off]: parsing %s...-", _filename.c_str());	break;
                     default: break;
 				}
 				fflush(stdout);
@@ -1323,9 +1324,9 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( const bool INFO, const bool ERRO
 	double seconds = difftime( end, start );
 
 	if (INFO) {
-		printf( "\33[2K\r" );
-		printf( "[.off]: parsing %s...done!  (Time: %.1fs)\n", _filename.c_str(), seconds );
-		printf( "[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
+		CSCI441::LogUtils::log("\33[2K\r" );
+		CSCI441::LogUtils::log("[.off]: parsing %s...done!  (Time: %.1fs)\n", _filename.c_str(), seconds );
+		CSCI441::LogUtils::log("[.off]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 	}
 
 	return result;
@@ -1335,15 +1336,15 @@ inline bool CSCI441::ModelLoader::_loadOFFFile( const bool INFO, const bool ERRO
 inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRORS ) {
 	bool result = true;
 
-	if (INFO ) printf( "[.ply]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename.c_str() );
+	if (INFO ) CSCI441::LogUtils::log("[.ply]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename.c_str() );
 
 	time_t start, end;
 	time(&start);
 
 	std::ifstream in( _filename );
 	if( !in.is_open() ) {
-		if (ERRORS) fprintf( stderr, "[.ply]: [ERROR]: Could not open \"%s\"\n", _filename.c_str() );
-		if ( INFO ) printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
+		if (ERRORS) CSCI441::LogUtils::logError("[.ply]: [ERROR]: Could not open \"%s\"\n", _filename.c_str() );
+		if ( INFO ) CSCI441::LogUtils::log("[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 		return false;
 	}
 
@@ -1375,8 +1376,8 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRO
 			if( tokens[0] == "ply" ) {					// denotes ply File type
 			} else if( tokens[0] == "format" ) {
 				if( tokens[1] != "ascii" ) {
-					if (ERRORS) fprintf( stderr, "[.ply]: [ERROR]: File \"%s\" not ASCII format\n", _filename.c_str() );
-					if ( INFO ) printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
+					if (ERRORS) CSCI441::LogUtils::logError("[.ply]: [ERROR]: File \"%s\" not ASCII format\n", _filename.c_str() );
+					if ( INFO ) CSCI441::LogUtils::log("[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 					in.close();
 					return false;
 				}
@@ -1427,18 +1428,18 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRO
 			auto numberOfVerticesInFace = static_cast<GLuint>(strtol(tokens[0].c_str(), nullptr, 10));
 			numTriangles += numberOfVerticesInFace - 3 + 1;
 		} else {
-			if (INFO) printf( "[.ply]: unknown file state: %d\n", fileState );
+			if (INFO) CSCI441::LogUtils::log("[.ply]: unknown file state: %d\n", fileState );
 		}
 
 		if (INFO) {
 			progressCounter++;
 			if( progressCounter % 5000 == 0 ) {
-				printf("\33[2K\r");
+				CSCI441::LogUtils::log("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.ply]: scanning %s...\\", _filename.c_str());	break;
-					case 10000:	printf("[.ply]: scanning %s...|", _filename.c_str());	break;
-					case 15000:	printf("[.ply]: scanning %s.../", _filename.c_str());	break;
-					case 20000:	printf("[.ply]: scanning %s...-", _filename.c_str());	break;
+					case 5000:	CSCI441::LogUtils::log("[.ply]: scanning %s...\\", _filename.c_str());	break;
+					case 10000:	CSCI441::LogUtils::log("[.ply]: scanning %s...|", _filename.c_str());	break;
+					case 15000:	CSCI441::LogUtils::log("[.ply]: scanning %s.../", _filename.c_str());	break;
+					case 20000:	CSCI441::LogUtils::log("[.ply]: scanning %s...-", _filename.c_str());	break;
                     default: break;
 				}
 				fflush(stdout);
@@ -1450,25 +1451,25 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRO
 	in.close();
 
 	if (INFO) {
-		printf( "\33[2K\r" );
-		printf( "[.ply]: scanning %s...done!\n", _filename.c_str() );
-		printf( "[.ply]: ------------\n" );
-		printf( "[.ply]: Model Stats:\n" );
-		printf( "[.ply]: Vertices:  \t%u\tNormals:   \t%u\tTex Coords:\t%u\n", numVertices, 0, 0 );
-		printf( "[.ply]: Faces:     \t%u\tTriangles: \t%u\n", numFaces, numTriangles );
-		printf( "[.ply]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
+		CSCI441::LogUtils::log("\33[2K\r" );
+		CSCI441::LogUtils::log("[.ply]: scanning %s...done!\n", _filename.c_str() );
+		CSCI441::LogUtils::log("[.ply]: ------------\n" );
+		CSCI441::LogUtils::log("[.ply]: Model Stats:\n" );
+		CSCI441::LogUtils::log("[.ply]: Vertices:  \t%u\tNormals:   \t%u\tTex Coords:\t%u\n", numVertices, 0, 0 );
+		CSCI441::LogUtils::log("[.ply]: Faces:     \t%u\tTriangles: \t%u\n", numFaces, numTriangles );
+		CSCI441::LogUtils::log("[.ply]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
 	}
 
 	if( _hasVertexNormals || !sAUTO_GEN_NORMALS ) {
 		if (INFO && !_hasVertexNormals)
-			printf( "[.ply]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
+			CSCI441::LogUtils::log("[.ply]: [WARN]: No vertex normals exist on model.  To autogenerate vertex\n\tnormals, call CSCI441::ModelLoader::enableAutoGenerateNormals()\n\tprior to loading the model file.\n" );
         _allocateAttributeArrays(numVertices, numTriangles*3);
 	} else {
-		if (INFO) printf( "[.ply]: No vertex normals exist on model, vertex normals will be autogenerated\n" );
+		if (INFO) CSCI441::LogUtils::log("[.ply]: No vertex normals exist on model, vertex normals will be autogenerated\n" );
         _allocateAttributeArrays(numTriangles*3, numTriangles*3);
 	}
 
-	if (INFO) printf( "[.ply]: ------------\n" );
+	if (INFO) CSCI441::LogUtils::log("[.ply]: ------------\n" );
 
 	std::vector<glm::vec3> verticesTemp;
 
@@ -1498,8 +1499,8 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRO
 			if( tokens[0] == "ply" ) {					// denotes ply File type
 			} else if( tokens[0] == "format" ) {
 				if( tokens[1] != "ascii" ) {
-					if (ERRORS) fprintf( stderr, "[.ply]: [ERROR]: File \"%s\" not ASCII format\n", _filename.c_str() );
-					if ( INFO ) printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
+					if (ERRORS) CSCI441::LogUtils::logError("[.ply]: [ERROR]: File \"%s\" not ASCII format\n", _filename.c_str() );
+					if ( INFO ) CSCI441::LogUtils::log("[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 					in.close();
 					return false;
 				}
@@ -1584,18 +1585,18 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRO
 				}
 			}
 		} else {
-			if (INFO) printf( "[.ply]: unknown file state: %d\n", fileState );
+			if (INFO) CSCI441::LogUtils::log("[.ply]: unknown file state: %d\n", fileState );
 		}
 
 		if (INFO) {
 			progressCounter++;
 			if( progressCounter % 5000 == 0 ) {
-				printf("\33[2K\r");
+				CSCI441::LogUtils::log("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.ply]: parsing %s...\\", _filename.c_str());	break;
-					case 10000:	printf("[.ply]: parsing %s...|", _filename.c_str());	break;
-					case 15000:	printf("[.ply]: parsing %s.../", _filename.c_str());	break;
-					case 20000:	printf("[.ply]: parsing %s...-", _filename.c_str());	break;
+					case 5000:	CSCI441::LogUtils::log("[.ply]: parsing %s...\\", _filename.c_str());	break;
+					case 10000:	CSCI441::LogUtils::log("[.ply]: parsing %s...|", _filename.c_str());	break;
+					case 15000:	CSCI441::LogUtils::log("[.ply]: parsing %s.../", _filename.c_str());	break;
+					case 20000:	CSCI441::LogUtils::log("[.ply]: parsing %s...-", _filename.c_str());	break;
                     default: break;
 				}
 				fflush(stdout);
@@ -1612,9 +1613,9 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRO
 	double seconds = difftime( end, start );
 
 	if (INFO) {
-		printf( "\33[2K\r" );
-		printf( "[.ply]: parsing %s...done!\n[.ply]: Time to complete: %.3fs\n", _filename.c_str(), seconds );
-		printf( "[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
+		CSCI441::LogUtils::log("\33[2K\r" );
+		CSCI441::LogUtils::log("[.ply]: parsing %s...done!\n[.ply]: Time to complete: %.3fs\n", _filename.c_str(), seconds );
+		CSCI441::LogUtils::log("[.ply]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 	}
 
 	return result;
@@ -1623,15 +1624,15 @@ inline bool CSCI441::ModelLoader::_loadPLYFile( const bool INFO, const bool ERRO
 inline bool CSCI441::ModelLoader::_loadSTLFile( const bool INFO, const bool ERRORS ) {
 	bool result = true;
 
-	if (INFO) printf( "[.stl]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename.c_str() );
+	if (INFO) CSCI441::LogUtils::log("[.stl]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=-\n", _filename.c_str() );
 
 	time_t start, end;
 	time(&start);
 
 	std::ifstream in( _filename );
 	if( !in.is_open() ) {
-		if (ERRORS) fprintf(stderr, "[.stl]: [ERROR]: Could not open \"%s\"\n", _filename.c_str() );
-		if ( INFO ) printf( "[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
+		if (ERRORS) CSCI441::LogUtils::logError("[.stl]: [ERROR]: Could not open \"%s\"\n", _filename.c_str() );
+		if ( INFO ) CSCI441::LogUtils::log("[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 		return false;
 	}
 
@@ -1683,22 +1684,22 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( const bool INFO, const bool ERRO
 		}
 		else {
 			if( memchr( line.c_str(), '\0', line.length() ) != nullptr ) {
-				if (ERRORS) fprintf( stderr, "[.stl]: [ERROR]: Cannot read binary STL file \"%s\"\n", _filename.c_str() );
-				if ( INFO ) printf( "[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
+				if (ERRORS) CSCI441::LogUtils::logError("[.stl]: [ERROR]: Cannot read binary STL file \"%s\"\n", _filename.c_str() );
+				if ( INFO ) CSCI441::LogUtils::log("[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 				in.close();
 				return false;
-			} else if (INFO) printf( "[.stl]: unknown line: %s\n", line.c_str() );
+			} else if (INFO) CSCI441::LogUtils::log("[.stl]: unknown line: %s\n", line.c_str() );
 		}
 
 		if (INFO) {
 			progressCounter++;
 			if( progressCounter % 5000 == 0 ) {
-				printf("\33[2K\r");
+				CSCI441::LogUtils::log("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.stl]: scanning %s...\\", _filename.c_str());	break;
-					case 10000:	printf("[.stl]: scanning %s...|", _filename.c_str());	break;
-					case 15000:	printf("[.stl]: scanning %s.../", _filename.c_str());	break;
-					case 20000:	printf("[.stl]: scanning %s...-", _filename.c_str());	break;
+					case 5000:	CSCI441::LogUtils::log("[.stl]: scanning %s...\\", _filename.c_str());	break;
+					case 10000:	CSCI441::LogUtils::log("[.stl]: scanning %s...|", _filename.c_str());	break;
+					case 15000:	CSCI441::LogUtils::log("[.stl]: scanning %s.../", _filename.c_str());	break;
+					case 20000:	CSCI441::LogUtils::log("[.stl]: scanning %s...-", _filename.c_str());	break;
                     default: break;
 				}
 				fflush(stdout);
@@ -1710,18 +1711,18 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( const bool INFO, const bool ERRO
 	in.close();
 
 	if (INFO) {
-		printf( "\33[2K\r" );
-		printf( "[.stl]: scanning %s...done!\n", _filename.c_str() );
-		printf( "[.stl]: ------------\n" );
-		printf( "[.stl]: Model Stats:\n" );
-		printf( "[.stl]: Vertices:  \t%u\tNormals:   \t%u\tTex Coords:\t%u\n", numVertices, numNormals, 0 );
-		printf( "[.stl]: Faces:     \t%u\tTriangles: \t%u\n", numFaces, numTriangles );
-		printf( "[.stl]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
+		CSCI441::LogUtils::log("\33[2K\r" );
+		CSCI441::LogUtils::log("[.stl]: scanning %s...done!\n", _filename.c_str() );
+		CSCI441::LogUtils::log("[.stl]: ------------\n" );
+		CSCI441::LogUtils::log("[.stl]: Model Stats:\n" );
+		CSCI441::LogUtils::log("[.stl]: Vertices:  \t%u\tNormals:   \t%u\tTex Coords:\t%u\n", numVertices, numNormals, 0 );
+		CSCI441::LogUtils::log("[.stl]: Faces:     \t%u\tTriangles: \t%u\n", numFaces, numTriangles );
+		CSCI441::LogUtils::log("[.stl]: Dimensions:\t(%f, %f, %f)\n", (maxX - minX), (maxY - minY), (maxZ - minZ) );
 	}
 
     _allocateAttributeArrays(numVertices, numTriangles*3);
 
-	if (INFO) printf( "[.stl]: ------------\n" );
+	if (INFO) CSCI441::LogUtils::log("[.stl]: ------------\n" );
 
 	in.open( _filename );
 
@@ -1766,12 +1767,12 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( const bool INFO, const bool ERRO
 		if (INFO) {
 			progressCounter++;
 			if( progressCounter % 5000 == 0 ) {
-				printf("\33[2K\r");
+				CSCI441::LogUtils::log("\33[2K\r");
 				switch( progressCounter ) {
-					case 5000:	printf("[.stl]: parsing %s...\\", _filename.c_str());	break;
-					case 10000:	printf("[.stl]: parsing %s...|", _filename.c_str());	break;
-					case 15000:	printf("[.stl]: parsing %s.../", _filename.c_str());	break;
-					case 20000:	printf("[.stl]: parsing %s...-", _filename.c_str());	break;
+					case 5000:	CSCI441::LogUtils::log("[.stl]: parsing %s...\\", _filename.c_str());	break;
+					case 10000:	CSCI441::LogUtils::log("[.stl]: parsing %s...|", _filename.c_str());	break;
+					case 15000:	CSCI441::LogUtils::log("[.stl]: parsing %s.../", _filename.c_str());	break;
+					case 20000:	CSCI441::LogUtils::log("[.stl]: parsing %s...-", _filename.c_str());	break;
                     default: break;
 				}
 				fflush(stdout);
@@ -1788,9 +1789,9 @@ inline bool CSCI441::ModelLoader::_loadSTLFile( const bool INFO, const bool ERRO
 	double seconds = difftime( end, start );
 
 	if (INFO) {
-		printf("\33[2K\r");
-		printf("[.stl]: parsing %s...done!\n[.stl]: Time to complete: %.3fs\n", _filename.c_str(), seconds);
-		printf( "[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
+		CSCI441::LogUtils::log("\33[2K\r");
+		CSCI441::LogUtils::log("[.stl]: parsing %s...done!\n[.stl]: Time to complete: %.3fs\n", _filename.c_str(), seconds);
+		CSCI441::LogUtils::log("[.stl]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=-\n\n", _filename.c_str() );
 	}
 
 	return result;
