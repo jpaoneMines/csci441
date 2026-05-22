@@ -11,6 +11,7 @@
 #ifndef CSCI441_SHADER_PROGRAM_PIPELINE_HPP
 #define CSCI441_SHADER_PROGRAM_PIPELINE_HPP
 
+#include "LogUtils.hpp"
 #include "ShaderProgram.hpp"
 
 #include <cstdio>
@@ -165,13 +166,13 @@ inline void CSCI441::ShaderProgramPipeline::bindPipeline() const {
 [[maybe_unused]]
 inline void CSCI441::ShaderProgramPipeline::printPipelineInfo() const {
     if( sDEBUG ) {
-        printf( "\n[INFO]: /--------------------------------------------------------\\\n");
-        printf( "[INFO]: | Program Pipeline:                                      |\n");
-        printf( "[INFO]: |   Pipeline Handle: %4u %32c\n", _pipelineHandle, '|' );
+        CSCI441::LogUtils::log("\n[INFO]: /--------------------------------------------------------\\\n");
+        CSCI441::LogUtils::log("[INFO]: | Program Pipeline:                                      |\n");
+        CSCI441::LogUtils::log("[INFO]: |   Pipeline Handle: %4u %32c\n", _pipelineHandle, '|' );
 				
 		CSCI441_INTERNAL::ShaderUtils::printProgramPipelineLog(_pipelineHandle);
 		
-		printf( "[INFO]: >--------------------------------------------------------<\n");
+		CSCI441::LogUtils::log("[INFO]: >--------------------------------------------------------<\n");
 
 		GLint vs, tcs, tes, gs, fs, cs;
 		glGetProgramPipelineiv( _pipelineHandle, GL_VERTEX_SHADER, &vs );
@@ -188,17 +189,17 @@ inline void CSCI441::ShaderProgramPipeline::printPipelineInfo() const {
             glGetProgramPipelineiv( _pipelineHandle, GL_COMPUTE_SHADER, &cs );
         }
 		
-		if( vs != 0 )  printf( "[INFO]: |   Vertex    Shader Program Handle: %2d                  |\n", vs );
-		if( tcs != 0 ) printf( "[INFO]: |   Tess Ctrl Shader Program Handle: %2d                  |\n", tcs );
-		if( tes != 0 ) printf( "[INFO]: |   Tess Eval Shader Program Handle: %2d                  |\n", tes );
-		if( gs != 0 )  printf( "[INFO]: |   Geometry  Shader Program Handle: %2d                  |\n", gs );
-		if( fs != 0 )  printf( "[INFO]: |   Fragment  Shader Program Handle: %2d                  |\n", fs );
+		if( vs != 0 )  CSCI441::LogUtils::log("[INFO]: |   Vertex    Shader Program Handle: %2d                  |\n", vs );
+		if( tcs != 0 ) CSCI441::LogUtils::log("[INFO]: |   Tess Ctrl Shader Program Handle: %2d                  |\n", tcs );
+		if( tes != 0 ) CSCI441::LogUtils::log("[INFO]: |   Tess Eval Shader Program Handle: %2d                  |\n", tes );
+		if( gs != 0 )  CSCI441::LogUtils::log("[INFO]: |   Geometry  Shader Program Handle: %2d                  |\n", gs );
+		if( fs != 0 )  CSCI441::LogUtils::log("[INFO]: |   Fragment  Shader Program Handle: %2d                  |\n", fs );
         if(major < 4 || (major == 4 && minor >= 3)) {
-            if( cs != 0 )  printf( "[INFO]: |   Compute   Shader Program Handle: %2d                  |\n", cs );
+            if( cs != 0 )  CSCI441::LogUtils::log("[INFO]: |   Compute   Shader Program Handle: %2d                  |\n", cs );
         }
 
-        printf( "[INFO]: \\--------------------------------------------------------/\n");
-        printf( "\n");
+        CSCI441::LogUtils::log("[INFO]: \\--------------------------------------------------------/\n");
+        CSCI441::LogUtils::log("\n");
     }
 }
 
