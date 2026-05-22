@@ -26,7 +26,6 @@
 
 #include <glm/glm.hpp>
 
-#include <cstdio>      // for printf()
 #include <cstdlib>     // for atoi()
 
 //**********************************************************************************
