@@ -14,6 +14,7 @@
 
 #include "constants.h"
 #include "FontUtils.hpp"
+#include "LogUtils.hpp"
 #include "OpenGLUtils.hpp"
 
 #ifdef CSCI441_USE_GLEW
@@ -166,7 +167,7 @@ namespace CSCI441 {
         [[nodiscard]] virtual unsigned short getError() noexcept final {
             const unsigned short storedErrorCode = mErrorCode;  // store current error code
             if (DEBUG && mErrorCode != OPENGL_ENGINE_ERROR_NO_ERROR) {
-                fprintf( stderr, "[ERROR]: %s\n", getErrorStringDescription(mErrorCode) );
+                CSCI441::LogUtils::logError("[ERROR]: %s\n", getErrorStringDescription(mErrorCode) );
             }
             mErrorCode = OPENGL_ENGINE_ERROR_NO_ERROR;  // reset error code
             return storedErrorCode;                     // return previously stored error code
@@ -322,13 +323,13 @@ namespace CSCI441 {
          *	this function.  We can then print this info to the terminal to
          *	alert the user.
          */
-        static void mErrorCallback(const int error, const char* DESCRIPTION) { fprintf(stderr, "[ERROR]: %d\n\t%s\n", error, DESCRIPTION ); }
+        static void mErrorCallback(const int error, const char* DESCRIPTION) { CSCI441::LogUtils::logError("[ERROR]: %d\n\t%s\n", error, DESCRIPTION ); }
 
         /**
          * @brief callback called whenever a debug message is signaled
          */
         static void APIENTRY mDebugMessageCallback(const GLenum source, const GLenum type, const GLuint id, const GLenum severity, const GLsizei length, const GLchar* message, const void* userParam) {
-            fprintf( stdout, "[VERBOSE]: Debug Message (%d): source = %s, type = %s, severity = %s, message = %s\n",
+            CSCI441::LogUtils::log("[VERBOSE]: Debug Message (%d): source = %s, type = %s, severity = %s, message = %s\n",
                      id,
                      CSCI441::OpenGLUtils::debugSourceToString(source),
                      CSCI441::OpenGLUtils::debugTypeToString(type),
@@ -647,7 +648,7 @@ void CSCI441::OpenGLEngine::initialize()
         const std::chrono::steady_clock::time_point initBegin = std::chrono::steady_clock::now();
 
         if (DEBUG) {
-            fprintf(stdout, "[INFO]: Using CSCI441 Library v%d.%d.%d.%d\n", CSCI441::VERSION_MAJOR, CSCI441::VERSION_MINOR, CSCI441::VERSION_REVISION, CSCI441::VERSION_PATCH);
+            CSCI441::LogUtils::log("[INFO]: Using CSCI441 Library v%d.%d.%d.%d\n", CSCI441::VERSION_MAJOR, CSCI441::VERSION_MINOR, CSCI441::VERSION_REVISION, CSCI441::VERSION_PATCH);
         }
 
         const std::chrono::steady_clock::time_point glfwBegin = std::chrono::steady_clock::now();
@@ -716,16 +717,15 @@ void CSCI441::OpenGLEngine::initialize()
 
         const std::chrono::steady_clock::time_point initEnd = std::chrono::steady_clock::now();
         if (DEBUG) {
-            fprintf(stdout, "\n[INFO]: Setup complete\n");
-            fprintf(stdout, "[INFO]: Init Time:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(initEnd     - initBegin    ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tGLFW:     %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tOpenGL:   %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tShaders:  %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shadersEnd  - shadersBegin ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tBuffers:  %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(buffersEnd  - buffersBegin ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tTextures: %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(texturesEnd - texturesBegin).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tFonts:    %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(fontsEnd    - fontsBegin   ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tScene:    %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);
-
+            CSCI441::LogUtils::log("\n[INFO]: Setup complete\n");
+            CSCI441::LogUtils::log("[INFO]: Init Time:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(initEnd     - initBegin    ).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tGLFW:     %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tOpenGL:   %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tShaders:  %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shadersEnd  - shadersBegin ).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tBuffers:  %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(buffersEnd  - buffersBegin ).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tTextures: %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(texturesEnd - texturesBegin).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tFonts:    %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(fontsEnd    - fontsBegin   ).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tScene:    %2.3fs\n",   static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);
         }
     }
 }
@@ -770,10 +770,10 @@ bool CSCI441::OpenGLEngine::saveScreenshot(
     stbi_flip_vertically_on_write(true);
 
     if( !stbi_write_png(filename.c_str(), width, height, CHANNELS, bytes, width*CHANNELS) ) {
-        fprintf(stderr, "[ERROR]: Could not save screenshot\n");
+        CSCI441::LogUtils::logError("[ERROR]: Could not save screenshot\n");
         mErrorCode = OPENGL_ENGINE_ERROR_TAKE_SCREENSHOT;
     } else if(DEBUG) {
-        fprintf(stdout, "[INFO]: Screenshot saved to %s\n", filename.c_str());
+        CSCI441::LogUtils::log("[INFO]: Screenshot saved to %s\n", filename.c_str());
     }
 
     delete[] bytes;
@@ -791,10 +791,10 @@ void CSCI441::OpenGLEngine::mSetupGLFW()
 
     // initialize GLFW
     if( !glfwInit() ) {
-        fprintf( stderr, "[ERROR]: Could not initialize GLFW\n" );
+        CSCI441::LogUtils::logError("[ERROR]: Could not initialize GLFW\n" );
         mErrorCode = OPENGL_ENGINE_ERROR_GLFW_INIT;
     } else {
-        if(DEBUG) fprintf( stdout, "[INFO]: GLFW v%d.%d.%d initialized\n", GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION );
+        if(DEBUG) CSCI441::LogUtils::log("[INFO]: GLFW v%d.%d.%d initialized\n", GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION );
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, mOpenGLMajorVersion );	        // request OpenGL vX.
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, mOpenGLMinorVersion );	        // request OpenGL v .X
@@ -813,11 +813,11 @@ void CSCI441::OpenGLEngine::mSetupGLFW()
         // create a window for a given size, with a given title
         mpWindow = glfwCreateWindow(mWindowWidth, mWindowHeight, mWindowTitle, nullptr, nullptr );
         if( !mpWindow ) {						                                        // if the window could not be created, NULL is returned
-            fprintf( stderr, "[ERROR]: GLFW Window could not be created\n" );
+            CSCI441::LogUtils::logError("[ERROR]: GLFW Window could not be created\n" );
             glfwTerminate();
             mErrorCode = OPENGL_ENGINE_ERROR_GLFW_WINDOW;
         } else {
-            if(DEBUG) fprintf( stdout, "[INFO]: GLFW Window created\n" );
+            if(DEBUG) CSCI441::LogUtils::log("[INFO]: GLFW Window created\n" );
             glfwMakeContextCurrent(mpWindow);		                                    // make the created window the current window
             glfwSwapInterval(1);				                                        // update our screen after at least 1 screen refresh
             glfwSetInputMode(mpWindow, GLFW_LOCK_KEY_MODS, GLFW_TRUE);      // track state of Caps Lock and Num Lock keys
@@ -838,24 +838,24 @@ void CSCI441::OpenGLEngine::_setupGLFunctions()
 
     // check for an error
     if( glewResult != GLEW_OK ) {
-        fprintf( stderr, "[ERROR]: Error initializing GLEW\n");
-        fprintf( stderr, "[ERROR]: %s\n", reinterpret_cast<const char *>(glewGetErrorString(glewResult)) );
+        CSCI441::LogUtils::logError("[ERROR]: Error initializing GLEW\n");
+        CSCI441::LogUtils::logError("[ERROR]: %s\n", reinterpret_cast<const char *>(glewGetErrorString(glewResult)) );
         mErrorCode = OPENGL_ENGINE_ERROR_GLEW_INIT;
     } else {
         if(DEBUG) {
-            fprintf(stdout, "[INFO]: GLEW initialized\n");
-            fprintf(stdout, "[INFO]: Using GLEW %s\n", reinterpret_cast<const char *>(glewGetString(GLEW_VERSION)));
+            CSCI441::LogUtils::log("[INFO]: GLEW initialized\n");
+            CSCI441::LogUtils::log("[INFO]: Using GLEW %s\n", reinterpret_cast<const char *>(glewGetString(GLEW_VERSION)));
         }
     }
 #else
     int version = gladLoadGL(glfwGetProcAddress);
     if(version == 0) {
-        fprintf(stderr, "[ERROR]: Failed to initialize GLAD\n" );
+        CSCI441::LogUtils::logError("[ERROR]: Failed to initialize GLAD\n" );
         mErrorCode = OPENGL_ENGINE_ERROR_GLAD_INIT;
     } else {
         if(DEBUG) {
             // Successfully loaded OpenGL
-            fprintf(stdout, "[INFO]: GLAD initialized v%d.%d\n", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
+            CSCI441::LogUtils::log("[INFO]: GLAD initialized v%d.%d\n", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
         }
     }
 #endif
@@ -864,8 +864,8 @@ void CSCI441::OpenGLEngine::_setupGLFunctions()
         glGetIntegerv(GL_MAJOR_VERSION, &mOpenGLMajorVersionCreated);
         glGetIntegerv(GL_MINOR_VERSION, &mOpenGLMinorVersionCreated);
         if(DEBUG) {
-            fprintf(stdout, "[INFO]: OpenGL v%d.%d requested\n", mOpenGLMajorVersionRequested, mOpenGLMinorVersionRequested);
-            fprintf(stdout, "[INFO]: OpenGL v%d.%d created\n", mOpenGLMajorVersionCreated, mOpenGLMinorVersionCreated);
+            CSCI441::LogUtils::log("[INFO]: OpenGL v%d.%d requested\n", mOpenGLMajorVersionRequested, mOpenGLMinorVersionRequested);
+            CSCI441::LogUtils::log("[INFO]: OpenGL v%d.%d created\n", mOpenGLMajorVersionCreated, mOpenGLMinorVersionCreated);
         }
 
         GLint numExtensions = 0;
@@ -879,10 +879,10 @@ void CSCI441::OpenGLEngine::_setupGLFunctions()
 inline
 void CSCI441::OpenGLEngine::mCleanupGLFW()
 {
-    if(DEBUG) fprintf( stdout, "[INFO]: ...closing window...\n" );
+    if(DEBUG) CSCI441::LogUtils::log("[INFO]: ...closing window...\n" );
     glfwDestroyWindow(mpWindow );                        // close our window
     mpWindow = nullptr;
-    if(DEBUG) fprintf( stdout, "[INFO]: ...closing GLFW.....\n" );
+    if(DEBUG) CSCI441::LogUtils::log("[INFO]: ...closing GLFW.....\n" );
     glfwTerminate();
 }
 
@@ -891,7 +891,7 @@ void CSCI441::OpenGLEngine::shutdown()
 {
     if( !_isCleanedUp ) {
         const std::chrono::steady_clock::time_point shutdownBegin = std::chrono::steady_clock::now();
-        if (DEBUG) fprintf(stdout, "\n[INFO]: Shutting down.......\n");
+        if (DEBUG) CSCI441::LogUtils::log("\n[INFO]: Shutting down.......\n");
 
         const std::chrono::steady_clock::time_point sceneBegin = std::chrono::steady_clock::now();
         mCleanupScene();                                    // delete scene info from CPU
@@ -930,15 +930,15 @@ void CSCI441::OpenGLEngine::shutdown()
 
         const std::chrono::steady_clock::time_point shutdownEnd = std::chrono::steady_clock::now();
         if (DEBUG) {
-            fprintf(stdout, "[INFO]: ..shut down complete!\n");
-            fprintf(stdout, "[INFO]: Shutdown:   %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shutdownEnd - shutdownBegin).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tScene:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tFonts:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(fontsEnd    - fontsBegin   ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tTextures: %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(texturesEnd - texturesBegin).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tBuffers:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(buffersEnd  - buffersBegin ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tShaders:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shadersEnd  - shadersBegin ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tOpenGL:   %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);
-            fprintf(stdout, "[INFO]: \tGLFW:     %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: ..shut down complete!\n");
+            CSCI441::LogUtils::log("[INFO]: Shutdown:   %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shutdownEnd - shutdownBegin).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tScene:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(sceneEnd    - sceneBegin   ).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tFonts:    %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(fontsEnd    - fontsBegin   ).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tTextures: %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(texturesEnd - texturesBegin).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tBuffers:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(buffersEnd  - buffersBegin ).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tShaders:  %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(shadersEnd  - shadersBegin ).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tOpenGL:   %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(openGLEnd   - openGLBegin  ).count() ) / 1000000.0);
+            CSCI441::LogUtils::log("[INFO]: \tGLFW:     %2.3fs\n", static_cast<double>( std::chrono::duration_cast<std::chrono::microseconds>(glfwEnd     - glfwBegin    ).count() ) / 1000000.0);
         }
         _isCleanedUp = true;
         _isInitialized = false;
@@ -970,11 +970,11 @@ void CSCI441::OpenGLEngine::mFramebufferResizeCallback(
 inline
 void CSCI441::OpenGLEngine::mReloadShaders()
 {
-    if (DEBUG) fprintf(stdout, "\n[INFO]: Removing old shaders...\n");
+    if (DEBUG) CSCI441::LogUtils::log("\n[INFO]: Removing old shaders...\n");
     mCleanupShaders();
-    if (DEBUG) fprintf(stdout, "\n[INFO]: Reloading shaders...\n");
+    if (DEBUG) CSCI441::LogUtils::log("\n[INFO]: Reloading shaders...\n");
     mSetupShaders();
-    if (DEBUG) fprintf(stdout, "\n[INFO]: Shaders reloaded\n");
+    if (DEBUG) CSCI441::LogUtils::log("\n[INFO]: Shaders reloaded\n");
 }
 
 inline
