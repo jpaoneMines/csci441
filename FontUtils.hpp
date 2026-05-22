@@ -156,7 +156,7 @@ inline void CSCI441::FontUtils::bindFont() {
         glUseProgram( CSCI441_INTERNAL::FontUtils::fontShaderHandle );
         CSCI441_INTERNAL::FontUtils::currentFont->bind();
     } else {
-        fprintf(stderr, "[FontUtil | ERROR]: bindFont() called without loading a font.  Call loadFont() first\n");
+        CSCI441::LogUtils::logError("[FontUtil | ERROR]: bindFont() called without loading a font.  Call loadFont() first\n");
     }
 }
 
@@ -194,7 +194,7 @@ inline void CSCI441::FontUtils::renderText(const char* str, const GLfloat x, con
             CSCI441_INTERNAL::FontUtils::currentFont->draw(str, normalizedX, normalizedY);
         }
     } else {
-        fprintf(stderr, "[FontUtil | ERROR]: renderText() called without loading a font.  Call loadFont() first and then bindFont()\n");
+        CSCI441::LogUtils::logError("[FontUtil | ERROR]: renderText() called without loading a font.  Call loadFont() first and then bindFont()\n");
     }
 }
 
