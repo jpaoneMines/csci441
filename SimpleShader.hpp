@@ -16,6 +16,7 @@
 #define CSCI441_SIMPLE_SHADER_HPP
 
 #include "constants.h"
+#include "LogUtils.hpp"
 #include "objects.hpp"
 #include "ShaderUtils.hpp"
 
@@ -662,7 +663,7 @@ void main() {
 })_";
     const char* fragmentShaders[1] = { fragment_shader_src.c_str() };
 
-    printf( "[INFO]: /--------------------------------------------------------\\\n" );
+    CSCI441::LogUtils::log("[INFO]: /--------------------------------------------------------\\\n" );
 
     const GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );
     glShaderSource(vertexShaderHandle, 1, vertexShaders, nullptr);
@@ -858,7 +859,7 @@ void main() {
 })_";
     const char* fragmentShaders[1] = { fragment_shader_src.c_str() };
 
-    printf( "[INFO]: /--------------------------------------------------------\\\n" );
+    CSCI441::LogUtils::log("[INFO]: /--------------------------------------------------------\\\n" );
 
     const GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );
     glShaderSource(vertexShaderHandle, 1, vertexShaders, nullptr);
