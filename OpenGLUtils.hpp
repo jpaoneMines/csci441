@@ -16,6 +16,7 @@
 #define CSCI441_OPENGL_UTILS_H
 
 #include "constants.h"
+#include "LogUtils.hpp"
 
 #ifdef CSCI441_USE_GLEW
     #include <GL/glew.h>
@@ -146,14 +147,14 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
     glGetIntegerv(GL_MINOR_VERSION, &minor);
     glGetIntegerv(GL_NUM_EXTENSIONS, &numExtensions);
 
-	fprintf( stdout, "\n[INFO]: /--------------------------------------------------------\\\n" );
-	fprintf( stdout, "[INFO]: | OpenGL Information                                     |\n" );
-	fprintf( stdout, "[INFO]: |--------------------------------------------------------|\n" );
-	fprintf( stdout, "[INFO]: |   OpenGL Version:  %35s |\n", glGetString(GL_VERSION) );
-	fprintf( stdout, "[INFO]: |   OpenGL Renderer: %35s |\n", glGetString(GL_RENDERER) );
-	fprintf( stdout, "[INFO]: |   OpenGL Vendor:   %35s |\n", glGetString(GL_VENDOR) );
-	fprintf( stdout, "[INFO]: |   Shading Version: %35s |\n", glGetString(GL_SHADING_LANGUAGE_VERSION) );
-    fprintf( stdout, "[INFO]: |   Number of Extensions: %30d |\n", numExtensions );
+	CSCI441::LogUtils::log("\n[INFO]: /--------------------------------------------------------\\\n" );
+	CSCI441::LogUtils::log("[INFO]: | OpenGL Information                                     |\n" );
+	CSCI441::LogUtils::log("[INFO]: |--------------------------------------------------------|\n" );
+	CSCI441::LogUtils::log("[INFO]: |   OpenGL Version:  %35s |\n", glGetString(GL_VERSION) );
+	CSCI441::LogUtils::log("[INFO]: |   OpenGL Renderer: %35s |\n", glGetString(GL_RENDERER) );
+	CSCI441::LogUtils::log("[INFO]: |   OpenGL Vendor:   %35s |\n", glGetString(GL_VENDOR) );
+	CSCI441::LogUtils::log("[INFO]: |   Shading Version: %35s |\n", glGetString(GL_SHADING_LANGUAGE_VERSION) );
+    CSCI441::LogUtils::log("[INFO]: |   Number of Extensions: %30d |\n", numExtensions );
 
 	if( (major >= 2 && minor >= 0) || major > 2 ) {
 		CSCI441_INTERNAL::printOpenGLParamHeader( 2, 0 );
@@ -277,7 +278,7 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Combined Shader Output Resources:  %11d |\n", 			GL_MAX_COMBINED_SHADER_OUTPUT_RESOURCES );
 	}
 
-    fprintf( stdout, "[INFO]: \\--------------------------------------------------------/\n\n");
+    CSCI441::LogUtils::log("[INFO]: \\--------------------------------------------------------/\n\n");
 }
 
 [[maybe_unused]]
@@ -285,9 +286,9 @@ inline void CSCI441::OpenGLUtils::printOpenGLExtensions() {
     GLint numExtensions = 0;
     glGetIntegerv(GL_NUM_EXTENSIONS, &numExtensions);
 
-    fprintf( stdout, "[INFO]: Number of Extensions: %4d\n", numExtensions );
+    CSCI441::LogUtils::log("[INFO]: Number of Extensions: %4d\n", numExtensions );
     for (int i = 0; i < numExtensions; i++) {
-        fprintf( stdout, "[INFO]: Extension #%3d: %s \n", (i+1), glGetStringi(GL_EXTENSIONS, i) );
+        CSCI441::LogUtils::log("[INFO]: Extension #%3d: %s \n", (i+1), glGetStringi(GL_EXTENSIONS, i) );
     }
 }
 
@@ -295,7 +296,7 @@ inline void CSCI441::OpenGLUtils::printOpenGLExtensions() {
 inline void CSCI441::OpenGLUtils::checkOpenGLErrors(const char * const str) {
     GLenum err;
     while( (err = glGetError()) != GL_NO_ERROR ) {
-        fprintf( stderr, "[ERROR %s]: OpenGL Error (%d): %s\n", str, err, CSCI441::OpenGLUtils::openGLErrorMessage(err) );
+        CSCI441::LogUtils::logError( "[ERROR %s]: OpenGL Error (%d): %s\n", str, err, CSCI441::OpenGLUtils::openGLErrorMessage(err) );
     }
 }
 
@@ -359,46 +360,46 @@ inline const char* CSCI441::OpenGLUtils::debugSeverityToString(const GLenum seve
 // Internal function implementations
 
 inline void CSCI441_INTERNAL::printOpenGLParamHeader( const int MAJOR, const int MINOR ) {
-	fprintf( stdout, "[INFO]: >--------------------------------------------------------<\n" );
-	fprintf( stdout, "[INFO]: | OpenGL %d.%d Settings                                    |\n", MAJOR, MINOR );
-	fprintf( stdout, "[INFO]: |--------------------------------------------------------|\n" );
+	CSCI441::LogUtils::log("[INFO]: >--------------------------------------------------------<\n" );
+	CSCI441::LogUtils::log("[INFO]: | OpenGL %d.%d Settings                                    |\n", MAJOR, MINOR );
+	CSCI441::LogUtils::log("[INFO]: |--------------------------------------------------------|\n" );
 }
 
 inline void CSCI441_INTERNAL::printOpenGLParamIndexed(const char * const FORMAT, const GLenum name, const GLuint index ) {
 	GLint value = 0;
 	glGetIntegeri_v( name, index, &value );
-	fprintf(stdout, FORMAT, value );
+	CSCI441::LogUtils::log(FORMAT, value );
 }
 
 inline void CSCI441_INTERNAL::printOpenGLParam(const char * const FORMAT, const GLenum name ) {
 	GLint value = 0;
 	glGetIntegerv( name, &value );
-	fprintf(stdout, FORMAT, value );
+	CSCI441::LogUtils::log(FORMAT, value );
 }
 
 inline void CSCI441_INTERNAL::printOpenGLParam2(const char * const FORMAT, const GLenum name ) {
 	GLint values[2] = {0,0};
 	glGetIntegerv( name, values );
-	fprintf(stdout, FORMAT, values[0], values[1] );
+	CSCI441::LogUtils::log(FORMAT, values[0], values[1] );
 }
 
 inline void CSCI441_INTERNAL::printOpenGLParam2f(const char * const FORMAT, const GLenum name ) {
 	GLfloat values[2] = {0,0};
 	glGetFloatv( name, values );
-	fprintf(stdout, FORMAT, values[0], values[1] );
+	CSCI441::LogUtils::log(FORMAT, values[0], values[1] );
 }
 
 [[maybe_unused]]
 inline void CSCI441_INTERNAL::printOpenGLParam3(const char * const FORMAT, const GLenum name ) {
 	GLint values[3] = {0,0,0};
 	glGetIntegerv( name, values );
-	fprintf(stdout, FORMAT, values[0], values[1], values[2] );
+	CSCI441::LogUtils::log(FORMAT, values[0], values[1], values[2] );
 }
 
 inline void CSCI441_INTERNAL::printOpenGLParam4(const char * const FORMAT, const GLenum name ) {
 	GLint values[4] = {0,0,0,0};
 	glGetIntegerv( name, values );
-	fprintf(stdout, FORMAT, values[0], values[1], values[2], values[3] );
+	CSCI441::LogUtils::log(FORMAT, values[0], values[1], values[2], values[3] );
 }
 
 #endif // CSCI441_OPENGL_UTILS_H
