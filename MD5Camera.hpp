@@ -13,6 +13,7 @@
 #define CSCI441_MD5_CAMERA_HPP
 
 #include "Camera.hpp"
+#include "LogUtils.hpp"
 
 #include <ctime>
 #include <fstream>
@@ -312,15 +313,15 @@ inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
         const GLboolean INFO,
         const GLboolean ERRORS
 ) {
-    if ( INFO ) fprintf( stdout, "[.md5camera]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=- \n", MD5CAMERA_FILE );
+    if ( INFO ) CSCI441::LogUtils::log("[.md5camera]: -=-=-=-=-=-=-=- BEGIN %s Info -=-=-=-=-=-=-=- \n", MD5CAMERA_FILE );
 
     time_t start, end;
     time(&start);
 
     std::ifstream md5CameraFile(MD5CAMERA_FILE);
     if( !md5CameraFile.is_open() ) {
-        if (ERRORS) fprintf( stderr, "[.md5camera]: [ERROR]: Could not open \"%s\"\n", MD5CAMERA_FILE );
-        if ( INFO ) fprintf( stdout, "[.md5camera]: -=-=-=-=-=-=-=-  END  %s Info -=-=-=-=-=-=-=- \n", MD5CAMERA_FILE );
+        if (ERRORS) CSCI441::LogUtils::logError("[.md5camera]: [ERROR]: Could not open \"%s\"\n", MD5CAMERA_FILE );
+        if ( INFO ) CSCI441::LogUtils::log("[.md5camera]: -=-=-=-=-=-=-=-  END  %s Info -=-=-=-=-=-=-=- \n", MD5CAMERA_FILE );
         return false;
     }
 
@@ -332,7 +333,7 @@ inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
     md5CameraFile >> sectionLabel >> md5version;
     if(sectionLabel != "MD5Version" || md5version != 10) {
         if (ERRORS) fprintf (stderr, "[.md5camera]: [ERROR]: improper MD5Camera version found \"%s %d\"\n", sectionLabel.c_str(), md5version );
-        if ( INFO ) fprintf( stdout, "[.md5camera]: -=-=-=-=-=-=-=-  END  %s Info -=-=-=-=-=-=-=- \n", MD5CAMERA_FILE );
+        if ( INFO ) CSCI441::LogUtils::log("[.md5camera]: -=-=-=-=-=-=-=-  END  %s Info -=-=-=-=-=-=-=- \n", MD5CAMERA_FILE );
         return false;
     }
 
@@ -360,7 +361,7 @@ inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
             // }
             md5CameraFile >> brace;
             if (_cutPositions == nullptr) {
-                if (ERRORS) fprintf( stderr, "[.md5camera]: [ERROR]: malformed md5camera file.  numCuts not previously defined in file\n" );
+                if (ERRORS) CSCI441::LogUtils::logError("[.md5camera]: [ERROR]: malformed md5camera file.  numCuts not previously defined in file\n" );
                 return false;
             }
             for(unsigned int cutNumber = 0; cutNumber < _numCuts; cutNumber++) {
@@ -380,23 +381,23 @@ inline bool CSCI441::MD5Camera::_loadMD5CameraFromFile(
             }
             md5CameraFile >> brace;
         } else {
-            if (ERRORS) fprintf( stderr, "[.md5camera]: [ERROR]: unknown section label found \"%s\"\n", sectionLabel.c_str() );
-            if ( INFO ) fprintf( stdout, "[.md5camera]: -=-=-=-=-=-=-=-  END  %s Info -=-=-=-=-=-=-=- \n", MD5CAMERA_FILE );
+            if (ERRORS) CSCI441::LogUtils::logError("[.md5camera]: [ERROR]: unknown section label found \"%s\"\n", sectionLabel.c_str() );
+            if ( INFO ) CSCI441::LogUtils::log("[.md5camera]: -=-=-=-=-=-=-=-  END  %s Info -=-=-=-=-=-=-=- \n", MD5CAMERA_FILE );
             return false;
         }
     }
 
     if (INFO) {
-        printf( "[.md5camera]: Camera Stats:\n" );
-        printf( "[.md5camera]: Num Frames:\t%u\tFrame Rate:\t%u\tNum Cuts:  \t%u\n", _numFrames, _frameRate, _numCuts );
+        CSCI441::LogUtils::log("[.md5camera]: Camera Stats:\n" );
+        CSCI441::LogUtils::log("[.md5camera]: Num Frames:\t%u\tFrame Rate:\t%u\tNum Cuts:  \t%u\n", _numFrames, _frameRate, _numCuts );
     }
 
     time(&end);
     double seconds = difftime( end, start );
 
     if (INFO) {
-        printf( "[.md5camera]: Completed in %.3fs\n", seconds );
-        printf( "[.md5camera]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=- \n\n", MD5CAMERA_FILE );
+        CSCI441::LogUtils::log("[.md5camera]: Completed in %.3fs\n", seconds );
+        CSCI441::LogUtils::log("[.md5camera]: -=-=-=-=-=-=-=-  END %s Info  -=-=-=-=-=-=-=- \n\n", MD5CAMERA_FILE );
     }
 
     return true;
