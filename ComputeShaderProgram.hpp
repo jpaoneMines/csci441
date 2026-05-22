@@ -12,6 +12,7 @@
 #ifndef CSCI441_COMPUTE_SHADER_PROGRAM_HPP
 #define CSCI441_COMPUTE_SHADER_PROGRAM_HPP
 
+#include "LogUtils.hpp"
 #include "ShaderProgram.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -87,15 +88,15 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
     glGetIntegerv(GL_MINOR_VERSION, &minor);
 
     if(major < 4 || (major == 4 && minor < 3)) {
-        fprintf(stderr, "[ERROR]: Compute Shaders only supported in OpenGL 4.3+\n");
+        CSCI441::LogUtils::logError("[ERROR]: Compute Shaders only supported in OpenGL 4.3+\n");
         return;
     }
 
-    if( sDEBUG ) printf( "\n[INFO]: /--------------------------------------------------------\\\n");
+    if( sDEBUG ) CSCI441::LogUtils::log("\n[INFO]: /--------------------------------------------------------\\\n");
 
     // compile each one of our shaders
     if( strcmp( computeShaderFilename, "" ) != 0 ) {
-        if( sDEBUG ) printf( "[INFO]: | Compute Shader: %38s |\n", computeShaderFilename );
+        if( sDEBUG ) CSCI441::LogUtils::log("[INFO]: | Compute Shader: %38s |\n", computeShaderFilename );
         mComputeShaderHandle = CSCI441_INTERNAL::ShaderUtils::compileShader(computeShaderFilename, GL_COMPUTE_SHADER );
     } else {
         mComputeShaderHandle = 0;
@@ -112,7 +113,7 @@ inline CSCI441::ComputeShaderProgram::ComputeShaderProgram( const char *computeS
     // link all the programs together on the GPU
     glLinkProgram(mShaderProgramHandle );
 
-    if( sDEBUG ) printf( "[INFO]: | Shader Program: %41s", "|\n" );
+    if( sDEBUG ) CSCI441::LogUtils::log("[INFO]: | Shader Program: %41s", "|\n" );
 
     // check the program log
     CSCI441_INTERNAL::ShaderUtils::printProgramLog(mShaderProgramHandle );
