@@ -41,6 +41,7 @@
 #include "FramebufferUtils.hpp"     // to query common FBO information
 #include "FreeCam.hpp"              // free cam implementation
 #include "HUDCamera.hpp"            // heads up display implementation
+#include "LogUtils.hpp"             // logging utility
 #include "materials.hpp"            // predefined material properties
 #include "MD5Camera.hpp"            // MD5 camera implementation
 #include "MD5Model.hpp"             // MD5 mesh and anim implementation
