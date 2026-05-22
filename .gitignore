@@ -11,3 +11,4 @@ testBuildGLAD_multifile.cpp
 tests/
 bin/*
 compile_commands.json
+*.log
