@@ -299,7 +299,7 @@ namespace CSCI441 {
 
         /**
          * @brief Sets the subroutines to use for a given shader stage
-         * @param shaderStage stage of the shader program to get the subroutine for.
+         * @param shaderStage stage of the shader program to set the subroutine for.
          *   Allowable values: GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, GL_FRAGMENT_SHADER
          * @param numIndices size of index array, equivalent to the number of subroutines in the given shader stage
          * @param indices array of indices of size numIndices
