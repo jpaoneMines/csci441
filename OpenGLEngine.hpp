@@ -329,12 +329,14 @@ namespace CSCI441 {
          * @brief callback called whenever a debug message is signaled
          */
         static void APIENTRY mDebugMessageCallback(const GLenum source, const GLenum type, const GLuint id, const GLenum severity, const GLsizei length, const GLchar* message, const void* userParam) {
-            CSCI441::LogUtils::log("[VERBOSE]: Debug Message (%d): source = %s, type = %s, severity = %s, message = %s\n",
+            CSCI441::LogUtils::log("[VERBOSE]: Debug Message (%u): source = %s, type = %s, severity = %s, length = %i, message = %s, userParam = %i\n",
                      id,
                      CSCI441::OpenGLUtils::debugSourceToString(source),
                      CSCI441::OpenGLUtils::debugTypeToString(type),
                      CSCI441::OpenGLUtils::debugSeverityToString(severity),
-                     message
+                     length,
+                     message,
+                     *(static_cast<const int*>(userParam))
                      );
         }
 
