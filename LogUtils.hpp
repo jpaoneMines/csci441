@@ -181,7 +181,7 @@ inline void CSCI441_INTERNAL::LogUtils::logToFile(const char* MSG, const va_list
 }
 
 inline void CSCI441_INTERNAL::LogUtils::logToStream(FILE *file, const char *MSG, const va_list& args) {
-    vfprintf(file, MSG, args);
+    vfprintf(file, MSG, const_cast<va_list&>(args));
 }
 
 #endif//CSCI441_LOG_UTILS_HPP
