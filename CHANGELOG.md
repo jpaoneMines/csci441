@@ -1,5 +1,8 @@
 # Revision History
 
+## v 6.1.1.0 - 01 Sep 2026
+- SimpleShader3 now uses the corresponding program when resetting the transformation matrix.  This is needed if mixing draw calls with the objects library and using another shader program (such as through FontUtils)
+
 ## v 6.1.0.0 - 22 May 2026
 - All logging can go to terminal and save to file for review after program completion
 

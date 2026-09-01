@@ -1019,6 +1019,7 @@ inline void CSCI441_INTERNAL::SimpleShader3::resetTransformationMatrix() {
     modelMatrix = glm::mat4(1.0f);
     transformationStack.clear();
     transformationStack.emplace_back(modelMatrix);
+    glUseProgram(shaderProgramHandle);
     glProgramUniformMatrix4fv(shaderProgramHandle, modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
     setNormalMatrix();
 }
