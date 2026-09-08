@@ -1,5 +1,10 @@
 # Revision History
 
+## v 6.1.2.0 - 08 Sep 2026
+- Patched LogUtils for Linux
+- PerspectiveCamera, ArcballCam, FixedCam, FreeCam clarify fov is in radians
+- PerspectiveCamera, ArcballCam, FixedCam, FreeCam properly default to pi/4 radians (45 degrees)
+
 ## v 6.1.1.0 - 01 Sep 2026
 - SimpleShader3 now uses the corresponding program when resetting the transformation matrix.  This is needed if mixing draw calls with the objects library and using another shader program (such as through FontUtils)
 

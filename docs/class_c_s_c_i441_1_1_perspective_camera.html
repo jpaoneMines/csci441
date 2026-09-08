@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.1.1.0</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.1.2.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -101,9 +101,9 @@ Inheritance diagram for CSCI441::PerspectiveCamera:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3ec02b7f59afe59d3795d75bb0e6a68d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#a3ec02b7f59afe59d3795d75bb0e6a68d">PerspectiveCamera</a> (GLfloat aspectRatio=1.0f, GLfloat fovy=glm::half_pi&lt; GLfloat &gt;(), GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</td></tr>
-<tr class="memdesc:a3ec02b7f59afe59d3795d75bb0e6a68d"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes the Perspective <a class="el" href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:">Camera</a>  <br /></td></tr>
-<tr class="separator:a3ec02b7f59afe59d3795d75bb0e6a68d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80edd689da4adf953541fc42f3ccc1c4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_c_i441_1_1_perspective_camera.html#a80edd689da4adf953541fc42f3ccc1c4">PerspectiveCamera</a> (GLfloat aspectRatio=1.0f, GLfloat fovy=glm::quarter_pi&lt; GLfloat &gt;(), GLfloat nearClipPlane=0.001f, GLfloat farClipPlane=1000.0f)</td></tr>
+<tr class="memdesc:a80edd689da4adf953541fc42f3ccc1c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes the Perspective <a class="el" href="class_c_s_c_i441_1_1_camera.html" title="Abstract Class to represent a synthetic camera. The following methods must be overridden:">Camera</a>  <br /></td></tr>
+<tr class="separator:a80edd689da4adf953541fc42f3ccc1c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8476fad0f9dc10a62580280a676be1b"><td class="memItemLeft" align="right" valign="top"><a id="ab8476fad0f9dc10a62580280a676be1b" name="ab8476fad0f9dc10a62580280a676be1b"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>~PerspectiveCamera</b> () override=default</td></tr>
 <tr class="memdesc:ab8476fad0f9dc10a62580280a676be1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">properly destroy concrete children <br /></td></tr>
@@ -270,8 +270,8 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract Class to represent a perspective camera. Stores aspect ratio and field of view. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3ec02b7f59afe59d3795d75bb0e6a68d" name="a3ec02b7f59afe59d3795d75bb0e6a68d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ec02b7f59afe59d3795d75bb0e6a68d">&#9670;&#160;</a></span>PerspectiveCamera()</h2>
+<a id="a80edd689da4adf953541fc42f3ccc1c4" name="a80edd689da4adf953541fc42f3ccc1c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80edd689da4adf953541fc42f3ccc1c4">&#9670;&#160;</a></span>PerspectiveCamera()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -289,7 +289,7 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GLfloat&#160;</td>
-          <td class="paramname"><em>fovy</em> = <code>glm::half_pi&lt;GLfloat&gt;()</code>, </td>
+          <td class="paramname"><em>fovy</em> = <code>glm::quarter_pi&lt;GLfloat&gt;()</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -320,13 +320,13 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">aspectRatio</td><td>aspect ratio of view plane (defaults to 1.0f) </td></tr>
-    <tr><td class="paramname">fovy</td><td>vertical field of view (defaults to pi/2 radians) </td></tr>
+    <tr><td class="paramname">fovy</td><td>vertical field of view (defaults to pi/4 radians) </td></tr>
     <tr><td class="paramname">nearClipPlane</td><td>near z clip plane (defaults to 0.001f) </td></tr>
     <tr><td class="paramname">farClipPlane</td><td>far z clip plane (defaults to 1000.0f) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>field of view specified in degrees </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>field of view specified in radians </dd></dl>
 
 </div>
 </div>
@@ -525,7 +525,9 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraRadius</b><
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>internally updates the camera's projection matrix </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>internally updates the camera's projection matrix </dd>
+<dd>
+expects radians </dd></dl>
 
 </div>
 </div>
