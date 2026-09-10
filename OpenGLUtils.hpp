@@ -130,6 +130,7 @@ namespace CSCI441_INTERNAL {
   void printOpenGLParamHeader(int MAJOR, int MINOR );
   void printOpenGLParamIndexed(const char *FORMAT, GLenum name, GLuint index );
   void printOpenGLParam(const char *FORMAT, GLenum name );
+  void printOpenGLParamf(const char *FORMAT, GLenum name );
   void printOpenGLParam2(const char *FORMAT, GLenum name );
   void printOpenGLParam2f(const char *FORMAT, GLenum name );
   [[maybe_unused]] void printOpenGLParam3(const char *FORMAT, GLenum name );
@@ -159,7 +160,11 @@ inline void CSCI441::OpenGLUtils::printOpenGLInfo() {
 		CSCI441_INTERNAL::printOpenGLParamHeader( 2, 0 );
 		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max # Color Attachments:  %26d |\n", 			    			GL_MAX_COLOR_ATTACHMENTS );
         CSCI441_INTERNAL::printOpenGLParam2f("[INFO]: |   Point Size Range:  %24.2f %8.2f |\n", 			            GL_POINT_SIZE_RANGE );
-		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max Texture Size:  %33d |\n", 					    		GL_MAX_TEXTURE_SIZE );
+        CSCI441_INTERNAL::printOpenGLParamf( "[INFO]: |   Point Size Granularity:  %27.4f |\n", 			            GL_POINT_SIZE_GRANULARITY );
+        CSCI441_INTERNAL::printOpenGLParam2f("[INFO]: |   Line Width Smoothed Range:  %15.2f %8.2f |\n", 			    GL_SMOOTH_LINE_WIDTH_RANGE );
+        CSCI441_INTERNAL::printOpenGLParamf( "[INFO]: |   Line Width Smoothed Granularity:  %18.4f |\n", 				GL_SMOOTH_LINE_WIDTH_GRANULARITY );
+        CSCI441_INTERNAL::printOpenGLParam2f("[INFO]: |   Line Width Aliased Range:  %16.2f %8.2f |\n", 			    GL_ALIASED_LINE_WIDTH_RANGE );
+		CSCI441_INTERNAL::printOpenGLParam( "[INFO]: |   Max Texture Size:  %33d |\n", 					    			GL_MAX_TEXTURE_SIZE );
 	}
 
 	if( (major >= 2 && minor >= 1) || major > 2 ) {
@@ -373,6 +378,12 @@ inline void CSCI441_INTERNAL::printOpenGLParamIndexed(const char * const FORMAT,
 inline void CSCI441_INTERNAL::printOpenGLParam(const char * const FORMAT, const GLenum name ) {
 	GLint value = 0;
 	glGetIntegerv( name, &value );
+	CSCI441::LogUtils::log(FORMAT, value );
+}
+
+inline void CSCI441_INTERNAL::printOpenGLParamf(const char * const FORMAT, const GLenum name ) {
+	GLfloat value = 0;
+	glGetFloatv( name, &value );
 	CSCI441::LogUtils::log(FORMAT, value );
 }
 
