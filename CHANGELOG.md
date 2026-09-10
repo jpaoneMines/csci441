@@ -1,5 +1,8 @@
 # Revision History
 
+## v 6.1.3.0 - 10 Sep 2026
+- OpenGLUtils prints point size and line width ranges
+
 ## v 6.1.2.0 - 08 Sep 2026
 - Patched LogUtils for Linux
 - PerspectiveCamera, ArcballCam, FixedCam, FreeCam clarify fov is in radians
