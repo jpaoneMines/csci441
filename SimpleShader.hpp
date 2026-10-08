@@ -465,6 +465,11 @@ inline GLuint CSCI441::SimpleShader2::registerVertexArray(const GLuint NUM_POINT
 }
 
 [[maybe_unused]]
+inline GLuint CSCI441::SimpleShader2::registerVertexArray(const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec4 VERTEX_COLORS[]) {
+    return CSCI441_INTERNAL::SimpleShader2::registerVertexArray(NUM_POINTS, VERTEX_POINTS, VERTEX_COLORS);
+}
+
+[[maybe_unused]]
 inline void CSCI441::SimpleShader2::updateVertexArray(const GLuint VAOD, const GLuint NUM_POINTS, const glm::vec2 VERTEX_POINTS[], const glm::vec3 VERTEX_COLORS[]) {
     std::vector<glm::vec4> alphaColors(NUM_POINTS);
     for (GLuint i = 0; i < NUM_POINTS; i++) {
