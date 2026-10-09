@@ -145,11 +145,11 @@ namespace CSCI441 {
          * @param vPosAttribLoc location of vertex position attribute
          * @param vColorAttribLoc location of vertex color attribute
          * @param vTexCoordAttribLoc location of vertex texture coordinate attribute
-         * @param vNormalAttribLoc location of vertex normal attribute (defaults to -1 to disable usage)
-         * @param vTangentAttribLoc location of vertex tangent attribute (defaults to -1 to disable usage)
+         * @param vNormalAttribLoc location of vertex normal attribute (defaults to -1)
+         * @param vTangentAttribLoc location of vertex tangent attribute (defaults to -1)
          * @note color attribute used when drawing the skeleton
          * @note texCoord attribute used when drawing the mesh
-         * @note vertex position attribute must not be zero, if any other attribute is zero it disables it
+         * @note setting any attribute location to -1 disables usage
          */
         [[maybe_unused]] void allocVertexArrays(GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc, GLuint vNormalAttribLoc = -1, GLuint vTangentAttribLoc = -1);
 
@@ -835,8 +835,10 @@ CSCI441::MD5Model::allocVertexArrays(
     glBindBuffer(GL_ARRAY_BUFFER, _vbo[0] );
     glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _maxVertices * 2 + static_cast<GLsizeiptr>(sizeof(glm::vec4)) * _maxVertices + static_cast<GLsizeiptr>(sizeof(glm::vec2)) * _maxVertices, nullptr, GL_DYNAMIC_DRAW );
 
-    glEnableVertexAttribArray( vPosAttribLoc );
-    glVertexAttribPointer( vPosAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr) );
+    if (vPosAttribLoc != -1) {
+        glEnableVertexAttribArray( vPosAttribLoc );
+        glVertexAttribPointer( vPosAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr) );
+    }
 
     if (vNormalAttribLoc != -1) {
         glEnableVertexAttribArray( vNormalAttribLoc );
@@ -865,8 +867,10 @@ CSCI441::MD5Model::allocVertexArrays(
     glBindBuffer(GL_ARRAY_BUFFER, _skeletonVBO );
     glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(glm::vec3)) * _numJoints * 3 * 2, nullptr, GL_DYNAMIC_DRAW );
 
-    glEnableVertexAttribArray( vPosAttribLoc ); // vPos
-    glVertexAttribPointer( vPosAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr) );
+    if (vPosAttribLoc != -1) {
+        glEnableVertexAttribArray( vPosAttribLoc ); // vPos
+        glVertexAttribPointer( vPosAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr) );
+    }
 
     if (vColorAttribLoc != -1) {
         glEnableVertexAttribArray( vColorAttribLoc ); // vColor
