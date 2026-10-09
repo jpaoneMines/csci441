@@ -1,5 +1,8 @@
 # Revision History
 
+## v 6.1.4.1 - 08 Oct 2026
+- Patched MD5Model::allocVertexArrays() to default to -1 and ignore -1 locations
+
 ## v 6.1.4.0 - 08 Oct 2026
 - Implemented missing SimpleShader2::registerVertexArray(GLuint, glm::vec2[], glm::vec4[]) definition
 
