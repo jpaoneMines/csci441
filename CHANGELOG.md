@@ -1,5 +1,8 @@
 # Revision History
 
+## v 6.1.4.2 - 09 Oct 2026
+- MD5Model explicitly includes std::vector header
+
 ## v 6.1.4.1 - 08 Oct 2026
 - Patched MD5Model::allocVertexArrays() to default to -1 and ignore -1 locations
 

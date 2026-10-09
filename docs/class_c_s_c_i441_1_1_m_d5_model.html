@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.1.4.1</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.1.4.2</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -286,8 +286,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>releaseMD5Mate
     <tr><td class="paramname">vPosAttribLoc</td><td>location of vertex position attribute </td></tr>
     <tr><td class="paramname">vColorAttribLoc</td><td>location of vertex color attribute </td></tr>
     <tr><td class="paramname">vTexCoordAttribLoc</td><td>location of vertex texture coordinate attribute </td></tr>
-    <tr><td class="paramname">vNormalAttribLoc</td><td>location of vertex normal attribute (defaults to -1 to disable usage) </td></tr>
-    <tr><td class="paramname">vTangentAttribLoc</td><td>location of vertex tangent attribute (defaults to -1 to disable usage) </td></tr>
+    <tr><td class="paramname">vNormalAttribLoc</td><td>location of vertex normal attribute (defaults to -1) </td></tr>
+    <tr><td class="paramname">vTangentAttribLoc</td><td>location of vertex tangent attribute (defaults to -1) </td></tr>
   </table>
   </dd>
 </dl>
@@ -295,7 +295,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>releaseMD5Mate
 <dd>
 texCoord attribute used when drawing the mesh </dd>
 <dd>
-vertex position attribute must not be zero, if any other attribute is zero it disables it </dd></dl>
+setting any attribute location to -1 disables usage </dd></dl>
 
 </div>
 </div>
