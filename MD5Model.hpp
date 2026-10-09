@@ -67,6 +67,7 @@
 #include <cstdlib>
 #include <map>
 #include <string>
+#include <vector>
 
 namespace CSCI441 {
 
@@ -80,15 +81,7 @@ namespace CSCI441 {
          * @brief initializes an empty MD5 Model
          * @note need to call loadMD5Model() or readMD5Model() after construction to actually load in a mesh file
          */
-        MD5Model() {
-            // allocate space for one animation by default
-            _numAnimations = 1;
-            // create the initial animation
-            _animations = new CSCI441_INTERNAL::MD5Animation*[_numAnimations];
-            _animations[0] = new CSCI441_INTERNAL::MD5Animation();
-            // and the associated animation state information
-            _animationInfos = new CSCI441_INTERNAL::MD5AnimationState[_numAnimations];
-        }
+        MD5Model();
         /**
          * @brief deallocates any used memory on the CPU and GPU
          */
@@ -427,6 +420,18 @@ namespace CSCI441 {
 }
 
 //----------------------------------------------------------------------------------------------------
+
+inline
+CSCI441::MD5Model::MD5Model()
+{
+    // allocate space for one animation by default
+    _numAnimations = 1;
+    // create the initial animation
+    _animations = new CSCI441_INTERNAL::MD5Animation*[_numAnimations];
+    _animations[0] = new CSCI441_INTERNAL::MD5Animation();
+    // and the associated animation state information
+    _animationInfos = new CSCI441_INTERNAL::MD5AnimationState[_numAnimations];
+}
 
 inline
 CSCI441::MD5Model::~MD5Model()
