@@ -145,13 +145,13 @@ namespace CSCI441 {
          * @param vPosAttribLoc location of vertex position attribute
          * @param vColorAttribLoc location of vertex color attribute
          * @param vTexCoordAttribLoc location of vertex texture coordinate attribute
-         * @param vNormalAttribLoc location of vertex normal attribute (defaults to 0 to disable usage)
-         * @param vTangentAttribLoc location of vertex tangent attribute (defaults to 0 to disable usage)
+         * @param vNormalAttribLoc location of vertex normal attribute (defaults to -1 to disable usage)
+         * @param vTangentAttribLoc location of vertex tangent attribute (defaults to -1 to disable usage)
          * @note color attribute used when drawing the skeleton
          * @note texCoord attribute used when drawing the mesh
          * @note vertex position attribute must not be zero, if any other attribute is zero it disables it
          */
-        [[maybe_unused]] void allocVertexArrays(GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc, GLuint vNormalAttribLoc = 0, GLuint vTangentAttribLoc = 0);
+        [[maybe_unused]] void allocVertexArrays(GLuint vPosAttribLoc, GLuint vColorAttribLoc, GLuint vTexCoordAttribLoc, GLuint vNormalAttribLoc = -1, GLuint vTangentAttribLoc = -1);
 
         /**
          * @brief specify which texture targets each texture map should be bound to when rendering
@@ -838,17 +838,17 @@ CSCI441::MD5Model::allocVertexArrays(
     glEnableVertexAttribArray( vPosAttribLoc );
     glVertexAttribPointer( vPosAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr) );
 
-    if (vNormalAttribLoc != 0) {
+    if (vNormalAttribLoc != -1) {
         glEnableVertexAttribArray( vNormalAttribLoc );
         glVertexAttribPointer( vNormalAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _maxVertices * 1) );
     }
 
-    if (vTangentAttribLoc != 0) {
+    if (vTangentAttribLoc != -1) {
         glEnableVertexAttribArray( vTangentAttribLoc );
         glVertexAttribPointer( vTangentAttribLoc, 4, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _maxVertices * 2) );
     }
 
-    if (vTexCoordAttribLoc != 0) {
+    if (vTexCoordAttribLoc != -1) {
         glEnableVertexAttribArray( vTexCoordAttribLoc );
         glVertexAttribPointer( vTexCoordAttribLoc, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _maxVertices * 2 + sizeof(glm::vec4) * _maxVertices) );
     }
@@ -868,7 +868,7 @@ CSCI441::MD5Model::allocVertexArrays(
     glEnableVertexAttribArray( vPosAttribLoc ); // vPos
     glVertexAttribPointer( vPosAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void *>(nullptr) );
 
-    if (vColorAttribLoc != 0) {
+    if (vColorAttribLoc != -1) {
         glEnableVertexAttribArray( vColorAttribLoc ); // vColor
         glVertexAttribPointer( vColorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(glm::vec3) * _numJoints * 3) );
     }
