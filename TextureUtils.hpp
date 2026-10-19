@@ -207,10 +207,29 @@ inline GLuint CSCI441::TextureUtils::loadAndRegister2DTexture( const char *filen
         glGetIntegerv(GL_MAJOR_VERSION, &major);
         glGetIntegerv(GL_MINOR_VERSION, &minor);
         // check if anisotropic filtering is enabled
-        if( (major > 4 || (major == 4 && minor >= 6)) || GL_EXT_texture_filter_anisotropic ) {
+        if( (major > 4 || (major == 4 && minor >= 6))
+#ifdef GL_EXT_texture_filter_anisotropic
+        	|| GL_EXT_texture_filter_anisotropic
+#elif  defined(GL_ARB_texture_filter_anisotropic)
+        	|| GL_ARB_texture_filter_anisotropic
+#endif
+        ) {
             GLfloat maxAniso = 1.0f;
-            glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAniso);
+#ifdef GL_MAX_TEXTURE_MAX_ANISOTROPY
+            glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY, &maxAniso);
+#elif  defined(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)
+        	glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAniso);
+#elif  defined(GL_MAX_TEXTURE_MAX_ANISOTROPY_ARB)
+        	glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_ARB, &maxAniso);
+#endif
+
+#ifdef GL_TEXTURE_MAX_ANISOTROPY
+            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY, maxAniso);
+#elif  defined(GL_TEXTURE_MAX_ANISOTROPY_EXT)
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAniso);
+#elif  defined(GL_TEXTURE_MAX_ANISOTROPY_ARB)
+        	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_ARB, maxAniso);
+#endif
         }
     }
 
