@@ -1,5 +1,8 @@
 # Revision History
 
+## v 6.1.5.0 - 19 Oct 2026
+- TextureUtils accounts for anisotropic filtering not being supported
+
 ## v 6.1.4.2 - 09 Oct 2026
 - MD5Model explicitly includes std::vector header
 

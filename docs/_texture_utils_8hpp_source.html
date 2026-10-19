@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.1.4.2</span>
+   <div id="projectname">CSCI441 OpenGL Library<span id="projectnumber">&#160;6.1.5.0</span>
    </div>
    <div id="projectbrief">CS@Mines CSCI441 Computer Graphics Course Library</div>
   </td>
@@ -212,34 +212,53 @@ $(function() {
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        glGetIntegerv(GL_MAJOR_VERSION, &amp;major);</div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        glGetIntegerv(GL_MINOR_VERSION, &amp;minor);</div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        <span class="comment">// check if anisotropic filtering is enabled</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <span class="keywordflow">if</span>( (major &gt; 4 || (major == 4 &amp;&amp; minor &gt;= 6)) || GL_EXT_texture_filter_anisotropic ) {</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            GLfloat maxAniso = 1.0f;</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &amp;maxAniso);</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAniso);</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        }</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    }</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: Successfully loaded texture \&quot;%s\&quot; with handle %d\n&quot;</span>, filename, texHandle );</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="keywordflow">return</span> texHandle;</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>}</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>[[maybe_unused]]</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">  223</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">CSCI441::TextureUtils::loadCubeMapFaceTexture</a>(<span class="keyword">const</span> GLint cubeMapFace, <span class="keyword">const</span> <span class="keywordtype">char</span>* FILENAME) {</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keywordtype">int</span> imageWidth, imageHeight, imageChannels;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data = stbi_load( FILENAME, &amp;imageWidth, &amp;imageHeight, &amp;imageChannels, 0);</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keywordflow">if</span>( data ) {</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <span class="keyword">const</span> GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        glTexImage2D(cubeMapFace, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        stbi_image_free(data);</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a6ac38d53e243a22719c2f241352568aa">CSCI441::LogUtils::logError</a>(<span class="stringliteral">&quot;[ERROR]: CSCI441::TextureUtils::loadCubeMapFaceTexture(): Could not load texture map \&quot;%s\&quot;\n&quot;</span>, FILENAME );</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    }</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>}</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <span class="keywordflow">if</span>( (major &gt; 4 || (major == 4 &amp;&amp; minor &gt;= 6))</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>#ifdef GL_EXT_texture_filter_anisotropic</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            || GL_EXT_texture_filter_anisotropic</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>#elif  defined(GL_ARB_texture_filter_anisotropic)</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>            || GL_ARB_texture_filter_anisotropic</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>#endif</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        ) {</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>            GLfloat maxAniso = 1.0f;</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="preprocessor">#ifdef GL_MAX_TEXTURE_MAX_ANISOTROPY</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY, &amp;maxAniso);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="preprocessor">#elif  defined(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>            glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &amp;maxAniso);</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="preprocessor">#elif  defined(GL_MAX_TEXTURE_MAX_ANISOTROPY_ARB)</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_ARB, &amp;maxAniso);</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="preprocessor">#ifdef GL_TEXTURE_MAX_ANISOTROPY</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY, maxAniso);</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="preprocessor">#elif  defined(GL_TEXTURE_MAX_ANISOTROPY_EXT)</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAniso);</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="preprocessor">#elif  defined(GL_TEXTURE_MAX_ANISOTROPY_ARB)</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_ARB, maxAniso);</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        }</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    }</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_TEXTURE_UTILS_HPP</span></div>
-<div class="ttc" id="a_texture_utils_8hpp_html_a1c32bc9d6e247f7b8a9b8b8b23b605d1"><div class="ttname"><a href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">CSCI441::TextureUtils::loadCubeMapFaceTexture</a></div><div class="ttdeci">void loadCubeMapFaceTexture(GLint cubeMapFace, const char *filename)</div><div class="ttdoc">loads a texture into memory of a cube face</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:223</div></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a0ec198d1f04685aba60dc082cb8435af">CSCI441::LogUtils::log</a>(<span class="stringliteral">&quot;[INFO]: Successfully loaded texture \&quot;%s\&quot; with handle %d\n&quot;</span>, filename, texHandle );</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keywordflow">return</span> texHandle;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>}</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>[[maybe_unused]]</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno"><a class="line" href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">  242</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">CSCI441::TextureUtils::loadCubeMapFaceTexture</a>(<span class="keyword">const</span> GLint cubeMapFace, <span class="keyword">const</span> <span class="keywordtype">char</span>* FILENAME) {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="keywordtype">int</span> imageWidth, imageHeight, imageChannels;</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data = stbi_load( FILENAME, &amp;imageWidth, &amp;imageHeight, &amp;imageChannels, 0);</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">if</span>( data ) {</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="keyword">const</span> GLint STORAGE_TYPE = (imageChannels == 4 ? GL_RGBA : GL_RGB);</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        glTexImage2D(cubeMapFace, 0, STORAGE_TYPE, imageWidth, imageHeight, 0, STORAGE_TYPE, GL_UNSIGNED_BYTE, data);</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        stbi_image_free(data);</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <a class="code hl_function" href="namespace_c_s_c_i441_1_1_log_utils.html#a6ac38d53e243a22719c2f241352568aa">CSCI441::LogUtils::logError</a>(<span class="stringliteral">&quot;[ERROR]: CSCI441::TextureUtils::loadCubeMapFaceTexture(): Could not load texture map \&quot;%s\&quot;\n&quot;</span>, FILENAME );</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    }</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>}</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="preprocessor">#endif </span><span class="comment">// CSCI441_TEXTURE_UTILS_HPP</span></div>
+<div class="ttc" id="a_texture_utils_8hpp_html_a1c32bc9d6e247f7b8a9b8b8b23b605d1"><div class="ttname"><a href="_texture_utils_8hpp.html#a1c32bc9d6e247f7b8a9b8b8b23b605d1">CSCI441::TextureUtils::loadCubeMapFaceTexture</a></div><div class="ttdeci">void loadCubeMapFaceTexture(GLint cubeMapFace, const char *filename)</div><div class="ttdoc">loads a texture into memory of a cube face</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:242</div></div>
 <div class="ttc" id="a_texture_utils_8hpp_html_a4059995665c90622a8fec7b4a4c358c8"><div class="ttname"><a href="_texture_utils_8hpp.html#a4059995665c90622a8fec7b4a4c358c8">CSCI441::TextureUtils::loadPPM</a></div><div class="ttdeci">bool loadPPM(const char *filename, int &amp;imageWidth, int &amp;imageHeight, unsigned char *&amp;imageData)</div><div class="ttdoc">loads a PPM into memory</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:130</div></div>
 <div class="ttc" id="a_texture_utils_8hpp_html_a414ebb3c74d5281a5d4f545a9360d9ff"><div class="ttname"><a href="_texture_utils_8hpp.html#a414ebb3c74d5281a5d4f545a9360d9ff">CSCI441::TextureUtils::loadAndRegister2DTexture</a></div><div class="ttdeci">GLuint loadAndRegister2DTexture(const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT, GLboolean flipOnY=GL_TRUE, GLboolean printAllMessages=GL_TRUE, GLboolean enableMipmaps=GL_TRUE, GLboolean enableAniso=GL_TRUE)</div><div class="ttdoc">loads and registers a texture into memory returning a texture handle</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:176</div></div>
 <div class="ttc" id="a_texture_utils_8hpp_html_a7760a68a85880637fe696d1ef0a2f19a"><div class="ttname"><a href="_texture_utils_8hpp.html#a7760a68a85880637fe696d1ef0a2f19a">CSCI441::TextureUtils::loadAndRegisterTexture</a></div><div class="ttdeci">GLuint loadAndRegisterTexture(const char *filename, GLint minFilter=GL_LINEAR, GLint magFilter=GL_LINEAR, GLint wrapS=GL_REPEAT, GLint wrapT=GL_REPEAT, GLboolean flipOnY=GL_TRUE, GLboolean printAllMessages=GL_TRUE, GLboolean enableMipmaps=GL_TRUE, GLboolean enableAniso=GL_TRUE)</div><div class="ttdoc">loads and registers a texture into memory returning a texture handle</div><div class="ttdef"><b>Definition:</b> TextureUtils.hpp:172</div></div>
